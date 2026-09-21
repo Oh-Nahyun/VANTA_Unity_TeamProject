@@ -1,0 +1,871 @@
+fileFormatVersion: 2
+guid: dd50501290eeecb49a70094f9d74fd05
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2439414464960112219
+    second: Super Smash_0
+  - first:
+      213: -256728796773899257
+    second: Super Smash_1
+  - first:
+      213: -3067392246515963784
+    second: Super Smash_2
+  - first:
+      213: -5719762871996301484
+    second: Super Smash_3
+  - first:
+      213: 248366138720106619
+    second: Super Smash_4
+  - first:
+      213: -256614779801536407
+    second: Super Smash_5
+  - first:
+      213: 7365188106793166595
+    second: Super Smash_6
+  - first:
+      213: 1181663953978393868
+    second: Super Smash_7
+  - first:
+      213: -6353407725410649335
+    second: Super Smash_8
+  - first:
+      213: 1210502603009792608
+    second: Super Smash_9
+  - first:
+      213: -6465499498755845773
+    second: Super Smash_10
+  - first:
+      213: 8939789069899714897
+    second: Super Smash_11
+  - first:
+      213: -7891102140823473526
+    second: Super Smash_12
+  - first:
+      213: 2324887008964599349
+    second: Super Smash_13
+  - first:
+      213: -8929280272363741119
+    second: Super Smash_14
+  - first:
+      213: -8755011845487895973
+    second: Super Smash_15
+  - first:
+      213: 2117192842651012225
+    second: Super Smash_16
+  - first:
+      213: 3454809331422254241
+    second: Super Smash_17
+  - first:
+      213: 7177968660846437891
+    second: Super Smash_18
+  - first:
+      213: 3927436260971102546
+    second: Super Smash_19
+  - first:
+      213: -8829230722254752517
+    second: Super Smash_20
+  - first:
+      213: 5656380586075581782
+    second: Super Smash_21
+  - first:
+      213: 7509955853982259597
+    second: Super Smash_22
+  - first:
+      213: 8879782784694361284
+    second: Super Smash_23
+  - first:
+      213: -166852938979128204
+    second: Super Smash_24
+  - first:
+      213: 7161106233661321981
+    second: Super Smash_25
+  - first:
+      213: 5181582621502056627
+    second: Super Smash_26
+  - first:
+      213: 1118381168413385531
+    second: Super Smash_27
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Super Smash_0
+      rect:
+        serializedVersion: 2
+        x: 1057
+        y: 63
+        width: 75
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b56a5e3088a8ad120800000000000000
+      internalID: 2439414464960112219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_1
+      rect:
+        serializedVersion: 2
+        x: 1223
+        y: 98
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 704ada0058aef6cf0800000000000000
+      internalID: -256728796773899257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_2
+      rect:
+        serializedVersion: 2
+        x: 1250
+        y: 83
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 878e0a7e00f6e65d0800000000000000
+      internalID: -3067392246515963784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_3
+      rect:
+        serializedVersion: 2
+        x: 1373
+        y: 98
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45f3137f8f15f90b0800000000000000
+      internalID: -5719762871996301484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_4
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 63
+        width: 59
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b78b5a0ffaf527300800000000000000
+      internalID: 248366138720106619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_5
+      rect:
+        serializedVersion: 2
+        x: 1640
+        y: 63
+        width: 63
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96870d5a732507cf0800000000000000
+      internalID: -256614779801536407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_6
+      rect:
+        serializedVersion: 2
+        x: 1781
+        y: 63
+        width: 66
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 307a6598f87663660800000000000000
+      internalID: 7365188106793166595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_7
+      rect:
+        serializedVersion: 2
+        x: 1241
+        y: 89
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0504ccfa1d166010800000000000000
+      internalID: 1181663953978393868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_8
+      rect:
+        serializedVersion: 2
+        x: 1389
+        y: 89
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90bfca5e55924d7a0800000000000000
+      internalID: -6353407725410649335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_9
+      rect:
+        serializedVersion: 2
+        x: 1398
+        y: 84
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06a951434b19cc010800000000000000
+      internalID: 1210502603009792608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_10
+      rect:
+        serializedVersion: 2
+        x: 1549
+        y: 83
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3711139267ee546a0800000000000000
+      internalID: -6465499498755845773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_11
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 63
+        width: 26
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 151da464bc2801c70800000000000000
+      internalID: 8939789069899714897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_12
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 63
+        width: 36
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8274e9696c2d7290800000000000000
+      internalID: -7891102140823473526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_13
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 63
+        width: 36
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53e5148ba68a34020800000000000000
+      internalID: 2324887008964599349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_14
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 63
+        width: 35
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1402bd1d6e2d41480800000000000000
+      internalID: -8929280272363741119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_15
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 63
+        width: 38
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5a5b51dc13ff7680800000000000000
+      internalID: -8755011845487895973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_16
+      rect:
+        serializedVersion: 2
+        x: 757
+        y: 63
+        width: 44
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18c863b4ca7c16d10800000000000000
+      internalID: 2117192842651012225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_17
+      rect:
+        serializedVersion: 2
+        x: 899
+        y: 63
+        width: 46
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a4d02658c2f1ff20800000000000000
+      internalID: 3454809331422254241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_18
+      rect:
+        serializedVersion: 2
+        x: 1211
+        y: 63
+        width: 43
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30663ae67744d9360800000000000000
+      internalID: 7177968660846437891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_19
+      rect:
+        serializedVersion: 2
+        x: 1241
+        y: 73
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 251cb2d887e018630800000000000000
+      internalID: 3927436260971102546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_20
+      rect:
+        serializedVersion: 2
+        x: 1252
+        y: 72
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf43a08ff65487580800000000000000
+      internalID: -8829230722254752517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_21
+      rect:
+        serializedVersion: 2
+        x: 1261
+        y: 67
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65d637b9c208f7e40800000000000000
+      internalID: 5656380586075581782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_22
+      rect:
+        serializedVersion: 2
+        x: 1355
+        y: 63
+        width: 48
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d895a7b4f09b83860800000000000000
+      internalID: 7509955853982259597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_23
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 74
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cc165445635b3b70800000000000000
+      internalID: 8879782784694361284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_24
+      rect:
+        serializedVersion: 2
+        x: 1397
+        y: 73
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47c4b62d2283fadf0800000000000000
+      internalID: -166852938979128204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_25
+      rect:
+        serializedVersion: 2
+        x: 1926
+        y: 63
+        width: 64
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df2f738ad2c516360800000000000000
+      internalID: 7161106233661321981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_26
+      rect:
+        serializedVersion: 2
+        x: 2071
+        y: 63
+        width: 26
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b8a7f8e0fda8e740800000000000000
+      internalID: 5181582621502056627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Super Smash_27
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 67
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3324ca4fb9458f00800000000000000
+      internalID: 1118381168413385531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Super Smash_0: 2439414464960112219
+      Super Smash_1: -256728796773899257
+      Super Smash_10: -6465499498755845773
+      Super Smash_11: 8939789069899714897
+      Super Smash_12: -7891102140823473526
+      Super Smash_13: 2324887008964599349
+      Super Smash_14: -8929280272363741119
+      Super Smash_15: -8755011845487895973
+      Super Smash_16: 2117192842651012225
+      Super Smash_17: 3454809331422254241
+      Super Smash_18: 7177968660846437891
+      Super Smash_19: 3927436260971102546
+      Super Smash_2: -3067392246515963784
+      Super Smash_20: -8829230722254752517
+      Super Smash_21: 5656380586075581782
+      Super Smash_22: 7509955853982259597
+      Super Smash_23: 8879782784694361284
+      Super Smash_24: -166852938979128204
+      Super Smash_25: 7161106233661321981
+      Super Smash_26: 5181582621502056627
+      Super Smash_27: 1118381168413385531
+      Super Smash_3: -5719762871996301484
+      Super Smash_4: 248366138720106619
+      Super Smash_5: -256614779801536407
+      Super Smash_6: 7365188106793166595
+      Super Smash_7: 1181663953978393868
+      Super Smash_8: -6353407725410649335
+      Super Smash_9: 1210502603009792608
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -19,4 +19,18 @@
 ## or put your custom commands -------------------
 #echo 'Husky.Net is awesome!'
 
-dotnet format VANTA.sln --verify-no-changes --severity warn --include Assets/01_Script/
+set -eu
+
+project_file="CodeStyle.csproj"
+if [ ! -f "${project_file}" ]; then
+    echo "${project_file} 파일을 찾을 수 없습니다."
+    exit 1
+fi
+
+echo "C# 코딩 컨벤션 검사 중: ${project_file}"
+dotnet format style "${project_file}" \
+    --no-restore \
+    --verify-no-changes \
+    --severity warn \
+    --include Assets/02.Scripts/ \
+    --verbosity minimal

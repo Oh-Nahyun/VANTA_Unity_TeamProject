@@ -19,6 +19,33 @@
 ## or put your custom commands -------------------
 #echo 'Husky.Net is awesome!'
 
-grep -qE '^(asset|build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\(.+\))?!?: .+' "$1" && exit 0
-echo "커밋 메시지는 'type: 설명' 형식이어야 합니다."
-exit 1
+
+#!/bin/sh
+  . "$(dirname "$0")/_/husky.sh"
+
+  commit_msg_file="$1"
+
+  # 커밋 제목 형식 검사: feat: add Git Hook
+  if ! grep -qE '^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?!?: .+' "$commit_msg_file"; then
+      echo "커밋 메시지는 다음 형식이어야 합니다:"
+      echo "feat: add Git Hook"
+      echo "fix(ui): resolve player movement issue"
+      exit 1
+  fi
+
+  # 본문 최소 1줄 검사
+  body_lines=$(awk '
+      NR > 1 && $0 !~ /^[[:space:]]*$/ && $0 !~ /^#/ {
+          count++
+      }
+      END {
+          print count + 0
+      }
+  ' "$commit_msg_file")
+
+   if [ "$body_lines" -lt 1 ]; then
+       echo "커밋 본문을 최소 1줄 작성해야 합니다."
+       exit 1
+   fi
+
+  exit 0

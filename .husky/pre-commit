@@ -19,4 +19,10 @@
 ## or put your custom commands -------------------
 #echo 'Husky.Net is awesome!'
 
+if [ -f "$(git rev-parse --git-path MERGE_HEAD)" ] ||
+   [ -f "$(git rev-parse --git-path REVERT_HEAD)" ]; then
+    echo "merge/revert 커밋이므로 Husky 검사를 건너뜁니다."
+    exit 0
+fi
+
 dotnet format 2d-team05.sln --verify-no-changes --severity warn --include Assets/02.Scripts/

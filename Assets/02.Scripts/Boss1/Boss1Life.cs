@@ -9,7 +9,6 @@ public class Boss1Life : MonoBehaviour
     private bool _isDead = false;
     public event Action OnDeath;
     
-    
     private void Awake()
     {
         _currentHealth = _maxHealth;

@@ -1,5 +1,5 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
 public class Boss1Life : MonoBehaviour
 {

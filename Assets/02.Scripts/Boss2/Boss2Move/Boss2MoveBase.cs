@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
-
+using TMPro;
+//RigidBody로 이동해야한다. 
 public class Boss2MoveBase : MonoBehaviour
 {
     private enum MoveState { Normal, Dodge }
@@ -34,6 +36,10 @@ public class Boss2MoveBase : MonoBehaviour
     private Vector2 _dodgeDir;
     private float _dodgeTimer;
     private float _dodgeCooldownTimer;
+    
+    private Animator _animator;
+    private SpriteRenderer _spriteRenderer;
+    
 
     private static readonly (KeyCode key, Vector2 dir)[] DodgeKeys =
     {
@@ -58,10 +64,25 @@ public class Boss2MoveBase : MonoBehaviour
             return elapsed >= _iFrameStart && elapsed <= _iFrameEnd;
         }
     }
+    private void Awake()
+    {
+        _animator =  GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     private void Update()
     {
         Vector2 input = ReadInput();
+        
+        // 여기서 애니메이션 제어를 매번 해주면 프레임드랍이...
+        if (Mathf.Approximately(input.x, 0f) == true && Mathf.Approximately(input.y, 0f) == true)
+        {
+            _animator.SetBool("IsMove", false);
+        }
+        else
+        {
+            _animator.SetBool("IsMove", true);
+        }
         
         // TickTimers 가 UpdateVelocity 보다 먼저 와야 구르기가 끝난 프레임에
         // 곧바로 Normal 규칙으로 속도가 계산되어 한 프레임이 비지 않는다.
@@ -96,6 +117,7 @@ public class Boss2MoveBase : MonoBehaviour
         _dodgeTimer -= Time.deltaTime;
         if (_dodgeTimer <= 0f)
         {
+            // 회피가 종료하는 부분
             _dodgeTimer = 0f;
             _state = MoveState.Normal;
             _dodgeCooldownTimer = _dodgeCooldown;
@@ -127,12 +149,19 @@ public class Boss2MoveBase : MonoBehaviour
 
     private void StartDodge(Vector2 dir)
     {
+        _animator.SetBool("IsDodge",true);
+        
         _state = MoveState.Dodge;
         _dodgeDir = dir.normalized;
         _dodgeTimer = Mathf.Max(_dodgeDuration, 0.01f);
 
         // 일반 이동과 달리 가속 램프를 건너뛰고 직접 대입한다. 이 대비가 순간 가속 감각이다.
         _velocity = _dodgeDir * _dodgeSpeed;
+    }
+
+    private void EndDodge()
+    {
+        _animator.SetBool("IsDodge", false);
     }
 
     private void UpdateVelocity(Vector2 input)
@@ -148,7 +177,12 @@ public class Boss2MoveBase : MonoBehaviour
 
         bool wantsSprint = Input.GetKey(KeyCode.LeftShift) && input.sqrMagnitude > InputDeadZone;
         float targetSpeed = wantsSprint ? _sprintSpeed : _walkSpeed;
-
+        
+        // 애니메이션 달리기
+        _animator.SetBool("IsSprint", wantsSprint);
+        
+        
+        
         // 입력이 없으면 목표가 (0,0) 이 되어 0 으로 서서히 수렴한다.
         Vector2 targetVelocity = input * targetSpeed;
 
@@ -161,6 +195,16 @@ public class Boss2MoveBase : MonoBehaviour
 
     private void ApplyMove()
     {
+        int x = (int)_velocity.x;
+        if (x > 0)
+        {
+            _spriteRenderer.flipX = false;
+        }
+        else if (x < 0)
+        {
+            _spriteRenderer.flipX = true;
+        }
+        
         transform.Translate(_velocity * Time.deltaTime, Space.World);
     }
 }

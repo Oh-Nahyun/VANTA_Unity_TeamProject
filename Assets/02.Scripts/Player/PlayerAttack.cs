@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+
+    
     [Header("더블 슬래쉬 까지 필요 공격 횟수")][SerializeField]private int _countForDoubleSlash;
     [Header("공격 쿨타임")][SerializeField]private float _attackCoolTime=0.5f;
     [Header("콤보 유지시간")][SerializeField]private float _comboTime=0.5f;
@@ -10,6 +12,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float _attackDistance = 0.2f;
     [Header("공격 범위")]
     [SerializeField] private float _attackRadius = 1f;
+    
     
     [Header("슬래시 데미지")][SerializeField]private float _slashDamage=50;
     [Header("더블 슬래시 데미지")][SerializeField]private float _doubleSlashDamage=75;
@@ -20,6 +23,8 @@ public class PlayerAttack : MonoBehaviour
     [Header("더블 슬래시 공격 이팩트")]
     [SerializeField] private GameObject _doubleSlashEffect;
     
+    
+    private SkillManager _skillManager;
     private int _comboCount=0;
     private Animator _animator;
     private bool _isSlashing;
@@ -30,6 +35,7 @@ public class PlayerAttack : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _spriteRenderer=GetComponent<SpriteRenderer>();
+        _skillManager=GetComponentInChildren<SkillManager>();
     }
 
     void Update()
@@ -104,7 +110,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 hitObject.ExecuteHitEvent(_slashDamage,DamageIndicatorType.Normal);
                 Instantiate( _slashEffect, hit.transform.position, Quaternion.identity);
-
+                StackforSkillPoint();
             }
         }
     }
@@ -120,7 +126,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 hitObject.ExecuteHitEvent(_doubleSlashDamage,DamageIndicatorType.Middle);
                 Instantiate( _doubleSlashEffect, hit.transform.position, Quaternion.identity);
-
+                StackforSkillPoint();
             }
             
         }
@@ -166,5 +172,10 @@ public class PlayerAttack : MonoBehaviour
 
             Debug.DrawLine(point1, point2, Color.red, duration);
         }
+    }
+
+    private void StackforSkillPoint()
+    {
+        _skillManager.CalHitCount();
     }
 }

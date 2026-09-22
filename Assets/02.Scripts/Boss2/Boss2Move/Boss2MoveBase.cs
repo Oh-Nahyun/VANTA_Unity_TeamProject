@@ -1,7 +1,8 @@
-using System;
-using UnityEngine;
+
 using System.Collections.Generic;
-using TMPro;
+using UnityEngine;
+
+
 //RigidBody로 이동해야한다. 
 public class Boss2MoveBase : MonoBehaviour
 {

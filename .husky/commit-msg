@@ -24,6 +24,17 @@
   . "$(dirname "$0")/_/husky.sh"
 
   commit_msg_file="$1"
+  first_line=$(awk '
+      $0 !~ /^[[:space:]]*$/ && $0 !~ /^#/ {
+          print
+          exit
+      }
+  ' "$commit_msg_file")
+
+  # merge 커밋 메시지는 Git 기본 형식을 허용한다.
+  if [ "$(basename "$commit_msg_file")" = "MERGE_MSG" ] || echo "$first_line" | grep -qE '^Merge '; then
+      exit 0
+  fi
 
   # 커밋 제목 형식 검사: feat: add Git Hook
   if ! grep -qE '^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?!?: .+' "$commit_msg_file"; then

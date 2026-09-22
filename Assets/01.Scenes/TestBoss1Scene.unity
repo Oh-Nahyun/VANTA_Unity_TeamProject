@@ -1615,7 +1615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d2ea75177a010468f395448c928f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1Movement
-  _normalChaseSpeed: 4
+  _normalChaseSpeed: 1
   _aggressiveChaseSpeed: 7
   _stopDistance: 1
   _animator: {fileID: 2283665620963418138}

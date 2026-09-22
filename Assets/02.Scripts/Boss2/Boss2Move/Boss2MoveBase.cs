@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//RigidBody로 이동해야한다. 
 public class Boss2MoveBase : MonoBehaviour
 {
     private enum MoveState { Normal, Dodge }
@@ -40,6 +39,8 @@ public class Boss2MoveBase : MonoBehaviour
     
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
+    private Rigidbody2D _rigidbody2D;
+    [SerializeField] private GameObject _attackZone;
     
 
     private static readonly (KeyCode key, Vector2 dir)[] DodgeKeys =
@@ -69,6 +70,7 @@ public class Boss2MoveBase : MonoBehaviour
     {
         _animator =  GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -200,12 +202,16 @@ public class Boss2MoveBase : MonoBehaviour
         if (x > 0)
         {
             _spriteRenderer.flipX = false;
+            _attackZone.transform.localPosition = new Vector3(0.4f, 0f, 0f);
         }
         else if (x < 0)
         {
             _spriteRenderer.flipX = true;
+            _attackZone.transform.localPosition = new Vector3(-0.4f, 0f, 0f);
         }
         
-        transform.Translate(_velocity * Time.deltaTime, Space.World);
+        // UpdateVelocity 가 이미 가속 램프를 거쳐 units/s 단위 속도를 만들어 두었으므로
+        // 힘을 더하지 않고 그대로 대입한다. AddForce 를 쓰면 가속이 두 번 적분된다.
+        _rigidbody2D.linearVelocity = _velocity;
     }
 }

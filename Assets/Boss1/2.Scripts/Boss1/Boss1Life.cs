@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class BossLife : MonoBehaviour
+public class Boss1Life : MonoBehaviour
 {
     [SerializeField] private int _maxHealth= 1000;
     

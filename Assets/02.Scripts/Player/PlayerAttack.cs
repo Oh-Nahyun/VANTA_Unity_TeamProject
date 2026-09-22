@@ -84,7 +84,28 @@ public class PlayerAttack : MonoBehaviour
         });
     }
 
-    public void ExamineAttack()
+    public void ExamineSlash()
+    {
+        Collider2D[] hits = ShotTraceForAttackExamine();
+
+        
+        foreach (Collider2D hit in hits)
+        {
+                hit.GetComponent<HitableObject>()?.ExecuteHitEvent(50,DamageIndicatorType.Normal);
+        }
+    }
+    
+    public void ExamineDoubleSlash()
+    {
+        Collider2D[] hits = ShotTraceForAttackExamine();
+        
+        foreach (Collider2D hit in hits)
+        {
+                hit.GetComponent<HitableObject>()?.ExecuteHitEvent(75,DamageIndicatorType.Middle);
+        }
+    }
+
+    private  Collider2D[] ShotTraceForAttackExamine()
     {
         Vector2 direction = _spriteRenderer.flipX
             ? Vector2.left
@@ -100,12 +121,9 @@ public class PlayerAttack : MonoBehaviour
         
         DrawDebugCircle(attackPosition, _attackRadius, 1f);
         
-        
-        foreach (Collider2D hit in hits)
-        {
-            hit.GetComponent<HitableObject>()?.ExecuteHitEvent();
-        }
+        return hits;
     }
+    
     private void DrawDebugCircle(Vector2 center, float radius, float duration)
     {
         int segments = 32;

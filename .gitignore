@@ -77,3 +77,7 @@ crashlytics-build.properties
 # Rider
 .idea
 .idea/**
+
+# Gemini CLI
+.gemini/
+gha-creds-*.json

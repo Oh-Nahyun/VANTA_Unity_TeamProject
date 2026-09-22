@@ -1,0 +1,127 @@
+name: Gemini Commit Review
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Assets/02.Scripts/**/*.cs'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gemini-commit-review-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  review:
+    name: Review C# commit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Create commit diff
+        shell: bash
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          if git rev-parse "${COMMIT_SHA}^" > /dev/null 2>&1; then
+            git diff \
+              --no-ext-diff \
+              --unified=80 \
+              "${COMMIT_SHA}^" \
+              "${COMMIT_SHA}" \
+              -- ':(glob)Assets/02.Scripts/**/*.cs' > commit.diff
+          else
+            git show \
+              --format= \
+              --no-ext-diff \
+              --unified=80 \
+              "${COMMIT_SHA}" \
+              -- ':(glob)Assets/02.Scripts/**/*.cs' > commit.diff
+          fi
+
+          if [[ ! -s commit.diff ]]; then
+            echo "Assets/02.Scripts에서 리뷰할 C# 변경사항이 없습니다."
+            exit 1
+          fi
+
+      - name: Run Gemini review
+        id: gemini_review
+        uses: google-github-actions/run-gemini-cli@v0.1.22
+        env:
+          GEMINI_CLI_TRUST_WORKSPACE: 'true'
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          gemini_model: gemini-3.1-flash-lite
+          prompt: |
+            현재 저장소의 최신 커밋을 코드 리뷰하세요.
+
+            반드시 먼저 commit.diff 파일을 읽고,
+            Assets/02.Scripts 폴더에 포함된 C# 변경사항을 검토하세요.
+
+            저장소의 GEMINI.md와 GEMINI.md에서 가져온
+            코드 리뷰 기준을 반드시 적용하세요.
+
+            변경된 코드의 버그, 예외 가능성, Unity 생명주기 문제,
+            성능 문제, 메모리 할당, 설계 및 가독성을 검토하세요.
+
+            변경사항과 직접 관련된 문제를 우선하고,
+            근거가 약한 추측이나 과도한 리팩터링 제안은 피하세요.
+
+            파일을 수정하거나 Commit하지 말고
+            리뷰 결과만 한국어로 작성하세요.
+
+      - name: Add review to Actions summary
+        if: always()
+        shell: bash
+        env:
+          REVIEW_BODY: ${{ steps.gemini_review.outputs.summary }}
+          REVIEW_ERROR: ${{ steps.gemini_review.outputs.error }}
+        run: |
+          {
+            echo "## Gemini Commit Review"
+            echo
+
+            if [[ -n "${REVIEW_BODY}" ]]; then
+              printf '%s\n' "${REVIEW_BODY}"
+            else
+              echo "Gemini 리뷰 결과가 생성되지 않았습니다."
+            fi
+
+            if [[ -n "${REVIEW_ERROR}" ]]; then
+              echo
+              echo "### Error"
+              printf '%s\n' "${REVIEW_ERROR}"
+            fi
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Post review on commit
+        if: ${{ steps.gemini_review.outputs.summary != '' }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REVIEW_BODY: ${{ steps.gemini_review.outputs.summary }}
+          REPOSITORY: ${{ github.repository }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          jq -n \
+            --arg body "## Gemini Commit Review
+
+          ${REVIEW_BODY}" \
+            '{body: $body}' > comment.json
+
+          gh api \
+            --method POST \
+            "/repos/${REPOSITORY}/commits/${COMMIT_SHA}/comments" \
+            --input comment.json

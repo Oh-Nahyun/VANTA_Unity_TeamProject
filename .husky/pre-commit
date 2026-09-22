@@ -1,36 +1,9 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-## husky task runner examples -------------------
-## Note : for local installation use 'dotnet' prefix. e.g. 'dotnet husky'
-
-## run all tasks
-#husky run
-
-### run all tasks with group: 'group-name'
-#husky run --group group-name
-
-## run task with name: 'task-name'
-#husky run --name task-name
-
-## pass hook arguments to task
-#husky run --args "$1" "$2"
-
-## or put your custom commands -------------------
-#echo 'Husky.Net is awesome!'
-
 set -eu
 
-project_file="CodeStyle.csproj"
-if [ ! -f "${project_file}" ]; then
-    echo "${project_file} 파일을 찾을 수 없습니다."
-    exit 1
-fi
-
-echo "C# 코딩 컨벤션 검사 중: ${project_file}"
-dotnet format style "${project_file}" \
-    --no-restore \
+dotnet format 2d-team05.sln \
     --verify-no-changes \
     --severity warn \
-    --include Assets/02.Scripts/ \
-    --verbosity minimal
+    --include Assets/02.Scripts/

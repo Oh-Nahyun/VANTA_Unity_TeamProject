@@ -18,11 +18,24 @@ public class Pet : MonoBehaviour
     /// <summary>
     /// 펫이 이동하기 전에 필요한 대기 시간
     /// </summary>
-    private float _timeBeforeRun = 1.7f;
+    private float _timeBeforeRun;
+
+    /// <summary>
+    /// 펫이 추적 가능한 상태인지 확인용 변수
+    /// </summary>
+    private bool _canChase;
+
+    private void Start()
+    {
+        _timeBeforeRun = 1.7f;
+        _canChase = true;
+    }
+
     private void Update()
     {
+        Debug.Log($"{_canChase}");
         _timer += Time.deltaTime;
-        if (_timer >= _timeBeforeRun)
+        if (_canChase && _timer >= _timeBeforeRun)
         {
             Chase();
         }
@@ -33,5 +46,35 @@ public class Pet : MonoBehaviour
         Vector2 direction = _player.transform.position - transform.position;
         direction.Normalize();
         transform.Translate((Vector3)(direction * _moveSpeed) * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player"))
+        {
+            return;
+        }
+        _canChase = false;
+        Debug.Log("[OnTriggerEnter2D] 추적을 종료합니다.");
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player"))
+        {
+            return;
+        }
+        _canChase = false;
+        Debug.Log("[OnTriggerStay2D] 추적을 종료합니다.");
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player"))
+        {
+            return;
+        }
+        _canChase = true;
+        Debug.Log("[OnTriggerExit2D] 추적을 시작합니다.");
     }
 }

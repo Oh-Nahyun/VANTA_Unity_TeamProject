@@ -2,8 +2,18 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
-  tags: []
+  serializedVersion: 3
+  tags:
+  - Boss1
+  - Boss2
+  - BlockingBox
+  - BossBullet
+  - Monster
+  - MonsterSpawner
+  - Pet
+  - SkillIndicator
+  - DestroyableObject
+  - Vfx
   layers:
   - Default
   - TransparentFX
@@ -11,20 +21,20 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Boss1
+  - Boss2
+  - BossBullet
+  - BlockingBox
+  - MonsterSpawner
+  - DestroyableObject
+  - Pet
+  - SkillIndicator
+  - Player
+  - Background
+  - Monster
+  - Camera
+  - Light
+  - Vfx
   - 
   - 
   - 
@@ -38,6 +48,53 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3575939373
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: MonsterSpawner
+    uniqueID: 4291494243
+    locked: 0
+  - name: Boss1
+    uniqueID: 555995877
+    locked: 0
+  - name: Boss2
+    uniqueID: 446125925
+    locked: 0
+  - name: BossBullet
+    uniqueID: 421858133
+    locked: 0
+  - name: BlockingBox
+    uniqueID: 1074925781
+    locked: 0
+  - name: DestroyableObject
+    uniqueID: 2698319163
+    locked: 0
+  - name: Monster
+    uniqueID: 1553955063
+    locked: 0
+  - name: Player
+    uniqueID: 3528058243
+    locked: 0
+  - name: Pet
+    uniqueID: 3051575319
+    locked: 0
+  - name: SkillIndicator
+    uniqueID: 3295876743
+    locked: 0
+  - name: Camera
+    uniqueID: 3511261039
+    locked: 0
+  - name: Light
+    uniqueID: 2602680319
+    locked: 0
+  - name: Vfx
+    uniqueID: 3193413107
+    locked: 0
+  - name: UI
+    uniqueID: 2241087635
+    locked: 0
+  m_RenderingLayers:
+  - Default

@@ -11,6 +11,10 @@ public class Pet : MonoBehaviour
     [SerializeField] private float _moveSpeed = 3f;
 
     /// <summary>
+    /// 애니메이터
+    /// </summary>
+    private Animator _animator;
+    /// <summary>
     /// 스프라이트 렌더러
     /// </summary>
     private SpriteRenderer _spriteRenderer;
@@ -30,6 +34,7 @@ public class Pet : MonoBehaviour
 
     private void Awake()
     {
+        _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -43,6 +48,7 @@ public class Pet : MonoBehaviour
     private void Update()
     {
         _timer += Time.deltaTime;
+        _animator.SetBool("IsRun", _canChase);
         if (_canChase && _timer >= _timeBeforeRun)
         {
             Chase();

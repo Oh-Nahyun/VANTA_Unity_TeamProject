@@ -11,10 +11,13 @@ public class Pet : MonoBehaviour
     [SerializeField] private float _moveSpeed = 3f;
 
     /// <summary>
+    /// 스프라이트 렌더러
+    /// </summary>
+    private SpriteRenderer _spriteRenderer;
+    /// <summary>
     /// 펫 스폰 시 이동 전 대기 시간 계산용 변수
     /// </summary>
-    private float _timer = 0f;
-
+    private float _timer;
     /// <summary>
     /// 펫이 이동하기 전에 필요한 대기 시간
     /// </summary>
@@ -25,15 +28,20 @@ public class Pet : MonoBehaviour
     /// </summary>
     private bool _canChase;
 
+    private void Awake()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     private void Start()
     {
+        _timer = 0f;
         _timeBeforeRun = 1.7f;
         _canChase = true;
     }
 
     private void Update()
     {
-        Debug.Log($"{_canChase}");
         _timer += Time.deltaTime;
         if (_canChase && _timer >= _timeBeforeRun)
         {
@@ -45,6 +53,15 @@ public class Pet : MonoBehaviour
     {
         Vector2 direction = _player.transform.position - transform.position;
         direction.Normalize();
+
+        if (direction.x < 0)
+        {
+            _spriteRenderer.flipX = true;
+        }
+        else
+        {
+            _spriteRenderer.flipX = false;
+        }
         transform.Translate((Vector3)(direction * _moveSpeed) * Time.deltaTime);
     }
 
@@ -55,7 +72,6 @@ public class Pet : MonoBehaviour
             return;
         }
         _canChase = false;
-        Debug.Log("[OnTriggerEnter2D] 추적을 종료합니다.");
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -65,7 +81,6 @@ public class Pet : MonoBehaviour
             return;
         }
         _canChase = false;
-        Debug.Log("[OnTriggerStay2D] 추적을 종료합니다.");
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -75,6 +90,5 @@ public class Pet : MonoBehaviour
             return;
         }
         _canChase = true;
-        Debug.Log("[OnTriggerExit2D] 추적을 시작합니다.");
     }
 }

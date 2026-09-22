@@ -23,7 +23,6 @@ public class PlayerAttack : MonoBehaviour
     [Header("더블 슬래시 공격 이팩트")]
     [SerializeField] private GameObject _doubleSlashEffect;
     
-    
     private SkillManager _skillManager;
     private int _comboCount=0;
     private Animator _animator;

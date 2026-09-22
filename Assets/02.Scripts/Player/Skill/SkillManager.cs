@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
+    [Header("참조")]
+    [SerializeField]private PlayerAttack _playerAttack;
+    [SerializeField]private PlayerMove _playerMove;
     [Header("현재 스킬 스택 개수")][SerializeField]private int _skillStack=0;
     [Header("스택 쌓기 위해 필요한 피격 개수")][SerializeField]private int _countForSkillStack=10;
     [SerializeField]private int _currentHitCount=0;
@@ -10,13 +13,15 @@ public class SkillManager : MonoBehaviour
     [Header("스킬 유지 시간")][SerializeField]private float _skillTime=10f;
     private float curTime=0;
 
-    
+    private SkillDashPointCreator _skillDashPointCreator;
     private SkillScreenController _skillScreenController;
     private TimeController _timeController;
+    
     void Start()
     {
         _timeController = GetComponent<TimeController>();
         _skillScreenController=GetComponent<SkillScreenController>();
+        _skillDashPointCreator=GetComponent<SkillDashPointCreator>();
     }
 
     // Update is called once per frame
@@ -52,15 +57,27 @@ public class SkillManager : MonoBehaviour
 
     private void SkillUseStart()
     {
+        _playerAttack.enabled = false;
+        _playerMove.enabled = false;
         _timeController.StartTimeSlow(0.2f);
         _skillScreenController.SkillScreenSettingStart();
+        IndicateDashPoint();
         DOVirtual.DelayedCall(_skillTime,SkillUseEnd, true);
 
     }
 
+    private void IndicateDashPoint()
+    {
+        _skillDashPointCreator.CreateDashPoint(_skillStack);
+        _skillStack = 0;
+    }
+    
+
     private void SkillUseEnd()
     {
         _skillScreenController.SkillScreenSettingEnd();
+        _playerAttack.enabled = true;
+        _playerMove.enabled = true;
         _timeController.StopTimeSlow();
     }
 }

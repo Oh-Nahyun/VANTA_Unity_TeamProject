@@ -2,16 +2,96 @@ using UnityEngine;
 
 public class Boss1Movement : MonoBehaviour
 {
-    [SerializeField] private float _moveSpeed= 4f;
-    [SerializeField] private float _fastMoveSpeed = 6f;
+    [SerializeField] private float _normalChaseSpeed= 4f;
+    [SerializeField] private float _aggressiveChaseSpeed = 7f;
+    [SerializeField] private float _stopDistance = 1f;
+    [SerializeField] private Animator _animator;
+
+    [SerializeField] private Transform _visualPivot;
+
+    private Rigidbody2D _rigidBody;
+    private Transform _playerTransform;
     
-    private void Start()
+    private MoveMode _moveMode;
+
+    private enum MoveMode
     {
-        
+        NormalChase,
+        AggressiveChase,
+        Stop
+    }
+    
+    private void Awake()
+    {
+        _rigidBody = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private void Start()
     {
+        _playerTransform = GameObject.FindWithTag("Player").transform;
+        StartNormalChase();
+    }
+
+    private void FixedUpdate()
+    {
+        FacePlayer();
         
+        switch (_moveMode)
+        {
+            case MoveMode.NormalChase:
+                ChasePlayer(_normalChaseSpeed);
+                break;
+            case MoveMode.AggressiveChase:
+                ChasePlayer(_aggressiveChaseSpeed);
+                break;
+            case MoveMode.Stop:
+                break;
+        }
+        
+        _animator.SetBool("IsMoving", _rigidBody.linearVelocity.sqrMagnitude > 0.01f);
+    }
+
+    private void ChasePlayer(float chaseSpeed)
+    {
+        float distance = Vector2.Distance(_playerTransform.position, transform.position);
+
+        if (distance <= _stopDistance)
+        {
+            _rigidBody.linearVelocity = Vector2.zero;
+            return;
+        }
+        
+        Vector2 direction = ((Vector2)_playerTransform.position - _rigidBody.position).normalized;
+        _rigidBody.linearVelocity = direction * chaseSpeed;
+    }
+
+    public void StartNormalChase()
+    {
+        _moveMode = MoveMode.NormalChase;
+    }
+    
+    public void StartAggressiveChase()
+    {
+        _moveMode = MoveMode.AggressiveChase;
+    }
+    
+    public void Stop()
+    {
+        _moveMode = MoveMode.Stop;
+        _rigidBody.linearVelocity = Vector2.zero;
+    }
+    
+    private void FacePlayer()
+    {
+        Vector3 scale = _visualPivot.localScale;
+        if (_playerTransform.position.x > _rigidBody.position.x)
+        {
+            scale.x = 1f;
+        }
+        else if(_playerTransform.position.x < _rigidBody.position.x)
+        {
+            scale.x = -1f;
+        }
+        _visualPivot.localScale = scale;
     }
 }

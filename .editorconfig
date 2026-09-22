@@ -29,19 +29,12 @@ dotnet_separate_import_directive_groups = false
 # 조기 리턴(단일 행)은 중괄호 없이 허용, 여러 줄일 때만 중괄호 강제
 #### 이름 규칙 ####
 
-# 규칙 순서는 무관하다. required_modifiers가 있는 쪽이 더 구체적이라
-# private const / private static readonly 예외가 private 필드 규칙보다 자동으로 우선한다.
+# 더 구체적인 규칙을 먼저 둔다.
+# private const / private static readonly가 일반 private 필드 규칙보다 우선해야 한다.
 
 dotnet_naming_style.pascal_case.capitalization = pascal_case
 dotnet_naming_style.underscore_camel_case.required_prefix = _
 dotnet_naming_style.underscore_camel_case.capitalization = camel_case
-
-# private 필드 → _camelCase
-dotnet_naming_symbols.private_fields.applicable_kinds = field
-dotnet_naming_symbols.private_fields.applicable_accessibilities = private
-dotnet_naming_rule.private_fields_underscore.symbols = private_fields
-dotnet_naming_rule.private_fields_underscore.style = underscore_camel_case
-dotnet_naming_rule.private_fields_underscore.severity = warning
 
 # private const → PascalCase
 dotnet_naming_symbols.private_constants.applicable_kinds = field
@@ -58,6 +51,13 @@ dotnet_naming_symbols.private_static_readonly.required_modifiers = static, reado
 dotnet_naming_rule.private_static_readonly_pascal.symbols = private_static_readonly
 dotnet_naming_rule.private_static_readonly_pascal.style = pascal_case
 dotnet_naming_rule.private_static_readonly_pascal.severity = warning
+
+# private 필드 → _camelCase
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+dotnet_naming_rule.private_fields_underscore.symbols = private_fields
+dotnet_naming_rule.private_fields_underscore.style = underscore_camel_case
+dotnet_naming_rule.private_fields_underscore.severity = warning
 
 # public 필드와 메서드 → PascalCase
 dotnet_naming_symbols.public_members.applicable_kinds = field, method, property, event

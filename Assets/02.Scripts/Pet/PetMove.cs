@@ -8,20 +8,23 @@ public class Pet : MonoBehaviour
     [SerializeField] private Player _player;
 
     [Header("펫 이동 속도")]
-    [SerializeField] private float _moveSpeed = 3f;
+    [SerializeField] private float _moveSpeed = 1f;
 
     /// <summary>
     /// 애니메이터
     /// </summary>
     private Animator _animator;
+    
     /// <summary>
     /// 스프라이트 렌더러
     /// </summary>
     private SpriteRenderer _spriteRenderer;
+    
     /// <summary>
     /// 펫 스폰 시 이동 전 대기 시간 계산용 변수
     /// </summary>
     private float _timer;
+    
     /// <summary>
     /// 펫이 이동하기 전에 필요한 대기 시간
     /// </summary>

@@ -2,7 +2,7 @@ using System;
 using System.Timers;
 using UnityEngine;
 
-public class Pet : MonoBehaviour
+public class PetMove : MonoBehaviour
 {
     [Header("추적할 플레이어 클래스")]
     [SerializeField] private Player _player;
@@ -11,14 +11,9 @@ public class Pet : MonoBehaviour
     [SerializeField] private float _moveSpeed = 1f;
 
     /// <summary>
-    /// 애니메이터
+    /// 펫 클래스
     /// </summary>
-    private Animator _animator;
-    
-    /// <summary>
-    /// 스프라이트 렌더러
-    /// </summary>
-    private SpriteRenderer _spriteRenderer;
+    private Pet _pet;
     
     /// <summary>
     /// 펫 스폰 시 이동 전 대기 시간 계산용 변수
@@ -37,8 +32,7 @@ public class Pet : MonoBehaviour
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _pet = GetComponent<Pet>();
     }
 
     private void Start()
@@ -51,11 +45,16 @@ public class Pet : MonoBehaviour
     private void Update()
     {
         _timer += Time.deltaTime;
-        _animator.SetBool("IsRun", _canChase);
         if (_canChase && _timer >= _timeBeforeRun)
         {
             Chase();
         }
+        Run();
+    }
+
+    private void Run()
+    {
+        _pet.Animator.SetBool("IsRun", _canChase);
     }
 
     private void Chase()
@@ -65,11 +64,11 @@ public class Pet : MonoBehaviour
 
         if (direction.x < 0)
         {
-            _spriteRenderer.flipX = true;
+            _pet.SpriteRenderer.flipX = true;
         }
         else
         {
-            _spriteRenderer.flipX = false;
+            _pet.SpriteRenderer.flipX = false;
         }
         transform.Translate((Vector3)(direction * _moveSpeed) * Time.deltaTime);
     }

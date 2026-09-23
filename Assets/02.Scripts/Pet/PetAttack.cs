@@ -11,6 +11,7 @@ public class PetAttack : MonoBehaviour
     /// </summary>
     private Pet _pet;
 
+    // TODO : [펫] 기본 공격 타겟(몬스터) 및 발동 조건(플레이어 상태) 설정하기
     /// <summary>
     /// [Test] 펫 공격 타겟
     /// </summary>
@@ -32,6 +33,8 @@ public class PetAttack : MonoBehaviour
     private void Attack()
     {
         _pet.Animator.SetTrigger("IsAttack");
+        
+        // TODO : [펫] 몬스터 데미지 처리하기
         // _monster.TakeDamage(_attackPower);
     }
 }

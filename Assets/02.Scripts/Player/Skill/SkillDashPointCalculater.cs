@@ -59,7 +59,7 @@ public class SkillDashPointCalculater : MonoBehaviour
         UpdateDashPointSelection();
         UpdateTrajectory();
 		
-		if(_selectedDashPoint!=null&&Input.GetMouseButton(0))
+		if(_selectedDashPoint!=null&&Input.GetMouseButtonDown(0))
 		{
             SkillIndicatorSelect();
 		}

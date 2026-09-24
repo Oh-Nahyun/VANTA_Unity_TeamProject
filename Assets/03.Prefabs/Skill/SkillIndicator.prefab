@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6201331024561835750}
   - component: {fileID: 8473163849796377561}
   - component: {fileID: 9183006457411726818}
+  - component: {fileID: 5617303657827461575}
   m_Layer: 13
   m_Name: SkillIndicator
   m_TagString: Untagged
@@ -182,3 +183,16 @@ MonoBehaviour:
   _selectedRadius: 0.1
   _focusMaterial: {fileID: 2100000, guid: b8e41d3a051dc7e47bf1fb51f86067d4, type: 2}
   _targetCamera: {fileID: 0}
+--- !u!114 &5617303657827461575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5737589506621556756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b56a3adae37a82941b3383ea0511b73b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkillIndicatorOrbit
+  _orbitSpeed: 150

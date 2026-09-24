@@ -6206,6 +6206,7 @@ Transform:
   m_Children:
   - {fileID: 17654360}
   - {fileID: 107384871}
+  - {fileID: 1475375759}
   m_Father: {fileID: 321024275}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &464393700
@@ -6299,8 +6300,14 @@ MonoBehaviour:
   _dashDuration: 0.05
   _dashWaitTime: 0.5
   _dashEase: 6
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 65728
+  _dashDamage: 100
+  _dashHitRadius: 0.5
   _rigidbody: {fileID: 321024280}
   _skillDashStartVfxPrefab: {fileID: 4716100389982693565, guid: 60140b9dfae35ed429109b7fd5fef63c, type: 3}
+  _skillDashAttackVfxPrefab: {fileID: 4306488877223958017, guid: f2b2174306f2a7a4cae5fb635c05c0aa, type: 3}
 --- !u!114 &464393705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8402,6 +8409,54 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1475375758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1475375759}
+  - component: {fileID: 1475375760}
+  m_Layer: 14
+  m_Name: ThreadManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1475375759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475375758}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 464393698}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1475375760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475375758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a53acacea803f443b95933df941bb4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaknessThreadController
+  _threadMaterial: {fileID: 2100000, guid: ec0490b103d64d74d9e82e147e0ee329, type: 2}
+  _boss: {fileID: 1961626438}
+  _targetCamera: {fileID: 519420031}
+  _threadWidth: 0.008
 --- !u!1 &1488837939
 GameObject:
   m_ObjectHideFlags: 0

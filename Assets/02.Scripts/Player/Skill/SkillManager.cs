@@ -9,7 +9,7 @@ public class SkillManager : MonoBehaviour
     private SkillDashPointCreator _skillDashPointCreator;
     private SkillDashPointCalculater _skillDashPointCalculater;
     private SkillAttack _skillAttack;
-    
+    [SerializeField]private WeaknessThreadController _weaknessThreadController;
     [Header("참조")]
     [SerializeField]private PlayerAttack _playerAttack;
     [SerializeField]private PlayerMove _playerMove;
@@ -75,6 +75,8 @@ public class SkillManager : MonoBehaviour
         
         _playerMove.DashToReverseSide();
         
+        _weaknessThreadController.StartWeaknessThread();
+        
         _playerAttack.enabled = false;
         _playerMove.enabled = false;
         Time.timeScale=_timeSlowAmount;
@@ -113,6 +115,8 @@ public class SkillManager : MonoBehaviour
         {
             _skillSequence.Kill();
         }
+
+        _weaknessThreadController.EndWeaknessThread();
 
         _skillStack = 0;
         

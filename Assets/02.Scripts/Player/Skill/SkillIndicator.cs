@@ -4,7 +4,10 @@ using UnityEngine;
 public class SkillIndicator : MonoBehaviour
 {
     private ObjectSelect _objectSelector;
+    private ObjectSquash _objectSquash;
     private ObjectFocus _objectFocus;
+
+    private bool _isChoiced;
     private void Awake()
     {
         _objectSelector = GetComponent<ObjectSelect>();
@@ -12,12 +15,38 @@ public class SkillIndicator : MonoBehaviour
     }
     public static SkillIndicator GetAtScreenPosition(Camera targetCamera, Vector2 screenPosition, LayerMask layerMask)
     {
+        
         Ray ray = targetCamera.ScreenPointToRay(screenPosition);
-        RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, layerMask);
+        RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity, layerMask);
 
-        return hit.collider == null ? null : hit.collider.GetComponentInParent<SkillIndicator>();
+        SkillIndicator closestIndicator = null;
+        float closestDistanceSqr = float.PositiveInfinity;
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider == null)
+                continue;
+
+            SkillIndicator indicator = hit.collider.GetComponentInParent<SkillIndicator>();
+            if (indicator == null || indicator.GetIsChoiced())
+                continue;
+
+            // A cursor has screen-space coordinates, so compare it with the
+            // indicator's projected transform position in the same space.
+            Vector2 indicatorScreenPosition = targetCamera.WorldToScreenPoint(indicator.transform.position);
+            float distanceSqr = (indicatorScreenPosition - screenPosition).sqrMagnitude;
+
+            if (distanceSqr < closestDistanceSqr)
+            {
+                closestDistanceSqr = distanceSqr;
+                closestIndicator = indicator;
+            }
+        }
+
+        return closestIndicator;
     }
-
+    
+    
     public void Select()
     {
         _objectSelector.StartSelect();
@@ -30,4 +59,22 @@ public class SkillIndicator : MonoBehaviour
         _objectSelector.EndSelect();
         _objectFocus.EndFocus();
     }
+
+    public bool GetIsChoiced()
+    {
+        return _isChoiced;
+    }
+    public void ChoicedToAttack()
+    {
+        _isChoiced = true;
+        Deselect();
+        if (_objectSquash != null)
+            _objectSquash.PlaySquash();
+    }
+
+    public void SkillAttackComplete()
+    {
+        Destroy(this.gameObject);
+    }
+    
 }

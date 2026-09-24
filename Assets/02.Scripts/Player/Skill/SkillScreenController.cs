@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using DG.Tweening;
 
@@ -51,7 +52,7 @@ public class SkillScreenController : MonoBehaviour
         );
     }
 
-    public void SkillScreenSettingStart()
+    public void SkillScreenSettingStart(Action onComplete)
     {
         _isSkillActive = true;
 
@@ -63,7 +64,11 @@ public class SkillScreenController : MonoBehaviour
         _radiusTween = _focusMaterial
             .DOFloat(_skillRadius, RadiusID, _focusInDuration)
             .SetEase(Ease.OutCubic)
-            .SetUpdate(true);
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                onComplete?.Invoke();
+            });
     }
 
     public void SkillScreenSettingEnd()

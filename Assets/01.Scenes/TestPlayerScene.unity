@@ -6128,6 +6128,7 @@ MonoBehaviour:
   _dashPointPrefab: {fileID: 5737589506621556756, guid: 119312d9736627a4f9d32bcc5db22021, type: 3}
   _boss: {fileID: 1961626438}
   _player: {fileID: 321024275}
+  _skillDashPointCalculater: {fileID: 464393703}
   _spawnRadius: 3
   _minPointDistance: 2
   _candidateCount: 30
@@ -6145,11 +6146,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillDashPointCalculater
   _camera: {fileID: 519420031}
   _player: {fileID: 321024275}
+  _skillAttack: {fileID: 464393704}
   _dashPointLayer:
     serializedVersion: 2
     m_Bits: 8192
   _lineRenderer: {fileID: 17654361}
   _lineHeight: 0.1
+  _choiceSequence: []
 --- !u!114 &464393704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6162,6 +6165,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 726b2c88d167abd49aa768dfb25cffef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillAttack
+  _dashDuration: 0.15
+  _dashEase: 6
+  _rigidbody: {fileID: 321024280}
+  _skillManager: {fileID: 464393701}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SkillDashPointCreator : MonoBehaviour
 {
@@ -7,7 +9,7 @@ public class SkillDashPointCreator : MonoBehaviour
     [SerializeField] private GameObject _dashPointPrefab;
     [SerializeField] private Transform _boss;
     [SerializeField] private Transform _player;
-
+    
     [Header("대쉬포인트 설정")]
     [SerializeField] private float _spawnRadius = 5f;
 
@@ -18,8 +20,8 @@ public class SkillDashPointCreator : MonoBehaviour
     [SerializeField] private int _candidateCount = 30;
 
     private readonly List<GameObject> _createdPoints = new();
-
-    public void CreateDashPoint(int count)
+    
+    public void CreateDashPoint(int count,Action onComplete)
     {
         if (count <= 0)
             return;
@@ -43,6 +45,11 @@ public class SkillDashPointCreator : MonoBehaviour
             CreatePoint(position);
             selectedPositions.Add(position);
         }
+
+        
+        onComplete.Invoke();
+        
+
     }
 
     /// <summary>

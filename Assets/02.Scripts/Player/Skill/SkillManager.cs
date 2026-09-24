@@ -1,12 +1,21 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
+    private SkillFocusScreenController _skillFocusScreenController;
+    private SkillDashPointCreator _skillDashPointCreator;
+    private SkillDashPointCalculater _skillDashPointCalculater;
+    private SkillAttack _skillAttack;
+    
     [Header("참조")]
     [SerializeField]private PlayerAttack _playerAttack;
     [SerializeField]private PlayerMove _playerMove;
+
+    [Header("스킬 사용중 타임 슬로우정도")] [SerializeField]
+    private float _timeSlowAmount=0.2f;
     [Header("현재 스킬 스택 개수")][SerializeField]private int _skillStack=0;
     [Header("스택 쌓기 위해 필요한 피격 개수")][SerializeField]private int _countForSkillStack=10;
     [SerializeField]private int _currentHitCount=0;
@@ -17,20 +26,17 @@ public class SkillManager : MonoBehaviour
     private Tween _skillSequence;
     
     
-    private SkillScreenController _skillScreenController;
-    private SkillDashPointCreator _skillDashPointCreator;
-    private SkillDashPointCalculater _skillDashPointCalculater;
-    [SerializeField]private SkillAttack _skillAttack;
-    
-    private TimeController _timeController;
-    
-    void Start()
+
+
+    private void Awake()
     {
-        _timeController = GetComponent<TimeController>();
-        _skillScreenController=GetComponent<SkillScreenController>();
+        _skillFocusScreenController=GetComponent<SkillFocusScreenController>();
         _skillDashPointCreator=GetComponent<SkillDashPointCreator>();
         _skillDashPointCalculater=GetComponent<SkillDashPointCalculater>();
+        _skillAttack = GetComponent<SkillAttack>();
+        
     }
+    
 
     // Update is called once per frame
     void Update()
@@ -66,18 +72,19 @@ public class SkillManager : MonoBehaviour
     private void SkillUseStart()
     {
         _skillSequence=DOVirtual.DelayedCall(_skillTime,SkillUseEnd, true);
-
+        
+        _playerMove.DashToReverseSide();
         
         _playerAttack.enabled = false;
         _playerMove.enabled = false;
-        _timeController.StartTimeSlow(0.2f);
+        Time.timeScale=_timeSlowAmount;
 
         ScreenControl();
     }
 
     private void ScreenControl()
     {
-        _skillScreenController.SkillScreenSettingStart(DashPointCreat);
+        _skillFocusScreenController.StartFocusScreenSetting(DashPointCreat);
     }
 
     private void DashPointCreat()
@@ -109,11 +116,11 @@ public class SkillManager : MonoBehaviour
 
         _skillStack = 0;
         
-        _skillScreenController.SkillScreenSettingEnd();
+        _skillFocusScreenController.EndFocusScreenSetting();
         
         _playerAttack.enabled = true;
         _playerMove.enabled = true;
-        
-        _timeController.StopTimeSlow();
+
+        Time.timeScale=1f;
     }
 }

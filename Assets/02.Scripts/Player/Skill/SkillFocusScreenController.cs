@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using DG.Tweening;
 
-public class SkillScreenController : MonoBehaviour
+public class SkillFocusScreenController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Material _focusMaterial;
@@ -52,7 +52,7 @@ public class SkillScreenController : MonoBehaviour
         );
     }
 
-    public void SkillScreenSettingStart(Action onComplete)
+    public void StartFocusScreenSetting(Action onComplete)
     {
         _isSkillActive = true;
 
@@ -71,7 +71,7 @@ public class SkillScreenController : MonoBehaviour
             });
     }
 
-    public void SkillScreenSettingEnd()
+    public void EndFocusScreenSetting()
     {
         _isSkillActive = false;
 

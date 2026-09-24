@@ -5,21 +5,34 @@ using UnityEngine;
 
 public class SkillAttack : MonoBehaviour
 {
-    [Header("Skill Dash")]
-    [SerializeField] private float _dashDuration = 0.15f;
+    [Header("대쉬 직전 타임 슬로우 정도")] [SerializeField]
+    private float _dashTimeSlow = 0.05f;
+
+    [Header("대쉬 속도")] [SerializeField] private float _dashDuration = 0.15f;
+    [Header("대쉬간 대기시간")] [SerializeField] private float _dashWaitTime = 0.5f;
     [SerializeField] private Ease _dashEase = Ease.OutQuad;
-    [Header("참조")]
-    [SerializeField]private Rigidbody2D _rigidbody;
+    [Header("대쉬 공격 판정")] [SerializeField] private LayerMask _enemyLayer;
+    [SerializeField] private float _dashDamage = 10f;
+    [SerializeField] private float _dashHitRadius = 0.5f;
+
+    [Header("참조")] [SerializeField] private Rigidbody2D _rigidbody;
+    [Header("vfx 프리팹")] [SerializeField] private GameObject _skillDashStartVfxPrefab;
+    [Header("vfx 프리팹")] [SerializeField] private GameObject _skillDashAttackVfxPrefab;
+
+    private SkillDashScreenController _skillDashScreenController;
     private Collider2D[] _playerColliders;
     private Sequence _dashSequence;
+
+
 
     private void Awake()
     {
         if (_rigidbody != null)
             _playerColliders = _rigidbody.GetComponentsInChildren<Collider2D>(true);
+        _skillDashScreenController = GetComponent<SkillDashScreenController>();
     }
-    
-    public void DashStart(List<SkillIndicator> selectedIndicators,Action onComplete)
+
+    public void DashStart(List<SkillIndicator> selectedIndicators, Action onComplete)
     {
         if (_rigidbody == null || selectedIndicators == null || selectedIndicators.Count == 0)
             return;
@@ -27,17 +40,64 @@ public class SkillAttack : MonoBehaviour
         _dashSequence?.Kill();
 
         SetPlayerColliders(false);
-        _dashSequence = DOTween.Sequence();
+        _dashSequence = DOTween.Sequence()
+            .SetUpdate(true);
 
         foreach (SkillIndicator indicator in selectedIndicators)
         {
             if (indicator == null)
                 continue;
 
+            Vector2 dashStartPosition = Vector2.zero;
+
+
+            _dashSequence.AppendCallback(() =>
+            {
+                dashStartPosition = _rigidbody.position;
+
+                Vector3 moveDirection =
+                    indicator.transform.position - transform.position;
+
+                _skillDashScreenController.StartDashScreenSetting(moveDirection);
+
+                Time.timeScale = _dashTimeSlow;
+
+                Instantiate(_skillDashStartVfxPrefab, transform.position, Quaternion.identity);
+            });
+
+            _dashSequence.AppendInterval(_dashWaitTime);
+
+
+
+            _dashSequence.AppendCallback(() =>
+            {
+                Time.timeScale = 1f;
+            });
+
+
             _dashSequence.Append(
-                _rigidbody.DOMove(indicator.transform.position, _dashDuration)
-                    .SetEase(_dashEase));
-            indicator.SkillAttackComplete();
+                _rigidbody
+                    .DOMove(indicator.transform.position, _dashDuration)
+                    .SetEase(_dashEase)
+            );
+
+            _dashSequence.AppendCallback(() =>
+            {
+                Vector2 dashEndPosition = _rigidbody.position;
+
+                // 시작 → 끝 전체 공격 판정
+                CheckDashHit(
+                    dashStartPosition,
+                    dashEndPosition
+                );
+
+                _skillDashScreenController.EndDashScreenSetting();
+
+                indicator.SkillAttackComplete();
+            });
+
+            _dashSequence.AppendInterval(_dashWaitTime / 2);
+
         }
 
         _dashSequence
@@ -59,6 +119,48 @@ public class SkillAttack : MonoBehaviour
         {
             if (playerCollider != null)
                 playerCollider.enabled = enabled;
+        }
+    }
+
+    private void CheckDashHit(Vector2 start, Vector2 end)
+    {
+        Vector2 direction = end - start;
+        float distance = direction.magnitude;
+
+        if (distance <= 0f)
+            return;
+
+        direction.Normalize();
+
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(
+            start,
+            _dashHitRadius,
+            direction,
+            distance,
+            _enemyLayer
+        );
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider == null)
+                continue;
+
+            HitableObject hitableObject =
+                hit.collider.GetComponent<HitableObject>();
+
+            if (hitableObject == null)
+                continue;
+
+            hitableObject.ExecuteHitEvent(
+                _dashDamage,
+                DamageIndicatorType.Middle
+            );
+
+            Instantiate(
+                _skillDashAttackVfxPrefab,
+                hit.point,
+                Quaternion.identity
+            );
         }
     }
 }

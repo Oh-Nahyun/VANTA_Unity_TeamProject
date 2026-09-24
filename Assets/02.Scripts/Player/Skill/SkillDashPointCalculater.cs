@@ -11,14 +11,14 @@ public class SkillDashPointCalculater : MonoBehaviour
     [Header("Dash Point")]
     [SerializeField] private LayerMask _dashPointLayer;
 
-    [Header("Trajectory")]
-    [SerializeField] private LineRenderer _lineRenderer;
 
     [Tooltip("궤적을 바닥에서 살짝 띄우는 값")]
     [SerializeField] private float _lineHeight = 0.1f;
 
     private bool _isActivated = false;
     private int _dashPointCount;
+    
+    private SkillDashLineIndicator _skillDashLineIndicator;
     private SkillIndicator _selectedDashPoint;
     [SerializeField]private List<SkillIndicator> _choiceSequence = new List<SkillIndicator>();
     private Action _completeAction; 
@@ -26,24 +26,17 @@ public class SkillDashPointCalculater : MonoBehaviour
     {
         if (_camera == null)
             _camera = Camera.main;
+        _skillDashLineIndicator=gameObject.GetComponentInChildren<SkillDashLineIndicator>();
     }
     
 
     private void OnEnable()
     {
-        if (_lineRenderer == null)
-            return;
-
-        _lineRenderer.positionCount = 2;
-        _lineRenderer.enabled = false;
+        _skillDashLineIndicator.enabled = true;
     }
     private void OnDisable()
     {
-        if (_lineRenderer == null)
-            return;
-
-        _lineRenderer.positionCount = 2;
-        _lineRenderer.enabled = false;
+        _skillDashLineIndicator.enabled = false;
     }
     
     public void Activate(int pointCount,Action onComplete)
@@ -60,7 +53,7 @@ public class SkillDashPointCalculater : MonoBehaviour
         if (!_isActivated)
             return;
         
-        if (_camera == null || _lineRenderer == null || _player == null)
+        if (_camera == null ||  _player == null)
             return;
 
         UpdateDashPointSelection();
@@ -112,24 +105,19 @@ public class SkillDashPointCalculater : MonoBehaviour
     {
         if (_selectedDashPoint == null)
         {
-            _lineRenderer.enabled = false;
             return;
         }
-
-        _lineRenderer.enabled = true;
-
-        Vector3 lineOffset = -_camera.transform.forward * _lineHeight;
-        Vector3 start = _player.position + lineOffset;
-        Vector3 end = _selectedDashPoint.transform.position + lineOffset;
-
-        _lineRenderer.SetPosition(0, start);
-        _lineRenderer.SetPosition(1, end);
+        
+        _skillDashLineIndicator.ShowPreview(
+            _selectedDashPoint
+        );
     }
 
     private void SkillIndicatorSelect()
     {
         _selectedDashPoint.ChoicedToAttack();
         _choiceSequence.Add(_selectedDashPoint);
+        _skillDashLineIndicator.AddNewPoint(_selectedDashPoint);
         _selectedDashPoint = null;
 
       

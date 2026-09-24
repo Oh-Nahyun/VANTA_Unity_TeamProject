@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
+using Sequence = DG.Tweening.Sequence;
 
 public class SkillAttack : MonoBehaviour
 {
@@ -14,15 +16,18 @@ public class SkillAttack : MonoBehaviour
     [Header("대쉬 공격 판정")] [SerializeField] private LayerMask _enemyLayer;
     [SerializeField] private float _dashDamage = 10f;
     [SerializeField] private float _dashHitRadius = 0.5f;
-
+    [SerializeField] private float _weaknessAngleTolerance = 0.5f;
+    
     [Header("참조")] [SerializeField] private Rigidbody2D _rigidbody;
     [Header("vfx 프리팹")] [SerializeField] private GameObject _skillDashStartVfxPrefab;
     [Header("vfx 프리팹")] [SerializeField] private GameObject _skillDashAttackVfxPrefab;
+    [Header("vfx 프리팹")] [SerializeField] private GameObject _skillDashAttackCriticalVfxPrefab;
 
     private SkillDashScreenController _skillDashScreenController;
     private Collider2D[] _playerColliders;
     private Sequence _dashSequence;
 
+    private Vector2 _weaknessDirection;
 
 
     private void Awake()
@@ -110,6 +115,10 @@ public class SkillAttack : MonoBehaviour
             .OnKill(() => SetPlayerColliders(true));
     }
 
+    public void SetWeaknessDirection(Vector2 direction)
+    {
+        _weaknessDirection=direction;
+    }
     private void SetPlayerColliders(bool enabled)
     {
         if (_playerColliders == null)
@@ -132,6 +141,15 @@ public class SkillAttack : MonoBehaviour
 
         direction.Normalize();
 
+        float dot = Mathf.Abs(
+            Vector2.Dot(direction, _weaknessDirection.normalized)
+        );
+
+        float threshold =
+            Mathf.Cos(_weaknessAngleTolerance * Mathf.Deg2Rad);
+
+        bool isWeaknessAttack = dot >= threshold;
+        
         RaycastHit2D[] hits = Physics2D.CircleCastAll(
             start,
             _dashHitRadius,
@@ -151,16 +169,34 @@ public class SkillAttack : MonoBehaviour
             if (hitableObject == null)
                 continue;
 
-            hitableObject.ExecuteHitEvent(
-                _dashDamage,
-                DamageIndicatorType.Middle
-            );
 
-            Instantiate(
-                _skillDashAttackVfxPrefab,
-                hit.point,
-                Quaternion.identity
-            );
+            if (!isWeaknessAttack)
+            {
+                hitableObject.ExecuteHitEvent(
+                    _dashDamage,
+                    DamageIndicatorType.Middle
+                );
+            
+                Instantiate(
+                    _skillDashAttackVfxPrefab,
+                    hit.point,
+                    Quaternion.identity
+                );
+            }
+            else
+            {
+                hitableObject.ExecuteHitEvent(
+                    _dashDamage*2,
+                    DamageIndicatorType.Critical
+                );
+            
+                Instantiate(
+                    _skillDashAttackCriticalVfxPrefab,
+                    hit.point,
+                    Quaternion.identity
+                );
+                
+            }
         }
     }
 }

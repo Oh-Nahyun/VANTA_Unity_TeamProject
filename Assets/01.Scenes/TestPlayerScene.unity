@@ -6240,6 +6240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afeb93e2c86b0cb4ab3846c5c7723f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillManager
+  _weaknessThreadController: {fileID: 1475375760}
   _playerAttack: {fileID: 321024281}
   _playerMove: {fileID: 321024278}
   _timeSlowAmount: 0.2
@@ -6305,9 +6306,11 @@ MonoBehaviour:
     m_Bits: 65728
   _dashDamage: 100
   _dashHitRadius: 0.5
+  _weaknessAngleTolerance: 0.5
   _rigidbody: {fileID: 321024280}
   _skillDashStartVfxPrefab: {fileID: 4716100389982693565, guid: 60140b9dfae35ed429109b7fd5fef63c, type: 3}
   _skillDashAttackVfxPrefab: {fileID: 4306488877223958017, guid: f2b2174306f2a7a4cae5fb635c05c0aa, type: 3}
+  _skillDashAttackCriticalVfxPrefab: {fileID: 4306488877223958017, guid: bdfa5128a4ae8e547afe61fb1b8aa1bd, type: 3}
 --- !u!114 &464393705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8503,7 +8506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageIndicatorFactory
   _normalIndicatorPrefab: {fileID: 1942674738539502974, guid: 0838e3f591bce8c499c99f6da753171a, type: 3}
   _middleIndicatorPrefab: {fileID: 1942674738539502974, guid: 98e1384638384644a9dba88ba0f2dc87, type: 3}
-  _criticalIndicatorPrefab: {fileID: 0}
+  _criticalIndicatorPrefab: {fileID: 1942674738539502974, guid: 9bc5476674a9b584d98554e41ad525a6, type: 3}
 --- !u!1 &1506718564
 GameObject:
   m_ObjectHideFlags: 0

@@ -103,6 +103,7 @@ public class SkillManager : MonoBehaviour
     private void StartDash()
     {
         List<SkillIndicator>_choicedSequnce=_skillDashPointCalculater.GetChoiceSequence();
+        _skillAttack.SetWeaknessDirection(_weaknessThreadController.GetThreadDirection());
         _skillAttack.DashStart(_choicedSequnce,SkillUseEnd);
         _skillDashPointCalculater.enabled=false;
     }

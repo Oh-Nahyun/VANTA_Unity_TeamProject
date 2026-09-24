@@ -1928,7 +1928,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: a0aa5133927729b41991b69542ea6877, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -2012,6 +2012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c9d9896176f7547a0504a5e7fad093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PetAttack
+  _attackPower: 10
 --- !u!114 &765534170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2038,8 +2039,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c90ff0e9f934a47a37af359f4d025d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pet
-  _animator: {fileID: 0}
-  _spriteRenderer: {fileID: 0}
+  Animator: {fileID: 0}
+  SpriteRenderer: {fileID: 0}
+  Rigidbody2D: {fileID: 0}
 --- !u!1001 &857514806
 PrefabInstance:
   m_ObjectHideFlags: 0

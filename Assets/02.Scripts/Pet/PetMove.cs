@@ -1,5 +1,3 @@
-using System;
-using System.Timers;
 using UnityEngine;
 
 public class PetMove : MonoBehaviour
@@ -75,28 +73,22 @@ public class PetMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player"))
-        {
-            return;
-        }
+        if (!other.CompareTag("Player")) return;
+        
         _canChase = false;
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (!other.CompareTag("Player"))
-        {
-            return;
-        }
+        if (!other.CompareTag("Player")) return;
+
         _canChase = false;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.CompareTag("Player"))
-        {
-            return;
-        }
+        if (!other.CompareTag("Player")) return;
+
         _canChase = true;
     }
 }

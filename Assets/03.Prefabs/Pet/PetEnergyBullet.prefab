@@ -165,7 +165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6bec22e88b58324792ed750ae6d9e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PetEnergyBullet
-  _moveSpeed: 1
+  _bezierMoveSpeed: 1
+  _homingMoveSpeed: 5
   _damage: 10
 --- !u!114 &1260096435260396752
 MonoBehaviour:

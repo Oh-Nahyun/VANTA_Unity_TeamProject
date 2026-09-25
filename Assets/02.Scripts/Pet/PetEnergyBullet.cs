@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class PetEnergyBullet : MonoBehaviour
 {
-    [Header("펫 에너지 탄 이동 속도")]
-    [SerializeField] private float _moveSpeed = 1f;
+    [Header("펫 에너지 탄 베지어 이동 속도")]
+    [SerializeField] private float _bezierMoveSpeed = 1f;
+    
+    [Header("펫 에너지 탄 유도 이동 속도")]
+    [SerializeField] private float _homingMoveSpeed = 5f;
     
     [Header("펫 에너지 탄 공격력")]
     [SerializeField] private float _damage = 10f;
@@ -33,6 +36,11 @@ public class PetEnergyBullet : MonoBehaviour
     /// </summary>
     private float _bezierProgress;
 
+    /// <summary>
+    /// 펫 에너지 탄 유도 이동 여부 확인용 변수
+    /// </summary>
+    private bool _isHoming;
+
     private void Awake()
     {
         _bezierCurve = GetComponent<BezierCurve>();
@@ -48,6 +56,7 @@ public class PetEnergyBullet : MonoBehaviour
         _timer = 0f;
         _timeBeforeMove = 0.6f;
         _bezierProgress = 0f;
+        _isHoming = false;
 
         SetBezierPoints();
     }
@@ -74,19 +83,48 @@ public class PetEnergyBullet : MonoBehaviour
 
     private void Move()
     {
-        _bezierProgress += Time.deltaTime * _moveSpeed;
+        if (_isHoming)
+        {
+            HomingMove();
+        }
+        else
+        {
+            BezierMove();
+        }
+    }
+    
+    private void BezierMove()
+    {
+        _bezierProgress += Time.deltaTime * _bezierMoveSpeed;
         _bezierProgress = Mathf.Clamp01(_bezierProgress);
-        _bezierCurve.SetEndPoint(_monster.transform.position);
-        
+
         Vector3 targetPosition = _bezierCurve.GetPointOnCurve(_bezierProgress);
         Vector3 direction = _bezierCurve.GetDirectionOnCurve(_bezierProgress);
 
-        if (direction != Vector3.zero)
-        {
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0f, angle);
-        }
+        SetRotation(direction);
         transform.position = targetPosition;
+
+        if (_bezierProgress >= 1f)
+        {
+            _isHoming = true;
+        }
+    }
+
+    private void HomingMove()
+    {
+        Vector3 direction = _monster.transform.position - transform.position;
+        
+        direction.Normalize();
+        SetRotation(direction);
+        transform.position += (Vector3)(direction * _homingMoveSpeed) * Time.deltaTime;
+    }
+
+    private void SetRotation(Vector3 direction)
+    {
+        if (direction.sqrMagnitude <= 0f) return;
+        
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
     private void Hit()

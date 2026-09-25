@@ -28,22 +28,11 @@ public class BezierCurve : MonoBehaviour
     {
         _startPoint = startPoint;
         _endPoint = endPoint;
-
-        SetControlPoint();
-    }
-    
-    public void SetEndPoint(Vector3 endPoint)
-    {
-        _endPoint = endPoint;
-
-        SetControlPoint();
-    }
-    
-    private void SetControlPoint()
-    {
+        
         Vector3 direction = (_endPoint - _startPoint).normalized;
         Vector3 vertical = new Vector3(-direction.y, direction.x, 0f);
         Vector3 controlBasePoint = Vector3.Lerp(_startPoint, _endPoint, _controlPointPositionRatio);
+        
         _controlPoint = controlBasePoint + vertical * _curveAmount;
     }
     

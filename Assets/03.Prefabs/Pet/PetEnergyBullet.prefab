@@ -167,8 +167,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PetEnergyBullet
   _moveSpeed: 1
   _damage: 10
-  _bezierCurve: {fileID: 1260096435260396752}
-  _curveAmount: 2
 --- !u!114 &1260096435260396752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,3 +179,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f416d41d4464c246ba8281e16130cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BezierCurve
+  _curveAmount: 2
+  _controlPointPositionRatio: 0.2

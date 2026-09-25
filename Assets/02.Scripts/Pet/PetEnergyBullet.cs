@@ -7,21 +7,16 @@ public class PetEnergyBullet : MonoBehaviour
     
     [Header("펫 에너지 탄 공격력")]
     [SerializeField] private float _damage = 10f;
-    
-    [Header("펫 에너지 탄 이동 곡선 정도")]
-    [SerializeField] private float _curveAmount = 2f;
-    
-    [Header("펫 에너지 탄 이동 곡선의 제어점 위치 변경용 변수 (0과 가까울수록 시작점과 가까워짐)")]
-    [Range(0f, 1f)]
-    [SerializeField] private float _controlPointPositionRatio = 0.2f;
-    
-    [Header("펫 에너지 탄 이동 곡선 클래스")]
-    [SerializeField] private BezierCurve _bezierCurve;
 
     /// <summary>
     /// 펫 공격 타겟
     /// </summary>
     private GameObject _monster;
+    
+    /// <summary>
+    /// 펫 에너지 탄 이동 곡선 클래스
+    /// </summary>
+    private BezierCurve _bezierCurve;
     
     /// <summary>
     /// 펫 에너지 탄 스폰 시 이동 전 대기 시간 계산용 변수
@@ -38,14 +33,17 @@ public class PetEnergyBullet : MonoBehaviour
     /// </summary>
     private float _bezierProgress;
 
+    private void Awake()
+    {
+        _bezierCurve = GetComponent<BezierCurve>();
+    }
+
     private void Start()
     {
+        _monster = GameObject.FindGameObjectWithTag("Monster");
+        
         if (_bezierCurve == null) return;
-        if (_monster == null)
-        {
-            _monster = GameObject.FindGameObjectWithTag("Monster");
-            if (_monster == null) return;
-        }
+        if (_monster == null) return;
         
         _timer = 0f;
         _timeBeforeMove = 0.6f;
@@ -70,12 +68,8 @@ public class PetEnergyBullet : MonoBehaviour
     {
         Vector3 startPoint = transform.position;
         Vector3 endPoint = _monster.transform.position;
-        Vector3 direction = (endPoint - startPoint).normalized;
-        Vector3 vertical = new Vector3(-direction.y, direction.x, 0f);
-        Vector3 controlBasePoint = Vector3.Lerp(startPoint, endPoint, _controlPointPositionRatio);
-        Vector3 controlPoint = controlBasePoint + vertical * _curveAmount;
 
-        _bezierCurve.SetPoints(startPoint, controlPoint, endPoint);
+        _bezierCurve.SetAllPoints(startPoint, endPoint);
     }
 
     private void Move()
@@ -84,13 +78,11 @@ public class PetEnergyBullet : MonoBehaviour
         _bezierProgress = Mathf.Clamp01(_bezierProgress);
         _bezierCurve.SetEndPoint(_monster.transform.position);
         
-        Vector3 currentPosition = transform.position;
         Vector3 targetPosition = _bezierCurve.GetPointOnCurve(_bezierProgress);
-        Vector3 direction = targetPosition - currentPosition;
+        Vector3 direction = _bezierCurve.GetDirectionOnCurve(_bezierProgress);
 
         if (direction != Vector3.zero)
         {
-            direction.Normalize();
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }

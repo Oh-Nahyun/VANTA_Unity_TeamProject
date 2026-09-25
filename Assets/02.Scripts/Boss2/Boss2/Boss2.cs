@@ -26,6 +26,8 @@ public class Boss2 : MonoBehaviour
     {
         if (damage > 0)
         {
+            _animator.SetTrigger("Hit");
+            
             _health -= damage;
             if (_health <= 0)
             {

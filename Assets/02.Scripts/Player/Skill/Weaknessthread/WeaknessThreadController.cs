@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class WeaknessThreadController : MonoBehaviour
@@ -10,8 +11,18 @@ public class WeaknessThreadController : MonoBehaviour
     [Header("Thread")]
     [SerializeField] private float _threadWidth = 0.008f;
 
+    [Header("Thread Fade")]
+    [SerializeField] private float _fadeInDuration = 0.3f;
+    [SerializeField] private float _fadeOutDuration = 0.3f;
+
+    [Header("Thread Movement")]
+    [SerializeField] private float _rotationSpeed = 3f;
+
     private Vector2 _threadDirection;
     private bool _threadRunning;
+
+    private Tween _fadeTween;
+
     private static readonly int ThreadCenterID =
         Shader.PropertyToID("_ThreadCenter");
 
@@ -21,19 +32,20 @@ public class WeaknessThreadController : MonoBehaviour
     private static readonly int ThreadWidthID =
         Shader.PropertyToID("_ThreadWidth");
 
+    private static readonly int ThreadOpacityID =
+        Shader.PropertyToID("_ThreadOpacity");
+
     private void Awake()
     {
         if (_targetCamera == null)
             _targetCamera = Camera.main;
 
-        FadeOutThread();
+        _threadMaterial.SetFloat(ThreadOpacityID, 0f);
     }
 
     public void StartWeaknessThread()
     {
-        // 직선이므로 0~180도면 모든 방향 표현 가능
         float randomAngle = Random.Range(0f, 180f);
-
         float radian = randomAngle * Mathf.Deg2Rad;
 
         _threadDirection = new Vector2(
@@ -47,19 +59,37 @@ public class WeaknessThreadController : MonoBehaviour
         );
 
         _threadRunning = true;
+
+        // 위치/방향부터 설정하고 등장
+        UpdateThread();
+
+        FadeInThread();
     }
 
     public void EndWeaknessThread()
     {
-        _threadRunning = false;
         FadeOutThread();
     }
+
     private void LateUpdate()
     {
-        if (_threadRunning)
-        {
-            UpdateThread();
-        }
+        if (!_threadRunning)
+            return;
+
+        UpdateThreadDirection();
+        UpdateThread();
+    }
+
+    private void UpdateThreadDirection()
+    {
+        float angle =
+            _rotationSpeed * Time.unscaledDeltaTime;
+
+        _threadDirection =
+            Quaternion.Euler(0f, 0f, angle)
+            * _threadDirection;
+
+        _threadDirection.Normalize();
     }
 
     private void UpdateThread()
@@ -112,16 +142,50 @@ public class WeaknessThreadController : MonoBehaviour
         );
     }
 
-    private void FadeOutThread()
+    private void FadeInThread()
     {
+        _fadeTween?.Kill();
+
         _threadMaterial.SetFloat(
-            ThreadWidthID,
+            ThreadOpacityID,
             0f
         );
+
+        _fadeTween = _threadMaterial
+            .DOFloat(
+                1f,
+                ThreadOpacityID,
+                _fadeInDuration
+            )
+            .SetEase(Ease.OutCubic)
+            .SetUpdate(true);
     }
-    
+
+    private void FadeOutThread()
+    {
+        _fadeTween?.Kill();
+
+        _fadeTween = _threadMaterial
+            .DOFloat(
+                0f,
+                ThreadOpacityID,
+                _fadeOutDuration
+            )
+            .SetEase(Ease.InCubic)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                _threadRunning = false;
+            });
+    }
+
     public Vector2 GetThreadDirection()
     {
         return _threadDirection;
+    }
+
+    private void OnDestroy()
+    {
+        _fadeTween?.Kill();
     }
 }

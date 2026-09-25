@@ -187,16 +187,21 @@ public class Boss2AttackBase : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // 지금 플레이어가 없는 관계로 데미지를 넘기는 더미로 대체
-            HitDummy dummy = other.gameObject.GetComponent<HitDummy>();
-            if (dummy != null)
+            // AttackBoxCollider에 대한 처리 로직만 여기로 들어가게 처리
+            if (_attackBoxCollider.enabled == true)
             {
-                dummy.TakeDamage(_baseDamage);
+                // 지금 플레이어가 없는 관계로 데미지를 넘기는 더미로 대체
+                HitDummy dummy = other.gameObject.GetComponent<HitDummy>();
+                if (dummy != null)
+                {
+                    dummy.TakeDamage(_baseDamage);
+                }
+                else
+                {
+                    Debug.Log("dummy is Null");
+                }    
             }
-            else
-            {
-                Debug.Log("dummy is Null");
-            }
+            
         }
     }
 }

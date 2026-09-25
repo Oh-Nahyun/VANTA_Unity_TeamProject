@@ -23,6 +23,11 @@ public class BezierCurve : MonoBehaviour
     /// 베지어 곡선 끝점
     /// </summary>
     private Vector3 _endPoint;
+    
+    public void SetCurveAmount(float curveAmount)
+    {
+        _curveAmount = curveAmount;
+    }
 
     public void SetAllPoints(Vector3 startPoint, Vector3 endPoint)
     {

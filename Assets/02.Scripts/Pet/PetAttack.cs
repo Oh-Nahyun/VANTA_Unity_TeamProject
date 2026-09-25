@@ -29,12 +29,16 @@ public class PetAttack : MonoBehaviour
 
     private void Fire()
     {
+        float middleIndex = (_energyBulletCount - 1) * 0.5f;
         _pet.Animator.SetTrigger("IsFire");
 
-        // TODO : [펫] 에너지 탄 발사 갯수 조절하기
         for (int i = 0; i < _energyBulletCount; i++)
         {
-            Instantiate(_energyBulletPrefab, _energyBulletSpawnPosition.position, transform.rotation);
+            GameObject bullet = Instantiate(_energyBulletPrefab, _energyBulletSpawnPosition.position, transform.rotation);
+            PetEnergyBullet energyBullet = bullet.GetComponent<PetEnergyBullet>();
+
+            float curveAmount = (i - middleIndex) * 2f;
+            energyBullet._bezierCurve.SetCurveAmount(curveAmount);
         }
     }
 }

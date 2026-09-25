@@ -19,7 +19,7 @@ public class PetEnergyBullet : MonoBehaviour
     /// <summary>
     /// 펫 에너지 탄 이동 곡선 클래스
     /// </summary>
-    private BezierCurve _bezierCurve;
+    public BezierCurve _bezierCurve;
     
     /// <summary>
     /// 펫 에너지 탄 스폰 시 이동 전 대기 시간 계산용 변수

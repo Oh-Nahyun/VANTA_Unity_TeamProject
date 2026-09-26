@@ -8458,9 +8458,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaknessThreadController
   _threadMaterial: {fileID: 2100000, guid: ec0490b103d64d74d9e82e147e0ee329, type: 2}
+  _rayMaterial: {fileID: 2100000, guid: dad3c07a18ce15e47b7c65ab50e02ef7, type: 2}
   _boss: {fileID: 1961626438}
   _targetCamera: {fileID: 519420031}
   _threadWidth: 0.008
+  _rotationSpeed: 3
+  _fadeInDuration: 1
+  _fadeOutDuration: 1
+  _normalGlowIntensity: 1.5
+  _spawnGlowIntensity: 6
+  _glowFlashInDuration: 0.08
+  _glowFlashOutDuration: 0.4
+  _rayMaxOpacity: 1
+  _rayFadeInDuration: 0.4
+  _rayFadeOutDuration: 0.3
 --- !u!1 &1488837939
 GameObject:
   m_ObjectHideFlags: 0

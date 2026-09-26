@@ -45,19 +45,19 @@ Material:
     - _ThreadFlowIntensity: 2
     - _ThreadFlowScale: 15
     - _ThreadFlowSpeed: 2
-    - _ThreadGlowIntensity: 1
+    - _ThreadGlowIntensity: 1.5
     - _ThreadGlowWidth: 0.03
     - _ThreadIntensity: 3
     - _ThreadNoiseScale: 8
     - _ThreadNoiseSpeed: 1
     - _ThreadNoiseStrength: 0.01
-    - _ThreadOpacity: 1
+    - _ThreadOpacity: 0.021586537
     - _ThreadWidth: 0.008
     m_Colors:
-    - _ThreadCenter: {r: 0.56062424, g: 0.5337698, b: 0, a: 0}
+    - _ThreadCenter: {r: 0.55438036, g: 0.68722886, b: 0, a: 0}
     - _ThreadColor: {r: 1, g: 0, b: 0, a: 1}
     - _ThreadCoreColor: {r: 0.8490566, g: 0.04405483, b: 0.04405483, a: 1}
     - _ThreadGlowColor: {r: 0.8018868, g: 0.12482201, b: 0.12482201, a: 1}
-    - _ThreadNormal: {r: -0.55122274, g: -0.8343581, b: 0, a: 0}
+    - _ThreadNormal: {r: -0.9999975, g: 0.0022527105, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

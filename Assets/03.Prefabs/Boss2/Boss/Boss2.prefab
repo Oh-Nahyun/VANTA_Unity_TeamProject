@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349eca76ea90d1e4ab422e6affdf09cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss2
+  _health: 100
 --- !u!114 &4827965982157604352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,6 +122,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee7ae1ec821b38a4892913bd4e58d4c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss2AttackBase
+  _baseDamage: 1
+  _areaOfEffectDamage: 1
+  _instantKillDamage: 1
+  _attackBoxCollider: {fileID: 0}
+  _useKeyboardInput: 1
+  _attackKey: 32
+  _comboSteps:
+  - StateName: Boss2Attack
+    MaxStepTime: 1
+    ComboTimingStart: 0.25
+    ComboTimingEnd: 1
+  - StateName: Boss2DoubleAttack
+    MaxStepTime: 1
+    ComboTimingStart: 0.25
+    ComboTimingEnd: 1.15
+  _inputBufferTime: 0.2
 --- !u!114 &2959589179919576284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,6 +161,7 @@ MonoBehaviour:
   _doubleTapInterval: 0.25
   _iFrameStart: 0.05
   _iFrameEnd: 0.2
+  _attackZone: {fileID: 0}
 --- !u!95 &3614016485446532058
 Animator:
   serializedVersion: 7
@@ -231,7 +249,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.375, y: 0.328125}
+    oldSize: {x: 2.25, y: 2.25}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

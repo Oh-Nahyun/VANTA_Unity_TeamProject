@@ -104,6 +104,26 @@ public class PlayerMove : MonoBehaviour
             });
     }
     
+    public void DashToReverseSide()
+    {
+        _isDashing = true;
+        SetDashAnimation();
+        HitableObject boss = FindAnyObjectByType<HitableObject>();
+        
+        Vector2 direction=transform.position - boss.transform.position;
+        
+        Vector2 targetPosition =
+            _rigidbody.position +
+            direction * _dashDistance;
+
+        _rigidbody.DOMove(targetPosition, 0.1f)
+            .SetEase(Ease.OutQuad)
+            .OnComplete(() =>
+            {
+                _isDashing = false;
+            });
+    }
+    
     private void SetMoveAnimation(bool isMove)
     {
         _animator.SetBool("isMove",isMove);

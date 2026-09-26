@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_SkillEdgeAura
+  m_Shader: {fileID: -6465566751694194690, guid: 7f1d68561dc694b41803d2e2cd3ab9a8, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _EdgeNoiseScale: 4
+    - _EdgeNoiseSpeed: 0.3
+    - _EdgeNoiseStrength: 0.12
+    - _EdgeOpacity: 0
+    - _EdgeWidth: 0.25
+    - _HotEdgeIntensity: 4
+    - _RayCurveFrequency: 20
+    - _RayCurveSpeed: 0.3
+    - _RayCurveStrength: 1
+    - _RayDensity: 5
+    - _RayNoiseScale: 0.1
+    - _RayNoiseSpeed: 0.001
+    - _RayNoiseStrength: 0.01
+    - _RaySpeed: 0.5
+    - _SparseNoiseScale: 0.1
+    - _SparseNoiseSpeed: 0.05
+    - _WideIntensity: 2
+    m_Colors:
+    - _EdgeColor: {r: 0.8113208, g: 0, b: 0, a: 1}
+    - _WideEdgeColor: {r: 0.7924528, g: 0.05606977, b: 0.1857453, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

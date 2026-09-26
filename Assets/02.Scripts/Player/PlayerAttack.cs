@@ -23,6 +23,9 @@ public class PlayerAttack : MonoBehaviour
     [Header("더블 슬래시 공격 이팩트")]
     [SerializeField] private GameObject _doubleSlashEffect;
     
+    [Header("참조")]
+    [SerializeField]private SkillIndicatorController _skillIndicatorController;
+        
     private SkillManager _skillManager;
     private int _comboCount=0;
     private Animator _animator;
@@ -30,11 +33,12 @@ public class PlayerAttack : MonoBehaviour
     private Tween _comboTimer;
     private SpriteRenderer _spriteRenderer;
 
-    void Start()
+    void Awake()
     {
         _animator = GetComponent<Animator>();
         _spriteRenderer=GetComponent<SpriteRenderer>();
         _skillManager=GetComponentInChildren<SkillManager>();
+        _skillIndicatorController=GetComponentInChildren<SkillIndicatorController>();
     }
 
     void Update()
@@ -56,7 +60,7 @@ public class PlayerAttack : MonoBehaviour
                 _comboCount++;
                 Slash();
             }
-         
+            
         }
     }
 
@@ -64,6 +68,7 @@ public class PlayerAttack : MonoBehaviour
     {
         _isSlashing = true;
         _animator.SetTrigger("Slash");
+        _skillIndicatorController.CommandToPetAttack();
         ExecuteComboTime();
         ExecuteCoolTime();
     }
@@ -72,6 +77,8 @@ public class PlayerAttack : MonoBehaviour
     {
         _isSlashing = true;
         _animator.SetTrigger("DoubleSlash");
+        _skillIndicatorController.CommandToPetAttack();
+
         ExecuteCoolTime();
     }
 

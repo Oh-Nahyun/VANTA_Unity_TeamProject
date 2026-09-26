@@ -17,6 +17,7 @@ public class SkillIndicatorMove : MonoBehaviour
 
     
     private SkillIndicatorOrbit _skillIndicatorOrbit;
+    private Animator _animator;
     private bool _isPointFix = false;
     private Vector3 _velocity;
 
@@ -25,6 +26,7 @@ public class SkillIndicatorMove : MonoBehaviour
     private void Awake()
     {
         _skillIndicatorOrbit = GetComponent<SkillIndicatorOrbit>();
+        _animator=GetComponent<Animator>();
     }
     private void Update()
     {
@@ -63,10 +65,13 @@ public class SkillIndicatorMove : MonoBehaviour
     public void SetTarget(Transform target)
     {
         _target = target;
+        _animator.SetBool("IsMove",true);
     }
 
     public void MoveToPoint(Vector3 point)
     {
+        _animator.SetBool("IsMove",true);
+
         _isPointFix = true;
 
         _moveTween?.Kill();
@@ -79,6 +84,8 @@ public class SkillIndicatorMove : MonoBehaviour
             .OnComplete(() =>
             {
                 _skillIndicatorOrbit.Initialize();
+                _animator.SetBool("IsMove",false);
+
             });
 
 

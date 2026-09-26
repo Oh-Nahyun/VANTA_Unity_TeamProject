@@ -5926,6 +5926,7 @@ MonoBehaviour:
   _doubleSlashDamage: 75
   _slashEffect: {fileID: 3042519775331041172, guid: 1a3c2ecb0f269ad4095c2651c8462a0e, type: 3}
   _doubleSlashEffect: {fileID: 4306488877223958017, guid: f2b2174306f2a7a4cae5fb635c05c0aa, type: 3}
+  _skillIndicatorController: {fileID: 464393707}
 --- !u!1 &343095576
 GameObject:
   m_ObjectHideFlags: 0

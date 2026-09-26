@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PetEnergyBullet : MonoBehaviour
+public class EnergyBullet : MonoBehaviour
 {
     [Header("펫 에너지 탄 베지어 이동 속도")]
     [SerializeField] private float _bezierMoveSpeed = 1f;

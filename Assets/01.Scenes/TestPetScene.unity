@@ -6962,6 +6962,7 @@ GameObject:
   - component: {fileID: 765534171}
   - component: {fileID: 765534170}
   - component: {fileID: 765534169}
+  - component: {fileID: 765534172}
   m_Layer: 12
   m_Name: Pet
   m_TagString: Pet
@@ -7144,6 +7145,7 @@ MonoBehaviour:
   _energyBulletPrefab: {fileID: 6523856158434468449, guid: 4832a329c9cbe5847a6601b82ebffe8a, type: 3}
   _energyBulletSpawnPosition: {fileID: 940655228}
   _energyBulletCount: 3
+  _crystalPrisonPrefab: {fileID: 5960170544083001488, guid: 1cc63ea2fc8955d45bf39528384acf3e, type: 3}
 --- !u!114 &765534170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7170,8 +7172,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c90ff0e9f934a47a37af359f4d025d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pet
-  Animator: {fileID: 0}
-  SpriteRenderer: {fileID: 0}
+  Animator: {fileID: 765534166}
+  SpriteRenderer: {fileID: 765534164}
+--- !u!114 &765534172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765534162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ae298face59ab8428c6a80c1a85f4c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CrystalPrison
 --- !u!1 &906813755
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEditor.SearchService;
 using UnityEngine;
 
@@ -70,16 +71,22 @@ public class SkillIndicator : MonoBehaviour
     public void ChoicedToAttack()
     {
         _isChoiced = true;
+        GetComponent<Animator>().SetTrigger("Choice");
+
         Deselect();
         if (_objectSquash != null)
             _objectSquash.PlaySquash();
         
         _skillIndicatorOrbit.StopOrbit();
+        GetComponent<SkillIndicatorAttack>().PauseAttack();
     }
 
     public void SkillAttackComplete()
     {
-        Destroy(this.gameObject);
+
+        
+            Destroy(gameObject);
+        
     }
     
 }

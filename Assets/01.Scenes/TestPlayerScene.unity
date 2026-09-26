@@ -6184,6 +6184,7 @@ GameObject:
   - component: {fileID: 464393703}
   - component: {fileID: 464393704}
   - component: {fileID: 464393706}
+  - component: {fileID: 464393707}
   m_Layer: 14
   m_Name: SkillManager
   m_TagString: Untagged
@@ -6260,7 +6261,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52e5b11c7622404cb79cc55bb958d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillDashPointCreator
-  _dashPointPrefab: {fileID: 5737589506621556756, guid: 119312d9736627a4f9d32bcc5db22021, type: 3}
   _boss: {fileID: 1961626438}
   _player: {fileID: 321024275}
   _spawnRadius: 3
@@ -6345,6 +6345,20 @@ MonoBehaviour:
   _player: {fileID: 321024275}
   _selectedLineRenderer: {fileID: 17654361}
   _previewLineRenderer: {fileID: 107384872}
+--- !u!114 &464393707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464393697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 706514fc65aeb9a4a9fe2a45f782cffc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkillIndicatorController
+  _player: {fileID: 321024275}
+  _skillIndicatorPrefab: {fileID: 5737589506621556756, guid: 119312d9736627a4f9d32bcc5db22021, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

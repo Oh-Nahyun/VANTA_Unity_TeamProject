@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8473163849796377561}
   - component: {fileID: 9183006457411726818}
   - component: {fileID: 5617303657827461575}
+  - component: {fileID: 1788690956688383571}
   m_Layer: 13
   m_Name: SkillIndicator
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1.69, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -196,3 +197,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillIndicatorOrbit
   _orbitSpeed: 150
+--- !u!114 &1788690956688383571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5737589506621556756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5316050dd7fd51443af895ac744dd954, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkillIndicatorMove
+  _target: {fileID: 0}
+  _followDistance: 0.5
+  _smoothTime: 0.15
+  _maxSpeed: 10
+  _pointMoveDuration: 0.1
+  _pointMoveEase: 6

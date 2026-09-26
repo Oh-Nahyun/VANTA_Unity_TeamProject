@@ -6,7 +6,6 @@ using Random = UnityEngine.Random;
 public class SkillDashPointCreator : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject _dashPointPrefab;
     [SerializeField] private Transform _boss;
     [SerializeField] private Transform _player;
     
@@ -18,37 +17,20 @@ public class SkillDashPointCreator : MonoBehaviour
 
     [Tooltip("랜덤 후보를 몇 개 만들어 비교할지")]
     [SerializeField] private int _candidateCount = 30;
-
-    private readonly List<GameObject> _createdPoints = new();
-    
-    public void CreateDashPoint(int count,Action onComplete)
+    public List<Vector3> CreateDashPoint(int count,Action onComplete)
     {
-        if (count <= 0)
-            return;
-
-        ClearDashPoints();
-
         List<Vector3> selectedPositions = new();
-
-        // 1. 첫 번째 포인트
-        // Player -> Boss 방향으로 Boss를 넘어간 위치
         Vector3 firstPosition = GetOppositePosition();
-
-        CreatePoint(firstPosition);
         selectedPositions.Add(firstPosition);
-
-        // 2. 나머지 포인트
+        
         for (int i = 1; i < count; i++)
         {
             Vector3 position = FindBestPosition(selectedPositions);
-
-            CreatePoint(position);
             selectedPositions.Add(position);
         }
-
         
         onComplete.Invoke();
-        
+        return selectedPositions;
 
     }
 
@@ -166,25 +148,7 @@ public class SkillDashPointCreator : MonoBehaviour
         return minDistance;
     }
 
-    private void CreatePoint(Vector3 position)
-    {
-        GameObject point = Instantiate(
-            _dashPointPrefab,
-            position,
-            Quaternion.identity
-        );
 
-        _createdPoints.Add(point);
-    }
 
-    public void ClearDashPoints()
-    {
-        foreach (GameObject point in _createdPoints)
-        {
-            if (point != null)
-                Destroy(point);
-        }
-
-        _createdPoints.Clear();
-    }
+ 
 }

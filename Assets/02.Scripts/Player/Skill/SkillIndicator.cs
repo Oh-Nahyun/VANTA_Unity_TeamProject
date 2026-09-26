@@ -7,7 +7,7 @@ public class SkillIndicator : MonoBehaviour
     private ObjectSquash _objectSquash;
     private ObjectFocus _objectFocus;
     private SkillIndicatorOrbit  _skillIndicatorOrbit;
-    
+    private SkillIndicatorMove _skillIndicatorMove;
     
     private bool _isChoiced;
     private void Awake()
@@ -15,7 +15,7 @@ public class SkillIndicator : MonoBehaviour
         _objectSelector = GetComponent<ObjectSelect>();
         _objectFocus=GetComponent<ObjectFocus>();
         _skillIndicatorOrbit=GetComponent<SkillIndicatorOrbit>();
-        _skillIndicatorOrbit.Initialize();
+        _skillIndicatorMove=GetComponent<SkillIndicatorMove>();
     }
     public static SkillIndicator GetAtScreenPosition(Camera targetCamera, Vector2 screenPosition, LayerMask layerMask)
     {
@@ -49,7 +49,6 @@ public class SkillIndicator : MonoBehaviour
 
         return closestIndicator;
     }
-    
     
     public void Select()
     {

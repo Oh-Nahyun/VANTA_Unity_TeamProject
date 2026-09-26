@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,6 +23,9 @@ public class SkillDashPointCalculater : MonoBehaviour
     private SkillIndicator _selectedDashPoint;
     [SerializeField]private List<SkillIndicator> _choiceSequence = new List<SkillIndicator>();
     private Action _completeAction; 
+    
+    private Sequence _autoSelectSequence;
+
     private void Awake()
     {
         if (_camera == null)
@@ -131,6 +135,31 @@ public class SkillDashPointCalculater : MonoBehaviour
     public List<SkillIndicator> GetChoiceSequence()
     {
         return _choiceSequence;
+    }
+
+    public void AutoSkillIndicatorSelect()
+    {
+        _autoSelectSequence?.Kill();
+
+        _autoSelectSequence = DOTween.Sequence();
+
+        var allSkillIndicators=FindObjectsByType<SkillIndicator>(FindObjectsSortMode.None);
+        
+        foreach (SkillIndicator dashPoint in allSkillIndicators)
+        {
+            if (_choiceSequence.Contains(dashPoint))
+                continue;
+
+            SkillIndicator point = dashPoint;
+
+            _autoSelectSequence.AppendCallback(() =>
+            {
+                _selectedDashPoint = point;
+                SkillIndicatorSelect();
+            });
+
+            _autoSelectSequence.AppendInterval(0.15f);
+        }
     }
     
 }

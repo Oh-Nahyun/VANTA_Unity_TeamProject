@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
+    
+    private SkillIndicatorController _skillIndicatorController;
     private SkillFocusScreenController _skillFocusScreenController;
     private SkillDashPointCreator _skillDashPointCreator;
     private SkillDashPointCalculater _skillDashPointCalculater;
@@ -13,7 +15,7 @@ public class SkillManager : MonoBehaviour
     [Header("참조")]
     [SerializeField]private PlayerAttack _playerAttack;
     [SerializeField]private PlayerMove _playerMove;
-
+   
     [Header("스킬 사용중 타임 슬로우정도")] [SerializeField]
     private float _timeSlowAmount=0.2f;
     [Header("현재 스킬 스택 개수")][SerializeField]private int _skillStack=0;
@@ -34,6 +36,7 @@ public class SkillManager : MonoBehaviour
         _skillDashPointCreator=GetComponent<SkillDashPointCreator>();
         _skillDashPointCalculater=GetComponent<SkillDashPointCalculater>();
         _skillAttack = GetComponent<SkillAttack>();
+        _skillIndicatorController=GetComponent<SkillIndicatorController>();
         
     }
     
@@ -58,6 +61,7 @@ public class SkillManager : MonoBehaviour
     private void MakeSkillStack()
     {
         _skillStack++;
+        CreateSkillIndicator();
     }
 
 
@@ -71,7 +75,7 @@ public class SkillManager : MonoBehaviour
 
     private void SkillUseStart()
     {
-        _skillSequence=DOVirtual.DelayedCall(_skillTime,SkillUseEnd, true);
+        _skillSequence=DOVirtual.DelayedCall(_skillTime,AutoSkillUseStart, true);
         
         _playerMove.DashToReverseSide();
         
@@ -91,11 +95,13 @@ public class SkillManager : MonoBehaviour
 
     private void DashPointCreat()
     {
-        _skillDashPointCreator.CreateDashPoint(_skillStack,StartDashPointCalculate);
+        List<Vector3>dashPoints=_skillDashPointCreator.CreateDashPoint(_skillStack,StartDashPointCalculate);
+        MoveToPointSkillIndicators(dashPoints);
     }
 
     private void StartDashPointCalculate()
     {
+        
         _skillDashPointCalculater.enabled=true;
         _skillDashPointCalculater.Activate(_skillStack,StartDash);
     }
@@ -120,6 +126,7 @@ public class SkillManager : MonoBehaviour
         _weaknessThreadController.EndWeaknessThread();
 
         _skillStack = 0;
+        _skillIndicatorController.ClearPet();
         
         _skillFocusScreenController.EndFocusScreenSetting();
         
@@ -127,5 +134,20 @@ public class SkillManager : MonoBehaviour
         _playerMove.enabled = true;
 
         Time.timeScale=1f;
+    }
+
+    private void AutoSkillUseStart()
+    {
+        _skillDashPointCalculater.AutoSkillIndicatorSelect();
+    }
+    
+    private void CreateSkillIndicator()
+    {
+        _skillIndicatorController.AddPet();
+    }
+
+    private void MoveToPointSkillIndicators(List<Vector3> dashPoints)
+    {
+        _skillIndicatorController.MoveToPoint(dashPoints);
     }
 }

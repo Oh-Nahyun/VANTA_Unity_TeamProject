@@ -2280,6 +2280,11 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.1
+--- !u!4 &2036981707026674260 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5832803763173705996, guid: 58e163cdef84ffe4d9b76158661ec490, type: 3}
+  m_PrefabInstance: {fileID: 2036981707026674254}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2315716820707731084
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2400,6 +2405,30 @@ PrefabInstance:
     - target: {fileID: 4133056159387206755, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: m_TagString
       value: Boss2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4474688203573458451, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _target
+      value: 
+      objectReference: {fileID: 2036981707026674260}
+    - target: {fileID: 4474688203573458451, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _walkSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4474688203573458451, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _attackZone
+      value: 
+      objectReference: {fileID: 225512466}
+    - target: {fileID: 4474688203573458451, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _dodgeSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4474688203573458451, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _sprintSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4474688203573458451, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _useKeyboardInput
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4827965982157604352, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: _attackBoxCollider

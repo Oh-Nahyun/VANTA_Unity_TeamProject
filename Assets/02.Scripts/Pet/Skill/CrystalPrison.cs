@@ -1,8 +1,11 @@
-using System;
+using System.Collections;
 using UnityEngine;
 
 public class CrystalPrison : MonoBehaviour
 {
+    [Header("펫 크리스탈 프리즌 지속 시간")]
+    [SerializeField] private float _skillDuration = 5f;
+    
     [Header("펫 크리스탈 프리즌 공격력")]
     [SerializeField] private float _damage = 20f;
 
@@ -35,6 +38,11 @@ public class CrystalPrison : MonoBehaviour
     /// 펫 크리스탈 프리즌 효과 발동 전 필요한 대기 시간
     /// </summary>
     private float _timeBeforeUseSkill;
+    
+    /// <summary>
+    /// 펫 크리스탈 프리즌 파괴 전 필요한 대기 시간
+    /// </summary>
+    private float _timeBeforeDestroy;
 
     private void Awake()
     {
@@ -51,6 +59,7 @@ public class CrystalPrison : MonoBehaviour
         
         _timer = 0f;
         _timeBeforeUseSkill = 0.7f;
+        _timeBeforeDestroy = 0.75f;
     }
 
     private void Update()
@@ -72,11 +81,15 @@ public class CrystalPrison : MonoBehaviour
     private void StartSkillProcess()
     {
         StopEnemy();
-        
-        // 몇 초 기다리기
+        StartCoroutine(EndSkillProcessCoroutine());
+    }
+
+    private IEnumerator EndSkillProcessCoroutine()
+    {
+        yield return new WaitForSeconds(_skillDuration);
         
         PlayEndAnimation();
-        Destroy(gameObject, 0.75f);
+        Destroy(gameObject, _timeBeforeDestroy);
     }
     
     private void StopEnemy()

@@ -6350,6 +6350,7 @@ MonoBehaviour:
   _doubleSlashDamage: 75
   _slashEffect: {fileID: 3042519775331041172, guid: 1a3c2ecb0f269ad4095c2651c8462a0e, type: 3}
   _doubleSlashEffect: {fileID: 4306488877223958017, guid: f2b2174306f2a7a4cae5fb635c05c0aa, type: 3}
+  _skillIndicatorController: {fileID: 0}
 --- !u!58 &702931263
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -7713,6 +7714,7 @@ MonoBehaviour:
   _playerMove: {fileID: 702931261}
   _timeSlowAmount: 0.2
   _skillStack: 0
+  _maxSkillStack: 0
   _countForSkillStack: 5
   _currentHitCount: 0
   _skillTime: 10

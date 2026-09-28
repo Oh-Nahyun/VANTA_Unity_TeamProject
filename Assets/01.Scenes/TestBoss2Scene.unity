@@ -5236,7 +5236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4671854515589069039, guid: d4ed2fcf058a6fd439d0f5f3ced73971, type: 3}
       propertyPath: m_Name
-      value: PlayerAuraVFX
+      value: Boss2AuraVFX
       objectReference: {fileID: 0}
     - target: {fileID: 5458988547303032671, guid: d4ed2fcf058a6fd439d0f5f3ced73971, type: 3}
       propertyPath: m_SortingLayer
@@ -6228,6 +6228,7 @@ Transform:
   m_Children:
   - {fileID: 1937677297}
   - {fileID: 1904942987}
+  - {fileID: 1024372092}
   m_Father: {fileID: 1037850055}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &554858226
@@ -7587,6 +7588,16 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 755630922}
   m_SourcePrefab: {fileID: 100100000, guid: 973166439be080a47aa174df30e965d5, type: 3}
+--- !u!1 &1024372091 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3005786366994476738, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+  m_PrefabInstance: {fileID: 1452766487}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1024372092 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2695489949615838337, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+  m_PrefabInstance: {fileID: 1452766487}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1030439868
 GameObject:
   m_ObjectHideFlags: 0
@@ -8383,6 +8394,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5356445260723129817, guid: 2b66d31ee3e09bf41a5c19c163a04c20, type: 3}
   m_PrefabInstance: {fileID: 1106500635}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1452766487
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 550312703}
+    m_Modifications:
+    - target: {fileID: 2695489949615838337, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695489949615838337, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695489949615838337, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695489949615838337, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695489949615838337, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695489949615838337, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695489949615838337, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695489949615838337, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695489949615838337, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695489949615838337, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3005786366994476738, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: m_Name
+      value: Boss2SpinningSlash
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232697810173597566, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232697810173597566, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
 --- !u!1 &1467234549
 GameObject:
   m_ObjectHideFlags: 0
@@ -9562,6 +9638,10 @@ PrefabInstance:
       propertyPath: _attackBoxCollider
       value: 
       objectReference: {fileID: 225512467}
+    - target: {fileID: 4827965982157604352, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _spinningSlashEffect
+      value: 
+      objectReference: {fileID: 1024372091}
     - target: {fileID: 6024146628359518789, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: m_Size.x
       value: 0.48845237

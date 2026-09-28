@@ -11,11 +11,12 @@ public class SkillManager : MonoBehaviour
     private SkillDashPointCreator _skillDashPointCreator;
     private SkillDashPointCalculater _skillDashPointCalculater;
     private SkillAttack _skillAttack;
+    
     [SerializeField] private WeaknessThreadController _weaknessThreadController;
     [Header("참조")]
     [SerializeField] private PlayerAttack _playerAttack;
     [SerializeField] private PlayerMove _playerMove;
-
+    [SerializeField]private Animator _animator;
     [Header("스킬 사용중 타임 슬로우정도")]
     [SerializeField]
     private float _timeSlowAmount = 0.2f;
@@ -89,6 +90,7 @@ public class SkillManager : MonoBehaviour
 
         _weaknessThreadController.StartWeaknessThread();
 
+        _animator.SetBool("IsSkillUse", true);
         _playerAttack.enabled = false;
         _playerMove.enabled = false;
         Time.timeScale = _timeSlowAmount;
@@ -138,6 +140,9 @@ public class SkillManager : MonoBehaviour
 
         _skillFocusScreenController.EndFocusScreenSetting();
 
+        _animator.SetBool("IsSkillUse", false);
+
+        
         _playerAttack.enabled = true;
         _playerMove.enabled = true;
 

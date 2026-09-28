@@ -20,7 +20,10 @@ public class SkillAttack : MonoBehaviour
     [SerializeField] private float _weaknessAngleTolerance = 0.5f;
 
     [Header("참조")][SerializeField] private Rigidbody2D _rigidbody;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
     [Header("vfx 프리팹")][SerializeField] private GameObject _skillDashStartVfxPrefab;
+    [Header("vfx 프리팹")][SerializeField] private GameObject _skillDashEndVfxPrefab;
+
     [Header("vfx 프리팹")][SerializeField] private GameObject _skillDashAttackVfxPrefab;
     [Header("vfx 프리팹")][SerializeField] private GameObject _skillDashAttackCriticalVfxPrefab;
 
@@ -67,13 +70,21 @@ public class SkillAttack : MonoBehaviour
                 Vector3 moveDirection =
                     indicator.transform.position - transform.position;
 
+                if (Mathf.Abs(moveDirection.x) > 0.01f)
+                {
+                    _spriteRenderer.flipX = moveDirection.x < 0f;
+                }
+
                 _skillDashScreenController.StartDashScreenSetting(moveDirection);
 
                 Time.timeScale = _dashTimeSlow;
 
-                Instantiate(_skillDashStartVfxPrefab, transform.position, Quaternion.identity);
-                _animator.SetTrigger("OneDashSkill");
 
+                Instantiate(
+                    _skillDashStartVfxPrefab,
+                    transform.position,
+                    Quaternion.identity
+                );
             });
 
             _dashSequence.AppendInterval(_dashWaitTime);
@@ -95,8 +106,9 @@ public class SkillAttack : MonoBehaviour
             _dashSequence.AppendCallback(() =>
             {
                 Vector2 dashEndPosition = _rigidbody.position;
+                _animator.SetTrigger("OneDashSkill");
 
-                // 시작 → 끝 전체 공격 판정
+                // 시작 → 끝 전체 공격 판정  
                 CheckDashHit(
                     dashStartPosition,
                     dashEndPosition
@@ -105,6 +117,7 @@ public class SkillAttack : MonoBehaviour
                 _skillDashScreenController.EndDashScreenSetting();
 
                 indicator.SkillAttackComplete();
+                Instantiate(_skillDashEndVfxPrefab, indicator.transform.position, Quaternion.identity);
             });
 
             _dashSequence.AppendInterval(_dashWaitTime);

@@ -20,6 +20,10 @@ public class SkillManager : MonoBehaviour
     [SerializeField]
     private float _timeSlowAmount = 0.2f;
     [Header("현재 스킬 스택 개수")][SerializeField] private int _skillStack = 0;
+    public int GetSkillStack => _skillStack;
+
+    [Header("최대 스킬 스택 개수")][SerializeField] private int _maxSkillStack = 0;
+
     [Header("스택 쌓기 위해 필요한 피격 개수")][SerializeField] private int _countForSkillStack = 10;
     [SerializeField] private int _currentHitCount = 0;
 
@@ -61,8 +65,11 @@ public class SkillManager : MonoBehaviour
 
     private void MakeSkillStack()
     {
-        _skillStack++;
-        CreateSkillIndicator();
+        if (_maxSkillStack < _skillStack)
+        {
+            _skillStack++;
+            CreateSkillIndicator();
+        }
     }
 
 

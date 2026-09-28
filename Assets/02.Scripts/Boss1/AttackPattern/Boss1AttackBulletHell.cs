@@ -3,6 +3,11 @@ using UnityEngine;
 public class Boss1AttackBulletHell : MonoBehaviour, IBoss1Attack
 {
     [SerializeField] private float _weight = 20f;
+
+    [SerializeField] private Transform _headPivot;
+    [SerializeField] private Transform _playerTransform;
+    
+    [SerializeField] private Boss1Bullet _bulletPrefab;
     
     public bool IsFinished { get; private set; }
     
@@ -20,6 +25,8 @@ public class Boss1AttackBulletHell : MonoBehaviour, IBoss1Attack
     {
         IsFinished = false;
 
+        FireBullet();
+
         Debug.Log("원거리 패턴 시작");
     }
 
@@ -31,5 +38,12 @@ public class Boss1AttackBulletHell : MonoBehaviour, IBoss1Attack
     public void ExitAttack()
     {
         Debug.Log("원거리 패턴 종료");
+    }
+
+    private void FireBullet()
+    {
+        Vector2 direction = (_playerTransform.position - _headPivot.position).normalized;
+        Boss1Bullet bullet = Instantiate(_bulletPrefab, _headPivot.position, Quaternion.identity);
+        bullet.Initialize(direction);
     }
 }

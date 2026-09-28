@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class SkillIndicatorController : MonoBehaviour
 {
-    [SerializeField]private Transform _player;
-    [SerializeField]private GameObject _skillIndicatorPrefab;
+    [SerializeField] private Transform _player;
+    [SerializeField] private GameObject _skillIndicatorPrefab;
 
     private readonly List<GameObject> _pets = new();
 
     void Update()
     {
-        
+
     }
     public void AddPet()
     {
@@ -33,9 +33,9 @@ public class SkillIndicatorController : MonoBehaviour
             spawnPosition,
             Quaternion.identity
         );
-            
+
         spawned.GetComponent<Animator>().SetTrigger("Spawn");
-        
+
         SkillIndicatorMove indicatorMove =
             spawned.GetComponent<SkillIndicatorMove>();
         indicatorMove.SetTarget(target);
@@ -45,11 +45,11 @@ public class SkillIndicatorController : MonoBehaviour
 
     public void CommandToPetAttack()
     {
-        if (_pets.Count<=0)
+        if (_pets.Count <= 0)
         {
             return;
         }
-        
+
         foreach (GameObject pet in _pets)
         {
             SkillIndicatorAttack skillIndicatorAttack = pet.GetComponent<SkillIndicatorAttack>();
@@ -61,7 +61,7 @@ public class SkillIndicatorController : MonoBehaviour
         }
     }
 
-    
+
     public void MoveToPoint(List<Vector3> points)
     {
         for (int i = 0; i < points.Count; i++)

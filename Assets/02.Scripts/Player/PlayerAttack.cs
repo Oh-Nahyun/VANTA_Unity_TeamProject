@@ -4,30 +4,30 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
 
-    
-    [Header("더블 슬래쉬 까지 필요 공격 횟수")][SerializeField]private int _countForDoubleSlash;
-    [Header("공격 쿨타임")][SerializeField]private float _attackCoolTime=0.5f;
-    [Header("콤보 유지시간")][SerializeField]private float _comboTime=0.5f;
+
+    [Header("더블 슬래쉬 까지 필요 공격 횟수")][SerializeField] private int _countForDoubleSlash;
+    [Header("공격 쿨타임")][SerializeField] private float _attackCoolTime = 0.5f;
+    [Header("콤보 유지시간")][SerializeField] private float _comboTime = 0.5f;
     [Header("공격 거리")]
     [SerializeField] private float _attackDistance = 0.2f;
     [Header("공격 범위")]
     [SerializeField] private float _attackRadius = 1f;
-    
-    
-    [Header("슬래시 데미지")][SerializeField]private float _slashDamage=50;
-    [Header("더블 슬래시 데미지")][SerializeField]private float _doubleSlashDamage=75;
 
-    
+
+    [Header("슬래시 데미지")][SerializeField] private float _slashDamage = 50;
+    [Header("더블 슬래시 데미지")][SerializeField] private float _doubleSlashDamage = 75;
+
+
     [Header("슬래시 공격 이팩트")]
     [SerializeField] private GameObject _slashEffect;
     [Header("더블 슬래시 공격 이팩트")]
     [SerializeField] private GameObject _doubleSlashEffect;
-    
+
     [Header("참조")]
-    [SerializeField]private SkillIndicatorController _skillIndicatorController;
-        
+    [SerializeField] private SkillIndicatorController _skillIndicatorController;
+
     private SkillManager _skillManager;
-    private int _comboCount=0;
+    private int _comboCount = 0;
     private Animator _animator;
     private bool _isSlashing;
     private Tween _comboTimer;
@@ -36,9 +36,9 @@ public class PlayerAttack : MonoBehaviour
     void Awake()
     {
         _animator = GetComponent<Animator>();
-        _spriteRenderer=GetComponent<SpriteRenderer>();
-        _skillManager=GetComponentInChildren<SkillManager>();
-        _skillIndicatorController=GetComponentInChildren<SkillIndicatorController>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _skillManager = GetComponentInChildren<SkillManager>();
+        _skillIndicatorController = GetComponentInChildren<SkillIndicatorController>();
     }
 
     void Update()
@@ -48,11 +48,11 @@ public class PlayerAttack : MonoBehaviour
 
     private void SlashInput()
     {
-        if (Input.GetButton("Fire1")&&!_isSlashing)
+        if (Input.GetButton("Fire1") && !_isSlashing)
         {
             if (_countForDoubleSlash <= _comboCount)
             {
-                _comboCount=0;
+                _comboCount = 0;
                 DoubleSlash();
             }
             else
@@ -60,7 +60,7 @@ public class PlayerAttack : MonoBehaviour
                 _comboCount++;
                 Slash();
             }
-            
+
         }
     }
 
@@ -95,11 +95,11 @@ public class PlayerAttack : MonoBehaviour
     {
         _comboTimer?.Kill();
 
-        _comboTimer = DOVirtual.DelayedCall(_attackCoolTime+_comboTime, () =>
+        _comboTimer = DOVirtual.DelayedCall(_attackCoolTime + _comboTime, () =>
         {
             if (_comboCount > 0)
             {
-                _comboCount  = 0;
+                _comboCount = 0;
             }
         });
     }
@@ -108,55 +108,55 @@ public class PlayerAttack : MonoBehaviour
     {
         Collider2D[] hits = ShotTraceForAttackExamine();
 
-        
+
         foreach (Collider2D hit in hits)
         {
             HitableObject hitObject = hit.GetComponent<HitableObject>();
             if (hitObject != null)
             {
-                hitObject.ExecuteHitEvent(_slashDamage,DamageIndicatorType.Normal);
-                Instantiate( _slashEffect, hit.transform.position, Quaternion.identity);
+                hitObject.ExecuteHitEvent(_slashDamage, DamageIndicatorType.Normal);
+                Instantiate(_slashEffect, hit.transform.position, Quaternion.identity);
                 StackforSkillPoint();
             }
-        }
-    }
-    
-    public void ExamineDoubleSlash()
-    {
-        Collider2D[] hits = ShotTraceForAttackExamine();
-        
-        foreach (Collider2D hit in hits)
-        {
-            HitableObject hitObject = hit.GetComponent<HitableObject>();
-            if (hitObject != null)
-            {
-                hitObject.ExecuteHitEvent(_doubleSlashDamage,DamageIndicatorType.Middle);
-                Instantiate( _doubleSlashEffect, hit.transform.position, Quaternion.identity);
-                StackforSkillPoint();
-            }
-            
         }
     }
 
-    private  Collider2D[] ShotTraceForAttackExamine()
+    public void ExamineDoubleSlash()
+    {
+        Collider2D[] hits = ShotTraceForAttackExamine();
+
+        foreach (Collider2D hit in hits)
+        {
+            HitableObject hitObject = hit.GetComponent<HitableObject>();
+            if (hitObject != null)
+            {
+                hitObject.ExecuteHitEvent(_doubleSlashDamage, DamageIndicatorType.Middle);
+                Instantiate(_doubleSlashEffect, hit.transform.position, Quaternion.identity);
+                StackforSkillPoint();
+            }
+
+        }
+    }
+
+    private Collider2D[] ShotTraceForAttackExamine()
     {
         Vector2 direction = _spriteRenderer.flipX
             ? Vector2.left
             : Vector2.right;
-        
+
         Vector2 attackPosition =
             (Vector2)transform.position + direction * _attackDistance;
-        
+
         Collider2D[] hits = Physics2D.OverlapCircleAll(
             attackPosition,
             _attackRadius
         );
-        
+
         DrawDebugCircle(attackPosition, _attackRadius, 1f);
-        
+
         return hits;
     }
-    
+
     private void DrawDebugCircle(Vector2 center, float radius, float duration)
     {
         int segments = 32;

@@ -19,7 +19,7 @@ public class EnergyBullet : MonoBehaviour
     /// <summary>
     /// 펫 에너지 탄 이동 곡선 클래스
     /// </summary>
-    public BezierCurve BezierCurve;
+    public BezierCurve _bezierCurve;
 
     /// <summary>
     /// 펫 에너지 탄 스폰 시 이동 전 대기 시간 계산용 변수
@@ -41,18 +41,19 @@ public class EnergyBullet : MonoBehaviour
     /// </summary>
     private bool _isHoming;
 
-
     private void Awake()
     {
-        BezierCurve = GetComponent<BezierCurve>();
+        _bezierCurve = GetComponent<BezierCurve>();
     }
 
     private void Start()
     {
         _monster = GameObject.FindGameObjectWithTag("Monster");
 
-        if (BezierCurve == null) return;
-        if (_monster == null) return;
+        if (_bezierCurve == null)
+            return;
+        if (_monster == null)
+            return;
 
         _timer = 0f;
         _timeBeforeMove = 0.6f;
@@ -64,8 +65,10 @@ public class EnergyBullet : MonoBehaviour
 
     private void Update()
     {
-        if (BezierCurve == null) return;
-        if (_monster == null) return;
+        if (_bezierCurve == null)
+            return;
+        if (_monster == null)
+            return;
 
         _timer += Time.deltaTime;
         if (_timer >= _timeBeforeMove)
@@ -79,7 +82,7 @@ public class EnergyBullet : MonoBehaviour
         Vector3 startPoint = transform.position;
         Vector3 endPoint = _monster.transform.position;
 
-        BezierCurve.SetAllPoints(startPoint, endPoint);
+        _bezierCurve.SetAllPoints(startPoint, endPoint);
     }
 
     private void Move()
@@ -99,8 +102,8 @@ public class EnergyBullet : MonoBehaviour
         _bezierProgress += Time.deltaTime * _bezierMoveSpeed;
         _bezierProgress = Mathf.Clamp01(_bezierProgress);
 
-        Vector3 targetPosition = BezierCurve.GetPointOnCurve(_bezierProgress);
-        Vector3 direction = BezierCurve.GetDirectionOnCurve(_bezierProgress);
+        Vector3 targetPosition = _bezierCurve.GetPointOnCurve(_bezierProgress);
+        Vector3 direction = _bezierCurve.GetDirectionOnCurve(_bezierProgress);
 
         SetRotation(direction);
         transform.position = targetPosition;
@@ -122,7 +125,8 @@ public class EnergyBullet : MonoBehaviour
 
     private void SetRotation(Vector3 direction)
     {
-        if (direction.sqrMagnitude <= 0f) return;
+        if (direction.sqrMagnitude <= 0f)
+            return;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
@@ -137,7 +141,8 @@ public class EnergyBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Monster")) return;
+        if (!other.CompareTag("Monster"))
+            return;
 
         Hit();
     }

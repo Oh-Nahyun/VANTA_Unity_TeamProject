@@ -1,5 +1,5 @@
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
 public class ObjectSquash : MonoBehaviour
 {

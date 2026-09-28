@@ -45,7 +45,7 @@ public class Boss2AttackBase : MonoBehaviour
     public event System.Action ComboEnded;
 
 
-     private void Start()
+    private void Start()
     {
         if (_attackBoxCollider != null)
         {
@@ -54,7 +54,7 @@ public class Boss2AttackBase : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-     private void Update()
+    private void Update()
     {
         if (_useKeyboardInput && Input.GetKeyDown(_attackKey))
         {
@@ -73,7 +73,8 @@ public class Boss2AttackBase : MonoBehaviour
     /// </summary>
     public void RequestAttack()
     {
-        if (HasComboSteps() == false) return;
+        if (HasComboSteps() == false)
+            return;
 
         if (_currentCombo < 0)
         {
@@ -92,7 +93,8 @@ public class Boss2AttackBase : MonoBehaviour
     /// </summary>
     public void RequestCombo(int hitCount)
     {
-        if (HasComboSteps() == false || hitCount <= 0) return;
+        if (HasComboSteps() == false || hitCount <= 0)
+            return;
 
         _targetComboCount = Mathf.Clamp(hitCount, 1, _comboSteps.Length);
 
@@ -109,7 +111,7 @@ public class Boss2AttackBase : MonoBehaviour
 
     private void StartCombo(int index)
     {
-        _currentCombo = Mathf.Clamp(index, 0,_comboSteps.Length-1);
+        _currentCombo = Mathf.Clamp(index, 0, _comboSteps.Length - 1);
         _comboStartTime = Time.time;
         // 이전 타에서 쓴 신호가 다음 타 창에서 또 소비되지 않게 비운다.
         _lastSignalTime = float.NegativeInfinity;
@@ -132,7 +134,8 @@ public class Boss2AttackBase : MonoBehaviour
         }
 
         bool isInTiming = elapsed >= step.ComboTimingStart && elapsed <= step.ComboTimingEnd;
-        if (isInTiming == false) return;
+        if (isInTiming == false)
+            return;
 
         int next = _currentCombo + 1;
         bool hasBufferedSignal = (Time.time - _lastSignalTime) <= _inputBufferTime;
@@ -156,7 +159,7 @@ public class Boss2AttackBase : MonoBehaviour
         _currentCombo = -1;
         _lastSignalTime = float.NegativeInfinity;
         _targetComboCount = 0;
-        
+
         ComboEnded?.Invoke();
     }
 
@@ -164,7 +167,7 @@ public class Boss2AttackBase : MonoBehaviour
 
     private void EndAttack()
     {
-        
+
     }
 
     public void StartDamage()
@@ -199,9 +202,9 @@ public class Boss2AttackBase : MonoBehaviour
                 else
                 {
                     Debug.Log("dummy is Null");
-                }    
+                }
             }
-            
+
         }
     }
 }

@@ -10,7 +10,7 @@ public class SkillDashScreenController : MonoBehaviour
     [SerializeField] private Material _focusMaterial;
     [SerializeField] private Transform _player;
     [SerializeField] private Camera _targetCamera;
-   
+
     [Header("Dash Focus")]
     [SerializeField] private float _dashWidth = 0.08f;
     [SerializeField] private float _focusInDuration = 0.5f;
@@ -29,7 +29,7 @@ public class SkillDashScreenController : MonoBehaviour
         Shader.PropertyToID("_DashWidth");
 
     private Tween _widthTween;
-    
+
     public void StartDashScreenSetting(Vector3 dashDirection)
     {
         Vector3 playerScreen =

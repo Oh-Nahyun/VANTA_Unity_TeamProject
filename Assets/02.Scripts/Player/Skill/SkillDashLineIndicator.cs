@@ -5,9 +5,9 @@ public class SkillDashLineIndicator : MonoBehaviour
 {
     [SerializeField] private Transform _player;
 
-    
+
     [Header("라인 랜더러")]
-    [SerializeField]private LineRenderer _selectedLineRenderer;
+    [SerializeField] private LineRenderer _selectedLineRenderer;
     [SerializeField] private LineRenderer _previewLineRenderer;
 
     private int _pointCount;
@@ -22,7 +22,7 @@ public class SkillDashLineIndicator : MonoBehaviour
     {
         ResetLine();
     }
-    
+
 
     public void AddNewPoint(SkillIndicator selectedIndicator)
     {
@@ -97,7 +97,7 @@ public class SkillDashLineIndicator : MonoBehaviour
         _previewLineRenderer.positionCount = 0;
         _previewLineRenderer.enabled = false;
     }
-    
+
 
     public void ResetLine()
     {

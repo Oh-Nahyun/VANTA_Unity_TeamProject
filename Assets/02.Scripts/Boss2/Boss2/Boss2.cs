@@ -5,20 +5,20 @@ public class Boss2 : MonoBehaviour
 {
     [Header("보스2 스탯")]
     [SerializeField] private float _health = 100f;
-    
+
     private Animator _animator;
 
     private void Awake()
     {
-        _animator =  GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
-     private void Start()
+    private void Start()
     {
     }
 
-     private void Update()
+    private void Update()
     {
-        
+
     }
 
 
@@ -27,7 +27,7 @@ public class Boss2 : MonoBehaviour
         if (damage > 0)
         {
             _animator.SetTrigger("Hit");
-            
+
             _health -= damage;
             if (_health <= 0)
             {
@@ -39,10 +39,10 @@ public class Boss2 : MonoBehaviour
         {
             Debug.LogWarning("데미지는 음수 불가");
         }
-        
+
     }
-    
-    
+
+
     private void Death()
     {
         // Effet 

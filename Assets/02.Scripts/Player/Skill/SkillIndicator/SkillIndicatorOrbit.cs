@@ -13,7 +13,7 @@ public class SkillIndicatorOrbit : MonoBehaviour
 
     public void Initialize()
     {
-        _target =FindAnyObjectByType<HitableObject>().transform;
+        _target = FindAnyObjectByType<HitableObject>().transform;
 
         Vector2 offset =
             transform.position - _target.position;

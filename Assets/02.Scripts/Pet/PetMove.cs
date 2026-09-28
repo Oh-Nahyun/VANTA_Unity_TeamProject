@@ -12,12 +12,12 @@ public class PetMove : MonoBehaviour
     /// 펫 클래스
     /// </summary>
     private Pet _pet;
-    
+
     /// <summary>
     /// 펫 스폰 시 이동 전 대기 시간 계산용 변수
     /// </summary>
     private float _timer;
-    
+
     /// <summary>
     /// 펫이 이동하기 전에 필요한 대기 시간
     /// </summary>
@@ -73,21 +73,24 @@ public class PetMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
-        
+        if (!other.CompareTag("Player"))
+            return;
+
         _canChase = false;
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!other.CompareTag("Player"))
+            return;
 
         _canChase = false;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!other.CompareTag("Player"))
+            return;
 
         _canChase = true;
     }

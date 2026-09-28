@@ -25,4 +25,4 @@ if [ -f "$(git rev-parse --git-path MERGE_HEAD)" ] ||
     exit 0
 fi
 
-dotnet format 2d-team05.sln --verify-no-changes --severity warn --include Assets/02.Scripts/
+dotnet format VANTA.sln --verify-no-changes --severity warn --include Assets/02.Scripts/

@@ -15,7 +15,7 @@ public class SkillIndicatorMove : MonoBehaviour
     [SerializeField] private float _pointMoveDuration = 0.5f;
     [SerializeField] private Ease _pointMoveEase = Ease.OutQuad;
 
-    
+
     private SkillIndicatorOrbit _skillIndicatorOrbit;
     private Animator _animator;
     private bool _isPointFix = false;
@@ -26,7 +26,7 @@ public class SkillIndicatorMove : MonoBehaviour
     private void Awake()
     {
         _skillIndicatorOrbit = GetComponent<SkillIndicatorOrbit>();
-        _animator=GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
     private void Update()
     {
@@ -35,7 +35,7 @@ public class SkillIndicatorMove : MonoBehaviour
 
     private void FollowTarget()
     {
-        if (_target == null||_isPointFix)
+        if (_target == null || _isPointFix)
             return;
 
         Vector3 direction = transform.position - _target.position;
@@ -65,12 +65,12 @@ public class SkillIndicatorMove : MonoBehaviour
     public void SetTarget(Transform target)
     {
         _target = target;
-        _animator.SetBool("IsMove",true);
+        _animator.SetBool("IsMove", true);
     }
 
     public void MoveToPoint(Vector3 point)
     {
-        _animator.SetBool("IsMove",true);
+        _animator.SetBool("IsMove", true);
 
         _isPointFix = true;
 
@@ -84,7 +84,7 @@ public class SkillIndicatorMove : MonoBehaviour
             .OnComplete(() =>
             {
                 _skillIndicatorOrbit.Initialize();
-                _animator.SetBool("IsMove",false);
+                _animator.SetBool("IsMove", false);
 
             });
 

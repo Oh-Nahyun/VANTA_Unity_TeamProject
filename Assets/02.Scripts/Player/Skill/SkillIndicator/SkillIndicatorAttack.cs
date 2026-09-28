@@ -67,7 +67,7 @@ public class SkillIndicatorAttack : MonoBehaviour
                 .SetEase(Ease.InQuad)
         );
 
-// 점프 진행 시간의 정확히 절반에서 공격 애니메이션 실행
+        // 점프 진행 시간의 정확히 절반에서 공격 애니메이션 실행
         _attackSequence.InsertCallback(
             _attackDuration * 0.5f,
             () =>

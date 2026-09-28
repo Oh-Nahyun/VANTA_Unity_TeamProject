@@ -8,7 +8,7 @@ public class SkillDashPointCreator : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform _boss;
     [SerializeField] private Transform _player;
-    
+
     [Header("대쉬포인트 설정")]
     [SerializeField] private float _spawnRadius = 5f;
 
@@ -17,18 +17,18 @@ public class SkillDashPointCreator : MonoBehaviour
 
     [Tooltip("랜덤 후보를 몇 개 만들어 비교할지")]
     [SerializeField] private int _candidateCount = 30;
-    public List<Vector3> CreateDashPoint(int count,Action onComplete)
+    public List<Vector3> CreateDashPoint(int count, Action onComplete)
     {
         List<Vector3> selectedPositions = new();
         Vector3 firstPosition = GetOppositePosition();
         selectedPositions.Add(firstPosition);
-        
+
         for (int i = 1; i < count; i++)
         {
             Vector3 position = FindBestPosition(selectedPositions);
             selectedPositions.Add(position);
         }
-        
+
         onComplete.Invoke();
         return selectedPositions;
 
@@ -150,5 +150,5 @@ public class SkillDashPointCreator : MonoBehaviour
 
 
 
- 
+
 }

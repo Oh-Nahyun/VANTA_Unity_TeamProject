@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Boss2MoveBase : MonoBehaviour
+public class Boss2MoveBase : MonoBehaviour, IBossMovable
 {
     private enum MoveState { Normal, Dodge }
 
@@ -44,7 +44,12 @@ public class Boss2MoveBase : MonoBehaviour
     private Vector2 _dodgeDir;
     private float _dodgeTimer;
     private float _dodgeCooldownTimer;
-    
+
+    // 외부 효과(크리스탈 프리즌 등)에 의한 이동 봉쇄.
+    private bool _isMoveBlocked;
+    // 봉쇄를 풀 때 되돌릴 원래 제약 (회전 고정 등).
+    private RigidbodyConstraints2D _constraintsBeforeBlock;
+
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody2D;
@@ -61,6 +66,7 @@ public class Boss2MoveBase : MonoBehaviour
 
     private readonly Dictionary<KeyCode, float> _lastTapTime = new Dictionary<KeyCode, float>();
 
+    public bool IsMoveBlocked => _isMoveBlocked;
     public bool IsDodging => _state == MoveState.Dodge;
     public bool IsSprinting => _state == MoveState.Normal && _velocity.magnitude > _walkSpeed + 0.1f;
     public float CurrentSpeed => _velocity.magnitude;
@@ -87,6 +93,10 @@ public class Boss2MoveBase : MonoBehaviour
         // 곧바로 Normal 규칙으로 속도가 계산되어 한 프레임이 비지 않는다.
         // 쿨타임도 먼저 줄어 있어야 이번 프레임의 TryDodge 판정이 정확하다.
         TickTimers();
+
+        // 봉쇄 중에는 입력과 패턴을 모두 무시하고 제자리에 있는다. 쿨타임은 위에서 계속 흐른다.
+        if (_isMoveBlocked)
+            return;
 
         if (_useKeyboardInput)
         {
@@ -141,6 +151,51 @@ public class Boss2MoveBase : MonoBehaviour
 
         StartDodge(direction);
         return true;
+    }
+
+    // ---- 이동 봉쇄 (IBossMovable) ----
+    /// <summary>
+    /// 보스를 제자리에 묶는다. 구르는 중이면 즉시 끊고, 밀려서도 움직이지 않게 위치를 고정한다.
+    /// 이미 봉쇄된 상태에서 다시 불러도 한 번 부른 것과 같다.
+    /// </summary>
+    public void MoveBlock()
+    {
+        if (_isMoveBlocked)
+            return;
+
+        _isMoveBlocked = true;
+
+        if (_state == MoveState.Dodge)
+        {
+            _state = MoveState.Normal;
+            _dodgeTimer = 0f;
+            // 풀리자마자 다시 구르지 않도록 정상 종료와 같은 쿨타임을 준다.
+            _dodgeCooldownTimer = _dodgeCooldown;
+            EndDodge();
+        }
+
+        StopMove();
+        _velocity = Vector2.zero;
+        _rigidbody2D.linearVelocity = Vector2.zero;
+
+        _constraintsBeforeBlock = _rigidbody2D.constraints;
+        _rigidbody2D.constraints = _constraintsBeforeBlock | RigidbodyConstraints2D.FreezePosition;
+
+        _animator.SetBool("IsMove", false);
+        _animator.SetBool("IsSprint", false);
+    }
+
+    /// <summary>
+    /// 봉쇄를 푼다. 원래 제약을 되돌리고, 다음 프레임부터 입력·패턴대로 다시 움직인다.
+    /// 봉쇄 중이 아닐 때 불러도 아무 일도 없다.
+    /// </summary>
+    public void MoveUnblock()
+    {
+        if (_isMoveBlocked == false)
+            return;
+
+        _isMoveBlocked = false;
+        _rigidbody2D.constraints = _constraintsBeforeBlock;
     }
 
     // ---- 테스트용 키 입력 ----

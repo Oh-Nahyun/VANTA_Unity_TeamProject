@@ -65,7 +65,7 @@ public class SkillManager : MonoBehaviour
 
     private void MakeSkillStack()
     {
-        if (_maxSkillStack < _skillStack)
+        if (_maxSkillStack > _skillStack)
         {
             _skillStack++;
             CreateSkillIndicator();

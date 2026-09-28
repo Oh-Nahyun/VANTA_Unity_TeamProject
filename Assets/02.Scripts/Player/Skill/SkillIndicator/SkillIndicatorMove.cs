@@ -11,26 +11,37 @@ public class SkillIndicatorMove : MonoBehaviour
     [SerializeField] private float _smoothTime = 0.15f;
     [SerializeField] private float _maxSpeed = 10f;
 
+    [Header("Movement Animation")]
+    [SerializeField] private float _moveThreshold = 0.01f;
+
     [Header("Point Movement")]
     [SerializeField] private float _pointMoveDuration = 0.5f;
     [SerializeField] private Ease _pointMoveEase = Ease.OutQuad;
 
-
     private SkillIndicatorOrbit _skillIndicatorOrbit;
     private Animator _animator;
+    private SpriteRenderer _spriteRenderer;
+
     private bool _isPointFix = false;
     private Vector3 _velocity;
 
     private Tween _moveTween;
 
+    private Vector3 _previousPosition;
+
     private void Awake()
     {
         _skillIndicatorOrbit = GetComponent<SkillIndicatorOrbit>();
         _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+
+        _previousPosition = transform.position;
     }
+
     private void Update()
     {
         FollowTarget();
+        UpdateAnimation();
     }
 
     private void FollowTarget()
@@ -51,7 +62,7 @@ public class SkillIndicatorMove : MonoBehaviour
         }
 
         Vector3 targetPosition =
-            _target.position + direction.normalized * _followDistance;
+            _target.position + direction * _followDistance;
 
         transform.position = Vector3.SmoothDamp(
             transform.position,
@@ -62,16 +73,32 @@ public class SkillIndicatorMove : MonoBehaviour
         );
     }
 
+    private void UpdateAnimation()
+    {
+        Vector3 movement = transform.position - _previousPosition;
+
+        bool isMoving = movement.sqrMagnitude >
+                        _moveThreshold * _moveThreshold;
+
+        _animator.SetBool("IsMove", isMoving);
+
+        // 실제로 좌우 이동했을 때만 방향 변경
+        if (Mathf.Abs(movement.x) > _moveThreshold)
+        {
+            // 기본 스프라이트가 오른쪽을 바라본다고 가정
+            _spriteRenderer.flipX = movement.x < 0f;
+        }
+
+        _previousPosition = transform.position;
+    }
+
     public void SetTarget(Transform target)
     {
         _target = target;
-        _animator.SetBool("IsMove", true);
     }
 
     public void MoveToPoint(Vector3 point)
     {
-        _animator.SetBool("IsMove", true);
-
         _isPointFix = true;
 
         _moveTween?.Kill();
@@ -84,11 +111,12 @@ public class SkillIndicatorMove : MonoBehaviour
             .OnComplete(() =>
             {
                 _skillIndicatorOrbit.Initialize();
-                _animator.SetBool("IsMove", false);
-
+                
             });
-
-
     }
 
+    private void OnDestroy()
+    {
+        _moveTween?.Kill();
+    }
 }

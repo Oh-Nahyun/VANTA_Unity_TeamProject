@@ -8,7 +8,7 @@ public class Boss2MovePattern : Boss2MoveBase
     [SerializeField] private float _attackRange = 1f;
     // BackStep 은 타깃과 이 거리 이상 벌어지면 끝난다.
     [SerializeField] private float _backStepDistance = 3f;
-
+    
     private Boss2MovePatternType _currentMovePatternType = Boss2MovePatternType.None;
 
     public bool IsPatternRunning => _currentMovePatternType != Boss2MovePatternType.None;
@@ -36,21 +36,36 @@ public class Boss2MovePattern : Boss2MoveBase
         bool isFinished = false;
         switch (_currentMovePatternType)
         {
+            case Boss2MovePatternType.None:
+            {
+                isFinished = true;
+                break;
+            }
             case Boss2MovePatternType.PressureWalk:
+            {
                 isFinished = PressureWalk(toTarget);
                 break;
+            }
             case Boss2MovePatternType.ChaseRun:
+            {
                 isFinished = ChaseRun(toTarget);
                 break;
+            }
             case Boss2MovePatternType.ChaseBlink:
+            {
                 isFinished = ChaseBlink(toTarget);
                 break;
+            }
             case Boss2MovePatternType.RoundMove:
+            {
                 isFinished = RoundMove(toTarget);
                 break;
+            }
             case Boss2MovePatternType.BackStep:
+            {
                 isFinished = BackStep(toTarget);
                 break;
+            }
         }
 
         if (isFinished)

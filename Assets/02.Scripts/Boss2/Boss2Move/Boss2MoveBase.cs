@@ -113,7 +113,6 @@ public class Boss2MoveBase : MonoBehaviour
     }
 
     // ---- 기본 이동 ----
-
     protected void Walk(Vector2 direction)
     {
         _moveDirection = direction.normalized;

@@ -1,7 +1,7 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class HitVfx : MonoBehaviour
+public class CameraShakeGenerator : MonoBehaviour
 {
     [Header("VFX 유지 시간")]
     [SerializeField] private float _lifeTime = 0.5f;

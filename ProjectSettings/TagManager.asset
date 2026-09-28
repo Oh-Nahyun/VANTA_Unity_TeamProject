@@ -14,6 +14,7 @@ TagManager:
   - SkillIndicator
   - DestroyableObject
   - Vfx
+  - PetEnergyBullet
   layers:
   - Default
   - TransparentFX
@@ -35,7 +36,7 @@ TagManager:
   - Camera
   - Light
   - Vfx
-  - 
+  - PetEnergyBullet
   - 
   - 
   - 
@@ -77,6 +78,9 @@ TagManager:
     locked: 0
   - name: Pet
     uniqueID: 3051575319
+    locked: 0
+  - name: PetEnergyBullet
+    uniqueID: 99385855
     locked: 0
   - name: SkillIndicator
     uniqueID: 3295876743

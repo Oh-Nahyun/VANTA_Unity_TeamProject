@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1131493570383196705}
   - component: {fileID: 9214237589838081223}
   - component: {fileID: 4827965982157604352}
-  - component: {fileID: 2959589179919576284}
+  - component: {fileID: 4474688203573458451}
   - component: {fileID: 3614016485446532058}
   - component: {fileID: -9214112356609609119}
   - component: {fileID: 6024146628359518789}
@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349eca76ea90d1e4ab422e6affdf09cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss2
+  _health: 100
 --- !u!114 &4827965982157604352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +122,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee7ae1ec821b38a4892913bd4e58d4c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss2AttackBase
---- !u!114 &2959589179919576284
+  _baseDamage: 1
+  _areaOfEffectDamage: 1
+  _instantKillDamage: 1
+  _attackBoxCollider: {fileID: 0}
+  _useKeyboardInput: 1
+  _attackKey: 32
+  _comboSteps:
+  - StateName: Boss2Attack
+    MaxStepTime: 1
+    ComboTimingStart: 0.25
+    ComboTimingEnd: 1
+  - StateName: Boss2DoubleAttack
+    MaxStepTime: 1
+    ComboTimingStart: 0.25
+    ComboTimingEnd: 1.15
+  _inputBufferTime: 0.2
+--- !u!114 &4474688203573458451
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,20 +147,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 4133056159387206755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dc7e88235f3da24e9ac83e26c67e49f, type: 3}
+  m_Script: {fileID: 11500000, guid: 992f4e64619e73c4abef3269bf8da2b3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Boss2MoveBase
-  _walkSpeed: 3
-  _sprintSpeed: 6
+  m_EditorClassIdentifier: Assembly-CSharp::Boss2MovePattern
+  _walkSpeed: 5
+  _sprintSpeed: 10
   _acceleration: 40
   _deceleration: 25
-  _dodgeSpeed: 15
+  _dodgeSpeed: 30
   _dodgeEndSpeed: 6
   _dodgeDuration: 0.25
   _dodgeCooldown: 0.6
   _doubleTapInterval: 0.25
   _iFrameStart: 0.05
   _iFrameEnd: 0.2
+  _useKeyboardInput: 0
+  _attackZone: {fileID: 0}
+  _target: {fileID: 0}
+  _arriveDistance: 1.2
 --- !u!95 &3614016485446532058
 Animator:
   serializedVersion: 7
@@ -231,7 +252,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.375, y: 0.328125}
+    oldSize: {x: 2.25, y: 2.25}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

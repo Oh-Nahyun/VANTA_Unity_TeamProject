@@ -10,14 +10,14 @@ public class DamageDummy : MonoBehaviour
     {
         _collider = GetComponent<BoxCollider2D>();
     }
-     private void Start()
+    private void Start()
     {
-            
+
     }
 
-     private void Update()
+    private void Update()
     {
-        
+
     }
 
     public void OnTriggerEnter2D(Collider2D other)

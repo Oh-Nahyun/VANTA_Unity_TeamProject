@@ -5,47 +5,48 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
-    
+
     private SkillIndicatorController _skillIndicatorController;
     private SkillFocusScreenController _skillFocusScreenController;
     private SkillDashPointCreator _skillDashPointCreator;
     private SkillDashPointCalculater _skillDashPointCalculater;
     private SkillAttack _skillAttack;
-    [SerializeField]private WeaknessThreadController _weaknessThreadController;
+    [SerializeField] private WeaknessThreadController _weaknessThreadController;
     [Header("참조")]
-    [SerializeField]private PlayerAttack _playerAttack;
-    [SerializeField]private PlayerMove _playerMove;
-   
-    [Header("스킬 사용중 타임 슬로우정도")] [SerializeField]
-    private float _timeSlowAmount=0.2f;
-    [Header("현재 스킬 스택 개수")][SerializeField]private int _skillStack=0;
-    [Header("스택 쌓기 위해 필요한 피격 개수")][SerializeField]private int _countForSkillStack=10;
-    [SerializeField]private int _currentHitCount=0;
+    [SerializeField] private PlayerAttack _playerAttack;
+    [SerializeField] private PlayerMove _playerMove;
 
-    [Header("스킬 유지 시간")][SerializeField]private float _skillTime=10f;
-    private float curTime=0;
+    [Header("스킬 사용중 타임 슬로우정도")]
+    [SerializeField]
+    private float _timeSlowAmount = 0.2f;
+    [Header("현재 스킬 스택 개수")][SerializeField] private int _skillStack = 0;
+    [Header("스택 쌓기 위해 필요한 피격 개수")][SerializeField] private int _countForSkillStack = 10;
+    [SerializeField] private int _currentHitCount = 0;
+
+    [Header("스킬 유지 시간")][SerializeField] private float _skillTime = 10f;
+    private float _curTime = 0;
 
     private Tween _skillSequence;
-    
-    
+
+
 
 
     private void Awake()
     {
-        _skillFocusScreenController=GetComponent<SkillFocusScreenController>();
-        _skillDashPointCreator=GetComponent<SkillDashPointCreator>();
-        _skillDashPointCalculater=GetComponent<SkillDashPointCalculater>();
+        _skillFocusScreenController = GetComponent<SkillFocusScreenController>();
+        _skillDashPointCreator = GetComponent<SkillDashPointCreator>();
+        _skillDashPointCalculater = GetComponent<SkillDashPointCalculater>();
         _skillAttack = GetComponent<SkillAttack>();
-        _skillIndicatorController=GetComponent<SkillIndicatorController>();
-        
+        _skillIndicatorController = GetComponent<SkillIndicatorController>();
+
     }
-    
+
 
     // Update is called once per frame
     void Update()
     {
         SkillInput();
-        
+
     }
 
     public void CalHitCount()
@@ -67,7 +68,7 @@ public class SkillManager : MonoBehaviour
 
     private void SkillInput()
     {
-        if (Input.GetMouseButtonDown(1)&&_skillStack>0)
+        if (Input.GetMouseButtonDown(1) && _skillStack > 0)
         {
             SkillUseStart();
         }
@@ -75,15 +76,15 @@ public class SkillManager : MonoBehaviour
 
     private void SkillUseStart()
     {
-        _skillSequence=DOVirtual.DelayedCall(_skillTime,AutoSkillUseStart, true);
-        
+        _skillSequence = DOVirtual.DelayedCall(_skillTime, AutoSkillUseStart, true);
+
         _playerMove.DashToReverseSide();
-        
+
         _weaknessThreadController.StartWeaknessThread();
-        
+
         _playerAttack.enabled = false;
         _playerMove.enabled = false;
-        Time.timeScale=_timeSlowAmount;
+        Time.timeScale = _timeSlowAmount;
 
         ScreenControl();
     }
@@ -95,30 +96,30 @@ public class SkillManager : MonoBehaviour
 
     private void DashPointCreat()
     {
-        List<Vector3>dashPoints=_skillDashPointCreator.CreateDashPoint(_skillStack,StartDashPointCalculate);
+        List<Vector3> dashPoints = _skillDashPointCreator.CreateDashPoint(_skillStack, StartDashPointCalculate);
         MoveToPointSkillIndicators(dashPoints);
     }
 
     private void StartDashPointCalculate()
     {
-        
-        _skillDashPointCalculater.enabled=true;
-        _skillDashPointCalculater.Activate(_skillStack,StartDash);
+
+        _skillDashPointCalculater.enabled = true;
+        _skillDashPointCalculater.Activate(_skillStack, StartDash);
     }
 
     private void StartDash()
     {
-        List<SkillIndicator>_choicedSequnce=_skillDashPointCalculater.GetChoiceSequence();
+        List<SkillIndicator> _choicedSequnce = _skillDashPointCalculater.GetChoiceSequence();
         _skillAttack.SetWeaknessDirection(_weaknessThreadController.GetThreadDirection());
-        _skillAttack.DashStart(_choicedSequnce,SkillUseEnd);
-        _skillDashPointCalculater.enabled=false;
+        _skillAttack.DashStart(_choicedSequnce, SkillUseEnd);
+        _skillDashPointCalculater.enabled = false;
     }
-    
-    
-    
+
+
+
     public void SkillUseEnd()
     {
-        if (_skillSequence!=null)
+        if (_skillSequence != null)
         {
             _skillSequence.Kill();
         }
@@ -127,20 +128,20 @@ public class SkillManager : MonoBehaviour
 
         _skillStack = 0;
         _skillIndicatorController.ClearPet();
-        
+
         _skillFocusScreenController.EndFocusScreenSetting();
-        
+
         _playerAttack.enabled = true;
         _playerMove.enabled = true;
 
-        Time.timeScale=1f;
+        Time.timeScale = 1f;
     }
 
     private void AutoSkillUseStart()
     {
         _skillDashPointCalculater.AutoSkillIndicatorSelect();
     }
-    
+
     private void CreateSkillIndicator()
     {
         _skillIndicatorController.AddPet();

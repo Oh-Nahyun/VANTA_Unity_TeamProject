@@ -3,11 +3,15 @@ using UnityEngine;
 
 public class SkillIndicatorController : MonoBehaviour
 {
-    [SerializeField]private Transform _player;
-    [SerializeField]private GameObject _skillIndicatorPrefab;
+    [SerializeField] private Transform _player;
+    [SerializeField] private GameObject _skillIndicatorPrefab;
 
-    private readonly List<SkillIndicatorMove> _pets = new();
+    private readonly List<GameObject> _pets = new();
 
+    void Update()
+    {
+
+    }
     public void AddPet()
     {
         Transform target;
@@ -30,19 +34,39 @@ public class SkillIndicatorController : MonoBehaviour
             Quaternion.identity
         );
 
+        spawned.GetComponent<Animator>().SetTrigger("Spawn");
+
         SkillIndicatorMove indicatorMove =
             spawned.GetComponent<SkillIndicatorMove>();
-
         indicatorMove.SetTarget(target);
-
-        _pets.Add(indicatorMove);
+        _pets.Add(spawned);
     }
+
+
+    public void CommandToPetAttack()
+    {
+        if (_pets.Count <= 0)
+        {
+            return;
+        }
+
+        foreach (GameObject pet in _pets)
+        {
+            SkillIndicatorAttack skillIndicatorAttack = pet.GetComponent<SkillIndicatorAttack>();
+            if (!skillIndicatorAttack.IsAttacking)
+            {
+                skillIndicatorAttack.Attack();
+                return;
+            }
+        }
+    }
+
 
     public void MoveToPoint(List<Vector3> points)
     {
         for (int i = 0; i < points.Count; i++)
         {
-            _pets[i].MoveToPoint(points[i]);
+            _pets[i].GetComponent<SkillIndicatorMove>().MoveToPoint(points[i]);
         }
     }
 

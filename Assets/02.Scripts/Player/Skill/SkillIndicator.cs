@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEditor.SearchService;
 using UnityEngine;
 
@@ -6,20 +7,20 @@ public class SkillIndicator : MonoBehaviour
     private ObjectSelect _objectSelector;
     private ObjectSquash _objectSquash;
     private ObjectFocus _objectFocus;
-    private SkillIndicatorOrbit  _skillIndicatorOrbit;
+    private SkillIndicatorOrbit _skillIndicatorOrbit;
     private SkillIndicatorMove _skillIndicatorMove;
-    
+
     private bool _isChoiced;
     private void Awake()
     {
         _objectSelector = GetComponent<ObjectSelect>();
-        _objectFocus=GetComponent<ObjectFocus>();
-        _skillIndicatorOrbit=GetComponent<SkillIndicatorOrbit>();
-        _skillIndicatorMove=GetComponent<SkillIndicatorMove>();
+        _objectFocus = GetComponent<ObjectFocus>();
+        _skillIndicatorOrbit = GetComponent<SkillIndicatorOrbit>();
+        _skillIndicatorMove = GetComponent<SkillIndicatorMove>();
     }
     public static SkillIndicator GetAtScreenPosition(Camera targetCamera, Vector2 screenPosition, LayerMask layerMask)
     {
-        
+
         Ray ray = targetCamera.ScreenPointToRay(screenPosition);
         RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity, layerMask);
 
@@ -49,7 +50,7 @@ public class SkillIndicator : MonoBehaviour
 
         return closestIndicator;
     }
-    
+
     public void Select()
     {
         _objectSelector.StartSelect();
@@ -58,7 +59,7 @@ public class SkillIndicator : MonoBehaviour
 
     public void Deselect()
     {
-        
+
         _objectSelector.EndSelect();
         _objectFocus.EndFocus();
     }
@@ -70,16 +71,22 @@ public class SkillIndicator : MonoBehaviour
     public void ChoicedToAttack()
     {
         _isChoiced = true;
+        GetComponent<Animator>().SetTrigger("Choice");
+
         Deselect();
         if (_objectSquash != null)
             _objectSquash.PlaySquash();
-        
+
         _skillIndicatorOrbit.StopOrbit();
+        GetComponent<SkillIndicatorAttack>().PauseAttack();
     }
 
     public void SkillAttackComplete()
     {
-        Destroy(this.gameObject);
+
+
+        Destroy(gameObject);
+
     }
-    
+
 }

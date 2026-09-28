@@ -18,7 +18,7 @@ public class UntimeSlowCameraShake : MonoBehaviour
 
     private void Awake()
     {
-        _shakeTarget=Camera.main.transform;
+        _shakeTarget = Camera.main.transform;
     }
 
     private void OnEnable()

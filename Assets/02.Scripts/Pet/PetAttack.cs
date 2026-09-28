@@ -4,16 +4,16 @@ public class PetAttack : MonoBehaviour
 {
     [Header("펫 기본 공격 에너지 탄 프리팹")]
     [SerializeField] private GameObject _energyBulletPrefab;
-    
+
     [Header("펫 기본 공격 에너지 탄 생성 위치")]
     [SerializeField] private Transform _energyBulletSpawnPosition;
-    
+
     [Header("펫 기본 공격 에너지 탄 생성 갯수")]
     [SerializeField] private int _energyBulletCount = 1;
-    
+
     [Header("펫 공격 스킬 크리스탈 프리즌 프리팹")]
     [SerializeField] private GameObject _crystalPrisonPrefab;
-    
+
     /// <summary>
     /// 펫 클래스
     /// </summary>
@@ -42,7 +42,7 @@ public class PetAttack : MonoBehaviour
             EnergyBullet energyBullet = bullet.GetComponent<EnergyBullet>();
 
             float curveAmount = (i - middleIndex) * 2f;
-            energyBullet._bezierCurve.SetCurveAmount(curveAmount);
+            energyBullet.BezierCurve.SetCurveAmount(curveAmount);
         }
     }
 

@@ -19,7 +19,7 @@ public class EnergyBullet : MonoBehaviour
     /// <summary>
     /// 펫 에너지 탄 이동 곡선 클래스
     /// </summary>
-    public BezierCurve _bezierCurve;
+    public BezierCurve BezierCurve;
 
     /// <summary>
     /// 펫 에너지 탄 스폰 시 이동 전 대기 시간 계산용 변수
@@ -43,14 +43,14 @@ public class EnergyBullet : MonoBehaviour
 
     private void Awake()
     {
-        _bezierCurve = GetComponent<BezierCurve>();
+        BezierCurve = GetComponent<BezierCurve>();
     }
 
     private void Start()
     {
         _monster = GameObject.FindGameObjectWithTag("Monster");
 
-        if (_bezierCurve == null)
+        if (BezierCurve == null)
             return;
         if (_monster == null)
             return;
@@ -65,7 +65,7 @@ public class EnergyBullet : MonoBehaviour
 
     private void Update()
     {
-        if (_bezierCurve == null)
+        if (BezierCurve == null)
             return;
         if (_monster == null)
             return;
@@ -82,7 +82,7 @@ public class EnergyBullet : MonoBehaviour
         Vector3 startPoint = transform.position;
         Vector3 endPoint = _monster.transform.position;
 
-        _bezierCurve.SetAllPoints(startPoint, endPoint);
+        BezierCurve.SetAllPoints(startPoint, endPoint);
     }
 
     private void Move()
@@ -102,8 +102,8 @@ public class EnergyBullet : MonoBehaviour
         _bezierProgress += Time.deltaTime * _bezierMoveSpeed;
         _bezierProgress = Mathf.Clamp01(_bezierProgress);
 
-        Vector3 targetPosition = _bezierCurve.GetPointOnCurve(_bezierProgress);
-        Vector3 direction = _bezierCurve.GetDirectionOnCurve(_bezierProgress);
+        Vector3 targetPosition = BezierCurve.GetPointOnCurve(_bezierProgress);
+        Vector3 direction = BezierCurve.GetDirectionOnCurve(_bezierProgress);
 
         SetRotation(direction);
         transform.position = targetPosition;

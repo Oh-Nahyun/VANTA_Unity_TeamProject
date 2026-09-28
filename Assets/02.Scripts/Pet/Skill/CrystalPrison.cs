@@ -76,17 +76,17 @@ public class CrystalPrison : MonoBehaviour
         _timer += Time.deltaTime;
         if (_timer >= _timeBeforeUseSkill)
         {
-            StartSkillProcess(_attackTarget.GetComponent<IMovable>());
+            StartSkillProcess(_attackTarget.GetComponent<IBossMovable>());
         }
     }
 
-    private void StartSkillProcess(IMovable attackTarget)
+    private void StartSkillProcess(IBossMovable attackTarget)
     {
         attackTarget.MoveBlock();
         StartCoroutine(EndSkillProcessCoroutine(attackTarget));
     }
 
-    private IEnumerator EndSkillProcessCoroutine(IMovable attackTarget)
+    private IEnumerator EndSkillProcessCoroutine(IBossMovable attackTarget)
     {
         yield return new WaitForSeconds(_skillDuration);
 

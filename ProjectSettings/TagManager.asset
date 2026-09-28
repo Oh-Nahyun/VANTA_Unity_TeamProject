@@ -75,9 +75,6 @@ TagManager:
   - name: Monster
     uniqueID: 1553955063
     locked: 0
-  - name: Player
-    uniqueID: 3528058243
-    locked: 0
   - name: Pet
     uniqueID: 3051575319
     locked: 0
@@ -86,6 +83,9 @@ TagManager:
     locked: 0
   - name: Camera
     uniqueID: 3511261039
+    locked: 0
+  - name: Player
+    uniqueID: 3528058243
     locked: 0
   - name: Light
     uniqueID: 2602680319

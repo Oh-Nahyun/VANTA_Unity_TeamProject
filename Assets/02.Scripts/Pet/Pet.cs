@@ -21,6 +21,6 @@ public class Pet : MonoBehaviour
     {
         Animator = GetComponent<Animator>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
-        PlayerSkillManager = GameObject.FindGameObjectWithTag("Player").GetComponent<SkillManager>();
+        PlayerSkillManager = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<SkillManager>();
     }
 }

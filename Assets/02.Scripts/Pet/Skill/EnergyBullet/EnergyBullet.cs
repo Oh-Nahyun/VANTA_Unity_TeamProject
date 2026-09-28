@@ -14,7 +14,7 @@ public class EnergyBullet : MonoBehaviour
     /// <summary>
     /// 펫 공격 타겟
     /// </summary>
-    private GameObject _monster;
+    private GameObject _attackTarget;
 
     /// <summary>
     /// 펫 에너지 탄 이동 곡선 클래스
@@ -48,11 +48,11 @@ public class EnergyBullet : MonoBehaviour
 
     private void Start()
     {
-        _monster = GameObject.FindGameObjectWithTag("Monster");
+        _attackTarget = GameObject.FindGameObjectWithTag("Boss");
 
         if (BezierCurve == null)
             return;
-        if (_monster == null)
+        if (_attackTarget == null)
             return;
 
         _timer = 0f;
@@ -67,7 +67,7 @@ public class EnergyBullet : MonoBehaviour
     {
         if (BezierCurve == null)
             return;
-        if (_monster == null)
+        if (_attackTarget == null)
             return;
 
         _timer += Time.deltaTime;
@@ -80,7 +80,7 @@ public class EnergyBullet : MonoBehaviour
     private void SetBezierPoints()
     {
         Vector3 startPoint = transform.position;
-        Vector3 endPoint = _monster.transform.position;
+        Vector3 endPoint = _attackTarget.transform.position;
 
         BezierCurve.SetAllPoints(startPoint, endPoint);
     }
@@ -116,7 +116,7 @@ public class EnergyBullet : MonoBehaviour
 
     private void HomingMove()
     {
-        Vector3 direction = _monster.transform.position - transform.position;
+        Vector3 direction = _attackTarget.transform.position - transform.position;
 
         direction.Normalize();
         SetRotation(direction);

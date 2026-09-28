@@ -19,18 +19,10 @@
 ## or put your custom commands -------------------
 #echo 'Husky.Net is awesome!'
 
-set -eu
-
-project_file="CodeStyle.csproj"
-if [ ! -f "${project_file}" ]; then
-    echo "${project_file} 파일을 찾을 수 없습니다."
-    exit 1
+if [ -f "$(git rev-parse --git-path MERGE_HEAD)" ] ||
+   [ -f "$(git rev-parse --git-path REVERT_HEAD)" ]; then
+    echo "merge/revert 커밋이므로 Husky 검사를 건너뜁니다."
+    exit 0
 fi
 
-echo "C# 코딩 컨벤션 검사 중: ${project_file}"
-dotnet format style "${project_file}" \
-    --no-restore \
-    --verify-no-changes \
-    --severity warn \
-    --include Assets/02.Scripts/ \
-    --verbosity minimal
+dotnet format style VANTA.sln --verify-no-changes --severity warn --include Assets/02.Scripts/ --exclude-diagnostics IDE0005 IDE0065

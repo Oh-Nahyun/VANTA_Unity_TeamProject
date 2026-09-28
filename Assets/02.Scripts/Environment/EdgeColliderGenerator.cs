@@ -5,7 +5,7 @@ public class EdgeColliderGenerator : MonoBehaviour
     [Header("가로길이")][SerializeField] private float _width = 10f;
     [Header("세로길이")][SerializeField] private float _height = 6f;
     [Header("세그 먼트 수")][SerializeField] private int _segments = 32;
-    
+
     private void Awake()
     {
         EdgeCollider2D edge = GetComponent<EdgeCollider2D>();

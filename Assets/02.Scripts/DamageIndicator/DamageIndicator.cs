@@ -1,14 +1,20 @@
+using TMPro;
 using UnityEngine;
 
-public class DamageIndicator : MonoBehaviour
+public abstract class DamageIndicator : MonoBehaviour
 {
-    public void Init()
+    protected TextMeshProUGUI _text;
+
+    protected virtual void Awake()
     {
-        
+        _text = GetComponent<TextMeshProUGUI>();
     }
 
-    private void IndicatorCreate()
+    public void Init(float damage)
     {
-        
+        _text.text = damage.ToString();
+        IndicatorCreate();
     }
+
+    protected abstract void IndicatorCreate();
 }

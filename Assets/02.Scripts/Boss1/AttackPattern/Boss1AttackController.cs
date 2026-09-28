@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Boss1AttackController : MonoBehaviour
 {
+    [SerializeField] private Boss1AttackBulletHell _bulletHellAttack;
+    
     [SerializeField] private float _chaseDuration = 1f;
 
     private AttackState _currentState;
@@ -12,7 +14,7 @@ public class Boss1AttackController : MonoBehaviour
     private enum AttackState
     {
         Chase,
-        Attack
+        BulletHell
     }
 
     private void Start()
@@ -28,8 +30,8 @@ public class Boss1AttackController : MonoBehaviour
                 UpdateChase();
                 break;
 
-            case AttackState.Attack:
-                UpdateAttack();
+            case AttackState.BulletHell:
+                UpdateBulletHell();
                 break;
         }
     }
@@ -43,27 +45,21 @@ public class Boss1AttackController : MonoBehaviour
 
         if (_stateTimer >= _chaseDuration)
         {
-            // 이후 공격 선택 로직 추가
+            ChangeState(AttackState.BulletHell);
+            _bulletHellAttack.EnterAttack();
         }
     }
 
     /// <summary>
     /// 현재 선택된 공격 실행 상태
     /// </summary>
-    private void UpdateAttack()
+    private void UpdateBulletHell()
     {
-        if (_currentAttack == null)
+        _bulletHellAttack.UpdateAttack();
+
+        if (_bulletHellAttack.IsFinished)
         {
-            return;
-        }
-
-        _currentAttack.UpdateAttack();
-
-        if (_currentAttack.IsFinished)
-        {
-            _currentAttack.ExitAttack();
-            _currentAttack = null;
-
+            _bulletHellAttack.ExitAttack();
             ChangeState(AttackState.Chase);
         }
     }

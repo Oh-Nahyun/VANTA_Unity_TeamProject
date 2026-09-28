@@ -25,14 +25,12 @@ public class Boss1AttackBulletHell : MonoBehaviour, IBoss1Attack
     {
         IsFinished = false;
 
-        FireBullet();
-
         Debug.Log("원거리 패턴 시작");
     }
 
     public void UpdateAttack()
     {
-        
+        FireBullet();
     }
 
     public void ExitAttack()

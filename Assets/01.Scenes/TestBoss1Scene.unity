@@ -1668,6 +1668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bb8b4f08d706604e922d86392430559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1AttackController
+  _bulletHellAttack: {fileID: 1479249569}
   _chaseDuration: 2
 --- !u!114 &1479249568
 MonoBehaviour:
@@ -1698,7 +1699,7 @@ MonoBehaviour:
   _weight: 20
   _headPivot: {fileID: 232541540}
   _playerTransform: {fileID: 1583416898}
-  _bulletPrefab: {fileID: 0}
+  _bulletPrefab: {fileID: 1563816904694444635, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
 --- !u!1 &1506718564
 GameObject:
   m_ObjectHideFlags: 0

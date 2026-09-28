@@ -24,7 +24,13 @@ public class Boss1AttackController : MonoBehaviour
     {
         switch (_currentState)
         {
-            case AttackState.Chase
+            case AttackState.Chase:
+                UpdateChase();
+                break;
+            
+            case AttackState.Attack:
+                UpdateAttack();
+                break;
         }
     }
 }

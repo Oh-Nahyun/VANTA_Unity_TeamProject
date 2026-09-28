@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Boss1Movement : MonoBehaviour
+public class Boss1Movement : MonoBehaviour, IBossMovable
 {
     [SerializeField] private float _normalChaseSpeed= 4f;
     [SerializeField] private float _aggressiveChaseSpeed = 7f;
@@ -16,6 +16,8 @@ public class Boss1Movement : MonoBehaviour
     private Transform _playerTransform;
     
     private MoveMode _moveMode;
+
+    private bool _isMoveBlocked = false; // IBossMovable 관련, true면 이동 속박됨, false면 이동 제약 없음
 
     private enum MoveMode
     {
@@ -38,6 +40,13 @@ public class Boss1Movement : MonoBehaviour
     private void FixedUpdate()
     {
         FacePlayer();
+
+        if (_isMoveBlocked)
+        {
+            _rigidBody.linearVelocity = Vector2.zero;
+            _animator.SetBool("IsMoving", false);
+            return;
+        }
         
         switch (_moveMode)
         {
@@ -53,6 +62,18 @@ public class Boss1Movement : MonoBehaviour
         
         _animator.SetBool("IsMoving", _rigidBody.linearVelocity.sqrMagnitude > 0.01f);
     }
+
+    public void MoveBlock()
+    {
+        _isMoveBlocked = true;
+        _rigidBody.linearVelocity = Vector2.zero;
+    }
+
+    public void MoveUnblock()
+    {
+        _isMoveBlocked = false;
+    }
+    
 
     private void ChasePlayer(float chaseSpeed)
     {

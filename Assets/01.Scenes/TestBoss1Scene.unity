@@ -1571,6 +1571,7 @@ GameObject:
   - component: {fileID: 1479249564}
   - component: {fileID: 1479249565}
   - component: {fileID: 1479249566}
+  - component: {fileID: 1479249567}
   m_Layer: 6
   m_Name: Boss1
   m_TagString: Boss1
@@ -1653,6 +1654,18 @@ MonoBehaviour:
   _animator: {fileID: 2283665620963418138}
   _visualPivot: {fileID: 7133378315521282783}
   _horizontalFlip: 0.2
+--- !u!114 &1479249567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1479249562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb8b4f08d706604e922d86392430559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss1AttackController
 --- !u!1 &1506718564
 GameObject:
   m_ObjectHideFlags: 0

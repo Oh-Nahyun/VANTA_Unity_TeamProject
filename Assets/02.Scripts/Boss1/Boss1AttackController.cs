@@ -33,4 +33,20 @@ public class Boss1AttackController : MonoBehaviour
                 break;
         }
     }
+
+    private void UpdateChase()
+    {
+        
+    }
+
+    private void UpdateAttack()
+    {
+        
+    }
+
+    private void ChangeState(AttackState newState)
+    {
+        _currentState = newState;
+        Debug.Log($"Boss Attack State : {_currentState}");
+    }
 }

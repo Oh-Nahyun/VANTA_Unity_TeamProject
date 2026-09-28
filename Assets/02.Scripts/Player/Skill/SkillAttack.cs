@@ -12,6 +12,8 @@ public class SkillAttack : MonoBehaviour
     private float _dashTimeSlow = 0.05f;
 
     [Header("대쉬 속도")][SerializeField] private float _dashDuration = 0.15f;
+    [Header("대쉬 중 줌 정도")][SerializeField] private float _dashZoomAmount = 1f;
+
     [Header("대쉬간 대기시간")][SerializeField] private float _dashWaitTime = 0.5f;
     [SerializeField] private Ease _dashEase = Ease.OutQuad;
     [Header("대쉬 공격 판정")][SerializeField] private LayerMask _enemyLayer;
@@ -49,7 +51,7 @@ public class SkillAttack : MonoBehaviour
         if (_rigidbody == null || selectedIndicators == null || selectedIndicators.Count == 0)
             return;
 
-        _objectZoom.ZoomIn();
+        _objectZoom.ZoomIn(_dashZoomAmount);
         
         _dashSequence?.Kill();
 

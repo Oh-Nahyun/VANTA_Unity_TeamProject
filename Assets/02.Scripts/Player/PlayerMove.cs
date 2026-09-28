@@ -8,7 +8,8 @@ public class PlayerMove : MonoBehaviour
     [Header("플레이어 대쉬")]
     [SerializeField] private float _dashDistance = 2f;
     [SerializeField] private float _dashDuration = 0.15f;
-
+    [Header("대쉬 이펙트")]
+    [SerializeField]private GameObject _dashEffect;
     private Vector2 _moveDirection;
     private Vector2 _lastMoveDirection = Vector2.right;
 
@@ -87,7 +88,8 @@ public class PlayerMove : MonoBehaviour
     {
         if (_isDashing)
             return;
-
+        
+        Instantiate(_dashEffect, transform.position, Quaternion.identity);  
         _isDashing = true;
         SetDashAnimation();
 

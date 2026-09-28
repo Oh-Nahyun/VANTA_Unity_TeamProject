@@ -10,7 +10,6 @@ public class ObjectZoom : MonoBehaviour
     [Header("줌")]
     [SerializeField] private float _zoomInDuration = 0.3f;
     [SerializeField] private float _zoomOutDuration = 0.3f;
-    [SerializeField] private float _zoomAmount = 2f;
 
     [Header("줌 중 카메라 추적")]
     [SerializeField] private float _zoomDamping = 0.5f;
@@ -32,12 +31,12 @@ public class ObjectZoom : MonoBehaviour
         _defaultDamping = _follow.TrackerSettings.PositionDamping;
     }
 
-    public void ZoomIn()
+    public void ZoomIn(float zoomAmount)
     {
         _zoomTween?.Kill();
         _dampingTween?.Kill();
 
-        float targetSize = _defaultOrthographicSize - _zoomAmount;
+        float targetSize = _defaultOrthographicSize - zoomAmount;
 
         _zoomTween = DOTween.To(
                 () => _camera.Lens.OrthographicSize,

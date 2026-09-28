@@ -1,4 +1,4 @@
-public interface IMovable
+public interface IBossMovable
 {
     /// <summary>
     /// 보스 이동 봉쇄 함수

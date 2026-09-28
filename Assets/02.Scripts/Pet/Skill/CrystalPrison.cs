@@ -76,28 +76,23 @@ public class CrystalPrison : MonoBehaviour
         _timer += Time.deltaTime;
         if (_timer >= _timeBeforeUseSkill)
         {
-            StartSkillProcess();
+            StartSkillProcess(_attackTarget.GetComponent<IBossMovable>());
         }
     }
 
-    private void StartSkillProcess()
+    private void StartSkillProcess(IBossMovable attackTarget)
     {
-        StopEnemy();
-        StartCoroutine(EndSkillProcessCoroutine());
+        attackTarget.MoveBlock();
+        StartCoroutine(EndSkillProcessCoroutine(attackTarget));
     }
 
-    private IEnumerator EndSkillProcessCoroutine()
+    private IEnumerator EndSkillProcessCoroutine(IBossMovable attackTarget)
     {
         yield return new WaitForSeconds(_skillDuration);
 
         PlayEndAnimation();
+        attackTarget.MoveUnblock();
         Destroy(gameObject, _timeBeforeDestroy);
-    }
-
-    private void StopEnemy()
-    {
-        // TODO : 몬스터 이동 불가 상태로 전환하기
-        // _monster.ChangeMoveState();
     }
 
     private void PlayEndAnimation()

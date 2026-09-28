@@ -28,6 +28,7 @@ public class SkillAttack : MonoBehaviour
     [Header("vfx 프리팹")][SerializeField] private GameObject _skillDashAttackCriticalVfxPrefab;
 
 
+    private ObjectZoom _objectZoom;
     private SkillDashScreenController _skillDashScreenController;
     private Collider2D[] _playerColliders;
     private Sequence _dashSequence;
@@ -40,6 +41,7 @@ public class SkillAttack : MonoBehaviour
         if (_rigidbody != null)
             _playerColliders = _rigidbody.GetComponentsInChildren<Collider2D>(true);
         _skillDashScreenController = GetComponent<SkillDashScreenController>();
+        _objectZoom=GetComponent<ObjectZoom>();
     }
 
     public void DashStart(List<SkillIndicator> selectedIndicators, Action onComplete)
@@ -47,6 +49,8 @@ public class SkillAttack : MonoBehaviour
         if (_rigidbody == null || selectedIndicators == null || selectedIndicators.Count == 0)
             return;
 
+        _objectZoom.ZoomIn();
+        
         _dashSequence?.Kill();
 
         SetPlayerColliders(false);
@@ -129,6 +133,8 @@ public class SkillAttack : MonoBehaviour
             {
                 SetPlayerColliders(true);
                 _dashSequence = null;
+                _objectZoom.ZoomOut();
+
                 onComplete.Invoke();
             })
             .OnKill(() => SetPlayerColliders(true));

@@ -107,7 +107,7 @@ public class PlayerMove : MonoBehaviour
     public void DashToReverseSide()
     {
         _isDashing = true;
-        SetDashAnimation();
+        //SetDashAnimation();
         HitableObject boss = FindAnyObjectByType<HitableObject>();
 
         Vector2 direction = transform.position - boss.transform.position;

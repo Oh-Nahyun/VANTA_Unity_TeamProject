@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Boss1Movement : MonoBehaviour
 {
@@ -8,7 +9,9 @@ public class Boss1Movement : MonoBehaviour
     [SerializeField] private Animator _animator;
 
     [SerializeField] private Transform _visualPivot;
-
+    [SerializeField] private float _horizontalFlip = 0.42f;
+    
+    
     private Rigidbody2D _rigidBody;
     private Transform _playerTransform;
     
@@ -84,14 +87,25 @@ public class Boss1Movement : MonoBehaviour
     private void FacePlayer()
     {
         Vector3 scale = _visualPivot.localScale;
-        if (_playerTransform.position.x > _rigidBody.position.x)
+        float rightPivotx = _rigidBody.position.x + _horizontalFlip;
+        float leftPivotx = _rigidBody.position.x - _horizontalFlip;
+
+        if (scale.x > 0f)
         {
-            scale.x = 1f;
+            if (_playerTransform.position.x < leftPivotx)
+            {
+                scale.x = -1f;
+            }
         }
-        else if(_playerTransform.position.x < _rigidBody.position.x)
+
+        else
         {
-            scale.x = -1f;
+            if (_playerTransform.position.x > rightPivotx)
+            {
+                scale.x = 1f;
+            }
         }
+        
         _visualPivot.localScale = scale;
     }
 }

@@ -161,10 +161,11 @@ MonoBehaviour:
   _doubleTapInterval: 0.25
   _iFrameStart: 0.05
   _iFrameEnd: 0.2
-  _useKeyboardInput: 0
+  _useKeyboardInput: 1
   _attackZone: {fileID: 0}
   _target: {fileID: 0}
-  _arriveDistance: 1.2
+  _attackRange: 1
+  _backStepDistance: 3
 --- !u!95 &3614016485446532058
 Animator:
   serializedVersion: 7

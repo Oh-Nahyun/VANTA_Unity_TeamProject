@@ -10,10 +10,12 @@ public class PlayerAvoid : MonoBehaviour
     [SerializeField] private float _avoidZoomAmount = 1.5f;
     [Header("회피 입력 제한시간")]
     [SerializeField] private float _avoidDuration = 2f;
-
+    
+    private Animator _animator;
     private ObjectZoom _objectZoom;
     private PlayerAvoidKeyGenerator _playerAvoidKeyGenerator;
-
+    private PlayerMove _playerMove;
+    
     private KeyCode _avoidKey;
     private bool _isAvoidInteraction;
 
@@ -23,6 +25,7 @@ public class PlayerAvoid : MonoBehaviour
     {
         _objectZoom = GetComponentInChildren<ObjectZoom>();
         _playerAvoidKeyGenerator = GetComponent<PlayerAvoidKeyGenerator>();
+        _animator=GetComponent<Animator>();
     }
 
     private void Update()
@@ -42,7 +45,7 @@ public class PlayerAvoid : MonoBehaviour
 
         if (Input.GetKeyDown(_avoidKey))
         {
-            AvoidEnd();
+            AvoidSuccess();
         }
     }
 
@@ -65,6 +68,15 @@ public class PlayerAvoid : MonoBehaviour
             .SetUpdate(true);
     }
 
+
+    private void AvoidSuccess()
+    {
+        _animator.SetTrigger("Avoid");
+        _playerMove.DashToReverseSide();
+        AvoidEnd();
+    }
+    
+    
     private void AvoidEnd()
     {
         if (!_isAvoidInteraction)

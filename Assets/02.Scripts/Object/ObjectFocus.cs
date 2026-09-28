@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class ObjectFocus : MonoBehaviour
 {
-    
-    
+
+
     private static readonly int SelectCenterID =
         Shader.PropertyToID("_SelectCenter");
 
@@ -13,11 +13,11 @@ public class ObjectFocus : MonoBehaviour
     [SerializeField] private float _selectedRadius = 0.04f;
     [Header("참조")]
     [SerializeField] private Material _focusMaterial;
-    [SerializeField] private Camera _targetCamera;    
-    
+    [SerializeField] private Camera _targetCamera;
+
     private bool _isFocused;
 
-    
+
     private void Awake()
     {
         if (_targetCamera == null)
@@ -31,10 +31,10 @@ public class ObjectFocus : MonoBehaviour
 
         UpdateFocusPosition();
     }
-    
-    
-    
-    
+
+
+
+
     public void StartFocus()
     {
         _isFocused = true;
@@ -56,7 +56,7 @@ public class ObjectFocus : MonoBehaviour
             0f
         );
     }
-    
+
     private void UpdateFocusPosition()
     {
         Vector3 viewportPosition =
@@ -72,5 +72,5 @@ public class ObjectFocus : MonoBehaviour
             )
         );
     }
-    
+
 }

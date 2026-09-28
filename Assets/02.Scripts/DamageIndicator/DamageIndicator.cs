@@ -9,7 +9,7 @@ public abstract class DamageIndicator : MonoBehaviour
     {
         _text = GetComponent<TextMeshProUGUI>();
     }
-    
+
     public void Init(float damage)
     {
         _text.text = damage.ToString();

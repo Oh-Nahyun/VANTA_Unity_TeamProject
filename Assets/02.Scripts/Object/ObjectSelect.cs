@@ -1,12 +1,12 @@
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
 public class ObjectSelect : MonoBehaviour
 {
     [Header("Select Settings")]
     [SerializeField] private float _selectScale = 1.3f;
     [SerializeField] private float _duration = 0.15f;
-    
+
     private Vector3 _originalScale;
     private Tween _scaleTween;
 

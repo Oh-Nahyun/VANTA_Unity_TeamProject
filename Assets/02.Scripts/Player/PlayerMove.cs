@@ -4,14 +4,14 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     [Header("플레이어 움직임 속도")]
-    [SerializeField] private float _moveSpeed=5;
+    [SerializeField] private float _moveSpeed = 5;
     [Header("플레이어 대쉬")]
     [SerializeField] private float _dashDistance = 2f;
     [SerializeField] private float _dashDuration = 0.15f;
-    
+
     private Vector2 _moveDirection;
     private Vector2 _lastMoveDirection = Vector2.right;
-    
+
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private Rigidbody2D _rigidbody;
@@ -19,7 +19,7 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _animator=GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
     }
     private void Update()
@@ -34,9 +34,9 @@ public class PlayerMove : MonoBehaviour
         {
             Movement();
         }
-        
+
     }
-    
+
     private void MovementInput()
     {
         float h = Input.GetAxisRaw("Horizontal");
@@ -52,7 +52,7 @@ public class PlayerMove : MonoBehaviour
         SetMoveAnimation(_moveDirection != Vector2.zero);
         PlayerRotate(h, v);
     }
-    
+
     private void Movement()
     {
         _rigidbody.MovePosition(
@@ -60,7 +60,7 @@ public class PlayerMove : MonoBehaviour
             _moveDirection * _moveSpeed * Time.fixedDeltaTime
         );
     }
-    
+
     private void PlayerRotate(float h, float v)
     {
         if (h > 0)
@@ -73,11 +73,11 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
- 
+
 
     private void DashInput()
     {
-        if (Input.GetButtonDown("Jump")&& _moveDirection != Vector2.zero)
+        if (Input.GetButtonDown("Jump") && _moveDirection != Vector2.zero)
         {
             Dash();
         }
@@ -90,7 +90,7 @@ public class PlayerMove : MonoBehaviour
 
         _isDashing = true;
         SetDashAnimation();
-        
+
         Vector2 targetPosition =
             _rigidbody.position +
             _lastMoveDirection * _dashDistance;
@@ -103,15 +103,15 @@ public class PlayerMove : MonoBehaviour
 
             });
     }
-    
+
     public void DashToReverseSide()
     {
         _isDashing = true;
         SetDashAnimation();
         HitableObject boss = FindAnyObjectByType<HitableObject>();
-        
-        Vector2 direction=transform.position - boss.transform.position;
-        
+
+        Vector2 direction = transform.position - boss.transform.position;
+
         Vector2 targetPosition =
             _rigidbody.position +
             direction * _dashDistance;
@@ -123,12 +123,12 @@ public class PlayerMove : MonoBehaviour
                 _isDashing = false;
             });
     }
-    
+
     private void SetMoveAnimation(bool isMove)
     {
-        _animator.SetBool("isMove",isMove);
+        _animator.SetBool("isMove", isMove);
     }
-    
+
     private void SetDashAnimation()
     {
         _animator.SetTrigger("Dash");

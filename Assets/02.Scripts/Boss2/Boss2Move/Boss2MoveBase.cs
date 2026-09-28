@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class Boss2MoveBase : MonoBehaviour
 {
-    private enum MoveState { Normal, Dodge }
+    private enum MoveState
+    {
+        Normal, Dodge
+    }
 
     [Header("이동")]
     [SerializeField] private float _walkSpeed = 5f;
@@ -36,12 +39,12 @@ public class Boss2MoveBase : MonoBehaviour
     private Vector2 _dodgeDir;
     private float _dodgeTimer;
     private float _dodgeCooldownTimer;
-    
+
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody2D;
     [SerializeField] private GameObject _attackZone;
-    
+
 
     private static readonly (KeyCode key, Vector2 dir)[] DodgeKeys =
     {
@@ -61,14 +64,15 @@ public class Boss2MoveBase : MonoBehaviour
     {
         get
         {
-            if (_state != MoveState.Dodge) return false;
+            if (_state != MoveState.Dodge)
+                return false;
             float elapsed = _dodgeDuration - _dodgeTimer;
             return elapsed >= _iFrameStart && elapsed <= _iFrameEnd;
         }
     }
     private void Awake()
     {
-        _animator =  GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
     }
@@ -76,7 +80,7 @@ public class Boss2MoveBase : MonoBehaviour
     private void Update()
     {
         Vector2 input = ReadInput();
-        
+
         // 여기서 애니메이션 제어를 매번 해주면 프레임드랍이...
         if (Mathf.Approximately(input.x, 0f) == true && Mathf.Approximately(input.y, 0f) == true)
         {
@@ -86,7 +90,7 @@ public class Boss2MoveBase : MonoBehaviour
         {
             _animator.SetBool("IsMove", true);
         }
-        
+
         // TickTimers 가 UpdateVelocity 보다 먼저 와야 구르기가 끝난 프레임에
         // 곧바로 Normal 규칙으로 속도가 계산되어 한 프레임이 비지 않는다.
         TickTimers();
@@ -104,7 +108,7 @@ public class Boss2MoveBase : MonoBehaviour
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-        
+
         return new Vector2(horizontal, vertical).normalized;
     }
 
@@ -115,7 +119,8 @@ public class Boss2MoveBase : MonoBehaviour
             _dodgeCooldownTimer = Mathf.Max(_dodgeCooldownTimer - Time.deltaTime, 0f);
         }
 
-        if (_state != MoveState.Dodge) return;
+        if (_state != MoveState.Dodge)
+            return;
 
         _dodgeTimer -= Time.deltaTime;
         if (_dodgeTimer <= 0f)
@@ -129,11 +134,13 @@ public class Boss2MoveBase : MonoBehaviour
 
     private void TryStartDodge(Vector2 input)
     {
-        if (_dodgeCooldownTimer > 0f) return;
+        if (_dodgeCooldownTimer > 0f)
+            return;
 
         foreach ((KeyCode key, Vector2 dir) in DodgeKeys)
         {
-            if (Input.GetKeyDown(key) == false) continue;
+            if (Input.GetKeyDown(key) == false)
+                continue;
 
             if (_lastTapTime.TryGetValue(key, out float lastTap)
                 && Time.time - lastTap <= _doubleTapInterval)
@@ -152,8 +159,8 @@ public class Boss2MoveBase : MonoBehaviour
 
     private void StartDodge(Vector2 dir)
     {
-        _animator.SetBool("IsDodge",true);
-        
+        _animator.SetBool("IsDodge", true);
+
         _state = MoveState.Dodge;
         _dodgeDir = dir.normalized;
         _dodgeTimer = Mathf.Max(_dodgeDuration, 0.01f);
@@ -180,12 +187,12 @@ public class Boss2MoveBase : MonoBehaviour
 
         bool wantsSprint = Input.GetKey(KeyCode.LeftShift) && input.sqrMagnitude > InputDeadZone;
         float targetSpeed = wantsSprint ? _sprintSpeed : _walkSpeed;
-        
+
         // 애니메이션 달리기
         _animator.SetBool("IsSprint", wantsSprint);
-        
-        
-        
+
+
+
         // 입력이 없으면 목표가 (0,0) 이 되어 0 으로 서서히 수렴한다.
         Vector2 targetVelocity = input * targetSpeed;
 
@@ -209,7 +216,7 @@ public class Boss2MoveBase : MonoBehaviour
             _spriteRenderer.flipX = true;
             _attackZone.transform.localPosition = new Vector3(-0.4f, 0f, 0f);
         }
-        
+
         // UpdateVelocity 가 이미 가속 램프를 거쳐 units/s 단위 속도를 만들어 두었으므로
         // 힘을 더하지 않고 그대로 대입한다. AddForce 를 쓰면 가속이 두 번 적분된다.
         _rigidbody2D.linearVelocity = _velocity;

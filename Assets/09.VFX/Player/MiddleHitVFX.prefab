@@ -4860,7 +4860,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1101554189
-  m_SortingLayer: 13
+  m_SortingLayer: 14
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_RenderMode: 0
@@ -5117,7 +5117,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.052514616, g: 0, b: 0.990566, a: 1}
+      maxColor: {r: 0.050980397, g: 0, b: 0.9921569, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9754,7 +9754,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1101554189
-  m_SortingLayer: 13
+  m_SortingLayer: 14
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_RenderMode: 0
@@ -14662,7 +14662,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1101554189
-  m_SortingLayer: 13
+  m_SortingLayer: 14
   m_SortingOrder: 5
   m_MaskInteraction: 0
   m_RenderMode: 0
@@ -19623,7 +19623,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1101554189
-  m_SortingLayer: 13
+  m_SortingLayer: 14
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_RenderMode: 0

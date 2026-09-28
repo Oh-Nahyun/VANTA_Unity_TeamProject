@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
-    <Nullable>disable</Nullable>
-    <LangVersion>latest</LangVersion>
-    <NoWarn>CS0246;CS0103;CS0117;CS0234</NoWarn>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+        <Nullable>disable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <NoWarn>CS0246;CS0103;CS0117;CS0234</NoWarn>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="Assets\02.Scripts\**\*.cs" />
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Assets\02.Scripts\**\*.cs" />
+    </ItemGroup>
 </Project>

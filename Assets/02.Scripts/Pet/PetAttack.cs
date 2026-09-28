@@ -13,7 +13,7 @@ public class PetAttack : MonoBehaviour
     
     [Header("펫 공격 스킬 크리스탈 프리즌 프리팹")]
     [SerializeField] private GameObject _crystalPrisonPrefab;
-    
+
     /// <summary>
     /// 펫 클래스
     /// </summary>
@@ -42,7 +42,7 @@ public class PetAttack : MonoBehaviour
             EnergyBullet energyBullet = bullet.GetComponent<EnergyBullet>();
 
             float curveAmount = (i - middleIndex) * 2f;
-            energyBullet._bezierCurve.SetCurveAmount(curveAmount);
+            energyBullet.BezierCurve.SetCurveAmount(curveAmount);
         }
     }
 

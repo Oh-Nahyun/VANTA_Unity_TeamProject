@@ -4,10 +4,10 @@ public class EnergyBullet : MonoBehaviour
 {
     [Header("펫 에너지 탄 베지어 이동 속도")]
     [SerializeField] private float _bezierMoveSpeed = 1f;
-    
+
     [Header("펫 에너지 탄 유도 이동 속도")]
     [SerializeField] private float _homingMoveSpeed = 5f;
-    
+
     [Header("펫 에너지 탄 공격력")]
     [SerializeField] private float _damage = 10f;
 
@@ -15,17 +15,17 @@ public class EnergyBullet : MonoBehaviour
     /// 펫 공격 타겟
     /// </summary>
     private GameObject _monster;
-    
+
     /// <summary>
     /// 펫 에너지 탄 이동 곡선 클래스
     /// </summary>
-    public BezierCurve _bezierCurve;
-    
+    public BezierCurve BezierCurve;
+
     /// <summary>
     /// 펫 에너지 탄 스폰 시 이동 전 대기 시간 계산용 변수
     /// </summary>
     private float _timer;
-    
+
     /// <summary>
     /// 펫 에너지 탄 이동 전 필요한 대기 시간
     /// </summary>
@@ -41,18 +41,19 @@ public class EnergyBullet : MonoBehaviour
     /// </summary>
     private bool _isHoming;
 
+
     private void Awake()
     {
-        _bezierCurve = GetComponent<BezierCurve>();
+        BezierCurve = GetComponent<BezierCurve>();
     }
 
     private void Start()
     {
         _monster = GameObject.FindGameObjectWithTag("Monster");
-        
-        if (_bezierCurve == null) return;
+
+        if (BezierCurve == null) return;
         if (_monster == null) return;
-        
+
         _timer = 0f;
         _timeBeforeMove = 0.6f;
         _bezierProgress = 0f;
@@ -63,22 +64,22 @@ public class EnergyBullet : MonoBehaviour
 
     private void Update()
     {
-        if (_bezierCurve == null) return;
+        if (BezierCurve == null) return;
         if (_monster == null) return;
-        
+
         _timer += Time.deltaTime;
         if (_timer >= _timeBeforeMove)
         {
             Move();
         }
     }
-    
+
     private void SetBezierPoints()
     {
         Vector3 startPoint = transform.position;
         Vector3 endPoint = _monster.transform.position;
 
-        _bezierCurve.SetAllPoints(startPoint, endPoint);
+        BezierCurve.SetAllPoints(startPoint, endPoint);
     }
 
     private void Move()
@@ -92,14 +93,14 @@ public class EnergyBullet : MonoBehaviour
             BezierMove();
         }
     }
-    
+
     private void BezierMove()
     {
         _bezierProgress += Time.deltaTime * _bezierMoveSpeed;
         _bezierProgress = Mathf.Clamp01(_bezierProgress);
 
-        Vector3 targetPosition = _bezierCurve.GetPointOnCurve(_bezierProgress);
-        Vector3 direction = _bezierCurve.GetDirectionOnCurve(_bezierProgress);
+        Vector3 targetPosition = BezierCurve.GetPointOnCurve(_bezierProgress);
+        Vector3 direction = BezierCurve.GetDirectionOnCurve(_bezierProgress);
 
         SetRotation(direction);
         transform.position = targetPosition;
@@ -113,7 +114,7 @@ public class EnergyBullet : MonoBehaviour
     private void HomingMove()
     {
         Vector3 direction = _monster.transform.position - transform.position;
-        
+
         direction.Normalize();
         SetRotation(direction);
         transform.position += (Vector3)(direction * _homingMoveSpeed) * Time.deltaTime;
@@ -122,7 +123,7 @@ public class EnergyBullet : MonoBehaviour
     private void SetRotation(Vector3 direction)
     {
         if (direction.sqrMagnitude <= 0f) return;
-        
+
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
@@ -137,7 +138,7 @@ public class EnergyBullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Monster")) return;
-        
+
         Hit();
     }
 }

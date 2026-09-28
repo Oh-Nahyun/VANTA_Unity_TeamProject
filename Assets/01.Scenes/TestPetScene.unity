@@ -6059,9 +6059,9 @@ GameObject:
   - component: {fileID: 596299151}
   - component: {fileID: 596299150}
   - component: {fileID: 596299154}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: TestHitObject
-  m_TagString: Monster
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6148,7 +6148,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 555995877
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1825241035690936547, guid: edf96709820903142966db8eaee61026, type: 3}
@@ -6380,6 +6380,14 @@ PrefabInstance:
     - target: {fileID: 4133056159387206755, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: m_Name
       value: Boss2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4133056159387206755, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: m_Layer
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 4133056159387206755, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: m_TagString
+      value: Boss
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7016,7 +7024,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1243391977
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4723107735738678597, guid: 474c676841ce0d844a26b5c5c601da3c, type: 3}
@@ -7174,6 +7182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Pet
   Animator: {fileID: 765534166}
   SpriteRenderer: {fileID: 765534164}
+  PlayerSkillManager: {fileID: 0}
 --- !u!114 &765534172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7186,6 +7195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae298face59ab8428c6a80c1a85f4c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrystalPrison
+  _skillDuration: 5
+  _damage: 20
 --- !u!1 &906813755
 GameObject:
   m_ObjectHideFlags: 0
@@ -7393,6 +7404,7 @@ MonoBehaviour:
   _doubleSlashDamage: 75
   _slashEffect: {fileID: 3042519775331041172, guid: 1a3c2ecb0f269ad4095c2651c8462a0e, type: 3}
   _doubleSlashEffect: {fileID: 4306488877223958017, guid: f2b2174306f2a7a4cae5fb635c05c0aa, type: 3}
+  _skillIndicatorController: {fileID: 0}
 --- !u!114 &1003891177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7490,7 +7502,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -766909053
-  m_SortingLayer: 12
+  m_SortingLayer: 13
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 3234629978573100161, guid: 07608b3a6b77bda4e84ab7ea9554c061, type: 3}
@@ -9007,6 +9019,7 @@ MonoBehaviour:
   _playerMove: {fileID: 1003891177}
   _timeSlowAmount: 0.2
   _skillStack: 0
+  _maxSkillStack: 0
   _countForSkillStack: 5
   _currentHitCount: 0
   _skillTime: 10
@@ -9120,7 +9133,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1101554189
-  m_SortingLayer: 14
+  m_SortingLayer: 15
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:

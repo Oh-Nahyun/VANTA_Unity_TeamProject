@@ -15,6 +15,7 @@ TagManager:
   - DestroyableObject
   - Vfx
   - PetEnergyBullet
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -37,7 +38,7 @@ TagManager:
   - Light
   - Vfx
   - PetEnergyBullet
-  - 
+  - Boss
   - 
   - 
   - 
@@ -57,6 +58,9 @@ TagManager:
     locked: 0
   - name: MonsterSpawner
     uniqueID: 4291494243
+    locked: 0
+  - name: Boss
+    uniqueID: 299320877
     locked: 0
   - name: Boss1
     uniqueID: 555995877

@@ -119,9 +119,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4133056159387206755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee7ae1ec821b38a4892913bd4e58d4c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Boss2AttackBase
+  m_Script: {fileID: 11500000, guid: f11283783ecc4b24e91d237364d5f189, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::Boss2AttackPattern
   _baseDamage: 1
   _areaOfEffectDamage: 1
   _instantKillDamage: 1
@@ -130,14 +130,14 @@ MonoBehaviour:
   _attackKey: 32
   _comboSteps:
   - StateName: Boss2Attack
-    MaxStepTime: 1
-    ComboTimingStart: 0.25
-    ComboTimingEnd: 1
+    ChainTime: 0.7
+    InputDeadline: 0.8
+    MaxStepTime: 0.83
   - StateName: Boss2DoubleAttack
-    MaxStepTime: 1
-    ComboTimingStart: 0.25
-    ComboTimingEnd: 1.15
-  _inputBufferTime: 0.2
+    ChainTime: 0.95
+    InputDeadline: 1.05
+    MaxStepTime: 1.08
+  _maxComboCount: 8
 --- !u!114 &4474688203573458451
 MonoBehaviour:
   m_ObjectHideFlags: 0

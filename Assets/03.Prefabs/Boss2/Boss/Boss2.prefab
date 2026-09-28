@@ -138,6 +138,14 @@ MonoBehaviour:
     InputDeadline: 1.05
     MaxStepTime: 1.08
   _maxComboCount: 8
+  _smashStateName: Boss2SmashAttack
+  _spinStateName: Boss2SpecialAttack
+  _spinRadius: 1.5
+  _spinCenterOffset: {x: 0, y: 0}
+  _spinTargetLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  _spinningSlashEffect: {fileID: 3005786366994476738, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
 --- !u!114 &4474688203573458451
 MonoBehaviour:
   m_ObjectHideFlags: 0

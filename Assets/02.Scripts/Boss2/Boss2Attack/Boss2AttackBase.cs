@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -210,18 +211,50 @@ public class Boss2AttackBase : MonoBehaviour
             // AttackBoxCollider에 대한 처리 로직만 여기로 들어가게 처리
             if (_attackBoxCollider.enabled == true)
             {
-                // 지금 플레이어가 없는 관계로 데미지를 넘기는 더미로 대체
-                HitDummy dummy = other.gameObject.GetComponent<HitDummy>();
-                if (dummy != null)
-                {
-                    dummy.TakeDamage(_baseDamage);
-                }
-                else
-                {
-                    Debug.Log("dummy is Null");
-                }
+                DeliverDamage(other.gameObject, _baseDamage);
             }
 
+        }
+    }
+
+    /// <summary>
+    /// center 를 중심으로 radius 안에 있는 대상에게 범위 데미지(_areaOfEffectDamage)를 한 번씩 준다.
+    /// 자기 자신은 제외하고, 콜라이더가 여러 개인 대상도 한 번만 맞는다. 맞은 대상 수를 돌려준다.
+    /// </summary>
+    protected int DealAreaDamage(Vector2 center, float radius, LayerMask targetLayers)
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(center, radius, targetLayers);
+        HashSet<GameObject> damaged = new HashSet<GameObject>();
+
+        foreach (Collider2D hit in hits)
+        {
+            // 프리팹 원본 태그가 Player 라서 자기 콜라이더도 걸릴 수 있다.
+            if (hit.transform.IsChildOf(transform))
+                continue;
+            if (hit.CompareTag("Player") == false)
+                continue;
+
+            GameObject target = hit.attachedRigidbody != null ? hit.attachedRigidbody.gameObject : hit.gameObject;
+            if (damaged.Add(target))
+            {
+                DeliverDamage(target, _areaOfEffectDamage);
+            }
+        }
+
+        return damaged.Count;
+    }
+
+    private void DeliverDamage(GameObject target, int damage)
+    {
+        // 지금 플레이어가 없는 관계로 데미지를 넘기는 더미로 대체
+        HitDummy dummy = target.GetComponent<HitDummy>();
+        if (dummy != null)
+        {
+            dummy.TakeDamage(damage);
+        }
+        else
+        {
+            Debug.Log("dummy is Null");
         }
     }
 }

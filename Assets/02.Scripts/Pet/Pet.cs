@@ -12,9 +12,15 @@ public class Pet : MonoBehaviour
     /// </summary>
     public SpriteRenderer SpriteRenderer;
 
+    /// <summary>
+    /// 플레이어 스킬 매니저 클래스
+    /// </summary>
+    public SkillManager PlayerSkillManager;
+
     private void Awake()
     {
         Animator = GetComponent<Animator>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
+        PlayerSkillManager = GameObject.FindGameObjectWithTag("Player").GetComponent<SkillManager>();
     }
 }

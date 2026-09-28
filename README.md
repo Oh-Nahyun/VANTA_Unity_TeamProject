@@ -59,6 +59,21 @@
 | `Mouse Click` | 무기 공격 / 스킬 |
 
 
+## 🧰 Development Setup
+
+처음 clone 받았거나 PC를 바꾼 팀원은 Git hook을 한 번 설치해야 합니다.
+
+```powershell
+.\Scripts\setup-git-hooks.ps1
+```
+
+macOS/Linux 또는 Git Bash에서는 다음 명령을 사용할 수 있습니다.
+
+```sh
+sh Scripts/setup-git-hooks.sh
+```
+
+
 ## 👹 Boss Battle
 
 ### ⚔️ Boss Encounter

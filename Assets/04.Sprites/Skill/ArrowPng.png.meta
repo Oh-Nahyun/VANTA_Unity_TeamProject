@@ -1,0 +1,1027 @@
+fileFormatVersion: 2
+guid: 3e429ab6ce58dfd42a44939b36678af4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1763532842351161296
+    second: ArrowPng 1_0
+  - first:
+      213: 2526084371427271932
+    second: ArrowPng 1_1
+  - first:
+      213: -5768289096425957318
+    second: ArrowPng 1_2
+  - first:
+      213: 1319979162120928372
+    second: ArrowPng 1_3
+  - first:
+      213: -6683788486891973156
+    second: ArrowPng 1_4
+  - first:
+      213: 5101135320522131645
+    second: ArrowPng 1_5
+  - first:
+      213: -6779160961508416959
+    second: ArrowPng 1_6
+  - first:
+      213: 4870656179334094712
+    second: ArrowPng 1_7
+  - first:
+      213: 4615536178323507608
+    second: ArrowPng 1_8
+  - first:
+      213: 2387799634644366618
+    second: ArrowPng 1_9
+  - first:
+      213: -2954579154487639002
+    second: ArrowPng 1_10
+  - first:
+      213: -1952091626534587303
+    second: ArrowPng 1_11
+  - first:
+      213: 2652127220524377756
+    second: ArrowPng 1_12
+  - first:
+      213: -8115680533085236675
+    second: ArrowPng 1_13
+  - first:
+      213: 1095348337143447249
+    second: ArrowPng 1_14
+  - first:
+      213: -7417305511469050978
+    second: ArrowPng 1_15
+  - first:
+      213: 4812909096695249251
+    second: ArrowPng 1_16
+  - first:
+      213: -7429345779544881905
+    second: ArrowPng 1_17
+  - first:
+      213: 6358307457015770792
+    second: ArrowPng 1_18
+  - first:
+      213: -5728861430387087384
+    second: ArrowPng 1_19
+  - first:
+      213: -3722864240377750514
+    second: ArrowPng 1_20
+  - first:
+      213: -3702110633671704444
+    second: ArrowPng 1_21
+  - first:
+      213: 8170676781017772148
+    second: ArrowPng 1_22
+  - first:
+      213: 4068617415014684333
+    second: ArrowPng 1_23
+  - first:
+      213: 3211950546519202602
+    second: ArrowPng 1_24
+  - first:
+      213: 5257188126007217897
+    second: ArrowPng 1_25
+  - first:
+      213: 8778131967058187661
+    second: ArrowPng 1_26
+  - first:
+      213: -7439798775500365370
+    second: ArrowPng 1_27
+  - first:
+      213: -8208919365125684020
+    second: ArrowPng 1_28
+  - first:
+      213: -4920188388173333669
+    second: ArrowPng 1_29
+  - first:
+      213: 2878969007408043373
+    second: ArrowPng 1_30
+  - first:
+      213: -496666847434369318
+    second: ArrowPng 1_31
+  - first:
+      213: 2588388412452392696
+    second: ArrowPng 1_32
+  - first:
+      213: -4188956408833624592
+    second: ArrowPng 1_33
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 200
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ArrowPng 1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1320
+        height: 1043
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0309ce5393ca687e0800000000000000
+      internalID: -1763532842351161296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_1
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 977
+        width: 90
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf4a69f1a547e0320800000000000000
+      internalID: 2526084371427271932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_2
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 1026
+        width: 67
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3895c5e0abe2ffa0800000000000000
+      internalID: -5768289096425957318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_3
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 983
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47cb22ded02815210800000000000000
+      internalID: 1319979162120928372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_4
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 962
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd555fc88c96e33a0800000000000000
+      internalID: -6683788486891973156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_5
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 935
+        width: 17
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db88bea0c8fdac640800000000000000
+      internalID: 5101135320522131645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_6
+      rect:
+        serializedVersion: 2
+        x: 1026
+        y: 915
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1426816e5059be1a0800000000000000
+      internalID: -6779160961508416959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_7
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 887
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87f15404dfb089340800000000000000
+      internalID: 4870656179334094712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_8
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 888
+        width: 11
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 899cfe433bdad0040800000000000000
+      internalID: 4615536178323507608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_9
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 889
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a15f8c9dd1b232120800000000000000
+      internalID: 2387799634644366618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_10
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 754
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6248dfbb9e93ff6d0800000000000000
+      internalID: -2954579154487639002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_11
+      rect:
+        serializedVersion: 2
+        x: 1206
+        y: 610
+        width: 62
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 954346f1207c8e4e0800000000000000
+      internalID: -1952091626534587303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_12
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 568
+        width: 130
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c96ef7ec7af3ec420800000000000000
+      internalID: 2652127220524377756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_13
+      rect:
+        serializedVersion: 2
+        x: 1224
+        y: 600
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d32d6eacd8f4f5f80800000000000000
+      internalID: -8115680533085236675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_14
+      rect:
+        serializedVersion: 2
+        x: 1229
+        y: 602
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1deffbc5285733f00800000000000000
+      internalID: 1095348337143447249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_15
+      rect:
+        serializedVersion: 2
+        x: 1249
+        y: 368
+        width: 25
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9317569fef601990800000000000000
+      internalID: -7417305511469050978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_16
+      rect:
+        serializedVersion: 2
+        x: 1281
+        y: 402
+        width: 133
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36934c4d253eac240800000000000000
+      internalID: 4812909096695249251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_17
+      rect:
+        serializedVersion: 2
+        x: 1307
+        y: 472
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f050ea83069a5e890800000000000000
+      internalID: -7429345779544881905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_18
+      rect:
+        serializedVersion: 2
+        x: 1184
+        y: 313
+        width: 71
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ae6424c1fe3d3850800000000000000
+      internalID: 6358307457015770792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_19
+      rect:
+        serializedVersion: 2
+        x: 1226
+        y: 374
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e76752c1eefe70b0800000000000000
+      internalID: -5728861430387087384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_20
+      rect:
+        serializedVersion: 2
+        x: 1238
+        y: 374
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0c974da2bab55cc0800000000000000
+      internalID: -3722864240377750514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_21
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 357
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4804dc84ef57f9cc0800000000000000
+      internalID: -3702110633671704444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_22
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 344
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 470b8130e33146170800000000000000
+      internalID: 8170676781017772148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_23
+      rect:
+        serializedVersion: 2
+        x: 1257
+        y: 357
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da61be48bf1a67830800000000000000
+      internalID: 4068617415014684333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_24
+      rect:
+        serializedVersion: 2
+        x: 1056
+        y: 143
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2b16612104239c20800000000000000
+      internalID: 3211950546519202602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_25
+      rect:
+        serializedVersion: 2
+        x: 1064
+        y: 142
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9eecf003fb845f840800000000000000
+      internalID: 5257188126007217897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_26
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 117
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d851108f38032d970800000000000000
+      internalID: 8778131967058187661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_27
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 71
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c12ae17e6680c890800000000000000
+      internalID: -7439798775500365370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_28
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 79
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc4cbd3845f041e80800000000000000
+      internalID: -8208919365125684020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_29
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 79
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5b3deeaabaf7bbb0800000000000000
+      internalID: -4920188388173333669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_30
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 61
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d655aed0f0724f720800000000000000
+      internalID: 2878969007408043373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_31
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 45
+        width: 70
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad616fa322c7b19f0800000000000000
+      internalID: -496666847434369318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_32
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 61
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fe46f81c8dcbe320800000000000000
+      internalID: 2588388412452392696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowPng 1_33
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 12
+        width: 23
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f530e71756ddd5c0800000000000000
+      internalID: -4188956408833624592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ArrowPng 1_0: -1763532842351161296
+      ArrowPng 1_1: 2526084371427271932
+      ArrowPng 1_10: -2954579154487639002
+      ArrowPng 1_11: -1952091626534587303
+      ArrowPng 1_12: 2652127220524377756
+      ArrowPng 1_13: -8115680533085236675
+      ArrowPng 1_14: 1095348337143447249
+      ArrowPng 1_15: -7417305511469050978
+      ArrowPng 1_16: 4812909096695249251
+      ArrowPng 1_17: -7429345779544881905
+      ArrowPng 1_18: 6358307457015770792
+      ArrowPng 1_19: -5728861430387087384
+      ArrowPng 1_2: -5768289096425957318
+      ArrowPng 1_20: -3722864240377750514
+      ArrowPng 1_21: -3702110633671704444
+      ArrowPng 1_22: 8170676781017772148
+      ArrowPng 1_23: 4068617415014684333
+      ArrowPng 1_24: 3211950546519202602
+      ArrowPng 1_25: 5257188126007217897
+      ArrowPng 1_26: 8778131967058187661
+      ArrowPng 1_27: -7439798775500365370
+      ArrowPng 1_28: -8208919365125684020
+      ArrowPng 1_29: -4920188388173333669
+      ArrowPng 1_3: 1319979162120928372
+      ArrowPng 1_30: 2878969007408043373
+      ArrowPng 1_31: -496666847434369318
+      ArrowPng 1_32: 2588388412452392696
+      ArrowPng 1_33: -4188956408833624592
+      ArrowPng 1_4: -6683788486891973156
+      ArrowPng 1_5: 5101135320522131645
+      ArrowPng 1_6: -6779160961508416959
+      ArrowPng 1_7: 4870656179334094712
+      ArrowPng 1_8: 4615536178323507608
+      ArrowPng 1_9: 2387799634644366618
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

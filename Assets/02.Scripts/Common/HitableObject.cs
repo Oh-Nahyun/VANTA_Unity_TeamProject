@@ -2,10 +2,10 @@ using UnityEngine;
 
 public abstract class HitableObject : MonoBehaviour
 {
-    public void ExecuteHitEvent()
+    public void ExecuteHitEvent(float damage, DamageIndicatorType damageType)
     {
-        Debug.Log("Hit");
-        HitEvent();
+        DamageIndicatorFactory.Instance.IndicateDamage(gameObject.transform.position, damage, damageType);
+        HitEvent(damage);
     }
-    protected abstract void HitEvent(); //피격시 일어날 행동들 
+    protected abstract void HitEvent(float damage); //피격시 일어날 행동들 
 }

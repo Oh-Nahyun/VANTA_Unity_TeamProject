@@ -134,16 +134,16 @@ public class EnergyBullet : MonoBehaviour
 
     private void Hit()
     {
-        // TODO : [펫] 발동 조건(플레이어 상태) 설정 및 몬스터 데미지 처리하기
-        // _monster.TakeDamage(_energyBulletDamage);
-        Destroy(gameObject);
+        HitableObject hitTarget = _attackTarget.GetComponent<HitableObject>();
+        hitTarget.ExecuteHitEvent(_damage, DamageIndicatorType.Normal);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Monster"))
+        if (!other.CompareTag("Boss"))
             return;
 
         Hit();
+        Destroy(gameObject);
     }
 }

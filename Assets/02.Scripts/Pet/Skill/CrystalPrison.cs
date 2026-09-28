@@ -67,7 +67,7 @@ public class CrystalPrison : MonoBehaviour
     {
         if (_attackTarget == null)
         {
-            _attackTarget = GameObject.FindGameObjectWithTag("Monster");
+            _attackTarget = GameObject.FindGameObjectWithTag("Boss");
 
             if (_attackTarget == null)
                 return;
@@ -76,23 +76,32 @@ public class CrystalPrison : MonoBehaviour
         _timer += Time.deltaTime;
         if (_timer >= _timeBeforeUseSkill)
         {
-            StartSkillProcess(_attackTarget.GetComponent<IBossMovable>());
+            IBossMovable moveTarget = _attackTarget.GetComponent<IBossMovable>();
+            StartSkillProcess(moveTarget);
         }
     }
 
-    private void StartSkillProcess(IBossMovable attackTarget)
+    private void StartSkillProcess(IBossMovable moveTarget)
     {
-        attackTarget.MoveBlock();
-        StartCoroutine(EndSkillProcessCoroutine(attackTarget));
+        moveTarget.MoveBlock();
+        StartCoroutine(EndSkillProcessCoroutine(moveTarget));
     }
 
-    private IEnumerator EndSkillProcessCoroutine(IBossMovable attackTarget)
+    private IEnumerator EndSkillProcessCoroutine(IBossMovable moveTarget)
     {
         yield return new WaitForSeconds(_skillDuration);
 
+        moveTarget.MoveUnblock();
+        Hit();
+
         PlayEndAnimation();
-        attackTarget.MoveUnblock();
         Destroy(gameObject, _timeBeforeDestroy);
+    }
+
+    private void Hit()
+    {
+        HitableObject hitTarget = _attackTarget.GetComponent<HitableObject>();
+        hitTarget.ExecuteHitEvent(_damage, DamageIndicatorType.Normal);
     }
 
     private void PlayEndAnimation()

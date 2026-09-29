@@ -12,7 +12,7 @@ public class CrystalPrison : MonoBehaviour
     /// <summary>
     /// 펫 공격 타겟
     /// </summary>
-    private GameObject _monster;
+    private GameObject _attackTarget;
 
     /// <summary>
     /// 펫 크리스탈 프리즌 앞쪽 애니메이터
@@ -53,9 +53,9 @@ public class CrystalPrison : MonoBehaviour
 
     private void Start()
     {
-        _monster = GameObject.FindGameObjectWithTag("Monster");
+        _attackTarget = GameObject.FindGameObjectWithTag("Boss");
 
-        if (_monster == null)
+        if (_attackTarget == null)
             return;
 
         _timer = 0f;
@@ -65,39 +65,34 @@ public class CrystalPrison : MonoBehaviour
 
     private void Update()
     {
-        if (_monster == null)
+        if (_attackTarget == null)
         {
-            _monster = GameObject.FindGameObjectWithTag("Monster");
+            _attackTarget = GameObject.FindGameObjectWithTag("Monster");
 
-            if (_monster == null)
+            if (_attackTarget == null)
                 return;
         }
 
         _timer += Time.deltaTime;
         if (_timer >= _timeBeforeUseSkill)
         {
-            StartSkillProcess();
+            StartSkillProcess(_attackTarget.GetComponent<IBossMovable>());
         }
     }
 
-    private void StartSkillProcess()
+    private void StartSkillProcess(IBossMovable attackTarget)
     {
-        StopEnemy();
-        StartCoroutine(EndSkillProcessCoroutine());
+        attackTarget.MoveBlock();
+        StartCoroutine(EndSkillProcessCoroutine(attackTarget));
     }
 
-    private IEnumerator EndSkillProcessCoroutine()
+    private IEnumerator EndSkillProcessCoroutine(IBossMovable attackTarget)
     {
         yield return new WaitForSeconds(_skillDuration);
 
         PlayEndAnimation();
+        attackTarget.MoveUnblock();
         Destroy(gameObject, _timeBeforeDestroy);
-    }
-
-    private void StopEnemy()
-    {
-        // TODO : 몬스터 이동 불가 상태로 전환하기
-        // _monster.ChangeMoveState();
     }
 
     private void PlayEndAnimation()

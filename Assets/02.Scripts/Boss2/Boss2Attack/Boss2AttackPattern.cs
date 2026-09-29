@@ -23,6 +23,7 @@ public class Boss2AttackPattern : Boss2AttackBase
     private Boss2AttackPatternType _currentAttackPatternType = Boss2AttackPatternType.None;
     private Animator _patternAnimator;
     private Boss2MoveBase _mover;
+    private Boss2SkillPattern _skillPattern;
     // 콤보가 아닌 단발 공격(Smash, SpinningSlash)을 재생하는 코루틴
     private Coroutine _singleAttackRoutine;
     // 이번 단발 공격이 직접 이동을 막았는지. 다른 효과가 걸어둔 봉쇄는 풀지 않기 위해 기억한다.
@@ -39,6 +40,7 @@ public class Boss2AttackPattern : Boss2AttackBase
     {
         _patternAnimator = GetComponent<Animator>();
         _mover = GetComponent<Boss2MoveBase>();
+        _skillPattern = GetComponent<Boss2SkillPattern>();
         ComboEnded += EndPattern;
     }
 
@@ -95,6 +97,9 @@ public class Boss2AttackPattern : Boss2AttackBase
             return;
         }
 
+        if (IsSkillRunning())
+            return;
+
         _currentAttackPatternType = Boss2AttackPatternType.ComboAttack;
         RequestCombo(comboCount);
     }
@@ -142,8 +147,21 @@ public class Boss2AttackPattern : Boss2AttackBase
             return;
         }
 
+        if (IsSkillRunning())
+            return;
+
         _currentAttackPatternType = patternType;
         _singleAttackRoutine = StartCoroutine(SingleAttackRoutine(stateName, blockMove));
+    }
+
+    // 스킬 애니메이션이 공격 애니메이션에 덮이지 않도록, 스킬 중에는 공격을 시작하지 않는다.
+    private bool IsSkillRunning()
+    {
+        if (_skillPattern == null || _skillPattern.IsSkillRunning == false)
+            return false;
+
+        Debug.LogWarning($"{_skillPattern.CurrentSkillPatternType} 스킬 진행 중에는 공격을 시작할 수 없습니다.");
+        return true;
     }
 
     private IEnumerator SingleAttackRoutine(string stateName, bool blockMove)

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class SkillOrbitIndicator : MonoBehaviour
@@ -28,7 +29,13 @@ public class SkillOrbitIndicator : MonoBehaviour
         Shader.PropertyToID("_PetActive4"),
         Shader.PropertyToID("_PetActive5")
     };
-    
+
+    private void Awake()
+    {
+        ResetPetRevealShader();
+
+    }
+
     public void ResetPetRevealShader()
     {
         for (int i = 0; i < 5; i++)

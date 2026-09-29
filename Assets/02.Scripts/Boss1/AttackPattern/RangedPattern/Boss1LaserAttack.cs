@@ -83,7 +83,13 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
             return;
         }
         
-        Vector2 
+        Vector2 playerDirection = (_playerTransform.position - _laserHeadPivot.position).normalized;
+        float playerAngle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg;
+        
+        float angleDifference = Mathf.DeltaAngle(_lockedAngle, playerAngle);
+        
+        float sweepDirection = angleDifference >= 0f ? 1f : -1f;
+        _targetAngle = _lockedAngle + (_sweepAngle * sweepDirection);
         
         ChangeState(LaserState.Sweep);
     }

@@ -65,7 +65,7 @@ public class Boss1SplitBullet : MonoBehaviour
 
     private void UpdateWarning()
     {
-        if (_timer < _flyDuration)
+        if (_timer < _warningDuration)
         {
             return;
         } 

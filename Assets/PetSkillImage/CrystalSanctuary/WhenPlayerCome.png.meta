@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: 43cbc70c4fb9e6541809ded320bd86f8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 511314039550144291
+    second: WhenPlayerCome_0
+  - first:
+      213: -1818323826143298741
+    second: WhenPlayerCome_1
+  - first:
+      213: 126496669489245287
+    second: WhenPlayerCome_2
+  - first:
+      213: 3534247340100976336
+    second: WhenPlayerCome_3
+  - first:
+      213: -5390635020945165899
+    second: WhenPlayerCome_4
+  - first:
+      213: -716436373538943068
+    second: WhenPlayerCome_5
+  - first:
+      213: -4296264277822006619
+    second: WhenPlayerCome_6
+  - first:
+      213: -883368506086417297
+    second: WhenPlayerCome_7
+  - first:
+      213: 872667235155000946
+    second: WhenPlayerCome_8
+  - first:
+      213: -8556222654996103009
+    second: WhenPlayerCome_9
+  - first:
+      213: -8232568491818486155
+    second: WhenPlayerCome_10
+  - first:
+      213: 1421779904667908171
+    second: WhenPlayerCome_11
+  - first:
+      213: -769133097920034200
+    second: WhenPlayerCome_12
+  - first:
+      213: 1333508067580081230
+    second: WhenPlayerCome_13
+  - first:
+      213: -4355832368354320306
+    second: WhenPlayerCome_14
+  - first:
+      213: -4962330788096836884
+    second: WhenPlayerCome_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: WhenPlayerCome_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 777
+        height: 515
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32f6e00f86d881700800000000000000
+      internalID: 511314039550144291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhenPlayerCome_1
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 506
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4b79103d1404c6e0800000000000000
+      internalID: -1818323826143298741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhenPlayerCome_2
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 508
+        width: 19
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76c2d2afc0861c100800000000000000
+      internalID: 126496669489245287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhenPlayerCome_3
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 442
+        width: 58
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0de76170b3b2c0130800000000000000
+      internalID: 3534247340100976336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhenPlayerCome_4
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 500
+        width: 61
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b178ce520e9035b0800000000000000
+      internalID: -5390635020945165899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhenPlayerCome_5
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 502
+        width: 21
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4afca030ae4be06f0800000000000000
+      internalID: -716436373538943068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhenPlayerCome_6
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 510
+        width: 13
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5aa1833e66a9064c0800000000000000
+      internalID: -4296264277822006619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhenPlayerCome_7
+      rect:
+        serializedVersion: 2
+        x: 637
+        y: 510
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6c93f42605adb3f0800000000000000
+      internalID: -883368506086417297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhenPlayerCome_8
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 510
+        width: 29
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27e398e0a365c1c00800000000000000
+      internalID: 872667235155000946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhenPlayerCome_9
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 14
+        width: 751
+        height: 501
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f90cecdf3d0324980800000000000000
+      internalID: -8556222654996103009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhenPlayerCome_10
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 496
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 576f510239a00cd80800000000000000
+      internalID: -8232568491818486155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhenPlayerCome_11
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 494
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b48f4865a4d2bb310800000000000000
+      internalID: 1421779904667908171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhenPlayerCome_12
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 482
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86a0b71c58d7355f0800000000000000
+      internalID: -769133097920034200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhenPlayerCome_13
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 331
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e447a31b582918210800000000000000
+      internalID: 1333508067580081230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhenPlayerCome_14
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 29
+        width: 201
+        height: 301
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e40a7170a89fc83c0800000000000000
+      internalID: -4355832368354320306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhenPlayerCome_15
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceaf0859072422bb0800000000000000
+      internalID: -4962330788096836884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      WhenPlayerCome_0: 511314039550144291
+      WhenPlayerCome_1: -1818323826143298741
+      WhenPlayerCome_10: -8232568491818486155
+      WhenPlayerCome_11: 1421779904667908171
+      WhenPlayerCome_12: -769133097920034200
+      WhenPlayerCome_13: 1333508067580081230
+      WhenPlayerCome_14: -4355832368354320306
+      WhenPlayerCome_15: -4962330788096836884
+      WhenPlayerCome_2: 126496669489245287
+      WhenPlayerCome_3: 3534247340100976336
+      WhenPlayerCome_4: -5390635020945165899
+      WhenPlayerCome_5: -716436373538943068
+      WhenPlayerCome_6: -4296264277822006619
+      WhenPlayerCome_7: -883368506086417297
+      WhenPlayerCome_8: 872667235155000946
+      WhenPlayerCome_9: -8556222654996103009
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

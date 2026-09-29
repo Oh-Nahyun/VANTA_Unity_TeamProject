@@ -226,4 +226,91 @@ public class SkillAttack : MonoBehaviour
             }
         }
     }
+    
+    public void SingleDash(Vector2 targetPosition, Action onComplete)
+    {
+        if (_rigidbody == null)
+            return;
+
+        _objectZoom.ZoomIn(_dashZoomAmount);
+
+        _dashSequence?.Kill();
+
+        SetPlayerColliders(false);
+        
+        Vector3 moveDirection =
+            targetPosition - _rigidbody.position;
+
+        if (Mathf.Abs(moveDirection.x) > 0.01f)
+        {
+            _spriteRenderer.flipX =
+                moveDirection.x < 0f;
+        }
+
+        _dashSequence = DOTween.Sequence()
+            .SetUpdate(true);
+
+        _dashSequence.AppendCallback(() =>
+        {
+            _skillDashScreenController
+                .StartDashScreenSetting(moveDirection);
+
+            Time.timeScale = _dashTimeSlow;
+
+            
+            Instantiate(
+                _skillDashStartVfxPrefab,
+                transform.position,
+                Quaternion.identity
+            );
+        });
+
+        _dashSequence.AppendInterval(_dashWaitTime);
+
+        _dashSequence.AppendCallback(() =>
+        {
+            Time.timeScale = 1f;
+        });
+
+        _dashSequence.Append(
+            _rigidbody
+                .DOMove(targetPosition, _dashDuration)
+                .SetEase(_dashEase)
+        );
+        HitableObject boss=FindAnyObjectByType<HitableObject>();
+
+        _dashSequence.AppendCallback(() =>
+        {
+
+            _animator.SetTrigger("OneDashSkill");
+            
+
+            _skillDashScreenController
+                .EndDashScreenSetting();
+            Instantiate(
+                _skillDashAttackCriticalVfxPrefab,
+                boss.transform.position,
+                Quaternion.identity
+            );
+        });
+
+        _dashSequence.AppendInterval(_dashWaitTime);
+
+        _dashSequence
+            .OnComplete(() =>
+            {
+                SetPlayerColliders(true);
+                boss.ExecuteHitEvent(200,damageType:DamageIndicatorType.Critical);
+
+                _dashSequence = null;
+
+                _objectZoom.ZoomOut();
+
+                onComplete?.Invoke();
+            })
+            .OnKill(() =>
+            {
+                SetPlayerColliders(true);
+            });
+    }
 }

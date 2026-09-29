@@ -94,20 +94,14 @@ public class SkillIndicatorSkillLocReveal : MonoBehaviour
     {
         float currentAngle = GetCurrentAngle();
 
-        // 이전 프레임과 현재 프레임 사이의
-        // 가장 짧은 각도 차이 (-0.5 ~ +0.5)
+      
         float delta =
             Mathf.DeltaAngle(
                 _previousAngle * 360f,
                 currentAngle * 360f
             ) / 360f;
 
-        /*
-         * 현재 펫이 시계/반시계 중 어느 방향으로
-         * 회전하든 이동한 거리만 누적.
-         *
-         * 한 방향으로만 돈다면 Abs가 가장 간단함.
-         */
+      
         _progress += Mathf.Abs(delta);
 
         _progress = Mathf.Clamp01(_progress);

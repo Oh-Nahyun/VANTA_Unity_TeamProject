@@ -1,15 +1,23 @@
-name: Gemini Commit Review
+name: Gemini PR Review
 
 on:
-  push:
+  pull_request:
     branches:
       - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+      - closed
     paths:
       - 'Assets/02.Scripts/**/*.cs'
   workflow_dispatch:
 
 permissions:
   contents: write
+  issues: write
+  pull-requests: read
 
 concurrency:
   group: gemini-commit-review-${{ github.ref }}
@@ -17,7 +25,8 @@ concurrency:
 
 jobs:
   review:
-    name: Review C# commit
+    name: Review C# PR
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.action != 'closed' || github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -90,7 +99,7 @@ jobs:
           REVIEW_ERROR: ${{ steps.gemini_review.outputs.error }}
         run: |
           {
-            echo "## Gemini Commit Review"
+            echo "## Gemini PR Review"
             echo
 
             if [[ -n "${REVIEW_BODY}" ]]; then
@@ -106,7 +115,7 @@ jobs:
             fi
           } >> "${GITHUB_STEP_SUMMARY}"
 
-      - name: Post review on commit
+      - name: Post review
         if: ${{ steps.gemini_review.outputs.summary != '' }}
         shell: bash
         env:
@@ -114,14 +123,23 @@ jobs:
           REVIEW_BODY: ${{ steps.gemini_review.outputs.summary }}
           REPOSITORY: ${{ github.repository }}
           COMMIT_SHA: ${{ github.sha }}
+          EVENT_NAME: ${{ github.event_name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           jq -n \
-            --arg body "## Gemini Commit Review
+            --arg body "## Gemini PR Review
 
           ${REVIEW_BODY}" \
             '{body: $body}' > comment.json
 
-          gh api \
-            --method POST \
-            "/repos/${REPOSITORY}/commits/${COMMIT_SHA}/comments" \
-            --input comment.json
+          if [[ "${EVENT_NAME}" == "pull_request" ]]; then
+            gh api \
+              --method POST \
+              "/repos/${REPOSITORY}/issues/${PR_NUMBER}/comments" \
+              --input comment.json
+          else
+            gh api \
+              --method POST \
+              "/repos/${REPOSITORY}/commits/${COMMIT_SHA}/comments" \
+              --input comment.json
+          fi

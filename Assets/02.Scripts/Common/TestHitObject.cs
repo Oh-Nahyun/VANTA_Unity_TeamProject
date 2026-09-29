@@ -16,6 +16,5 @@ public class TestHitObject : HitableObject
 
     protected override void HitEvent(float damage)
     {
-
     }
 }

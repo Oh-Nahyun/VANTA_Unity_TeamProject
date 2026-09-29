@@ -11,11 +11,14 @@ public class SkillManager : MonoBehaviour
     private SkillDashPointCreator _skillDashPointCreator;
     private SkillDashPointCalculater _skillDashPointCalculater;
     private SkillAttack _skillAttack;
+    private SkillOrbitIndicator _skillOrbitIndicator;
+    
     [SerializeField] private WeaknessThreadController _weaknessThreadController;
     [Header("참조")]
     [SerializeField] private PlayerAttack _playerAttack;
     [SerializeField] private PlayerMove _playerMove;
-
+    [SerializeField]private Animator _animator;
+    [SerializeField]private GameObject _skillUseEffect;
     [Header("스킬 사용중 타임 슬로우정도")]
     [SerializeField]
     private float _timeSlowAmount = 0.2f;
@@ -42,7 +45,7 @@ public class SkillManager : MonoBehaviour
         _skillDashPointCalculater = GetComponent<SkillDashPointCalculater>();
         _skillAttack = GetComponent<SkillAttack>();
         _skillIndicatorController = GetComponent<SkillIndicatorController>();
-
+        _skillOrbitIndicator=GetComponent<SkillOrbitIndicator>();
     }
 
 
@@ -65,7 +68,7 @@ public class SkillManager : MonoBehaviour
 
     private void MakeSkillStack()
     {
-        if (_maxSkillStack < _skillStack)
+        if (_maxSkillStack > _skillStack)
         {
             _skillStack++;
             CreateSkillIndicator();
@@ -84,11 +87,14 @@ public class SkillManager : MonoBehaviour
     private void SkillUseStart()
     {
         _skillSequence = DOVirtual.DelayedCall(_skillTime, AutoSkillUseStart, true);
-
+        _skillOrbitIndicator.ResetPetRevealShader();
+        Shader.SetGlobalFloat("_PetCount", _skillStack);
         _playerMove.DashToReverseSide();
 
         _weaknessThreadController.StartWeaknessThread();
 
+        _skillUseEffect.SetActive(true);
+        _animator.SetBool("IsSkillUse", true);
         _playerAttack.enabled = false;
         _playerMove.enabled = false;
         Time.timeScale = _timeSlowAmount;
@@ -120,6 +126,8 @@ public class SkillManager : MonoBehaviour
         _skillAttack.SetWeaknessDirection(_weaknessThreadController.GetThreadDirection());
         _skillAttack.DashStart(_choicedSequnce, SkillUseEnd);
         _skillDashPointCalculater.enabled = false;
+        _skillUseEffect.SetActive(false);
+            
     }
 
 
@@ -132,12 +140,16 @@ public class SkillManager : MonoBehaviour
         }
 
         _weaknessThreadController.EndWeaknessThread();
-
+        _skillOrbitIndicator.ResetPetRevealShader();
+       
         _skillStack = 0;
         _skillIndicatorController.ClearPet();
 
         _skillFocusScreenController.EndFocusScreenSetting();
 
+        _animator.SetBool("IsSkillUse", false);
+
+        
         _playerAttack.enabled = true;
         _playerMove.enabled = true;
 
@@ -158,4 +170,8 @@ public class SkillManager : MonoBehaviour
     {
         _skillIndicatorController.MoveToPoint(dashPoints);
     }
+    
+    
+    
+    
 }

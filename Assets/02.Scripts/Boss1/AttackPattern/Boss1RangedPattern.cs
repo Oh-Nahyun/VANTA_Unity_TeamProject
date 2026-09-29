@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Boss1AttackBulletHell : MonoBehaviour, IBoss1Attack
+public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
 {
     [SerializeField] private float _weight = 20f;
 

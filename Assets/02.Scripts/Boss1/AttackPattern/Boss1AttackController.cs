@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Boss1AttackController : MonoBehaviour
 {
-    [SerializeField] private Boss1AttackBulletHell _bulletHellAttack;
+    [SerializeField] private Boss1RangedPattern _rangeAttack;
     
     [SerializeField] private float _chaseDuration = 1f;
 
@@ -14,7 +14,8 @@ public class Boss1AttackController : MonoBehaviour
     private enum AttackState
     {
         Chase,
-        BulletHell
+        BulletHell,
+        Laser
     }
 
     private void Start()
@@ -46,7 +47,7 @@ public class Boss1AttackController : MonoBehaviour
         if (_stateTimer >= _chaseDuration)
         {
             ChangeState(AttackState.BulletHell);
-            _bulletHellAttack.EnterAttack();
+            _rangeAttack.EnterAttack();
         }
     }
 
@@ -55,11 +56,11 @@ public class Boss1AttackController : MonoBehaviour
     /// </summary>
     private void UpdateBulletHell()
     {
-        _bulletHellAttack.UpdateAttack();
+        _rangeAttack.UpdateAttack();
 
-        if (_bulletHellAttack.IsFinished)
+        if (_rangeAttack.IsFinished)
         {
-            _bulletHellAttack.ExitAttack();
+            _rangeAttack.ExitAttack();
             ChangeState(AttackState.Chase);
         }
     }

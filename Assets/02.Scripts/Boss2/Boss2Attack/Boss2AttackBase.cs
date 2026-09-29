@@ -231,6 +231,7 @@ public class Boss2AttackBase : MonoBehaviour
             DeliverDamage(target, _baseDamage);
         }
     }
+    
 
     /// <summary>
     /// center 를 중심으로 radius 안에 있는 대상에게 범위 데미지(_areaOfEffectDamage)를 한 번씩 준다.
@@ -270,14 +271,14 @@ public class Boss2AttackBase : MonoBehaviour
     private void DeliverDamage(GameObject target, int damage)
     {
         // 지금 플레이어가 없는 관계로 데미지를 넘기는 더미로 대체
-        HitDummy dummy = target.GetComponent<HitDummy>();
-        if (dummy != null)
+        Player player = target.GetComponent<Player>();
+        if (player != null)
         {
-            dummy.TakeDamage(damage);
+            player.TakeDamage();
         }
         else
         {
-            Debug.Log("dummy is Null");
+            Debug.Log("player is Null");
         }
     }
 }

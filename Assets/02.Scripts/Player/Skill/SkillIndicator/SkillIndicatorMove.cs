@@ -19,6 +19,7 @@ public class SkillIndicatorMove : MonoBehaviour
     [SerializeField] private Ease _pointMoveEase = Ease.OutQuad;
 
     private SkillIndicatorOrbit _skillIndicatorOrbit;
+    private SkillIndicatorSkillLocReveal _skillIndicatorLocReveal;
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
 
@@ -32,6 +33,7 @@ public class SkillIndicatorMove : MonoBehaviour
     private void Awake()
     {
         _skillIndicatorOrbit = GetComponent<SkillIndicatorOrbit>();
+        _skillIndicatorLocReveal=GetComponent<SkillIndicatorSkillLocReveal>();
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -111,7 +113,7 @@ public class SkillIndicatorMove : MonoBehaviour
             .OnComplete(() =>
             {
                 _skillIndicatorOrbit.Initialize();
-                
+                _skillIndicatorLocReveal.StartReveal();
             });
     }
 

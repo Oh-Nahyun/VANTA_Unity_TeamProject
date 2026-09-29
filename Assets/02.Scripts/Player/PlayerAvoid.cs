@@ -8,34 +8,47 @@ public class PlayerAvoid : MonoBehaviour
 
     [Header("회피기 사용할때 줌 량")]
     [SerializeField] private float _avoidZoomAmount = 1.5f;
+
     [Header("회피 입력 제한시간")]
     [SerializeField] private float _avoidDuration = 2f;
-    [Header("회피 거리")][SerializeField]private float _dashDistance = 1.5f;
+
+    [Header("회피 거리")]
+    [SerializeField] private float _dashDistance = 1.5f;
+
+    [Header("Focus")]
+    [SerializeField] private SkillFocusScreenController _focusScreenController;
+
     private Animator _animator;
     private ObjectZoom _objectZoom;
     private PlayerAvoidKeyGenerator _playerAvoidKeyGenerator;
-    
+    private PlayerMove _playerMove;
+    private PlayerAttack _playerAttack;
     private KeyCode _avoidKey;
     private bool _isAvoidInteraction;
 
     private Tween _avoidTimer;
 
+
     private void Awake()
     {
         _objectZoom = GetComponentInChildren<ObjectZoom>();
         _playerAvoidKeyGenerator = GetComponent<PlayerAvoidKeyGenerator>();
-        _animator=GetComponent<Animator>();
+        _playerMove=GetComponent<PlayerMove>();
+        _playerAttack = GetComponent<PlayerAttack>();
+        _animator = GetComponent<Animator>();
     }
+
 
     private void Update()
     {
         CheckInputSuccess();
-        
+
         if (Input.GetKeyDown(KeyCode.K))
         {
             StartAvoidInteraction(KeyCode.B);
         }
     }
+
 
     private void CheckInputSuccess()
     {
@@ -48,60 +61,95 @@ public class PlayerAvoid : MonoBehaviour
         }
     }
 
+
     public void StartAvoidInteraction(KeyCode keyCode)
     {
-        // 기존 타이머가 있다면 제거
+        // 기존 타이머 제거
         _avoidTimer?.Kill();
 
         _avoidKey = keyCode;
         _isAvoidInteraction = true;
 
+        _playerMove.enabled = false;
+        _playerAttack.enabled = false;
+        // 타임 슬로우
         Time.timeScale = _slowAmount;
 
+        // 줌
         _objectZoom.ZoomIn(_avoidZoomAmount);
+
+        // 키 UI 생성
         _playerAvoidKeyGenerator.CreateAlarmKeyPad(keyCode);
 
-        _animator.SetBool("AvoidReady",true);
+        // 회피 준비 애니메이션
+        _animator.SetBool("AvoidReady", true);
 
-        
+        // =========================
+        // Focus 시작
+        // =========================
+        if (_focusScreenController != null)
+        {
+            _focusScreenController.StartFocusScreenSetting(null);
+        }
+
         // 제한시간 시작
         _avoidTimer = DOVirtual
             .DelayedCall(_avoidDuration, AvoidEnd)
-            .SetUpdate(true);
+            .SetUpdate(true)
+            .OnComplete(() =>
+        {
+            Debug.Log("회피 이동 완료");
+            _playerMove.enabled = true;
+            _playerAttack.enabled = true;
+        });
     }
 
 
     private void AvoidSuccess()
     {
         _animator.SetTrigger("Avoid");
+
         DashToReverseSide();
+
         AvoidEnd();
     }
-    
-    
+
+
     private void AvoidEnd()
     {
         if (!_isAvoidInteraction)
             return;
 
-        _animator.SetBool("AvoidReady",false);
+        _animator.SetBool("AvoidReady", false);
 
-        // 입력 성공으로 AvoidEnd가 먼저 호출됐다면
         // 진행 중인 자동 종료 타이머 제거
         _avoidTimer?.Kill();
         _avoidTimer = null;
 
+        // 키 UI 제거
         _playerAvoidKeyGenerator.ClearAlarmKeyPad();
 
         _isAvoidInteraction = false;
 
+
+        // 타임스케일 복구
         Time.timeScale = 1f;
 
+        // 줌 복구
         _objectZoom.ZoomOut();
+
+        // =========================
+        // Focus 종료
+        // =========================
+        if (_focusScreenController != null)
+        {
+            _focusScreenController.EndFocusScreenSetting();
+        }
 
         Debug.Log($"회피 종료 : {_avoidKey}");
     }
-    
+
+
     public void DashToReverseSide()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
@@ -121,10 +169,12 @@ public class PlayerAvoid : MonoBehaviour
 
         // 보스 -> 플레이어 방향
         Vector2 direction =
-            ((Vector2)transform.position - (Vector2)boss.transform.position).normalized;
+            ((Vector2)transform.position -
+             (Vector2)boss.transform.position).normalized;
 
         Vector2 targetPosition =
-            rb.position + direction * _dashDistance;
+            rb.position +
+            direction * _dashDistance;
 
         Debug.Log(
             $"회피 이동 | 현재: {rb.position} / 방향: {direction} / 목표: {targetPosition}"
@@ -135,9 +185,13 @@ public class PlayerAvoid : MonoBehaviour
             .SetUpdate(UpdateType.Fixed)
             .OnComplete(() =>
             {
-                Debug.Log("회피 이동 완료");
+                _playerMove.enabled = true;
+                _playerAttack.enabled = true;
+
             });
     }
+
+
     private void OnDestroy()
     {
         _avoidTimer?.Kill();

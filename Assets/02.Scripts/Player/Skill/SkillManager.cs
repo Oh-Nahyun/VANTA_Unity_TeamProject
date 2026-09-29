@@ -11,6 +11,7 @@ public class SkillManager : MonoBehaviour
     private SkillDashPointCreator _skillDashPointCreator;
     private SkillDashPointCalculater _skillDashPointCalculater;
     private SkillAttack _skillAttack;
+    private SkillOrbitIndicator _skillOrbitIndicator;
     
     [SerializeField] private WeaknessThreadController _weaknessThreadController;
     [Header("참조")]
@@ -44,7 +45,7 @@ public class SkillManager : MonoBehaviour
         _skillDashPointCalculater = GetComponent<SkillDashPointCalculater>();
         _skillAttack = GetComponent<SkillAttack>();
         _skillIndicatorController = GetComponent<SkillIndicatorController>();
-
+        _skillOrbitIndicator=GetComponent<SkillOrbitIndicator>();
     }
 
 
@@ -86,7 +87,8 @@ public class SkillManager : MonoBehaviour
     private void SkillUseStart()
     {
         _skillSequence = DOVirtual.DelayedCall(_skillTime, AutoSkillUseStart, true);
-
+        _skillOrbitIndicator.ResetPetRevealShader();
+        Shader.SetGlobalFloat("_PetCount", _skillStack);
         _playerMove.DashToReverseSide();
 
         _weaknessThreadController.StartWeaknessThread();
@@ -138,7 +140,8 @@ public class SkillManager : MonoBehaviour
         }
 
         _weaknessThreadController.EndWeaknessThread();
-
+        _skillOrbitIndicator.ResetPetRevealShader();
+       
         _skillStack = 0;
         _skillIndicatorController.ClearPet();
 
@@ -167,4 +170,8 @@ public class SkillManager : MonoBehaviour
     {
         _skillIndicatorController.MoveToPoint(dashPoints);
     }
+    
+    
+    
+    
 }

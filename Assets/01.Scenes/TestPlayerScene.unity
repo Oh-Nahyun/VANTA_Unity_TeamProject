@@ -6446,6 +6446,8 @@ MonoBehaviour:
   _skillDashEndVfxPrefab: {fileID: 5669246471909640947, guid: 361708c4e390ab74c95bbe68453e8fce, type: 3}
   _skillDashAttackVfxPrefab: {fileID: 4306488877223958017, guid: f2b2174306f2a7a4cae5fb635c05c0aa, type: 3}
   _skillDashAttackCriticalVfxPrefab: {fileID: 4306488877223958017, guid: bdfa5128a4ae8e547afe61fb1b8aa1bd, type: 3}
+  _weakHitVfx: {fileID: 0}
+  _skillManager: {fileID: 464393701}
   _animator: {fileID: 321024276}
 --- !u!114 &464393705
 MonoBehaviour:
@@ -6510,8 +6512,8 @@ MonoBehaviour:
   _camera: {fileID: 662615807}
   _zoomInDuration: 0.3
   _zoomOutDuration: 0.3
-  _zoomDamping: 0.5
-  _dampingChangeDuration: 0.2
+  _zoomDamping: 0
+  _dampingChangeDuration: 0
 --- !u!114 &464393709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8110,7 +8112,7 @@ MonoBehaviour:
   _boss: {fileID: 1961626438}
   _targetCamera: {fileID: 519420031}
   _threadWidth: 0.008
-  _rotationSpeed: 3
+  _rotationSpeed: 1.5
   _fadeInDuration: 1
   _fadeOutDuration: 0.5
   _normalGlowIntensity: 1.5
@@ -8120,6 +8122,8 @@ MonoBehaviour:
   _rayMaxOpacity: 1
   _rayFadeInDuration: 0.4
   _rayFadeOutDuration: 0.3
+  _brokenMultiplier: 50
+  _brokenDuration: 0.2
 --- !u!1 &1488837939
 GameObject:
   m_ObjectHideFlags: 0

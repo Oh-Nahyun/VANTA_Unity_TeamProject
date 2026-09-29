@@ -106,6 +106,7 @@ public class PlayerAvoid : MonoBehaviour
 
         _playerMove.enabled = false;
         _playerAttack.enabled = false;
+        _skillAttack.enabled = false;
 
         Time.timeScale = _slowAmount;
 
@@ -150,6 +151,7 @@ public class PlayerAvoid : MonoBehaviour
 
         _playerMove.enabled = false;
         _playerAttack.enabled = false;
+        _skillAttack.enabled = false;
 
         Time.timeScale = _slowAmount;
 
@@ -189,6 +191,8 @@ public class PlayerAvoid : MonoBehaviour
 
         _avoidTimer?.Kill();
         _avoidTimer = null;
+
+        _avoidCaller.GetComponent<IAvoidInteraction>().AvoidResultBehavior(true);
 
         _playerAvoidKeyGenerator
             .ClearAlarmKeyPad();
@@ -345,7 +349,7 @@ public class PlayerAvoid : MonoBehaviour
             IAvoidInteraction avoidInteraction =
                 _avoidCaller.GetComponent<IAvoidInteraction>();
 
-            avoidInteraction?.AvoidFailure();
+            avoidInteraction?.AvoidResultBehavior(false);
         }
 
         AvoidEnd();
@@ -382,6 +386,7 @@ public class PlayerAvoid : MonoBehaviour
 
         _playerMove.enabled = true;
         _playerAttack.enabled = true;
+        _skillAttack.enabled = true;
     }
 
     private void OnDestroy()

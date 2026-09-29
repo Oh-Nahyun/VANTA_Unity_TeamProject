@@ -139,6 +139,10 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+    public void WeakAttackSuccess()
+    {
+        _weaknessThreadController.BrokenThread();
+    }
 
     private void SkillUseStart()
     {

@@ -28,10 +28,12 @@ public class SkillAttack : MonoBehaviour
 
     [Header("vfx 프리팹")][SerializeField] private GameObject _skillDashAttackVfxPrefab;
     [Header("vfx 프리팹")][SerializeField] private GameObject _skillDashAttackCriticalVfxPrefab;
+    [Header("vfx 프리팹")][SerializeField]private GameObject _weakHitVfx;
 
 
     private ObjectZoom _objectZoom;
     private SkillDashScreenController _skillDashScreenController;
+    [SerializeField]private SkillManager _skillManager;
     private Collider2D[] _playerColliders;
     private Sequence _dashSequence;
     [SerializeField] private Animator _animator;
@@ -121,9 +123,9 @@ public class SkillAttack : MonoBehaviour
                 );
 
                 _skillDashScreenController.EndDashScreenSetting();
+                Instantiate(_skillDashEndVfxPrefab, transform.position, Quaternion.identity);
 
                 indicator.SkillAttackComplete();
-                Instantiate(_skillDashEndVfxPrefab, indicator.transform.position, Quaternion.identity);
             });
 
             _dashSequence.AppendInterval(_dashWaitTime);
@@ -222,7 +224,9 @@ public class SkillAttack : MonoBehaviour
                     hit.point,
                     Quaternion.identity
                 );
-
+                _skillManager.WeakAttackSuccess();
+                //Instantiate(_weakHitVfx,)
+                //_weakHitVfx();
             }
         }
     }

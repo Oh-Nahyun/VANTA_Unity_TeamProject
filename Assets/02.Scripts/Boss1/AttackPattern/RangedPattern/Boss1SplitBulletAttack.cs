@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Boss1AttackLaser : MonoBehaviour
+public class Boss1SplitBulletAttack : MonoBehaviour
 {
     private void Start()
     {

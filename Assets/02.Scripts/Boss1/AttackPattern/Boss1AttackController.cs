@@ -14,8 +14,7 @@ public class Boss1AttackController : MonoBehaviour
     private enum AttackState
     {
         Chase,
-        BulletHell,
-        Laser
+        RangeAttack
     }
 
     private void Start()
@@ -31,7 +30,7 @@ public class Boss1AttackController : MonoBehaviour
                 UpdateChase();
                 break;
 
-            case AttackState.BulletHell:
+            case AttackState.RangeAttack:
                 UpdateBulletHell();
                 break;
         }
@@ -46,7 +45,7 @@ public class Boss1AttackController : MonoBehaviour
 
         if (_stateTimer >= _chaseDuration)
         {
-            ChangeState(AttackState.BulletHell);
+            ChangeState(AttackState.RangeAttack);
             _rangeAttack.EnterAttack();
         }
     }

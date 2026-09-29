@@ -36,8 +36,7 @@ public class SkillIndicator : MonoBehaviour
             if (indicator == null || indicator.GetIsChoiced())
                 continue;
 
-            // A cursor has screen-space coordinates, so compare it with the
-            // indicator's projected transform position in the same space.
+
             Vector2 indicatorScreenPosition = targetCamera.WorldToScreenPoint(indicator.transform.position);
             float distanceSqr = (indicatorScreenPosition - screenPosition).sqrMagnitude;
 

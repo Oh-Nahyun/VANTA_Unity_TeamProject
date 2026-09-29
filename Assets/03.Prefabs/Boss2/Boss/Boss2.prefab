@@ -187,6 +187,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bab6df1657ca0984b9e4fc4770308cac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss2SkillBase
+  _baseDamage: 1
+  _areaOfEffectDamage: 1
+  _instantKillDamage: 9999
+  _attackBoxCollider: {fileID: 0}
+  _useKeyboardInput: 1
+  _attackKey: 32
+  _comboSteps: []
+  _maxComboCount: 8
+  _instantKillStartState: StartInstantKillSkill
+  _instantKillEndState: EndInstantKillSkill
+  _instantKillRadius: 1
+  _instantKillForward: 0.8
+  _aoeStateName: Boss2AOESkill
+  _areaStrikePrefab: {fileID: 7674075093399045934, guid: 7d6e3c528fa2dc54cb70ea0db103f7a7, type: 3}
+  _strikeCountMin: 10
+  _strikeCountMax: 15
+  _strikeRadius: 1
+  _strikeDamage: 10
+  _minStrikeSpacing: 1
+  _arenaCenter: {x: 0, y: 0}
+  _arenaSize: {x: 10, y: 6}
+  _targetLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!95 &3614016485446532058
 Animator:
   serializedVersion: 7

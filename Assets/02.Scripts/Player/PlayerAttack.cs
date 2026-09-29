@@ -68,7 +68,6 @@ public class PlayerAttack : MonoBehaviour
     {
         _isSlashing = true;
         _animator.SetTrigger("Slash");
-        _skillIndicatorController.CommandToPetAttack();
         ExecuteComboTime();
         ExecuteCoolTime();
     }
@@ -77,7 +76,6 @@ public class PlayerAttack : MonoBehaviour
     {
         _isSlashing = true;
         _animator.SetTrigger("DoubleSlash");
-        _skillIndicatorController.CommandToPetAttack();
 
         ExecuteCoolTime();
     }
@@ -116,6 +114,8 @@ public class PlayerAttack : MonoBehaviour
             {
                 hitObject.ExecuteHitEvent(_slashDamage, DamageIndicatorType.Normal);
                 Instantiate(_slashEffect, hit.transform.position, Quaternion.identity);
+                _skillIndicatorController.CommandToPetAttack();
+
                 StackforSkillPoint();
             }
         }
@@ -132,6 +132,8 @@ public class PlayerAttack : MonoBehaviour
             {
                 hitObject.ExecuteHitEvent(_doubleSlashDamage, DamageIndicatorType.Middle);
                 Instantiate(_doubleSlashEffect, hit.transform.position, Quaternion.identity);
+                _skillIndicatorController.CommandToPetAttack();
+
                 StackforSkillPoint();
             }
 

@@ -38,18 +38,18 @@ Material:
     m_Ints: []
     m_Floats:
     - _Darkness: 0.8
-    - _DashWidth: 0
+    - _DashWidth: 0.057853375
     - _Feather: 0.1
-    - _FocusMode: 0
-    - _Radius: 1.5
+    - _FocusMode: 1
+    - _Radius: 0.29999995
     - _SelectedFeather: 0.1
     - _SelectedRadius: 0
     m_Colors:
-    - _Center: {r: 0.2510866, g: 0.62486845, b: 0, a: 0}
-    - _DashCenter: {r: 0.7019348, g: 0.7271465, b: 0, a: 0}
+    - _Center: {r: 0.42392945, g: 0.44059914, b: 0, a: 0}
+    - _DashCenter: {r: 0.50026584, g: 0.49934962, b: 0, a: 0}
     - _DashDirection: {r: 0, g: 0, b: 0, a: 0}
-    - _DashNormal: {r: 0.12249113, g: -0.9924696, b: 0, a: 0}
-    - _SelectCenter: {r: 0.16720027, g: 0.7070179, b: 0, a: 0}
+    - _DashNormal: {r: -0.9887897, g: 0.14931482, b: 0, a: 0}
+    - _SelectCenter: {r: 0.74144727, g: 0.4902808, b: 0, a: 0}
     - _SelectCenter1: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -39,7 +39,10 @@ public class SkillIndicatorController : MonoBehaviour
         SkillIndicatorMove indicatorMove =
             spawned.GetComponent<SkillIndicatorMove>();
         indicatorMove.SetTarget(target);
+        SkillIndicatorSkillLocReveal skillIndicatorSkillLocReveal =spawned.GetComponent<SkillIndicatorSkillLocReveal>();
+        skillIndicatorSkillLocReveal.SetPetNumber(_pets.Count);
         _pets.Add(spawned);
+
     }
 
 

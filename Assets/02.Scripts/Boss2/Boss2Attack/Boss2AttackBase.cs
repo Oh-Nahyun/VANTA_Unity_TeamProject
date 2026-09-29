@@ -28,6 +28,8 @@ public class Boss2AttackBase : MonoBehaviour
 
     [SerializeField] private BoxCollider2D _attackBoxCollider;
     private Animator _animator;
+    // 공격 박스 판정 한 번(StartDamage ~ EndDamage)에서 이미 맞은 대상
+    private readonly HashSet<GameObject> _hitTargetsThisSwing = new HashSet<GameObject>();
 
     [Header("공격 신호")]
     // 끄면 키 입력을 무시하고 RequestAttack / RequestCombo 신호로만 공격한다. (AI 전용)
@@ -46,6 +48,8 @@ public class Boss2AttackBase : MonoBehaviour
     private float _stepStartTime = 0f;
 
     public bool IsAttacking => _currentHit >= 0;
+    // 자식이 인스펙터의 즉사기 데미지 설정을 쓰도록 연다.
+    protected int InstantKillDamage => _instantKillDamage;
     public int CurrentHitIndex => _currentHit;
     public int CurrentStepIndex => IsAttacking ? _currentHit % _comboSteps.Length : -1;
 
@@ -192,6 +196,8 @@ public class Boss2AttackBase : MonoBehaviour
     {
         if (_attackBoxCollider != null)
         {
+            // 판정이 새로 켜질 때마다 "이번 판정에서 맞은 대상"을 비운다. (DoubleAttack 은 판정마다 1회씩)
+            _hitTargetsThisSwing.Clear();
             _attackBoxCollider.enabled = true;
         }
     }
@@ -206,14 +212,23 @@ public class Boss2AttackBase : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            // AttackBoxCollider에 대한 처리 로직만 여기로 들어가게 처리
-            if (_attackBoxCollider.enabled == true)
-            {
-                DeliverDamage(other.gameObject, _baseDamage);
-            }
+        if (other.CompareTag("Player") == false)
+            return;
 
+        // 박스를 쓰지 않는 자식 컴포넌트(Boss2SkillPattern 등)는 비워 두므로 null 을 먼저 거른다.
+        if (_attackBoxCollider == null || _attackBoxCollider.enabled == false)
+            return;
+
+        // 이 메시지는 보스의 모든 트리거(몸통 포함)에서 온다.
+        // 공격 박스에 실제로 닿은 대상만 치고, 몸통에만 닿은 대상은 공격으로 보지 않는다.
+        if (_attackBoxCollider.IsTouching(other) == false)
+            return;
+
+        // 몸통과 공격 박스에 동시에 닿으면 이벤트가 두 번 오므로 판정당 한 번만 친다.
+        GameObject target = other.attachedRigidbody != null ? other.attachedRigidbody.gameObject : other.gameObject;
+        if (_hitTargetsThisSwing.Add(target))
+        {
+            DeliverDamage(target, _baseDamage);
         }
     }
 
@@ -222,6 +237,14 @@ public class Boss2AttackBase : MonoBehaviour
     /// 자기 자신은 제외하고, 콜라이더가 여러 개인 대상도 한 번만 맞는다. 맞은 대상 수를 돌려준다.
     /// </summary>
     protected int DealAreaDamage(Vector2 center, float radius, LayerMask targetLayers)
+    {
+        return DealAreaDamage(center, radius, targetLayers, _areaOfEffectDamage);
+    }
+
+    /// <summary>
+    /// 데미지를 직접 정하는 범위 판정. 즉사기·광역기 더미처럼 범위 공격 기본값과 다른 데미지를 줄 때 쓴다.
+    /// </summary>
+    protected int DealAreaDamage(Vector2 center, float radius, LayerMask targetLayers, int damage)
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(center, radius, targetLayers);
         HashSet<GameObject> damaged = new HashSet<GameObject>();
@@ -237,7 +260,7 @@ public class Boss2AttackBase : MonoBehaviour
             GameObject target = hit.attachedRigidbody != null ? hit.attachedRigidbody.gameObject : hit.gameObject;
             if (damaged.Add(target))
             {
-                DeliverDamage(target, _areaOfEffectDamage);
+                DeliverDamage(target, damage);
             }
         }
 

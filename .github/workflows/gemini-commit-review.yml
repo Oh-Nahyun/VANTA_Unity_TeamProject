@@ -126,11 +126,13 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          jq -n \
-            --arg body "## Gemini PR Review
+          {
+            echo "## 🤖 Gemini PR Review"
+            echo
+            printf '%s\n' "${REVIEW_BODY}"
+          } > review.md
 
-          ${REVIEW_BODY}" \
-            '{body: $body}' > comment.json
+          jq -Rs '{body: .}' review.md > comment.json
 
           if [[ "${EVENT_NAME}" == "pull_request" ]]; then
             gh api \

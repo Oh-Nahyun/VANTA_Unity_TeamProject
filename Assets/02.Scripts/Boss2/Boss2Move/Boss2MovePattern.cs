@@ -4,8 +4,16 @@ public class Boss2MovePattern : Boss2MoveBase
 {
     [Header("이동 패턴")]
     [SerializeField] private Transform _target;
-    // 스킬(즉사기 등)도 같은 대상을 쓰도록 읽기 전용으로 연다.
+    // 스킬(즉사기 등)도 같은 대상을 쓰도록 연다.
     public Transform Target => _target;
+
+    /// <summary>
+    /// 인스펙터에서 대상을 비워 둔 경우 컨트롤러가 찾아서 넣어 준다.
+    /// </summary>
+    public void SetTarget(Transform target)
+    {
+        _target = target;
+    }
     // (임시) 공격 가능 범위. 접근 패턴은 타깃과 이 거리 안으로 들어오면 끝난다.
     [SerializeField] private float _attackRange = 1f;
     // BackStep 은 타깃과 이 거리 이상 벌어지면 끝난다.

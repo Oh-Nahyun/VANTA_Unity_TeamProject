@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Boss2SkillPattern : Boss2AttackBase
+public class Boss2SkillPattern : Boss2AttackBase ,IAvoidInteraction
 {
     // 주의: 기반 클래스가 private Start / Update 를 갖고 있다.
     // 여기서 Start, Update, Awake 를 선언하면 Unity 가 이쪽만 호출해 기반 쪽 갱신이 멈춘다.
@@ -44,6 +44,8 @@ public class Boss2SkillPattern : Boss2AttackBase
     // 기본은 모든 레이어. 대상은 태그(Player)로 한 번 더 거른다.
     [SerializeField] private LayerMask _targetLayers = ~0;
 
+    private bool _isAvoided = false;
+    
     private const int MaxSpacingAttempts = 30;
 
     private Boss2SkillPatternType _currentSkillPatternType = Boss2SkillPatternType.None;
@@ -133,16 +135,36 @@ public class Boss2SkillPattern : Boss2AttackBase
     // 애니메이션 이벤트: EndInstantKillSkill 의 베는 프레임
     public void InstantKillHit()
     {
+        // 회피 실패 시 데미지
+        if (_isAvoided == false)
+        {
+            foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                Player player = playerObject.GetComponent<Player>();
+                // Player 태그만 있고 Player 컴포넌트가 없는 오브젝트(테스트 더미 등)는 건너뛴다.
+                if (player == null)
+                    continue;
+            
+                // TakeDamage가 아니라 
+                player.TakeDamage(); // 인자로 키보드 키값 KeyCode
+                // StartAvoid
+            }
+        }
+    }
+
+    public void AvoidPoint()
+    {
         //DealAreaDamage(InstantKillCenter, _instantKillRadius, _targetLayers, InstantKillDamage);
         // 만약 플레이어가
         foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
         {
-            Player player = playerObject.GetComponent<Player>();
+            PlayerAvoid playerAvoid = playerObject.GetComponent<PlayerAvoid>();
+            // Player 태그만 있고 Player 컴포넌트가 없는 오브젝트(테스트 더미 등)는 건너뛴다.
+            if (playerAvoid == null)
+                continue;
             
-            player.TakeDamage();
             // TakeDamage가 아니라 
-            // PlayerAvoid player = playerObject.GetComponent<PlayerAvoid>();
-            // player.StartAvoidInteracter(); // 인자로 키보드 키값 KeyCode
+            playerAvoid.StartAvoidAttackInteraction(gameObject); // 인자로 키보드 키값 KeyCode
             // StartAvoid
         }
     }
@@ -375,6 +397,18 @@ private void BeginSkill()
         // 즉사기 판정 원: 나타난 뒤 보스 바로 아래
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(InstantKillCenter, _instantKillRadius);
+    }
+
+    public void AvoidSuccess()
+    {
+        // 보스 공격 캔슬
+        _isAvoided = true;
+    }
+
+    public void AvoidFailure()
+    {
+        // 보스 공격이 재개
+        _isAvoided = false;
     }
 
     // ---- 테스트용: 플레이 중 컴포넌트 ⋮ 메뉴에서 실행 ----

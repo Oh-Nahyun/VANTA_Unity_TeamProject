@@ -92,6 +92,14 @@ public class PetAttack : MonoBehaviour
 
     private void UseCrystalSanctuary()
     {
-        Instantiate(_crystalSanctuaryPrefab, transform.position, transform.rotation);
+        for (int i = 0; i < 3; i++)
+        {
+            float randomFloat = Random.Range(1f, 2f);
+            Vector3 randomScale = new Vector3(randomFloat, randomFloat, randomFloat);
+            Vector3 randomPosition = new Vector3(Random.Range(-6f, 6f), Random.Range(-3f, 1.5f), 0f);
+
+            _crystalSanctuaryPrefab.transform.localScale = randomScale;
+            Instantiate(_crystalSanctuaryPrefab, randomPosition, transform.rotation);
+        }
     }
 }

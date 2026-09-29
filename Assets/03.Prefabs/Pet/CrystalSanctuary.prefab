@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0408818, y: 1.0408818, z: 1.0408818}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -127,3 +127,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49cad15ed73085b48ac0dd6e3911083c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrystalSanctuary
+  _skillDuration: 5

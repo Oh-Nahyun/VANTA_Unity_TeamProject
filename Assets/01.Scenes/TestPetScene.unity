@@ -6970,7 +6970,6 @@ GameObject:
   - component: {fileID: 765534171}
   - component: {fileID: 765534170}
   - component: {fileID: 765534169}
-  - component: {fileID: 765534172}
   m_Layer: 12
   m_Name: Pet
   m_TagString: Pet
@@ -7150,10 +7149,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c9d9896176f7547a0504a5e7fad093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PetAttack
-  _energyBulletPrefab: {fileID: 6523856158434468449, guid: 4832a329c9cbe5847a6601b82ebffe8a, type: 3}
-  _energyBulletSpawnPosition: {fileID: 940655228}
   _energyBulletCount: 3
+  _energyBulletSpawnPosition: {fileID: 940655228}
+  _energyBulletPrefab: {fileID: 6523856158434468449, guid: 4832a329c9cbe5847a6601b82ebffe8a, type: 3}
   _crystalPrisonPrefab: {fileID: 5960170544083001488, guid: 1cc63ea2fc8955d45bf39528384acf3e, type: 3}
+  _crystalSanctuaryPrefab: {fileID: 7285922598011615516, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
 --- !u!114 &765534170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7183,20 +7183,6 @@ MonoBehaviour:
   Animator: {fileID: 765534166}
   SpriteRenderer: {fileID: 765534164}
   PlayerSkillManager: {fileID: 0}
---- !u!114 &765534172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 765534162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ae298face59ab8428c6a80c1a85f4c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CrystalPrison
-  _skillDuration: 5
-  _damage: 20
 --- !u!1 &906813755
 GameObject:
   m_ObjectHideFlags: 0
@@ -9712,63 +9698,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!1001 &8077477848497518909
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3200968318941730075, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200968318941730075, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200968318941730075, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200968318941730075, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200968318941730075, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200968318941730075, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200968318941730075, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200968318941730075, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200968318941730075, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200968318941730075, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7285922598011615516, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
-      propertyPath: m_Name
-      value: CrystalSanctuary
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -9784,4 +9713,3 @@ SceneRoots:
   - {fileID: 765534165}
   - {fileID: 1437763814}
   - {fileID: 1055357606}
-  - {fileID: 8077477848497518909}

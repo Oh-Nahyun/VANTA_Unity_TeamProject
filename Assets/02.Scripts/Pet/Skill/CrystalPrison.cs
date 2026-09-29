@@ -12,7 +12,7 @@ public class CrystalPrison : MonoBehaviour
     /// <summary>
     /// 펫 공격 타겟
     /// </summary>
-    private GameObject _attackTarget;
+    public GameObject AttackTarget;
 
     /// <summary>
     /// 펫 크리스탈 프리즌 앞쪽 애니메이터
@@ -53,11 +53,6 @@ public class CrystalPrison : MonoBehaviour
 
     private void Start()
     {
-        _attackTarget = GameObject.FindGameObjectWithTag("Boss");
-
-        if (_attackTarget == null)
-            return;
-
         _timer = 0f;
         _timeBeforeUseSkill = 0.7f;
         _timeBeforeDestroy = 0.75f;
@@ -65,18 +60,12 @@ public class CrystalPrison : MonoBehaviour
 
     private void Update()
     {
-        if (_attackTarget == null)
-        {
-            _attackTarget = GameObject.FindGameObjectWithTag("Boss");
-
-            if (_attackTarget == null)
-                return;
-        }
+        if (AttackTarget == null) return;
 
         _timer += Time.deltaTime;
         if (_timer >= _timeBeforeUseSkill)
         {
-            IBossMovable moveTarget = _attackTarget.GetComponent<IBossMovable>();
+            IBossMovable moveTarget = AttackTarget.GetComponent<IBossMovable>();
             StartSkillProcess(moveTarget);
         }
     }
@@ -100,7 +89,7 @@ public class CrystalPrison : MonoBehaviour
 
     private void Hit()
     {
-        HitableObject hitTarget = _attackTarget.GetComponent<HitableObject>();
+        HitableObject hitTarget = AttackTarget.GetComponent<HitableObject>();
         hitTarget.ExecuteHitEvent(_damage, DamageIndicatorType.Normal);
     }
 

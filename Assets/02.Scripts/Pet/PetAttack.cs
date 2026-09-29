@@ -2,32 +2,68 @@ using UnityEngine;
 
 public class PetAttack : MonoBehaviour
 {
-    [Header("펫 기본 공격 에너지 탄 프리팹")]
-    [SerializeField] private GameObject _energyBulletPrefab;
+    [Header("펫 기본 공격 에너지 탄 생성 갯수")]
+    [SerializeField] private int _energyBulletCount = 1;
 
     [Header("펫 기본 공격 에너지 탄 생성 위치")]
     [SerializeField] private Transform _energyBulletSpawnPosition;
 
-    [Header("펫 기본 공격 에너지 탄 생성 갯수")]
-    [SerializeField] private int _energyBulletCount = 1;
+    [Header("펫 기본 공격 에너지 탄 프리팹")]
+    [SerializeField] private GameObject _energyBulletPrefab;
 
     [Header("펫 공격 스킬 크리스탈 프리즌 프리팹")]
     [SerializeField] private GameObject _crystalPrisonPrefab;
+
+    [Header("펫 공격 스킬 크리스탈 생츄어리 프리팹")]
+    [SerializeField] private GameObject _crystalSanctuaryPrefab;
 
     /// <summary>
     /// 펫 클래스
     /// </summary>
     private Pet _pet;
 
+    /// <summary>
+    /// 펫 기본 공격 에너지 탄 클래스
+    /// </summary>
+    private EnergyBullet _energyBullet;
+
+    /// <summary>
+    /// 펫 공격 스킬 크리스탈 프리즌 클래스
+    /// </summary>
+    private CrystalPrison _crystalPrison;
+
+    /// <summary>
+    /// 펫 공격 타겟
+    /// </summary>
+    private GameObject _attackTarget;
+
     private void Awake()
     {
         _pet = GetComponent<Pet>();
+        _crystalPrison = _crystalPrisonPrefab.GetComponent<CrystalPrison>();
     }
 
     private void Start()
     {
+        _attackTarget = GameObject.FindGameObjectWithTag("Boss");
+
+        if (_attackTarget == null) return;
+
         // TODO : [펫] 기본 공격 및 공격 스킬 조건은 플레이어 상태 고려해서 정하기
-        UseCrystalPrison();
+        // TODO : [펫] 아래 함수 호출 코드는 테스트용으로 추후 삭제하기
+        FireEnergyBullet();
+        //UseCrystalPrison();
+        //UseCrystalSanctuary();
+    }
+
+    private void Update()
+    {
+        if (_attackTarget == null)
+        {
+            _attackTarget = GameObject.FindGameObjectWithTag("Boss");
+
+            if (_attackTarget == null) return;
+        }
     }
 
     public void FireEnergyBullet()
@@ -38,17 +74,24 @@ public class PetAttack : MonoBehaviour
 
         for (int i = 0; i < _energyBulletCount; i++)
         {
-            GameObject bullet = Instantiate(_energyBulletPrefab, _energyBulletSpawnPosition.position,
+            GameObject energyBullet = Instantiate(_energyBulletPrefab, _energyBulletSpawnPosition.position,
                 transform.rotation);
-            EnergyBullet energyBullet = bullet.GetComponent<EnergyBullet>();
+            _energyBullet = energyBullet.GetComponent<EnergyBullet>();
+            _energyBullet.AttackTarget = _attackTarget;
 
             float curveAmount = (i - middleIndex) * 2f;
-            energyBullet.BezierCurve.SetCurveAmount(curveAmount);
+            _energyBullet.BezierCurve.SetCurveAmount(curveAmount);
         }
     }
 
     private void UseCrystalPrison()
     {
-        Instantiate(_crystalPrisonPrefab, transform.position, transform.rotation);
+        _crystalPrison.AttackTarget = _attackTarget;
+        Instantiate(_crystalPrisonPrefab, _attackTarget.transform.position, transform.rotation);
+    }
+
+    private void UseCrystalSanctuary()
+    {
+        Instantiate(_crystalSanctuaryPrefab, transform.position, transform.rotation);
     }
 }

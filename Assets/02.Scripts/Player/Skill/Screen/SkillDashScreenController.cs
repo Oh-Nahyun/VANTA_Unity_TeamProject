@@ -1,13 +1,9 @@
-
-
-using System;
 using DG.Tweening;
 using UnityEngine;
 
 public class SkillDashScreenController : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Material _focusMaterial;
     [SerializeField] private Transform _player;
     [SerializeField] private Camera _targetCamera;
 
@@ -30,16 +26,54 @@ public class SkillDashScreenController : MonoBehaviour
 
     private Tween _widthTween;
 
+    private float _currentWidth;
+
+    private void Awake()
+    {
+        if (_targetCamera == null)
+            _targetCamera = Camera.main;
+
+        // Global Shader 값 초기화
+        _currentWidth = 0f;
+
+        Shader.SetGlobalFloat(
+            FocusModeID,
+            0f
+        );
+
+        Shader.SetGlobalFloat(
+            DashWidthID,
+            0f
+        );
+
+        Shader.SetGlobalVector(
+            DashCenterID,
+            Vector4.zero
+        );
+
+        Shader.SetGlobalVector(
+            DashNormalID,
+            Vector4.zero
+        );
+    }
+
     public void StartDashScreenSetting(Vector3 dashDirection)
     {
+        if (_player == null || _targetCamera == null)
+            return;
+
+        // 플레이어의 화면상 위치
         Vector3 playerScreen =
-            _targetCamera.WorldToViewportPoint(_player.position);
+            _targetCamera.WorldToViewportPoint(
+                _player.position
+            );
 
         Vector2 center = new Vector2(
             playerScreen.x,
             playerScreen.y
         );
 
+        // Dash 방향의 화면상 방향 계산
         Vector3 endScreen =
             _targetCamera.WorldToViewportPoint(
                 _player.position + dashDirection
@@ -48,48 +82,126 @@ public class SkillDashScreenController : MonoBehaviour
         Vector2 screenDirection = new Vector2(
             endScreen.x - playerScreen.x,
             endScreen.y - playerScreen.y
-        ).normalized;
+        );
 
+        if (screenDirection.sqrMagnitude < 0.000001f)
+            return;
+
+        screenDirection.Normalize();
+
+        // Dash 방향에 수직인 Normal
         Vector2 normal = new Vector2(
             -screenDirection.y,
             screenDirection.x
         );
 
-        _focusMaterial.SetFloat(FocusModeID, 1f);
-        _focusMaterial.SetVector(DashCenterID, center);
-        _focusMaterial.SetVector(DashNormalID, normal);
+        // Dash Focus 활성화
+        Shader.SetGlobalFloat(
+            FocusModeID,
+            1f
+        );
+
+        Shader.SetGlobalVector(
+            DashCenterID,
+            new Vector4(
+                center.x,
+                center.y,
+                0f,
+                0f
+            )
+        );
+
+        Shader.SetGlobalVector(
+            DashNormalID,
+            new Vector4(
+                normal.x,
+                normal.y,
+                0f,
+                0f
+            )
+        );
 
         _widthTween?.Kill();
 
-        _focusMaterial.SetFloat(DashWidthID, 0f);
+        _currentWidth = 0f;
 
-        _widthTween = _focusMaterial
-            .DOFloat(
+        Shader.SetGlobalFloat(
+            DashWidthID,
+            0f
+        );
+
+        // 0 → DashWidth
+        _widthTween = DOTween.To(
+                () => _currentWidth,
+                value =>
+                {
+                    _currentWidth = value;
+
+                    Shader.SetGlobalFloat(
+                        DashWidthID,
+                        value
+                    );
+                },
                 _dashWidth,
-                DashWidthID,
                 _focusInDuration
             )
             .SetEase(Ease.OutCubic)
             .SetUpdate(true);
     }
 
-
     public void EndDashScreenSetting()
     {
         _widthTween?.Kill();
 
-        _widthTween = _focusMaterial
-            .DOFloat(
+        // DashWidth → 0
+        _widthTween = DOTween.To(
+                () => _currentWidth,
+                value =>
+                {
+                    _currentWidth = value;
+
+                    Shader.SetGlobalFloat(
+                        DashWidthID,
+                        value
+                    );
+                },
                 0f,
-                DashWidthID,
                 _focusOutDuration
             )
             .SetEase(Ease.InCubic)
             .SetUpdate(true)
             .OnComplete(() =>
             {
-                _focusMaterial.SetFloat(FocusModeID, 0f);
+                Shader.SetGlobalFloat(
+                    FocusModeID,
+                    0f
+                );
             });
     }
-}
 
+    private void OnDestroy()
+    {
+        _widthTween?.Kill();
+
+        // Global 값 정리
+        Shader.SetGlobalFloat(
+            FocusModeID,
+            0f
+        );
+
+        Shader.SetGlobalFloat(
+            DashWidthID,
+            0f
+        );
+
+        Shader.SetGlobalVector(
+            DashCenterID,
+            Vector4.zero
+        );
+
+        Shader.SetGlobalVector(
+            DashNormalID,
+            Vector4.zero
+        );
+    }
+}

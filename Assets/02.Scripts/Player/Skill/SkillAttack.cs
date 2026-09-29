@@ -12,6 +12,8 @@ public class SkillAttack : MonoBehaviour
     private float _dashTimeSlow = 0.05f;
 
     [Header("대쉬 속도")][SerializeField] private float _dashDuration = 0.15f;
+    [Header("대쉬 중 줌 정도")][SerializeField] private float _dashZoomAmount = 1f;
+
     [Header("대쉬간 대기시간")][SerializeField] private float _dashWaitTime = 0.5f;
     [SerializeField] private Ease _dashEase = Ease.OutQuad;
     [Header("대쉬 공격 판정")][SerializeField] private LayerMask _enemyLayer;
@@ -20,11 +22,15 @@ public class SkillAttack : MonoBehaviour
     [SerializeField] private float _weaknessAngleTolerance = 0.5f;
 
     [Header("참조")][SerializeField] private Rigidbody2D _rigidbody;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
     [Header("vfx 프리팹")][SerializeField] private GameObject _skillDashStartVfxPrefab;
+    [Header("vfx 프리팹")][SerializeField] private GameObject _skillDashEndVfxPrefab;
+
     [Header("vfx 프리팹")][SerializeField] private GameObject _skillDashAttackVfxPrefab;
     [Header("vfx 프리팹")][SerializeField] private GameObject _skillDashAttackCriticalVfxPrefab;
 
 
+    private ObjectZoom _objectZoom;
     private SkillDashScreenController _skillDashScreenController;
     private Collider2D[] _playerColliders;
     private Sequence _dashSequence;
@@ -37,6 +43,7 @@ public class SkillAttack : MonoBehaviour
         if (_rigidbody != null)
             _playerColliders = _rigidbody.GetComponentsInChildren<Collider2D>(true);
         _skillDashScreenController = GetComponent<SkillDashScreenController>();
+        _objectZoom=GetComponent<ObjectZoom>();
     }
 
     public void DashStart(List<SkillIndicator> selectedIndicators, Action onComplete)
@@ -44,6 +51,8 @@ public class SkillAttack : MonoBehaviour
         if (_rigidbody == null || selectedIndicators == null || selectedIndicators.Count == 0)
             return;
 
+        _objectZoom.ZoomIn(_dashZoomAmount);
+        
         _dashSequence?.Kill();
 
         SetPlayerColliders(false);
@@ -67,13 +76,21 @@ public class SkillAttack : MonoBehaviour
                 Vector3 moveDirection =
                     indicator.transform.position - transform.position;
 
+                if (Mathf.Abs(moveDirection.x) > 0.01f)
+                {
+                    _spriteRenderer.flipX = moveDirection.x < 0f;
+                }
+
                 _skillDashScreenController.StartDashScreenSetting(moveDirection);
 
                 Time.timeScale = _dashTimeSlow;
 
-                Instantiate(_skillDashStartVfxPrefab, transform.position, Quaternion.identity);
-                _animator.SetTrigger("OneDashSkill");
 
+                Instantiate(
+                    _skillDashStartVfxPrefab,
+                    transform.position,
+                    Quaternion.identity
+                );
             });
 
             _dashSequence.AppendInterval(_dashWaitTime);
@@ -95,8 +112,9 @@ public class SkillAttack : MonoBehaviour
             _dashSequence.AppendCallback(() =>
             {
                 Vector2 dashEndPosition = _rigidbody.position;
+                _animator.SetTrigger("OneDashSkill");
 
-                // 시작 → 끝 전체 공격 판정
+                // 시작 → 끝 전체 공격 판정  
                 CheckDashHit(
                     dashStartPosition,
                     dashEndPosition
@@ -105,6 +123,7 @@ public class SkillAttack : MonoBehaviour
                 _skillDashScreenController.EndDashScreenSetting();
 
                 indicator.SkillAttackComplete();
+                Instantiate(_skillDashEndVfxPrefab, indicator.transform.position, Quaternion.identity);
             });
 
             _dashSequence.AppendInterval(_dashWaitTime);
@@ -116,6 +135,8 @@ public class SkillAttack : MonoBehaviour
             {
                 SetPlayerColliders(true);
                 _dashSequence = null;
+                _objectZoom.ZoomOut();
+
                 onComplete.Invoke();
             })
             .OnKill(() => SetPlayerColliders(true));

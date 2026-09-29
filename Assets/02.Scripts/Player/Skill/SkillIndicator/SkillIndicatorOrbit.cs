@@ -32,7 +32,8 @@ public class SkillIndicatorOrbit : MonoBehaviour
         if (!_isOrbiting || _target == null)
             return;
 
-        _currentAngle +=
+        // 시계 방향으로 회전
+        _currentAngle -=
             _orbitSpeed * Time.deltaTime;
 
         float rad =

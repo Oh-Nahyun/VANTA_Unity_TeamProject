@@ -1,14 +1,60 @@
 using UnityEngine;
 
-public class Boss1SplitBulletAttack : MonoBehaviour
+public class Boss1SplitBulletAttack : MonoBehaviour, IBoss1RangedAttack
 {
-    private void Start()
+    [SerializeField] private Transform _splitHeadPivot;
+    [SerializeField] private Transform _playerTransform;
+    [SerializeField] private Boss1SplitBullet _splitBulletPrefab;
+
+    [SerializeField] private float _splitFireInteval = 1f;
+    [SerializeField] private int _splitFireCount = 5;
+    
+    private float _timer;
+    private int _currentFireCount;
+    
+    public bool IsFinished { get; private set; }
+    
+    public void EnterAttack()
     {
-        
+        _timer = 0f;
+        _currentFireCount = 0;
+        IsFinished = false;
+
+        Debug.Log("SplitBulletAttack 패턴 시작");
     }
 
-    private void Update()
+    public void UpdateAttack()
     {
+        if (IsFinished)
+        {
+            return;
+        }
         
+        _timer += Time.deltaTime;
+        if (_timer < _splitFireInteval)
+        {
+            return;
+        }
+
+        FireSplitBullet();
+        _timer = 0f;
+        _currentFireCount++;
+        if (_currentFireCount >= _splitFireCount)
+        {
+            IsFinished = true;
+        }
+    }
+
+    public void ExitAttack()
+    {
+        Debug.Log("SplitBulletAttack 패턴 종료");
+    }
+
+    
+    private void FireSplitBullet()
+    {
+        Vector2 direction = (_playerTransform.position - _splitHeadPivot.position).normalized;
+        Boss1SplitBullet splitBullet = Instantiate(_splitBulletPrefab, _splitHeadPivot.position, Quaternion.identity);
+        splitBullet.Initialize(direction);
     }
 }

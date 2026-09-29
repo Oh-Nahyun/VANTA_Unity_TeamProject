@@ -19,7 +19,7 @@ public class ComboStep
     public float MaxStepTime = 0.83f;
 }
 
-public class Boss2AttackBase : MonoBehaviour
+public class Boss2AttackBase : HitableObject
 {
     [Header("데미지")]
     [SerializeField] private int _baseDamage = 1;

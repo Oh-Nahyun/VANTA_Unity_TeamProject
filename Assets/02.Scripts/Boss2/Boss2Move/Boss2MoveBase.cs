@@ -26,6 +26,8 @@ public class Boss2MoveBase : MonoBehaviour, IBossMovable
     [SerializeField] private float _iFrameStart = 0.05f;
     [SerializeField] private float _iFrameEnd = 0.2f;
 
+    [Header("상수")]
+    [SerializeField] private float _attackZoneOffset = 0.5f;
     [Header("테스트 입력")]
     // 끄면 키 입력을 무시하고 자식의 TickPattern 이 기본 이동을 호출해 움직인다.
     [SerializeField] private bool _useKeyboardInput = true;
@@ -313,12 +315,12 @@ public class Boss2MoveBase : MonoBehaviour, IBossMovable
         if (x > 0)
         {
             _spriteRenderer.flipX = false;
-            _attackZone.transform.localPosition = new Vector3(0.4f, 0f, 0f);
+            _attackZone.transform.localPosition = new Vector3(_attackZoneOffset, 0f, 0f);
         }
         else if (x < 0)
         {
             _spriteRenderer.flipX = true;
-            _attackZone.transform.localPosition = new Vector3(-0.4f, 0f, 0f);
+            _attackZone.transform.localPosition = new Vector3(-_attackZoneOffset, 0f, 0f);
         }
         
         // UpdateVelocity 가 이미 가속 램프를 거쳐 units/s 단위 속도를 만들어 두었으므로

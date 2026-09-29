@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Boss2SkillPattern : Boss2AttackBase
 {
@@ -14,24 +15,28 @@ public class Boss2SkillPattern : Boss2AttackBase
 
     [Header("즉사기")]
     [SerializeField] private string _instantKillStartState = "StartInstantKillSkill";
+
     [SerializeField] private string _instantKillEndState = "EndInstantKillSkill";
+
     // 점프(Start)가 끝나면 플레이어 위 이 높이에 나타나 공격(End)한다.
     [SerializeField] private float _instantKillAppearHeight = 1f;
+
     // 나타난 순간의 플레이어 자리(보스 바로 아래)에 놓이는 판정 원
     [SerializeField] private float _instantKillRadius = 1f;
 
     [Header("광역기")]
     [SerializeField] private string _aoeStateName = "Boss2AOESkill";
+
     [SerializeField] private Boss2AreaStrike _areaStrikePrefab;
     [SerializeField] private int _strikeCountMin = 10;
     [SerializeField] private int _strikeCountMax = 15;
-    [SerializeField] private float _strikeRadius = 1f;
-    [SerializeField] private int _strikeDamage = 10;
+
     // 더미끼리 이 거리보다 가까이 생기지 않게 한다. 자리가 부족하면 조건을 포기하고 배치한다.
     [SerializeField] private float _minStrikeSpacing = 1f;
 
     [Header("맵 범위 (타원)")]
     [SerializeField] private Vector2 _arenaCenter = Vector2.zero;
+
     // 타원의 가로·세로 전체 길이. EdgeColliderGenerator 와 같은 규격.
     [SerializeField] private Vector2 _arenaSize = new Vector2(10f, 6f);
 
@@ -47,7 +52,9 @@ public class Boss2SkillPattern : Boss2AttackBase
     private Boss2MoveBase _mover;
     private Boss2MovePattern _movePattern;
     private Boss2AttackPattern _attackPattern;
+
     private Coroutine _skillRoutine;
+
     // 이번 스킬이 직접 이동을 막았는지. 다른 효과(크리스탈 프리즌 등)가 걸어둔 봉쇄는 풀지 않기 위해 기억한다.
     private bool _blockedMoveBySkill;
 
@@ -126,7 +133,18 @@ public class Boss2SkillPattern : Boss2AttackBase
     // 애니메이션 이벤트: EndInstantKillSkill 의 베는 프레임
     public void InstantKillHit()
     {
-        DealAreaDamage(InstantKillCenter, _instantKillRadius, _targetLayers, InstantKillDamage);
+        //DealAreaDamage(InstantKillCenter, _instantKillRadius, _targetLayers, InstantKillDamage);
+        // 만약 플레이어가
+        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            Player player = playerObject.GetComponent<Player>();
+            
+            player.TakeDamage();
+            // TakeDamage가 아니라 
+            // PlayerAvoid player = playerObject.GetComponent<PlayerAvoid>();
+            // player.StartAvoidInteracter(); // 인자로 키보드 키값 KeyCode
+            // StartAvoid
+        }
     }
 
     // 애니메이션 이벤트: Boss2AOESkill 의 참격 프레임
@@ -146,9 +164,8 @@ public class Boss2SkillPattern : Boss2AttackBase
             Vector2 position = PickStrikePosition(positions);
             positions.Add(position);
 
-            Boss2AreaStrike strike = Instantiate(_areaStrikePrefab, position, Quaternion.identity);
-            // 판정은 부모의 범위 판정을 그대로 쓴다. (자기 자신 제외, Player 태그, 대상당 1회)
-            strike.Init(center => DealAreaDamage(center, _strikeRadius, _targetLayers, _strikeDamage));
+            // 판정 반경·데미지는 더미 프리팹이 갖고, 터지는 순간 더미가 직접 Player 를 때린다.
+            Instantiate(_areaStrikePrefab, position, Quaternion.identity);
         }
     }
 
@@ -217,6 +234,7 @@ public class Boss2SkillPattern : Boss2AttackBase
         {
             _rigidbody2D.position = appearPosition;
         }
+
         transform.position = new Vector3(appearPosition.x, appearPosition.y, transform.position.z);
     }
 
@@ -255,7 +273,7 @@ public class Boss2SkillPattern : Boss2AttackBase
         EndSkill();
     }
 
-    private void BeginSkill()
+private void BeginSkill()
     {
         // 이미 다른 효과로 묶여 있으면 손대지 않는다. 막지 않았으니 끝날 때 풀지도 않는다.
         _blockedMoveBySkill = _mover != null && _mover.IsMoveBlocked == false;

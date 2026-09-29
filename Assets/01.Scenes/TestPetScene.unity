@@ -467,7 +467,7 @@ Transform:
   m_GameObject: {fileID: 242888953}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8, y: -0.34, z: -30}
+  m_LocalPosition: {x: -1, y: 1, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -924,7 +924,7 @@ Transform:
   m_GameObject: {fileID: 462397074}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8, y: -0.34, z: -30}
+  m_LocalPosition: {x: -1, y: 1, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6339,11 +6339,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1073874748574327932, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.37535
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1073874748574327932, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.17331
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1073874748574327932, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6970,7 +6970,6 @@ GameObject:
   - component: {fileID: 765534171}
   - component: {fileID: 765534170}
   - component: {fileID: 765534169}
-  - component: {fileID: 765534172}
   m_Layer: 12
   m_Name: Pet
   m_TagString: Pet
@@ -7150,10 +7149,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c9d9896176f7547a0504a5e7fad093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PetAttack
-  _energyBulletPrefab: {fileID: 6523856158434468449, guid: 4832a329c9cbe5847a6601b82ebffe8a, type: 3}
-  _energyBulletSpawnPosition: {fileID: 940655228}
   _energyBulletCount: 3
+  _energyBulletSpawnPosition: {fileID: 940655228}
+  _energyBulletPrefab: {fileID: 6523856158434468449, guid: 4832a329c9cbe5847a6601b82ebffe8a, type: 3}
   _crystalPrisonPrefab: {fileID: 5960170544083001488, guid: 1cc63ea2fc8955d45bf39528384acf3e, type: 3}
+  _crystalSanctuaryPrefab: {fileID: 7285922598011615516, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
 --- !u!114 &765534170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7183,20 +7183,6 @@ MonoBehaviour:
   Animator: {fileID: 765534166}
   SpriteRenderer: {fileID: 765534164}
   PlayerSkillManager: {fileID: 0}
---- !u!114 &765534172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 765534162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ae298face59ab8428c6a80c1a85f4c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CrystalPrison
-  _skillDuration: 5
-  _damage: 20
 --- !u!1 &906813755
 GameObject:
   m_ObjectHideFlags: 0
@@ -7524,7 +7510,7 @@ Transform:
   m_GameObject: {fileID: 1003891173}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8, y: -0.34, z: 0}
+  m_LocalPosition: {x: -1, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

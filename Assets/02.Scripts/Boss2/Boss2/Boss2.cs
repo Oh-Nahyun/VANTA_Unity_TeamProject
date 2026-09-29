@@ -1,7 +1,8 @@
 using TMPro;
 using UnityEngine;
 
-public class Boss2 : MonoBehaviour
+
+public class Boss2 : HitableObject
 {
     [Header("보스2 스탯")]
     [SerializeField] private float _health = 100f;
@@ -12,15 +13,6 @@ public class Boss2 : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
     }
-    private void Start()
-    {
-    }
-
-    private void Update()
-    {
-
-    }
-
 
     public void TakeDamage(int damage)
     {
@@ -39,10 +31,8 @@ public class Boss2 : MonoBehaviour
         {
             Debug.LogWarning("데미지는 음수 불가");
         }
-
     }
-
-
+    
     private void Death()
     {
         // Effet 
@@ -50,5 +40,10 @@ public class Boss2 : MonoBehaviour
 
         // Destroy
         Destroy(gameObject);
+    }
+
+    protected override void HitEvent(float damage)
+    {
+        TakeDamage((int)damage);
     }
 }

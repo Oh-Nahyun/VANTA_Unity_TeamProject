@@ -55,6 +55,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _DissolveAmount: 0
     - _PetCount: 0
     - _PetProgress1: 0
     - _PetProgress2: 0
@@ -68,6 +69,7 @@ Material:
     - _PetStart5: 0
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Rotation: 0
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -5,7 +5,6 @@ using UnityEngine;
 public class SkillFocusScreenController : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Material _focusMaterial;
     [SerializeField] private Transform _player;
     [SerializeField] private Camera _targetCamera;
 
@@ -16,21 +15,34 @@ public class SkillFocusScreenController : MonoBehaviour
     [SerializeField] private float _focusInDuration = 0.25f;
     [SerializeField] private float _focusOutDuration = 0.2f;
 
-    private static readonly int RadiusID = Shader.PropertyToID("_Radius");
-    private static readonly int CenterID = Shader.PropertyToID("_Center");
+    private static readonly int RadiusID =
+        Shader.PropertyToID("_Radius");
+
+    private static readonly int CenterID =
+        Shader.PropertyToID("_Center");
 
     private Tween _radiusTween;
+
     private bool _isSkillActive;
+    private float _currentRadius;
 
     private void Awake()
     {
         if (_targetCamera == null)
             _targetCamera = Camera.main;
-    }
 
-    private void Start()
-    {
-        _focusMaterial.SetFloat(RadiusID, _normalRadius);
+        // Global Shader 값 초기화
+        _currentRadius = _normalRadius;
+
+        Shader.SetGlobalFloat(
+            RadiusID,
+            _normalRadius
+        );
+
+        Shader.SetGlobalVector(
+            CenterID,
+            Vector4.zero
+        );
     }
 
     private void LateUpdate()
@@ -43,12 +55,22 @@ public class SkillFocusScreenController : MonoBehaviour
 
     private void UpdateFocusPosition()
     {
-        Vector3 viewportPos =
-            _targetCamera.WorldToViewportPoint(_player.position);
+        if (_player == null || _targetCamera == null)
+            return;
 
-        _focusMaterial.SetVector(
+        Vector3 viewportPos =
+            _targetCamera.WorldToViewportPoint(
+                _player.position
+            );
+
+        Shader.SetGlobalVector(
             CenterID,
-            new Vector4(viewportPos.x, viewportPos.y, 0f, 0f)
+            new Vector4(
+                viewportPos.x,
+                viewportPos.y,
+                0f,
+                0f
+            )
         );
     }
 
@@ -56,13 +78,24 @@ public class SkillFocusScreenController : MonoBehaviour
     {
         _isSkillActive = true;
 
-        // 스킬을 누른 그 프레임부터 위치 적용
         UpdateFocusPosition();
 
         _radiusTween?.Kill();
 
-        _radiusTween = _focusMaterial
-            .DOFloat(_skillRadius, RadiusID, _focusInDuration)
+        _radiusTween = DOTween.To(
+                () => _currentRadius,
+                value =>
+                {
+                    _currentRadius = value;
+
+                    Shader.SetGlobalFloat(
+                        RadiusID,
+                        value
+                    );
+                },
+                _skillRadius,
+                _focusInDuration
+            )
             .SetEase(Ease.OutCubic)
             .SetUpdate(true)
             .OnComplete(() =>
@@ -77,8 +110,20 @@ public class SkillFocusScreenController : MonoBehaviour
 
         _radiusTween?.Kill();
 
-        _radiusTween = _focusMaterial
-            .DOFloat(_normalRadius, RadiusID, _focusOutDuration)
+        _radiusTween = DOTween.To(
+                () => _currentRadius,
+                value =>
+                {
+                    _currentRadius = value;
+
+                    Shader.SetGlobalFloat(
+                        RadiusID,
+                        value
+                    );
+                },
+                _normalRadius,
+                _focusOutDuration
+            )
             .SetEase(Ease.InCubic)
             .SetUpdate(true);
     }
@@ -86,5 +131,16 @@ public class SkillFocusScreenController : MonoBehaviour
     private void OnDestroy()
     {
         _radiusTween?.Kill();
+
+        // Global 값 정리
+        Shader.SetGlobalFloat(
+            RadiusID,
+            _normalRadius
+        );
+
+        Shader.SetGlobalVector(
+            CenterID,
+            Vector4.zero
+        );
     }
 }

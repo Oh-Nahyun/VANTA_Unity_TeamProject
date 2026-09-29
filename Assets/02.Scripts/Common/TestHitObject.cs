@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class TestHitObject : HitableObject
 {
-    private float hp;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,6 +16,5 @@ public class TestHitObject : HitableObject
 
     protected override void HitEvent(float damage)
     {
-        hp-=damage;
     }
 }

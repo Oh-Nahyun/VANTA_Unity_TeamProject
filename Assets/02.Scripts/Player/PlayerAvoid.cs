@@ -26,6 +26,7 @@ public class PlayerAvoid : MonoBehaviour
     private KeyCode _avoidKey;
     private bool _isAvoidInteraction;
 
+    private GameObject _avoidCaller;
     private Tween _avoidTimer;
 
 
@@ -62,14 +63,17 @@ public class PlayerAvoid : MonoBehaviour
     }
 
 
-    public void StartAvoidInteraction(KeyCode keyCode)
+    public void StartAvoidInteraction(KeyCode keyCode,GameObject caller =null)
     {
+        
         // 기존 타이머 제거
         _avoidTimer?.Kill();
 
         _avoidKey = keyCode;
         _isAvoidInteraction = true;
 
+        _avoidCaller = caller;
+        
         _playerMove.enabled = false;
         _playerAttack.enabled = false;
         // 타임 슬로우
@@ -97,10 +101,9 @@ public class PlayerAvoid : MonoBehaviour
             .DelayedCall(_avoidDuration, AvoidEnd)
             .SetUpdate(true)
             .OnComplete(() =>
-        {
-            Debug.Log("회피 이동 완료");
-            _playerMove.enabled = true;
-            _playerAttack.enabled = true;
+            {
+                AvoidFail();
+           
         });
     }
 
@@ -109,9 +112,19 @@ public class PlayerAvoid : MonoBehaviour
     {
         _animator.SetTrigger("Avoid");
 
+        _avoidCaller.GetComponent<IAvoidInteraction>().AvoidSuccess();
         DashToReverseSide();
 
         AvoidEnd();
+    }
+
+    private void AvoidFail()
+    {
+        Debug.Log("회피 이동 완료");
+        _avoidCaller.GetComponent<IAvoidInteraction>().AvoidFailure();
+            
+        _playerMove.enabled = true;
+        _playerAttack.enabled = true;
     }
 
 

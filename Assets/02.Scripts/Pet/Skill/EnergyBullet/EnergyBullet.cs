@@ -14,7 +14,7 @@ public class EnergyBullet : MonoBehaviour
     /// <summary>
     /// 펫 공격 타겟
     /// </summary>
-    private GameObject _attackTarget;
+    public GameObject AttackTarget;
 
     /// <summary>
     /// 펫 에너지 탄 이동 곡선 클래스
@@ -48,12 +48,8 @@ public class EnergyBullet : MonoBehaviour
 
     private void Start()
     {
-        _attackTarget = GameObject.FindGameObjectWithTag("Boss");
-
-        if (BezierCurve == null)
-            return;
-        if (_attackTarget == null)
-            return;
+        if (BezierCurve == null) return;
+        if (AttackTarget == null) return;
 
         _timer = 0f;
         _timeBeforeMove = 0.6f;
@@ -65,10 +61,8 @@ public class EnergyBullet : MonoBehaviour
 
     private void Update()
     {
-        if (BezierCurve == null)
-            return;
-        if (_attackTarget == null)
-            return;
+        if (BezierCurve == null) return;
+        if (AttackTarget == null) return;
 
         _timer += Time.deltaTime;
         if (_timer >= _timeBeforeMove)
@@ -80,7 +74,7 @@ public class EnergyBullet : MonoBehaviour
     private void SetBezierPoints()
     {
         Vector3 startPoint = transform.position;
-        Vector3 endPoint = _attackTarget.transform.position;
+        Vector3 endPoint = AttackTarget.transform.position;
 
         BezierCurve.SetAllPoints(startPoint, endPoint);
     }
@@ -116,7 +110,7 @@ public class EnergyBullet : MonoBehaviour
 
     private void HomingMove()
     {
-        Vector3 direction = _attackTarget.transform.position - transform.position;
+        Vector3 direction = AttackTarget.transform.position - transform.position;
 
         direction.Normalize();
         SetRotation(direction);
@@ -125,8 +119,7 @@ public class EnergyBullet : MonoBehaviour
 
     private void SetRotation(Vector3 direction)
     {
-        if (direction.sqrMagnitude <= 0f)
-            return;
+        if (direction.sqrMagnitude <= 0f) return;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
@@ -134,16 +127,15 @@ public class EnergyBullet : MonoBehaviour
 
     private void Hit()
     {
-        // TODO : [펫] 발동 조건(플레이어 상태) 설정 및 몬스터 데미지 처리하기
-        // _monster.TakeDamage(_energyBulletDamage);
-        Destroy(gameObject);
+        HitableObject hitTarget = AttackTarget.GetComponent<HitableObject>();
+        hitTarget.ExecuteHitEvent(_damage, DamageIndicatorType.Normal);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Monster"))
-            return;
+        if (!other.CompareTag("Boss")) return;
 
         Hit();
+        Destroy(gameObject);
     }
 }

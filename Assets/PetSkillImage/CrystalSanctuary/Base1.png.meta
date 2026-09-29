@@ -168,15 +168,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Base_0
+      name: Base1Create_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 319
-        width: 157
-        height: 185
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 26
+        y: 330
+        width: 150
+        height: 174
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -190,15 +190,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base_1
+      name: Base1Create_1
       rect:
         serializedVersion: 2
-        x: 173
-        y: 321
-        width: 124
-        height: 161
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 157
+        y: 330
+        width: 150
+        height: 174
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -212,15 +212,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base_2
+      name: Base1Create_2
       rect:
         serializedVersion: 2
-        x: 294
-        y: 320
-        width: 143
-        height: 178
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 292
+        y: 330
+        width: 150
+        height: 174
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -234,15 +234,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base_3
+      name: Base1Create_3
       rect:
         serializedVersion: 2
-        x: 440
-        y: 0
-        width: 1083
-        height: 516
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 443
+        y: 330
+        width: 170
+        height: 174
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -256,15 +256,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base_4
+      name: Base1Create_4
       rect:
         serializedVersion: 2
-        x: 446
-        y: 367
-        width: 6
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 607
+        y: 330
+        width: 170
+        height: 174
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -278,15 +278,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base_5
+      name: Base1Create_5
       rect:
         serializedVersion: 2
-        x: 32
-        y: 315
-        width: 11
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 784
+        y: 330
+        width: 170
+        height: 174
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -300,15 +300,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base_6
+      name: Base1Create_6
       rect:
         serializedVersion: 2
-        x: 346
-        y: 301
-        width: 23
-        height: 26
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 972
+        y: 330
+        width: 170
+        height: 174
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -322,15 +322,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base_7
+      name: Base1Create_7
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 209
-        height: 310
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1153
+        y: 330
+        width: 170
+        height: 174
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -344,15 +344,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base_8
+      name: Base1Create_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 203
-        width: 9
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1336
+        y: 330
+        width: 170
+        height: 174
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -366,15 +366,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base_9
+      name: Base1Idle_0
       rect:
         serializedVersion: 2
-        x: 204
-        y: 1
-        width: 183
-        height: 310
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 27
+        y: 175
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -388,15 +388,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base_10
+      name: Base1Idle_1
       rect:
         serializedVersion: 2
-        x: 374
-        y: 0
-        width: 207
-        height: 313
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 217
+        y: 175
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -410,15 +410,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base_11
+      name: Base1Idle_2
       rect:
         serializedVersion: 2
-        x: 210
-        y: 5
-        width: 13
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 412
+        y: 175
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -432,15 +432,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base_12
+      name: Base1Idle_3
       rect:
         serializedVersion: 2
-        x: 436
-        y: 0
-        width: 7
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 602
+        y: 175
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -454,15 +454,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base_13
+      name: Base1Idle_4
       rect:
         serializedVersion: 2
-        x: 442
-        y: 0
-        width: 13
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 783
+        y: 175
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -476,15 +476,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Base_14
+      name: Base1Idle_5
       rect:
         serializedVersion: 2
-        x: 1056
-        y: 0
-        width: 9
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 962
+        y: 175
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -497,11 +497,253 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Base1Idle_6
+      rect:
+        serializedVersion: 2
+        x: 1147
+        y: 175
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9be1a442cf9d4f343bcc8b88bb49e2c0
+      internalID: 728717637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base1Idle_7
+      rect:
+        serializedVersion: 2
+        x: 1335
+        y: 175
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c000f77555c0fa4baa075fe70215984
+      internalID: 636456904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base1Destroy_0
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 25
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7565c1199d3a0f74292854346266df63
+      internalID: -169058018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base1Destroy_1
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 25
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d097f30fed6fab4992455eef9e20c2b
+      internalID: -950819928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base1Destroy_2
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 25
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c78466513a0fd1d46890f7ea28c74faf
+      internalID: 349306083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base1Destroy_3
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 25
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15a1fa25ca4753645b44da7769035ba8
+      internalID: 788665662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base1Destroy_4
+      rect:
+        serializedVersion: 2
+        x: 763
+        y: 25
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee2c737cb8994ea4e94759b5733fb53d
+      internalID: 433539084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base1Destroy_5
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 25
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a4c54789a97a16408cebe0198b70ccb
+      internalID: -1121449096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base1Destroy_6
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 25
+        width: 150
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 738a3fa360c85074ca430999c41d0f49
+      internalID: 1065746637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base1Destroy_7
+      rect:
+        serializedVersion: 2
+        x: 1261
+        y: 25
+        width: 150
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 315348087a9e4e64eade0703a721b9a7
+      internalID: -1503403428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base1Destroy_8
+      rect:
+        serializedVersion: 2
+        x: 1375
+        y: 25
+        width: 150
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcb336c32e605444ba856188526e5de4
+      internalID: -421954703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 865fbd8680b261242acad158b560f6cf
     internalID: 0
     vertices: []
     indices: 
@@ -509,23 +751,38 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":9.0,"y":3.0},"gridSpriteSize":{"x":170.0,"y":174.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Base_0: 6234176133674011997
-      Base_1: -1790145400590651902
-      Base_10: -4930919618830420592
-      Base_11: -4860544939729247871
-      Base_12: -7730032496760089132
-      Base_13: -5853004733556431967
-      Base_14: -5293978551325199387
-      Base_2: 1669587765549309381
-      Base_3: 1937871576842212991
-      Base_4: 3117725176291713478
-      Base_5: 4145614996422691048
-      Base_6: 3430759530322245992
-      Base_7: 3020591298559086837
-      Base_8: 5330010876497713853
-      Base_9: 955773385365470694
+      1: -169058018
+      Base1Create_0: 6234176133674011997
+      Base1Create_1: -1790145400590651902
+      Base1Create_2: 1669587765549309381
+      Base1Create_3: 1937871576842212991
+      Base1Create_4: 3117725176291713478
+      Base1Create_5: 4145614996422691048
+      Base1Create_6: 3430759530322245992
+      Base1Create_7: 3020591298559086837
+      Base1Create_8: 5330010876497713853
+      Base1Destroy_0: -169058018
+      Base1Destroy_1: -950819928
+      Base1Destroy_2: 349306083
+      Base1Destroy_3: 788665662
+      Base1Destroy_4: 433539084
+      Base1Destroy_5: -1121449096
+      Base1Destroy_6: 1065746637
+      Base1Destroy_7: -1503403428
+      Base1Destroy_8: -421954703
+      Base1Idle_0: 955773385365470694
+      Base1Idle_1: -4930919618830420592
+      Base1Idle_2: -4860544939729247871
+      Base1Idle_3: -7730032496760089132
+      Base1Idle_4: -5853004733556431967
+      Base1Idle_5: -5293978551325199387
+      Base1Idle_6: 728717637
+      Base1Idle_7: 636456904
+      Base_17: 303289097
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

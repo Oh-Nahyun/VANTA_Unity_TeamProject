@@ -1,0 +1,792 @@
+fileFormatVersion: 2
+guid: 43cbc70c4fb9e6541809ded320bd86f8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 511314039550144291
+    second: WhenPlayerCome_0
+  - first:
+      213: -1818323826143298741
+    second: WhenPlayerCome_1
+  - first:
+      213: 126496669489245287
+    second: WhenPlayerCome_2
+  - first:
+      213: 3534247340100976336
+    second: WhenPlayerCome_3
+  - first:
+      213: -5390635020945165899
+    second: WhenPlayerCome_4
+  - first:
+      213: -716436373538943068
+    second: WhenPlayerCome_5
+  - first:
+      213: -4296264277822006619
+    second: WhenPlayerCome_6
+  - first:
+      213: -883368506086417297
+    second: WhenPlayerCome_7
+  - first:
+      213: 872667235155000946
+    second: WhenPlayerCome_8
+  - first:
+      213: -8556222654996103009
+    second: WhenPlayerCome_9
+  - first:
+      213: -8232568491818486155
+    second: WhenPlayerCome_10
+  - first:
+      213: 1421779904667908171
+    second: WhenPlayerCome_11
+  - first:
+      213: -769133097920034200
+    second: WhenPlayerCome_12
+  - first:
+      213: 1333508067580081230
+    second: WhenPlayerCome_13
+  - first:
+      213: -4355832368354320306
+    second: WhenPlayerCome_14
+  - first:
+      213: -4962330788096836884
+    second: WhenPlayerCome_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 145
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Base2Create_0
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 339
+        width: 150
+        height: 171
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32f6e00f86d881700800000000000000
+      internalID: 511314039550144291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Create_1
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 339
+        width: 150
+        height: 171
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4b79103d1404c6e0800000000000000
+      internalID: -1818323826143298741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Create_2
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 339
+        width: 150
+        height: 171
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76c2d2afc0861c100800000000000000
+      internalID: 126496669489245287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Create_3
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 339
+        width: 170
+        height: 171
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0de76170b3b2c0130800000000000000
+      internalID: 3534247340100976336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Create_4
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 339
+        width: 170
+        height: 171
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b178ce520e9035b0800000000000000
+      internalID: -5390635020945165899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Create_5
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 339
+        width: 170
+        height: 171
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4afca030ae4be06f0800000000000000
+      internalID: -716436373538943068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Create_6
+      rect:
+        serializedVersion: 2
+        x: 974
+        y: 339
+        width: 170
+        height: 171
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5aa1833e66a9064c0800000000000000
+      internalID: -4296264277822006619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Create_7
+      rect:
+        serializedVersion: 2
+        x: 1153
+        y: 339
+        width: 170
+        height: 171
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6c93f42605adb3f0800000000000000
+      internalID: -883368506086417297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Create_8
+      rect:
+        serializedVersion: 2
+        x: 1336
+        y: 339
+        width: 170
+        height: 171
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27e398e0a365c1c00800000000000000
+      internalID: 872667235155000946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Idle_0
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 191
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f90cecdf3d0324980800000000000000
+      internalID: -8556222654996103009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Idle_1
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 191
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 576f510239a00cd80800000000000000
+      internalID: -8232568491818486155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Idle_2
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 191
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b48f4865a4d2bb310800000000000000
+      internalID: 1421779904667908171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Idle_3
+      rect:
+        serializedVersion: 2
+        x: 602
+        y: 191
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86a0b71c58d7355f0800000000000000
+      internalID: -769133097920034200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Idle_4
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 191
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e447a31b582918210800000000000000
+      internalID: 1333508067580081230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Idle_5
+      rect:
+        serializedVersion: 2
+        x: 962
+        y: 191
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e40a7170a89fc83c0800000000000000
+      internalID: -4355832368354320306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Idle_6
+      rect:
+        serializedVersion: 2
+        x: 1147
+        y: 191
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceaf0859072422bb0800000000000000
+      internalID: -4962330788096836884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Idle_7
+      rect:
+        serializedVersion: 2
+        x: 1336
+        y: 191
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c80d5a6e6a1db0e43b5189662f44386e
+      internalID: 1819046079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Destroy_0
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 43
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1adc17dbe10a41645b8823f8e78aafd9
+      internalID: -482031676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Destroy_1
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 43
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9152c4753ae3a941a47fde52abe4e4b
+      internalID: 1248465787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Destroy_2
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 43
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0714fee521d5144da35ce9ddf40d781
+      internalID: -1761845798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Destroy_3
+      rect:
+        serializedVersion: 2
+        x: 561
+        y: 43
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67eebdfaf72b15b469a42e82c3294933
+      internalID: -2056808861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Destroy_4
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 43
+        width: 170
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20cb7f8cb5f5120469dbe27459ee05a9
+      internalID: -1628427126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Destroy_5
+      rect:
+        serializedVersion: 2
+        x: 953
+        y: 43
+        width: 150
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f7dbd06c9a7bc14386a74f53859d67c
+      internalID: 120032678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Destroy_6
+      rect:
+        serializedVersion: 2
+        x: 1129
+        y: 43
+        width: 150
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c2e627bbe12cbd41be4e82aaaee816f
+      internalID: 449946228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Destroy_7
+      rect:
+        serializedVersion: 2
+        x: 1261
+        y: 43
+        width: 150
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdfe56084fe25084c8bb03729e0cfcd7
+      internalID: -974633106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base2Destroy_8
+      rect:
+        serializedVersion: 2
+        x: 1376
+        y: 43
+        width: 150
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25e4f6da9942eee479b01661b232cadd
+      internalID: 1931462187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 9c6daf9156bb56849976a90ed403c5a6
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":9.0,"y":3.0},"gridSpriteSize":{"x":170.0,"y":171.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Base2Create_0: 511314039550144291
+      Base2Create_1: -1818323826143298741
+      Base2Create_2: 126496669489245287
+      Base2Create_3: 3534247340100976336
+      Base2Create_4: -5390635020945165899
+      Base2Create_5: -716436373538943068
+      Base2Create_6: -4296264277822006619
+      Base2Create_7: -883368506086417297
+      Base2Create_8: 872667235155000946
+      Base2Destroy_0: -482031676
+      Base2Destroy_1: 1248465787
+      Base2Destroy_2: -1761845798
+      Base2Destroy_3: -2056808861
+      Base2Destroy_4: -1628427126
+      Base2Destroy_5: 120032678
+      Base2Destroy_6: 449946228
+      Base2Destroy_7: -974633106
+      Base2Destroy_8: 1931462187
+      Base2Idle_0: -8556222654996103009
+      Base2Idle_1: -8232568491818486155
+      Base2Idle_2: 1421779904667908171
+      Base2Idle_3: -769133097920034200
+      Base2Idle_4: 1333508067580081230
+      Base2Idle_5: -4355832368354320306
+      Base2Idle_6: -4962330788096836884
+      Base2Idle_7: 1819046079
+      WhenPlayerCome_17: 172985483
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

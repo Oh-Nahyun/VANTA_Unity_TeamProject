@@ -5,14 +5,15 @@ public class PlayerAvoidKeyGenerator : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Canvas _canvas;
-    [SerializeField] private GameObject _alarmKeyPad;
+    [SerializeField] private GameObject _alarmMoveKeyPad;
+    [SerializeField] private GameObject _alarmMoveAttackKeyPad;
 
     [Header("Spawn")]
     [SerializeField] private float _spawnDistance = 100f;
 
     private GameObject _currentAlarmKeyPad;
 
-    public void CreateAlarmKeyPad(KeyCode key)
+    public void CreateAlarmKeyPad(bool isMoveAttack)
     {
         ClearAlarmKeyPad();
 
@@ -28,18 +29,27 @@ public class PlayerAvoidKeyGenerator : MonoBehaviour
         Vector2 spawnPosition =
             playerCanvasPosition + direction * _spawnDistance;
 
-        // Canvas 자식으로 생성
-        _currentAlarmKeyPad = Instantiate(
-            _alarmKeyPad,
-            _canvas.transform
-        );
+        if (isMoveAttack)
+        {
+            _currentAlarmKeyPad = Instantiate(
+                _alarmMoveAttackKeyPad,
+                _canvas.transform
+            );
+        }
+        else
+        {
+            _currentAlarmKeyPad = Instantiate(
+                _alarmMoveKeyPad,
+                _canvas.transform
+            );
+        }
+    
+        
 
         RectTransform alarmRect =
             _currentAlarmKeyPad.GetComponent<RectTransform>();
 
         alarmRect.anchoredPosition = spawnPosition;
-
-        _currentAlarmKeyPad.GetComponent<AvoidKeyText>().SetText(key.ToString());
         
         
     }

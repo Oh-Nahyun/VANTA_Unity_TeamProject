@@ -51,7 +51,7 @@ Material:
     - _ThreadNoiseScale: 8
     - _ThreadNoiseSpeed: 1
     - _ThreadNoiseStrength: 0.01
-    - _ThreadOpacity: 1
+    - _ThreadOpacity: 0
     - _ThreadWidth: 0.008
     m_Colors:
     - _ThreadCenter: {r: 0.5702617, g: 0.5541288, b: 0, a: 0}

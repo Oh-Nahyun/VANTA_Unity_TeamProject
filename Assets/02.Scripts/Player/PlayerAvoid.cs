@@ -18,21 +18,19 @@ public class PlayerAvoid : MonoBehaviour
     [Header("회피 이동 시간")]
     [SerializeField] private float _avoidDashDuration = 0.5f;
 
-    [Header("회피 공격")]
-    [SerializeField] private float _avoidAttackDuration = 0.2f;
+    [Header("회피 공격 관통 거리")]
+    [SerializeField] private float _attackPassDistance = 1.5f;
 
     [Header("Focus")]
     [SerializeField] private SkillFocusScreenController _focusScreenController;
-    [SerializeField] private SkillDashScreenController _dashScreenController;
-
 
     private Animator _animator;
     private ObjectZoom _objectZoom;
     private PlayerAvoidKeyGenerator _playerAvoidKeyGenerator;
     private PlayerMove _playerMove;
     private PlayerAttack _playerAttack;
+    private SkillAttack _skillAttack;
     private Rigidbody2D _rigidbody;
-
 
     private KeyCode _avoidKey;
 
@@ -43,8 +41,6 @@ public class PlayerAvoid : MonoBehaviour
 
     private Tween _avoidTimer;
     private Tween _avoidMoveTween;
-    private Tween _attackMoveTween;
-
 
     private void Awake()
     {
@@ -60,6 +56,9 @@ public class PlayerAvoid : MonoBehaviour
         _playerAttack =
             GetComponent<PlayerAttack>();
 
+        _skillAttack =
+            GetComponentInChildren<SkillAttack>();
+
         _animator =
             GetComponent<Animator>();
 
@@ -67,12 +66,10 @@ public class PlayerAvoid : MonoBehaviour
             GetComponent<Rigidbody2D>();
     }
 
-
     private void Update()
     {
         CheckInputSuccess();
 
-        // 테스트
         if (Input.GetKeyDown(KeyCode.K))
         {
             StartAvoidInteraction();
@@ -83,11 +80,6 @@ public class PlayerAvoid : MonoBehaviour
         }
     }
 
-
-    // =========================================================
-    // Input
-    // =========================================================
-
     private void CheckInputSuccess()
     {
         if (!_isAvoidInteraction)
@@ -97,16 +89,13 @@ public class PlayerAvoid : MonoBehaviour
         {
             AvoidSuccess();
         }
+     
     }
-
-
-    // =========================================================
-    // 일반 회피 시작
-    // =========================================================
 
     public void StartAvoidInteraction(GameObject caller = null)
     {
         _avoidTimer?.Kill();
+        _avoidMoveTween?.Kill();
 
         _avoidKey = KeyCode.Space;
 
@@ -118,46 +107,19 @@ public class PlayerAvoid : MonoBehaviour
         _playerMove.enabled = false;
         _playerAttack.enabled = false;
 
-
-        // =========================
-        // 타임 슬로우
-        // =========================
-
         Time.timeScale = _slowAmount;
-
-
-        // =========================
-        // 줌
-        // =========================
 
         _objectZoom.ZoomIn(
             _avoidZoomAmount
         );
 
-
-        // =========================
-        // 키 UI
-        // =========================
-
         _playerAvoidKeyGenerator
-            .CreateAlarmKeyPad(
-                _avoidKey
-            );
-
-
-        // =========================
-        // 회피 준비 애니메이션
-        // =========================
+            .CreateAlarmKeyPad(false);
 
         _animator.SetBool(
             "AvoidReady",
             true
         );
-
-
-        // =========================
-        // 원형 Focus 시작
-        // =========================
 
         if (_focusScreenController != null)
         {
@@ -165,32 +127,19 @@ public class PlayerAvoid : MonoBehaviour
                 .StartFocusScreenSetting(null);
         }
 
-
-        // =========================
-        // 입력 제한시간
-        // =========================
-
         _avoidTimer =
             DOVirtual
                 .DelayedCall(
                     _avoidDuration,
-                    AvoidEnd
+                    AvoidFail
                 )
-                .SetUpdate(true)
-                .OnComplete(() =>
-                {
-                    AvoidFail();
-                });
+                .SetUpdate(true);
     }
-
-
-    // =========================================================
-    // 공격 회피 시작
-    // =========================================================
 
     public void StartAvoidAttackInteraction(GameObject caller = null)
     {
         _avoidTimer?.Kill();
+        _avoidMoveTween?.Kill();
 
         _avoidKey = KeyCode.Mouse1;
 
@@ -202,46 +151,21 @@ public class PlayerAvoid : MonoBehaviour
         _playerMove.enabled = false;
         _playerAttack.enabled = false;
 
-
-        // =========================
-        // 타임 슬로우
-        // =========================
-
         Time.timeScale = _slowAmount;
-
-
-        // =========================
-        // 줌
-        // =========================
 
         _objectZoom.ZoomIn(
             _avoidZoomAmount
         );
 
-
-        // =========================
-        // 키 UI
-        // =========================
-
         _playerAvoidKeyGenerator
             .CreateAlarmKeyPad(
-                _avoidKey
+                true
             );
-
-
-        // =========================
-        // 회피 준비 애니메이션
-        // =========================
 
         _animator.SetBool(
             "AvoidReady",
             true
         );
-
-
-        // =========================
-        // 원형 Focus 시작
-        // =========================
 
         if (_focusScreenController != null)
         {
@@ -249,66 +173,37 @@ public class PlayerAvoid : MonoBehaviour
                 .StartFocusScreenSetting(null);
         }
 
-
-        // =========================
-        // 입력 제한시간
-        // =========================
-
         _avoidTimer =
             DOVirtual
                 .DelayedCall(
                     _avoidDuration,
-                    AvoidEnd
+                    AvoidFail
                 )
-                .SetUpdate(true)
-                .OnComplete(() =>
-                {
-                    AvoidFail();
-                });
+                .SetUpdate(true);
     }
-
-
-    // =========================================================
-    // 회피 성공
-    // =========================================================
 
     private void AvoidSuccess()
     {
         if (!_isAvoidInteraction)
             return;
 
-
-        // 입력 제한 타이머 종료
         _avoidTimer?.Kill();
         _avoidTimer = null;
 
-
-        // 키 UI 제거
         _playerAvoidKeyGenerator
             .ClearAlarmKeyPad();
 
-
-        // 회피 준비 종료
         _animator.SetBool(
             "AvoidReady",
             false
         );
 
-
-        // 회피 애니메이션
         _animator.SetTrigger(
             "Avoid"
         );
 
-
-        // 보스 반대 방향으로 이동
         DashToReverseSide();
     }
-
-
-    // =========================================================
-    // 보스 반대 방향 회피
-    // =========================================================
 
     public void DashToReverseSide()
     {
@@ -322,7 +217,6 @@ public class PlayerAvoid : MonoBehaviour
             );
 
             AvoidEnd();
-
             return;
         }
 
@@ -333,14 +227,8 @@ public class PlayerAvoid : MonoBehaviour
             );
 
             AvoidEnd();
-
             return;
         }
-
-
-        // =========================
-        // 보스 → 플레이어 방향
-        // =========================
 
         Vector2 direction =
             (
@@ -348,22 +236,9 @@ public class PlayerAvoid : MonoBehaviour
                 (Vector2)boss.transform.position
             ).normalized;
 
-
         Vector2 targetPosition =
             _rigidbody.position +
             direction * _dashDistance;
-
-
-        Debug.Log(
-            $"회피 이동 | 현재: {_rigidbody.position}" +
-            $" / 방향: {direction}" +
-            $" / 목표: {targetPosition}"
-        );
-
-
-        // =========================
-        // 이동
-        // =========================
 
         _avoidMoveTween?.Kill();
 
@@ -374,33 +249,21 @@ public class PlayerAvoid : MonoBehaviour
                     _avoidDashDuration
                 )
                 .SetEase(Ease.OutQuad)
-                .SetUpdate(UpdateType.Fixed)
+                .SetUpdate(true)
                 .OnComplete(() =>
                 {
-                    // =========================
-                    // 공격형 회피
-                    // =========================
+                    _avoidMoveTween = null;
 
                     if (_isAvoidAttacking)
                     {
                         AttackToBoss();
                     }
-
-                    // =========================
-                    // 일반 회피
-                    // =========================
-
                     else
                     {
                         AvoidEnd();
                     }
                 });
     }
-
-
-    // =========================================================
-    // 회피 공격
-    // =========================================================
 
     private void AttackToBoss()
     {
@@ -414,7 +277,6 @@ public class PlayerAvoid : MonoBehaviour
             );
 
             AvoidEnd();
-
             return;
         }
 
@@ -425,10 +287,18 @@ public class PlayerAvoid : MonoBehaviour
             );
 
             AvoidEnd();
-
             return;
         }
 
+        if (_skillAttack == null)
+        {
+            Debug.LogError(
+                "SkillAttack 없음"
+            );
+
+            AvoidEnd();
+            return;
+        }
 
         Vector2 startPosition =
             _rigidbody.position;
@@ -436,21 +306,15 @@ public class PlayerAvoid : MonoBehaviour
         Vector2 bossPosition =
             boss.transform.position;
 
-
-        // =========================
-        // 현재 위치 → 보스 방향
-        // =========================
-
         Vector2 attackDirection =
             (
                 bossPosition -
                 startPosition
             ).normalized;
 
-
-        // =========================
-        // 기존 원형 Focus 종료
-        // =========================
+        Vector2 targetPosition =
+            bossPosition +
+            attackDirection * _attackPassDistance;
 
         if (_focusScreenController != null)
         {
@@ -458,77 +322,23 @@ public class PlayerAvoid : MonoBehaviour
                 .EndFocusScreenSetting();
         }
 
-
-        // =========================
-        // 일자 Focus 시작
-        // =========================
-
-        if (_dashScreenController != null)
-        {
-            _dashScreenController
-                .StartDashScreenSetting(
-                    attackDirection
-                );
-        }
-
-
-        // =========================
-        // 공격 애니메이션
-        // =========================
-
-        _animator.SetTrigger(
-            "Attack"
+        _skillAttack.SingleDash(
+            targetPosition,
+            AttackToBossComplete
         );
-
-
-        // =========================
-        // 보스에게 이동
-        // =========================
-
-        _attackMoveTween?.Kill();
-
-        _attackMoveTween =
-            _rigidbody
-                .DOMove(
-                    bossPosition,
-                    _avoidAttackDuration
-                )
-                .SetEase(Ease.InQuad)
-                .SetUpdate(UpdateType.Fixed)
-                .OnComplete(() =>
-                {
-                    AttackToBossComplete();
-                });
     }
-
-
-    // =========================================================
-    // 회피 공격 완료
-    // =========================================================
 
     private void AttackToBossComplete()
     {
-        // 일자 Focus 종료
-        if (_dashScreenController != null)
-        {
-            _dashScreenController
-                .EndDashScreenSetting();
-        }
-
         AvoidEnd();
     }
 
-
-    // =========================================================
-    // 회피 실패
-    // =========================================================
-
     private void AvoidFail()
     {
-        Debug.Log(
-            "회피 실패"
-        );
+        if (!_isAvoidInteraction)
+            return;
 
+        _avoidTimer = null;
 
         if (_avoidCaller != null)
         {
@@ -538,72 +348,31 @@ public class PlayerAvoid : MonoBehaviour
             avoidInteraction?.AvoidFailure();
         }
 
-
         AvoidEnd();
     }
-
-
-    // =========================================================
-    // 회피 종료
-    // =========================================================
 
     private void AvoidEnd()
     {
         if (!_isAvoidInteraction)
             return;
 
-
-        // =========================
-        // 상태 초기화
-        // =========================
-
         _isAvoidInteraction = false;
         _isAvoidAttacking = false;
-
-
-        // =========================
-        // 애니메이션
-        // =========================
 
         _animator.SetBool(
             "AvoidReady",
             false
         );
 
-
-        // =========================
-        // 타이머 제거
-        // =========================
-
         _avoidTimer?.Kill();
         _avoidTimer = null;
-
-
-        // =========================
-        // 키 UI 제거
-        // =========================
 
         _playerAvoidKeyGenerator
             .ClearAlarmKeyPad();
 
-
-        // =========================
-        // 타임스케일 복구
-        // =========================
-
         Time.timeScale = 1f;
 
-
-        // =========================
-        // 줌 복구
-        // =========================
-
         _objectZoom.ZoomOut();
-
-
-        // =========================
-        // 원형 Focus 종료
-        // =========================
 
         if (_focusScreenController != null)
         {
@@ -611,36 +380,13 @@ public class PlayerAvoid : MonoBehaviour
                 .EndFocusScreenSetting();
         }
 
-
-        // =========================
-        // 일자 Focus 종료
-        // =========================
-
-        if (_dashScreenController != null)
-        {
-            _dashScreenController
-                .EndDashScreenSetting();
-        }
-
-
-        // =========================
-        // 플레이어 조작 복구
-        // =========================
-
         _playerMove.enabled = true;
         _playerAttack.enabled = true;
-
-
-        Debug.Log(
-            $"회피 종료 : {_avoidKey}"
-        );
     }
-
 
     private void OnDestroy()
     {
         _avoidTimer?.Kill();
         _avoidMoveTween?.Kill();
-        _attackMoveTween?.Kill();
     }
 }

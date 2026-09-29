@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Boss2SkillBase : MonoBehaviour
+public class Boss2Controller : MonoBehaviour
 {
      private void Start()
     {

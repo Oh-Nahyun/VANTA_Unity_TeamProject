@@ -5,69 +5,127 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
-
     private SkillIndicatorController _skillIndicatorController;
     private SkillFocusScreenController _skillFocusScreenController;
     private SkillDashPointCreator _skillDashPointCreator;
     private SkillDashPointCalculater _skillDashPointCalculater;
     private SkillAttack _skillAttack;
-    [SerializeField] private WeaknessThreadController _weaknessThreadController;
+    private SkillOrbitIndicator _skillOrbitIndicator;
+
+    [SerializeField]
+    private WeaknessThreadController _weaknessThreadController;
+
     [Header("참조")]
     [SerializeField] private PlayerAttack _playerAttack;
     [SerializeField] private PlayerMove _playerMove;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private GameObject _skillUseEffect;
 
     [Header("스킬 사용중 타임 슬로우정도")]
     [SerializeField]
     private float _timeSlowAmount = 0.2f;
-    [Header("현재 스킬 스택 개수")][SerializeField] private int _skillStack = 0;
+
+    [Header("현재 스킬 스택 개수")]
+    [SerializeField]
+    private int _skillStack = 0;
+
     public int GetSkillStack => _skillStack;
 
-    [Header("최대 스킬 스택 개수")][SerializeField] private int _maxSkillStack = 0;
+    [Header("최대 스킬 스택 개수")]
+    [SerializeField]
+    private int _maxSkillStack = 0;
 
-    [Header("스택 쌓기 위해 필요한 피격 개수")][SerializeField] private int _countForSkillStack = 10;
-    [SerializeField] private int _currentHitCount = 0;
+    [Header("스택 쌓기 위해 필요한 피격 개수")]
+    [SerializeField]
+    private int _countForSkillStack = 10;
 
-    [Header("스킬 유지 시간")][SerializeField] private float _skillTime = 10f;
-    private float _curTime = 0;
+    [SerializeField]
+    private int _currentHitCount = 0;
+
+    [Header("스킬 유지 시간")]
+    [SerializeField]
+    private float _skillTime = 10f;
+
+
+    // =========================
+    // Skill Space Dissolve
+    // =========================
+
+    [Header("스킬 공간 디졸브")]
+    [Tooltip("X = 스킬 진행도 / Y = 디졸브 값")]
+    [SerializeField]
+    private AnimationCurve _dissolveCurve =
+        new AnimationCurve(
+            new Keyframe(0f, 1f),
+            new Keyframe(0.5f, 0.75f),
+            new Keyframe(0.75f, 0.5f),
+            new Keyframe(0.9f, 0f),
+            new Keyframe(1f, 0f)
+        );
+
+    private static readonly int SkillSpaceDissolveAmountID =
+        Shader.PropertyToID("_SkillSpaceDissolveAmount");
+
+    private float _skillDissolveProgress;
 
     private Tween _skillSequence;
-
-
+    private Tween _skillDissolveTween;
 
 
     private void Awake()
     {
-        _skillFocusScreenController = GetComponent<SkillFocusScreenController>();
-        _skillDashPointCreator = GetComponent<SkillDashPointCreator>();
-        _skillDashPointCalculater = GetComponent<SkillDashPointCalculater>();
-        _skillAttack = GetComponent<SkillAttack>();
-        _skillIndicatorController = GetComponent<SkillIndicatorController>();
+        _skillFocusScreenController =
+            GetComponent<SkillFocusScreenController>();
 
+        _skillDashPointCreator =
+            GetComponent<SkillDashPointCreator>();
+
+        _skillDashPointCalculater =
+            GetComponent<SkillDashPointCalculater>();
+
+        _skillAttack =
+            GetComponent<SkillAttack>();
+
+        _skillIndicatorController =
+            GetComponent<SkillIndicatorController>();
+
+        _skillOrbitIndicator =
+            GetComponent<SkillOrbitIndicator>();
+
+
+        // 처음에는 완전히 표시
+        Shader.SetGlobalFloat(
+            SkillSpaceDissolveAmountID,
+            1f
+        );
     }
 
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         SkillInput();
-
     }
+
 
     public void CalHitCount()
     {
         _currentHitCount++;
+
         if (_currentHitCount >= _countForSkillStack)
         {
             _currentHitCount = 0;
+
             MakeSkillStack();
         }
     }
 
+
     private void MakeSkillStack()
     {
-        if (_maxSkillStack < _skillStack)
+        if (_maxSkillStack > _skillStack)
         {
             _skillStack++;
+
             CreateSkillIndicator();
         }
     }
@@ -81,62 +139,225 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+
     private void SkillUseStart()
     {
-        _skillSequence = DOVirtual.DelayedCall(_skillTime, AutoSkillUseStart, true);
+        // =========================
+        // 기존 Tween 정리
+        // =========================
+
+        _skillSequence?.Kill();
+        _skillDissolveTween?.Kill();
+
+
+        // =========================
+        // 스킬 제한 시간
+        // =========================
+
+        _skillSequence =
+            DOVirtual.DelayedCall(
+                _skillTime,
+                AutoSkillUseStart,
+                true
+            );
+
+
+        // =========================
+        // Dissolve 시작
+        // =========================
+
+        StartSkillSpaceDissolve();
+
+
+        // =========================
+        // Pet Reveal 초기화
+        // =========================
+
+        _skillOrbitIndicator.ResetPetRevealShader();
+
+        Shader.SetGlobalFloat(
+            "_PetCount",
+            _skillStack
+        );
+
+
+        // =========================
+        // 기존 스킬 시작 처리
+        // =========================
 
         _playerMove.DashToReverseSide();
 
         _weaknessThreadController.StartWeaknessThread();
 
+        _skillUseEffect.SetActive(true);
+
+        _animator.SetBool(
+            "IsSkillUse",
+            true
+        );
+
         _playerAttack.enabled = false;
         _playerMove.enabled = false;
+
         Time.timeScale = _timeSlowAmount;
 
         ScreenControl();
     }
 
+
+    // =========================
+    // Skill Space Dissolve
+    // =========================
+
+    private void StartSkillSpaceDissolve()
+    {
+        _skillDissolveTween?.Kill();
+
+        _skillDissolveProgress = 0f;
+
+        // 스킬 시작 시 완전히 표시
+        Shader.SetGlobalFloat(
+            SkillSpaceDissolveAmountID,
+            _dissolveCurve.Evaluate(0f)
+        );
+
+
+        // Progress 자체는 항상
+        //
+        // 0 -----------------> 1
+        //
+        // 로 Linear하게 진행
+        //
+        // 실제 Shader 값은
+        // AnimationCurve가 결정
+        _skillDissolveTween =
+            DOTween.To(
+                    () => _skillDissolveProgress,
+
+                    value =>
+                    {
+                        _skillDissolveProgress = value;
+
+                        float dissolveAmount =
+                            _dissolveCurve.Evaluate(value);
+
+                        Shader.SetGlobalFloat(
+                            SkillSpaceDissolveAmountID,
+                            dissolveAmount
+                        );
+                    },
+
+                    1f,
+                    _skillTime
+                )
+                .SetEase(Ease.Linear)
+                .SetUpdate(true);
+    }
+
+
     private void ScreenControl()
     {
-        _skillFocusScreenController.StartFocusScreenSetting(DashPointCreat);
+        _skillFocusScreenController
+            .StartFocusScreenSetting(
+                DashPointCreat
+            );
     }
+
 
     private void DashPointCreat()
     {
-        List<Vector3> dashPoints = _skillDashPointCreator.CreateDashPoint(_skillStack, StartDashPointCalculate);
-        MoveToPointSkillIndicators(dashPoints);
+        List<Vector3> dashPoints =
+            _skillDashPointCreator.CreateDashPoint(
+                _skillStack,
+                StartDashPointCalculate
+            );
+
+        MoveToPointSkillIndicators(
+            dashPoints
+        );
     }
+
 
     private void StartDashPointCalculate()
     {
-
         _skillDashPointCalculater.enabled = true;
-        _skillDashPointCalculater.Activate(_skillStack, StartDash);
+
+        _skillDashPointCalculater.Activate(
+            _skillStack,
+            StartDash
+        );
     }
+
 
     private void StartDash()
     {
-        List<SkillIndicator> _choicedSequnce = _skillDashPointCalculater.GetChoiceSequence();
-        _skillAttack.SetWeaknessDirection(_weaknessThreadController.GetThreadDirection());
-        _skillAttack.DashStart(_choicedSequnce, SkillUseEnd);
-        _skillDashPointCalculater.enabled = false;
-    }
+        List<SkillIndicator> _choicedSequnce =
+            _skillDashPointCalculater
+                .GetChoiceSequence();
 
+        _skillAttack.SetWeaknessDirection(
+            _weaknessThreadController
+                .GetThreadDirection()
+        );
+
+        _skillAttack.DashStart(
+            _choicedSequnce,
+            SkillUseEnd
+        );
+
+        _skillDashPointCalculater.enabled = false;
+
+        _skillUseEffect.SetActive(false);
+    }
 
 
     public void SkillUseEnd()
     {
-        if (_skillSequence != null)
-        {
-            _skillSequence.Kill();
-        }
+        // =========================
+        // Tween 종료
+        // =========================
 
-        _weaknessThreadController.EndWeaknessThread();
+        _skillSequence?.Kill();
+        _skillSequence = null;
+
+        _skillDissolveTween?.Kill();
+        _skillDissolveTween = null;
+
+
+        // =========================
+        // Shader 초기화
+        // =========================
+
+        _skillDissolveProgress = 0f;
+
+        Shader.SetGlobalFloat(
+            SkillSpaceDissolveAmountID,
+            1f
+        );
+
+
+        // =========================
+        // 기존 스킬 종료 처리
+        // =========================
+
+        _weaknessThreadController
+            .EndWeaknessThread();
+
+        _skillOrbitIndicator
+            .ResetPetRevealShader();
 
         _skillStack = 0;
-        _skillIndicatorController.ClearPet();
 
-        _skillFocusScreenController.EndFocusScreenSetting();
+        _skillIndicatorController
+            .ClearPet();
+
+        _skillFocusScreenController
+            .EndFocusScreenSetting();
+
+        _animator.SetBool(
+            "IsSkillUse",
+            false
+        );
 
         _playerAttack.enabled = true;
         _playerMove.enabled = true;
@@ -144,18 +365,38 @@ public class SkillManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+
     private void AutoSkillUseStart()
     {
-        _skillDashPointCalculater.AutoSkillIndicatorSelect();
+        _skillDashPointCalculater
+            .AutoSkillIndicatorSelect();
     }
+
 
     private void CreateSkillIndicator()
     {
-        _skillIndicatorController.AddPet();
+        _skillIndicatorController
+            .AddPet();
     }
 
-    private void MoveToPointSkillIndicators(List<Vector3> dashPoints)
+
+    private void MoveToPointSkillIndicators(
+        List<Vector3> dashPoints
+    )
     {
-        _skillIndicatorController.MoveToPoint(dashPoints);
+        _skillIndicatorController
+            .MoveToPoint(dashPoints);
+    }
+
+
+    private void OnDestroy()
+    {
+        _skillSequence?.Kill();
+        _skillDissolveTween?.Kill();
+
+        Shader.SetGlobalFloat(
+            SkillSpaceDissolveAmountID,
+            1f
+        );
     }
 }

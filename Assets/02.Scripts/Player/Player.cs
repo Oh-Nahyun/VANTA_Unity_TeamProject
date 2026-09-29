@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     private float _curTime;
     private Animator _animator;
     private bool _isHited;
+    private bool _isHittable;
 
     private void Awake()
     {
@@ -32,9 +33,19 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void OnPlayerHittable()
+    {
+        _isHittable = true;
+    }
+
+    public void OffPlayerHittable()
+    {
+        _isHittable = false;
+    }
+
     public void TakeDamage()
     {
-        if (_isHited)
+        if (_isHited||!_isHittable)
         {
             return;
         }

@@ -171,12 +171,12 @@ TextureImporter:
       name: Smoke In_0
       rect:
         serializedVersion: 2
-        x: 49
-        y: 63
-        width: 47
-        height: 20
+        x: 0
+        y: 0
+        width: 144
+        height: 144
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -193,12 +193,12 @@ TextureImporter:
       name: Smoke In_1
       rect:
         serializedVersion: 2
-        x: 193
-        y: 63
-        width: 51
-        height: 21
+        x: 144
+        y: 0
+        width: 144
+        height: 144
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -215,12 +215,12 @@ TextureImporter:
       name: Smoke In_2
       rect:
         serializedVersion: 2
-        x: 335
-        y: 63
-        width: 39
-        height: 22
+        x: 288
+        y: 0
+        width: 144
+        height: 144
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -237,12 +237,12 @@ TextureImporter:
       name: Smoke In_3
       rect:
         serializedVersion: 2
-        x: 478
-        y: 63
-        width: 56
-        height: 23
+        x: 432
+        y: 0
+        width: 144
+        height: 144
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -259,12 +259,12 @@ TextureImporter:
       name: Smoke In_4
       rect:
         serializedVersion: 2
-        x: 621
-        y: 63
-        width: 58
-        height: 23
+        x: 576
+        y: 0
+        width: 144
+        height: 144
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -281,12 +281,12 @@ TextureImporter:
       name: Smoke In_5
       rect:
         serializedVersion: 2
-        x: 634
-        y: 80
-        width: 6
-        height: 6
+        x: 720
+        y: 0
+        width: 144
+        height: 144
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -303,12 +303,12 @@ TextureImporter:
       name: Smoke In_6
       rect:
         serializedVersion: 2
-        x: 764
-        y: 63
-        width: 60
-        height: 23
+        x: 864
+        y: 0
+        width: 144
+        height: 144
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -325,12 +325,12 @@ TextureImporter:
       name: Smoke In_7
       rect:
         serializedVersion: 2
-        x: 907
-        y: 63
-        width: 62
-        height: 24
+        x: 1008
+        y: 0
+        width: 144
+        height: 144
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -347,12 +347,12 @@ TextureImporter:
       name: Smoke In_8
       rect:
         serializedVersion: 2
-        x: 1059
-        y: 63
-        width: 47
-        height: 24
+        x: 1152
+        y: 0
+        width: 144
+        height: 144
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -365,143 +365,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Smoke In_9
-      rect:
-        serializedVersion: 2
-        x: 1202
-        y: 63
-        width: 40
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 303744efae9345d00800000000000000
-      internalID: 960456301987787523
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Smoke In_10
-      rect:
-        serializedVersion: 2
-        x: 339
-        y: 68
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c211090863a83b680800000000000000
-      internalID: -8740490485106208468
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Smoke In_11
-      rect:
-        serializedVersion: 2
-        x: 368
-        y: 63
-        width: 10
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 751b52e6b152d7bc0800000000000000
-      internalID: -3783827312179039913
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Smoke In_12
-      rect:
-        serializedVersion: 2
-        x: 376
-        y: 63
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9d6b0725e083b86c0800000000000000
-      internalID: -4140153798273222951
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Smoke In_13
-      rect:
-        serializedVersion: 2
-        x: 516
-        y: 63
-        width: 9
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d9ae19d72f235a410800000000000000
-      internalID: 1487651268986006173
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Smoke In_14
-      rect:
-        serializedVersion: 2
-        x: 664
-        y: 63
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 43dff8a4fef513920800000000000000
-      internalID: 2968259110766640436
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 92304e1dcf56a6e4c9c8a2c8aa47b514
     internalID: 0
     vertices: []
     indices: 
@@ -509,15 +377,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":144.0,"y":144.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Smoke In_0: -5946325435010976933
       Smoke In_1: 8724640395304001178
-      Smoke In_10: -8740490485106208468
-      Smoke In_11: -3783827312179039913
-      Smoke In_12: -4140153798273222951
-      Smoke In_13: 1487651268986006173
-      Smoke In_14: 2968259110766640436
       Smoke In_2: -5084664307633883960
       Smoke In_3: 5032953694725907696
       Smoke In_4: 3141908650791411609
@@ -525,7 +390,6 @@ TextureImporter:
       Smoke In_6: -3694121708321380355
       Smoke In_7: -4586060999322274655
       Smoke In_8: -5124863109661308718
-      Smoke In_9: 960456301987787523
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -314,17 +314,34 @@ public class Boss2MoveBase : MonoBehaviour, IBossMovable
         int x = (int)_velocity.x;
         if (x > 0)
         {
-            _spriteRenderer.flipX = false;
-            _attackZone.transform.localPosition = new Vector3(_attackZoneOffset, 0f, 0f);
+            SetFacingLeft(false);
         }
         else if (x < 0)
         {
-            _spriteRenderer.flipX = true;
-            _attackZone.transform.localPosition = new Vector3(-_attackZoneOffset, 0f, 0f);
+            SetFacingLeft(true);
         }
-        
+
         // UpdateVelocity 가 이미 가속 램프를 거쳐 units/s 단위 속도를 만들어 두었으므로
         // 힘을 더하지 않고 그대로 대입한다. AddForce 를 쓰면 가속이 두 번 적분된다.
         _rigidbody2D.linearVelocity = _velocity;
+    }
+
+    /// <summary>
+    /// 움직이지 않고 제자리에서 공격할 때처럼, 속도와 상관없이 지정한 위치를 바라보게 한다.
+    /// </summary>
+    public void FaceTowards(Vector2 worldPoint)
+    {
+        float dx = worldPoint.x - transform.position.x;
+        if (Mathf.Abs(dx) < 0.01f)
+            return;
+
+        SetFacingLeft(dx < 0f);
+    }
+
+    // 스프라이트 방향과 공격 박스 위치를 함께 바꾼다.
+    private void SetFacingLeft(bool isLeft)
+    {
+        _spriteRenderer.flipX = isLeft;
+        _attackZone.transform.localPosition = new Vector3(isLeft ? -_attackZoneOffset : _attackZoneOffset, 0f, 0f);
     }
 }

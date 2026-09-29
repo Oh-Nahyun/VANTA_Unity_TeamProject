@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3614016485446532058}
   - component: {fileID: -9214112356609609119}
   - component: {fileID: 6024146628359518789}
+  - component: {fileID: 8034692196780386006}
   m_Layer: 14
   m_Name: Boss2
   m_TagString: Player
@@ -170,6 +171,7 @@ MonoBehaviour:
   _doubleTapInterval: 0.25
   _iFrameStart: 0.05
   _iFrameEnd: 0.2
+  _attackZoneOffset: 0.5
   _useKeyboardInput: 1
   _attackZone: {fileID: 0}
   _target: {fileID: 0}
@@ -197,14 +199,12 @@ MonoBehaviour:
   _maxComboCount: 8
   _instantKillStartState: StartInstantKillSkill
   _instantKillEndState: EndInstantKillSkill
+  _instantKillAppearHeight: 1
   _instantKillRadius: 1
-  _instantKillForward: 0.8
   _aoeStateName: Boss2AOESkill
   _areaStrikePrefab: {fileID: 7674075093399045934, guid: 7d6e3c528fa2dc54cb70ea0db103f7a7, type: 3}
   _strikeCountMin: 10
   _strikeCountMax: 15
-  _strikeRadius: 1
-  _strikeDamage: 10
   _minStrikeSpacing: 1
   _arenaCenter: {x: 0, y: 0}
   _arenaSize: {x: 10, y: 6}
@@ -298,7 +298,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6, y: 6}
+    oldSize: {x: 8, y: 8}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -306,3 +306,84 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.375, y: 0.328125}
   m_EdgeRadius: 0
+--- !u!114 &8034692196780386006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4133056159387206755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d405c91ba2fee441a5dab0606b5c864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss2Controller
+  _runOnStart: 1
+  _thinkDelay: 0.3
+  _recoverTime: 0.8
+  _moveTimeout: 4
+  _logDecisions: 0
+  _actions:
+  - Name: "\uADFC\uC811 \uB09C\uD0C0"
+    Move: 0
+    Attack: 1
+    ComboMin: 2
+    ComboMax: 3
+    DistanceMin: 0
+    DistanceMax: 1.5
+    HealthMin: 0
+    HealthMax: 1
+    Cooldown: 0
+    Weight: 5
+  - Name: "\uC555\uBC15 \uCF64\uBCF4"
+    Move: 3
+    Attack: 1
+    ComboMin: 3
+    ComboMax: 4
+    DistanceMin: 1.5
+    DistanceMax: 5
+    HealthMin: 0
+    HealthMax: 1
+    Cooldown: 3
+    Weight: 4
+  - Name: "\uCD94\uACA9 \uAC15\uD0C0"
+    Move: 1
+    Attack: 2
+    ComboMin: 1
+    ComboMax: 1
+    DistanceMin: 4
+    DistanceMax: 999
+    HealthMin: 0
+    HealthMax: 1
+    Cooldown: 6
+    Weight: 3
+  - Name: "\uAE30\uC2B5 \uD68C\uC804\uBCA0\uAE30"
+    Move: 2
+    Attack: 4
+    ComboMin: 1
+    ComboMax: 1
+    DistanceMin: 3
+    DistanceMax: 999
+    HealthMin: 0
+    HealthMax: 0.7
+    Cooldown: 8
+    Weight: 3
+  - Name: "\uADFC\uC811 \uD68C\uC804 \uBC18\uACA9"
+    Move: 0
+    Attack: 4
+    ComboMin: 1
+    ComboMax: 1
+    DistanceMin: 0
+    DistanceMax: 1.5
+    HealthMin: 0
+    HealthMax: 0.4
+    Cooldown: 10
+    Weight: 3
+  _aoeHealthThresholds:
+  - 0.8
+  - 0.6
+  - 0.4
+  - 0.2
+  _skillHitThreshold: 100
+  _instantKillWeightPerHit: 1
+  _instantKillWeight: 0

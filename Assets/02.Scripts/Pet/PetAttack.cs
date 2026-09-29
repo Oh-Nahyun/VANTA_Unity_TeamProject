@@ -51,9 +51,9 @@ public class PetAttack : MonoBehaviour
 
         // TODO : [펫] 기본 공격 및 공격 스킬 조건은 플레이어 상태 고려해서 정하기
         // TODO : [펫] 아래 함수 호출 코드는 테스트용으로 추후 삭제하기
-        FireEnergyBullet();
+        //FireEnergyBullet();
         //UseCrystalPrison();
-        //UseCrystalSanctuary();
+        UseCrystalSanctuary();
     }
 
     private void Update()
@@ -69,7 +69,7 @@ public class PetAttack : MonoBehaviour
     public void FireEnergyBullet()
     {
         float middleIndex = (_energyBulletCount - 1) * 0.5f;
-        _energyBulletCount = _pet.PlayerSkillManager.GetSkillStack;
+        _energyBulletCount = _pet.PlayerSkillManager.GetSkillStack + 1;
         _pet.Animator.SetTrigger("IsFire");
 
         for (int i = 0; i < _energyBulletCount; i++)

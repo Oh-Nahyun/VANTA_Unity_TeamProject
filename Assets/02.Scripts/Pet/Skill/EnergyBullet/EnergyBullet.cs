@@ -119,8 +119,7 @@ public class EnergyBullet : MonoBehaviour
 
     private void SetRotation(Vector3 direction)
     {
-        if (direction.sqrMagnitude <= 0f)
-            return;
+        if (direction.sqrMagnitude <= 0f) return;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
@@ -134,8 +133,7 @@ public class EnergyBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Boss"))
-            return;
+        if (!other.CompareTag("Boss")) return;
 
         Hit();
         Destroy(gameObject);

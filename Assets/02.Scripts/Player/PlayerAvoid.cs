@@ -114,9 +114,7 @@ public class PlayerAvoid : MonoBehaviour
         );
 
         _playerAvoidKeyGenerator
-            .CreateAlarmKeyPad(
-                _avoidKey
-            );
+            .CreateAlarmKeyPad(false);
 
         _animator.SetBool(
             "AvoidReady",
@@ -161,7 +159,7 @@ public class PlayerAvoid : MonoBehaviour
 
         _playerAvoidKeyGenerator
             .CreateAlarmKeyPad(
-                _avoidKey
+                true
             );
 
         _animator.SetBool(

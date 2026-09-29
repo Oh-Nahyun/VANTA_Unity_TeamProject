@@ -5916,7 +5916,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAvoidKeyGenerator
   _canvas: {fileID: 2139010139}
-  _alarmKeyPad: {fileID: 3585278104208373336, guid: 4cbff80999d60c448814aab2b0576829, type: 3}
+  _alarmMoveKeyPad: {fileID: 3585278104208373336, guid: 4cbff80999d60c448814aab2b0576829, type: 3}
+  _alarmMoveAttackKeyPad: {fileID: 3585278104208373336, guid: c1c112f808dae27489f553938d92a838, type: 3}
   _spawnDistance: 200
 --- !u!114 &321024284
 MonoBehaviour:
@@ -5934,10 +5935,9 @@ MonoBehaviour:
   _avoidZoomAmount: 1.5
   _avoidDuration: 2
   _dashDistance: 2
-  _avoidDashDuration: 1
-  _avoidAttackDuration: 1
+  _avoidDashDuration: 0.5
+  _attackPassDistance: 1.5
   _focusScreenController: {fileID: 464393700}
-  _dashScreenController: {fileID: 0}
 --- !u!1 &328279174
 GameObject:
   m_ObjectHideFlags: 0

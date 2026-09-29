@@ -79,7 +79,7 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
         Debug.Log("Boss1 원거리 패턴 시작");
     }
 
-    public void UpdateAttack()
+    public void UpdateAttack() //현재 프레임의 원거리 패턴 전체 관리
     {
         if (IsFinished)
         {
@@ -132,7 +132,7 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
         Debug.Log("Boss1 원거리 사이클 시작");
     }
 
-    private void UpdateActiveAttacks()
+    private void UpdateActiveAttacks() //리스트에 등록된 원거리 패턴 실행
     {
         for (int i = _activeAttacks.Count - 1; i >= 0; i--)
         {
@@ -184,8 +184,7 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
             return;
         }
 
-        IBoss1RangedAttack additionalAttack =
-            SelectRandomAttack();
+        IBoss1RangedAttack additionalAttack = SelectRandomAttack();
 
         if (additionalAttack != null)
         {
@@ -226,8 +225,7 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
             return null;
         }
 
-        float randomValue =
-            UnityEngine.Random.Range(0f, totalWeight);
+        float randomValue = UnityEngine.Random.Range(0f, totalWeight);
 
         float currentWeight = 0f;
 

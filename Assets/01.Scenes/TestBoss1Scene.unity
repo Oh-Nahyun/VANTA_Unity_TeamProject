@@ -1608,9 +1608,9 @@ GameObject:
   - component: {fileID: 1479249567}
   - component: {fileID: 1479249568}
   - component: {fileID: 1479249569}
-  - component: {fileID: 1479249570}
   - component: {fileID: 1479249572}
   - component: {fileID: 1479249571}
+  - component: {fileID: 1479249573}
   m_Layer: 6
   m_Name: Boss1
   m_TagString: Boss1
@@ -1732,30 +1732,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7df2287c1b19e3469270420498757f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1AttackBulletHell
-  _bulletHellAttack: {fileID: 1479249570}
-  _weight: 20
---- !u!114 &1479249570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479249562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a883561047ebff947a0b6b6b109e5bf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Boss1BulletHellAttack
-  _aimedHeadPivot: {fileID: 946348941}
-  _splitHeadPivot: {fileID: 1576033937}
-  _playerTransform: {fileID: 1583416898}
-  _bulletPrefab: {fileID: 1563816904694444635, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
-  _splitBulletPrefab: {fileID: 3256519665437658198, guid: 4702a32df1a08834d9d12a01dc6bf607, type: 3}
-  _aimedFireInteval: 0.5
-  _aimedFireCount: 8
-  _splitFireInteval: 1
-  _splitFireCount: 5
-  _patternInterval: 0.5
+  _rangedAttacks: []
+  _phase1Settings:
+    _overlapChance: 0.2
+    _overlapCheckDelay: 1
+    _cycleInterval: 1
+    _maxConcurrentAttacks: 2
+    _cycleCount: 3
+  _phase2Settings:
+    _overlapChance: 0.2
+    _overlapCheckDelay: 1
+    _cycleInterval: 1
+    _maxConcurrentAttacks: 2
+    _cycleCount: 3
 --- !u!114 &1479249571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1790,6 +1779,18 @@ MonoBehaviour:
   _bulletPrefab: {fileID: 1563816904694444635, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
   _aimedFireInteval: 0.5
   _aimedFireCount: 8
+--- !u!114 &1479249573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1479249562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9065dc25aa3dc154c9644f5f2f49d788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss1LaserAttack
 --- !u!1 &1506718564
 GameObject:
   m_ObjectHideFlags: 0

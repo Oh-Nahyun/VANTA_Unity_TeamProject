@@ -18,9 +18,9 @@ GameObject:
   - component: {fileID: 6024146628359518789}
   - component: {fileID: 8034692196780386006}
   - component: {fileID: 322370360651168047}
-  m_Layer: 7
+  m_Layer: 21
   m_Name: Boss2
-  m_TagString: Boss2
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,8 +88,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 446125925
-  m_SortingLayer: 4
+  m_SortingLayerID: 299320877
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4723107735738678597, guid: 71948676c80310447a74748af9e04901, type: 3}
@@ -385,6 +385,7 @@ MonoBehaviour:
   _skillHitThreshold: 100
   _instantKillWeightPerHit: 1
   _instantKillWeight: 0
+  _maxInstantKillWeight: 3
   _aoeInvincible: 1
   _instantKillInvincible: 1
 --- !u!95 &322370360651168047
@@ -419,7 +420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 488278324932405829}
   - component: {fileID: 1106958877578912183}
-  m_Layer: 7
+  m_Layer: 21
   m_Name: SpinningZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +510,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7837657488774029246}
-  m_Layer: 7
+  m_Layer: 21
   m_Name: VFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -545,7 +546,7 @@ GameObject:
   - component: {fileID: 6974456109595099286}
   - component: {fileID: 5797313761746249677}
   - component: {fileID: 3265812941824271901}
-  m_Layer: 7
+  m_Layer: 21
   m_Name: AttackZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -796,6 +797,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss2AuraVFX
       objectReference: {fileID: 0}
+    - target: {fileID: 4671854515589069039, guid: d4ed2fcf058a6fd439d0f5f3ced73971, type: 3}
+      propertyPath: m_Layer
+      value: 21
+      objectReference: {fileID: 0}
     - target: {fileID: 5458988547303032671, guid: d4ed2fcf058a6fd439d0f5f3ced73971, type: 3}
       propertyPath: m_SortingLayer
       value: 9
@@ -935,6 +940,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DarkDustParticleSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 6371319850132566433, guid: beaf1f507567556458b6fe5cac0cdc60, type: 3}
+      propertyPath: m_Layer
+      value: 21
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -996,6 +1005,10 @@ PrefabInstance:
     - target: {fileID: 3005786366994476738, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
       propertyPath: m_Name
       value: Boss2SpinningSlash
+      objectReference: {fileID: 0}
+    - target: {fileID: 3005786366994476738, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: m_Layer
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 8232697810173597566, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
       propertyPath: playOnAwake

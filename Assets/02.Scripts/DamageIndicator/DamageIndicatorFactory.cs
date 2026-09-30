@@ -13,7 +13,7 @@ public class DamageIndicatorFactory : MonoBehaviour
 {
     private static DamageIndicatorFactory _instance;
     public static DamageIndicatorFactory Instance => _instance;
-
+    
     [Header("일반 데미지 표시 프리팹")][SerializeField] private GameObject _normalIndicatorPrefab;
     [Header("중간 데미지 표시 프리팹")][SerializeField] private GameObject _middleIndicatorPrefab;
     [Header("치명타데미지 표시 프리팹")][SerializeField] private GameObject _criticalIndicatorPrefab;
@@ -67,6 +67,7 @@ public class DamageIndicatorFactory : MonoBehaviour
             Instantiate(prefab, transform).GetComponent<DamageIndicator>();
         indicator.transform.position = loc;
         indicator.Init(damage);
+        
 
     }
 

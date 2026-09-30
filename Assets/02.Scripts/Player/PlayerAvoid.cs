@@ -192,7 +192,7 @@ public class PlayerAvoid : MonoBehaviour
         _avoidTimer?.Kill();
         _avoidTimer = null;
 
-        _avoidCaller.GetComponent<IAvoidInteraction>().AvoidResultBehavior(true);
+        _avoidCaller?.GetComponent<IAvoidInteraction>().AvoidResultBehavior(true);
 
         _playerAvoidKeyGenerator
             .ClearAlarmKeyPad();

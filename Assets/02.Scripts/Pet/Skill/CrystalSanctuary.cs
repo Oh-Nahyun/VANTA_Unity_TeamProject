@@ -11,6 +11,11 @@ public class CrystalSanctuary : MonoBehaviour
     [SerializeField] private float _radiusDecreaseRatio = 0.01f;
 
     /// <summary>
+    /// 플레이어 클래스
+    /// </summary>
+    private Player _player;
+
+    /// <summary>
     /// 펫 크리스탈 생츄어리 애니메이터
     /// </summary>
     private Animator _animator;
@@ -32,6 +37,7 @@ public class CrystalSanctuary : MonoBehaviour
 
     private void Awake()
     {
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         _animator = GetComponent<Animator>();
         _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
     }
@@ -71,13 +77,22 @@ public class CrystalSanctuary : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
+        _player.OffPlayerHittable();
         _animator.SetBool("IsPlayerInside", true);
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player")) return;
+
+        _player.OffPlayerHittable();
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
 
+        _player.OnPlayerHittable();
         _animator.SetBool("IsPlayerInside", false);
     }
 }

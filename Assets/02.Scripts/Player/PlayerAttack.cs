@@ -6,13 +6,21 @@ public class PlayerAttack : MonoBehaviour
 
 
     [Header("더블 슬래쉬 까지 필요 공격 횟수")][SerializeField] private int _countForDoubleSlash;
-    [Header("공격 쿨타임")][SerializeField] private float _attackCoolTime = 0.5f;
-    [Header("콤보 유지시간")][SerializeField] private float _comboTime = 0.5f;
+    [Header("최소공격 쿨타임")][SerializeField] private float _minAttackCoolTime = 0.3f;
+    [Header("최대공격 쿨타임")][SerializeField] private float _maxAttackCoolTime = 0.7f;
+
+    [Header("더블 슬래시용 콤보 유지시간")][SerializeField] private float _doubleSlashComboTime = 0.5f;
+    [Header("공격 속도 증가용 콤보 유지시간")][SerializeField] private float _attackSpeedUpComboTime = 0.5f;
+
     [Header("공격 거리")]
     [SerializeField] private float _attackDistance = 0.2f;
     [Header("공격 범위")]
     [SerializeField] private float _attackRadius = 1f;
 
+    [Header("공격한 콤보수")]
+    [SerializeField] private int _attackComboCount = 0;
+
+    public int AttackComboCount => _attackComboCount;
 
     [Header("슬래시 데미지")][SerializeField] private float _slashDamage = 50;
     [Header("더블 슬래시 데미지")][SerializeField] private float _doubleSlashDamage = 75;
@@ -25,18 +33,24 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("참조")]
     [SerializeField] private SkillIndicatorController _skillIndicatorController;
-
-    private SkillManager _skillManager;
+    [SerializeField]private SkillManager _skillManager;
+    
     private int _comboCount = 0;
-    private Animator _animator;
     private bool _isSlashing;
     private Tween _comboTimer;
+    private Tween _damageComboTimer;
+
     private SpriteRenderer _spriteRenderer;
+    private Animator _animator;
+    
+    
+
 
     void Awake()
     {
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        
         _skillManager = GetComponentInChildren<SkillManager>();
         _skillIndicatorController = GetComponentInChildren<SkillIndicatorController>();
     }
@@ -82,7 +96,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void ExecuteCoolTime()
     {
-        DOVirtual.DelayedCall(_attackCoolTime, () =>
+        DOVirtual.DelayedCall(GetCooltime(), () =>
         {
             _isSlashing = false;
         });
@@ -93,13 +107,25 @@ public class PlayerAttack : MonoBehaviour
     {
         _comboTimer?.Kill();
 
-        _comboTimer = DOVirtual.DelayedCall(_attackCoolTime + _comboTime, () =>
+        _comboTimer = DOVirtual.DelayedCall(GetCooltime() + _doubleSlashComboTime, () =>
         {
             if (_comboCount > 0)
             {
                 _comboCount = 0;
             }
         });
+    }
+
+    private float GetCooltime()
+    {
+        float comboRatio = Mathf.Clamp01(_attackComboCount / 20f);
+
+        float coolTime = Mathf.Lerp(
+            _maxAttackCoolTime,
+            _minAttackCoolTime,
+            comboRatio
+        );
+        return coolTime;
     }
 
     public void ExamineSlash()
@@ -186,4 +212,6 @@ public class PlayerAttack : MonoBehaviour
     {
         _skillManager.CalHitCount();
     }
+    
+    
 }

@@ -78,14 +78,12 @@ public class SkillIndicator : MonoBehaviour
 
         _skillIndicatorOrbit.StopOrbit();
         GetComponent<SkillIndicatorAttack>().PauseAttack();
+
     }
 
     public void SkillAttackComplete()
     {
-
-
         Destroy(gameObject);
-
     }
 
 }

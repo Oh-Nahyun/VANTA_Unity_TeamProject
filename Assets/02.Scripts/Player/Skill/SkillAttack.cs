@@ -45,6 +45,7 @@ public class SkillAttack : MonoBehaviour
     private int _dashCount;
     private SkillSpaceController _skillSpaceController;
     private SkillDashScreenController _skillDashScreenController;
+    private SkillDashSlashScreenController _skillDashSlashScreenController;
     private Collider2D[] _playerColliders;
     private ObjectZoom _objectZoom;
 
@@ -61,7 +62,7 @@ public class SkillAttack : MonoBehaviour
 
         _skillDashScreenController =
             GetComponent<SkillDashScreenController>();
-
+        _skillDashSlashScreenController = GetComponent<SkillDashSlashScreenController>();
         _objectZoom =
             GetComponent<ObjectZoom>();
         _skillSpaceController=GetComponent<SkillSpaceController>();
@@ -274,6 +275,11 @@ public class SkillAttack : MonoBehaviour
 
         direction.Normalize();
 
+        _skillDashSlashScreenController.PlaySlash(
+            start,
+            end
+        );
+
         float dot = Mathf.Abs(
             Vector2.Dot(
                 direction,
@@ -324,7 +330,6 @@ public class SkillAttack : MonoBehaviour
             }
         }
     }
-
     private void SuccessNormalSkillAttack(
         HitableObject hitableObject)
     {

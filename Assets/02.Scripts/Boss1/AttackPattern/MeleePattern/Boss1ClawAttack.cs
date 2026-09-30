@@ -126,7 +126,6 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
     private void UpdateClawAttack()
     {
         _boss1Movement.StopMove();
-        
     }
 
     private void UpdateRecovery()

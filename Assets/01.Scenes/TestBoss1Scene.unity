@@ -375,7 +375,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.1, y: 0.91, z: 0}
-  m_LocalScale: {x: 2.5051856, y: 1.9245274, z: 1}
+  m_LocalScale: {x: 1.219236, y: 1.9414634, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 890837232}
@@ -1802,6 +1802,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss1AttackController
   _attackBehaviours:
   - {fileID: 1479249569}
+  - {fileID: 1479249576}
   _chaseDuration: 2
 --- !u!114 &1479249569
 MonoBehaviour:
@@ -1933,7 +1934,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 584929f51a598484e8bf086a9fe14f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1MeleePattern
-  _meleeAttacks: []
+  _meleeAttacks:
+  - _attackBehaviour: {fileID: 1479249575}
+    _weight: 1
   _boss1Movement: {fileID: 1479249566}
 --- !u!1 &1506718564
 GameObject:
@@ -3504,6 +3507,7 @@ GameObject:
   - component: {fileID: 7133378315521282783}
   - component: {fileID: 52901577726361818}
   - component: {fileID: 2283665620963418138}
+  - component: {fileID: 8003779751545764539}
   m_Layer: 6
   m_Name: The Tarnished Widow
   m_TagString: Boss1
@@ -3511,6 +3515,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8003779751545764539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8003779751545764538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1900e847bcfce3d4f8c6e79d5f92ce01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss1AnimationEventRelay
+  _boss1ClawAttack: {fileID: 1479249575}
 --- !u!4 &8483116862307400245
 Transform:
   m_ObjectHideFlags: 0

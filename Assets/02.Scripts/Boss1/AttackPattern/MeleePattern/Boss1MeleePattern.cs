@@ -33,6 +33,8 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
 
     private bool _isPhase2;
 
+    private IBoss1MeleeAttack _currentAttack;
+
     public bool IsFinished{ get; private set; }
 
     private PhaseSettings CurrentPhaseSettings => _isPhase2 ? _phase2Settings : _phase1Settings;
@@ -44,7 +46,7 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
 
     public float GetWeight()
     {
-        return 1f;
+        return 40f;
     }
     
     public void EnterAttack()
@@ -52,6 +54,8 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
         IsFinished = false;
         
         _boss1Movement.StartControlled();
+        _currentAttack = _meleeAttacks[0].Attack;
+        _currentAttack.EnterAttack();
 
         Debug.Log("Boss1 근거리 패턴 시작");
     }
@@ -61,6 +65,22 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
         if (IsFinished)
         {
             return;
+        }
+
+        if (_currentAttack == null)
+        {
+            IsFinished = true;
+            return;
+        }
+        
+        _currentAttack.UpdateAttack();
+
+        if (_currentAttack.IsFinished)
+        {
+            _currentAttack.ExitAttack();
+            _currentAttack = null;
+            
+            IsFinished = true;
         }
     }
 

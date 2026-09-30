@@ -1,152 +1,32 @@
-using DG.Tweening;
+
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class WeaknessThreadController : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private FullScreenPassRendererFeature _threadFullScreenFeature;
-    [SerializeField] private FullScreenPassRendererFeature _rayFullScreenFeature;
     [SerializeField] private Transform _boss;
     [SerializeField] private Camera _targetCamera;
-
-    [Header("Thread")]
-    [SerializeField] private float _threadWidth = 0.008f;
-
     [Header("Thread Movement")]
     [SerializeField] private float _rotationSpeed = 3f;
-
-    [Header("Thread Fade")]
-    [SerializeField] private float _fadeInDuration = 0.25f;
-    [SerializeField] private float _fadeOutDuration = 0.25f;
-
-    [Header("Thread Spawn Flash")]
-    [SerializeField] private float _normalGlowIntensity = 1.5f;
-    [SerializeField] private float _spawnGlowIntensity = 6f;
-    [SerializeField] private float _glowFlashInDuration = 0.08f;
-    [SerializeField] private float _glowFlashOutDuration = 0.4f;
-
-    [Header("Ray Fade")]
-    [SerializeField] private float _rayMaxOpacity = 1f;
-    [SerializeField] private float _rayFadeInDuration = 0.4f;
-    [SerializeField] private float _rayFadeOutDuration = 0.3f;
-
-    [Header("Thread Broken")]
-    [SerializeField] private float _brokenMultiplier = 50f;
-    [SerializeField] private float _brokenDuration = 0.2f;
-
-    private Material _originalThreadMaterial;
-    private Material _originalRayMaterial;
-
-    private Material _runtimeThreadMaterial;
-    private Material _runtimeRayMaterial;
-
+    
+    private WeaknessEdgeLineControl _weaknessEdgeLineControl;
+    private WeaknessMainLineControl _weaknessMainLineControl;
+    
     private Vector2 _threadDirection;
+    
     private bool _threadRunning;
-
-    private Tween _fadeTween;
-    private Tween _rayFadeTween;
-    private Sequence _glowSequence;
-    private Sequence _brokenSequence;
-
-    private static readonly int CurveFrequencyID =
-        Shader.PropertyToID("_CurveFrequency");
-
-    private static readonly int CurveStrengthID =
-        Shader.PropertyToID("_CurveStrength");
-
-    private static readonly int ThreadCenterID =
-        Shader.PropertyToID("_ThreadCenter");
-
-    private static readonly int ThreadNormalID =
-        Shader.PropertyToID("_ThreadNormal");
-
-    private static readonly int ThreadWidthID =
-        Shader.PropertyToID("_ThreadWidth");
-
-    private static readonly int ThreadOpacityID =
-        Shader.PropertyToID("_ThreadOpacity");
-
-    private static readonly int ThreadGlowIntensityID =
-        Shader.PropertyToID("_ThreadGlowIntensity");
-
-    private static readonly int RayOpacityID =
-        Shader.PropertyToID("_EdgeOpacity");
+    
 
     private void Awake()
     {
         if (_targetCamera == null)
             _targetCamera = Camera.main;
 
-        InitializeMaterials();
+        _weaknessEdgeLineControl=GetComponent<WeaknessEdgeLineControl>();
+        _weaknessMainLineControl=GetComponent<WeaknessMainLineControl>();
     }
 
-    private void InitializeMaterials()
-    {
-        if (_threadFullScreenFeature != null &&
-            _threadFullScreenFeature.passMaterial != null)
-        {
-            _originalThreadMaterial =
-                _threadFullScreenFeature.passMaterial;
-
-            _runtimeThreadMaterial =
-                new Material(_originalThreadMaterial);
-
-            _runtimeThreadMaterial.name =
-                $"{_originalThreadMaterial.name} (Runtime)";
-
-            _threadFullScreenFeature.passMaterial =
-                _runtimeThreadMaterial;
-
-            _runtimeThreadMaterial.SetFloat(
-                ThreadOpacityID,
-                0f
-            );
-
-            _runtimeThreadMaterial.SetFloat(
-                ThreadGlowIntensityID,
-                _normalGlowIntensity
-            );
-
-            _runtimeThreadMaterial.SetFloat(
-                ThreadWidthID,
-                _threadWidth
-            );
-        }
-        else
-        {
-            Debug.LogError(
-                "Thread Full Screen Pass 또는 Material이 없습니다."
-            );
-        }
-
-        if (_rayFullScreenFeature != null &&
-            _rayFullScreenFeature.passMaterial != null)
-        {
-            _originalRayMaterial =
-                _rayFullScreenFeature.passMaterial;
-
-            _runtimeRayMaterial =
-                new Material(_originalRayMaterial);
-
-            _runtimeRayMaterial.name =
-                $"{_originalRayMaterial.name} (Runtime)";
-
-            _rayFullScreenFeature.passMaterial =
-                _runtimeRayMaterial;
-
-            _runtimeRayMaterial.SetFloat(
-                RayOpacityID,
-                0f
-            );
-        }
-        else
-        {
-            Debug.LogError(
-                "Ray Full Screen Pass 또는 Material이 없습니다."
-            );
-        }
-    }
+    
 
     private void LateUpdate()
     {
@@ -159,17 +39,6 @@ public class WeaknessThreadController : MonoBehaviour
 
     public void StartWeaknessThread()
     {
-        if (_runtimeThreadMaterial == null ||
-            _runtimeRayMaterial == null)
-        {
-            return;
-        }
-
-        _fadeTween?.Kill();
-        _rayFadeTween?.Kill();
-        _glowSequence?.Kill();
-        _brokenSequence?.Kill();
-
         float randomAngle =
             Random.Range(0f, 180f);
 
@@ -180,31 +49,21 @@ public class WeaknessThreadController : MonoBehaviour
             Mathf.Cos(radian),
             Mathf.Sin(radian)
         ).normalized;
-
-        _runtimeThreadMaterial.SetFloat(
-            ThreadWidthID,
-            _threadWidth
-        );
-
-        _runtimeThreadMaterial.SetFloat(
-            ThreadGlowIntensityID,
-            _normalGlowIntensity
-        );
-
+        
         _threadRunning = true;
 
         UpdateThread();
 
-        FadeInThread();
-        FadeInRay();
+        _weaknessMainLineControl.FadeInThread();
+        _weaknessEdgeLineControl.FadeInRay();
     }
 
     public void EndWeaknessThread()
     {
         _threadRunning = false;
 
-        FadeOutThread();
-        FadeOutRay();
+        _weaknessMainLineControl.FadeOutThread();
+        _weaknessEdgeLineControl.FadeOutRay();
     }
 
     private void UpdateThreadDirection()
@@ -225,8 +84,7 @@ public class WeaknessThreadController : MonoBehaviour
     private void UpdateThread()
     {
         if (_boss == null ||
-            _targetCamera == null ||
-            _runtimeThreadMaterial == null)
+            _targetCamera == null)
         {
             return;
         }
@@ -272,146 +130,11 @@ public class WeaknessThreadController : MonoBehaviour
                 screenDirection.x
             );
 
-        _runtimeThreadMaterial.SetVector(
-            ThreadCenterID,
-            center
-        );
 
-        _runtimeThreadMaterial.SetVector(
-            ThreadNormalID,
-            normal
-        );
+        _weaknessMainLineControl.UpdateMainThreadDirection(center, normal);
+        
     }
-
-    private void FadeInThread()
-    {
-        if (_runtimeThreadMaterial == null)
-            return;
-
-        _fadeTween?.Kill();
-        _glowSequence?.Kill();
-
-        _runtimeThreadMaterial.SetFloat(
-            ThreadOpacityID,
-            0f
-        );
-
-        _runtimeThreadMaterial.SetFloat(
-            ThreadGlowIntensityID,
-            _normalGlowIntensity
-        );
-
-        _runtimeThreadMaterial.SetFloat(
-            ThreadWidthID,
-            _threadWidth
-        );
-
-        _fadeTween =
-            _runtimeThreadMaterial
-                .DOFloat(
-                    1f,
-                    ThreadOpacityID,
-                    _fadeInDuration
-                )
-                .SetEase(Ease.OutCubic)
-                .SetUpdate(true);
-
-        _glowSequence =
-            DOTween.Sequence()
-                .SetUpdate(true);
-
-        _glowSequence.Append(
-            _runtimeThreadMaterial
-                .DOFloat(
-                    _spawnGlowIntensity,
-                    ThreadGlowIntensityID,
-                    _glowFlashInDuration
-                )
-                .SetEase(Ease.OutQuad)
-        );
-
-        _glowSequence.Append(
-            _runtimeThreadMaterial
-                .DOFloat(
-                    _normalGlowIntensity,
-                    ThreadGlowIntensityID,
-                    _glowFlashOutDuration
-                )
-                .SetEase(Ease.OutExpo)
-        );
-    }
-
-    private void FadeOutThread()
-    {
-        if (_runtimeThreadMaterial == null)
-            return;
-
-        _fadeTween?.Kill();
-        _glowSequence?.Kill();
-
-        _fadeTween =
-            _runtimeThreadMaterial
-                .DOFloat(
-                    0f,
-                    ThreadOpacityID,
-                    _fadeOutDuration
-                )
-                .SetEase(Ease.InCubic)
-                .SetUpdate(true)
-                .OnComplete(() =>
-                {
-                    _runtimeThreadMaterial.SetFloat(
-                        ThreadGlowIntensityID,
-                        _normalGlowIntensity
-                    );
-
-                    _runtimeThreadMaterial.SetFloat(
-                        ThreadWidthID,
-                        _threadWidth
-                    );
-                });
-    }
-
-    private void FadeInRay()
-    {
-        if (_runtimeRayMaterial == null)
-            return;
-
-        _rayFadeTween?.Kill();
-
-        _runtimeRayMaterial.SetFloat(
-            RayOpacityID,
-            0f
-        );
-
-        _rayFadeTween =
-            _runtimeRayMaterial
-                .DOFloat(
-                    _rayMaxOpacity,
-                    RayOpacityID,
-                    _rayFadeInDuration
-                )
-                .SetEase(Ease.OutCubic)
-                .SetUpdate(true);
-    }
-
-    private void FadeOutRay()
-    {
-        if (_runtimeRayMaterial == null)
-            return;
-
-        _rayFadeTween?.Kill();
-
-        _rayFadeTween =
-            _runtimeRayMaterial
-                .DOFloat(
-                    0f,
-                    RayOpacityID,
-                    _rayFadeOutDuration
-                )
-                .SetEase(Ease.InCubic)
-                .SetUpdate(true);
-    }
+    
 
     public Vector2 GetThreadDirection()
     {
@@ -420,106 +143,8 @@ public class WeaknessThreadController : MonoBehaviour
 
     public void BrokenThread()
     {
-        if (_runtimeThreadMaterial == null)
-            return;
-
-        _fadeTween?.Kill();
-        _rayFadeTween?.Kill();
-        _glowSequence?.Kill();
-        _brokenSequence?.Kill();
-
-        float originalFrequency =
-            _runtimeThreadMaterial.GetFloat(
-                CurveFrequencyID
-            );
-
-        float originalStrength =
-            _runtimeThreadMaterial.GetFloat(
-                CurveStrengthID
-            );
-
-        _brokenSequence =
-            DOTween.Sequence()
-                .SetUpdate(true);
-
-        _brokenSequence.Join(
-            _runtimeThreadMaterial
-                .DOFloat(
-                    originalFrequency * _brokenMultiplier,
-                    CurveFrequencyID,
-                    _brokenDuration
-                )
-                .SetEase(Ease.OutQuad)
-        );
-
-        _brokenSequence.Join(
-            _runtimeThreadMaterial
-                .DOFloat(
-                    originalStrength * _brokenMultiplier,
-                    CurveStrengthID,
-                    _brokenDuration
-                )
-                .SetEase(Ease.OutQuad)
-        );
-
-        _brokenSequence.OnComplete(() =>
-        {
-            _runtimeThreadMaterial.SetFloat(
-                CurveFrequencyID,
-                originalFrequency
-            );
-
-            _runtimeThreadMaterial.SetFloat(
-                CurveStrengthID,
-                originalStrength
-            );
-
-            _brokenSequence = null;
-
-            _threadRunning = false;
-
-            FadeOutThread();
-            FadeOutRay();
-        });
-    }
-
-    private void OnDestroy()
-    {
-        _fadeTween?.Kill();
-        _rayFadeTween?.Kill();
-        _glowSequence?.Kill();
-        _brokenSequence?.Kill();
-
-        if (_threadFullScreenFeature != null &&
-            _originalThreadMaterial != null)
-        {
-            _threadFullScreenFeature.passMaterial =
-                _originalThreadMaterial;
-        }
-
-        if (_rayFullScreenFeature != null &&
-            _originalRayMaterial != null)
-        {
-            _rayFullScreenFeature.passMaterial =
-                _originalRayMaterial;
-        }
-
-        if (_runtimeThreadMaterial != null)
-        {
-            Destroy(
-                _runtimeThreadMaterial
-            );
-
-            _runtimeThreadMaterial = null;
-        }
-
-        if (_runtimeRayMaterial != null)
-        {
-            Destroy(
-                _runtimeRayMaterial
-            );
-
-            _runtimeRayMaterial = null;
-        }
+        _threadRunning = false;
+        _weaknessEdgeLineControl.BreakRay();
+        _weaknessMainLineControl.Breakthread();
     }
 }

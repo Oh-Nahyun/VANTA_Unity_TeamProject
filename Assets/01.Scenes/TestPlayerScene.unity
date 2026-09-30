@@ -5751,6 +5751,7 @@ Transform:
   m_Children:
   - {fileID: 781871096}
   - {fileID: 464393698}
+  - {fileID: 1957131018}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &321024276
@@ -6313,7 +6314,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 107384871}
-  - {fileID: 1475375759}
   m_Father: {fileID: 321024275}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &464393700
@@ -8073,6 +8073,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1475375759}
   - component: {fileID: 1475375760}
+  - component: {fileID: 1475375762}
+  - component: {fileID: 1475375761}
   m_Layer: 14
   m_Name: ThreadManager
   m_TagString: Untagged
@@ -8088,12 +8090,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1475375758}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 464393698}
+  m_Father: {fileID: 1957131018}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1475375760
 MonoBehaviour:
@@ -8107,21 +8109,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a53acacea803f443b95933df941bb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaknessThreadController
-  _threadFullScreenFeature: {fileID: 7758598042631646636, guid: 424799608f7334c24bf367e4bbfa7f9a, type: 2}
-  _rayFullScreenFeature: {fileID: -5895190391893037215, guid: 424799608f7334c24bf367e4bbfa7f9a, type: 2}
   _boss: {fileID: 1961626438}
   _targetCamera: {fileID: 519420031}
-  _threadWidth: 0.008
   _rotationSpeed: 1.5
-  _fadeInDuration: 1
-  _fadeOutDuration: 0.5
+--- !u!114 &1475375761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475375758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a81a689f592fe64c9920e8a9ed357ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaknessEdgeLineControl
+  _rayFullScreenFeature: {fileID: -5895190391893037215, guid: 424799608f7334c24bf367e4bbfa7f9a, type: 2}
+  _rayMaxOpacity: 1
+  _rayFadeInDuration: 0.4
+  _rayFadeOutDuration: 0.3
+--- !u!114 &1475375762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475375758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb0a8081cbb0b1438d6543277fb2a17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaknessMainLineControl
+  _threadFullScreenFeature: {fileID: 7758598042631646636, guid: 424799608f7334c24bf367e4bbfa7f9a, type: 2}
+  _threadWidth: 0.008
+  _fadeInDuration: 0.25
+  _fadeOutDuration: 0.25
   _normalGlowIntensity: 1.5
   _spawnGlowIntensity: 6
   _glowFlashInDuration: 0.08
   _glowFlashOutDuration: 0.4
-  _rayMaxOpacity: 1
-  _rayFadeInDuration: 0.4
-  _rayFadeOutDuration: 0.3
   _brokenMultiplier: 50
   _brokenDuration: 0.2
 --- !u!1 &1488837939
@@ -8651,6 +8677,38 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1957131017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1957131018}
+  m_Layer: 14
+  m_Name: Management
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1957131018
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957131017}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1475375759}
+  m_Father: {fileID: 321024275}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1961626435
 GameObject:
   m_ObjectHideFlags: 0

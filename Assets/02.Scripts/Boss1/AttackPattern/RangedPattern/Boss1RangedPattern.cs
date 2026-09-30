@@ -64,7 +64,7 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
 
     public float GetWeight()
     {
-        return 1f;
+        return 10f;
     }
     
     public void EnterAttack()

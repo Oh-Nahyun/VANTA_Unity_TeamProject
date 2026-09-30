@@ -172,7 +172,7 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
             return;
         }
 
-        // 최대 동시 공격 수에 도달
+        // 최대 동시 공격 수(2개) 판정
         if (_activeAttacks.Count >= CurrentPhaseSettings.MaxConcurrentAttacks)
         {
             return;

@@ -25,7 +25,8 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
     {
         NormalChase,
         AggressiveChase,
-        Stop
+        Stop,
+        Controlled
     }
     
     private void Awake()
@@ -59,6 +60,8 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
                 ChasePlayer(_aggressiveChaseSpeed);
                 break;
             case MoveMode.Stop:
+                break;
+            case MoveMode.Controlled:
                 break;
         }
         
@@ -114,6 +117,11 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
         _moveMode = MoveMode.Stop;
         _rigidBody.linearVelocity = Vector2.zero;
     }
+
+    public void StartControlled()
+    {
+        _moveMode = MoveMode.Controlled;
+    }
     
     private void FacePlayer()
     {
@@ -138,5 +146,15 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
         }
         
         _visualPivot.localScale = scale;
+    }
+    
+    public void MoveInDirection(Vector2 direction, float speed) //외부용
+    {
+        _rigidBody.linearVelocity = direction.normalized * speed;
+    }
+
+    public void StopMove() //외부용, 근거리 패턴용도, Stop()이랑 헷갈리면 안됨!
+    {
+        _rigidBody.linearVelocity = Vector2.zero;
     }
 }

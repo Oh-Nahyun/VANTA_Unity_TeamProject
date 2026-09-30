@@ -1,14 +1,11 @@
-using UnityEngine;
-
-public class IBoss1MeleeAttack : MonoBehaviour
+public interface IBoss1MeleeAttack
 {
-    private void Start()
+    bool IsFinished
     {
-        
+        get;
     }
 
-    private void Update()
-    {
-        
-    }
+    void EnterAttack();
+    void UpdateAttack();
+    void ExitAttack();
 }

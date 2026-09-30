@@ -71,12 +71,26 @@ public class CrystalSanctuary : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
+        Player player = other.GetComponent<Player>();
+        player.OffPlayerHittable();
+
         _animator.SetBool("IsPlayerInside", true);
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player")) return;
+
+        Player player = other.GetComponent<Player>();
+        player.OffPlayerHittable();
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
+
+        Player player = other.GetComponent<Player>();
+        player.OnPlayerHittable();
 
         _animator.SetBool("IsPlayerInside", false);
     }

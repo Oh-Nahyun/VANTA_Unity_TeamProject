@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 141813950}
   - component: {fileID: 141813951}
   - component: {fileID: 141813952}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: ClawHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +447,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 232541540}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: HeadLaserPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1206,7 +1206,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 890837232}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: VisualPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1244,7 +1244,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 946348941}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: HeadAimedPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1707,9 +1707,9 @@ GameObject:
   - component: {fileID: 1479249576}
   - component: {fileID: 1479249575}
   - component: {fileID: 1479249574}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: Boss1
-  m_TagString: Boss1
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1743,7 +1743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8a5219359263a489d250db1b9bca3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossLife
-  _maxHealth: 1000
+  _maxHealth: 10000
 --- !u!50 &1479249565
 Rigidbody2D:
   serializedVersion: 5
@@ -2190,7 +2190,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1576033937}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: HeadSplitPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2327,9 +2327,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1647407544}
   - component: {fileID: 1647407545}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: BodyCollider
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2520,7 +2520,7 @@ GameObject:
   - component: {fileID: 1850697902}
   - component: {fileID: 1850697903}
   - component: {fileID: 1850697904}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2682,7 +2682,7 @@ GameObject:
   - component: {fileID: 1926164683}
   - component: {fileID: 1926164684}
   - component: {fileID: 1926164685}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: SpitHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2933,7 +2933,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1762862512387685954}
   - component: {fileID: 6339426891626463384}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: V
   m_TagString: Boss1
   m_Icon: {fileID: 0}
@@ -2980,7 +2980,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8483116862307400245}
   - component: {fileID: 8582072041403707188}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: SFX
   m_TagString: Boss1
   m_Icon: {fileID: 0}
@@ -2997,7 +2997,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5692595620005933992}
   - component: {fileID: 8965874782099271561}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: Frnot leg back
   m_TagString: Boss1
   m_Icon: {fileID: 0}
@@ -3110,7 +3110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2133936416981752912}
   - component: {fileID: 7848334766671631491}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: Body
   m_TagString: Boss1
   m_Icon: {fileID: 0}
@@ -3319,7 +3319,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4815055740669079324}
   - component: {fileID: 3269887061984175437}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: Front Leg
   m_TagString: Boss1
   m_Icon: {fileID: 0}
@@ -3351,7 +3351,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1875424623178711825}
   - component: {fileID: 4515522194645241923}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: Layer 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3368,7 +3368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6122248633877814667}
   - component: {fileID: 7041798901715548524}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: Bcak leg front
   m_TagString: Boss1
   m_Icon: {fileID: 0}
@@ -3400,7 +3400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8702864854378141833}
   - component: {fileID: 7995578940747574075}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: Back leg
   m_TagString: Boss1
   m_Icon: {fileID: 0}
@@ -3491,7 +3491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4380803926458752374}
   - component: {fileID: 2611707997253444795}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: Layer 3
   m_TagString: Boss1
   m_Icon: {fileID: 0}
@@ -3712,9 +3712,9 @@ GameObject:
   - component: {fileID: 52901577726361818}
   - component: {fileID: 2283665620963418138}
   - component: {fileID: 8003779751545764539}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: The Tarnished Widow
-  m_TagString: Boss1
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3832,7 +3832,7 @@ GameObject:
   m_Component:
   - component: {fileID: 168284483596481379}
   - component: {fileID: 2477725247019359067}
-  m_Layer: 6
+  m_Layer: 21
   m_Name: Heads
   m_TagString: Boss1
   m_Icon: {fileID: 0}

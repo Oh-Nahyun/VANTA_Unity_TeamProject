@@ -1,9 +1,16 @@
+using System;
 using DG.Tweening;
-
+using TMPro;
 using UnityEngine;
 
 public class NormalDamageIndicator : DamageIndicator
 {
+
+    public void UpdateComboText(int combo)
+    {
+        _text.text = combo.ToString()+ " 콤보";
+    }
+    
     protected override void IndicatorCreate()
     {
         _text.alpha = 0f;

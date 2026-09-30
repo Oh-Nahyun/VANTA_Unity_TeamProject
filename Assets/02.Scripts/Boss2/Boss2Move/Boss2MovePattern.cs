@@ -146,22 +146,44 @@ public class Boss2MovePattern : Boss2MoveBase
         return false;
     }
 
+    /// <summary>
+    /// 테스트용. 진행 중인 공격·스킬을 모두 정리한 뒤 바로 이동한다.
+    /// 공격·스킬이 걸어 둔 이동 봉쇄도 그 정리 과정에서 풀린다.
+    /// (Boss2Controller 가 켜져 있으면 FSM 이 곧바로 덮어쓰므로 FSM/Stop 후 사용)
+    /// </summary>
+    public void PlayTestMove(Boss2MovePatternType type)
+    {
+        Boss2AttackPattern attackPattern = GetComponent<Boss2AttackPattern>();
+        if (attackPattern != null)
+        {
+            attackPattern.ApplyAttackPattern(Boss2AttackPatternType.None);
+        }
+
+        Boss2SkillPattern skillPattern = GetComponent<Boss2SkillPattern>();
+        if (skillPattern != null)
+        {
+            skillPattern.ApplySkillPattern(Boss2SkillPatternType.None);
+        }
+
+        ApplyMovePattern(Boss2MovePatternType.None);
+        ApplyMovePattern(type);
+    }
+
     // ---- 테스트용: 플레이 중 컴포넌트 ⋮ 메뉴에서 실행 (Use Keyboard Input 은 꺼야 동작) ----
     [ContextMenu("Test/PressureWalk")]
-    private void TestPressureWalk() => ApplyMovePattern(Boss2MovePatternType.PressureWalk);
+    private void TestPressureWalk() => PlayTestMove(Boss2MovePatternType.PressureWalk);
 
     [ContextMenu("Test/ChaseRun")]
-    private void TestChaseRun() => ApplyMovePattern(Boss2MovePatternType.ChaseRun);
+    private void TestChaseRun() => PlayTestMove(Boss2MovePatternType.ChaseRun);
 
     [ContextMenu("Test/ChaseBlink")]
-    private void TestChaseBlink() => ApplyMovePattern(Boss2MovePatternType.ChaseBlink);
+    private void TestChaseBlink() => PlayTestMove(Boss2MovePatternType.ChaseBlink);
 
     [ContextMenu("Test/RoundMove")]
-    private void TestRoundMove() => ApplyMovePattern(Boss2MovePatternType.RoundMove);
+    private void TestRoundMove() => PlayTestMove(Boss2MovePatternType.RoundMove);
 
-    
     [ContextMenu("Test/BackStep")]
-    private void TestBackStep() => ApplyMovePattern(Boss2MovePatternType.BackStep);
+    private void TestBackStep() => PlayTestMove(Boss2MovePatternType.BackStep);
 
     
 }

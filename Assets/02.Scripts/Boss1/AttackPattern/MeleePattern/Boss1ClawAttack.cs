@@ -16,6 +16,11 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
 
     [SerializeField] private Boss1ClawHitBox _clawHitBox;
 
+    [Header("공격후 후딜레이 시간")]
+    [SerializeField] private float _recoveryDuration = 0.6f;
+
+    [SerializeField] private Animator _animator;
+    
     private float _timer;
 
     private ClawState _currentState;
@@ -33,6 +38,8 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
     public void EnterAttack()
     {
         IsFinished = false;
+        _timer = 0f;
+        _clawHitBox.DisableHitBox();
         _currentState = ClawState.Positioning;
         Debug.Log("발톱 공격 시작");
     }
@@ -56,12 +63,14 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
                 UpdateClawAttack();
                 break;
             case ClawState.Recovery:
+                UpdateRecovery();
                 break;
         }
     }
 
     public void ExitAttack()
     {
+        _clawHitBox.DisableHitBox();
         _boss1Movement.StopMove();   
         
         Debug.Log("발톱 공격 종료");
@@ -110,11 +119,42 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
         {
             _timer = 0f;
             _currentState = ClawState.ClawAttack;
+            _animator.SetTrigger("ClawAttack");
         }
     }
 
     private void UpdateClawAttack()
     {
+        _boss1Movement.StopMove();
         
+    }
+
+    private void UpdateRecovery()
+    {
+        _timer += Time.deltaTime;
+        
+        if (_timer >= _recoveryDuration)
+        {
+            _timer = 0f;
+            IsFinished = true;
+        }
+    }
+
+    public void EnableClawHitBox()
+    {
+        _clawHitBox.EnableHitBox();
+    }
+
+    public void DisableClawHitBox()
+    {
+        _clawHitBox.DisableHitBox();
+    }
+
+    public void EndClawAttack()
+    {
+        _clawHitBox.DisableHitBox();
+        
+        _timer = 0f;
+        _currentState = ClawState.Recovery;
     }
 }

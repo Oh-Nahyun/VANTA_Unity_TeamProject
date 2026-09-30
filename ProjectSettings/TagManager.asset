@@ -59,14 +59,14 @@ TagManager:
   - name: MonsterSpawner
     uniqueID: 4291494243
     locked: 0
-  - name: Boss
-    uniqueID: 299320877
-    locked: 0
   - name: Boss1
     uniqueID: 555995877
     locked: 0
   - name: Boss2
     uniqueID: 446125925
+    locked: 0
+  - name: Boss
+    uniqueID: 299320877
     locked: 0
   - name: BossBullet
     uniqueID: 421858133

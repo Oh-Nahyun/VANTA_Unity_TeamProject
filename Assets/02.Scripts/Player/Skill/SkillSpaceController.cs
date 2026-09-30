@@ -5,6 +5,9 @@ using UnityEngine;
 public class 
     SkillSpaceController : MonoBehaviour
 {
+
+    [Header("마법진 오브젝트")]
+    [SerializeField] private GameObject _skillSpace;
     [Header("스킬 공간 디졸브")]
     [Tooltip("X = 스킬 진행도 / Y = 디졸브 값")]
     [SerializeField]
@@ -35,8 +38,11 @@ public class
     
     public void StartSkillSpaceDissolve(float skillTime)
     {
+        HitableObject hitableObject=FindAnyObjectByType<HitableObject>();
+        _skillSpace.transform.position = hitableObject.transform.position;
+        
+        
         _skillDissolveTween?.Kill();
-
         _skillDissolveProgress = 0f;
 
         // 스킬 시작 시 완전히 표시

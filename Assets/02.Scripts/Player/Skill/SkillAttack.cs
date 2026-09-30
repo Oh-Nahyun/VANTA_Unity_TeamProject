@@ -42,6 +42,8 @@ public class SkillAttack : MonoBehaviour
 
     [SerializeField] private UnityEvent  _weaknessAttackSuccessAction;
 
+    private int _dashCount;
+    private SkillSpaceController _skillSpaceController;
     private SkillDashScreenController _skillDashScreenController;
     private Collider2D[] _playerColliders;
     private ObjectZoom _objectZoom;
@@ -62,6 +64,7 @@ public class SkillAttack : MonoBehaviour
 
         _objectZoom =
             GetComponent<ObjectZoom>();
+        _skillSpaceController=GetComponent<SkillSpaceController>();
     }
 
     public void DashStart(
@@ -75,6 +78,7 @@ public class SkillAttack : MonoBehaviour
             return;
         }
 
+        _dashCount = selectedIndicators.Count;
         StartDashSequence();
 
         foreach (SkillIndicator indicator in selectedIndicators)
@@ -92,6 +96,7 @@ public class SkillAttack : MonoBehaviour
             );
         }
 
+   
         CompleteDashSequence(onComplete);
     }
 
@@ -204,6 +209,8 @@ public class SkillAttack : MonoBehaviour
 
     private void CompleteDashSequence(Action onComplete)
     {
+     
+
         _dashSequence
             .OnComplete(() =>
             {
@@ -214,6 +221,12 @@ public class SkillAttack : MonoBehaviour
                 _objectZoom.ZoomOut();
 
                 _dashSequence = null;
+
+                if (_dashCount == 5)
+                {
+                    PlayerPetCaller.Instance.CallPetToUtillSkill();
+
+                }
 
                 onComplete?.Invoke();
             })

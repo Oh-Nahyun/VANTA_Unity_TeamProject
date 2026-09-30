@@ -13,6 +13,7 @@ public class SkillManager : MonoBehaviour
     private SkillDashPointCalculater _skillDashPointCalculater;
     private SkillSpaceController _skillSpaceController;
     private SkillAttack _skillAttack;
+    
     [SerializeField]
     private WeaknessThreadController _weaknessThreadController;
 

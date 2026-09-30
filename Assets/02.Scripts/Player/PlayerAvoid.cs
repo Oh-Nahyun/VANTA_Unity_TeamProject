@@ -30,6 +30,8 @@ public class PlayerAvoid : MonoBehaviour
     private PlayerMove _playerMove;
     private PlayerAttack _playerAttack;
     private SkillAttack _skillAttack;
+
+    private SkillManager _skillManager;
     private Rigidbody2D _rigidbody;
 
     private KeyCode _avoidKey;
@@ -58,7 +60,7 @@ public class PlayerAvoid : MonoBehaviour
 
         _skillAttack =
             GetComponentInChildren<SkillAttack>();
-
+        _skillManager=GetComponentInChildren<SkillManager>();
         _animator =
             GetComponent<Animator>();
 
@@ -106,7 +108,7 @@ public class PlayerAvoid : MonoBehaviour
 
         _playerMove.enabled = false;
         _playerAttack.enabled = false;
-        _skillAttack.enabled = false;
+        _skillManager.enabled = false;
 
         Time.timeScale = _slowAmount;
 
@@ -151,7 +153,7 @@ public class PlayerAvoid : MonoBehaviour
 
         _playerMove.enabled = false;
         _playerAttack.enabled = false;
-        _skillAttack.enabled = false;
+        _skillManager.enabled = false;
 
         Time.timeScale = _slowAmount;
 
@@ -207,6 +209,11 @@ public class PlayerAvoid : MonoBehaviour
         );
 
         DashToReverseSide();
+
+        if (!_isAvoidAttacking)
+        {
+            PlayerPetCaller.Instance.CallPetToAttackSkill();
+        }
     }
 
     public void DashToReverseSide()
@@ -386,7 +393,7 @@ public class PlayerAvoid : MonoBehaviour
 
         _playerMove.enabled = true;
         _playerAttack.enabled = true;
-        _skillAttack.enabled = true;
+        _skillManager.enabled = true;
     }
 
     private void OnDestroy()

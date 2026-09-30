@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Boss1Bullet : MonoBehaviour
@@ -16,5 +17,19 @@ public class Boss1Bullet : MonoBehaviour
     {
         _rigidBody.linearVelocity = direction.normalized * _speed;
         Destroy(gameObject, _lifeTime);
-    } 
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            Player player = other.GetComponent<Player>();
+            if (player == null)
+            {
+                return;
+            }
+            player.TakeDamage();
+            Destroy(gameObject);
+        }
+    }
 }

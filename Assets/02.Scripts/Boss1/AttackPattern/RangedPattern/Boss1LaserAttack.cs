@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
 {
+    [SerializeField] private Boss1Laser _laser;
     [SerializeField] private Transform _laserHeadPivot;
     [SerializeField] private Transform _playerTransform;
 
@@ -9,9 +10,6 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
     [SerializeField] private float _aimDuration = 1f;
     [SerializeField] private float _sweepAngle = 60f;
     [SerializeField] private float _sweepDuration = 1.2f;
-    
-    [SerializeField] private LineRenderer _lineRenderer;
-    [SerializeField] private float _laserLength = 20f;
 
     private float _targetAngle;
     
@@ -33,7 +31,6 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
     public void EnterAttack()
     {
         IsFinished = false;
-        _timer = 0f;
         
         ChangeState(LaserState.Aim);
 
@@ -58,6 +55,7 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
 
     public void ExitAttack()
     {
+        _laser.Hide();
         Debug.Log("Laser 패턴 종료");
     }
 
@@ -71,25 +69,14 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         
         _timer += Time.deltaTime;
         
-        Vector2 startPos = _laserHeadPivot.position;
-        Vector2 endPos = startPos + _lockedDirection * _laserLength;
-        
-        _lineRenderer.enabled = true;
-        _lineRenderer.SetPosition(0, startPos);
-        _lineRenderer.SetPosition(1, endPos);
+        _laser.ShowAim(_lockedDirection);
 
         if (_timer < _aimDuration)
         {
             return;
         }
-        
-        Vector2 playerDirection = (_playerTransform.position - _laserHeadPivot.position).normalized;
-        float playerAngle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg;
-        
-        float angleDifference = Mathf.DeltaAngle(_lockedAngle, playerAngle);
-        
-        float sweepDirection = angleDifference >= 0f ? 1f : -1f;
-        _targetAngle = _lockedAngle + (_sweepAngle * sweepDirection);
+
+        SetSweepTarget();
         
         ChangeState(LaserState.Sweep);
     }
@@ -104,19 +91,12 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         
         Vector2 direction = new Vector2(Mathf.Cos(currentAngle * Mathf.Deg2Rad), Mathf.Sin(currentAngle * Mathf.Deg2Rad));
         
-        Vector2 startPos = _laserHeadPivot.position;
-        Vector2 endPos = startPos + direction * _laserLength;
+        _laser.Fire(direction);
         
-        _lineRenderer.enabled = true;
-        _lineRenderer.SetPosition(0, startPos);
-        _lineRenderer.SetPosition(1, endPos);
-
         if (_timer < _sweepDuration)
         {
             return;
         }
-        
-        _lineRenderer.enabled = false;
         
         ChangeState(LaserState.End);
         
@@ -126,6 +106,21 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
     {
         _currentState = newState;
         _timer = 0f;
+
+        if (_currentState == LaserState.End)
+        {
+            _laser.Hide();
+        }
     }
-    
+
+    private void SetSweepTarget()
+    {
+        Vector2 playerDirection = (_playerTransform.position - _laserHeadPivot.position).normalized;
+        float playerAngle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg;
+        
+        float angleDifference = Mathf.DeltaAngle(_lockedAngle, playerAngle);
+        
+        float sweepDirection = angleDifference >= 0f ? 1f : -1f;
+        _targetAngle = _lockedAngle + (_sweepAngle * sweepDirection);
+    }
 }

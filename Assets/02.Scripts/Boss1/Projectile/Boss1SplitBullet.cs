@@ -6,6 +6,7 @@ public class Boss1SplitBullet : MonoBehaviour
     [SerializeField] private float _flyDuration = 2f;
     [SerializeField] private float _warningDuration = 0.7f;
     
+    [Header("분열되는 탄환 개수")]
     [SerializeField] private int _splitBulletCount = 8;
     
     [SerializeField] private Boss1Bullet _bulletPrefab;
@@ -95,5 +96,19 @@ public class Boss1SplitBullet : MonoBehaviour
     {
         _currentState = newState;
         _timer = 0f;
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            Player player = other.GetComponent<Player>();
+            if (player == null)
+            {
+                return;
+            }
+            player.TakeDamage();
+            Destroy(gameObject);
+        }
     }
 }

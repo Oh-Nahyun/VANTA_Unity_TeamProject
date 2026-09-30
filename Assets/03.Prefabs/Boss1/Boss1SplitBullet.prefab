@@ -153,7 +153,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -195,6 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss1Bullet
   _speed: 3
   _lifeTime: 3
+  _player: {fileID: 0}
 --- !u!114 &3256519665437658198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,3 +213,4 @@ MonoBehaviour:
   _warningDuration: 0.7
   _splitBulletCount: 8
   _bulletPrefab: {fileID: 1563816904694444635, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
+  _player: {fileID: 0}

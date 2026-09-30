@@ -22,11 +22,16 @@ public class Boss1SpitHitBox : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player"))
+        if (other.tag == "Player")
         {
-            return;
+            Player player = other.GetComponent<Player>();
+            if (player == null)
+            {
+                return;
+            }
+            player.TakeDamage();
+            
+            Debug.Log("플레이어 피격");
         }
-
-        Debug.Log("플레이어 침뱉기 피격");
     }
 }

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class SkillIndicatorController : MonoBehaviour
 {
-    [SerializeField] private Transform _player;
     [SerializeField] private GameObject _skillIndicatorPrefab;
 
     private readonly List<GameObject> _pets = new();
@@ -18,7 +17,7 @@ public class SkillIndicatorController : MonoBehaviour
 
         if (_pets.Count == 0)
         {
-            target = _player;
+            target = gameObject.transform;
         }
         else
         {
@@ -33,15 +32,12 @@ public class SkillIndicatorController : MonoBehaviour
             spawnPosition,
             Quaternion.identity
         );
-
-        spawned.GetComponent<Animator>().SetTrigger("Spawn");
-
+        _pets.Add(spawned);
+        
         SkillIndicatorMove indicatorMove =
             spawned.GetComponent<SkillIndicatorMove>();
-        indicatorMove.SetTarget(target);
-        SkillIndicatorSkillLocReveal skillIndicatorSkillLocReveal =spawned.GetComponent<SkillIndicatorSkillLocReveal>();
-        skillIndicatorSkillLocReveal.SetPetNumber(_pets.Count);
-        _pets.Add(spawned);
+        indicatorMove.InitSetting(target,_pets.Count-1);
+        
 
     }
 
@@ -71,6 +67,8 @@ public class SkillIndicatorController : MonoBehaviour
         {
             _pets[i].GetComponent<SkillIndicatorMove>().MoveToPoint(points[i]);
         }
+        
+
     }
 
     public void ClearPet()

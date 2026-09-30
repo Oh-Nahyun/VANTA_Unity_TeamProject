@@ -2,6 +2,5 @@ using UnityEngine;
 
 public interface IAvoidInteraction
 {
-    public void AvoidSuccess();
-    public void AvoidFailure();
+    public void AvoidResultBehavior(bool result);
 }

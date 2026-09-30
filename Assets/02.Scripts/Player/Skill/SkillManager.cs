@@ -6,12 +6,14 @@ using UnityEngine;
 public class SkillManager : MonoBehaviour
 {
     private SkillIndicatorController _skillIndicatorController;
+
+    
     private SkillFocusScreenController _skillFocusScreenController;
     private SkillDashPointCreator _skillDashPointCreator;
     private SkillDashPointCalculater _skillDashPointCalculater;
+    private SkillSpaceController _skillSpaceController;
     private SkillAttack _skillAttack;
-    private SkillOrbitIndicator _skillOrbitIndicator;
-
+    
     [SerializeField]
     private WeaknessThreadController _weaknessThreadController;
 
@@ -19,6 +21,7 @@ public class SkillManager : MonoBehaviour
     [SerializeField] private PlayerAttack _playerAttack;
     [SerializeField] private PlayerMove _playerMove;
     [SerializeField] private Animator _animator;
+    [Header("스킬 사용시 이펙트")]
     [SerializeField] private GameObject _skillUseEffect;
 
     [Header("스킬 사용중 타임 슬로우정도")]
@@ -45,32 +48,8 @@ public class SkillManager : MonoBehaviour
     [Header("스킬 유지 시간")]
     [SerializeField]
     private float _skillTime = 10f;
-
-
-    // =========================
-    // Skill Space Dissolve
-    // =========================
-
-    [Header("스킬 공간 디졸브")]
-    [Tooltip("X = 스킬 진행도 / Y = 디졸브 값")]
-    [SerializeField]
-    private AnimationCurve _dissolveCurve =
-        new AnimationCurve(
-            new Keyframe(0f, 1f),
-            new Keyframe(0.5f, 0.75f),
-            new Keyframe(0.75f, 0.5f),
-            new Keyframe(0.9f, 0f),
-            new Keyframe(1f, 0f)
-        );
-
-    private static readonly int SkillSpaceDissolveAmountID =
-        Shader.PropertyToID("_SkillSpaceDissolveAmount");
-
-    private float _skillDissolveProgress;
-
+    
     private Tween _skillSequence;
-    private Tween _skillDissolveTween;
-
 
     private void Awake()
     {
@@ -88,16 +67,7 @@ public class SkillManager : MonoBehaviour
 
         _skillIndicatorController =
             GetComponent<SkillIndicatorController>();
-
-        _skillOrbitIndicator =
-            GetComponent<SkillOrbitIndicator>();
-
-
-        // 처음에는 완전히 표시
-        Shader.SetGlobalFloat(
-            SkillSpaceDissolveAmountID,
-            1f
-        );
+       _skillSpaceController=GetComponent<SkillSpaceController>();
     }
 
 
@@ -138,21 +108,11 @@ public class SkillManager : MonoBehaviour
             SkillUseStart();
         }
     }
-
-
     private void SkillUseStart()
     {
-        // =========================
-        // 기존 Tween 정리
-        // =========================
-
         _skillSequence?.Kill();
-        _skillDissolveTween?.Kill();
 
-
-        // =========================
-        // 스킬 제한 시간
-        // =========================
+        _skillUseEffect.SetActive(true);
 
         _skillSequence =
             DOVirtual.DelayedCall(
@@ -160,36 +120,18 @@ public class SkillManager : MonoBehaviour
                 AutoSkillUseStart,
                 true
             );
-
-
-        // =========================
-        // Dissolve 시작
-        // =========================
-
-        StartSkillSpaceDissolve();
-
-
-        // =========================
-        // Pet Reveal 초기화
-        // =========================
-
-        _skillOrbitIndicator.ResetPetRevealShader();
-
+        
         Shader.SetGlobalFloat(
             "_PetCount",
             _skillStack
         );
-
-
-        // =========================
-        // 기존 스킬 시작 처리
-        // =========================
-
+        
         _playerMove.DashToReverseSide();
+
+        _skillSpaceController.StartSkillSpaceDissolve(_skillTime);
 
         _weaknessThreadController.StartWeaknessThread();
 
-        _skillUseEffect.SetActive(true);
 
         _animator.SetBool(
             "IsSkillUse",
@@ -203,57 +145,9 @@ public class SkillManager : MonoBehaviour
 
         ScreenControl();
     }
+    
 
-
-    // =========================
-    // Skill Space Dissolve
-    // =========================
-
-    private void StartSkillSpaceDissolve()
-    {
-        _skillDissolveTween?.Kill();
-
-        _skillDissolveProgress = 0f;
-
-        // 스킬 시작 시 완전히 표시
-        Shader.SetGlobalFloat(
-            SkillSpaceDissolveAmountID,
-            _dissolveCurve.Evaluate(0f)
-        );
-
-
-        // Progress 자체는 항상
-        //
-        // 0 -----------------> 1
-        //
-        // 로 Linear하게 진행
-        //
-        // 실제 Shader 값은
-        // AnimationCurve가 결정
-        _skillDissolveTween =
-            DOTween.To(
-                    () => _skillDissolveProgress,
-
-                    value =>
-                    {
-                        _skillDissolveProgress = value;
-
-                        float dissolveAmount =
-                            _dissolveCurve.Evaluate(value);
-
-                        Shader.SetGlobalFloat(
-                            SkillSpaceDissolveAmountID,
-                            dissolveAmount
-                        );
-                    },
-
-                    1f,
-                    _skillTime
-                )
-                .SetEase(Ease.Linear)
-                .SetUpdate(true);
-    }
-
+    
 
     private void ScreenControl()
     {
@@ -313,39 +207,12 @@ public class SkillManager : MonoBehaviour
 
     public void SkillUseEnd()
     {
-        // =========================
-        // Tween 종료
-        // =========================
-
         _skillSequence?.Kill();
         _skillSequence = null;
-
-        _skillDissolveTween?.Kill();
-        _skillDissolveTween = null;
-
-
-        // =========================
-        // Shader 초기화
-        // =========================
-
-        _skillDissolveProgress = 0f;
-
-        Shader.SetGlobalFloat(
-            SkillSpaceDissolveAmountID,
-            1f
-        );
-
-
-        // =========================
-        // 기존 스킬 종료 처리
-        // =========================
-
+        
         _weaknessThreadController
             .EndWeaknessThread();
-
-        _skillOrbitIndicator
-            .ResetPetRevealShader();
-
+        
         _skillStack = 0;
 
         _skillIndicatorController
@@ -392,11 +259,6 @@ public class SkillManager : MonoBehaviour
     private void OnDestroy()
     {
         _skillSequence?.Kill();
-        _skillDissolveTween?.Kill();
-
-        Shader.SetGlobalFloat(
-            SkillSpaceDissolveAmountID,
-            1f
-        );
+        
     }
 }

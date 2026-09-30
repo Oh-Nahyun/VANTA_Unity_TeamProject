@@ -8,8 +8,10 @@ public class Boss2 : HitableObject
     [SerializeField] private float _health = 100f;
 
     private Animator _animator;
+
     // 체력 비율 계산용. 시작 시 체력을 최대 체력으로 본다.
     private float _maxHealth;
+    private bool _isInvincible = false;
 
     public float Health => _health;
     public float HealthRatio => _maxHealth > 0f ? Mathf.Clamp01(_health / _maxHealth) : 0f;
@@ -24,7 +26,12 @@ public class Boss2 : HitableObject
         _maxHealth = _health;
     }
 
-    public void TakeDamage(int damage)
+    public void SetInvincible(bool bInvincible)
+    {
+        _isInvincible = bInvincible;
+    }
+
+public void TakeDamage(int damage)
     {
         // 이미 죽었으면 피격·사망 트리거를 다시 걸지 않는다.
         if (IsDead)
@@ -60,6 +67,7 @@ public class Boss2 : HitableObject
 
     protected override void HitEvent(float damage)
     {
+        if (_isInvincible == true) return;
         TakeDamage((int)damage);
     }
 }

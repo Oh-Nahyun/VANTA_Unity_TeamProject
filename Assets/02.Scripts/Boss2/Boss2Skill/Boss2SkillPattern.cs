@@ -416,22 +416,15 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
         Gizmos.DrawWireSphere(InstantKillCenter, _instantKillRadius);
     }
 
-    public void AvoidSuccess()
-    {
-        // 보스 공격 캔슬
-        _isAvoided = true;
-    }
-
-    public void AvoidFailure()
-    {
-        // 보스 공격이 재개
-        _isAvoided = false;
-    }
-
     // ---- 테스트용: 플레이 중 컴포넌트 ⋮ 메뉴에서 실행 ----
     [ContextMenu("Test/InstantKill")]
     private void TestInstantKill() => PlayTestSkill(Boss2SkillPatternType.InstantKill);
 
     [ContextMenu("Test/AreaOfEffect")]
     private void TestAreaOfEffect() => PlayTestSkill(Boss2SkillPatternType.AreaOfEffect);
+
+    public void AvoidResultBehavior(bool result)
+    {
+        _isAvoided = result;
+    }
 }

@@ -36,6 +36,14 @@ public class Boss2Controller : MonoBehaviour
     [SerializeField] private float _instantKillWeightPerHit = 1f;
     [Tooltip("현재 누적 가중치 (플레이 중 확인용)")]
     [SerializeField] private float _instantKillWeight = 0f;
+    [Tooltip("최대 누적 가중치 : 즉사기 발동 조건 횟수 ")]
+    [SerializeField] private float _maxInstantKillWeight = 3f; 
+
+    [Header("무적 (행동은 Boss2Action.IsInvincible 로 설정)")]
+    [Tooltip("광역기를 시전하는 동안 무적")]
+    [SerializeField] private bool _aoeInvincible = true;
+    [Tooltip("즉사기를 시전하는 동안 무적")]
+    [SerializeField] private bool _instantKillInvincible = true;
 
     private const string InstantKillName = "즉사기";
 
@@ -55,6 +63,7 @@ public class Boss2Controller : MonoBehaviour
     private Boss2State _state = Boss2State.Idle;
     private float _stateEnterTime;
     private Boss2Action _currentAction;
+    private Boss2SkillPatternType _currentSkillType = Boss2SkillPatternType.None;
     private string _lastChoiceName;
 
     private bool[] _aoeTriggered;
@@ -220,7 +229,7 @@ public class Boss2Controller : MonoBehaviour
             }
         }
 
-        if (_instantKillWeight > 0f)
+        if (_instantKillWeight > _maxInstantKillWeight)
         {
             candidates.Add(null);   // null = 즉사기
             weights.Add(AdjustForRepeat(InstantKillName, _instantKillWeight));
@@ -237,7 +246,6 @@ public class Boss2Controller : MonoBehaviour
 
         if (candidates[picked] == null)
         {
-            _instantKillWeight = 0f;
             StartSkill(Boss2SkillPatternType.InstantKill, reason);
         }
         else
@@ -286,11 +294,7 @@ public class Boss2Controller : MonoBehaviour
     // ---- 실행 ----
     private void StartAction(Boss2Action action, string reason)
     {
-        if (_boss != null)
-        {
-            // 시작할 때에 새 액션의 무적 상태를 갱신 
-            _boss.SetInvincible(action.IsInvincible);
-        }
+        _currentSkillType = Boss2SkillPatternType.None;
         _currentAction = action;
         _lastChoiceName = action.Name;
         action.LastUsedTime = Time.time;
@@ -331,6 +335,7 @@ public class Boss2Controller : MonoBehaviour
     private void StartSkill(Boss2SkillPatternType skillType, string reason)
     {
         _currentAction = null;
+        _currentSkillType = skillType;
         _lastChoiceName = skillType == Boss2SkillPatternType.InstantKill ? InstantKillName : skillType.ToString();
         Log($"스킬: {skillType} / {reason}");
 
@@ -347,6 +352,12 @@ public class Boss2Controller : MonoBehaviour
             }
             EnterState(Boss2State.Think);
             return;
+        }
+
+        // 즉사기 누적 가중치는 실제로 시전됐을 때만 비운다. (거절되면 다음 판단에서 다시 후보)
+        if (skillType == Boss2SkillPatternType.InstantKill)
+        {
+            _instantKillWeight = 0f;
         }
 
         EnterState(Boss2State.Skill);
@@ -374,6 +385,35 @@ public class Boss2Controller : MonoBehaviour
 
         _state = next;
         _stateEnterTime = Time.time;
+
+        // 무적은 상태가 바뀔 때마다 여기서만 정한다. 켜고 끄는 곳이 한 곳이라 풀리지 않고 남는 일이 없다.
+        if (_boss != null)
+        {
+            _boss.SetInvincible(IsInvincibleIn(next));
+        }
+    }
+
+    // 무적 행동은 이동부터 공격이 끝날 때까지, 스킬은 설정에 따라 시전하는 동안 무적.
+    // Think · Recover · Idle · Dead 에서는 해제된다.
+    private bool IsInvincibleIn(Boss2State state)
+    {
+        switch (state)
+        {
+            case Boss2State.Move:
+            case Boss2State.Attack:
+            {
+                return _currentAction != null && _currentAction.IsInvincible;
+            }
+            case Boss2State.Skill:
+            {
+                return (_currentSkillType == Boss2SkillPatternType.AreaOfEffect && _aoeInvincible)
+                    || (_currentSkillType == Boss2SkillPatternType.InstantKill && _instantKillInvincible);
+            }
+            default:
+            {
+                return false;
+            }
+        }
     }
 
     // ---- 피격 ----

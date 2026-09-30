@@ -35,7 +35,7 @@ public class Boss2Action
     public float Weight = 1f;
     
     [Header("상태/버프")]
-    [Tooltip("특정 상태 또는 버프가 들어가는지")]
+    [Tooltip("이 행동의 이동 + 공격 동안 무적 (Recover 부터 해제)")]
     public bool IsInvincible = false;
 
     // 런타임 기록 (저장하지 않음)

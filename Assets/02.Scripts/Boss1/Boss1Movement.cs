@@ -5,7 +5,9 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
 {
     [SerializeField] private float _normalChaseSpeed= 4f;
     [SerializeField] private float _aggressiveChaseSpeed = 7f;
-    [SerializeField] private float _stopDistance = 1f;
+    [SerializeField] private float _stopDistance = 2.5f;
+    [SerializeField] private float _yTolerance = 0.1f;
+    
     [SerializeField] private Animator _animator;
 
     [SerializeField] private Transform _visualPivot;
@@ -77,11 +79,19 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
 
     private void ChasePlayer(float chaseSpeed)
     {
-        float distance = Vector2.Distance(_playerTransform.position, transform.position);
+        float xDistance = Mathf.Abs(_playerTransform.position.x - _rigidBody.position.x);
+        float yDistance = Mathf.Abs(_playerTransform.position.y - _rigidBody.position.y);
 
-        if (distance <= _stopDistance)
+        if (xDistance <= _stopDistance && yDistance <= _yTolerance)
         {
             _rigidBody.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        if (xDistance <= _stopDistance)
+        {
+            float yDirection = Mathf.Sign(_playerTransform.position.y - _rigidBody.position.y);
+            _rigidBody.linearVelocity = new Vector2(0f, yDirection * chaseSpeed);
             return;
         }
         

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Boss2SkillPattern : Boss2AttackBase ,IAvoidInteraction
+public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
 {
     // 주의: 기반 클래스가 private Start / Update 를 갖고 있다.
     // 여기서 Start, Update, Awake 를 선언하면 Unity 가 이쪽만 호출해 기반 쪽 갱신이 멈춘다.
@@ -45,7 +45,7 @@ public class Boss2SkillPattern : Boss2AttackBase ,IAvoidInteraction
     [SerializeField] private LayerMask _targetLayers = ~0;
 
     private bool _isAvoided = false;
-    
+
     private const int MaxSpacingAttempts = 30;
 
     private Boss2SkillPatternType _currentSkillPatternType = Boss2SkillPatternType.None;
@@ -117,6 +117,8 @@ public class Boss2SkillPattern : Boss2AttackBase ,IAvoidInteraction
             return;
 
         _currentSkillPatternType = Boss2SkillPatternType.InstantKill;
+        // 이전 즉사기의 회피 결과가 남아 있으면 이번 즉사기가 데미지를 주지 못한다.
+        _isAvoided = false;
         _skillRoutine = StartCoroutine(InstantKillRoutine());
     }
 
@@ -144,7 +146,7 @@ public class Boss2SkillPattern : Boss2AttackBase ,IAvoidInteraction
                 // Player 태그만 있고 Player 컴포넌트가 없는 오브젝트(테스트 더미 등)는 건너뛴다.
                 if (player == null)
                     continue;
-            
+
                 // TakeDamage가 아니라 
                 player.TakeDamage(); // 인자로 키보드 키값 KeyCode
                 // StartAvoid
@@ -162,7 +164,7 @@ public class Boss2SkillPattern : Boss2AttackBase ,IAvoidInteraction
             // Player 태그만 있고 Player 컴포넌트가 없는 오브젝트(테스트 더미 등)는 건너뛴다.
             if (playerAvoid == null)
                 continue;
-            
+
             // TakeDamage가 아니라 
             playerAvoid.StartAvoidAttackInteraction(gameObject); // 인자로 키보드 키값 KeyCode
             // StartAvoid
@@ -295,7 +297,7 @@ public class Boss2SkillPattern : Boss2AttackBase ,IAvoidInteraction
         EndSkill();
     }
 
-private void BeginSkill()
+    private void BeginSkill()
     {
         // 이미 다른 효과로 묶여 있으면 손대지 않는다. 막지 않았으니 끝날 때 풀지도 않는다.
         _blockedMoveBySkill = _mover != null && _mover.IsMoveBlocked == false;
@@ -331,7 +333,22 @@ private void BeginSkill()
         _currentSkillPatternType = Boss2SkillPatternType.None;
     }
 
-    // 타원 안 균일 분포로 뽑고, 이미 놓인 더미와 최소 간격을 지키도록 몇 번 다시 뽑는다.
+    public void PlayTestSkill(Boss2SkillPatternType type)
+    {
+        if (_attackPattern != null)
+        {
+            _attackPattern.ApplyAttackPattern(Boss2AttackPatternType.None);
+        }
+        if (_movePattern != null)
+        {
+            _movePattern.ApplyMovePattern(Boss2MovePatternType.None);
+        }
+        ApplySkillPattern(Boss2SkillPatternType.None);
+        ApplySkillPattern(type);
+    }
+
+
+// 타원 안 균일 분포로 뽑고, 이미 놓인 더미와 최소 간격을 지키도록 몇 번 다시 뽑는다.
     private Vector2 PickStrikePosition(List<Vector2> placed)
     {
         Vector2 candidate = RandomPointInArena();
@@ -413,8 +430,8 @@ private void BeginSkill()
 
     // ---- 테스트용: 플레이 중 컴포넌트 ⋮ 메뉴에서 실행 ----
     [ContextMenu("Test/InstantKill")]
-    private void TestInstantKill() => InstantKillSkill();
+    private void TestInstantKill() => PlayTestSkill(Boss2SkillPatternType.InstantKill);
 
     [ContextMenu("Test/AreaOfEffect")]
-    private void TestAreaOfEffect() => AreaOfEffectSkill();
+    private void TestAreaOfEffect() => PlayTestSkill(Boss2SkillPatternType.AreaOfEffect);
 }

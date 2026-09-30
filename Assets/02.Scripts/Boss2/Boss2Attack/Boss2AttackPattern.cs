@@ -209,6 +209,22 @@ public class Boss2AttackPattern : Boss2AttackBase
         _singleAttackRoutine = null;
     }
 
+    public void PlayTestAttack(Boss2AttackPatternType type, int count =1)
+    {
+        if (_skillPattern != null)
+        {
+            _skillPattern.ApplySkillPattern(Boss2SkillPatternType.None);
+        }
+
+        if (_mover is Boss2MovePattern movePattern)
+        {
+            movePattern.ApplyMovePattern(Boss2MovePatternType.None);
+        }
+
+        ApplyAttackPattern(Boss2AttackPatternType.None);
+        ApplyAttackPattern(type, count);
+    }
+
     private float GetClipLength(string clipName)
     {
         foreach (AnimationClip clip in _patternAnimator.runtimeAnimatorController.animationClips)
@@ -234,17 +250,17 @@ public class Boss2AttackPattern : Boss2AttackBase
 
     // ---- 테스트용: 플레이 중 컴포넌트 ⋮ 메뉴에서 실행 ----
     [ContextMenu("Test/Combo 1")]
-    private void TestCombo1() => ComboAttack(1);
+    private void TestCombo1() => PlayTestAttack(Boss2AttackPatternType.ComboAttack);
 
     [ContextMenu("Test/Combo 3")]
-    private void TestCombo3() => ComboAttack(3);
+    private void TestCombo3() => PlayTestAttack(Boss2AttackPatternType.ComboAttack,3);
 
     [ContextMenu("Test/Combo 5")]
-    private void TestCombo5() => ComboAttack(5);
+    private void TestCombo5() => PlayTestAttack(Boss2AttackPatternType.ComboAttack,5);
 
     [ContextMenu("Test/Smash")]
-    private void TestSmash() => SmashAttack();
+    private void TestSmash() => PlayTestAttack(Boss2AttackPatternType.SmashAttack);
 
     [ContextMenu("Test/Spinning Slash")]
-    private void TestSpinningSlash() => SpinningSlash();
+    private void TestSpinningSlash() => PlayTestAttack(Boss2AttackPatternType.SpinningSlash);
 }

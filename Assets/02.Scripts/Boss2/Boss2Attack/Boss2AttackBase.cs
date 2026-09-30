@@ -24,7 +24,7 @@ public class Boss2AttackBase : MonoBehaviour
     [Header("데미지")]
     [SerializeField] private int _baseDamage = 1;
     [SerializeField] private int _areaOfEffectDamage = 1;
-    [SerializeField] private int _instantKillDamage = 1;
+    [SerializeField] private int _instantKillDamage = 3;
 
     [SerializeField] private BoxCollider2D _attackBoxCollider;
     private Animator _animator;

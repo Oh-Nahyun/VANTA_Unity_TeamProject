@@ -9,7 +9,7 @@ public class SkillIndicator : MonoBehaviour
     private ObjectFocus _objectFocus;
     private SkillIndicatorOrbit _skillIndicatorOrbit;
     private SkillIndicatorMove _skillIndicatorMove;
-
+    private SkillIndicatorSelectIndicator _skillIndicatorSelectIndicator;
     private bool _isChoiced;
     private void Awake()
     {
@@ -17,6 +17,7 @@ public class SkillIndicator : MonoBehaviour
         _objectFocus = GetComponent<ObjectFocus>();
         _skillIndicatorOrbit = GetComponent<SkillIndicatorOrbit>();
         _skillIndicatorMove = GetComponent<SkillIndicatorMove>();
+        _skillIndicatorSelectIndicator=GetComponent<SkillIndicatorSelectIndicator>();
     }
     public static SkillIndicator GetAtScreenPosition(Camera targetCamera, Vector2 screenPosition, LayerMask layerMask)
     {
@@ -54,6 +55,7 @@ public class SkillIndicator : MonoBehaviour
     {
         _objectSelector.StartSelect();
         _objectFocus.StartFocus();
+        _skillIndicatorSelectIndicator.IndicatingStart();
     }
 
     public void Deselect()
@@ -61,6 +63,7 @@ public class SkillIndicator : MonoBehaviour
 
         _objectSelector.EndSelect();
         _objectFocus.EndFocus();
+        _skillIndicatorSelectIndicator.IndicatingStop();
     }
 
     public bool GetIsChoiced()
@@ -70,15 +73,18 @@ public class SkillIndicator : MonoBehaviour
     public void ChoicedToAttack()
     {
         _isChoiced = true;
-        GetComponent<Animator>().SetTrigger("Choice");
-
-        Deselect();
+        _objectSelector.EndSelect();
+        _objectFocus.EndFocus();
+        
         if (_objectSquash != null)
+        {
             _objectSquash.PlaySquash();
+        }
 
         _skillIndicatorOrbit.StopOrbit();
         GetComponent<SkillIndicatorAttack>().PauseAttack();
 
+        _skillIndicatorSelectIndicator.IndicateSelected();
     }
 
     public void SkillAttackComplete()

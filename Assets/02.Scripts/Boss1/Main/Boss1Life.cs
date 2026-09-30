@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Boss1Life : MonoBehaviour
 {
-    [SerializeField] private int _maxHealth= 1000;
+    [SerializeField] private int _maxHealth= 10000;
     
     private int _currentHealth;
     private bool _isDead = false;

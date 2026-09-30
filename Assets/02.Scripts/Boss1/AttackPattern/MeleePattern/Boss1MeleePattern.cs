@@ -31,6 +31,13 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
     [Header("보스 이동 기능")]
     [SerializeField] private Boss1Movement _boss1Movement;
 
+    [SerializeField] private Transform _playerTransform;
+
+    [Header("근거리 공격 선택")]
+    [SerializeField] private float _spitPrefferedDistance = 4f;
+
+    [SerializeField] private float _prefferedWeightMultiplier = 2f;
+
     private bool _isPhase2;
 
     private IBoss1MeleeAttack _currentAttack;
@@ -54,7 +61,7 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
         IsFinished = false;
         
         _boss1Movement.StartControlled();
-        _currentAttack = _meleeAttacks[0].Attack;
+        _currentAttack = SelectAttack();
         _currentAttack.EnterAttack();
 
         Debug.Log("Boss1 근거리 패턴 시작");
@@ -94,5 +101,75 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
     public void SetPhase2(bool isPhase2)
     {
         _isPhase2 = isPhase2;
+    }
+
+    private IBoss1MeleeAttack SelectAttack()
+    {
+        float xDistance = Mathf.Abs(_playerTransform.position.x - transform.position.x);
+
+        float totalWeight = 0f;
+
+        foreach (MeleeAttackData attackData in _meleeAttacks)
+        {
+            IBoss1MeleeAttack attack = attackData.Attack;
+
+            if (attackData.Attack == null)
+            {
+                continue;
+            }
+
+            float weight = GetAdjustedWeight(attackData, xDistance);
+
+            totalWeight += weight;
+        }
+
+        if (totalWeight <= 0f)
+        {
+            return null;
+        }
+        
+        float randomValue = UnityEngine.Random.Range(0f, totalWeight);
+        
+        float currentWeight = 0f;
+        
+        foreach (MeleeAttackData attackData in _meleeAttacks)
+        {
+            IBoss1MeleeAttack attack = attackData.Attack;
+
+            if (attack == null)
+            {
+                continue;
+            }
+
+            float weight = GetAdjustedWeight(attackData, xDistance);
+
+            currentWeight += weight;
+            
+            if (randomValue <= currentWeight)
+            {
+                return attackData.Attack;
+            }
+        }
+
+        return null;
+    }
+
+    private float GetAdjustedWeight(MeleeAttackData attackData, float xDistance)
+    {
+        float weight = attackData.Weight;
+
+        bool isFar = xDistance >= _spitPrefferedDistance;
+
+        if (!isFar && attackData.Attack is Boss1ClawAttack)
+        {
+            weight *= _prefferedWeightMultiplier;
+        }
+
+        if (isFar && attackData.Attack is Boss1SpitAttack)
+        {
+            weight *= _prefferedWeightMultiplier;
+        }
+
+        return weight;
     }
 }

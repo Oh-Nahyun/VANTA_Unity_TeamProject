@@ -12,12 +12,12 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
     [SerializeField] private float _yTolerance = 0.3f;
 
     [Header("공격전 전조 시간")]
-    [SerializeField] private float _telegraphDuration = 0.5f;
+    [SerializeField] private float _telegraphDuration = 0.2f;
 
     [SerializeField] private Boss1ClawHitBox _clawHitBox;
 
     [Header("공격후 후딜레이 시간")]
-    [SerializeField] private float _recoveryDuration = 0.6f;
+    [SerializeField] private float _recoveryDuration = 0.4f;
 
     [SerializeField] private Animator _animator;
     
@@ -46,6 +46,7 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
 
     public void UpdateAttack()
     {
+        Debug.Log("발톱 공격 UpdateAttack");
         if (IsFinished)
         {
             return;
@@ -78,6 +79,7 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
 
     private void UpdatePositioning()
     {
+        Debug.Log("발톱 공격 UpdatePositioning");
         float xDifference = _playerTransform.position.x - transform.position.x;
         float yDifference = _playerTransform.position.y - transform.position.y;
         
@@ -112,19 +114,21 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
 
     private void UpdateTelegraph()
     {
+        Debug.Log("발톱 공격 UpdateTelegraph");
         _boss1Movement.StopMove();
         _timer += Time.deltaTime;
 
         if (_timer >= _telegraphDuration)
         {
             _timer = 0f;
-            _currentState = ClawState.ClawAttack;
             _animator.SetTrigger("ClawAttack");
+            _currentState = ClawState.ClawAttack;
         }
     }
 
     private void UpdateClawAttack()
     {
+        Debug.Log("발톱 공격 UpdateClawAttack");
         _boss1Movement.StopMove();
     }
 

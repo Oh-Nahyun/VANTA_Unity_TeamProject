@@ -33,6 +33,10 @@ public class Boss2Action
 
     [Tooltip("후보끼리의 선택 가중치. 0 이면 쓰지 않음")]
     public float Weight = 1f;
+    
+    [Header("상태/버프")]
+    [Tooltip("특정 상태 또는 버프가 들어가는지")]
+    public bool IsInvincible = false;
 
     // 런타임 기록 (저장하지 않음)
     [System.NonSerialized] public float LastUsedTime = float.NegativeInfinity;

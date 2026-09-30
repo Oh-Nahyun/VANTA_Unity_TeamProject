@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349eca76ea90d1e4ab422e6affdf09cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss2
-  _health: 100
+  _health: 5000
 --- !u!114 &4827965982157604352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,7 +202,7 @@ MonoBehaviour:
   _instantKillAppearHeight: 1
   _instantKillRadius: 1
   _aoeStateName: Boss2AOESkill
-  _areaStrikePrefab: {fileID: 7674075093399045934, guid: 7d6e3c528fa2dc54cb70ea0db103f7a7, type: 3}
+  _areaStrikePrefab: {fileID: 624373018500441915, guid: 7b6f88b6ca25cf54cb9702ab64a835cf, type: 3}
   _strikeCountMin: 10
   _strikeCountMax: 15
   _minStrikeSpacing: 1
@@ -335,6 +335,7 @@ MonoBehaviour:
     HealthMax: 1
     Cooldown: 0
     Weight: 5
+    IsInvincible: 0
   - Name: "\uC555\uBC15 \uCF64\uBCF4"
     Move: 3
     Attack: 1
@@ -346,6 +347,7 @@ MonoBehaviour:
     HealthMax: 1
     Cooldown: 3
     Weight: 4
+    IsInvincible: 0
   - Name: "\uCD94\uACA9 \uAC15\uD0C0"
     Move: 1
     Attack: 2
@@ -357,6 +359,7 @@ MonoBehaviour:
     HealthMax: 1
     Cooldown: 6
     Weight: 3
+    IsInvincible: 0
   - Name: "\uAE30\uC2B5 \uD68C\uC804\uBCA0\uAE30"
     Move: 2
     Attack: 4
@@ -368,6 +371,7 @@ MonoBehaviour:
     HealthMax: 0.7
     Cooldown: 8
     Weight: 3
+    IsInvincible: 0
   - Name: "\uADFC\uC811 \uD68C\uC804 \uBC18\uACA9"
     Move: 0
     Attack: 4
@@ -379,6 +383,7 @@ MonoBehaviour:
     HealthMax: 0.4
     Cooldown: 10
     Weight: 3
+    IsInvincible: 0
   _aoeHealthThresholds:
   - 0.8
   - 0.6

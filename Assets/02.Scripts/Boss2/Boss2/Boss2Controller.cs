@@ -286,6 +286,11 @@ public class Boss2Controller : MonoBehaviour
     // ---- 실행 ----
     private void StartAction(Boss2Action action, string reason)
     {
+        if (_boss != null)
+        {
+            // 시작할 때에 새 액션의 무적 상태를 갱신 
+            _boss.SetInvincible(action.IsInvincible);
+        }
         _currentAction = action;
         _lastChoiceName = action.Name;
         action.LastUsedTime = Time.time;
@@ -415,6 +420,7 @@ public class Boss2Controller : MonoBehaviour
                 DistanceMin = 0f,
                 DistanceMax = 1.5f,
                 Cooldown = 0f,
+                IsInvincible = false,
                 Weight = 5f,
             },
             new Boss2Action
@@ -427,27 +433,30 @@ public class Boss2Controller : MonoBehaviour
                 DistanceMin = 1.5f, 
                 DistanceMax = 5f, 
                 Cooldown = 3f, 
-                Weight = 4f,
+                IsInvincible = false,
+                Weight = 2f,
             },
             new Boss2Action
             {
                 Name = "추격 강타", 
                 Move = Boss2MovePatternType.ChaseRun, 
                 Attack = Boss2AttackPatternType.SmashAttack,
-                DistanceMin = 4f, 
-                DistanceMax = 999f, 
-                Cooldown = 6f, 
-                Weight = 3f,
+                DistanceMin = 1.5f, 
+                DistanceMax = 100f, 
+                Cooldown = 6f,
+                IsInvincible = true,
+                Weight = 4f,
             },
             new Boss2Action
             {
                 Name = "기습 회전베기", 
                 Move = Boss2MovePatternType.ChaseBlink, 
                 Attack = Boss2AttackPatternType.SpinningSlash,
-                DistanceMin = 3f, 
-                DistanceMax = 999f, 
+                DistanceMin = 1.5f, 
+                DistanceMax = 100f, 
                 HealthMax = 0.7f, 
-                Cooldown = 8f, 
+                Cooldown = 8f,
+                IsInvincible = true,
                 Weight = 3f,
             },
             new Boss2Action
@@ -458,9 +467,21 @@ public class Boss2Controller : MonoBehaviour
                 DistanceMin = 0f, 
                 DistanceMax = 1.5f, 
                 HealthMax = 0.4f, 
-                Cooldown = 10f, 
+                Cooldown = 10f,
+                IsInvincible = true,
                 Weight = 3f,
             },
+            new Boss2Action
+            {
+                Name = "후퇴 회전 반격", 
+                Move = Boss2MovePatternType.BackStep, 
+                Attack = Boss2AttackPatternType.SpinningSlash,
+                DistanceMin = 0f, 
+                DistanceMax = 1.5f, 
+                Cooldown = 5f, 
+                IsInvincible = true,
+                Weight = 3f,
+            }
         };
     }
 }

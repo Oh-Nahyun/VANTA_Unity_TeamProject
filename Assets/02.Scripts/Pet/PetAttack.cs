@@ -23,16 +23,6 @@ public class PetAttack : MonoBehaviour
     private Pet _pet;
 
     /// <summary>
-    /// 펫 기본 공격 에너지 탄 클래스
-    /// </summary>
-    private EnergyBullet _energyBullet;
-
-    /// <summary>
-    /// 펫 공격 스킬 크리스탈 프리즌 클래스
-    /// </summary>
-    private CrystalPrison _crystalPrison;
-
-    /// <summary>
     /// 펫 공격 타겟
     /// </summary>
     private GameObject _attackTarget;
@@ -40,7 +30,6 @@ public class PetAttack : MonoBehaviour
     private void Awake()
     {
         _pet = GetComponent<Pet>();
-        _crystalPrison = _crystalPrisonPrefab.GetComponent<CrystalPrison>();
     }
 
     private void Start()
@@ -73,20 +62,21 @@ public class PetAttack : MonoBehaviour
 
         for (int i = 0; i < _energyBulletCount; i++)
         {
-            GameObject energyBullet = Instantiate(_energyBulletPrefab, _energyBulletSpawnPosition.position,
+            GameObject bullet = Instantiate(_energyBulletPrefab, _energyBulletSpawnPosition.position,
                 transform.rotation);
-            _energyBullet = energyBullet.GetComponent<EnergyBullet>();
-            _energyBullet.AttackTarget = _attackTarget;
+            EnergyBullet energyBullet = bullet.GetComponent<EnergyBullet>();
+            energyBullet.AttackTarget = _attackTarget;
 
             float curveAmount = (i - middleIndex) * 2f;
-            _energyBullet.BezierCurve.SetCurveAmount(curveAmount);
+            energyBullet.BezierCurve.SetCurveAmount(curveAmount);
         }
     }
 
     public void UseCrystalPrison()
     {
-        _crystalPrison.AttackTarget = _attackTarget;
-        Instantiate(_crystalPrisonPrefab, _attackTarget.transform.position, transform.rotation);
+        GameObject prison = Instantiate(_crystalPrisonPrefab, _attackTarget.transform.position, transform.rotation);
+        CrystalPrison crystalPrison = prison.GetComponent<CrystalPrison>();
+        crystalPrison.AttackTarget = _attackTarget;
     }
 
     public void UseCrystalSanctuary()
@@ -97,8 +87,8 @@ public class PetAttack : MonoBehaviour
             Vector3 randomScale = new Vector3(randomFloat, randomFloat, randomFloat);
             Vector3 randomPosition = new Vector3(Random.Range(-6f, 6f), Random.Range(-3f, 1.5f), 0f);
 
-            _crystalSanctuaryPrefab.transform.localScale = randomScale;
             Instantiate(_crystalSanctuaryPrefab, randomPosition, transform.rotation);
+            _crystalSanctuaryPrefab.transform.localScale = randomScale;
         }
     }
 }

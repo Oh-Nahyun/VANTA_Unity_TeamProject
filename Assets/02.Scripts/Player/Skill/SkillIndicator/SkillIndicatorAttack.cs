@@ -123,7 +123,7 @@ public class SkillIndicatorAttack : MonoBehaviour
         _attackSequence?.Kill();
 
         _isAttacking = false;
-
+        _animator.SetTrigger("Choice");
         if (_skillIndicatorMove != null)
             _skillIndicatorMove.enabled = true;
     }

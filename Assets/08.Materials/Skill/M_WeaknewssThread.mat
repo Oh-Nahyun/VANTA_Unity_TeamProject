@@ -40,15 +40,15 @@ Material:
     - _CurveFrequency: 10
     - _CurveSpeed: 0
     - _CurveStrength: 0.03
-    - _ThreadCoreIntensity: 1
+    - _ThreadCoreIntensity: 5
     - _ThreadCoreWidth: 0.01
-    - _ThreadFlowIntensity: 2
+    - _ThreadFlowIntensity: 10
     - _ThreadFlowScale: 15
-    - _ThreadFlowSpeed: 2
-    - _ThreadGlowIntensity: 1.5
+    - _ThreadFlowSpeed: 4
+    - _ThreadGlowIntensity: 1
     - _ThreadGlowWidth: 0.03
     - _ThreadIntensity: 3
-    - _ThreadNoiseScale: 8
+    - _ThreadNoiseScale: 10
     - _ThreadNoiseSpeed: 1
     - _ThreadNoiseStrength: 0.005
     - _ThreadOpacity: 0

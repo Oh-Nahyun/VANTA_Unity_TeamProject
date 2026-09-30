@@ -6,8 +6,6 @@ public class Boss1Laser : MonoBehaviour
     [SerializeField] private Transform _laserHeadPivot;
     [SerializeField] private float _laserLength = 20f;
     [SerializeField] private LayerMask _playerLayer;
-    [SerializeField] private Player _player;
-
 
     public void ShowAim(Vector2 direction)
     {

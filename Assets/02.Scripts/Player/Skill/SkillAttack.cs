@@ -42,7 +42,9 @@ public class SkillAttack : MonoBehaviour
 
     [SerializeField] private UnityEvent  _weaknessAttackSuccessAction;
 
+    private bool _isWeaknessAttackSuccess;
     private int _dashCount;
+    
     private SkillSpaceController _skillSpaceController;
     private SkillDashScreenController _skillDashScreenController;
     private SkillDashSlashScreenController _skillDashSlashScreenController;
@@ -79,6 +81,7 @@ public class SkillAttack : MonoBehaviour
             return;
         }
 
+        _isWeaknessAttackSuccess = false;
         _dashCount = selectedIndicators.Count;
         StartDashSequence();
 
@@ -294,6 +297,7 @@ public class SkillAttack : MonoBehaviour
             );
 
         bool isWeaknessAttack =
+            !_isWeaknessAttackSuccess &&
             dot >= threshold;
 
         RaycastHit2D[] hits =
@@ -318,6 +322,8 @@ public class SkillAttack : MonoBehaviour
 
             if (isWeaknessAttack)
             {
+                _isWeaknessAttackSuccess = true;
+
                 SuccessWeaknessSkillAttack(
                     hitableObject
                 );

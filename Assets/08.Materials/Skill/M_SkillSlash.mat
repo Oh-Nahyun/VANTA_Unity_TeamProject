@@ -38,12 +38,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _SlashActive: 1
-    - _SlashIntensity: 20
-    - _SlashProgress: 0.2
+    - _SlashIntensity: 50
+    - _SlashProgress: 0
     - _SlashWidth: 0.01
     m_Colors:
     - _CoreColor: {r: 0.60739064, g: 0.646276, b: 0.6470694, a: 1}
-    - _GlowColor: {r: 0.008852693, g: 0.056926657, b: 0.07507086, a: 1}
+    - _GlowColor: {r: 0.012519599, g: 0.08050645, b: 0.10616622, a: 1}
     - _SlashCenter: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _SlashColor: {r: 1, g: 1, b: 1, a: 1}
     - _SlashNormal: {r: 1, g: 0, b: 0, a: 0}

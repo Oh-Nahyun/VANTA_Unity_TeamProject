@@ -49,11 +49,10 @@ public class PetAttack : MonoBehaviour
 
         if (_attackTarget == null) return;
 
-        // TODO : [펫] 기본 공격 및 공격 스킬 조건은 플레이어 상태 고려해서 정하기
         // TODO : [펫] 아래 함수 호출 코드는 테스트용으로 추후 삭제하기
         //FireEnergyBullet();
         //UseCrystalPrison();
-        UseCrystalSanctuary();
+        //UseCrystalSanctuary();
     }
 
     private void Update()
@@ -84,13 +83,13 @@ public class PetAttack : MonoBehaviour
         }
     }
 
-    private void UseCrystalPrison()
+    public void UseCrystalPrison()
     {
         _crystalPrison.AttackTarget = _attackTarget;
         Instantiate(_crystalPrisonPrefab, _attackTarget.transform.position, transform.rotation);
     }
 
-    private void UseCrystalSanctuary()
+    public void UseCrystalSanctuary()
     {
         for (int i = 0; i < 3; i++)
         {

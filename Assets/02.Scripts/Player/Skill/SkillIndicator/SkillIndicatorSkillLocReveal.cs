@@ -1,8 +1,8 @@
+using System;
 using UnityEngine;
 
 public class SkillIndicatorSkillLocReveal : MonoBehaviour
 {
-   
     [Header("펫 번호 (0 ~ 4)")]
     [SerializeField] private int _petIndex;
 
@@ -33,18 +33,15 @@ public class SkillIndicatorSkillLocReveal : MonoBehaviour
         Shader.PropertyToID("_PetActive5")
     };
 
-
     private float _previousAngle;
     private float _progress;
 
-    [SerializeField]private bool _isRevealing;
-
-
-  
+    [SerializeField] private bool _isRevealing;
 
     public void SetPetNumber(int number)
     {
         _petIndex = number;
+        ResetReveal();
     }
 
     private void Update()
@@ -55,12 +52,9 @@ public class SkillIndicatorSkillLocReveal : MonoBehaviour
         UpdateReveal();
     }
 
-
     public void StartReveal()
     {
-        
-
-        if (_petIndex < 0 || _petIndex >= 5)
+        if (!IsValidPetIndex())
         {
             Debug.LogWarning($"{name} : Pet Index가 잘못되었습니다.");
             return;
@@ -89,52 +83,68 @@ public class SkillIndicatorSkillLocReveal : MonoBehaviour
         _isRevealing = true;
     }
 
-
     private void UpdateReveal()
     {
         float currentAngle = GetCurrentAngle();
 
-      
-        float delta =
-            Mathf.DeltaAngle(
-                _previousAngle * 360f,
-                currentAngle * 360f
-            ) / 360f;
+        float delta = Mathf.DeltaAngle(
+            _previousAngle * 360f,
+            currentAngle * 360f
+        ) / 360f;
 
-      
         _progress += Mathf.Abs(delta);
-
         _progress = Mathf.Clamp01(_progress);
 
         Shader.SetGlobalFloat(
             PetProgressIDs[_petIndex],
             _progress
         );
-        Debug.Log(
-            $"Pet {_petIndex} | Progress {_progress}"
-        );
+
         _previousAngle = currentAngle;
     }
 
+    public void ResetReveal()
+    {
+        _isRevealing = false;
+        _progress = 0f;
+        _previousAngle = 0f;
+
+        if (!IsValidPetIndex())
+            return;
+
+        Shader.SetGlobalFloat(
+            PetStartIDs[_petIndex],
+            0f
+        );
+
+        Shader.SetGlobalFloat(
+            PetProgressIDs[_petIndex],
+            0f
+        );
+
+        Shader.SetGlobalFloat(
+            PetActiveIDs[_petIndex],
+            0f
+        );
+    }
 
     private float GetCurrentAngle()
     {
         HitableObject boss = FindAnyObjectByType<HitableObject>();
+
+        if (boss == null)
+            return 0f;
+
         Vector2 direction =
             (Vector2)transform.position -
             (Vector2)boss.transform.position;
 
-        float angle =
-            Mathf.Atan2(
-                direction.y,
-                direction.x
-            );
+        float angle = Mathf.Atan2(
+            direction.y,
+            direction.x
+        );
 
-        // -PI ~ PI
-        // ↓
-        // 0 ~ 1
-        float angle01 =
-            angle / (Mathf.PI * 2f);
+        float angle01 = angle / (Mathf.PI * 2f);
 
         if (angle01 < 0f)
             angle01 += 1f;
@@ -142,9 +152,18 @@ public class SkillIndicatorSkillLocReveal : MonoBehaviour
         return angle01;
     }
 
+    private bool IsValidPetIndex()
+    {
+        return _petIndex >= 0 && _petIndex < 5;
+    }
 
     private void OnDisable()
     {
-        _isRevealing = false;
+        ResetReveal();
+    }
+
+    private void OnDestroy()
+    {
+        ResetReveal();
     }
 }

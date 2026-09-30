@@ -20,6 +20,8 @@ public class SkillIndicatorMove : MonoBehaviour
 
     private SkillIndicatorOrbit _skillIndicatorOrbit;
     private SkillIndicatorSkillLocReveal _skillIndicatorLocReveal;
+    
+
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
 
@@ -94,9 +96,11 @@ public class SkillIndicatorMove : MonoBehaviour
         _previousPosition = transform.position;
     }
 
-    public void SetTarget(Transform target)
+    public void InitSetting(Transform target,int petNumber)
     {
         _target = target;
+        _animator.SetTrigger("Spawn");
+        _skillIndicatorLocReveal.SetPetNumber(petNumber);
     }
 
     public void MoveToPoint(Vector3 point)

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4761010528568002894}
   - component: {fileID: 8886387140256630396}
   - component: {fileID: 5319525351416732370}
-  - component: {fileID: 7858475862545279634}
+  - component: {fileID: 24939621585753626}
   m_Layer: 5
   m_Name: NormalDamageIndicator
   m_TagString: Untagged
@@ -71,13 +71,13 @@ MonoBehaviour:
 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c001df918ee2cbb4cb96092871c7bfff, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 865699552812866727, guid: c001df918ee2cbb4cb96092871c7bfff, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4292724288
   m_fontColor: {r: 0.24973297, g: 0.7778113, b: 0.8679245, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &7858475862545279634
+--- !u!114 &24939621585753626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

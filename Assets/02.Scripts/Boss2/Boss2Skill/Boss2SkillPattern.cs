@@ -34,6 +34,18 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
     // 더미끼리 이 거리보다 가까이 생기지 않게 한다. 자리가 부족하면 조건을 포기하고 배치한다.
     [SerializeField] private float _minStrikeSpacing = 1f;
 
+    [Header("광역기 순차 생성")]
+    [Tooltip("다음 묶음까지 대기 시간(초). 범위 안에서 매번 랜덤")]
+    [SerializeField] private float _spawnIntervalMin = 0.08f;
+    [SerializeField] private float _spawnIntervalMax = 0.15f;
+
+    [Tooltip("한 번에 동시에 나타나는 개수. 범위 안에서 매번 랜덤")]
+    [SerializeField] private int _strikesPerWaveMin = 1;
+    [SerializeField] private int _strikesPerWaveMax = 3;
+
+    [Tooltip("더미가 끝나길 기다리는 최대 시간(초). 이상이 생겨도 스킬이 영원히 안 끝나는 일을 막는다")]
+    [SerializeField] private float _aoeMaxDuration = 15f;
+
     [Header("맵 범위 (타원)")]
     [SerializeField] private Vector2 _arenaCenter = Vector2.zero;
 
@@ -59,6 +71,12 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
     private Boss2AttackPattern _attackPattern;
 
     private Coroutine _skillRoutine;
+
+    // 광역기: 위치는 한 번에 정해 섞어 두고, 이 큐에서 꺼내 순서대로 생성한다.
+    private readonly Queue<Vector2> _strikeQueue = new Queue<Vector2>();
+    // 생성된 더미. 모두 사라져야 광역기가 끝난다. (더미는 Finish 이벤트나 수명으로 스스로 파괴됨)
+    private readonly List<Boss2AreaStrike> _activeStrikes = new List<Boss2AreaStrike>();
+    private Coroutine _spawnRoutine;
 
     // 이번 스킬이 직접 이동을 막았는지. 다른 효과(크리스탈 프리즌 등)가 걸어둔 봉쇄는 풀지 않기 위해 기억한다.
     private bool _blockedMoveBySkill;
@@ -182,17 +200,75 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
             return;
         }
 
+        // 1. 위치는 처음에 한 번에 정한다. (간격·맵 범위 규칙 유지)
         int count = Random.Range(_strikeCountMin, _strikeCountMax + 1);
         List<Vector2> positions = new List<Vector2>(count);
-
         for (int i = 0; i < count; i++)
         {
-            Vector2 position = PickStrikePosition(positions);
-            positions.Add(position);
-
-            // 판정 반경·데미지는 더미 프리팹이 갖고, 터지는 순간 더미가 직접 Player 를 때린다.
-            Instantiate(_areaStrikePrefab, position, Quaternion.identity);
+            positions.Add(PickStrikePosition(positions));
         }
+
+        // 2. 나타나는 순서만 섞는다. (Fisher–Yates)
+        for (int i = positions.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            (positions[i], positions[j]) = (positions[j], positions[i]);
+        }
+
+        // 3. 큐에 담아 순서대로 생성한다. 이전 광역기의 남은 큐는 버린다.
+        StopSpawningStrikes();
+        foreach (Vector2 position in positions)
+        {
+            _strikeQueue.Enqueue(position);
+        }
+
+        _spawnRoutine = StartCoroutine(SpawnStrikesRoutine());
+    }
+
+    // 큐에서 묶음 단위로 꺼내 생성하고, 묶음 사이에 랜덤 간격만큼 기다린다.
+    private IEnumerator SpawnStrikesRoutine()
+    {
+        while (_strikeQueue.Count > 0)
+        {
+            int wave = Random.Range(_strikesPerWaveMin, Mathf.Max(_strikesPerWaveMin, _strikesPerWaveMax) + 1);
+            for (int i = 0; i < wave && _strikeQueue.Count > 0; i++)
+            {
+                // 판정 반경·데미지는 더미 프리팹이 갖고, 터지는 순간 더미가 직접 Player 를 때린다.
+                Boss2AreaStrike strike = Instantiate(_areaStrikePrefab, _strikeQueue.Dequeue(), Quaternion.identity);
+                _activeStrikes.Add(strike);
+            }
+
+            if (_strikeQueue.Count > 0)
+            {
+                float interval = Random.Range(_spawnIntervalMin, Mathf.Max(_spawnIntervalMin, _spawnIntervalMax));
+                if (interval > 0f)
+                {
+                    yield return new WaitForSeconds(interval);
+                }
+            }
+        }
+
+        _spawnRoutine = null;
+    }
+
+    // 생성이 끝났고, 생성된 더미가 모두 사라졌는지
+    private bool AreAreaStrikesFinished()
+    {
+        _activeStrikes.RemoveAll(strike => strike == null);
+        return _spawnRoutine == null && _strikeQueue.Count == 0 && _activeStrikes.Count == 0;
+    }
+
+    // 남은 생성을 멈춘다. 이미 생성된 더미는 그대로 터지고 사라진다.
+    private void StopSpawningStrikes()
+    {
+        if (_spawnRoutine != null)
+        {
+            StopCoroutine(_spawnRoutine);
+            _spawnRoutine = null;
+        }
+
+        _strikeQueue.Clear();
+        _activeStrikes.Clear();
     }
 
     private bool CanStartSkill(Boss2SkillPatternType skillPatternType)
@@ -294,7 +370,17 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
         _animator.CrossFade(_aoeStateName, 0.05f, 0, 0f);
         
         Instantiate(_areaOfEffectCircle, transform.position,transform.rotation);
-        yield return new WaitForSeconds(GetClipLength(_aoeStateName));
+        // 이 사이 클립의 SpawnAreaStrikes 이벤트에서 더미 순차 생성이 시작된다.
+        float clipLength = GetClipLength(_aoeStateName);
+        yield return new WaitForSeconds(clipLength);
+
+        // 마지막 더미가 터지고 사라질 때까지가 광역기다. 그동안 보스는 제자리에서 시전 상태를 유지한다.
+        float waited = clipLength;
+        while (AreAreaStrikesFinished() == false && waited < _aoeMaxDuration)
+        {
+            waited += Time.deltaTime;
+            yield return null;
+        }
 
         FinishSkill();
         EndSkill();
@@ -312,6 +398,9 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
 
     private void StopSkill()
     {
+        // 광역기 생성은 스킬 코루틴과 따로 돌므로 먼저 멈춘다.
+        StopSpawningStrikes();
+
         if (_skillRoutine == null)
             return;
 

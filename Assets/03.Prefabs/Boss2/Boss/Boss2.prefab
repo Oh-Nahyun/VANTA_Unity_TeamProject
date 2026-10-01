@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 6024146628359518789}
   - component: {fileID: 8034692196780386006}
   - component: {fileID: 322370360651168047}
+  - component: {fileID: 7095277919416841659}
   m_Layer: 21
   m_Name: Boss2
   m_TagString: Boss
@@ -89,7 +90,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299320877
-  m_SortingLayer: 2
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4723107735738678597, guid: 71948676c80310447a74748af9e04901, type: 3}
@@ -115,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss2
   _health: 5000
+  _maxHealth: 0
 --- !u!114 &4827965982157604352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +145,8 @@ MonoBehaviour:
     InputDeadline: 1.05
     MaxStepTime: 1.08
   _maxComboCount: 8
+  _smashImpulse: {fileID: 7095277919416841659}
+  _smashShakeForce: 1
   _smashStateName: Boss2SmashAttack
   _spinStateName: Boss2SpecialAttack
   _spinRadius: 3
@@ -200,6 +204,8 @@ MonoBehaviour:
   _attackKey: 32
   _comboSteps: []
   _maxComboCount: 8
+  _smashImpulse: {fileID: 0}
+  _smashShakeForce: 1
   _instantKillStartState: StartInstantKillSkill
   _instantKillEndState: EndInstantKillSkill
   _instantKillAppearHeight: 1
@@ -214,6 +220,7 @@ MonoBehaviour:
   _targetLayers:
     serializedVersion: 2
     m_Bits: 16384
+  _areaOfEffectCircle: {fileID: 3203674287824424439, guid: 9a3273ed7f017bc42afa00000dbb28d7, type: 3}
 --- !u!50 &-9214112356609609119
 Rigidbody2D:
   serializedVersion: 5
@@ -410,6 +417,59 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7095277919416841659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4133056159387206755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
+  ImpulseDefinition:
+    ImpulseChannel: 1
+    ImpulseShape: 3
+    CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ImpulseDuration: 0.25
+    ImpulseType: 0
+    DissipationRate: 0.25
+    RawSignal: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    RepeatMode: 0
+    Randomize: 1
+    TimeEnvelope:
+      AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      AttackTime: 0
+      SustainTime: 0.2
+      DecayTime: 0.7
+      ScaleWithImpact: 1
+      HoldForever: 0
+    ImpactRadius: 100
+    DirectionMode: 0
+    DissipationMode: 2
+    DissipationDistance: 100
+    PropagationSpeed: 343
+  DefaultVelocity: {x: 0, y: -1, z: 0}
 --- !u!1 &4247759179295928200
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,7 +871,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5665269771441559943, guid: d4ed2fcf058a6fd439d0f5f3ced73971, type: 3}
       propertyPath: m_SortingLayer
-      value: 11
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5665269771441559943, guid: d4ed2fcf058a6fd439d0f5f3ced73971, type: 3}
       propertyPath: m_SortingLayerID
@@ -1015,8 +1075,40 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8232697810173597566, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: LightsModule.ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232697810173597566, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: ColorBySpeedModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232697810173597566, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: ColorBySpeedModule.range.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232697810173597566, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 4
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232697810173597566, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: InitialModule.startRotation.scalar
+      value: 4.1887903
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232697810173597566, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: ColorBySpeedModule.gradient.maxGradient.key0.b
+      value: 0.048885647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232697810173597566, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: ColorBySpeedModule.gradient.maxGradient.key0.g
+      value: 0.025364896
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232697810173597566, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: ColorBySpeedModule.gradient.maxGradient.key0.r
+      value: 0.3584906
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232697810173597566, guid: e97a0863402897a45b2fbe17dc6bdd10, type: 3}
+      propertyPath: ColorBySpeedModule.gradient.maxGradient.m_ColorSpace
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

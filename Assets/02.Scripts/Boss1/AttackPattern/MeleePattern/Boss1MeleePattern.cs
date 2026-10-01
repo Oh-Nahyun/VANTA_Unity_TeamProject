@@ -110,6 +110,12 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
 
     public void ExitAttack()
     {
+        if (_currentAttack != null)
+        {
+            _currentAttack.ExitAttack();
+            _currentAttack = null;
+        }
+        
         _boss1Movement.StartNormalChase();
     }
 

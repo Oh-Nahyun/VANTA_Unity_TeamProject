@@ -6,8 +6,10 @@ public class Boss1AttackController : MonoBehaviour
     
     [SerializeField] private float _chaseDuration = 1f;
 
-    private AttackState _currentState;
-    private IBoss1Attack _currentAttack;
+    private AttackState _currentState; // 추격 or 공격
+    private IBoss1Attack _currentAttack; // 근거리 패턴 or 원거리 패턴
+
+    private bool _isAttackLocked; // 페이즈2 전환 중일 때 공격 못하게 하기
 
     private float _stateTimer;
 
@@ -24,6 +26,11 @@ public class Boss1AttackController : MonoBehaviour
 
     private void Update()
     {
+        if (_isAttackLocked)
+        {
+            return;
+        }
+        
         switch (_currentState)
         {
             case AttackState.Chase:
@@ -35,6 +42,18 @@ public class Boss1AttackController : MonoBehaviour
                 break;
         }
     }
+
+    public void LockAttack()
+    {
+        _isAttackLocked = true;
+
+        if (_currentAttack != null)
+        {
+            _currentAttack.ExitAttack();
+            _currentAttack = null;
+        }
+    }
+    
 
     /// <summary>
     /// 공격 사이의 추격 상태
@@ -137,7 +156,5 @@ public class Boss1AttackController : MonoBehaviour
     {
         _currentState = newState;
         _stateTimer = 0f;
-
-        Debug.Log($"Boss1 Attack State : {_currentState}");
     }
 }

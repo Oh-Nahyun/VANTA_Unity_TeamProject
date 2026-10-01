@@ -24,6 +24,8 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
 
     private SpitState _currentState;
     
+    private bool _isAttackActive;
+    
     private enum SpitState
     {
         Positioning,
@@ -36,6 +38,7 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
 
     public void EnterAttack()
     {
+        _isAttackActive = true;
         IsFinished = false;
         _timer = 0f;
         _spitHitBox.DisableHitBox();
@@ -69,6 +72,8 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
 
     public void ExitAttack()
     {
+        _isAttackActive = false;
+        
         _spitHitBox.DisableHitBox();
         _boss1Movement.UnlockFacing();
         _boss1Movement.StopMove();   
@@ -132,6 +137,11 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
 
     public void EnableSpitHitBox()
     {
+        if (!_isAttackActive)
+        {
+            return;
+        }
+        
         _spitHitBox.EnableHitBox();
     }
 

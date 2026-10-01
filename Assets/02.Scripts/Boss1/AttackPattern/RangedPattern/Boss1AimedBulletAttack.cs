@@ -9,11 +9,18 @@ public class Boss1AimedBulletAttack : MonoBehaviour, IBoss1RangedAttack
     [SerializeField] private float _aimedFireInteval = 0.5f;
     [SerializeField] private int _aimedFireCount = 8;
     
+    private Boss1ProjectileManager _projectileManager;
+    
     private float _timer;
     private int _currentFireCount;
     
     public bool IsFinished { get; private set; }
 
+    private void Awake()
+    {
+        _projectileManager = GetComponent<Boss1ProjectileManager>();
+    }
+    
     public void EnterAttack()
     {
         _timer = 0f;
@@ -52,6 +59,6 @@ public class Boss1AimedBulletAttack : MonoBehaviour, IBoss1RangedAttack
     {
         Vector2 direction = (_playerTransform.position - _aimedHeadPivot.position).normalized;
         Boss1Bullet bullet = Instantiate(_bulletPrefab, _aimedHeadPivot.position, Quaternion.identity);
-        bullet.Initialize(direction);
+        bullet.Initialize(direction, _projectileManager);
     }
 }

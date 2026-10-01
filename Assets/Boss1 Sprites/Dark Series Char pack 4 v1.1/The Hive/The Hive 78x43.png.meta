@@ -1,0 +1,949 @@
+fileFormatVersion: 2
+guid: 142594b14a8760a4ea636a894657d9b0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 663071356273241285
+    second: The Hive 78x43_0
+  - first:
+      213: -1742907978487164323
+    second: The Hive 78x43_1
+  - first:
+      213: 1094230174174497716
+    second: The Hive 78x43_2
+  - first:
+      213: 2192278981734422131
+    second: The Hive 78x43_3
+  - first:
+      213: 2261505059676202103
+    second: The Hive 78x43_4
+  - first:
+      213: 1448545300024597656
+    second: The Hive 78x43_5
+  - first:
+      213: -377307229978351274
+    second: The Hive 78x43_6
+  - first:
+      213: -3085939321604709024
+    second: The Hive 78x43_7
+  - first:
+      213: -8588083275539271036
+    second: The Hive 78x43_8
+  - first:
+      213: -4410135453541064601
+    second: The Hive 78x43_9
+  - first:
+      213: 670611222775199329
+    second: The Hive 78x43_10
+  - first:
+      213: 5362397799780755329
+    second: The Hive 78x43_11
+  - first:
+      213: -8288382061899350867
+    second: The Hive 78x43_12
+  - first:
+      213: 68022158690982138
+    second: The Hive 78x43_13
+  - first:
+      213: 8680026462434199400
+    second: The Hive 78x43_14
+  - first:
+      213: -6041552047381797347
+    second: The Hive 78x43_15
+  - first:
+      213: -2207033356379746754
+    second: The Hive 78x43_16
+  - first:
+      213: -3029813318979758232
+    second: The Hive 78x43_17
+  - first:
+      213: 2576076390315103413
+    second: The Hive 78x43_18
+  - first:
+      213: 4680282509060433652
+    second: The Hive 78x43_19
+  - first:
+      213: -662133156097936525
+    second: The Hive 78x43_20
+  - first:
+      213: -9101970417647030864
+    second: The Hive 78x43_21
+  - first:
+      213: 1288217887424135830
+    second: The Hive 78x43_22
+  - first:
+      213: 8480309377405963639
+    second: The Hive 78x43_23
+  - first:
+      213: 4396765269365046617
+    second: The Hive 78x43_24
+  - first:
+      213: 7759824548762626908
+    second: The Hive 78x43_25
+  - first:
+      213: 6200049706023676295
+    second: The Hive 78x43_26
+  - first:
+      213: 5378746434402640286
+    second: The Hive 78x43_27
+  - first:
+      213: 1366579299994474403
+    second: The Hive 78x43_28
+  - first:
+      213: 526461811216888164
+    second: The Hive 78x43_29
+  - first:
+      213: -4979195883842430514
+    second: The Hive 78x43_30
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 20
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: The Hive 78x43_0
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 139
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cc276ba2e3b33900800000000000000
+      internalID: 663071356273241285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_1
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 96
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d52141a8d62ffc7e0800000000000000
+      internalID: -1742907978487164323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bb4f22cb8c7f2f00800000000000000
+      internalID: 1094230174174497716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_3
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 96
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 376d5d26e1a8c6e10800000000000000
+      internalID: 2192278981734422131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_4
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 96
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 774afbbaeda726f10800000000000000
+      internalID: 2261505059676202103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_5
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 96
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89c170196444a1410800000000000000
+      internalID: 1448545300024597656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_6
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 96
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65924f9c21983caf0800000000000000
+      internalID: -377307229978351274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_7
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 96
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0656759798a8c25d0800000000000000
+      internalID: -3085939321604709024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_8
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 96
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 482320433cff0d880800000000000000
+      internalID: -8588083275539271036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_9
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 96
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7602450cb2d0cc2c0800000000000000
+      internalID: -4410135453541064601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_10
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 53
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 166f7e3aa5d7e4900800000000000000
+      internalID: 670611222775199329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_11
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 53
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 187a44043601b6a40800000000000000
+      internalID: 5362397799780755329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_12
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 53
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dacf4cdad60c9fc80800000000000000
+      internalID: -8288382061899350867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_13
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 10
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af891adfac9a1f000800000000000000
+      internalID: 68022158690982138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_14
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 9
+        width: 45
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 867816e2416a57870800000000000000
+      internalID: 8680026462434199400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_15
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 25
+        width: 45
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1626c32c68182ca0800000000000000
+      internalID: -6041552047381797347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_16
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 20
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3e0c811bda0f51e0800000000000000
+      internalID: -2207033356379746754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_17
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 22
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 867d67ac6d0f3f5d0800000000000000
+      internalID: -3029813318979758232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_18
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 19
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b4900f04df00c320800000000000000
+      internalID: 2576076390315103413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_19
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 20
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f665011524b3f040800000000000000
+      internalID: 4680282509060433652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_20
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 23
+        width: 45
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37336c41761afc6f0800000000000000
+      internalID: -662133156097936525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_21
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 20
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bde804212e4fa180800000000000000
+      internalID: -9101970417647030864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_22
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 10
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6924835e75ba0e110800000000000000
+      internalID: 1288217887424135830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_23
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 9
+        width: 34
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77d42b9b27c10b570800000000000000
+      internalID: 8480309377405963639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_24
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 25
+        width: 34
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95d3749a7b2740d30800000000000000
+      internalID: 4396765269365046617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_25
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 25
+        width: 34
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5b2a54505f60bb60800000000000000
+      internalID: 7759824548762626908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_26
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 10
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7896e4dbb500b0650800000000000000
+      internalID: 6200049706023676295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_27
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 11
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e91e77f526525aa40800000000000000
+      internalID: 5378746434402640286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_28
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 12
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a7929502a017f210800000000000000
+      internalID: 1366579299994474403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_29
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 10
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 461346d5a3e5e4700800000000000000
+      internalID: 526461811216888164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Hive 78x43_30
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 13
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec91c7c79b756eab0800000000000000
+      internalID: -4979195883842430514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      The Hive 78x43_0: 663071356273241285
+      The Hive 78x43_1: -1742907978487164323
+      The Hive 78x43_10: 670611222775199329
+      The Hive 78x43_11: 5362397799780755329
+      The Hive 78x43_12: -8288382061899350867
+      The Hive 78x43_13: 68022158690982138
+      The Hive 78x43_14: 8680026462434199400
+      The Hive 78x43_15: -6041552047381797347
+      The Hive 78x43_16: -2207033356379746754
+      The Hive 78x43_17: -3029813318979758232
+      The Hive 78x43_18: 2576076390315103413
+      The Hive 78x43_19: 4680282509060433652
+      The Hive 78x43_2: 1094230174174497716
+      The Hive 78x43_20: -662133156097936525
+      The Hive 78x43_21: -9101970417647030864
+      The Hive 78x43_22: 1288217887424135830
+      The Hive 78x43_23: 8480309377405963639
+      The Hive 78x43_24: 4396765269365046617
+      The Hive 78x43_25: 7759824548762626908
+      The Hive 78x43_26: 6200049706023676295
+      The Hive 78x43_27: 5378746434402640286
+      The Hive 78x43_28: 1366579299994474403
+      The Hive 78x43_29: 526461811216888164
+      The Hive 78x43_3: 2192278981734422131
+      The Hive 78x43_30: -4979195883842430514
+      The Hive 78x43_4: 2261505059676202103
+      The Hive 78x43_5: 1448545300024597656
+      The Hive 78x43_6: -377307229978351274
+      The Hive 78x43_7: -3085939321604709024
+      The Hive 78x43_8: -8588083275539271036
+      The Hive 78x43_9: -4410135453541064601
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

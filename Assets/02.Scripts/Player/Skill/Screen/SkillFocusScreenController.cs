@@ -21,18 +21,24 @@ public class SkillFocusScreenController : MonoBehaviour
     private static readonly int CenterID =
         Shader.PropertyToID("_Center");
 
+    private static readonly int HiddenActiveID =
+        Shader.PropertyToID("_HiddenActive");
+
     private Tween _radiusTween;
+    private Tween _hiddenTween;
 
     private bool _isSkillActive;
+
     private float _currentRadius;
+    private float _currentHiddenActive;
 
     private void Awake()
     {
         if (_targetCamera == null)
             _targetCamera = Camera.main;
 
-        // Global Shader 값 초기화
         _currentRadius = _normalRadius;
+        _currentHiddenActive = 0f;
 
         Shader.SetGlobalFloat(
             RadiusID,
@@ -43,9 +49,11 @@ public class SkillFocusScreenController : MonoBehaviour
             CenterID,
             Vector4.zero
         );
-        
-        Shader.SetGlobalFloat("_HiddenActive", 0f);
 
+        Shader.SetGlobalFloat(
+            HiddenActiveID,
+            0f
+        );
     }
 
     private void LateUpdate()
@@ -82,10 +90,9 @@ public class SkillFocusScreenController : MonoBehaviour
         _isSkillActive = true;
 
         UpdateFocusPosition();
-        
-        Shader.SetGlobalFloat("_HiddenActive", 1f);
-        
+
         _radiusTween?.Kill();
+        _hiddenTween?.Kill();
 
         _radiusTween = DOTween.To(
                 () => _currentRadius,
@@ -107,13 +114,31 @@ public class SkillFocusScreenController : MonoBehaviour
             {
                 onComplete?.Invoke();
             });
+
+        _hiddenTween = DOTween.To(
+                () => _currentHiddenActive,
+                value =>
+                {
+                    _currentHiddenActive = value;
+
+                    Shader.SetGlobalFloat(
+                        HiddenActiveID,
+                        value
+                    );
+                },
+                1f,
+                _focusInDuration
+            )
+            .SetEase(Ease.OutCubic)
+            .SetUpdate(true);
     }
 
     public void EndFocusScreenSetting()
     {
         _isSkillActive = false;
-        Shader.SetGlobalFloat("_HiddenActive", 0f);
+
         _radiusTween?.Kill();
+        _hiddenTween?.Kill();
 
         _radiusTween = DOTween.To(
                 () => _currentRadius,
@@ -131,13 +156,33 @@ public class SkillFocusScreenController : MonoBehaviour
             )
             .SetEase(Ease.InCubic)
             .SetUpdate(true);
+
+        _hiddenTween = DOTween.To(
+                () => _currentHiddenActive,
+                value =>
+                {
+                    _currentHiddenActive = value;
+
+                    Shader.SetGlobalFloat(
+                        HiddenActiveID,
+                        value
+                    );
+                },
+                0f,
+                _focusOutDuration
+            )
+            .SetEase(Ease.InCubic)
+            .SetUpdate(true);
     }
 
     private void OnDestroy()
     {
         _radiusTween?.Kill();
+        _hiddenTween?.Kill();
 
-        // Global 값 정리
+        _currentRadius = _normalRadius;
+        _currentHiddenActive = 0f;
+
         Shader.SetGlobalFloat(
             RadiusID,
             _normalRadius
@@ -147,8 +192,10 @@ public class SkillFocusScreenController : MonoBehaviour
             CenterID,
             Vector4.zero
         );
-        
-        Shader.SetGlobalFloat("_HiddenActive", 0f);
 
+        Shader.SetGlobalFloat(
+            HiddenActiveID,
+            0f
+        );
     }
 }

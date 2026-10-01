@@ -626,6 +626,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d15c37fb9f210409fad3571ea32a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+--- !u!1001 &1604741807
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6015451416661366157, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.6197414
+      objectReference: {fileID: 0}
+    - target: {fileID: 6015451416661366157, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.238438
+      objectReference: {fileID: 0}
+    - target: {fileID: 6015451416661366157, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6015451416661366157, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6015451416661366157, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6015451416661366157, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6015451416661366157, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6015451416661366157, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6015451416661366157, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6015451416661366157, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840192290824723525, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
+      propertyPath: m_Name
+      value: Boss1Bullet
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
 --- !u!1001 &1733891861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -634,46 +691,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 537864551881236395, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _phase2Settings._sweepAngle
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 537864551881236395, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _phase1Settings._aimDuration
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 537864551881236395, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _phase2Settings._sweepDuration
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2627111689535811849, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _phase2Settings._aimedFireInterval
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3060184153963347236, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _phase2Settings._moveSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3060184153963347236, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _phase2Settings._recoveryDuration
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3060184153963347236, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _phase2Settings._telegraphDuration
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3619018780754979877, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _phase2Settings._moveSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3619018780754979877, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _phase2Settings._recoveryDuration
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3901018116763532789, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _phase2Settings._splitFireCount
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 5486056013902944760, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -986,3 +1003,4 @@ SceneRoots:
   - {fileID: 691842877}
   - {fileID: 1733891861}
   - {fileID: 217339448}
+  - {fileID: 1604741807}

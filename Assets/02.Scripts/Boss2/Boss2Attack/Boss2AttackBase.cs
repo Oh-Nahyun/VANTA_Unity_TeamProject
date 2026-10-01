@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -47,6 +48,13 @@ public class Boss2AttackBase : MonoBehaviour
     private int _targetHitCount = 0;
     private float _stepStartTime = 0f;
 
+    [FormerlySerializedAs("_smashImpulse")]
+    [Header("이펙트")]
+    [Tooltip("보스 본체의 CinemachineImpulseSource. 비워두면 흔들지 않는다.")] 
+    [SerializeField] private CinemachineImpulseSource _cameraImpulse;
+    
+
+    
     public bool IsAttacking => _currentHit >= 0;
     // 자식이 인스펙터의 즉사기 데미지 설정을 쓰도록 연다.
     protected int InstantKillDamage => _instantKillDamage;
@@ -200,6 +208,8 @@ public class Boss2AttackBase : MonoBehaviour
             _hitTargetsThisSwing.Clear();
             _attackBoxCollider.enabled = true;
         }
+        
+
     }
 
     public void EndDamage()
@@ -210,6 +220,15 @@ public class Boss2AttackBase : MonoBehaviour
         }
     }
 
+    public void CameraShakePoint(float shakeForce)
+    {
+        // 카메라 쉐이크
+        if (_cameraImpulse != null)
+        {
+            _cameraImpulse.GenerateImpulseWithForce(shakeForce);
+        }
+    }
+    
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") == false)

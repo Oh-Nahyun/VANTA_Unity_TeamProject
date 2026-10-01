@@ -1,4 +1,5 @@
 using System.Collections;
+
 using UnityEngine;
 
 public class Boss2AttackPattern : Boss2AttackBase
@@ -30,7 +31,8 @@ public class Boss2AttackPattern : Boss2AttackBase
     private bool _blockedMoveBySkill;
 
     [SerializeField]private GameObject _spinningSlashEffect;
-    
+
+
     public bool IsPatternRunning => _currentAttackPatternType != Boss2AttackPatternType.None;
     public Boss2AttackPatternType CurrentAttackPatternType => _currentAttackPatternType;
 

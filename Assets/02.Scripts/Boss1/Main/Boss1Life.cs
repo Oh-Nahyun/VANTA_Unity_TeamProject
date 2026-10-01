@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Boss1Life : HitableObject
 {
-    [SerializeField] private float _maxHealth= 10000;
+    [SerializeField] private int _maxHealth= 10000;
     
-    private float _currentHealth;
-    public float HelathRatio;
+    private int _currentHealth;
+    public float HealthRatio => _maxHealth > 0f ? Mathf.Clamp01(_currentHealth / _maxHealth) : 0f;
     private bool _isDead = false;
     public event Action OnDeath;
     
@@ -15,12 +15,12 @@ public class Boss1Life : HitableObject
         _currentHealth = _maxHealth;
     }
 
-    protected override void HitEvent(float damage)
+    protected override void HitEvent(int damage)
     {
         TakeDamage(damage);
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         if (_isDead)
         {

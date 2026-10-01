@@ -541,9 +541,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 27
-        y: 615
+        y: 498
         width: 330
-        height: 170
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -607,9 +607,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1332
-        y: 613
+        y: 497
         width: 330
-        height: 170
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -628,10 +628,10 @@ TextureImporter:
       name: SettingsButton_Selected
       rect:
         serializedVersion: 2
-        x: 36
-        y: 370
+        x: 27
+        y: 261
         width: 330
-        height: 170
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -695,9 +695,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1337
-        y: 370
+        y: 257
         width: 330
-        height: 170
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -716,10 +716,10 @@ TextureImporter:
       name: ExitButton_Selected
       rect:
         serializedVersion: 2
-        x: 36
-        y: 141
+        x: 27
+        y: 24
         width: 330
-        height: 170
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -783,9 +783,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1336
-        y: 141
+        y: 22
         width: 330
-        height: 170
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

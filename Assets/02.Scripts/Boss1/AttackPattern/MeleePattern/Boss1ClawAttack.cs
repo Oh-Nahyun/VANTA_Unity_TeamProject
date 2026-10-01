@@ -40,7 +40,7 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
         IsFinished = false;
         _timer = 0f;
         _clawHitBox.DisableHitBox();
-        
+        _boss1Movement.LockFacing();
         _currentState = ClawState.Positioning;
         Debug.Log("발톱 공격 시작");
     }
@@ -73,6 +73,7 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
     public void ExitAttack()
     {
         _clawHitBox.DisableHitBox();
+        _boss1Movement.UnlockFacing();
         _boss1Movement.StopMove();   
         
         Debug.Log("발톱 공격 종료");

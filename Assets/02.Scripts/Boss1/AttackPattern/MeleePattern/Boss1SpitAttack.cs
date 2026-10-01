@@ -39,6 +39,7 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
         IsFinished = false;
         _timer = 0f;
         _spitHitBox.DisableHitBox();
+        _boss1Movement.LockFacing();
         _currentState = SpitState.Positioning;
         Debug.Log("침뱉기 공격 시작");
     }
@@ -71,6 +72,7 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
     public void ExitAttack()
     {
         _spitHitBox.DisableHitBox();
+        _boss1Movement.UnlockFacing();
         _boss1Movement.StopMove();   
         
         Debug.Log("침뱉기 공격 종료");

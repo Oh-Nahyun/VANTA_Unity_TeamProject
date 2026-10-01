@@ -34,9 +34,9 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
     [SerializeField] private Transform _playerTransform;
 
     [Header("근거리 공격 선택")]
-    [SerializeField] private float _spitPrefferedDistance = 4f;
+    [SerializeField] private float _spitPreferredDistance = 4f;
 
-    [SerializeField] private float _prefferedWeightMultiplier = 2f;
+    [SerializeField] private float _preferredWeightMultiplier = 2f;
 
     private bool _isPhase2;
 
@@ -53,7 +53,7 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
 
     public float GetWeight()
     {
-        return 10f;
+        return 100f;
     }
     
     public void EnterAttack()
@@ -158,16 +158,16 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
     {
         float weight = attackData.Weight;
 
-        bool isFar = xDistance >= _spitPrefferedDistance;
+        bool isFar = xDistance >= _spitPreferredDistance;
 
         if (!isFar && attackData.Attack is Boss1ClawAttack)
         {
-            weight *= _prefferedWeightMultiplier;
+            weight *= _preferredWeightMultiplier;
         }
 
         if (isFar && attackData.Attack is Boss1SpitAttack)
         {
-            weight *= _prefferedWeightMultiplier;
+            weight *= _preferredWeightMultiplier;
         }
 
         return weight;

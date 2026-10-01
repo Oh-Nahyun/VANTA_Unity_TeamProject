@@ -42,6 +42,8 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
     [SerializeField] private PhaseSettings _phase2Settings;
 
     private readonly List<IBoss1RangedAttack> _activeAttacks = new();
+    
+    [SerializeField] private Boss1PhaseController _boss1PhaseController;
 
     private bool _isPhase2;
 
@@ -60,6 +62,21 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
     public bool CanUse()
     {
         return true;
+    }
+    
+    private void OnEnable()
+    {
+        _boss1PhaseController.OnPhaseChanged += ChangePhase;
+    }
+    
+    private void OnDisable()
+    {
+        _boss1PhaseController.OnPhaseChanged -= ChangePhase;
+    }
+
+    private void ChangePhase(Boss1PhaseController.Boss1Phase phase)
+    {
+        _isPhase2 = phase == Boss1PhaseController.Boss1Phase.phase2;
     }
 
     public float GetWeight()
@@ -103,12 +120,7 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
     {
         ExitAllActiveAttacks();
     }
-
-    public void SetPhase2(bool isPhase2)
-    {
-        _isPhase2 = isPhase2;
-    }
-
+    
     private void StartCycle()
     {
         _cycleTimer = 0f;

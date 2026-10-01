@@ -9,10 +9,17 @@ public class Boss1SplitBulletAttack : MonoBehaviour, IBoss1RangedAttack
     [SerializeField] private float _splitFireInteval = 1f;
     [SerializeField] private int _splitFireCount = 5;
     
+    private Boss1ProjectileManager _projectileManager;
+    
     private float _timer;
     private int _currentFireCount;
     
     public bool IsFinished { get; private set; }
+
+    private void Awake()
+    {
+        _projectileManager = GetComponent<Boss1ProjectileManager>();
+    }
     
     public void EnterAttack()
     {
@@ -53,6 +60,6 @@ public class Boss1SplitBulletAttack : MonoBehaviour, IBoss1RangedAttack
     {
         Vector2 direction = (_playerTransform.position - _splitHeadPivot.position).normalized;
         Boss1SplitBullet splitBullet = Instantiate(_splitBulletPrefab, _splitHeadPivot.position, Quaternion.identity);
-        splitBullet.Initialize(direction);
+        splitBullet.Initialize(direction, _projectileManager);
     }
 }

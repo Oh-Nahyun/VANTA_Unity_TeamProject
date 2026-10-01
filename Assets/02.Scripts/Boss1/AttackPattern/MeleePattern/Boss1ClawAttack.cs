@@ -24,6 +24,8 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
     private float _timer;
 
     private ClawState _currentState;
+
+    private bool _isAttackActive;
     
     private enum ClawState
     {
@@ -37,6 +39,7 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
 
     public void EnterAttack()
     {
+        _isAttackActive = true;
         IsFinished = false;
         _timer = 0f;
         _clawHitBox.DisableHitBox();
@@ -70,6 +73,8 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
 
     public void ExitAttack()
     {
+        _isAttackActive = false;
+        
         _clawHitBox.DisableHitBox();
         _boss1Movement.UnlockFacing();
         _boss1Movement.StopMove();   
@@ -140,6 +145,10 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
 
     public void EnableClawHitBox()
     {
+        if (!_isAttackActive)
+        {
+            return;
+        }
         _clawHitBox.EnableHitBox();
     }
 

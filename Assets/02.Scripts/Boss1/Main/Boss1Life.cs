@@ -11,7 +11,7 @@ public class Boss1Life : HitableObject
     public event Action OnDeath;
     
     private void Awake()
-    {
+    {   
         _currentHealth = _maxHealth;
     }
 

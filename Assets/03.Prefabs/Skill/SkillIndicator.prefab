@@ -204,6 +204,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillIndicatorOrbit
   _orbitSpeed: 150
+  _orbitRadius: 2
+  _showDebug: 1
 --- !u!114 &1788690956688383571
 MonoBehaviour:
   m_ObjectHideFlags: 0

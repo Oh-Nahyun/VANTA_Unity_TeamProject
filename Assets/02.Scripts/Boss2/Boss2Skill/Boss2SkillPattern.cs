@@ -44,12 +44,15 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
     // 기본은 모든 레이어. 대상은 태그(Player)로 한 번 더 거른다.
     [SerializeField] private LayerMask _targetLayers = ~0;
 
+    [Header("효과")]
+    [SerializeField] private ParticleSystem _areaOfEffectCircle;
+    
+    
     private bool _isAvoided = false;
 
     private const int MaxSpacingAttempts = 30;
 
     private Boss2SkillPatternType _currentSkillPatternType = Boss2SkillPatternType.None;
-    private Animator _animator;
     private Rigidbody2D _rigidbody2D;
     private Boss2MoveBase _mover;
     private Boss2MovePattern _movePattern;
@@ -68,7 +71,6 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
 
     private void OnEnable()
     {
-        _animator = GetComponent<Animator>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _mover = GetComponent<Boss2MoveBase>();
         _movePattern = GetComponent<Boss2MovePattern>();
@@ -290,7 +292,7 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
     {
         BeginSkill();
         _animator.CrossFade(_aoeStateName, 0.05f, 0, 0f);
-
+        Instantiate(_areaOfEffectCircle, transform.position,transform.rotation);
         yield return new WaitForSeconds(GetClipLength(_aoeStateName));
 
         FinishSkill();

@@ -5,20 +5,20 @@ using UnityEngine;
 public class Boss2 : HitableObject
 {
     [Header("보스2 스탯")]
-    [SerializeField] private float _health = 100f;
+    [SerializeField] private int _health = 100;
+    [SerializeField] private int _maxHealth;
 
     private Animator _animator;
 
     // 체력 비율 계산용. 시작 시 체력을 최대 체력으로 본다.
-    private float _maxHealth;
     private bool _isInvincible = false;
 
-    public float Health => _health;
-    public float HealthRatio => _maxHealth > 0f ? Mathf.Clamp01(_health / _maxHealth) : 0f;
-    public bool IsDead => _health <= 0f;
+    public int Health => _health;
+    public float HealthRatio => _maxHealth > 0f ? Mathf.Clamp01((float)_health / (float)_maxHealth) : 0f;
+    public bool IsDead => _health <= 0;
 
     // 실제로 깎인 데미지 값으로 알린다. (컨트롤러가 큰 데미지 판별·체력 선 검사에 쓴다)
-    public event System.Action<float> Damaged;
+    public event System.Action<int> Damaged;
 
     private void Awake()
     {
@@ -48,6 +48,8 @@ public void TakeDamage(int damage)
             {
                 //Death();
                 _animator.SetTrigger("Death");
+                // 체력 바를 위해서
+                _health = 0;
             }
         }
         else
@@ -65,9 +67,9 @@ public void TakeDamage(int damage)
         Destroy(gameObject);
     }
 
-    protected override void HitEvent(float damage)
+    protected override void HitEvent(int damage)
     {
         if (_isInvincible == true) return;
-        TakeDamage((int)damage);
+        TakeDamage(damage);
     }
 }

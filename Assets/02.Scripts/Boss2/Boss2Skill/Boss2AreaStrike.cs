@@ -1,19 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 /// <summary>
 /// 광역기가 맵에 뿌리는 공격 더미.
-///   1. 인디케이터 원이 판정 반경까지 커진다 (예고)
-///   2. 다 차면 원을 끄고 폭발 애니메이션(3종 중 하나)을 재생한다
+///   1. 테두리(Border)는 처음부터 보이고, 마스크가 커지며 안쪽(Fill)을 가운데부터 드러낸다 (예고)
+///   2. 다 드러나면 인디케이터를 끄고 폭발 애니메이션(3종 중 하나)을 재생한다
 ///   3. 클립의 Strike 이벤트에서 판정을 켜고, Finish 이벤트에서 사라진다
-/// 판정·인디케이터·폭발 크기는 모두 _radius 하나에 맞춰진다.
+/// 판정·폭발 크기는 _radius 에 맞춰지고, 인디케이터(Fill · Border)는 프리팹에서 조절한 크기를 그대로 쓴다.
 /// Animator · SpriteRenderer · CircleCollider2D 는 이 스크립트와 같은 오브젝트에 있어야
 /// 애니메이션 이벤트와 트리거 메시지를 받을 수 있다.
 /// </summary>
 public class Boss2AreaStrike : MonoBehaviour
 {
-    [Tooltip("판정 반경 (월드 단위). 콜라이더·인디케이터·폭발 크기가 모두 이 값에 맞춰진다")]
+    [Tooltip("판정 반경 (월드 단위). 콜라이더·폭발 크기가 이 값에 맞춰진다 (인디케이터는 프리팹 크기)")]
     [SerializeField] private float _radius = 1f;
 
     [Tooltip("더미 하나의 데미지. Player.TakeDamage 가 아직 데미지 값을 받지 않아 지금은 보관만 한다")]
@@ -22,9 +23,15 @@ public class Boss2AreaStrike : MonoBehaviour
     [Tooltip("폭발이 시작된 뒤 Finish 이벤트가 누락돼도 이 시간이 지나면 파괴한다")]
     [SerializeField] private float _maxLifeTime = 3f;
 
+    [FormerlySerializedAs("_indicator")]
     [Header("인디케이터")]
-    [Tooltip("자식 CircleSkillIndicator. 태그로 찾으면 다른 더미의 원을 잡으므로 직접 연결한다")]
-    [SerializeField] private Transform _indicator;
+    [Tooltip("커지면서 Fill 을 드러내는 마스크. 0 → 프리팹에서 정한 Fill 크기까지 커진다")]
+    [SerializeField] private SpriteMask _indicatorMask;
+    [Tooltip("겉 테두리. 프리팹에서 정한 크기 그대로 처음부터 보인다")]
+    [SerializeField] private SpriteRenderer _indicatorBorder;
+    [Tooltip("안쪽 채움. 프리팹에서 정한 크기가 최대 크기. Mask Interaction = Visible Inside Mask")]
+    [SerializeField] private SpriteRenderer _indicatorFill;
+
     [SerializeField] private float _indicatorPlayTime = 1f;
 
     [Header("폭발")]
@@ -51,8 +58,11 @@ public class Boss2AreaStrike : MonoBehaviour
 
     private void Awake()
     {
+        // 루트 스케일을 바꾸기 전에, 프리팹에서 정한 인디케이터의 월드 크기를 기억해 둔다.
+        float prefabRootScale = transform.localScale.x;
+
         // 폭발의 보이는 지름이 판정 지름(_radius * 2)과 같아지도록 루트 스케일을 정한다.
-        // 아래 콜라이더·인디케이터는 이 스케일을 나눠 계산하므로 그대로 월드 반경 _radius 를 유지한다.
+        // 아래 콜라이더는 이 스케일을 나눠 계산하므로 그대로 월드 반경 _radius 를 유지한다.
         float scale = _radius * 2f / Mathf.Max(_explosionVisualDiameter, 0.0001f);
         transform.localScale = new Vector3(scale, scale, 1f);
 
@@ -63,8 +73,16 @@ public class Boss2AreaStrike : MonoBehaviour
         // 콜라이더 반경은 로컬 단위라서 스케일을 나눠 월드 반경 _radius 에 맞춘다.
         _collider2D.radius = _radius / Mathf.Max(transform.lossyScale.x, 0.0001f);
 
-        _indicatorEndScale = GetIndicatorScaleForRadius();
-        _indicator.localScale = Vector3.zero;
+        // Fill · Border 는 프리팹에서 조절한 크기를 그대로 쓴다.
+        // 루트 스케일이 바뀐 만큼 자식 스케일을 되돌려, 화면에 보이는 크기가 프리팹과 같게 유지한다.
+        float keepRatio = prefabRootScale / Mathf.Max(scale, 0.0001f);
+        _indicatorFill.transform.localScale *= keepRatio;
+        _indicatorBorder.transform.localScale *= keepRatio;
+
+        // 마스크는 0 에서 시작해, 다 커졌을 때 Fill 의 보이는 부분을 정확히 덮는 크기까지 커진다.
+        float fillWorldDiameter = GetVisibleDiameter(_indicatorFill.sprite) * _indicatorFill.transform.lossyScale.x;
+        _indicatorEndScale = GetScaleForDiameter(GetVisibleDiameter(_indicatorMask.sprite), fillWorldDiameter);
+        _indicatorMask.transform.localScale = Vector3.zero;
     }
 
     private void Update()
@@ -76,7 +94,7 @@ public class Boss2AreaStrike : MonoBehaviour
         float progress = _elapsedTime / _indicatorPlayTime;
 
         float size = Mathf.Lerp(0f, _indicatorEndScale, progress);
-        _indicator.localScale = new Vector3(size, size, 1f);
+        _indicatorMask.transform.localScale = new Vector3(size, size, 1f);
 
         if (progress >= 1f)
         {
@@ -84,25 +102,41 @@ public class Boss2AreaStrike : MonoBehaviour
         }
     }
 
-    // 원이 다 차면 원을 끄고 폭발을 시작한다. 파괴 예약도 이때부터 센다.
+    // Fill 이 다 드러나면 인디케이터를 모두 끄고 폭발을 시작한다. 파괴 예약도 이때부터 센다.
     private void StartStrike()
     {
         _isIndicatorFinished = true;
-        _indicator.gameObject.SetActive(false);
+        _indicatorMask.gameObject.SetActive(false);
+        _indicatorFill.gameObject.SetActive(false);
+        _indicatorBorder.gameObject.SetActive(false);
 
         _animator.SetInteger(RandomStartParameter, Random.Range(_strikeVariantMin, _strikeVariantMax + 1));
         Destroy(gameObject, _maxLifeTime);
     }
 
-    // 원 스프라이트의 월드 지름이 _radius * 2 가 되는 로컬 스케일
-    private float GetIndicatorScaleForRadius()
+    // 스케일 1 에서 localDiameter(유닛)인 것이 월드 지름 worldDiameter 가 되는 로컬 스케일. 루트 스케일을 나눠 준다.
+    private float GetScaleForDiameter(float localDiameter, float worldDiameter)
     {
-        SpriteRenderer indicatorRenderer = _indicator.GetComponent<SpriteRenderer>();
-        float spriteDiameter = indicatorRenderer != null && indicatorRenderer.sprite != null
-            ? indicatorRenderer.sprite.bounds.size.x
-            : 1f;
+        return worldDiameter / (Mathf.Max(transform.lossyScale.x, 0.0001f) * Mathf.Max(localDiameter, 0.0001f));
+    }
 
-        return _radius * 2f / (Mathf.Max(transform.lossyScale.x, 0.0001f) * spriteDiameter);
+    // 스프라이트에서 실제로 보이는 부분의 지름(유닛). 메시(Tight) 정점 범위를 쓰므로 투명 여백은 빠진다.
+    // 기본 Circle 은 1, T_Orb_Fill 은 텍스처 폭의 약 65%.
+    private static float GetVisibleDiameter(Sprite sprite)
+    {
+        if (sprite == null)
+            return 1f;
+
+        Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
+        Vector2 max = new Vector2(float.MinValue, float.MinValue);
+        foreach (Vector2 vertex in sprite.vertices)
+        {
+            min = Vector2.Min(min, vertex);
+            max = Vector2.Max(max, vertex);
+        }
+
+        Vector2 size = max - min;
+        return Mathf.Max(size.x, size.y);
     }
 
     // 애니메이션 이벤트: 폭발이 맞는 프레임

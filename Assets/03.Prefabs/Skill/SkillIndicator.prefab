@@ -94,7 +94,7 @@ SpriteRenderer:
   m_SortingLayer: 9
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 2085010320840909670, guid: c8cb7d0fb6d81fb4e9c483615b5466ab, type: 3}
+  m_Sprite: {fileID: -6416047251982574987, guid: 2ad3ad8c42e3351438d317256bc16132, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -142,7 +142,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.9975, y: 0.73660946}
+    oldSize: {x: 2.8146667, y: 0.937791}
     newSize: {x: 9.19, y: 11.2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a4871e1296a0dd488d8737651cbdbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectFocus
-  _selectedRadius: 0.1
+  _selectedRadius: 0.15
   _focusMaterial: {fileID: 2100000, guid: b8e41d3a051dc7e47bf1fb51f86067d4, type: 2}
   _targetCamera: {fileID: 0}
 --- !u!114 &5617303657827461575
@@ -243,11 +243,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillIndicatorAttack
   _hitEffect: {fileID: 3042519775331041172, guid: 4b2d9444942d8c946b3af845992c265d, type: 3}
-  _attackDuration: 0.1
+  _attackDuration: 0.5
   _attackDamage: 10
   _attackCurve: 0.4
   _returnCurve: 0.4
-  _returnDuration: 0.1
+  _returnDuration: 0.5
   _idleMinAngle: 70
   _idleMaxAngle: 110
   _idleMinDuration: 0.8

@@ -4907,6 +4907,7 @@ GameObject:
   - component: {fileID: 7408070339463963709}
   - component: {fileID: 377707165472685146}
   - component: {fileID: 8147334610292704309}
+  - component: {fileID: -6571333469869606502}
   m_Layer: 0
   m_Name: StackPetHitVFX
   m_TagString: Untagged
@@ -9869,6 +9870,19 @@ MonoBehaviour:
     DissipationDistance: 100
     PropagationSpeed: 343
   DefaultVelocity: {x: 0, y: -0.01, z: 0}
+--- !u!114 &-6571333469869606502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3042519775331041172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c515e1a16e77e4db8add014aab844d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectRandomSpawnSet
+  _randomRadius: 0.3
 --- !u!1 &3929562162717368386
 GameObject:
   m_ObjectHideFlags: 0

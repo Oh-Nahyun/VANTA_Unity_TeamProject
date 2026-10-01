@@ -41,12 +41,10 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
         _spitHitBox.DisableHitBox();
         _boss1Movement.LockFacing();
         _currentState = SpitState.Positioning;
-        Debug.Log("침뱉기 공격 시작");
     }
 
     public void UpdateAttack()
     {
-        Debug.Log("침뱉기 공격 UpdateAttack");
         if (IsFinished)
         {
             return;
@@ -74,13 +72,10 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
         _spitHitBox.DisableHitBox();
         _boss1Movement.UnlockFacing();
         _boss1Movement.StopMove();   
-        
-        Debug.Log("침뱉기 공격 종료");
     }
 
     private void UpdatePositioning()
     {
-        Debug.Log("침뱉기 공격 UpdatePositioning");
         float xDifference = _playerTransform.position.x - transform.position.x;
         float yDifference = _playerTransform.position.y - transform.position.y;
         
@@ -108,7 +103,6 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
 
     private void UpdateTelegraph()
     {
-        Debug.Log("침뱉기 공격 UpdateTelegraph");
         _boss1Movement.StopMove();
         _timer += Time.deltaTime;
 
@@ -122,7 +116,6 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
 
     private void UpdateSpitAttack()
     {
-        Debug.Log("침뱉기 공격 UpdateSpitAttack");
         _boss1Movement.StopMove();
     }
 

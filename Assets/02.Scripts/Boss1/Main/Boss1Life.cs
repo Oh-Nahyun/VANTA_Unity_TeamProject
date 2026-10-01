@@ -12,8 +12,8 @@ public class Boss1Life : HitableObject
     private bool _isPhase2Triggered; // 2페이즈 시작하라고 전했는지
     private bool _isDead = false;
 
-    public event Action OnPhase2Triggered; // 페이즈2 전환 이벤트 
-    public event Action OnDeath; //보스1 죽음 이벤트
+    public event Action OnPhase2Triggered; // 페이즈2 전환하라고 알림 
+    public event Action OnDeath; //보스1 죽었따고 알림
     
     private void Awake()
     {   
@@ -32,8 +32,6 @@ public class Boss1Life : HitableObject
             return;
         }
         _currentHealth = Mathf.Max(_currentHealth - damage, 0);
-
-        Debug.Log($"보스 HP : {_currentHealth} / {_maxHealth}");
 
         if (_currentHealth <= 0f)
         {
@@ -56,7 +54,6 @@ public class Boss1Life : HitableObject
         }
         
         _isDead = true;
-        Debug.Log("보스1 사망");
         OnDeath?.Invoke();
     }
 }

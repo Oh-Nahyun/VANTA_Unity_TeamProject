@@ -94,8 +94,6 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
     public void ExitAttack()
     {
         _boss1Movement.StartNormalChase();
-        
-        Debug.Log("Boss1 근거리 패턴 종료");
     }
 
     public void SetPhase2(bool isPhase2)

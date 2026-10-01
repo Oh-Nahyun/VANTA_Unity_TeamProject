@@ -13,7 +13,7 @@ public class Boss1PhaseController : MonoBehaviour
 
     public Boss1Phase CurrentPhase {get; private set;}
 
-    public event Action<Boss1Phase> OnPhaseChanged;
+    public event Action<Boss1Phase> OnPhaseChanged; // 페이즈 바꾸라고 알림
 
     private void Awake()
     {
@@ -33,6 +33,6 @@ public class Boss1PhaseController : MonoBehaviour
     private void EnterPhase2()
     {
         CurrentPhase = Boss1Phase.phase2;
-        OnPhaseChanged
+        OnPhaseChanged?.Invoke(CurrentPhase);
     }
 }

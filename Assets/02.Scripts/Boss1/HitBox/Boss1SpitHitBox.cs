@@ -30,8 +30,6 @@ public class Boss1SpitHitBox : MonoBehaviour
                 return;
             }
             player.TakeDamage();
-            
-            Debug.Log("플레이어 피격");
         }
     }
 }

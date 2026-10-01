@@ -42,12 +42,10 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
         _clawHitBox.DisableHitBox();
         _boss1Movement.LockFacing();
         _currentState = ClawState.Positioning;
-        Debug.Log("발톱 공격 시작");
     }
 
     public void UpdateAttack()
     {
-        Debug.Log("발톱 공격 UpdateAttack");
         if (IsFinished)
         {
             return;
@@ -75,13 +73,10 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
         _clawHitBox.DisableHitBox();
         _boss1Movement.UnlockFacing();
         _boss1Movement.StopMove();   
-        
-        Debug.Log("발톱 공격 종료");
     }
 
     private void UpdatePositioning()
     {
-        Debug.Log("발톱 공격 UpdatePositioning");
         float xDifference = _playerTransform.position.x - transform.position.x;
         float yDifference = _playerTransform.position.y - transform.position.y;
         
@@ -116,7 +111,6 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
 
     private void UpdateTelegraph()
     {
-        Debug.Log("발톱 공격 UpdateTelegraph");
         _boss1Movement.StopMove();
         _timer += Time.deltaTime;
 
@@ -130,7 +124,6 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
 
     private void UpdateClawAttack()
     {
-        Debug.Log("발톱 공격 UpdateClawAttack");
         _boss1Movement.StopMove();
     }
 

@@ -29,7 +29,6 @@ public class Boss1Bullet : MonoBehaviour
                 return;
             }
             player.TakeDamage();
-            Debug.Log("플레이어가 총알에 맞음");
             Destroy(gameObject);
         }
     }

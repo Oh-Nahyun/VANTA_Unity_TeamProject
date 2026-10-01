@@ -49,7 +49,5 @@ public class Boss1Laser : MonoBehaviour
         }
         
         player.TakeDamage();
-        
-        Debug.Log("플레이어 레이저 피격");
     }
 }

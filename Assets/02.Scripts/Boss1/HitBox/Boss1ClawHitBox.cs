@@ -31,8 +31,6 @@ public class Boss1ClawHitBox : MonoBehaviour
                 return;
             }
             player.TakeDamage();
-            
-            Debug.Log("플레이어 피격");
         }
     }
 }

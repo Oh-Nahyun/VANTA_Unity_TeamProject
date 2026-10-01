@@ -82,8 +82,6 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
         _boss1Movement.StartControlled();
         _currentAttack = SelectAttack();
         _currentAttack.EnterAttack();
-
-        Debug.Log("Boss1 근거리 패턴 시작");
     }
 
     public void UpdateAttack() //현재 프레임의 근거리 패턴 전체 관리

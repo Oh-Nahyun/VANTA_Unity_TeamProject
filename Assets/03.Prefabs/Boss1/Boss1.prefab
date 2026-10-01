@@ -1473,10 +1473,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5486056013902944760}
-  - component: {fileID: 1053428467882602870}
   - component: {fileID: 7460039032348508072}
   - component: {fileID: 8031792694458176255}
+  - component: {fileID: 1053428467882602870}
   - component: {fileID: 7103835189215790258}
+  - component: {fileID: 6958992141590794150}
   - component: {fileID: 6794591844122319444}
   - component: {fileID: 2582459974778337398}
   - component: {fileID: 2627111689535811849}
@@ -1510,19 +1511,6 @@ Transform:
   - {fileID: 1013210717024349699}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1053428467882602870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8279119010861365979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f8a5219359263a489d250db1b9bca3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BossLife
-  _maxHealth: 3000
 --- !u!50 &7460039032348508072
 Rigidbody2D:
   serializedVersion: 5
@@ -1596,6 +1584,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.9652905, y: 1.3166656}
   m_EdgeRadius: 0
+--- !u!114 &1053428467882602870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8279119010861365979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f8a5219359263a489d250db1b9bca3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossLife
+  _maxHealth: 3000
+  _phase2HealthPercent: 0.4
 --- !u!114 &7103835189215790258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1615,6 +1617,19 @@ MonoBehaviour:
   _animator: {fileID: 192520389527177166}
   _visualPivot: {fileID: 9210076179707630864}
   _horizontalFlip: 0.42
+--- !u!114 &6958992141590794150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8279119010861365979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76683ebffdfbb1e45ba9b4305dc125ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss1PhaseController
+  _boss1Life: {fileID: 1053428467882602870}
 --- !u!114 &6794591844122319444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1662,6 +1677,7 @@ MonoBehaviour:
     _cycleInterval: 1
     _maxConcurrentAttacks: 2
     _cycleCount: 3
+  _boss1PhaseController: {fileID: 6958992141590794150}
 --- !u!114 &2627111689535811849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1733,8 +1749,9 @@ MonoBehaviour:
     _weight: 10
   _boss1Movement: {fileID: 7103835189215790258}
   _playerTransform: {fileID: 0}
-  _spitPrefferedDistance: 4
-  _prefferedWeightMultiplier: 2
+  _spitPreferredDistance: 4
+  _preferredWeightMultiplier: 2
+  _boss1PhaseController: {fileID: 6958992141590794150}
 --- !u!114 &3060184153963347236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1791,6 +1808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1Life
   _maxHealth: 2000
+  _phase2HealthPercent: 0.4
 --- !u!1 &8715783226715852835
 GameObject:
   m_ObjectHideFlags: 0

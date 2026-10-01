@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a4871e1296a0dd488d8737651cbdbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectFocus
-  _selectedRadius: 0.1
+  _selectedRadius: 0.15
   _focusMaterial: {fileID: 2100000, guid: b8e41d3a051dc7e47bf1fb51f86067d4, type: 2}
   _targetCamera: {fileID: 0}
 --- !u!114 &5617303657827461575

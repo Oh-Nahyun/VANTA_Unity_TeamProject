@@ -27,7 +27,7 @@ public class Boss2AttackBase : MonoBehaviour
     [SerializeField] private int _instantKillDamage = 3;
 
     [SerializeField] private BoxCollider2D _attackBoxCollider;
-    private Animator _animator;
+    protected Animator _animator;
     // 공격 박스 판정 한 번(StartDamage ~ EndDamage)에서 이미 맞은 대상
     private readonly HashSet<GameObject> _hitTargetsThisSwing = new HashSet<GameObject>();
 

@@ -32,7 +32,7 @@ public class Boss2Controller : MonoBehaviour
 
     [Header("즉사기: 플레이어 스킬을 맞을수록 확률 상승")]
     [Tooltip("이 값 이상의 데미지를 플레이어 스킬로 본다")]
-    [SerializeField] private float _skillHitThreshold = 100f;
+    [SerializeField] private int _skillHitThreshold = 100;
     [SerializeField] private float _instantKillWeightPerHit = 1f;
     [Tooltip("현재 누적 가중치 (플레이 중 확인용)")]
     [SerializeField] private float _instantKillWeight = 0f;
@@ -417,7 +417,7 @@ public class Boss2Controller : MonoBehaviour
     }
 
     // ---- 피격 ----
-    private void OnBossDamaged(float damage)
+    private void OnBossDamaged(int damage)
     {
         if (damage >= _skillHitThreshold)
         {

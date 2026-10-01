@@ -31,7 +31,7 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
     [Header("보스 이동 기능")]
     [SerializeField] private Boss1Movement _boss1Movement;
 
-    [SerializeField] private Transform _playerTransform;
+    private Transform _playerTransform;
 
     [Header("근거리 공격 선택")]
     [SerializeField] private float _spitPreferredDistance = 4f;
@@ -51,6 +51,11 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
     public bool CanUse()
     {
         return true;
+    }
+    
+    private void Start()
+    {
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void OnEnable()

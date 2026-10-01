@@ -3,7 +3,7 @@ using UnityEngine;
 public class Boss1AimedBulletAttack : MonoBehaviour, IBoss1RangedAttack
 {
     [SerializeField] private Transform _aimedHeadPivot;
-    [SerializeField] private Transform _playerTransform;
+    private Transform _playerTransform;
     [SerializeField] private Boss1Bullet _bulletPrefab;
     
     [SerializeField] private float _aimedFireInteval = 0.5f;
@@ -19,6 +19,11 @@ public class Boss1AimedBulletAttack : MonoBehaviour, IBoss1RangedAttack
     private void Awake()
     {
         _projectileManager = GetComponent<Boss1ProjectileManager>();
+    }
+    
+    private void Start()
+    {
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
     
     public void EnterAttack()

@@ -3,7 +3,7 @@ using UnityEngine;
 public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
 {
     [SerializeField] private Boss1Movement _boss1Movement;
-    [SerializeField] private Transform _playerTransform;
+    private Transform _playerTransform;
 
     [Header("공격전 빠르게 위치 조정")]
     [SerializeField] private float _moveSpeed = 7f; // 침뱉기 공격전 y축 맞춰야해서 빠르게 설정
@@ -35,6 +35,11 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
     }
     
     public bool IsFinished { get; private set; }
+    
+    private void Start()
+    {
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     public void EnterAttack()
     {

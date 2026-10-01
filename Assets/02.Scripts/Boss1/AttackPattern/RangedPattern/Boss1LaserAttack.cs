@@ -4,7 +4,7 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
 {
     [SerializeField] private Boss1Laser _laser;
     [SerializeField] private Transform _laserHeadPivot;
-    [SerializeField] private Transform _playerTransform;
+    private Transform _playerTransform;
 
 
     [SerializeField] private float _aimDuration = 1f;
@@ -26,6 +26,11 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         Aim,
         Sweep,
         End
+    }
+    
+    private void Start()
+    {
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
     
     public void EnterAttack()

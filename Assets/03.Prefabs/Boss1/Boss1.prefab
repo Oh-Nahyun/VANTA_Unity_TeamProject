@@ -1486,7 +1486,7 @@ GameObject:
   - component: {fileID: 9165167924702793645}
   - component: {fileID: 3060184153963347236}
   - component: {fileID: 3619018780754979877}
-  - component: {fileID: 834915723597119910}
+  - component: {fileID: 2681289112121689932}
   m_Layer: 21
   m_Name: Boss1
   m_TagString: Boss
@@ -1795,7 +1795,7 @@ MonoBehaviour:
   _recoveryDuration: 0.1
   _spitHitBox: {fileID: 2839262255638538226}
   _animator: {fileID: 192520389527177166}
---- !u!114 &834915723597119910
+--- !u!114 &2681289112121689932
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1804,11 +1804,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8279119010861365979}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f8a5219359263a489d250db1b9bca3c, type: 3}
+  m_Script: {fileID: 11500000, guid: 3fa4acc7dcf3c8f41906ed1a05e5fe34, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Boss1Life
-  _maxHealth: 2000
-  _phase2HealthPercent: 0.4
+  m_EditorClassIdentifier: Assembly-CSharp::Boss1ProjectileManager
 --- !u!1 &8715783226715852835
 GameObject:
   m_ObjectHideFlags: 0

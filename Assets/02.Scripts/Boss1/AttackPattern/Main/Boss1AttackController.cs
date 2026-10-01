@@ -156,7 +156,5 @@ public class Boss1AttackController : MonoBehaviour
     {
         _currentState = newState;
         _stateTimer = 0f;
-
-        Debug.Log($"Boss1 Attack State : {_currentState}");
     }
 }

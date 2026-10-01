@@ -541,9 +541,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 27
-        y: 648
+        y: 615
         width: 330
-        height: 100
+        height: 170
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -584,7 +584,7 @@ TextureImporter:
       name: StartButton_Pressed
       rect:
         serializedVersion: 2
-        x: 861
+        x: 857
         y: 604
         width: 455
         height: 170
@@ -607,9 +607,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1332
-        y: 647
+        y: 613
         width: 330
-        height: 100
+        height: 170
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -629,9 +629,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 36
-        y: 405
+        y: 370
         width: 330
-        height: 100
+        height: 170
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -672,7 +672,7 @@ TextureImporter:
       name: SettingsButton_Pressed
       rect:
         serializedVersion: 2
-        x: 861
+        x: 857
         y: 370
         width: 455
         height: 170
@@ -695,9 +695,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1337
-        y: 405
+        y: 370
         width: 330
-        height: 100
+        height: 170
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -717,9 +717,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 36
-        y: 172
+        y: 141
         width: 330
-        height: 100
+        height: 170
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -760,7 +760,7 @@ TextureImporter:
       name: ExitButton_Pressed
       rect:
         serializedVersion: 2
-        x: 861
+        x: 857
         y: 141
         width: 455
         height: 170
@@ -783,9 +783,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1336
-        y: 172
+        y: 141
         width: 330
-        height: 100
+        height: 170
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

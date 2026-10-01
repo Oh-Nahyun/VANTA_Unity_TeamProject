@@ -292,6 +292,7 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
     {
         BeginSkill();
         _animator.CrossFade(_aoeStateName, 0.05f, 0, 0f);
+        
         Instantiate(_areaOfEffectCircle, transform.position,transform.rotation);
         yield return new WaitForSeconds(GetClipLength(_aoeStateName));
 

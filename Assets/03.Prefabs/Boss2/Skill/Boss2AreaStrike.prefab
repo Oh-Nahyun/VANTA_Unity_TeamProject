@@ -77,8 +77,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -999090553
-  m_SortingLayer: 11
+  m_SortingLayerID: 1030911925
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
@@ -168,8 +168,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -999090553
-  m_SortingLayer: 11
+  m_SortingLayerID: 1030911925
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: a74d9a0f71b6bdc4a97b79df5276010e, type: 3}
@@ -239,7 +239,6 @@ MonoBehaviour:
   _indicatorMask: {fileID: 3018049014979997979}
   _indicatorBorder: {fileID: 5007907798844757522}
   _indicatorFill: {fileID: 6139637961697812220}
-  _fillVisibleRatio: 0.655
   _indicatorPlayTime: 1
   _strikeVariantMin: 1
   _strikeVariantMax: 3
@@ -290,7 +289,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1101554189
-  m_SortingLayer: 15
+  m_SortingLayer: 17
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}
@@ -369,8 +368,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6476195663021001551}
   m_Enabled: 1
-  m_SortingLayerID: -999090553
-  m_SortingLayer: 11
+  m_SortingLayerID: 1030911925
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0

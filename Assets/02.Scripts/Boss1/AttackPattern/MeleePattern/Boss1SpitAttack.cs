@@ -1,0 +1,155 @@
+using UnityEngine;
+
+public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
+{
+    [SerializeField] private Boss1Movement _boss1Movement;
+    [SerializeField] private Transform _playerTransform;
+
+    [Header("공격전 빠르게 위치 조정")]
+    [SerializeField] private float _moveSpeed = 7f; // 침뱉기 공격전 y축 맞춰야해서 빠르게 설정
+    [SerializeField] private float _maxAttackDistance = 3f;
+    [SerializeField] private float _yTolerance = 0.5f;
+
+    [Header("공격전 전조 시간")]
+    [SerializeField] private float _telegraphDuration = 0.2f;
+
+    [Header("공격후 후딜레이 시간")]
+    [SerializeField] private float _recoveryDuration = 0.4f;
+    
+    [SerializeField] private Boss1SpitHitBox _spitHitBox;
+
+    [SerializeField] private Animator _animator;
+    
+    private float _timer;
+
+    private SpitState _currentState;
+    
+    private enum SpitState
+    {
+        Positioning,
+        Telegraph,
+        SpitAttack,
+        Recovery
+    }
+    
+    public bool IsFinished { get; private set; }
+
+    public void EnterAttack()
+    {
+        IsFinished = false;
+        _timer = 0f;
+        _spitHitBox.DisableHitBox();
+        _currentState = SpitState.Positioning;
+        Debug.Log("침뱉기 공격 시작");
+    }
+
+    public void UpdateAttack()
+    {
+        Debug.Log("침뱉기 공격 UpdateAttack");
+        if (IsFinished)
+        {
+            return;
+        }
+
+        switch (_currentState)
+        {
+            case SpitState.Positioning:
+                UpdatePositioning();
+                break;
+            case SpitState.Telegraph:
+                UpdateTelegraph();
+                break;
+            case SpitState.SpitAttack:
+                UpdateSpitAttack();
+                break;
+            case SpitState.Recovery:
+                UpdateRecovery();
+                break;
+        }
+    }
+
+    public void ExitAttack()
+    {
+        _spitHitBox.DisableHitBox();
+        _boss1Movement.StopMove();   
+        
+        Debug.Log("침뱉기 공격 종료");
+    }
+
+    private void UpdatePositioning()
+    {
+        Debug.Log("침뱉기 공격 UpdatePositioning");
+        float xDifference = _playerTransform.position.x - transform.position.x;
+        float yDifference = _playerTransform.position.y - transform.position.y;
+        
+        float xDistance = Mathf.Abs(xDifference);
+        float yDistance = Mathf.Abs(yDifference);
+
+        if (xDistance > _maxAttackDistance)
+        {
+            Vector2 direction = new Vector2(xDifference, yDifference);
+            _boss1Movement.MoveInDirection(direction, _moveSpeed);
+            return;
+        }
+        
+        if (yDistance > _yTolerance)
+        {
+            Vector2 direction = new Vector2(0f, Mathf.Sign(yDifference));
+            _boss1Movement.MoveInDirection(direction, _moveSpeed);
+            return;
+        }
+        
+        _boss1Movement.StopMove();
+        _timer = 0f;
+        _currentState = SpitState.Telegraph;
+    }
+
+    private void UpdateTelegraph()
+    {
+        Debug.Log("침뱉기 공격 UpdateTelegraph");
+        _boss1Movement.StopMove();
+        _timer += Time.deltaTime;
+
+        if (_timer >= _telegraphDuration)
+        {
+            _timer = 0f;
+            _animator.SetTrigger("SpitAttack");
+            _currentState = SpitState.SpitAttack;
+        }
+    }
+
+    private void UpdateSpitAttack()
+    {
+        Debug.Log("침뱉기 공격 UpdateSpitAttack");
+        _boss1Movement.StopMove();
+    }
+
+    private void UpdateRecovery()
+    {
+        _timer += Time.deltaTime;
+        
+        if (_timer >= _recoveryDuration)
+        {
+            _timer = 0f;
+            IsFinished = true;
+        }
+    }
+
+    public void EnableSpitHitBox()
+    {
+        _spitHitBox.EnableHitBox();
+    }
+
+    public void DisableSpitHitBox()
+    {
+        _spitHitBox.DisableHitBox();
+    }
+
+    public void EndSpitAttack()
+    {
+        _spitHitBox.DisableHitBox();
+        
+        _timer = 0f;
+        _currentState = SpitState.Recovery;
+    }
+}

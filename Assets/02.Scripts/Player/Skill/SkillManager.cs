@@ -239,6 +239,7 @@ public class SkillManager : MonoBehaviour
     {
         _skillDashPointCalculater
             .AutoSkillIndicatorSelect();
+
     }
 
 

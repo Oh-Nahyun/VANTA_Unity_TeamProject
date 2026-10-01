@@ -159,6 +159,7 @@ public class PlayerAttack : MonoBehaviour
                 hitObject.ExecuteHitEvent(_doubleSlashDamage, DamageIndicatorType.Middle);
                 Instantiate(_doubleSlashEffect, hit.transform.position, Quaternion.identity);
                 _skillIndicatorController.CommandToPetAttack();
+                PlayerPetCaller.Instance.CallPetToFire();
 
                 StackforSkillPoint();
             }

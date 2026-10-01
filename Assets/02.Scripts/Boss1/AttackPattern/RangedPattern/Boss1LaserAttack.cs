@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
@@ -7,9 +8,27 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
     private Transform _playerTransform;
 
 
-    [SerializeField] private float _aimDuration = 1f;
-    [SerializeField] private float _sweepAngle = 60f;
-    [SerializeField] private float _sweepDuration = 1.2f;
+    [Serializable]
+    private class PhaseSettings
+    {
+        [Header("조준 시간")]
+        [SerializeField] private float _aimDuration = 1f;
+        
+        [Header("레이저 휩쓰는 각도")]
+        [SerializeField] private float _sweepAngle = 60f;
+        
+        [Header("레이저 휩쓰는 시간")]
+        [SerializeField] private float _sweepDuration = 1.2f;
+        
+        public float AimDuration => _aimDuration;
+        public float SweepAngle => _sweepAngle;
+        public float SweepDuration => _sweepDuration;
+    }
+    
+    [Header("페이즈별 난이도 세팅")]
+    [SerializeField] private PhaseSettings _phase1Settings;
+    [SerializeField] private PhaseSettings _phase2Settings;
+    private Boss1PhaseController _boss1PhaseController;
 
     private float _targetAngle;
     
@@ -19,6 +38,8 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
     private Vector2 _lockedDirection;
     private float _lockedAngle;
     
+    private bool _isPhase2;
+    
     public bool IsFinished { get; private set; }
 
     private enum LaserState
@@ -26,6 +47,28 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         Aim,
         Sweep,
         End
+    }
+    
+    private PhaseSettings CurrentPhaseSettings => _isPhase2 ? _phase2Settings : _phase1Settings;
+    
+    private void Awake()
+    {
+        _boss1PhaseController = GetComponent<Boss1PhaseController>();
+    }
+    
+    private void OnEnable()
+    {
+        _boss1PhaseController.OnPhaseChanged += ChangePhase;
+    }
+    
+    private void OnDisable()
+    {
+        _boss1PhaseController.OnPhaseChanged -= ChangePhase;
+    }
+
+    private void ChangePhase(Boss1PhaseController.Boss1Phase phase)
+    {
+        _isPhase2 = phase == Boss1PhaseController.Boss1Phase.phase2;
     }
     
     private void Start()
@@ -73,7 +116,7 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         
         _laser.ShowAim(_lockedDirection);
 
-        if (_timer < _aimDuration)
+        if (_timer < CurrentPhaseSettings.AimDuration)
         {
             return;
         }
@@ -87,7 +130,7 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
     {
         _timer += Time.deltaTime;
 
-        float timePercent = Mathf.Clamp01(_timer / _sweepDuration);
+        float timePercent = Mathf.Clamp01(_timer / CurrentPhaseSettings.SweepDuration);
         
         float currentAngle = Mathf.Lerp(_lockedAngle, _targetAngle, timePercent);
         
@@ -95,7 +138,7 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         
         _laser.Fire(direction);
         
-        if (_timer < _sweepDuration)
+        if (_timer < CurrentPhaseSettings.SweepDuration)
         {
             return;
         }
@@ -123,6 +166,6 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         float angleDifference = Mathf.DeltaAngle(_lockedAngle, playerAngle);
         
         float sweepDirection = angleDifference >= 0f ? 1f : -1f;
-        _targetAngle = _lockedAngle + (_sweepAngle * sweepDirection);
+        _targetAngle = _lockedAngle + (CurrentPhaseSettings.SweepAngle * sweepDirection);
     }
 }

@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
 
-public class Boss1Life : MonoBehaviour
+public class Boss1Life : HitableObject
 {
-    [SerializeField] private int _maxHealth= 10000;
+    [SerializeField] private float _maxHealth= 10000f;
     
-    private int _currentHealth;
+    private float _currentHealth;
     private bool _isDead = false;
     public event Action OnDeath;
     
@@ -14,13 +14,21 @@ public class Boss1Life : MonoBehaviour
         _currentHealth = _maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    protected override void HitEvent(float damage)
     {
-        if (_isDead) return;
+        TakeDamage(damage);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (_isDead)
+        {
+            return;
+        }
         _currentHealth = Mathf.Max(_currentHealth - damage, 0);
         Debug.Log($"보스 HP : {_currentHealth} / {_maxHealth}");
 
-        if (_currentHealth <= 0)
+        if (_currentHealth <= 0f)
         {
             Die();
         }
@@ -28,6 +36,11 @@ public class Boss1Life : MonoBehaviour
 
     private void Die()
     {
+        if (_isDead)
+        {
+            return;
+        }
+        
         _isDead = true;
         Debug.Log("보스1 사망");
         OnDeath?.Invoke();

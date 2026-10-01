@@ -21,6 +21,8 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
 
     private bool _isMoveBlocked = false; // IBossMovable 관련, true면 이동 속박됨, false면 이동 제약 없음
 
+    private bool _isFacingLocked = false; //근거리 패턴 애니메이션 실행 중에 보스 좌우대칭 못하게
+
     private enum MoveMode
     {
         NormalChase,
@@ -156,5 +158,15 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
     public void StopMove() //외부용, 근거리 패턴용도, Stop()이랑 헷갈리면 안됨!
     {
         _rigidBody.linearVelocity = Vector2.zero;
+    }
+
+    public void LockFacing()
+    {
+        _isFacingLocked = true;
+    }
+
+    public void UnlockFacing()
+    {
+        isFacingLocked = false;
     }
 }

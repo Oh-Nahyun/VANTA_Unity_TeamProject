@@ -127,7 +127,6 @@ public class EnergyBullet : MonoBehaviour
 
     private void Hit()
     {
-        Debug.Log("hit");
         HitableObject hitTarget = AttackTarget.GetComponent<HitableObject>();
         hitTarget.ExecuteHitEvent(_damage, DamageIndicatorType.Normal);
     }

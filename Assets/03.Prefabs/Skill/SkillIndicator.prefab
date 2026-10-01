@@ -148,7 +148,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 5, y: 5}
+  m_Size: {x: 20, y: 20}
   m_EdgeRadius: 0
 --- !u!114 &6201331024561835750
 MonoBehaviour:
@@ -318,6 +318,7 @@ GameObject:
   - component: {fileID: 3183140108765093965}
   - component: {fileID: 4159979029110527383}
   - component: {fileID: 8717920842831866489}
+  - component: {fileID: 280940831709919703}
   m_Layer: 13
   m_Name: SelectTarget
   m_TagString: SkillIndicator
@@ -335,7 +336,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8657616542421634273}
@@ -427,6 +428,19 @@ MonoBehaviour:
   _duration: 0.15
   _squashAmount: 0.7
   _stretchAmount: 1.2
+--- !u!114 &280940831709919703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6061428591135354004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df24c6aec89330b43b973c4dd6f8c706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundGenerator
+  _sound: {fileID: 8300000, guid: 61123dbf761fcba4aa71d7cae6ebc569, type: 3}
 --- !u!1 &7758507427448598734
 GameObject:
   m_ObjectHideFlags: 0

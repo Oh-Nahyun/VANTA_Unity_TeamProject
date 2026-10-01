@@ -167,6 +167,6 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
 
     public void UnlockFacing()
     {
-        isFacingLocked = false;
+        _isFacingLocked = false;
     }
 }

@@ -9892,7 +9892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillDashScreenController
   _player: {fileID: 651033612902867162}
   _targetCamera: {fileID: 0}
-  _dashWidth: 0.08
+  _dashWidth: 0.1
   _focusInDuration: 0.3
   _focusOutDuration: 0.5
 --- !u!114 &6580554956825290881
@@ -9945,7 +9945,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillAttack
   _dashTimeSlow: 0.05
   _dashDuration: 0.05
-  _dashZoomAmount: 1.2
+  _dashZoomAmount: 0.8
   _dashWaitTime: 0.5
   _dashEase: 6
   _enemyLayer:

@@ -43,6 +43,9 @@ public class SkillFocusScreenController : MonoBehaviour
             CenterID,
             Vector4.zero
         );
+        
+        Shader.SetGlobalFloat("_HiddenActive", 0f);
+
     }
 
     private void LateUpdate()
@@ -79,7 +82,9 @@ public class SkillFocusScreenController : MonoBehaviour
         _isSkillActive = true;
 
         UpdateFocusPosition();
-
+        
+        Shader.SetGlobalFloat("_HiddenActive", 1f);
+        
         _radiusTween?.Kill();
 
         _radiusTween = DOTween.To(
@@ -107,7 +112,7 @@ public class SkillFocusScreenController : MonoBehaviour
     public void EndFocusScreenSetting()
     {
         _isSkillActive = false;
-
+        Shader.SetGlobalFloat("_HiddenActive", 0f);
         _radiusTween?.Kill();
 
         _radiusTween = DOTween.To(
@@ -142,5 +147,8 @@ public class SkillFocusScreenController : MonoBehaviour
             CenterID,
             Vector4.zero
         );
+        
+        Shader.SetGlobalFloat("_HiddenActive", 0f);
+
     }
 }

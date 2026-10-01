@@ -7,4 +7,10 @@ public class SoundGenerator : MonoBehaviour
     {
         SoundManager.Instance.PlayEffectSound(_sound);
     }
+
+    public void ActivateSound()
+    {
+        SoundManager.Instance.PlayEffectSound(_sound);
+
+    }
 }

@@ -116,7 +116,7 @@ public class SkillAttack : MonoBehaviour
         AppendSingleDash(
             targetPosition,
             null,
-            false
+            true
         );
 
         CompleteDashSequence(onComplete);

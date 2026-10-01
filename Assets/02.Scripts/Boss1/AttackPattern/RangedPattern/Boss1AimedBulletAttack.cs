@@ -19,8 +19,6 @@ public class Boss1AimedBulletAttack : MonoBehaviour, IBoss1RangedAttack
         _timer = 0f;
         _currentFireCount = 0;
         IsFinished = false;
-
-        Debug.Log("AimedBulletAttack 패턴 시작");
     }
 
     public void UpdateAttack()
@@ -47,7 +45,7 @@ public class Boss1AimedBulletAttack : MonoBehaviour, IBoss1RangedAttack
 
     public void ExitAttack()
     {
-        Debug.Log("AimedBulletAttack 패턴 종료");
+        
     }
 
     private void FireAimedBullet()

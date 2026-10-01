@@ -1,36 +1,38 @@
-using System;
 using DG.Tweening;
-
-
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+
 public class WeaknessEdgeLineControl : MonoBehaviour
-{    
-    
+{
     [SerializeField] private FullScreenPassRendererFeature _rayFullScreenFeature;
 
     [Header("Ray Fade")]
     [SerializeField] private float _rayMaxOpacity = 1f;
     [SerializeField] private float _rayFadeInDuration = 0.4f;
     [SerializeField] private float _rayFadeOutDuration = 0.3f;
-    
-   
-    private Material _originalRayMaterial;
 
+    [Header("Ray Density")]
+    [SerializeField] private float _rayStartDensity = 30f;
+    [SerializeField] private float _rayTargetDensity = 0.7f;
+    [SerializeField] private float _rayDensityDuration = 0.4f;
+
+    private Material _originalRayMaterial;
     private Material _runtimeRayMaterial;
-    
+
     private static readonly int RayOpacityID =
         Shader.PropertyToID("_EdgeOpacity");
-    
-    private Tween _rayFadeTween;
 
+    private static readonly int RayDensityID =
+        Shader.PropertyToID("_RayDensity");
+
+    private Tween _rayFadeTween;
+    private Tween _rayDensityTween;
 
     private void Awake()
     {
         InitializeMaterials();
     }
 
-    
     private void InitializeMaterials()
     {
         if (_rayFullScreenFeature != null &&
@@ -52,6 +54,11 @@ public class WeaknessEdgeLineControl : MonoBehaviour
                 RayOpacityID,
                 0f
             );
+
+            _runtimeRayMaterial.SetFloat(
+                RayDensityID,
+                _rayStartDensity
+            );
         }
         else
         {
@@ -60,16 +67,23 @@ public class WeaknessEdgeLineControl : MonoBehaviour
             );
         }
     }
+
     public void FadeInRay()
     {
         if (_runtimeRayMaterial == null)
             return;
 
         _rayFadeTween?.Kill();
+        _rayDensityTween?.Kill();
 
         _runtimeRayMaterial.SetFloat(
             RayOpacityID,
             0f
+        );
+
+        _runtimeRayMaterial.SetFloat(
+            RayDensityID,
+            _rayStartDensity
         );
 
         _rayFadeTween =
@@ -81,8 +95,18 @@ public class WeaknessEdgeLineControl : MonoBehaviour
                 )
                 .SetEase(Ease.OutCubic)
                 .SetUpdate(true);
+
+        _rayDensityTween =
+            _runtimeRayMaterial
+                .DOFloat(
+                    _rayTargetDensity,
+                    RayDensityID,
+                    _rayDensityDuration
+                )
+                .SetEase(Ease.OutCubic)
+                .SetUpdate(true);
     }
-    
+
     public void FadeOutRay()
     {
         if (_runtimeRayMaterial == null)
@@ -100,30 +124,30 @@ public class WeaknessEdgeLineControl : MonoBehaviour
                 .SetEase(Ease.InCubic)
                 .SetUpdate(true);
     }
-    
-    
+
     public void BreakRay()
     {
         _rayFadeTween?.Kill();
+        _rayDensityTween?.Kill();
+
         FadeOutRay();
     }
-    
-    
+
     private void OnDestroy()
     {
         _rayFadeTween?.Kill();
+        _rayDensityTween?.Kill();
+
         if (_rayFullScreenFeature != null &&
             _originalRayMaterial != null)
         {
             _rayFullScreenFeature.passMaterial =
                 _originalRayMaterial;
         }
+
         if (_runtimeRayMaterial != null)
         {
-            Destroy(
-                _runtimeRayMaterial
-            );
-
+            Destroy(_runtimeRayMaterial);
             _runtimeRayMaterial = null;
         }
     }

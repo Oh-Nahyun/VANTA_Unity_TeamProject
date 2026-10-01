@@ -50,6 +50,7 @@ public class SkillManager : MonoBehaviour
     private float _skillTime = 10f;
     
     private Tween _skillSequence;
+    private bool _isSkillUse;
 
     private void Awake()
     {
@@ -103,7 +104,7 @@ public class SkillManager : MonoBehaviour
 
     private void SkillInput()
     {
-        if (Input.GetMouseButtonDown(1) && _skillStack > 0)
+        if (Input.GetMouseButtonDown(1) && _skillStack > 0&&!_isSkillUse)
         {
             SkillUseStart();
         }
@@ -111,7 +112,7 @@ public class SkillManager : MonoBehaviour
     private void SkillUseStart()
     {
         _skillSequence?.Kill();
-
+        _isSkillUse = true;
         _skillUseEffect.SetActive(true);
 
         _skillSequence =
@@ -209,7 +210,8 @@ public class SkillManager : MonoBehaviour
     {
         _skillSequence?.Kill();
         _skillSequence = null;
-        
+        _isSkillUse = false;
+
         _weaknessThreadController
             .EndWeaknessThread();
         

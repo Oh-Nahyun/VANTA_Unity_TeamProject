@@ -57,7 +57,7 @@ public class PetAttack : MonoBehaviour
     public void FireEnergyBullet()
     {
         float middleIndex = (_energyBulletCount - 1) * 0.5f;
-        _energyBulletCount = _pet.PlayerSkillManager.GetSkillStack + 1;
+        _energyBulletCount = _pet.PlayerSkillManager.GetSkillStack;
         _pet.Animator.SetTrigger("IsFire");
 
         for (int i = 0; i < _energyBulletCount; i++)

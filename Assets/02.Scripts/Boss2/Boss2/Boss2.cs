@@ -7,7 +7,7 @@ public class Boss2 : HitableObject
     [Header("보스2 스탯")]
     [SerializeField] private int _health = 100;
     [SerializeField] private int _maxHealth;
-
+    
     private Animator _animator;
 
     // 체력 비율 계산용. 시작 시 체력을 최대 체력으로 본다.

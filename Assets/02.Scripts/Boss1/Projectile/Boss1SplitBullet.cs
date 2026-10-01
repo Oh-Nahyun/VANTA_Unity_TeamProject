@@ -11,6 +11,8 @@ public class Boss1SplitBullet : MonoBehaviour
     
     [SerializeField] private Boss1Bullet _bulletPrefab;
     
+    private Boss1ProjectileManager _projectileManager;
+    
     private Rigidbody2D _rigidBody;
     
     private float _timer;
@@ -46,8 +48,11 @@ public class Boss1SplitBullet : MonoBehaviour
         }
     }
 
-    public void Initialize(Vector2 direction)
+    public void Initialize(Vector2 direction, Boss1ProjectileManager projectileManager)
     {
+        _projectileManager = projectileManager;
+        _projectileManager.RegisterProjectile(gameObject);
+        
         _timer = 0f;
         _currentState = SplitBulletState.Fly;
         _rigidBody.linearVelocity = direction.normalized * _speed;
@@ -86,10 +91,18 @@ public class Boss1SplitBullet : MonoBehaviour
 
             Boss1Bullet bullet = Instantiate( _bulletPrefab, transform.position, Quaternion.identity );
 
-            bullet.Initialize(direction);
+            bullet.Initialize(direction, _projectileManager);
         }
 
         Destroy(gameObject);
+    }
+    
+    private void OnDestroy()
+    {
+        if (_projectileManager != null)
+        {
+            _projectileManager.UnregisterProjectile(gameObject);
+        }
     }
     
     private void ChangeState(SplitBulletState newState)

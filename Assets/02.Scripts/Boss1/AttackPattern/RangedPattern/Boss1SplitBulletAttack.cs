@@ -3,7 +3,7 @@ using UnityEngine;
 public class Boss1SplitBulletAttack : MonoBehaviour, IBoss1RangedAttack
 {
     [SerializeField] private Transform _splitHeadPivot;
-    [SerializeField] private Transform _playerTransform;
+    private Transform _playerTransform;
     [SerializeField] private Boss1SplitBullet _splitBulletPrefab;
 
     [SerializeField] private float _splitFireInteval = 1f;
@@ -19,6 +19,11 @@ public class Boss1SplitBulletAttack : MonoBehaviour, IBoss1RangedAttack
     private void Awake()
     {
         _projectileManager = GetComponent<Boss1ProjectileManager>();
+    }
+    
+    private void Start()
+    {
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
     
     public void EnterAttack()

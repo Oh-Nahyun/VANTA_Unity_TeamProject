@@ -25,12 +25,12 @@ public class Boss1AnimationEventRelay : MonoBehaviour
         _boss1SpitAttack.EnableSpitHitBox();
     }
 
-    public void DisableSitHitBox()
+    public void DisableSpitHitBox()
     {
         _boss1SpitAttack.DisableSpitHitBox();
     }
 
-    public void EndHitAttack()
+    public void EndSpitHitAttack()
     {
         _boss1SpitAttack.EndSpitAttack();
     }

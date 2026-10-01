@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class SkillIndicatorAttack : MonoBehaviour
 {
+    [Header("공격 이팩트")]
+    [SerializeField]private GameObject _hitEffect;
     [Header("Attack")]
     [SerializeField] private float _attackDuration = 0.25f;
     [SerializeField] private float _attackDamage = 10f;
@@ -12,14 +14,22 @@ public class SkillIndicatorAttack : MonoBehaviour
     [SerializeField] private float _returnCurve = 0.4f;
     [SerializeField] private float _returnDuration = 0.35f;
 
+    [Header("Idle Rotation")]
+    [SerializeField] private float _idleMinAngle = 70f;
+    [SerializeField] private float _idleMaxAngle = 110f;
+    [SerializeField] private float _idleMinDuration = 0.8f;
+    [SerializeField] private float _idleMaxDuration = 1.5f;
+
     private SkillIndicatorMove _skillIndicatorMove;
-    private ObjectRotator _objectRotator;
     private Animator _animator;
 
     private bool _isAttacking;
     public bool IsAttacking => _isAttacking;
 
     private Sequence _attackSequence;
+    private Tween _idleRotationTween;
+
+    private Vector3 _previousPosition;
 
     private void Awake()
     {
@@ -28,15 +38,81 @@ public class SkillIndicatorAttack : MonoBehaviour
 
         _animator =
             GetComponent<Animator>();
-        _objectRotator = GetComponent<ObjectRotator>();
+
         SetDefaultAngle();
+        StartIdleRotation();
     }
 
     private void SetDefaultAngle()
     {
-        transform.rotation = Quaternion.Euler(0f, 0f, 90f);
-
+        transform.rotation =
+            Quaternion.Euler(0f, 0f, 90f);
     }
+
+    private void StartIdleRotation()
+    {
+        if (_isAttacking)
+            return;
+
+        _idleRotationTween?.Kill();
+
+        float targetAngle =
+            Random.Range(
+                _idleMinAngle,
+                _idleMaxAngle
+            );
+
+        float duration =
+            Random.Range(
+                _idleMinDuration,
+                _idleMaxDuration
+            );
+
+        _idleRotationTween =
+            transform
+                .DORotate(
+                    new Vector3(
+                        0f,
+                        0f,
+                        targetAngle
+                    ),
+                    duration
+                )
+                .SetEase(Ease.InOutSine)
+                .OnComplete(StartIdleRotation);
+    }
+
+    private void StopIdleRotation()
+    {
+        _idleRotationTween?.Kill();
+        _idleRotationTween = null;
+    }
+
+    private void UpdateRotationByMovement()
+    {
+        Vector3 movement =
+            transform.position - _previousPosition;
+
+        if (movement.sqrMagnitude > 0.000001f)
+        {
+            float angle =
+                Mathf.Atan2(
+                    movement.y,
+                    movement.x
+                ) * Mathf.Rad2Deg;
+
+            transform.rotation =
+                Quaternion.Euler(
+                    0f,
+                    0f,
+                    angle
+                );
+        }
+
+        _previousPosition =
+            transform.position;
+    }
+
     public void Attack()
     {
         if (_isAttacking)
@@ -48,7 +124,8 @@ public class SkillIndicatorAttack : MonoBehaviour
         if (target == null)
             return;
 
-        _objectRotator.enabled = true;
+        StopIdleRotation();
+
         _isAttacking = true;
 
         _skillIndicatorMove.enabled = false;
@@ -70,10 +147,6 @@ public class SkillIndicatorAttack : MonoBehaviour
                 direction.x,
                 0f
             );
-
-        // =========================
-        // 공격 원호
-        // =========================
 
         Vector3 attackPoint1 =
             Vector3.Lerp(
@@ -98,11 +171,6 @@ public class SkillIndicatorAttack : MonoBehaviour
             targetPosition
         };
 
-        // =========================
-        // 복귀 원호
-        // 반대 방향으로 휘어짐
-        // =========================
-
         Vector3 returnPoint1 =
             Vector3.Lerp(
                 targetPosition,
@@ -126,12 +194,11 @@ public class SkillIndicatorAttack : MonoBehaviour
             startPosition
         };
 
+        _previousPosition =
+            transform.position;
+
         _attackSequence =
             DOTween.Sequence();
-
-        // =========================
-        // 1. 원호를 그리며 공격
-        // =========================
 
         _attackSequence.Append(
             transform.DOPath(
@@ -140,11 +207,8 @@ public class SkillIndicatorAttack : MonoBehaviour
                     PathType.CatmullRom
                 )
                 .SetEase(Ease.InQuad)
+                .OnUpdate(UpdateRotationByMovement)
         );
-
-        // =========================
-        // 2. 공격 애니메이션
-        // =========================
 
         _attackSequence.InsertCallback(
             _attackDuration * 0.55f,
@@ -153,10 +217,6 @@ public class SkillIndicatorAttack : MonoBehaviour
                 _animator.SetTrigger("Strike");
             }
         );
-
-        // =========================
-        // 3. 타격
-        // =========================
 
         _attackSequence.AppendCallback(() =>
         {
@@ -167,11 +227,14 @@ public class SkillIndicatorAttack : MonoBehaviour
                 _attackDamage,
                 DamageIndicatorType.Normal
             );
+            Instantiate(_hitEffect, transform.position, Quaternion.identity);
         });
 
-        // =========================
-        // 4. 반대쪽 원호로 복귀
-        // =========================
+        _attackSequence.AppendCallback(() =>
+        {
+            _previousPosition =
+                transform.position;
+        });
 
         _attackSequence.Append(
             transform.DOPath(
@@ -180,11 +243,8 @@ public class SkillIndicatorAttack : MonoBehaviour
                     PathType.CatmullRom
                 )
                 .SetEase(Ease.OutQuad)
+                .OnUpdate(UpdateRotationByMovement)
         );
-
-        // =========================
-        // 5. 종료
-        // =========================
 
         _attackSequence.OnComplete(() =>
         {
@@ -193,10 +253,10 @@ public class SkillIndicatorAttack : MonoBehaviour
             if (_skillIndicatorMove != null)
             {
                 _skillIndicatorMove.enabled = true;
-                _objectRotator.enabled = false;
-                SetDefaultAngle();
-
             }
+
+            SetDefaultAngle();
+            StartIdleRotation();
         });
     }
 
@@ -212,10 +272,14 @@ public class SkillIndicatorAttack : MonoBehaviour
         {
             _skillIndicatorMove.enabled = true;
         }
+
+        SetDefaultAngle();
+        StartIdleRotation();
     }
 
     private void OnDestroy()
     {
         _attackSequence?.Kill();
+        _idleRotationTween?.Kill();
     }
 }

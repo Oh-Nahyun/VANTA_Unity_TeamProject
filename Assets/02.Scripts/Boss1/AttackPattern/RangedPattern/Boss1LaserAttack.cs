@@ -33,8 +33,6 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         IsFinished = false;
         
         ChangeState(LaserState.Aim);
-
-        Debug.Log("Laser 패턴 시작");
     }
 
     public void UpdateAttack()
@@ -56,7 +54,6 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
     public void ExitAttack()
     {
         _laser.Hide();
-        Debug.Log("Laser 패턴 종료");
     }
 
     private void UpdateAim()

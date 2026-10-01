@@ -30,7 +30,7 @@ public class Boss1AnimationEventRelay : MonoBehaviour
         _boss1SpitAttack.DisableSpitHitBox();
     }
 
-    public void EndSpitHitAttack()
+    public void EndSpitAttack()
     {
         _boss1SpitAttack.EndSpitAttack();
     }

@@ -75,8 +75,6 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
         _activeAttacks.Clear();
 
         StartCycle();
-
-        Debug.Log("Boss1 원거리 패턴 시작");
     }
 
     public void UpdateAttack() //현재 프레임의 원거리 패턴 전체 관리
@@ -104,8 +102,6 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
     public void ExitAttack()
     {
         ExitAllActiveAttacks();
-
-        Debug.Log("Boss1 원거리 패턴 종료");
     }
 
     public void SetPhase2(bool isPhase2)
@@ -128,8 +124,6 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
         }
 
         StartAttack(attack);
-
-        Debug.Log("Boss1 원거리 사이클 시작");
     }
 
     private void UpdateActiveAttacks() //리스트에 등록된 원거리 패턴 실행
@@ -257,10 +251,6 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
     private void FinishCycle()
     {
         _currentCycleCount++;
-
-        Debug.Log(
-            $"Boss1 원거리 사이클 종료 : {_currentCycleCount}"
-        );
 
         if (_currentCycleCount >= CurrentPhaseSettings.CycleCount)
         {

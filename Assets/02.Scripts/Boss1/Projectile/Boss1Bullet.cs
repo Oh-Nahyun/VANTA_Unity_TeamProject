@@ -21,7 +21,7 @@ public class Boss1Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             Player player = other.GetComponent<Player>();
             if (player == null)
@@ -29,7 +29,6 @@ public class Boss1Bullet : MonoBehaviour
                 return;
             }
             player.TakeDamage();
-            Debug.Log("플레이어가 총알에 맞음");
             Destroy(gameObject);
         }
     }

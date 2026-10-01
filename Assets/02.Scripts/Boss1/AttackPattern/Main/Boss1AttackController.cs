@@ -53,6 +53,11 @@ public class Boss1AttackController : MonoBehaviour
             _currentAttack = null;
         }
     }
+
+    public void UnlockAttack()
+    {
+        _isAttackLocked = false;
+    }
     
 
     /// <summary>

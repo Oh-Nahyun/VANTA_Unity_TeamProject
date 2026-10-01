@@ -9802,6 +9802,7 @@ GameObject:
   - component: {fileID: 7529835380750206810}
   - component: {fileID: 2262830844427506011}
   - component: {fileID: -3629651620586641962}
+  - component: {fileID: 6445750224609814157}
   m_Layer: 0
   m_Name: CriticalHitVFX
   m_TagString: Untagged
@@ -14778,6 +14779,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundGenerator
   _sound: {fileID: 8300000, guid: f83929513134da041b19404abf3c2ad6, type: 3}
+--- !u!114 &6445750224609814157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4306488877223958017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c515e1a16e77e4db8add014aab844d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectRandomSpawnSet
+  _randomRadius: 0.3
 --- !u!1 &6897636197634119356
 GameObject:
   m_ObjectHideFlags: 0

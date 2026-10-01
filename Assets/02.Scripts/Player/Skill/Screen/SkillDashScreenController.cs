@@ -67,7 +67,7 @@ public class SkillDashScreenController : MonoBehaviour
             _targetCamera.WorldToViewportPoint(
                 _player.position
             );
-
+        Shader.SetGlobalFloat("_HiddenActive", 1f);
         Vector2 center = new Vector2(
             playerScreen.x,
             playerScreen.y
@@ -152,7 +152,7 @@ public class SkillDashScreenController : MonoBehaviour
     public void EndDashScreenSetting()
     {
         _widthTween?.Kill();
-
+        Shader.SetGlobalFloat("_HiddenActive", 0f);
         // DashWidth → 0
         _widthTween = DOTween.To(
                 () => _currentWidth,

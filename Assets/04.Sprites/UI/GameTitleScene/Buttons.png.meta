@@ -584,9 +584,9 @@ TextureImporter:
       name: StartButton_Pressed
       rect:
         serializedVersion: 2
-        x: 856
+        x: 861
         y: 604
-        width: 458
+        width: 455
         height: 170
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -672,9 +672,9 @@ TextureImporter:
       name: SettingsButton_Pressed
       rect:
         serializedVersion: 2
-        x: 856
+        x: 861
         y: 370
-        width: 458
+        width: 455
         height: 170
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -739,9 +739,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 404
-        y: 148
+        y: 141
         width: 455
-        height: 156
+        height: 170
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -760,9 +760,9 @@ TextureImporter:
       name: ExitButton_Pressed
       rect:
         serializedVersion: 2
-        x: 856
-        y: 148
-        width: 458
+        x: 861
+        y: 141
+        width: 455
         height: 170
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

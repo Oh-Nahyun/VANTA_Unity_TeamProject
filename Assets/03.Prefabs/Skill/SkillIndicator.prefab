@@ -20,7 +20,6 @@ GameObject:
   - component: {fileID: 1573778266427942403}
   - component: {fileID: 6408566752022117690}
   - component: {fileID: 4498490309770419746}
-  - component: {fileID: 3427149507229347365}
   m_Layer: 13
   m_Name: SkillIndicator
   m_TagString: SkillIndicator
@@ -96,7 +95,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2085010320840909670, guid: c8cb7d0fb6d81fb4e9c483615b5466ab, type: 3}
-  m_Color: {r: 0, g: 0.96903944, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -143,7 +142,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.1306667, y: 0.7857168}
+    oldSize: {x: 1.9975, y: 0.73660946}
     newSize: {x: 9.19, y: 11.2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -243,11 +242,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d1ec356c33a7224b9c820a2e9a24c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillIndicatorAttack
-  _attackDuration: 0.05
+  _hitEffect: {fileID: 3042519775331041172, guid: 4b2d9444942d8c946b3af845992c265d, type: 3}
+  _attackDuration: 0.1
   _attackDamage: 10
   _attackCurve: 0.4
   _returnCurve: 0.4
-  _returnDuration: 0.2
+  _returnDuration: 0.1
+  _idleMinAngle: 70
+  _idleMaxAngle: 110
+  _idleMinDuration: 0.8
+  _idleMaxDuration: 1.5
 --- !u!95 &1573778266427942403
 Animator:
   serializedVersion: 7
@@ -302,19 +306,6 @@ MonoBehaviour:
   _normalColor: {r: 1, g: 1, b: 1, a: 1}
   _selectedColor: {r: 0.13536847, g: 0.19778657, b: 0.735849, a: 1}
   _colorChangeDuration: 0.5
---- !u!114 &3427149507229347365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5737589506621556756}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d65b078b11e51034cbd33be9eef57b5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
-  _rotationDuration: 0.01
 --- !u!1 &6061428591135354004
 GameObject:
   m_ObjectHideFlags: 0

@@ -44,7 +44,10 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
 
     private void FixedUpdate()
     {
-        FacePlayer();
+        if (_isFacingLocked == false)
+        {
+            FacePlayer();
+        }
 
         if (_isMoveBlocked)
         {

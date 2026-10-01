@@ -24,17 +24,22 @@ public class SkillDashScreenController : MonoBehaviour
     private static readonly int DashWidthID =
         Shader.PropertyToID("_DashWidth");
 
+    private static readonly int HiddenActiveID =
+        Shader.PropertyToID("_HiddenActive");
+
     private Tween _widthTween;
+    private Tween _hiddenTween;
 
     private float _currentWidth;
+    private float _currentHiddenActive;
 
     private void Awake()
     {
         if (_targetCamera == null)
             _targetCamera = Camera.main;
 
-        // Global Shader 값 초기화
         _currentWidth = 0f;
+        _currentHiddenActive = 0f;
 
         Shader.SetGlobalFloat(
             FocusModeID,
@@ -55,6 +60,11 @@ public class SkillDashScreenController : MonoBehaviour
             DashNormalID,
             Vector4.zero
         );
+
+        Shader.SetGlobalFloat(
+            HiddenActiveID,
+            0f
+        );
     }
 
     public void StartDashScreenSetting(Vector3 dashDirection)
@@ -62,18 +72,16 @@ public class SkillDashScreenController : MonoBehaviour
         if (_player == null || _targetCamera == null)
             return;
 
-        // 플레이어의 화면상 위치
         Vector3 playerScreen =
             _targetCamera.WorldToViewportPoint(
                 _player.position
             );
-        Shader.SetGlobalFloat("_HiddenActive", 1f);
+
         Vector2 center = new Vector2(
             playerScreen.x,
             playerScreen.y
         );
 
-        // Dash 방향의 화면상 방향 계산
         Vector3 endScreen =
             _targetCamera.WorldToViewportPoint(
                 _player.position + dashDirection
@@ -89,13 +97,11 @@ public class SkillDashScreenController : MonoBehaviour
 
         screenDirection.Normalize();
 
-        // Dash 방향에 수직인 Normal
         Vector2 normal = new Vector2(
             -screenDirection.y,
             screenDirection.x
         );
 
-        // Dash Focus 활성화
         Shader.SetGlobalFloat(
             FocusModeID,
             1f
@@ -122,6 +128,7 @@ public class SkillDashScreenController : MonoBehaviour
         );
 
         _widthTween?.Kill();
+        _hiddenTween?.Kill();
 
         _currentWidth = 0f;
 
@@ -130,7 +137,6 @@ public class SkillDashScreenController : MonoBehaviour
             0f
         );
 
-        // 0 → DashWidth
         _widthTween = DOTween.To(
                 () => _currentWidth,
                 value =>
@@ -147,13 +153,30 @@ public class SkillDashScreenController : MonoBehaviour
             )
             .SetEase(Ease.OutCubic)
             .SetUpdate(true);
+
+        _hiddenTween = DOTween.To(
+                () => _currentHiddenActive,
+                value =>
+                {
+                    _currentHiddenActive = value;
+
+                    Shader.SetGlobalFloat(
+                        HiddenActiveID,
+                        value
+                    );
+                },
+                1f,
+                _focusInDuration
+            )
+            .SetEase(Ease.OutCubic)
+            .SetUpdate(true);
     }
 
     public void EndDashScreenSetting()
     {
         _widthTween?.Kill();
-        Shader.SetGlobalFloat("_HiddenActive", 0f);
-        // DashWidth → 0
+        _hiddenTween?.Kill();
+
         _widthTween = DOTween.To(
                 () => _currentWidth,
                 value =>
@@ -176,14 +199,40 @@ public class SkillDashScreenController : MonoBehaviour
                     FocusModeID,
                     0f
                 );
+
+                _widthTween = null;
+            });
+
+        _hiddenTween = DOTween.To(
+                () => _currentHiddenActive,
+                value =>
+                {
+                    _currentHiddenActive = value;
+
+                    Shader.SetGlobalFloat(
+                        HiddenActiveID,
+                        value
+                    );
+                },
+                0f,
+                _focusOutDuration
+            )
+            .SetEase(Ease.InCubic)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                _hiddenTween = null;
             });
     }
 
     private void OnDestroy()
     {
         _widthTween?.Kill();
+        _hiddenTween?.Kill();
 
-        // Global 값 정리
+        _currentWidth = 0f;
+        _currentHiddenActive = 0f;
+
         Shader.SetGlobalFloat(
             FocusModeID,
             0f
@@ -202,6 +251,11 @@ public class SkillDashScreenController : MonoBehaviour
         Shader.SetGlobalVector(
             DashNormalID,
             Vector4.zero
+        );
+
+        Shader.SetGlobalFloat(
+            HiddenActiveID,
+            0f
         );
     }
 }

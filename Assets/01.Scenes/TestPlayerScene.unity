@@ -1167,6 +1167,10 @@ PrefabInstance:
       propertyPath: _targetCamera
       value: 
       objectReference: {fileID: 5394451874791904269}
+    - target: {fileID: 1449693323339180968, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _crackDistortion
+      value: 0.054
+      objectReference: {fileID: 0}
     - target: {fileID: 1527369805069074017, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _canvas
       value: 
@@ -1199,6 +1203,18 @@ PrefabInstance:
       propertyPath: _targetCamera
       value: 
       objectReference: {fileID: 5394451874791904269}
+    - target: {fileID: 5284014296633525175, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _damagedSlowAmount
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284014296633525175, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _damagedSlowHoldDuration
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284014296633525175, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _damagedSlowRecoverDuration
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6093219973355731838, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _dashCollisionMask.m_Bits
       value: 512

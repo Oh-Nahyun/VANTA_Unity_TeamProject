@@ -42,11 +42,11 @@ Material:
     m_Ints: []
     m_Floats:
     - _CrackAmount: 0
-    - _CrackDistortion: 0.01
+    - _CrackDistortion: 0.005
     - _CrackGlowIntensity: 0.4
     - _CrackIntensity: 0.02
     - _CrackRotation: 0
-    - _CrackScale: 1
+    - _CrackScale: 1.1
     - _CrackWidth: 0.8
     - _DistortionRange: 0.01
     - _DistortionStrength: 0.02

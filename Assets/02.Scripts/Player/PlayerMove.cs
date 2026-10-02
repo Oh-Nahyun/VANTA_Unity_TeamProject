@@ -148,6 +148,30 @@ public class PlayerMove : MonoBehaviour
             0.1f
         );
     }
+    
+    public void DashToReverseSideByHit()
+    {
+        if (_isDashing)
+            return;
+
+        HitableObject boss =
+            FindAnyObjectByType<HitableObject>();
+
+        if (boss == null)
+            return;
+
+        Vector2 direction =
+        (
+            _rigidbody.position -
+            (Vector2)boss.transform.position
+        ).normalized;
+
+        StartDash(
+            direction,
+            _dashDistance/2,
+            1f
+        );
+    }
 
     private void StartDash(
         Vector2 direction,

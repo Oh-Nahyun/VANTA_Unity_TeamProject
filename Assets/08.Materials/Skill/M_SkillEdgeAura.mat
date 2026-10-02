@@ -44,16 +44,16 @@ Material:
     - _EdgeWidth: 0.25
     - _HotEdgeIntensity: 4
     - _RayCurveFrequency: 20
-    - _RayCurveSpeed: 0.3
+    - _RayCurveSpeed: 0.5
     - _RayCurveStrength: 1
-    - _RayDensity: 5
+    - _RayDensity: 0.7
     - _RayNoiseScale: 0.1
-    - _RayNoiseSpeed: 0.001
-    - _RayNoiseStrength: 0.01
+    - _RayNoiseSpeed: 0.01
+    - _RayNoiseStrength: 0.05
     - _RaySpeed: 0.5
     - _SparseNoiseScale: 0.1
     - _SparseNoiseSpeed: 0.05
-    - _WideIntensity: 2
+    - _WideIntensity: 1
     m_Colors:
     - _EdgeColor: {r: 0.8113208, g: 0, b: 0, a: 1}
     - _WideEdgeColor: {r: 0.7924528, g: 0.05606977, b: 0.1857453, a: 1}

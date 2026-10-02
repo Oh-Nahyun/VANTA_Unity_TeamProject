@@ -14,6 +14,8 @@ TagManager:
   - SkillIndicator
   - DestroyableObject
   - Vfx
+  - PetEnergyBullet
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -35,8 +37,8 @@ TagManager:
   - Camera
   - Light
   - Vfx
-  - 
-  - 
+  - PetEnergyBullet
+  - Boss
   - 
   - 
   - 
@@ -54,6 +56,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: VfxBack
+    uniqueID: 3942099151
+    locked: 0
+  - name: Zone
+    uniqueID: 1030911925
+    locked: 0
   - name: MonsterSpawner
     uniqueID: 4291494243
     locked: 0
@@ -62,6 +70,9 @@ TagManager:
     locked: 0
   - name: Boss2
     uniqueID: 446125925
+    locked: 0
+  - name: Boss
+    uniqueID: 299320877
     locked: 0
   - name: BossBullet
     uniqueID: 421858133
@@ -77,6 +88,9 @@ TagManager:
     locked: 0
   - name: Pet
     uniqueID: 3051575319
+    locked: 0
+  - name: PetEnergyBullet
+    uniqueID: 99385855
     locked: 0
   - name: SkillIndicator
     uniqueID: 3295876743

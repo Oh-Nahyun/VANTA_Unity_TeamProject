@@ -1,0 +1,189 @@
+using UnityEngine;
+
+public class Boss2MovePattern : Boss2MoveBase
+{
+    [Header("이동 패턴")]
+    [SerializeField] private Transform _target;
+    // 스킬(즉사기 등)도 같은 대상을 쓰도록 연다.
+    public Transform Target => _target;
+
+    /// <summary>
+    /// 인스펙터에서 대상을 비워 둔 경우 컨트롤러가 찾아서 넣어 준다.
+    /// </summary>
+    public void SetTarget(Transform target)
+    {
+        _target = target;
+    }
+    // (임시) 공격 가능 범위. 접근 패턴은 타깃과 이 거리 안으로 들어오면 끝난다.
+    [SerializeField] private float _attackRange = 1f;
+    // BackStep 은 타깃과 이 거리 이상 벌어지면 끝난다.
+    [SerializeField] private float _backStepDistance = 3f;
+    
+    private Boss2MovePatternType _currentMovePatternType = Boss2MovePatternType.None;
+
+    public bool IsPatternRunning => _currentMovePatternType != Boss2MovePatternType.None;
+    public Boss2MovePatternType CurrentMovePatternType => _currentMovePatternType;
+
+    /// <summary>
+    /// 이동 명령. 한 번 내리면 도착할 때까지 매 프레임 타깃을 쫓아간다.
+    /// </summary>
+    public void ApplyMovePattern(Boss2MovePatternType movePatternType)
+    {
+        _currentMovePatternType = movePatternType;
+    }
+
+    protected override void TickPattern()
+    {
+        if (_target == null || IsPatternRunning == false)
+        {
+            StopMove();
+            return;
+        }
+
+        Vector2 toTarget = _target.position - transform.position;
+
+        // 패턴마다 종료 조건이 달라서 각 패턴이 끝났는지를 직접 돌려준다.
+        bool isFinished = false;
+        switch (_currentMovePatternType)
+        {
+            case Boss2MovePatternType.None:
+            {
+                isFinished = true;
+                break;
+            }
+            case Boss2MovePatternType.PressureWalk:
+            {
+                isFinished = PressureWalk(toTarget);
+                break;
+            }
+            case Boss2MovePatternType.ChaseRun:
+            {
+                isFinished = ChaseRun(toTarget);
+                break;
+            }
+            case Boss2MovePatternType.ChaseBlink:
+            {
+                isFinished = ChaseBlink(toTarget);
+                break;
+            }
+            case Boss2MovePatternType.RoundMove:
+            {
+                isFinished = RoundMove(toTarget);
+                break;
+            }
+            case Boss2MovePatternType.BackStep:
+            {
+                isFinished = BackStep(toTarget);
+                break;
+            }
+        }
+
+        if (isFinished)
+        {
+            EndPattern();
+        }
+    }
+
+    private void EndPattern()
+    {
+        StopMove();
+        _currentMovePatternType = Boss2MovePatternType.None;
+    }
+
+    // 접근 패턴 공통 종료 조건: 공격 가능 범위 안에 들어옴
+    private bool IsInAttackRange(Vector2 toTarget)
+    {
+        return toTarget.magnitude <= _attackRange;
+    }
+
+    // 걸어서 압박하며 접근
+    private bool PressureWalk(Vector2 toTarget)
+    {
+        if (IsInAttackRange(toTarget)) return true;
+
+        Walk(toTarget);
+        return false;
+    }
+
+    // 달려서 추격
+    private bool ChaseRun(Vector2 toTarget)
+    {
+        if (IsInAttackRange(toTarget)) return true;
+
+        Run(toTarget);
+        return false;
+    }
+
+    // 구르기로 순간이동하듯 접근. 쿨타임 동안은 걸어서 따라간다.
+    private bool ChaseBlink(Vector2 toTarget)
+    {
+        if (IsInAttackRange(toTarget)) return true;
+
+        if (TryDodge(toTarget) == false)
+        {
+            Walk(toTarget);
+        }
+        return false;
+    }
+
+    // TODO: 타깃 주위를 도는 이동. 구현 전까지는 바로 끝낸다.
+    private bool RoundMove(Vector2 toTarget)
+    {
+        return true;
+    }
+
+    // 타깃 반대 방향으로 물러난다. 타깃과 _backStepDistance 이상 벌어지면 끝.
+    private bool BackStep(Vector2 toTarget)
+    {
+        if (toTarget.magnitude >= _backStepDistance) return true;
+
+        // Walk / TryDodge 는 위치가 아니라 방향을 받는다. 타깃 반대 방향 = -toTarget
+        Vector2 awayFromTarget = -toTarget;
+        if (TryDodge(awayFromTarget) == false)
+        {
+            Walk(awayFromTarget);
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 테스트용. 진행 중인 공격·스킬을 모두 정리한 뒤 바로 이동한다.
+    /// 공격·스킬이 걸어 둔 이동 봉쇄도 그 정리 과정에서 풀린다.
+    /// (Boss2Controller 가 켜져 있으면 FSM 이 곧바로 덮어쓰므로 FSM/Stop 후 사용)
+    /// </summary>
+    public void PlayTestMove(Boss2MovePatternType type)
+    {
+        Boss2AttackPattern attackPattern = GetComponent<Boss2AttackPattern>();
+        if (attackPattern != null)
+        {
+            attackPattern.ApplyAttackPattern(Boss2AttackPatternType.None);
+        }
+
+        Boss2SkillPattern skillPattern = GetComponent<Boss2SkillPattern>();
+        if (skillPattern != null)
+        {
+            skillPattern.ApplySkillPattern(Boss2SkillPatternType.None);
+        }
+
+        ApplyMovePattern(Boss2MovePatternType.None);
+        ApplyMovePattern(type);
+    }
+
+    // ---- 테스트용: 플레이 중 컴포넌트 ⋮ 메뉴에서 실행 (Use Keyboard Input 은 꺼야 동작) ----
+    [ContextMenu("Test/PressureWalk")]
+    private void TestPressureWalk() => PlayTestMove(Boss2MovePatternType.PressureWalk);
+
+    [ContextMenu("Test/ChaseRun")]
+    private void TestChaseRun() => PlayTestMove(Boss2MovePatternType.ChaseRun);
+
+    [ContextMenu("Test/ChaseBlink")]
+    private void TestChaseBlink() => PlayTestMove(Boss2MovePatternType.ChaseBlink);
+
+    [ContextMenu("Test/RoundMove")]
+    private void TestRoundMove() => PlayTestMove(Boss2MovePatternType.RoundMove);
+
+    [ContextMenu("Test/BackStep")]
+    private void TestBackStep() => PlayTestMove(Boss2MovePatternType.BackStep);
+
+    
+}

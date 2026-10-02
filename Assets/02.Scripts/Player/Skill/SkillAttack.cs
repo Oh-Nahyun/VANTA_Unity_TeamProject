@@ -1,167 +1,340 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using Sequence = DG.Tweening.Sequence;
 
 public class SkillAttack : MonoBehaviour
 {
-    [Header("대쉬 직전 타임 슬로우 정도")] [SerializeField]
-    private float _dashTimeSlow = 0.05f;
+    [Header("대쉬 직전 타임 슬로우 정도")]
+    [SerializeField] private float _dashTimeSlow = 0.05f;
 
-    [Header("대쉬 속도")] [SerializeField] private float _dashDuration = 0.15f;
-    [Header("대쉬간 대기시간")] [SerializeField] private float _dashWaitTime = 0.5f;
+    [Header("대쉬 속도")]
+    [SerializeField] private float _dashDuration = 0.15f;
+
+    [Header("대쉬 중 줌 정도")]
+    [SerializeField] private float _dashZoomAmount = 1f;
+
+    [Header("대쉬간 대기시간")]
+    [SerializeField] private float _dashWaitTime = 0.5f;
+
     [SerializeField] private Ease _dashEase = Ease.OutQuad;
-    [Header("대쉬 공격 판정")] [SerializeField] private LayerMask _enemyLayer;
+
+    [Header("대쉬 충돌 설정")]
+    [SerializeField] private LayerMask _dashIgnoreLayers;
+
+    [Header("대쉬 공격 판정")]
+    [SerializeField] private LayerMask _enemyLayer;
     [SerializeField] private float _dashDamage = 10f;
     [SerializeField] private float _dashHitRadius = 0.5f;
     [SerializeField] private float _weaknessAngleTolerance = 0.5f;
-    
-    [Header("참조")] [SerializeField] private Rigidbody2D _rigidbody;
-    [Header("vfx 프리팹")] [SerializeField] private GameObject _skillDashStartVfxPrefab;
-    [Header("vfx 프리팹")] [SerializeField] private GameObject _skillDashAttackVfxPrefab;
-    [Header("vfx 프리팹")] [SerializeField] private GameObject _skillDashAttackCriticalVfxPrefab;
 
-    
+    [Header("참조")]
+    [SerializeField] private Rigidbody2D _rigidbody;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private SkillManager _skillManager;
+
+    [Header("VFX")]
+    [SerializeField] private GameObject _skillDashStartVfxPrefab;
+    [SerializeField] private GameObject _skillDashEndVfxPrefab;
+    [SerializeField] private GameObject _skillDashAttackVfxPrefab;
+    [SerializeField] private GameObject _skillDashAttackCriticalVfxPrefab;
+    [SerializeField] private GameObject _weakHitVfx;
+
+    [SerializeField] private UnityEvent _weaknessAttackSuccessAction;
+
+    private bool _isWeaknessAttackSuccess;
+    private int _dashCount;
+
+    private SkillSpaceController _skillSpaceController;
     private SkillDashScreenController _skillDashScreenController;
-    private Collider2D[] _playerColliders;
+    private SkillDashSlashScreenController _skillDashSlashScreenController;
+    private ObjectZoom _objectZoom;
+
     private Sequence _dashSequence;
-    [SerializeField]private Animator _animator;
     private Vector2 _weaknessDirection;
 
+    private int _playerLayer;
 
     private void Awake()
     {
         if (_rigidbody != null)
-            _playerColliders = _rigidbody.GetComponentsInChildren<Collider2D>(true);
-        _skillDashScreenController = GetComponent<SkillDashScreenController>();
+        {
+            _playerLayer = _rigidbody.gameObject.layer;
+        }
+        else
+        {
+            _playerLayer = gameObject.layer;
+        }
+
+        _skillDashScreenController =
+            GetComponent<SkillDashScreenController>();
+
+        _skillDashSlashScreenController =
+            GetComponent<SkillDashSlashScreenController>();
+
+        _objectZoom =
+            GetComponent<ObjectZoom>();
+
+        _skillSpaceController =
+            GetComponent<SkillSpaceController>();
     }
 
-    public void DashStart(List<SkillIndicator> selectedIndicators, Action onComplete)
+    public void DashStart(
+        List<SkillIndicator> selectedIndicators,
+        Action onComplete)
     {
-        if (_rigidbody == null || selectedIndicators == null || selectedIndicators.Count == 0)
+        if (_rigidbody == null ||
+            selectedIndicators == null ||
+            selectedIndicators.Count == 0)
+        {
             return;
+        }
 
-        _dashSequence?.Kill();
+        _isWeaknessAttackSuccess = false;
+        _dashCount = selectedIndicators.Count;
 
-        SetPlayerColliders(false);
-        _dashSequence = DOTween.Sequence()
-            .SetUpdate(true);
+        StartDashSequence();
 
         foreach (SkillIndicator indicator in selectedIndicators)
         {
             if (indicator == null)
                 continue;
-            
-            
 
-            Vector2 dashStartPosition = Vector2.zero;
+            AppendSingleDash(
+                indicator.transform.position,
+                () =>
+                {
+                    indicator.SkillAttackComplete();
+                },
+                true
+            );
+        }
 
+        CompleteDashSequence(onComplete);
+    }
 
-            _dashSequence.AppendCallback(() =>
+    public void SingleDash(
+        Vector2 targetPosition,
+        Action onComplete)
+    {
+        if (_rigidbody == null)
+            return;
+
+        StartDashSequence();
+
+        AppendSingleDash(
+            targetPosition,
+            null,
+            true
+        );
+
+        CompleteDashSequence(onComplete);
+    }
+
+    private void StartDashSequence()
+    {
+        _dashSequence?.Kill();
+
+        Time.timeScale = 1f;
+
+        _objectZoom.ZoomIn(_dashZoomAmount);
+
+        SetDashCollisionIgnore(true);
+
+        _dashSequence = DOTween.Sequence()
+            .SetUpdate(true);
+    }
+
+    private void AppendSingleDash(
+        Vector2 targetPosition,
+        Action dashComplete,
+        bool checkDashHit)
+    {
+        Vector2 dashStartPosition = Vector2.zero;
+
+        _dashSequence.AppendCallback(() =>
+        {
+            dashStartPosition = _rigidbody.position;
+
+            Vector2 moveDirection =
+                targetPosition - _rigidbody.position;
+
+            if (Mathf.Abs(moveDirection.x) > 0.01f)
             {
-                dashStartPosition = _rigidbody.position;
+                _spriteRenderer.flipX =
+                    moveDirection.x < 0f;
+            }
 
-                Vector3 moveDirection =
-                    indicator.transform.position - transform.position;
+            _skillDashScreenController
+                .StartDashScreenSetting(moveDirection);
 
-                _skillDashScreenController.StartDashScreenSetting(moveDirection);
+            Time.timeScale = _dashTimeSlow;
 
-                Time.timeScale = _dashTimeSlow;
+            Instantiate(
+                _skillDashStartVfxPrefab,
+                transform.position,
+                Quaternion.identity
+            );
+        });
 
-                Instantiate(_skillDashStartVfxPrefab, transform.position, Quaternion.identity);
-                _animator.SetTrigger("OneDashSkill");
+        _dashSequence.AppendInterval(_dashWaitTime);
 
-            });
+        _dashSequence.AppendCallback(() =>
+        {
+            Time.timeScale = 1f;
+        });
 
-            _dashSequence.AppendInterval(_dashWaitTime);
+        _dashSequence.Append(
+            _rigidbody
+                .DOMove(
+                    targetPosition,
+                    _dashDuration
+                )
+                .SetEase(_dashEase)
+        );
 
+        _dashSequence.AppendCallback(() =>
+        {
+            Vector2 dashEndPosition =
+                _rigidbody.position;
 
-
-            _dashSequence.AppendCallback(() =>
-            {
-                Time.timeScale = 1f;
-            });
-
-
-            _dashSequence.Append(
-                _rigidbody
-                    .DOMove(indicator.transform.position, _dashDuration)
-                    .SetEase(_dashEase)
+            _animator.SetTrigger(
+                "OneDashSkill"
             );
 
-            _dashSequence.AppendCallback(() =>
+            if (checkDashHit)
             {
-                Vector2 dashEndPosition = _rigidbody.position;
-
-                // 시작 → 끝 전체 공격 판정
                 CheckDashHit(
                     dashStartPosition,
                     dashEndPosition
                 );
+            }
 
-                _skillDashScreenController.EndDashScreenSetting();
+            _skillDashScreenController
+                .EndDashScreenSetting();
 
-                indicator.SkillAttackComplete();
-            });
+            Instantiate(
+                _skillDashEndVfxPrefab,
+                transform.position,
+                Quaternion.identity
+            );
 
-            _dashSequence.AppendInterval(_dashWaitTime);
+            dashComplete?.Invoke();
+        });
 
-        }
+        _dashSequence.AppendInterval(
+            _dashWaitTime
+        );
+    }
 
+    private void CompleteDashSequence(
+        Action onComplete)
+    {
         _dashSequence
             .OnComplete(() =>
             {
-                SetPlayerColliders(true);
+                Time.timeScale = 1f;
+
+                SetDashCollisionIgnore(false);
+
+                _objectZoom.ZoomOut();
+
                 _dashSequence = null;
-                onComplete.Invoke();
+
+                if (_dashCount == 5)
+                {
+                    PlayerPetCaller.Instance
+                        .CallPetToUtillSkill();
+                }
+
+                onComplete?.Invoke();
             })
-            .OnKill(() => SetPlayerColliders(true));
+            .OnKill(() =>
+            {
+                Time.timeScale = 1f;
+
+                SetDashCollisionIgnore(false);
+
+                _skillDashScreenController
+                    .EndDashScreenSetting();
+
+                _objectZoom.ZoomOut();
+            });
     }
 
-    public void SetWeaknessDirection(Vector2 direction)
+    public void SetWeaknessDirection(
+        Vector2 direction)
     {
-        _weaknessDirection=direction;
+        _weaknessDirection = direction;
     }
-    private void SetPlayerColliders(bool enabled)
-    {
-        if (_playerColliders == null)
-            return;
 
-        foreach (Collider2D playerCollider in _playerColliders)
+    private void SetDashCollisionIgnore(
+        bool ignore)
+    {
+        for (int layer = 0; layer < 32; layer++)
         {
-            if (playerCollider != null)
-                playerCollider.enabled = enabled;
+            int layerMask = 1 << layer;
+
+            if ((_dashIgnoreLayers.value & layerMask) == 0)
+                continue;
+
+            Physics2D.IgnoreLayerCollision(
+                _playerLayer,
+                layer,
+                ignore
+            );
         }
     }
 
-    private void CheckDashHit(Vector2 start, Vector2 end)
+    private void CheckDashHit(
+        Vector2 start,
+        Vector2 end)
     {
-        Vector2 direction = end - start;
-        float distance = direction.magnitude;
+        Vector2 direction =
+            end - start;
+
+        float distance =
+            direction.magnitude;
 
         if (distance <= 0f)
             return;
 
         direction.Normalize();
 
+        _skillDashSlashScreenController
+            .PlaySlash(
+                start,
+                end
+            );
+
         float dot = Mathf.Abs(
-            Vector2.Dot(direction, _weaknessDirection.normalized)
+            Vector2.Dot(
+                direction,
+                _weaknessDirection.normalized
+            )
         );
 
         float threshold =
-            Mathf.Cos(_weaknessAngleTolerance * Mathf.Deg2Rad);
+            Mathf.Cos(
+                _weaknessAngleTolerance *
+                Mathf.Deg2Rad
+            );
 
-        bool isWeaknessAttack = dot >= threshold;
-        
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(
-            start,
-            _dashHitRadius,
-            direction,
-            distance,
-            _enemyLayer
-        );
+        bool isWeaknessAttack =
+            !_isWeaknessAttackSuccess &&
+            dot >= threshold;
+
+        RaycastHit2D[] hits =
+            Physics2D.CircleCastAll(
+                start,
+                _dashHitRadius,
+                direction,
+                distance,
+                _enemyLayer
+            );
 
         foreach (RaycastHit2D hit in hits)
         {
@@ -169,39 +342,63 @@ public class SkillAttack : MonoBehaviour
                 continue;
 
             HitableObject hitableObject =
-                hit.collider.GetComponent<HitableObject>();
+                hit.collider
+                    .GetComponent<HitableObject>();
 
             if (hitableObject == null)
                 continue;
 
-
-            if (!isWeaknessAttack)
+            if (isWeaknessAttack)
             {
-                hitableObject.ExecuteHitEvent(
-                    _dashDamage,
-                    DamageIndicatorType.Middle
-                );
-            
-                Instantiate(
-                    _skillDashAttackVfxPrefab,
-                    hit.point,
-                    Quaternion.identity
+                _isWeaknessAttackSuccess = true;
+
+                SuccessWeaknessSkillAttack(
+                    hitableObject
                 );
             }
             else
             {
-                hitableObject.ExecuteHitEvent(
-                    _dashDamage*2,
-                    DamageIndicatorType.Critical
+                SuccessNormalSkillAttack(
+                    hitableObject
                 );
-            
-                Instantiate(
-                    _skillDashAttackCriticalVfxPrefab,
-                    hit.point,
-                    Quaternion.identity
-                );
-                
             }
         }
+    }
+
+    private void SuccessNormalSkillAttack(
+        HitableObject hitableObject)
+    {
+        hitableObject.ExecuteHitEvent(
+            _dashDamage,
+            DamageIndicatorType.Middle
+        );
+
+        Instantiate(
+            _skillDashAttackVfxPrefab,
+            hitableObject.transform.position,
+            Quaternion.identity
+        );
+    }
+
+    private void SuccessWeaknessSkillAttack(
+        HitableObject hitableObject)
+    {
+        hitableObject.ExecuteHitEvent(
+            _dashDamage * 2,
+            DamageIndicatorType.Critical
+        );
+
+        Instantiate(
+            _skillDashAttackCriticalVfxPrefab,
+            hitableObject.transform.position,
+            Quaternion.identity
+        );
+
+        _weaknessAttackSuccessAction?.Invoke();
+    }
+
+    private void OnDestroy()
+    {
+        SetDashCollisionIgnore(false);
     }
 }

@@ -1,16 +1,12 @@
-
-
-using System;
 using DG.Tweening;
 using UnityEngine;
 
 public class SkillDashScreenController : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Material _focusMaterial;
     [SerializeField] private Transform _player;
     [SerializeField] private Camera _targetCamera;
-   
+
     [Header("Dash Focus")]
     [SerializeField] private float _dashWidth = 0.08f;
     [SerializeField] private float _focusInDuration = 0.5f;
@@ -28,12 +24,58 @@ public class SkillDashScreenController : MonoBehaviour
     private static readonly int DashWidthID =
         Shader.PropertyToID("_DashWidth");
 
+    private static readonly int HiddenActiveID =
+        Shader.PropertyToID("_HiddenActive");
+
     private Tween _widthTween;
-    
+    private Tween _hiddenTween;
+
+    private float _currentWidth;
+    private float _currentHiddenActive;
+
+    private void Awake()
+    {
+        if (_targetCamera == null)
+            _targetCamera = Camera.main;
+
+        _currentWidth = 0f;
+        _currentHiddenActive = 0f;
+
+        Shader.SetGlobalFloat(
+            FocusModeID,
+            0f
+        );
+
+        Shader.SetGlobalFloat(
+            DashWidthID,
+            0f
+        );
+
+        Shader.SetGlobalVector(
+            DashCenterID,
+            Vector4.zero
+        );
+
+        Shader.SetGlobalVector(
+            DashNormalID,
+            Vector4.zero
+        );
+
+        Shader.SetGlobalFloat(
+            HiddenActiveID,
+            0f
+        );
+    }
+
     public void StartDashScreenSetting(Vector3 dashDirection)
     {
+        if (_player == null || _targetCamera == null)
+            return;
+
         Vector3 playerScreen =
-            _targetCamera.WorldToViewportPoint(_player.position);
+            _targetCamera.WorldToViewportPoint(
+                _player.position
+            );
 
         Vector2 center = new Vector2(
             playerScreen.x,
@@ -48,48 +90,172 @@ public class SkillDashScreenController : MonoBehaviour
         Vector2 screenDirection = new Vector2(
             endScreen.x - playerScreen.x,
             endScreen.y - playerScreen.y
-        ).normalized;
+        );
+
+        if (screenDirection.sqrMagnitude < 0.000001f)
+            return;
+
+        screenDirection.Normalize();
 
         Vector2 normal = new Vector2(
             -screenDirection.y,
             screenDirection.x
         );
 
-        _focusMaterial.SetFloat(FocusModeID, 1f);
-        _focusMaterial.SetVector(DashCenterID, center);
-        _focusMaterial.SetVector(DashNormalID, normal);
+        Shader.SetGlobalFloat(
+            FocusModeID,
+            1f
+        );
+
+        Shader.SetGlobalVector(
+            DashCenterID,
+            new Vector4(
+                center.x,
+                center.y,
+                0f,
+                0f
+            )
+        );
+
+        Shader.SetGlobalVector(
+            DashNormalID,
+            new Vector4(
+                normal.x,
+                normal.y,
+                0f,
+                0f
+            )
+        );
 
         _widthTween?.Kill();
+        _hiddenTween?.Kill();
 
-        _focusMaterial.SetFloat(DashWidthID, 0f);
+        _currentWidth = 0f;
 
-        _widthTween = _focusMaterial
-            .DOFloat(
+        Shader.SetGlobalFloat(
+            DashWidthID,
+            0f
+        );
+
+        _widthTween = DOTween.To(
+                () => _currentWidth,
+                value =>
+                {
+                    _currentWidth = value;
+
+                    Shader.SetGlobalFloat(
+                        DashWidthID,
+                        value
+                    );
+                },
                 _dashWidth,
-                DashWidthID,
+                _focusInDuration
+            )
+            .SetEase(Ease.OutCubic)
+            .SetUpdate(true);
+
+        _hiddenTween = DOTween.To(
+                () => _currentHiddenActive,
+                value =>
+                {
+                    _currentHiddenActive = value;
+
+                    Shader.SetGlobalFloat(
+                        HiddenActiveID,
+                        value
+                    );
+                },
+                1f,
                 _focusInDuration
             )
             .SetEase(Ease.OutCubic)
             .SetUpdate(true);
     }
 
-
     public void EndDashScreenSetting()
     {
         _widthTween?.Kill();
+        _hiddenTween?.Kill();
 
-        _widthTween = _focusMaterial
-            .DOFloat(
+        _widthTween = DOTween.To(
+                () => _currentWidth,
+                value =>
+                {
+                    _currentWidth = value;
+
+                    Shader.SetGlobalFloat(
+                        DashWidthID,
+                        value
+                    );
+                },
                 0f,
-                DashWidthID,
                 _focusOutDuration
             )
             .SetEase(Ease.InCubic)
             .SetUpdate(true)
             .OnComplete(() =>
             {
-                _focusMaterial.SetFloat(FocusModeID, 0f);
+                Shader.SetGlobalFloat(
+                    FocusModeID,
+                    0f
+                );
+
+                _widthTween = null;
+            });
+
+        _hiddenTween = DOTween.To(
+                () => _currentHiddenActive,
+                value =>
+                {
+                    _currentHiddenActive = value;
+
+                    Shader.SetGlobalFloat(
+                        HiddenActiveID,
+                        value
+                    );
+                },
+                0f,
+                _focusOutDuration
+            )
+            .SetEase(Ease.InCubic)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                _hiddenTween = null;
             });
     }
-}
 
+    private void OnDestroy()
+    {
+        _widthTween?.Kill();
+        _hiddenTween?.Kill();
+
+        _currentWidth = 0f;
+        _currentHiddenActive = 0f;
+
+        Shader.SetGlobalFloat(
+            FocusModeID,
+            0f
+        );
+
+        Shader.SetGlobalFloat(
+            DashWidthID,
+            0f
+        );
+
+        Shader.SetGlobalVector(
+            DashCenterID,
+            Vector4.zero
+        );
+
+        Shader.SetGlobalVector(
+            DashNormalID,
+            Vector4.zero
+        );
+
+        Shader.SetGlobalFloat(
+            HiddenActiveID,
+            0f
+        );
+    }
+}

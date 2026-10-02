@@ -1225,6 +1225,10 @@ MonoBehaviour:
   _moveSpeed: 3
   _dashDistance: 3
   _dashDuration: 0.5
+  _dashCollisionMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _collisionOffset: 0.05
   _dashEffect: {fileID: 4367466542359643468, guid: 767cc2a0211457b4da9c92da34ab890a, type: 3}
 --- !u!114 &473873734
 MonoBehaviour:
@@ -1240,6 +1244,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _health: 2
   _hitCoolTime: 2
+  _hitVfx: {fileID: 0}
+  _damagedSlowAmount: 0.1
+  _damagedSlowInDuration: 3
+  _damagedSlowHoldDuration: 0.15
+  _damagedSlowRecoverDuration: 1
 --- !u!95 &473873735
 Animator:
   serializedVersion: 7
@@ -2382,6 +2391,9 @@ MonoBehaviour:
   _dashZoomAmount: 1.2
   _dashWaitTime: 0.5
   _dashEase: 6
+  _dashIgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 0
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 65728
@@ -3063,142 +3075,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!1 &1542740822
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1542740824}
-  - component: {fileID: 1542740823}
-  m_Layer: 0
-  m_Name: Boss2Darkness
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1542740823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542740822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d46aed868d6168b49803d045b7a25dbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Boss2DarknessEffect
-  _globalLight: {fileID: 619394801}
-  _focusLight: {fileID: 1561739733}
-  _darkIntensity: 0.15
-  _focusIntensity: 1
-  _extraIntensity: 0.5
-  _fadeInTime: 0.4
-  _fadeOutTime: 0.6
---- !u!4 &1542740824
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542740822}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1561739734}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1561739732
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1561739734}
-  - component: {fileID: 1561739733}
-  m_Layer: 0
-  m_Name: FocusLight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1561739733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1561739732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
-  m_ComponentVersion: 3
-  m_LightType: 3
-  m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0
-  m_LightVolumeIntensity: 1
-  m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000e5d223216557971a550b2519d51012406301cbff3b15d5a01758e3b5871673c483e549d22d8124d5f7789f5c6f9749d1ffbf219bf39d57be934894852d46d711ff81ec05cfa8f7eab577723d
-  m_LightCookieSprite: {fileID: 0}
-  m_DeprecatedPointLightCookieSprite: {fileID: 0}
-  m_LightOrder: 0
-  m_AlphaBlendOnOverlap: 0
-  m_OverlapOperation: 0
-  m_NormalMapDistance: 3
-  m_NormalMapQuality: 2
-  m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
-  m_ShadowIntensity: 0.75
-  m_ShadowSoftness: 0.3
-  m_ShadowSoftnessFalloffIntensity: 0.5
-  m_ShadowVolumeIntensityEnabled: 0
-  m_ShadowVolumeIntensity: 0.75
-  m_LocalBounds:
-    m_Center: {x: 0, y: -0.00000011920929, z: 0}
-    m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
-  m_PointLightInnerAngle: 360
-  m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0.5
-  m_PointLightOuterRadius: 2.5
-  m_ShapeLightParametricSides: 5
-  m_ShapeLightParametricAngleOffset: 0
-  m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 0.5
-  m_ShapeLightFalloffOffset: {x: 0, y: 0}
-  m_ShapePath:
-  - {x: -0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: 0.5, z: 0}
-  - {x: -0.5, y: 0.5, z: 0}
---- !u!4 &1561739734
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1561739732}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1542740824}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1646398099
 GameObject:
   m_ObjectHideFlags: 0
@@ -9095,13 +8971,97 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2645136463047186946, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _darknessEffect
-      value: 
-      objectReference: {fileID: 1542740823}
     - target: {fileID: 4133056159387206755, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: m_Name
       value: Boss2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827965982157604352, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _bladeAuraAllSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827965982157604352, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _bladeAuraProjectile
+      value: 
+      objectReference: {fileID: 718022737307712645, guid: a8bb7853b68d5c145b5e867ddd33d8c8, type: 3}
+    - target: {fileID: 4827965982157604352, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _bladeAuraAllProjectile
+      value: 
+      objectReference: {fileID: 718022737307712645, guid: a8bb7853b68d5c145b5e867ddd33d8c8, type: 3}
+    - target: {fileID: 5604903214433855731, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _globalLight
+      value: 
+      objectReference: {fileID: 619394801}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[0].Name
+      value: "\uC81C\uC790\uB9AC \uC5F0\uD0C0"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[1].Name
+      value: "\uCD94\uACA9 \uC5F0\uD0C0"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[2].Name
+      value: "\uB3CC\uC9C4 \uAC15\uD0C0"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[3].Name
+      value: "\uC21C\uBCF4 \uD68C\uC804\uCC38"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[4].Name
+      value: "\uC81C\uC790\uB9AC \uD68C\uC804\uCC38"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[5].Name
+      value: "\uD68C\uD53C \uAC80\uACA9"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[6].Move
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[6].Name
+      value: "\uD68C\uD53C \uB09C\uACA9"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[5].Weight
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[6].Attack
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[6].Weight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[6].Cooldown
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[6].HealthMax
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[6].DistanceMax
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[6].IsInvincible
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[5].ProjectileType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _actions.Array.data[6].ProjectileType
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9122,5 +9082,4 @@ SceneRoots:
   - {fileID: 2101134459}
   - {fileID: 473873737}
   - {fileID: 273661350}
-  - {fileID: 1542740824}
   - {fileID: 1903982964}

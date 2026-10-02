@@ -43,6 +43,9 @@ public class Boss2AttackBase : MonoBehaviour
     [SerializeField] private ComboStep[] _comboSteps;
     [SerializeField] private int _maxComboCount = 8;
 
+    // 발사체 시작 좌표 ( 자식에서도 활용 가능 )
+    protected Vector2[] _projectileDirections;
+    
     // 이번 콤보에서 몇 번째 타인지. 대기 중이면 -1.
     private int _currentHit = -1;
     // 이번 콤보에서 칠 총 타수. AI 명령은 한 번에 정하고, 키 입력은 누를 때마다 1씩 늘린다.
@@ -66,6 +69,36 @@ public class Boss2AttackBase : MonoBehaviour
     public event System.Action<int> ComboStepStarted;
     public event System.Action ComboEnded;
 
+    private void Awake()
+    {
+        // 위(0번)부터 시계 방향으로 45° 간격. 인덱스 ±1 이 곧 양옆 인접 방향이다.
+        _projectileDirections = new Vector2[8]
+        {
+            new Vector2(0, 1),      // 0 위
+            new Vector2(1, 1),      // 1 오른위
+            new Vector2(1, 0),      // 2 오른
+            new Vector2(1, -1),     // 3 오른아래
+            new Vector2(0, -1),     // 4 아래
+            new Vector2(-1, -1),    // 5 왼아래
+            new Vector2(-1, 0),     // 6 왼
+            new Vector2(-1, 1)      // 7 왼위
+        };
+    }
+
+    // 음수·8 이상도 0~7 로 감싼다. (C# 의 % 는 -1 % 8 == -1 이라 한 번 더 더해 준다)
+    protected int WrapDirectionIndex(int index)
+    {
+        int count = _projectileDirections.Length;
+        return ((index % count) + count) % count;
+    }
+
+    // 입력 방향에 가장 가까운 _projectileDirections 인덱스.
+    // Atan2(x, y) 는 위에서부터 시계 방향 각도다. (위 0, 오른 90, 아래 ±180, 왼 -90)
+    protected int DirectionToIndex(Vector2 direction)
+    {
+        float clockwiseAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+        return WrapDirectionIndex(Mathf.RoundToInt(clockwiseAngle / 45f));
+    }
     private void Start()
     {
         if (_attackBoxCollider != null)

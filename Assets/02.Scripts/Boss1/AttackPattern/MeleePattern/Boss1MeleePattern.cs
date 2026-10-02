@@ -21,10 +21,17 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
     [Serializable]
     private class PhaseSettings
     {
+        [Header("다음 근거리 공격까지의 대기 시간")]
+        [SerializeField] private float _cycleInterval = 0.5f;
         
+        [Header("근거리 공격 사이클 반복 횟수")]
+        [SerializeField] private int _cycleCount = 2;
+        
+        public float CycleInterval => _cycleInterval;
+        public int CycleCount => _cycleCount;
     }
     
-    [Header("근거리 공격 패턴")]
+    [Header("근거리 공격 하위 패턴")]
     [SerializeField] private MeleeAttackData[]  _meleeAttacks;
     
     [Header("페이즈별 세팅")]
@@ -44,6 +51,11 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
     [SerializeField] private Boss1PhaseController _boss1PhaseController;
 
     private bool _isPhase2;
+
+    private int _currentCycleCount;
+    private float _intervalTimer;
+    
+    private bool _isWaitingNextCycle;
 
     private IBoss1MeleeAttack _currentAttack;
 
@@ -86,16 +98,32 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
     public void EnterAttack()
     {
         IsFinished = false;
+        _currentCycleCount = 0;
+        _isWaitingNextCycle = false;
+        _intervalTimer = 0f;
         
         _boss1Movement.StartControlled();
         _currentAttack = SelectAttack();
+        
+        if (_currentAttack == null)
+        {
+            IsFinished = true;
+            return;
+        }
+        
         _currentAttack.EnterAttack();
     }
 
-    public void UpdateAttack() //현재 프레임의 근거리 패턴 전체 관리
+    public void UpdateAttack() //현재 프레임의 근거리 패턴  관리
     {
         if (IsFinished)
         {
+            return;
+        }
+
+        if (_isWaitingNextCycle)
+        {
+            UpdateCycleInterval();
             return;
         }
 
@@ -111,8 +139,17 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
         {
             _currentAttack.ExitAttack();
             _currentAttack = null;
-            
-            IsFinished = true;
+
+            _currentCycleCount++;
+
+            if (_currentCycleCount >= CurrentPhaseSettings.CycleCount)
+            {
+                IsFinished = true;
+                return;
+            }
+
+            _intervalTimer = 0f;
+            _isWaitingNextCycle = true;
         }
     }
 
@@ -123,6 +160,9 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
             _currentAttack.ExitAttack();
             _currentAttack = null;
         }
+        
+        _isWaitingNextCycle = false;
+        _intervalTimer = 0f;
         
         _boss1Movement.StartNormalChase();
     }
@@ -195,5 +235,28 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
         }
 
         return weight;
+    }
+
+    private void UpdateCycleInterval()
+    {
+        _intervalTimer += Time.deltaTime;
+
+        if (_intervalTimer < CurrentPhaseSettings.CycleInterval)
+        {
+            return;
+        }
+        
+        _intervalTimer = 0f;
+        _isWaitingNextCycle = false;
+
+        _currentAttack = SelectAttack();
+
+        if (_currentAttack == null)
+        {
+            IsFinished = true;
+            return;
+        }
+        
+        _currentAttack.EnterAttack();
     }
 }

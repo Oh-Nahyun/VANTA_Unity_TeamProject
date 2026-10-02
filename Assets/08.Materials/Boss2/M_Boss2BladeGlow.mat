@@ -45,10 +45,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Alpha: 0
+    - _DissolveAmount: 0
+    - _DissolveEdgeWidth: 0.05
     - _GlowAmount: 0
     - _GlowIntensity: 2.2
+    - _NoiseScale: 30
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}
+    - _DissolveEdgeColor: {r: 0.10930267, g: 0.012682444, b: 0.14150941, a: 1}
     - _GlowColor: {r: 0.3, g: 0.8, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

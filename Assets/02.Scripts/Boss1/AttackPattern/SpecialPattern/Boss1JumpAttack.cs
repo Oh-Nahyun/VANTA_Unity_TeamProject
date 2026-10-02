@@ -108,7 +108,11 @@ public class Boss1JumpAttack : MonoBehaviour, IBoss1Attack
 
     public void ExitAttack()
     {
+        Debug.Log($"[{Time.frameCount}] Jump Exit 시작");
+        
         _boss1Movement.StartNormalChase();
+        
+        Debug.Log($"[{Time.frameCount}] Jump Exit 끝");
     }
 
     private void UpdateTelegraph()
@@ -174,15 +178,6 @@ public class Boss1JumpAttack : MonoBehaviour, IBoss1Attack
             
             _isLandStarted = true;
         }
-        
-        AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
-        
-        if (stateInfo.IsName("JumpAttackLand") && stateInfo.normalizedTime >= 1f)
-        {
-            _isLandStarted = false;
-            _timer = 0f;
-            _currentState = JumpState.Recovery;
-        }
     }
 
     private void UpdateRecovery()
@@ -203,5 +198,12 @@ public class Boss1JumpAttack : MonoBehaviour, IBoss1Attack
         
         Destroy(_jumpWarningZone);
         _boxCollider2D.enabled = true;
+    }
+
+    public void EndJumpLand()
+    {
+        _isLandStarted = false;
+        _timer = 0f;
+        _currentState = JumpState.Recovery;
     }
 }

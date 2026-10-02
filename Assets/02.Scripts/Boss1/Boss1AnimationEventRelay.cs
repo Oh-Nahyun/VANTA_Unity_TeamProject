@@ -41,5 +41,10 @@ public class Boss1AnimationEventRelay : MonoBehaviour
     {
         _boss1JumpAttack.JumpLandImpact();
     }
+
+    public void EndJumpLand()
+    {
+        _boss1JumpAttack.EndJumpLand();
+    }
     
 }

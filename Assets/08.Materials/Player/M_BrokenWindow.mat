@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_BrokenWindow
+  m_Shader: {fileID: -6465566751694194690, guid: 5f6609d3dded02d4a914fc1cfc31a7d8, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _CrackTex:
+        m_Texture: {fileID: 2800000, guid: 5bb4797b3d90ac147a4dff06b63b6088, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _CrackAmount: 0
+    - _CrackDistortion: 0
+    - _CrackGlowIntensity: 1
+    - _CrackIntensity: 1
+    - _CrackRotation: 0
+    - _CrackScale: 0.4
+    - _CrackWidth: 1
+    - _DistortionRange: 0.01
+    - _DistortionStrength: 0.02
+    - _ImpactRadius: 30
+    m_Colors:
+    - _CrackColor: {r: 0.33681917, g: 0.33681917, b: 0.8207547, a: 1}
+    - _CrackDistortionDirection: {r: 1, g: 0.5, b: 0, a: 0}
+    - _CrackGlowColor: {r: 0.085172676, g: 0.13871153, b: 0.20754719, a: 1}
+    - _CrackOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ImpactCenter: {r: 0.5, g: 0.5, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

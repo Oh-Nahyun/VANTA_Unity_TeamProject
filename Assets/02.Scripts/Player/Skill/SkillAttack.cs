@@ -21,6 +21,9 @@ public class SkillAttack : MonoBehaviour
 
     [SerializeField] private Ease _dashEase = Ease.OutQuad;
 
+    [Header("대쉬 충돌 설정")]
+    [SerializeField] private LayerMask _dashIgnoreLayers;
+
     [Header("대쉬 공격 판정")]
     [SerializeField] private LayerMask _enemyLayer;
     [SerializeField] private float _dashDamage = 10f;
@@ -40,34 +43,43 @@ public class SkillAttack : MonoBehaviour
     [SerializeField] private GameObject _skillDashAttackCriticalVfxPrefab;
     [SerializeField] private GameObject _weakHitVfx;
 
-    [SerializeField] private UnityEvent  _weaknessAttackSuccessAction;
+    [SerializeField] private UnityEvent _weaknessAttackSuccessAction;
 
     private bool _isWeaknessAttackSuccess;
     private int _dashCount;
-    
+
     private SkillSpaceController _skillSpaceController;
     private SkillDashScreenController _skillDashScreenController;
     private SkillDashSlashScreenController _skillDashSlashScreenController;
-    private Collider2D[] _playerColliders;
     private ObjectZoom _objectZoom;
 
     private Sequence _dashSequence;
     private Vector2 _weaknessDirection;
 
+    private int _playerLayer;
+
     private void Awake()
     {
         if (_rigidbody != null)
         {
-            _playerColliders =
-                _rigidbody.GetComponentsInChildren<Collider2D>(true);
+            _playerLayer = _rigidbody.gameObject.layer;
+        }
+        else
+        {
+            _playerLayer = gameObject.layer;
         }
 
         _skillDashScreenController =
             GetComponent<SkillDashScreenController>();
-        _skillDashSlashScreenController = GetComponent<SkillDashSlashScreenController>();
+
+        _skillDashSlashScreenController =
+            GetComponent<SkillDashSlashScreenController>();
+
         _objectZoom =
             GetComponent<ObjectZoom>();
-        _skillSpaceController=GetComponent<SkillSpaceController>();
+
+        _skillSpaceController =
+            GetComponent<SkillSpaceController>();
     }
 
     public void DashStart(
@@ -83,6 +95,7 @@ public class SkillAttack : MonoBehaviour
 
         _isWeaknessAttackSuccess = false;
         _dashCount = selectedIndicators.Count;
+
         StartDashSequence();
 
         foreach (SkillIndicator indicator in selectedIndicators)
@@ -100,7 +113,6 @@ public class SkillAttack : MonoBehaviour
             );
         }
 
-   
         CompleteDashSequence(onComplete);
     }
 
@@ -130,7 +142,7 @@ public class SkillAttack : MonoBehaviour
 
         _objectZoom.ZoomIn(_dashZoomAmount);
 
-        SetPlayerColliders(false);
+        SetDashCollisionIgnore(true);
 
         _dashSequence = DOTween.Sequence()
             .SetUpdate(true);
@@ -177,7 +189,10 @@ public class SkillAttack : MonoBehaviour
 
         _dashSequence.Append(
             _rigidbody
-                .DOMove(targetPosition, _dashDuration)
+                .DOMove(
+                    targetPosition,
+                    _dashDuration
+                )
                 .SetEase(_dashEase)
         );
 
@@ -186,7 +201,9 @@ public class SkillAttack : MonoBehaviour
             Vector2 dashEndPosition =
                 _rigidbody.position;
 
-            _animator.SetTrigger("OneDashSkill");
+            _animator.SetTrigger(
+                "OneDashSkill"
+            );
 
             if (checkDashHit)
             {
@@ -208,19 +225,20 @@ public class SkillAttack : MonoBehaviour
             dashComplete?.Invoke();
         });
 
-        _dashSequence.AppendInterval(_dashWaitTime);
+        _dashSequence.AppendInterval(
+            _dashWaitTime
+        );
     }
 
-    private void CompleteDashSequence(Action onComplete)
+    private void CompleteDashSequence(
+        Action onComplete)
     {
-     
-
         _dashSequence
             .OnComplete(() =>
             {
                 Time.timeScale = 1f;
 
-                SetPlayerColliders(true);
+                SetDashCollisionIgnore(false);
 
                 _objectZoom.ZoomOut();
 
@@ -228,8 +246,8 @@ public class SkillAttack : MonoBehaviour
 
                 if (_dashCount == 5)
                 {
-                    PlayerPetCaller.Instance.CallPetToUtillSkill();
-
+                    PlayerPetCaller.Instance
+                        .CallPetToUtillSkill();
                 }
 
                 onComplete?.Invoke();
@@ -238,7 +256,7 @@ public class SkillAttack : MonoBehaviour
             {
                 Time.timeScale = 1f;
 
-                SetPlayerColliders(true);
+                SetDashCollisionIgnore(false);
 
                 _skillDashScreenController
                     .EndDashScreenSetting();
@@ -247,20 +265,27 @@ public class SkillAttack : MonoBehaviour
             });
     }
 
-    public void SetWeaknessDirection(Vector2 direction)
+    public void SetWeaknessDirection(
+        Vector2 direction)
     {
         _weaknessDirection = direction;
     }
 
-    private void SetPlayerColliders(bool enabled)
+    private void SetDashCollisionIgnore(
+        bool ignore)
     {
-        if (_playerColliders == null)
-            return;
-
-        foreach (Collider2D playerCollider in _playerColliders)
+        for (int layer = 0; layer < 32; layer++)
         {
-            if (playerCollider != null)
-                playerCollider.enabled = enabled;
+            int layerMask = 1 << layer;
+
+            if ((_dashIgnoreLayers.value & layerMask) == 0)
+                continue;
+
+            Physics2D.IgnoreLayerCollision(
+                _playerLayer,
+                layer,
+                ignore
+            );
         }
     }
 
@@ -268,7 +293,8 @@ public class SkillAttack : MonoBehaviour
         Vector2 start,
         Vector2 end)
     {
-        Vector2 direction = end - start;
+        Vector2 direction =
+            end - start;
 
         float distance =
             direction.magnitude;
@@ -278,10 +304,11 @@ public class SkillAttack : MonoBehaviour
 
         direction.Normalize();
 
-        _skillDashSlashScreenController.PlaySlash(
-            start,
-            end
-        );
+        _skillDashSlashScreenController
+            .PlaySlash(
+                start,
+                end
+            );
 
         float dot = Mathf.Abs(
             Vector2.Dot(
@@ -315,7 +342,8 @@ public class SkillAttack : MonoBehaviour
                 continue;
 
             HitableObject hitableObject =
-                hit.collider.GetComponent<HitableObject>();
+                hit.collider
+                    .GetComponent<HitableObject>();
 
             if (hitableObject == null)
                 continue;
@@ -336,6 +364,7 @@ public class SkillAttack : MonoBehaviour
             }
         }
     }
+
     private void SuccessNormalSkillAttack(
         HitableObject hitableObject)
     {
@@ -366,5 +395,10 @@ public class SkillAttack : MonoBehaviour
         );
 
         _weaknessAttackSuccessAction?.Invoke();
+    }
+
+    private void OnDestroy()
+    {
+        SetDashCollisionIgnore(false);
     }
 }

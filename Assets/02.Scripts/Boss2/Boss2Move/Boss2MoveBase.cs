@@ -68,6 +68,7 @@ public class Boss2MoveBase : MonoBehaviour, IBossMovable
 
     private readonly Dictionary<KeyCode, float> _lastTapTime = new Dictionary<KeyCode, float>();
 
+    public Vector2 MoveDirection => _moveDirection;
     public bool IsMoveBlocked => _isMoveBlocked;
     public bool IsDodging => _state == MoveState.Dodge;
     public bool IsSprinting => _state == MoveState.Normal && _velocity.magnitude > _walkSpeed + 0.1f;

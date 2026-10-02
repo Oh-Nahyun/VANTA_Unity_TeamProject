@@ -1803,8 +1803,8 @@ MonoBehaviour:
   _animator: {fileID: 192520389527177166}
   _phase1Settings:
     _moveSpeed: 7
-    _telegraphDuration: 0.1
-    _recoveryDuration: 0.1
+    _telegraphDuration: 0.05
+    _recoveryDuration: 0.05
   _phase2Settings:
     _moveSpeed: 10
     _telegraphDuration: 0.05
@@ -1829,7 +1829,7 @@ MonoBehaviour:
   _animator: {fileID: 192520389527177166}
   _phase1Settings:
     _moveSpeed: 7
-    _telegraphDuration: 0.1
+    _telegraphDuration: 0.2
     _recoveryDuration: 0.1
   _phase2Settings:
     _moveSpeed: 10
@@ -1860,9 +1860,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1JumpAttack
   _weight: 7
-  _telegraphDuration: 0.45
-  _warningDuration: 0.65
-  _recoveryDuration: 0.5
+  _telegraphDuration: 0.25
+  _warningDuration: 0.3
+  _recoveryDuration: 0.25
   _visualPivot: {fileID: 9210076179707630864}
   _animator: {fileID: 192520389527177166}
   _jumpWarningZonePrefab: {fileID: 3349574119125732286, guid: 1541569aa2252d94580ecec63acfdfe7, type: 3}

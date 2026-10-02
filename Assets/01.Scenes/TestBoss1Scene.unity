@@ -691,38 +691,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2846696346554286157, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _warningDuration
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2846696346554286157, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _recoveryDuration
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 2846696346554286157, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _telegraphDuration
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3060184153963347236, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _phase1Settings._recoveryDuration
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 3060184153963347236, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _phase2Settings._recoveryDuration
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 3060184153963347236, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _phase1Settings._telegraphDuration
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 3060184153963347236, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _phase2Settings._telegraphDuration
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 3619018780754979877, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: _phase1Settings._telegraphDuration
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 5486056013902944760, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3

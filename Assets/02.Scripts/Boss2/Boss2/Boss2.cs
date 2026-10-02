@@ -20,9 +20,19 @@ public class Boss2 : HitableObject
     // 실제로 깎인 데미지 값으로 알린다. (컨트롤러가 큰 데미지 판별·체력 선 검사에 쓴다)
     public event System.Action<int> Damaged;
 
+    private Boss2AttackPattern _attackPattern;
+    private Boss2SkillPattern _skillPattern;
+
+    // 공격·스킬을 하는 중인지. 이때는 데미지만 받고 피격 모션으로 행동이 끊기지 않는다(슈퍼아머).
+    private bool IsActing =>
+        (_attackPattern != null && (_attackPattern.IsPatternRunning || _attackPattern.IsAttacking))
+        || (_skillPattern != null && _skillPattern.IsSkillRunning);
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _attackPattern = GetComponent<Boss2AttackPattern>();
+        _skillPattern = GetComponent<Boss2SkillPattern>();
         _maxHealth = _health;
     }
 
@@ -39,7 +49,12 @@ public void TakeDamage(int damage)
 
         if (damage > 0)
         {
-            _animator.SetTrigger("Hit");
+            // 행동 중에는 피격 모션을 생략한다. 단, 죽는 한 방은 Hit → Death 전이를 타야 하므로 항상 건다.
+            bool isLethal = _health - damage <= 0;
+            if (IsActing == false || isLethal)
+            {
+                _animator.SetTrigger("Hit");
+            }
 
             _health -= damage;
             Damaged?.Invoke(damage);

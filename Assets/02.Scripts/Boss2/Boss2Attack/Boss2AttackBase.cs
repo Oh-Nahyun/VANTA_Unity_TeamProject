@@ -29,6 +29,7 @@ public class Boss2AttackBase : MonoBehaviour
 
     [SerializeField] private BoxCollider2D _attackBoxCollider;
     protected Animator _animator;
+    private const string HitTrigger = "Hit";
     // 공격 박스 판정 한 번(StartDamage ~ EndDamage)에서 이미 맞은 대상
     private readonly HashSet<GameObject> _hitTargetsThisSwing = new HashSet<GameObject>();
 
@@ -150,10 +151,21 @@ public class Boss2AttackBase : MonoBehaviour
         return _comboSteps != null && _comboSteps.Length > 0;
     }
 
+    // 행동을 시작하기 직전에 맞아 걸려 있던 피격 트리거를 지운다.
+    // 남아 있으면 행동 애니메이션으로 넘어간 직후 AnyState → Hit 전이가 발동해 행동이 끊긴다.
+    protected void ClearPendingHit()
+    {
+        if (_animator != null)
+        {
+            _animator.ResetTrigger(HitTrigger);
+        }
+    }
+
     private void StartHit(int hitIndex)
     {
         // CrossFade 로 끊긴 이전 타의 EndDamage 이벤트가 누락됐을 수 있으므로 히트박스를 먼저 끈다.
         EndDamage();
+        ClearPendingHit();
 
         _currentHit = hitIndex;
         _stepStartTime = Time.time;

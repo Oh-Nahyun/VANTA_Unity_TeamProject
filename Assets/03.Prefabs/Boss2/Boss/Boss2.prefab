@@ -5191,13 +5191,13 @@ MonoBehaviour:
   _instantKillRadius: 1
   _aoeStateName: Boss2AOESkill
   _areaStrikePrefab: {fileID: 624373018500441915, guid: 7b6f88b6ca25cf54cb9702ab64a835cf, type: 3}
-  _strikeCountMin: 20
-  _strikeCountMax: 35
+  _strikeCountMin: 30
+  _strikeCountMax: 40
   _minStrikeSpacing: 1
   _spawnIntervalMin: 0.08
   _spawnIntervalMax: 0.15
-  _strikesPerWaveMin: 1
-  _strikesPerWaveMax: 3
+  _strikesPerWaveMin: 2
+  _strikesPerWaveMax: 5
   _aoeMaxDuration: 15
   _arenaCenter: {x: 0, y: 0}
   _arenaSize: {x: 10, y: 6}
@@ -5212,6 +5212,8 @@ MonoBehaviour:
   _avoidMaxWaitTime: 3
   _engulfEffect: {fileID: 681323519645991027}
   _releaseEffect: {fileID: 8706602223476031304}
+  _aoeInvincible: 1
+  _instantKillInvincible: 1
 --- !u!50 &-9214112356609609119
 Rigidbody2D:
   serializedVersion: 5
@@ -5384,8 +5386,6 @@ MonoBehaviour:
   _instantKillWeightPerHit: 1
   _instantKillWeight: 0
   _maxInstantKillWeight: 3
-  _aoeInvincible: 1
-  _instantKillInvincible: 1
 --- !u!95 &322370360651168047
 Animator:
   serializedVersion: 7

@@ -114,6 +114,18 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
     // 이번 스킬이 직접 이동을 막았는지. 다른 효과(크리스탈 프리즌 등)가 걸어둔 봉쇄는 풀지 않기 위해 기억한다.
     private bool _blockedMoveBySkill;
 
+    [Header("스킬 무적")]
+    [Tooltip("광역기를 시전하는 동안 무적")]
+    [SerializeField] private bool _aoeInvincible = true;
+
+    [Tooltip("즉사기를 시전하는 동안 무적")]
+    [SerializeField] private bool _instantKillInvincible = true;
+
+    private Boss2 _boss;
+
+    // 이번 스킬이 무적을 켰는지. 끝날 때(정상·취소 공통) 이 값으로 되돌린다.
+    private bool _invincibleBySkill;
+
     public bool IsSkillRunning => _currentSkillPatternType != Boss2SkillPatternType.None;
     public Boss2SkillPatternType CurrentSkillPatternType => _currentSkillPatternType;
 
@@ -126,6 +138,7 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
         _mover = GetComponent<Boss2MoveBase>();
         _movePattern = GetComponent<Boss2MovePattern>();
         _attackPattern = GetComponent<Boss2AttackPattern>();
+        _boss = GetComponent<Boss2>();
     }
 
     private void OnDisable()
@@ -495,12 +508,28 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
 
     private void BeginSkill()
     {
+        // 시작 직전에 맞아 남아 있던 피격 트리거가 스킬 애니메이션을 끊지 않게 지운다.
+        ClearPendingHit();
+
         // 이미 다른 효과로 묶여 있으면 손대지 않는다. 막지 않았으니 끝날 때 풀지도 않는다.
-        _blockedMoveBySkill = _mover != null && _mover.IsMoveBlocked == false;
+        _blockedMoveBySkill = (_mover != null && _mover.IsMoveBlocked == false);
         if (_blockedMoveBySkill)
         {
             _mover.MoveBlock();
         }
+
+        // 스킬 무적은 스킬이 직접 켠다. FSM·테스트 메뉴 등 어떤 경로로 시작해도 같게 동작한다.
+        _invincibleBySkill = (_boss != null && IsInvincibleSkill(_currentSkillPatternType));
+        if (_invincibleBySkill)
+        {
+            _boss.SetInvincible(true);
+        }
+    }
+
+    private bool IsInvincibleSkill(Boss2SkillPatternType skillType)
+    {
+        return (skillType == Boss2SkillPatternType.AreaOfEffect && _aoeInvincible)
+            || (skillType == Boss2SkillPatternType.InstantKill && _instantKillInvincible);
     }
 
     private void StopSkill()
@@ -536,6 +565,13 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
         {
             _mover.MoveUnblock();
             _blockedMoveBySkill = false;
+        }
+
+        // 이 스킬이 켠 무적만 끈다.
+        if (_invincibleBySkill)
+        {
+            _boss.SetInvincible(false);
+            _invincibleBySkill = false;
         }
 
         _skillRoutine = null;

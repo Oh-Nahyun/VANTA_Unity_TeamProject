@@ -44,8 +44,6 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
 
     private void FixedUpdate()
     {
-        Debug.Log($"[{Time.frameCount}] FixedUpdate Mode: {_moveMode}");
-        
         if (_isFacingLocked == false)
         {
             FacePlayer();
@@ -112,8 +110,6 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
     public void StartNormalChase()
     {
         _moveMode = MoveMode.NormalChase;
-        
-        Debug.Log($"[{Time.frameCount}] Mode 변경 → {_moveMode}");
     }
     
     public void StartAggressiveChase()
@@ -123,11 +119,6 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
     
     public void Stop()
     {
-        Debug.Log(
-            "Boss1Movement.Stop() 호출됨\n" +
-            new System.Diagnostics.StackTrace(1, true)
-        );
-        
         _moveMode = MoveMode.Stop;
         _rigidBody.linearVelocity = Vector2.zero;
     }

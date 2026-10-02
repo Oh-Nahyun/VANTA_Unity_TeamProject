@@ -1596,7 +1596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8a5219359263a489d250db1b9bca3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossLife
-  _maxHealth: 3000
+  _maxHealth: 2000
   _phase2HealthPercent: 0.4
 --- !u!114 &7103835189215790258
 MonoBehaviour:
@@ -1667,13 +1667,13 @@ MonoBehaviour:
     _weight: 20
   _phase1Settings:
     _overlapChance: 0.2
-    _overlapCheckDelay: 1
-    _cycleInterval: 1
+    _overlapCheckDelay: 1.5
+    _cycleInterval: 2
     _maxConcurrentAttacks: 2
     _cycleCount: 3
   _phase2Settings:
     _overlapChance: 0.4
-    _overlapCheckDelay: 1
+    _overlapCheckDelay: 0.7
     _cycleInterval: 1
     _maxConcurrentAttacks: 2
     _cycleCount: 3
@@ -1691,10 +1691,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1AimedBulletAttack
   _aimedHeadPivot: {fileID: 5691608955840068536}
-  _playerTransform: {fileID: 0}
   _bulletPrefab: {fileID: 1563816904694444635, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
-  _aimedFireInteval: 1
-  _aimedFireCount: 8
+  _phase1Settings:
+    _aimedFireInterval: 0.8
+    _aimedFireCount: 8
+  _phase2Settings:
+    _aimedFireInterval: 0.6
+    _aimedFireCount: 10
 --- !u!114 &3901018116763532789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1708,10 +1711,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1SplitBulletAttack
   _splitHeadPivot: {fileID: 1563079758274436983}
-  _playerTransform: {fileID: 0}
   _splitBulletPrefab: {fileID: 3256519665437658198, guid: 4702a32df1a08834d9d12a01dc6bf607, type: 3}
-  _splitFireInteval: 2
-  _splitFireCount: 5
+  _phase1Settings:
+    _splitFireInterval: 0.8
+    _splitFireCount: 8
+  _phase2Settings:
+    _splitFireInterval: 0.6
+    _splitFireCount: 10
 --- !u!114 &537864551881236395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1726,10 +1732,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss1LaserAttack
   _laser: {fileID: 1354967526303624378}
   _laserHeadPivot: {fileID: 9194194233165060837}
-  _playerTransform: {fileID: 0}
-  _aimDuration: 2
-  _sweepAngle: 60
-  _sweepDuration: 1.2
+  _phase1Settings:
+    _aimDuration: 2
+    _sweepAngle: 60
+    _sweepDuration: 1.2
+  _phase2Settings:
+    _aimDuration: 1
+    _sweepAngle: 90
+    _sweepDuration: 0.9
 --- !u!114 &9165167924702793645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1748,7 +1758,6 @@ MonoBehaviour:
   - _attackBehaviour: {fileID: 3619018780754979877}
     _weight: 10
   _boss1Movement: {fileID: 7103835189215790258}
-  _playerTransform: {fileID: 0}
   _spitPreferredDistance: 4
   _preferredWeightMultiplier: 2
   _boss1PhaseController: {fileID: 6958992141590794150}
@@ -1765,15 +1774,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1ClawAttack
   _boss1Movement: {fileID: 7103835189215790258}
-  _playerTransform: {fileID: 0}
-  _moveSpeed: 5
   _minAttackDistance: 2
   _maxAttackDistance: 4
   _yTolerance: 0.3
-  _telegraphDuration: 0.05
   _clawHitBox: {fileID: 5818488566624348837}
-  _recoveryDuration: 0.1
   _animator: {fileID: 192520389527177166}
+  _phase1Settings:
+    _moveSpeed: 7
+    _telegraphDuration: 0.2
+    _recoveryDuration: 0.4
+  _phase2Settings:
+    _moveSpeed: 10
+    _telegraphDuration: 0.1
+    _recoveryDuration: 0.2
 --- !u!114 &3619018780754979877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1787,14 +1800,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1SpitAttack
   _boss1Movement: {fileID: 7103835189215790258}
-  _playerTransform: {fileID: 0}
-  _moveSpeed: 5
   _maxAttackDistance: 2.5
   _yTolerance: 0.3
-  _telegraphDuration: 0.05
-  _recoveryDuration: 0.1
   _spitHitBox: {fileID: 2839262255638538226}
   _animator: {fileID: 192520389527177166}
+  _phase1Settings:
+    _moveSpeed: 7
+    _telegraphDuration: 0.2
+    _recoveryDuration: 0.4
+  _phase2Settings:
+    _moveSpeed: 10
+    _telegraphDuration: 0.2
+    _recoveryDuration: 0.2
 --- !u!114 &2681289112121689932
 MonoBehaviour:
   m_ObjectHideFlags: 0

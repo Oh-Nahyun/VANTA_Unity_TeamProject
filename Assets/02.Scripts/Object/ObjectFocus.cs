@@ -9,12 +9,12 @@ public class ObjectFocus : MonoBehaviour
         Shader.PropertyToID("_SelectedRadius");
 
     [Header("세팅")]
-    [SerializeField] private float _selectedRadius = 0.3f;
+    [SerializeField] private float _selectedRadius = 0.2f;
 
     [Header("Boss1 세팅")]
     [SerializeField]
     private Vector2 _boss1FocusOffset =
-        new Vector2(0f, 5f);
+        new Vector2(0f, 1f);
 
     private Camera _targetCamera;
 
@@ -62,6 +62,11 @@ public class ObjectFocus : MonoBehaviour
             $"[ObjectFocus] Radius : " +
             $"{Shader.GetGlobalFloat(SelectedRadiusID)}"
         );
+        
+        Debug.Log(                                                                                                                                                     
+            $"Boss SelectCenter: {Shader.GetGlobalVector("_SelectCenter")}, " +                                                                                        
+            $"Boss SelectedRadius: {Shader.GetGlobalFloat("_SelectedRadius")}"                                                                                         
+        );         
     }
 
     public void EndFocus()
@@ -80,6 +85,7 @@ public class ObjectFocus : MonoBehaviour
 
     private void UpdateFocusPosition()
     {
+          
         if (_targetCamera == null)
         {
             Debug.LogError(
@@ -105,16 +111,16 @@ public class ObjectFocus : MonoBehaviour
             _targetCamera.WorldToViewportPoint(
                 focusPosition
             );
-
-        Shader.SetGlobalVector(
-            SelectCenterID,
-            new Vector4(
-                viewportPosition.x,
-                viewportPosition.y,
-                0f,
-                0f
-            )
-        );
+                                                                                                                                                                 
+                                                                                                                                                                       
+          
+        Shader.SetGlobalVector(                                                                                                                                        
+            SelectCenterID,                                                                                                                                            
+            new Vector4(viewportPosition.x, viewportPosition.y, 0f, 0f)                                                                                                
+        );                        
+        Shader.SetGlobalFloat(SelectedRadiusID, _selectedRadius);                                                                                                                
+  
+        
     }
 
     private void OnDisable()

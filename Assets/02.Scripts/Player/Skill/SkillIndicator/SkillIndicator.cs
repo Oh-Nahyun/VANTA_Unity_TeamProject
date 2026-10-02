@@ -6,21 +6,20 @@ public class SkillIndicator : MonoBehaviour
 {
     private ObjectSelect _objectSelector;
     private ObjectSquash _objectSquash;
-    private ObjectFocus _objectFocus;
-    private SkillIndicatorOrbit  _skillIndicatorOrbit;
+    private SkillIndicatorOrbit _skillIndicatorOrbit;
     private SkillIndicatorMove _skillIndicatorMove;
-    
+    private SkillIndicatorSelectIndicator _skillIndicatorSelectIndicator;
     private bool _isChoiced;
     private void Awake()
     {
         _objectSelector = GetComponent<ObjectSelect>();
-        _objectFocus=GetComponent<ObjectFocus>();
-        _skillIndicatorOrbit=GetComponent<SkillIndicatorOrbit>();
-        _skillIndicatorMove=GetComponent<SkillIndicatorMove>();
+        _skillIndicatorOrbit = GetComponent<SkillIndicatorOrbit>();
+        _skillIndicatorMove = GetComponent<SkillIndicatorMove>();
+        _skillIndicatorSelectIndicator=GetComponent<SkillIndicatorSelectIndicator>();
     }
     public static SkillIndicator GetAtScreenPosition(Camera targetCamera, Vector2 screenPosition, LayerMask layerMask)
     {
-        
+
         Ray ray = targetCamera.ScreenPointToRay(screenPosition);
         RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity, layerMask);
 
@@ -36,8 +35,7 @@ public class SkillIndicator : MonoBehaviour
             if (indicator == null || indicator.GetIsChoiced())
                 continue;
 
-            // A cursor has screen-space coordinates, so compare it with the
-            // indicator's projected transform position in the same space.
+
             Vector2 indicatorScreenPosition = targetCamera.WorldToScreenPoint(indicator.transform.position);
             float distanceSqr = (indicatorScreenPosition - screenPosition).sqrMagnitude;
 
@@ -50,18 +48,20 @@ public class SkillIndicator : MonoBehaviour
 
         return closestIndicator;
     }
-    
+
     public void Select()
     {
         _objectSelector.StartSelect();
-        _objectFocus.StartFocus();
+        //_objectFocus.StartFocus();
+        _skillIndicatorSelectIndicator.IndicatingStart();
     }
 
     public void Deselect()
     {
-        
+
         _objectSelector.EndSelect();
-        _objectFocus.EndFocus();
+        //_objectFocus.EndFocus();
+        _skillIndicatorSelectIndicator.IndicatingStop();
     }
 
     public bool GetIsChoiced()
@@ -71,22 +71,23 @@ public class SkillIndicator : MonoBehaviour
     public void ChoicedToAttack()
     {
         _isChoiced = true;
-        GetComponent<Animator>().SetTrigger("Choice");
-
-        Deselect();
-        if (_objectSquash != null)
-            _objectSquash.PlaySquash();
+        _objectSelector.EndSelect();
+        //_objectFocus.EndFocus();
         
+        if (_objectSquash != null)
+        {
+            _objectSquash.PlaySquash();
+        }
+
         _skillIndicatorOrbit.StopOrbit();
         GetComponent<SkillIndicatorAttack>().PauseAttack();
+
+        _skillIndicatorSelectIndicator.IndicateSelected();
     }
 
     public void SkillAttackComplete()
     {
-
-        
-            Destroy(gameObject);
-        
+        Destroy(gameObject);
     }
-    
+
 }

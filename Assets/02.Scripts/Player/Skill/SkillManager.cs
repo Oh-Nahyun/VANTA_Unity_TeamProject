@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SkillManager : MonoBehaviour
@@ -163,13 +164,18 @@ public class SkillManager : MonoBehaviour
     {
         List<Vector3> dashPoints =
             _skillDashPointCreator.CreateDashPoint(
-                _skillStack,
-                StartDashPointCalculate
+                _skillStack
+                
             );
 
         MoveToPointSkillIndicators(
             dashPoints
         );
+        
+        DOVirtual.DelayedCall(1.5f, () =>
+        {
+            StartDashPointCalculate();
+        });
     }
 
 

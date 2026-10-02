@@ -8,20 +8,25 @@ public class Player : MonoBehaviour
     
     private float _curTime;
     private bool _isHitCoolTime;
-    private bool _isHittable;
+    private bool _isHittable=true;
 
     private Animator _animator;
-
+    private BrokenWidowScreenController _brokenWidowScreenController;
 
     private void Awake()
     {
       
-        
+        _brokenWidowScreenController=GetComponent<BrokenWidowScreenController>();
         _animator = GetComponent<Animator>();
     }
     private void Update()
     {
         CalculateHitCoolTime();
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            TakeDamage();
+        }
     }
     private void CalculateHitCoolTime()
     {
@@ -51,12 +56,15 @@ public class Player : MonoBehaviour
             return;
         }
 
+        Debug.Log("데미지입음");
         _isHitCoolTime = true;
 
         _health--;
         
         _animator.SetTrigger("Hurt");
 
+        _brokenWidowScreenController.ApplyBroken();
+        
         if (_health <= 0)
         {
             Death();

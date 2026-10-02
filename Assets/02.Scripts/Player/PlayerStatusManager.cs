@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -12,31 +11,46 @@ public class PlayerStatusManager : MonoBehaviour
     [SerializeField] private CinemachineCamera _cinemachineCamera;
 
     [Header("Spot Light")]
-    [SerializeField] private float _fadeOutDuration = 1f;
+    [SerializeField] private float _startOuterRadius = 10f;
+    [SerializeField] private float _targetOuterRadius = 6f;
+    [SerializeField] private float _spotLightDuration = 1f;
 
     [Header("Camera")]
-    [SerializeField] private float _targetOrthographicSize = 5f;
+    [SerializeField] private float _startOrthographicSize = 5f;
+    [SerializeField] private float _targetOrthographicSize = 3f;
     [SerializeField] private float _zoomDuration = 1f;
 
     private Sequence _originSequence;
     private Animator _animator;
 
-    private void OnEnable()
-    {
-        _playerMove.enabled = false;
-        _playerAttack.enabled = false;
-        
-    }
+    private bool _isStart;
 
     private void Awake()
     {
-        _animator=GetComponent<Animator>();
-        
+        _animator = GetComponent<Animator>();
+
+        _playerMove.enabled = false;
+        _playerAttack.enabled = false;
+
+        Time.timeScale = 0.6f;
+
+        _spotLight.pointLightOuterRadius =
+            _startOuterRadius;
+    }
+
+    private void Start()
+    {
+        var lens = _cinemachineCamera.Lens;
+
+        lens.OrthographicSize =
+            _startOrthographicSize;
+
+        _cinemachineCamera.Lens = lens;
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !_isStart)
         {
             StartPlayerOriginSetting();
         }
@@ -44,42 +58,60 @@ public class PlayerStatusManager : MonoBehaviour
 
     public void StartPlayerOriginSetting()
     {
+        if (_isStart)
+            return;
+
+        _isStart = true;
+
+        Time.timeScale = 1f;
+
         _originSequence?.Kill();
 
-        _originSequence = DOTween.Sequence();
-        
         _animator.SetTrigger("Start");
 
-        _originSequence.Join(
+        float currentOrthoSize =
+            _cinemachineCamera.Lens.OrthographicSize;
+
+        _originSequence = DOTween.Sequence()
+            .SetUpdate(true);
+
+        _originSequence.Append(
             DOTween.To(
-                    () => _cinemachineCamera.Lens.OrthographicSize,
+                    () => currentOrthoSize,
                     value =>
                     {
-                        var lens = _cinemachineCamera.Lens;
-                        lens.OrthographicSize = value;
-                        _cinemachineCamera.Lens = lens;
+                        currentOrthoSize = value;
+
+                        var lens =
+                            _cinemachineCamera.Lens;
+
+                        lens.OrthographicSize =
+                            value;
+
+                        _cinemachineCamera.Lens =
+                            lens;
                     },
                     _targetOrthographicSize,
                     _zoomDuration
                 )
-                .SetEase(Ease.InOutQuad)
+                .SetEase(Ease.InOutSine)
         );
 
-        _originSequence.Join(
+        _originSequence.Append(
             DOTween.To(
-                    () => _spotLight.intensity,
-                    value => _spotLight.intensity = value,
-                    0f,
-                    _fadeOutDuration
+                    () => _spotLight.pointLightOuterRadius,
+                    value =>
+                        _spotLight.pointLightOuterRadius =
+                            value,
+                    _targetOuterRadius,
+                    _spotLightDuration
                 )
-                .SetEase(Ease.OutQuad)
+                .SetEase(Ease.InOutSine)
         );
 
-        _originSequence.OnComplete(() =>
-        {
-            _spotLight.gameObject.SetActive(false);
-            ActivatePlayer();
-        });
+        _originSequence.OnComplete(
+            ActivatePlayer
+        );
     }
 
     private void ActivatePlayer()
@@ -91,5 +123,7 @@ public class PlayerStatusManager : MonoBehaviour
     private void OnDestroy()
     {
         _originSequence?.Kill();
+
+        Time.timeScale = 1f;
     }
 }

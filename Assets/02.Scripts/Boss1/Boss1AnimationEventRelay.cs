@@ -4,6 +4,8 @@ public class Boss1AnimationEventRelay : MonoBehaviour
 {
     [SerializeField] private Boss1ClawAttack _boss1ClawAttack;
     [SerializeField] private Boss1SpitAttack _boss1SpitAttack;
+
+    [SerializeField] private Boss1JumpAttack _boss1JumpAttack;
     
     public void EnableClawHitBox()
     {
@@ -33,6 +35,11 @@ public class Boss1AnimationEventRelay : MonoBehaviour
     public void EndSpitAttack()
     {
         _boss1SpitAttack.EndSpitAttack();
+    }
+
+    public void JumpLandImpact()
+    {
+        _boss1JumpAttack.JumpLandImpact();
     }
     
 }

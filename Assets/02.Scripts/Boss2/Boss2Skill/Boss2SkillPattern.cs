@@ -58,9 +58,42 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
 
     [Header("효과")]
     [SerializeField] private ParticleSystem _areaOfEffectCircle;
+
+    [Header("사운드")]
+    [SerializeField] private AudioClip _instantKillVoice;
+    [SerializeField] private AudioClip _areaOfEffectVoice;
+
     
+    [Header("광역기 어둠 연출")]
+    [Tooltip("씬의 Boss2DarknessEffect. 비워 두면 어둠 연출 없이 진행한다")]
+    [SerializeField] private Boss2DarknessEffect _darknessEffect;
+
+    [Tooltip("어둠 동안 보스를 약하게 비추는 Point Light 2D (Boss2 자식)")]
+    [SerializeField] private UnityEngine.Rendering.Universal.Light2D _bossDarknessLight;
+
+    // 이번 스킬이 어둠을 켰는지. 끝날 때(정상·취소 공통) 이 값으로 되돌린다.
+    private bool _darkenedBySkill;
+
     
     private bool _isAvoided = false;
+
+    [Header("즉사기 회피")]
+    [Tooltip("회피 결과를 기다리는 최대 실시간(초). PlayerAvoid 의 입력 제한시간(2초)보다 길게")]
+    [SerializeField] private float _avoidMaxWaitTime = 3f;
+
+    // AvoidPoint 에서 QTE 를 시작하고 결과를 기다리는 중인지
+    private bool _isWaitingAvoidResult;
+
+    // 이번 즉사기에서 이미 플레이어 위로 순간이동했는지
+    private bool _hasTeleported;
+
+    [Header("즉사기 잠식 연출")]
+    [Tooltip("검은 입자가 빨려들며 몸을 덮는 효과 (SuckIn + Cover 를 자식으로 묶은 부모)")]
+    [SerializeField] private ParticleSystem _engulfEffect;
+
+    [Tooltip("순간이동 직후 몸에서 검은 입자가 흩어져 나가는 효과")]
+    [SerializeField] private ParticleSystem _releaseEffect;
+    private float _avoidWaitStartTime;
 
     private const int MaxSpacingAttempts = 30;
 
@@ -81,6 +114,18 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
     // 이번 스킬이 직접 이동을 막았는지. 다른 효과(크리스탈 프리즌 등)가 걸어둔 봉쇄는 풀지 않기 위해 기억한다.
     private bool _blockedMoveBySkill;
 
+    [Header("스킬 무적")]
+    [Tooltip("광역기를 시전하는 동안 무적")]
+    [SerializeField] private bool _aoeInvincible = true;
+
+    [Tooltip("즉사기를 시전하는 동안 무적")]
+    [SerializeField] private bool _instantKillInvincible = true;
+
+    private Boss2 _boss;
+
+    // 이번 스킬이 무적을 켰는지. 끝날 때(정상·취소 공통) 이 값으로 되돌린다.
+    private bool _invincibleBySkill;
+
     public bool IsSkillRunning => _currentSkillPatternType != Boss2SkillPatternType.None;
     public Boss2SkillPatternType CurrentSkillPatternType => _currentSkillPatternType;
 
@@ -93,6 +138,7 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
         _mover = GetComponent<Boss2MoveBase>();
         _movePattern = GetComponent<Boss2MovePattern>();
         _attackPattern = GetComponent<Boss2AttackPattern>();
+        _boss = GetComponent<Boss2>();
     }
 
     private void OnDisable()
@@ -139,6 +185,7 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
         _currentSkillPatternType = Boss2SkillPatternType.InstantKill;
         // 이전 즉사기의 회피 결과가 남아 있으면 이번 즉사기가 데미지를 주지 못한다.
         _isAvoided = false;
+        _hasTeleported = false;
         _skillRoutine = StartCoroutine(InstantKillRoutine());
     }
 
@@ -152,6 +199,41 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
 
         _currentSkillPatternType = Boss2SkillPatternType.AreaOfEffect;
         _skillRoutine = StartCoroutine(AreaOfEffectRoutine());
+    }
+
+    // 애니메이션 이벤트: StartInstantKillSkill 에서 Dissolve 로 완전히 사라진 순간.
+    // 안 보일 때 플레이어 위로 옮기고, 이어지는 곡선에서 다시 나타난다.
+    public void InstantKillTeleport()
+    {
+        if (_currentSkillPatternType != Boss2SkillPatternType.InstantKill || _hasTeleported)
+            return;
+
+        AppearAboveTarget();
+        _hasTeleported = true;
+
+        // 이전 자리에서 덮던 입자는 따라오지 않게 정리하고, 새 자리에서 흩어지며 나타난다.
+        StopEffect(_engulfEffect);
+        if (_releaseEffect != null)
+        {
+            _releaseEffect.Play(true);
+        }
+    }
+
+    // 애니메이션 이벤트: StartInstantKillSkill 에서 사라지기 전. 검은 입자가 빨려들며 몸을 덮는다.
+    public void InstantKillEngulf()
+    {
+        if (_currentSkillPatternType != Boss2SkillPatternType.InstantKill || _engulfEffect == null)
+            return;
+
+        _engulfEffect.Play(true);
+    }
+
+    private static void StopEffect(ParticleSystem effect)
+    {
+        if (effect != null)
+        {
+            effect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
     }
 
     // 애니메이션 이벤트: EndInstantKillSkill 의 베는 프레임
@@ -174,10 +256,11 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
         }
     }
 
+    // 애니메이션 이벤트: EndInstantKillSkill 의 내려베기 직전.
+    // 플레이어 회피 입력(QTE)을 시작하고, 결과(AvoidResultBehavior)가 올 때까지 보스 모션을 멈춘다.
     public void AvoidPoint()
     {
-        //DealAreaDamage(InstantKillCenter, _instantKillRadius, _targetLayers, InstantKillDamage);
-        // 만약 플레이어가
+        bool hasStarted = false;
         foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
         {
             PlayerAvoid playerAvoid = playerObject.GetComponent<PlayerAvoid>();
@@ -185,10 +268,17 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
             if (playerAvoid == null)
                 continue;
 
-            // TakeDamage가 아니라 
-            playerAvoid.StartAvoidAttackInteraction(gameObject); // 인자로 키보드 키값 KeyCode
-            // StartAvoid
+            playerAvoid.StartAvoidAttackInteraction(gameObject);
+            hasStarted = true;
         }
+
+        // 회피할 플레이어가 없으면 기다리지 않고 그대로 판정으로 간다.
+        if (hasStarted == false)
+            return;
+
+        _isWaitingAvoidResult = true;
+        _avoidWaitStartTime = Time.realtimeSinceStartup;
+        _animator.speed = 0f;
     }
 
     // 애니메이션 이벤트: Boss2AOESkill 의 참격 프레임
@@ -288,6 +378,9 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
         BeginSkill();
         _animator.CrossFade(_instantKillStartState, 0.05f, 0, 0f);
 
+        // 사운드 부분
+        SoundManager.Instance.PlayEffectSound(_instantKillVoice);
+
         // Start → End 는 컨트롤러 전이가 넘긴다. 두 상태를 거치므로 시간을 더하지 않고,
         // End 상태가 끝까지 재생되거나 End 를 벗어날 때까지 상태를 보고 기다린다.
         float timeout = GetClipLength(_instantKillStartState) + GetClipLength(_instantKillEndState) + 1f;
@@ -298,10 +391,12 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
             AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
             if (state.IsName(_instantKillEndState))
             {
-                if (hasEnteredEnd == false)
+                if (hasEnteredEnd == false && _hasTeleported == false)
                 {
-                    // 점프가 끝나고 공격이 시작되는 순간 플레이어 위로 나타난다.
+                    // 보통은 Start 클립의 InstantKillTeleport 이벤트에서 이미 이동한다.
+                    // 이벤트가 빠졌을 때를 대비해 공격 시작 순간에라도 플레이어 위로 옮긴다.
                     AppearAboveTarget();
+                    _hasTeleported = true;
                 }
 
                 hasEnteredEnd = true;
@@ -313,7 +408,21 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
                 break;
             }
 
-            elapsed += Time.deltaTime;
+            if (_isWaitingAvoidResult)
+            {
+                // 결과가 끝내 오지 않으면(PlayerAvoid 이상 등) 실패로 보고 진행한다. 실시간 기준.
+                if (Time.realtimeSinceStartup - _avoidWaitStartTime >= _avoidMaxWaitTime)
+                {
+                    _isAvoided = false;
+                    ResumeAfterAvoid();
+                }
+            }
+            else
+            {
+                // 회피 결과를 기다리는 동안은 시간 초과 카운트를 멈춘다.
+                elapsed += Time.deltaTime;
+            }
+
             yield return null;
         }
 
@@ -368,8 +477,19 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
     {
         BeginSkill();
         _animator.CrossFade(_aoeStateName, 0.05f, 0, 0f);
-        
+
+        // 맵을 어둡게 하고 플레이어 주변·보스만 밝힌다. FinishSkill 에서 되돌린다.
+        if (_darknessEffect != null)
+        {
+            _darknessEffect.Begin(FindInstantKillTarget(), _bossDarknessLight);
+            _darkenedBySkill = true;
+        }
+
         Instantiate(_areaOfEffectCircle, transform.position,transform.rotation);
+
+        // 사운드 부분
+        SoundManager.Instance.PlayEffectSound(_areaOfEffectVoice);
+        
         // 이 사이 클립의 SpawnAreaStrikes 이벤트에서 더미 순차 생성이 시작된다.
         float clipLength = GetClipLength(_aoeStateName);
         yield return new WaitForSeconds(clipLength);
@@ -388,12 +508,28 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
 
     private void BeginSkill()
     {
+        // 시작 직전에 맞아 남아 있던 피격 트리거가 스킬 애니메이션을 끊지 않게 지운다.
+        ClearPendingHit();
+
         // 이미 다른 효과로 묶여 있으면 손대지 않는다. 막지 않았으니 끝날 때 풀지도 않는다.
-        _blockedMoveBySkill = _mover != null && _mover.IsMoveBlocked == false;
+        _blockedMoveBySkill = (_mover != null && _mover.IsMoveBlocked == false);
         if (_blockedMoveBySkill)
         {
             _mover.MoveBlock();
         }
+
+        // 스킬 무적은 스킬이 직접 켠다. FSM·테스트 메뉴 등 어떤 경로로 시작해도 같게 동작한다.
+        _invincibleBySkill = (_boss != null && IsInvincibleSkill(_currentSkillPatternType));
+        if (_invincibleBySkill)
+        {
+            _boss.SetInvincible(true);
+        }
+    }
+
+    private bool IsInvincibleSkill(Boss2SkillPatternType skillType)
+    {
+        return (skillType == Boss2SkillPatternType.AreaOfEffect && _aoeInvincible)
+            || (skillType == Boss2SkillPatternType.InstantKill && _instantKillInvincible);
     }
 
     private void StopSkill()
@@ -411,10 +547,31 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
     // 정상 종료든 취소든 반드시 거친다. 여기서 풀지 않으면 취소된 스킬 때문에 보스가 계속 묶여 있게 된다.
     private void FinishSkill()
     {
+        // 회피 결과 대기 중에 스킬이 끊겨도 보스가 멈춘 채로 남지 않게 한다.
+        _isWaitingAvoidResult = false;
+        _animator.speed = 1f;
+
+        // 즉사기가 끊겨도 잠식 입자가 남지 않게 한다.
+        StopEffect(_engulfEffect);
+        StopEffect(_releaseEffect);
+
+        if (_darkenedBySkill)
+        {
+            _darknessEffect.End();
+            _darkenedBySkill = false;
+        }
+
         if (_blockedMoveBySkill)
         {
             _mover.MoveUnblock();
             _blockedMoveBySkill = false;
+        }
+
+        // 이 스킬이 켠 무적만 끈다.
+        if (_invincibleBySkill)
+        {
+            _boss.SetInvincible(false);
+            _invincibleBySkill = false;
         }
 
         _skillRoutine = null;
@@ -515,8 +672,21 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
     [ContextMenu("Test/AreaOfEffect")]
     private void TestAreaOfEffect() => PlayTestSkill(Boss2SkillPatternType.AreaOfEffect);
 
+    // IAvoidInteraction: PlayerAvoid 가 입력 성공(true) / 시간 초과(false) 때 호출한다.
     public void AvoidResultBehavior(bool result)
     {
+        // 즉사기 밖에서 온 결과(디버그 키 등)는 무시한다.
+        if (_isWaitingAvoidResult == false)
+            return;
+
         _isAvoided = result;
+        ResumeAfterAvoid();
+    }
+
+    // 회피 결과 대기를 끝내고 모션을 다시 재생한다. 이어지는 InstantKillHit 이 _isAvoided 로 판정한다.
+    private void ResumeAfterAvoid()
+    {
+        _isWaitingAvoidResult = false;
+        _animator.speed = 1f;
     }
 }

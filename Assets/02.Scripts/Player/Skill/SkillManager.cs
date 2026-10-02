@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SkillManager : MonoBehaviour
@@ -152,10 +153,14 @@ public class SkillManager : MonoBehaviour
 
     private void ScreenControl()
     {
+        HitableObject hitableObject=FindAnyObjectByType<HitableObject>();
+        CameraFocusingController.Instance.Focus(hitableObject.transform,10,-1f);
+        
         _skillFocusScreenController
             .StartFocusScreenSetting(
                 DashPointCreat
             );
+        
     }
 
 
@@ -163,13 +168,18 @@ public class SkillManager : MonoBehaviour
     {
         List<Vector3> dashPoints =
             _skillDashPointCreator.CreateDashPoint(
-                _skillStack,
-                StartDashPointCalculate
+                _skillStack
+                
             );
 
         MoveToPointSkillIndicators(
             dashPoints
         );
+        
+        DOVirtual.DelayedCall(1.5f, () =>
+        {
+            StartDashPointCalculate();
+        });
     }
 
 
@@ -186,6 +196,8 @@ public class SkillManager : MonoBehaviour
 
     private void StartDash()
     {
+        CameraFocusingController.Instance.ReturnCamera();
+
         List<SkillIndicator> _choicedSequnce =
             _skillDashPointCalculater
                 .GetChoiceSequence();

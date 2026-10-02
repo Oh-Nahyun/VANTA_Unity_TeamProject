@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7545253917007621900}
   - component: {fileID: 1563816904694444635}
   - component: {fileID: 3256519665437658198}
+  - component: {fileID: -5880375199522839188}
   m_Layer: 8
   m_Name: Boss1SplitBullet
   m_TagString: BossBullet
@@ -212,3 +213,16 @@ MonoBehaviour:
   _warningDuration: 1.5
   _splitBulletCount: 8
   _bulletPrefab: {fileID: 1563816904694444635, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
+--- !u!210 &-5880375199522839188
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8840192290824723525}
+  m_Enabled: 1
+  m_SortingLayerID: 421858133
+  m_SortingLayer: 7
+  m_SortingOrder: 10
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0

@@ -395,9 +395,9 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1404992290905063954}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 299320877
+  m_SortingLayer: 6
+  m_SortingOrder: 10
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
 --- !u!95 &192520389527177166
@@ -1649,6 +1649,16 @@ MonoBehaviour:
   - {fileID: 9165167924702793645}
   - {fileID: 2846696346554286157}
   _chaseDuration: 2
+  _distanceThreshold: 4
+  _meleeWeightBonus: 5
+  _rangedWeightBonus: 5
+  _rangedMissBonusAmount: 2
+  _maxRangedMissBonus: 8
+  _jumpBonusStartTime: 3
+  _jumpBonusPerSecond: 2
+  _maxJumpBonus: 10
+  _jumpMissBonusAmount: 1
+  _maxJumpMissBonus: 4
 --- !u!114 &2582459974778337398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1661,6 +1671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7df2287c1b19e3469270420498757f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1AttackBulletHell
+  _weight: 10
   _rangedAttacks:
   - _attackBehaviour: {fileID: 2627111689535811849}
     _weight: 50
@@ -1755,11 +1766,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 584929f51a598484e8bf086a9fe14f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1MeleePattern
+  _weight: 10
   _meleeAttacks:
   - _attackBehaviour: {fileID: 3060184153963347236}
     _weight: 10
   - _attackBehaviour: {fileID: 3619018780754979877}
     _weight: 10
+  _phase1Settings:
+    _cycleInterval: 0.1
+    _cycleCount: 2
+  _phase2Settings:
+    _cycleInterval: 0.05
+    _cycleCount: 2
   _boss1Movement: {fileID: 7103835189215790258}
   _spitPreferredDistance: 4
   _preferredWeightMultiplier: 2
@@ -1777,6 +1795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1ClawAttack
   _boss1Movement: {fileID: 7103835189215790258}
+  _maxPositioningTime: 0.5
   _minAttackDistance: 2
   _maxAttackDistance: 4
   _yTolerance: 0.3
@@ -1784,12 +1803,12 @@ MonoBehaviour:
   _animator: {fileID: 192520389527177166}
   _phase1Settings:
     _moveSpeed: 7
-    _telegraphDuration: 0.2
-    _recoveryDuration: 0.4
+    _telegraphDuration: 0.1
+    _recoveryDuration: 0.1
   _phase2Settings:
     _moveSpeed: 10
-    _telegraphDuration: 0.1
-    _recoveryDuration: 0.2
+    _telegraphDuration: 0.05
+    _recoveryDuration: 0.05
 --- !u!114 &3619018780754979877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1803,18 +1822,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1SpitAttack
   _boss1Movement: {fileID: 7103835189215790258}
+  _maxPositioningTime: 0.5
   _maxAttackDistance: 2.5
   _yTolerance: 0.3
   _spitHitBox: {fileID: 2839262255638538226}
   _animator: {fileID: 192520389527177166}
   _phase1Settings:
     _moveSpeed: 7
-    _telegraphDuration: 0.2
-    _recoveryDuration: 0.4
+    _telegraphDuration: 0.1
+    _recoveryDuration: 0.1
   _phase2Settings:
     _moveSpeed: 10
-    _telegraphDuration: 0.2
-    _recoveryDuration: 0.2
+    _telegraphDuration: 0.1
+    _recoveryDuration: 0.1
 --- !u!114 &2681289112121689932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1839,7 +1859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e1909c435e3444bbc206efce43fdc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1JumpAttack
-  _weight: 10
+  _weight: 7
   _telegraphDuration: 0.45
   _warningDuration: 0.65
   _recoveryDuration: 0.5

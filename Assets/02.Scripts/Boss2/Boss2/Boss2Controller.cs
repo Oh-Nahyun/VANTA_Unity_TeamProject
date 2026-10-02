@@ -39,13 +39,9 @@ public class Boss2Controller : MonoBehaviour
     [Tooltip("최대 누적 가중치 : 즉사기 발동 조건 횟수 ")]
     [SerializeField] private float _maxInstantKillWeight = 3f; 
 
-    [Header("무적 (행동은 Boss2Action.IsInvincible 로 설정)")]
-    [Tooltip("광역기를 시전하는 동안 무적")]
-    [SerializeField] private bool _aoeInvincible = true;
-    [Tooltip("즉사기를 시전하는 동안 무적")]
-    [SerializeField] private bool _instantKillInvincible = true;
+    // 무적: 행동은 Boss2Action.IsInvincible 로 여기서, 스킬(광역기·즉사기)은 Boss2SkillPattern 이 직접 처리한다.
 
-    private const string InstantKillName = "즉사기";
+    private const string InstantKillName = "InstantKill";
 
     // 후보가 하나도 없을 때 거리를 좁히기 위한 기본 행동
     private readonly Boss2Action _fallbackAction = new Boss2Action
@@ -63,8 +59,10 @@ public class Boss2Controller : MonoBehaviour
     private Boss2State _state = Boss2State.Idle;
     private float _stateEnterTime;
     private Boss2Action _currentAction;
-    private Boss2SkillPatternType _currentSkillType = Boss2SkillPatternType.None;
     private string _lastChoiceName;
+
+    // 테스트로 실행한 행동인지. 끝나면 다음 판단(Think)으로 가지 않고 Idle 에서 멈춘다.
+    private bool _isTestRun;
 
     private bool[] _aoeTriggered;
     private int _pendingAoeCount;
@@ -191,8 +189,58 @@ public class Boss2Controller : MonoBehaviour
     [ContextMenu("FSM/Stop")]
     public void StopFsm()
     {
+        _isTestRun = false;
         StopAllPatterns();
         EnterState(Boss2State.Idle);
+    }
+
+    // ---- 테스트: 액션·스킬 하나를 실제 FSM 경로(무적·Recover 포함)로 실행하고 끝나면 Idle 로 멈춘다 ----
+    public IReadOnlyList<Boss2Action> Actions => _actions;
+    public bool IsTestRunning => _isTestRun;
+    public string CurrentStateName => _state.ToString();
+
+    /// <summary>
+    /// _actions[index] 를 조건(거리·체력·쿨다운)과 상관없이 바로 실행한다. 플레이 중에만 동작.
+    /// </summary>
+    public void TestAction(int index)
+    {
+        if (CanStartTest() == false || index < 0 || index >= _actions.Count)
+            return;
+
+        StartAction(_actions[index], "테스트");
+    }
+
+    /// <summary>
+    /// 즉사기·광역기를 조건(가중치·체력 선)과 상관없이 바로 실행한다. 플레이 중에만 동작.
+    /// </summary>
+    public void TestSkill(Boss2SkillPatternType skillType)
+    {
+        if (CanStartTest() == false || skillType == Boss2SkillPatternType.None)
+            return;
+
+        StartSkill(skillType, "테스트");
+    }
+
+    [ContextMenu("Test/InstantKill")]
+    private void TestInstantKill() => TestSkill(Boss2SkillPatternType.InstantKill);
+
+    [ContextMenu("Test/AreaOfEffect")]
+    private void TestAreaOfEffect() => TestSkill(Boss2SkillPatternType.AreaOfEffect);
+
+    // 진행 중인 행동을 모두 멈추고 테스트 모드로 들어간다.
+    private bool CanStartTest()
+    {
+        if (Application.isPlaying == false || _boss == null || _boss.IsDead)
+            return false;
+
+        StopAllPatterns();
+        if (Target == null)
+        {
+            TryFindTarget();
+        }
+
+        _isTestRun = true;
+        return true;
     }
 
     // ---- 판단 ----
@@ -294,7 +342,6 @@ public class Boss2Controller : MonoBehaviour
     // ---- 실행 ----
     private void StartAction(Boss2Action action, string reason)
     {
-        _currentSkillType = Boss2SkillPatternType.None;
         _currentAction = action;
         _lastChoiceName = action.Name;
         action.LastUsedTime = Time.time;
@@ -335,7 +382,6 @@ public class Boss2Controller : MonoBehaviour
     private void StartSkill(Boss2SkillPatternType skillType, string reason)
     {
         _currentAction = null;
-        _currentSkillType = skillType;
         _lastChoiceName = skillType == Boss2SkillPatternType.InstantKill ? InstantKillName : skillType.ToString();
         Log($"스킬: {skillType} / {reason}");
 
@@ -346,7 +392,8 @@ public class Boss2Controller : MonoBehaviour
         if (_skill.IsSkillRunning == false)
         {
             Log($"스킬 {skillType} 시작 실패 → 다시 판단");
-            if (skillType == Boss2SkillPatternType.AreaOfEffect)
+            // 테스트로 실행한 광역기는 체력 선 예약이 아니므로 다시 예약하지 않는다.
+            if (skillType == Boss2SkillPatternType.AreaOfEffect && _isTestRun == false)
             {
                 _pendingAoeCount++;
             }
@@ -378,6 +425,14 @@ public class Boss2Controller : MonoBehaviour
 
     private void EnterState(Boss2State next)
     {
+        // 테스트 행동이 끝나 다음 판단으로 넘어가려 하면 Idle 에서 멈춘다. (Recover 후·이동 시간 초과·스킬 거절 모두)
+        if (_isTestRun && next == Boss2State.Think)
+        {
+            _isTestRun = false;
+            next = Boss2State.Idle;
+            Log("테스트 종료 → Idle");
+        }
+
         if (_state != next)
         {
             Log($"{_state} → {next}");
@@ -386,15 +441,15 @@ public class Boss2Controller : MonoBehaviour
         _state = next;
         _stateEnterTime = Time.time;
 
-        // 무적은 상태가 바뀔 때마다 여기서만 정한다. 켜고 끄는 곳이 한 곳이라 풀리지 않고 남는 일이 없다.
-        if (_boss != null)
+        // 행동 무적은 상태가 바뀔 때마다 여기서 정한다.
+        // Skill 상태의 무적은 Boss2SkillPattern 이 시작·종료 때 직접 켜고 끄므로 덮어쓰지 않는다.
+        if (_boss != null && next != Boss2State.Skill)
         {
             _boss.SetInvincible(IsInvincibleIn(next));
         }
     }
 
-    // 무적 행동은 이동부터 공격이 끝날 때까지, 스킬은 설정에 따라 시전하는 동안 무적.
-    // Think · Recover · Idle · Dead 에서는 해제된다.
+    // 무적 행동은 이동부터 공격이 끝날 때까지 무적. Think · Recover · Idle · Dead 에서는 해제된다.
     private bool IsInvincibleIn(Boss2State state)
     {
         switch (state)
@@ -403,11 +458,6 @@ public class Boss2Controller : MonoBehaviour
             case Boss2State.Attack:
             {
                 return _currentAction != null && _currentAction.IsInvincible;
-            }
-            case Boss2State.Skill:
-            {
-                return (_currentSkillType == Boss2SkillPatternType.AreaOfEffect && _aoeInvincible)
-                    || (_currentSkillType == Boss2SkillPatternType.InstantKill && _instantKillInvincible);
             }
             default:
             {

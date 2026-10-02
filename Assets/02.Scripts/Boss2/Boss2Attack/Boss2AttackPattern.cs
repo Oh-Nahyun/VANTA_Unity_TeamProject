@@ -169,6 +169,7 @@ public class Boss2AttackPattern : Boss2AttackBase
     private IEnumerator SingleAttackRoutine(string stateName, bool blockMove)
     {
         EndDamage();
+        ClearPendingHit();
 
         // 이미 다른 효과(크리스탈 프리즌 등)로 묶여 있으면 손대지 않는다.
         // 여기서 막지 않았으니 끝날 때 풀지도 않아, 그 효과의 봉쇄를 대신 풀어버리지 않는다.

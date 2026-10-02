@@ -375,7 +375,7 @@ public class Boss2Controller : MonoBehaviour
             _move.FaceTowards(Target.position);
         }
 
-        _attack.ApplyAttackPattern(_currentAction.Attack, _currentAction.PickComboCount());
+        _attack.ApplyAttackPattern(_currentAction.Attack, _currentAction.PickComboCount(), _currentAction.ProjectileType);
         EnterState(Boss2State.Attack);
     }
 
@@ -565,7 +565,7 @@ public class Boss2Controller : MonoBehaviour
             {
                 Name = "후퇴 회전 반격", 
                 Move = Boss2MovePatternType.BackStep, 
-                Attack = Boss2AttackPatternType.SpinningSlash,
+                Attack = Boss2AttackPatternType.BladeAuraSlash,
                 DistanceMin = 0f, 
                 DistanceMax = 1.5f, 
                 Cooldown = 5f, 

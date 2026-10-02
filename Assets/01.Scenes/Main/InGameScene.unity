@@ -182,15 +182,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 93744653351868377, guid: 958bd685698d9434c8ff036184e66e2a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 93744653351868377, guid: 958bd685698d9434c8ff036184e66e2a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 93744653351868377, guid: 958bd685698d9434c8ff036184e66e2a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 93744653351868377, guid: 958bd685698d9434c8ff036184e66e2a, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -666,7 +666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6716763365085065730, guid: c57efca2853500249bf07c610954027a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 85.6769
+      value: 85.67691
       objectReference: {fileID: 0}
     - target: {fileID: 6716763365085065730, guid: c57efca2853500249bf07c610954027a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -930,6 +930,10 @@ PrefabInstance:
     - target: {fileID: 8279119010861365979, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: m_Name
       value: Boss1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8279119010861365979, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9165167924702793645, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: _playerTransform

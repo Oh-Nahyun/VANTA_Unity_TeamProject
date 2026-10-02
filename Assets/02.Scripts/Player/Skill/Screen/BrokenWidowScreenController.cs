@@ -7,6 +7,9 @@ public class BrokenWidowScreenController : MonoBehaviour
     [SerializeField]
     private FullScreenPassRendererFeature _brokenFullScreenFeature;
 
+    [SerializeField]
+    private Material _hurtMaterial;
+
     [Header("Broken Setting")]
     [SerializeField] private float _crackIntensity = 0.02f;
     [SerializeField] private float _crackDistortion = 0.01f;
@@ -29,6 +32,9 @@ public class BrokenWidowScreenController : MonoBehaviour
 
     private static readonly int CrackGlowIntensityID =
         Shader.PropertyToID("_CrackGlowIntensity");
+
+    private static readonly int IsHurtID =
+        Shader.PropertyToID("_IsHurt");
 
     private void Awake()
     {
@@ -65,6 +71,14 @@ public class BrokenWidowScreenController : MonoBehaviour
             return;
 
         _brokenSequence?.Kill();
+
+        if (_hurtMaterial != null)
+        {
+            _hurtMaterial.SetFloat(
+                IsHurtID,
+                1f
+            );
+        }
 
         float randomRotation =
             Random.Range(0f, 360f);
@@ -146,11 +160,27 @@ public class BrokenWidowScreenController : MonoBehaviour
             CrackGlowIntensityID,
             0f
         );
+
+        if (_hurtMaterial != null)
+        {
+            _hurtMaterial.SetFloat(
+                IsHurtID,
+                0f
+            );
+        }
     }
 
     private void OnDestroy()
     {
         _brokenSequence?.Kill();
+
+        if (_hurtMaterial != null)
+        {
+            _hurtMaterial.SetFloat(
+                IsHurtID,
+                0f
+            );
+        }
 
         if (_brokenFullScreenFeature != null &&
             _originalMaterial != null)

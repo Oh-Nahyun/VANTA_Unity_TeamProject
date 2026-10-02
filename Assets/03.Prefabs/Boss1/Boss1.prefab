@@ -1839,7 +1839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e1909c435e3444bbc206efce43fdc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1JumpAttack
-  _weight: 1000
+  _weight: 10
   _telegraphDuration: 0.45
   _warningDuration: 0.65
   _recoveryDuration: 0.5

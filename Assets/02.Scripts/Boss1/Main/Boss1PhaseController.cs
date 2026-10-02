@@ -47,12 +47,20 @@ public class Boss1PhaseController : MonoBehaviour
         _boss1Movement.Stop();
         _boss1ProjectileManager.DestroyAllProjectiles();
         
-        Debug.Log("보스1 페이즈 2 전환 시작");
+        //여기에 보스1 무적 전환 + 연출 넣기
+        
+        Debug.Log("보스1 페이즈2 진입");
+        
+        EnterPhase2();
     }
     
     private void EnterPhase2()
     {
         CurrentPhase = Boss1Phase.phase2;
         OnPhaseChanged?.Invoke(CurrentPhase);
+
+        _isPhase2Transitioning = false;
+        _boss1AttackController.UnlockAttack();
+        _boss1Movement.StartNormalChase();
     }
 }

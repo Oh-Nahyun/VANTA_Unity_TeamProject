@@ -77,7 +77,7 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
 
     public float GetWeight()
     {
-        return 100f;
+        return 10f;
     }
     
     public void EnterAttack()

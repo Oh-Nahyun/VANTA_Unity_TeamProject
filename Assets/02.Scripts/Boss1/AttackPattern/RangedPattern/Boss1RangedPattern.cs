@@ -19,12 +19,19 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
     private class PhaseSettings
     {
         [Range(0f, 1f)]
+        [Header("추가 원거리 공격 중첩 확률")]
         [SerializeField] private float _overlapChance = 0.2f;
 
+        [Header("추가 공격 중첩 검사까지의 대기 시간")]
         [SerializeField] private float _overlapCheckDelay = 1f;
+        
+        [Header("다음 원거리 공격까지의 대기 시간")]
         [SerializeField] private float _cycleInterval = 1f;
 
+        [Header("최대 중첩 가능 원거리 공격 수")]
         [SerializeField] private int _maxConcurrentAttacks = 2;
+        
+        [Header("원거리 공격 사이클 반복 횟수")]
         [SerializeField] private int _cycleCount = 3;
         
         public float OverlapChance => _overlapChance;
@@ -37,7 +44,7 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
     [Header("원거리 공격 패턴")]
     [SerializeField] private RangedAttackData[]  _rangedAttacks;
     
-    [Header("페이즈별 세팅")]
+    [Header("페이즈별 난이도 세팅")]
     [SerializeField] private PhaseSettings _phase1Settings;
     [SerializeField] private PhaseSettings _phase2Settings;
 

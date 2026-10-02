@@ -1,0 +1,4901 @@
+fileFormatVersion: 2
+guid: eaabbb313d0a66d4f9b66a86ef9eb8ee
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2395079596244998581
+    second: GameClearButtons_0
+  - first:
+      213: 3507730694726733234
+    second: GameClearButtons_1
+  - first:
+      213: 4062775894102286050
+    second: GameClearButtons_2
+  - first:
+      213: 3082674469135360009
+    second: GameClearButtons_3
+  - first:
+      213: -3524715384977276263
+    second: GameClearButtons_4
+  - first:
+      213: 8210931688978321111
+    second: GameClearButtons_5
+  - first:
+      213: 414553196932522851
+    second: GameClearButtons_6
+  - first:
+      213: -2701630614629268169
+    second: GameClearButtons_7
+  - first:
+      213: 214920727428774161
+    second: GameClearButtons_8
+  - first:
+      213: 7669307643210670356
+    second: GameClearButtons_9
+  - first:
+      213: 8128805477764608305
+    second: GameClearButtons_10
+  - first:
+      213: -5804041477811241973
+    second: GameClearButtons_11
+  - first:
+      213: -9047463553124696258
+    second: GameClearButtons_12
+  - first:
+      213: -5947421196101340389
+    second: GameClearButtons_13
+  - first:
+      213: 4449817642780511617
+    second: GameClearButtons_14
+  - first:
+      213: -5224096549070828156
+    second: GameClearButtons_15
+  - first:
+      213: 5881134570962221188
+    second: GameClearButtons_16
+  - first:
+      213: -1464901030133036234
+    second: GameClearButtons_17
+  - first:
+      213: 6665295000857351696
+    second: GameClearButtons_18
+  - first:
+      213: 929945897868880208
+    second: GameClearButtons_19
+  - first:
+      213: -1145353204598249449
+    second: GameClearButtons_20
+  - first:
+      213: -7239877759815716871
+    second: GameClearButtons_21
+  - first:
+      213: -4936056988412489627
+    second: GameClearButtons_22
+  - first:
+      213: 8801039710158900792
+    second: GameClearButtons_23
+  - first:
+      213: -5861018680203282154
+    second: GameClearButtons_24
+  - first:
+      213: -8172208605638338979
+    second: GameClearButtons_25
+  - first:
+      213: 5593059719217425916
+    second: GameClearButtons_26
+  - first:
+      213: 8007204260748237837
+    second: GameClearButtons_27
+  - first:
+      213: -20949589615621524
+    second: GameClearButtons_28
+  - first:
+      213: -2691486769777920372
+    second: GameClearButtons_29
+  - first:
+      213: -6112192383606263024
+    second: GameClearButtons_30
+  - first:
+      213: 4504426343147431486
+    second: GameClearButtons_31
+  - first:
+      213: -7922932093101806533
+    second: GameClearButtons_32
+  - first:
+      213: -1912654648124727706
+    second: GameClearButtons_33
+  - first:
+      213: -7645607647653640042
+    second: GameClearButtons_34
+  - first:
+      213: -7940493942678851371
+    second: GameClearButtons_35
+  - first:
+      213: 1097798443123683281
+    second: GameClearButtons_36
+  - first:
+      213: 7531699777007643266
+    second: GameClearButtons_37
+  - first:
+      213: 3524767262975217291
+    second: GameClearButtons_38
+  - first:
+      213: -6144923017369799290
+    second: GameClearButtons_39
+  - first:
+      213: 4993566785323841719
+    second: GameClearButtons_40
+  - first:
+      213: 5367613790332000345
+    second: GameClearButtons_41
+  - first:
+      213: 1539861590538852849
+    second: GameClearButtons_42
+  - first:
+      213: -7636545117861025714
+    second: GameClearButtons_43
+  - first:
+      213: 6614139679503212691
+    second: GameClearButtons_44
+  - first:
+      213: 1062780302543277836
+    second: GameClearButtons_45
+  - first:
+      213: -8319825777771377613
+    second: GameClearButtons_46
+  - first:
+      213: -2556258215598381632
+    second: GameClearButtons_47
+  - first:
+      213: 8054071058179757176
+    second: GameClearButtons_48
+  - first:
+      213: -8535181600617973010
+    second: GameClearButtons_49
+  - first:
+      213: 5145737764832589583
+    second: GameClearButtons_50
+  - first:
+      213: -1954081693927049387
+    second: GameClearButtons_51
+  - first:
+      213: -5344753582873228136
+    second: GameClearButtons_52
+  - first:
+      213: -664486708291301143
+    second: GameClearButtons_53
+  - first:
+      213: -4022186619934846711
+    second: GameClearButtons_54
+  - first:
+      213: -8323046244759519976
+    second: GameClearButtons_55
+  - first:
+      213: 7895276331567341147
+    second: GameClearButtons_56
+  - first:
+      213: 6191122216018524393
+    second: GameClearButtons_57
+  - first:
+      213: -5093911962408963245
+    second: GameClearButtons_58
+  - first:
+      213: -3900393912377997912
+    second: GameClearButtons_59
+  - first:
+      213: -9056718204916268763
+    second: GameClearButtons_60
+  - first:
+      213: -8656094961687644748
+    second: GameClearButtons_61
+  - first:
+      213: 3193982111636641618
+    second: GameClearButtons_62
+  - first:
+      213: -5162613910836351731
+    second: GameClearButtons_63
+  - first:
+      213: 2023143036667561395
+    second: GameClearButtons_64
+  - first:
+      213: 5576231197543860076
+    second: GameClearButtons_65
+  - first:
+      213: 3026036851821928306
+    second: GameClearButtons_66
+  - first:
+      213: -591762824751841845
+    second: GameClearButtons_67
+  - first:
+      213: 1923135402603775230
+    second: GameClearButtons_68
+  - first:
+      213: -2983939885872845168
+    second: GameClearButtons_69
+  - first:
+      213: 7250005210037373157
+    second: GameClearButtons_70
+  - first:
+      213: -8725675309633839789
+    second: GameClearButtons_71
+  - first:
+      213: 4488497891979316037
+    second: GameClearButtons_72
+  - first:
+      213: 8995615309647329891
+    second: GameClearButtons_73
+  - first:
+      213: -1635619630996682208
+    second: GameClearButtons_74
+  - first:
+      213: -1031279889285922501
+    second: GameClearButtons_75
+  - first:
+      213: 5536354241421900033
+    second: GameClearButtons_76
+  - first:
+      213: 2219158097466751688
+    second: GameClearButtons_77
+  - first:
+      213: 5444187818348881702
+    second: GameClearButtons_78
+  - first:
+      213: 3881405778002406599
+    second: GameClearButtons_79
+  - first:
+      213: -320390080071057942
+    second: GameClearButtons_80
+  - first:
+      213: 6915600976426941829
+    second: GameClearButtons_81
+  - first:
+      213: 1689089196681306188
+    second: GameClearButtons_82
+  - first:
+      213: 839876429000690073
+    second: GameClearButtons_83
+  - first:
+      213: 7618329742115998150
+    second: GameClearButtons_84
+  - first:
+      213: 1676053622975153564
+    second: GameClearButtons_85
+  - first:
+      213: -7279107328233092446
+    second: GameClearButtons_86
+  - first:
+      213: 7741446122872121767
+    second: GameClearButtons_87
+  - first:
+      213: -5117525737592248782
+    second: GameClearButtons_88
+  - first:
+      213: 8192496988628025639
+    second: GameClearButtons_89
+  - first:
+      213: 3830126543567297392
+    second: GameClearButtons_90
+  - first:
+      213: -5059692713814368959
+    second: GameClearButtons_91
+  - first:
+      213: 8862450740773265038
+    second: GameClearButtons_92
+  - first:
+      213: -8558463634523790498
+    second: GameClearButtons_93
+  - first:
+      213: 4770298644566718544
+    second: GameClearButtons_94
+  - first:
+      213: 1166784946492352967
+    second: GameClearButtons_95
+  - first:
+      213: 5133040378292502685
+    second: GameClearButtons_96
+  - first:
+      213: -4456241751800937562
+    second: GameClearButtons_97
+  - first:
+      213: 7403198291610584178
+    second: GameClearButtons_98
+  - first:
+      213: -5000421267450265812
+    second: GameClearButtons_99
+  - first:
+      213: 1741759789458213114
+    second: GameClearButtons_100
+  - first:
+      213: 5812981239045000595
+    second: GameClearButtons_101
+  - first:
+      213: 6328648499096958907
+    second: GameClearButtons_102
+  - first:
+      213: 3118439869065503887
+    second: GameClearButtons_103
+  - first:
+      213: 2070752545043138859
+    second: GameClearButtons_104
+  - first:
+      213: -3486126369230665618
+    second: GameClearButtons_105
+  - first:
+      213: -3495162850521489586
+    second: GameClearButtons_106
+  - first:
+      213: 2800366049874453513
+    second: GameClearButtons_107
+  - first:
+      213: 675849864101999444
+    second: GameClearButtons_108
+  - first:
+      213: 3209361694831144514
+    second: GameClearButtons_109
+  - first:
+      213: -7580259279974452847
+    second: GameClearButtons_110
+  - first:
+      213: 2390527432344801962
+    second: GameClearButtons_111
+  - first:
+      213: -2742846768501155345
+    second: GameClearButtons_112
+  - first:
+      213: 1573880441447594523
+    second: GameClearButtons_113
+  - first:
+      213: -487189543657486931
+    second: GameClearButtons_114
+  - first:
+      213: 5004695773219487526
+    second: GameClearButtons_115
+  - first:
+      213: 2782216492710734102
+    second: GameClearButtons_116
+  - first:
+      213: 1053659032587130670
+    second: GameClearButtons_117
+  - first:
+      213: -4565771395082544400
+    second: GameClearButtons_118
+  - first:
+      213: -5297671046522908244
+    second: GameClearButtons_119
+  - first:
+      213: -5556074089334764278
+    second: GameClearButtons_120
+  - first:
+      213: -8906597245841980578
+    second: GameClearButtons_121
+  - first:
+      213: -2854947287327090393
+    second: GameClearButtons_122
+  - first:
+      213: -7941282867483039897
+    second: GameClearButtons_123
+  - first:
+      213: -690751112695191106
+    second: GameClearButtons_124
+  - first:
+      213: 1292640352399846517
+    second: GameClearButtons_125
+  - first:
+      213: -6039729573436961618
+    second: GameClearButtons_126
+  - first:
+      213: 2551226290868265385
+    second: GameClearButtons_127
+  - first:
+      213: 7124767035799746501
+    second: GameClearButtons_128
+  - first:
+      213: 6115280704283139483
+    second: GameClearButtons_129
+  - first:
+      213: -8865376489138795760
+    second: GameClearButtons_130
+  - first:
+      213: 8030449513497037802
+    second: GameClearButtons_131
+  - first:
+      213: 950938324194815404
+    second: GameClearButtons_132
+  - first:
+      213: 6359514534682910932
+    second: GameClearButtons_133
+  - first:
+      213: 4708814173337336694
+    second: GameClearButtons_134
+  - first:
+      213: -5876771625419467982
+    second: GameClearButtons_135
+  - first:
+      213: -6986537639463150301
+    second: GameClearButtons_136
+  - first:
+      213: 48451049388112806
+    second: GameClearButtons_137
+  - first:
+      213: 8848317370331106977
+    second: GameClearButtons_138
+  - first:
+      213: -687447789815848217
+    second: GameClearButtons_139
+  - first:
+      213: -1392831530077588297
+    second: GameClearButtons_140
+  - first:
+      213: 5847890360048608122
+    second: GameClearButtons_141
+  - first:
+      213: -8498142619080294299
+    second: GameClearButtons_142
+  - first:
+      213: 3183381835330938359
+    second: GameClearButtons_143
+  - first:
+      213: -8287726748122804611
+    second: GameClearButtons_144
+  - first:
+      213: 8480931186599520533
+    second: GameClearButtons_145
+  - first:
+      213: -2905948036116751580
+    second: GameClearButtons_146
+  - first:
+      213: 7193562751202082822
+    second: GameClearButtons_147
+  - first:
+      213: -2514143165116641704
+    second: GameClearButtons_148
+  - first:
+      213: -4011156601779379605
+    second: GameClearButtons_149
+  - first:
+      213: 5646031917086163045
+    second: GameClearButtons_150
+  - first:
+      213: 3524661378126962203
+    second: GameClearButtons_151
+  - first:
+      213: -2727567289019070741
+    second: GameClearButtons_152
+  - first:
+      213: -7053689806234346767
+    second: GameClearButtons_153
+  - first:
+      213: 7126100469494491745
+    second: GameClearButtons_154
+  - first:
+      213: -2089425620509930590
+    second: GameClearButtons_155
+  - first:
+      213: 2853734448756030714
+    second: GameClearButtons_156
+  - first:
+      213: -7217617593482313965
+    second: GameClearButtons_157
+  - first:
+      213: 794871102875534643
+    second: GameClearButtons_158
+  - first:
+      213: -2844913743586189469
+    second: GameClearButtons_159
+  - first:
+      213: 5325781293513179229
+    second: GameClearButtons_160
+  - first:
+      213: -8623636238828248875
+    second: GameClearButtons_161
+  - first:
+      213: 4124742372221132921
+    second: GameClearButtons_162
+  - first:
+      213: -6489043234559049339
+    second: GameClearButtons_163
+  - first:
+      213: -5018364821438602340
+    second: GameClearButtons_164
+  - first:
+      213: 257934364011902118
+    second: GameClearButtons_165
+  - first:
+      213: 232564303293176988
+    second: GameClearButtons_166
+  - first:
+      213: -8460252362190720353
+    second: GameClearButtons_167
+  - first:
+      213: 1469729420192121573
+    second: GameClearButtons_168
+  - first:
+      213: 8581599871601991683
+    second: GameClearButtons_169
+  - first:
+      213: 509260357131078854
+    second: GameClearButtons_170
+  - first:
+      213: 1040491350346314362
+    second: GameClearButtons_171
+  - first:
+      213: 6902386407206136939
+    second: GameClearButtons_172
+  - first:
+      213: -2001833208252127317
+    second: GameClearButtons_173
+  - first:
+      213: -2190610817524940654
+    second: GameClearButtons_174
+  - first:
+      213: 520076398230260021
+    second: GameClearButtons_175
+  - first:
+      213: -673157928016847191
+    second: GameClearButtons_176
+  - first:
+      213: 7031780795959402569
+    second: GameClearButtons_177
+  - first:
+      213: -6157578804433837555
+    second: GameClearButtons_178
+  - first:
+      213: -2476788204439845056
+    second: GameClearButtons_179
+  - first:
+      213: 6661202993631104457
+    second: GameClearButtons_180
+  - first:
+      213: 1397270242027377906
+    second: GameClearButtons_181
+  - first:
+      213: -7061945375341781094
+    second: GameClearButtons_182
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GameClearButtons_0
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 685
+        width: 162
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b918fef3380d3120800000000000000
+      internalID: 2395079596244998581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_1
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 860
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bdcbea6b76fda030800000000000000
+      internalID: 3507730694726733234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_2
+      rect:
+        serializedVersion: 2
+        x: 566
+        y: 858
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ee9cf17621e16830800000000000000
+      internalID: 4062775894102286050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_3
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 685
+        width: 335
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 900aaf2d81cd7ca20800000000000000
+      internalID: 3082674469135360009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_4
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 686
+        width: 165
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99243183802b51fc0800000000000000
+      internalID: -3524715384977276263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_5
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 691
+        width: 257
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7de0d842ed613f170800000000000000
+      internalID: 8210931688978321111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_6
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 838
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3636aabafe9c0c500800000000000000
+      internalID: 414553196932522851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_7
+      rect:
+        serializedVersion: 2
+        x: 933
+        y: 713
+        width: 60
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 735c3b41541e18ad0800000000000000
+      internalID: -2701630614629268169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_8
+      rect:
+        serializedVersion: 2
+        x: 988
+        y: 804
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 119b24d434d8bf200800000000000000
+      internalID: 214920727428774161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_9
+      rect:
+        serializedVersion: 2
+        x: 998
+        y: 795
+        width: 23
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 411a2c2faaade6a60800000000000000
+      internalID: 7669307643210670356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_10
+      rect:
+        serializedVersion: 2
+        x: 1036
+        y: 799
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 131b86683815fc070800000000000000
+      internalID: 8128805477764608305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_11
+      rect:
+        serializedVersion: 2
+        x: 1070
+        y: 811
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0c7d6de607e37fa0800000000000000
+      internalID: -5804041477811241973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_12
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 805
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3f75bd75d3f07280800000000000000
+      internalID: -9047463553124696258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_13
+      rect:
+        serializedVersion: 2
+        x: 1393
+        y: 747
+        width: 82
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1330c4dee3867da0800000000000000
+      internalID: -5947421196101340389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_14
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 773
+        width: 41
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18dc239e19de0cd30800000000000000
+      internalID: 4449817642780511617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_15
+      rect:
+        serializedVersion: 2
+        x: 943
+        y: 793
+        width: 20
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48d0a48fdd74087b0800000000000000
+      internalID: -5224096549070828156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_16
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 795
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 488f8729bbcfd9150800000000000000
+      internalID: 5881134570962221188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_17
+      rect:
+        serializedVersion: 2
+        x: 1463
+        y: 650
+        width: 260
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63b01d34640ababe0800000000000000
+      internalID: -1464901030133036234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_18
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 778
+        width: 6
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0161a413d72ef7c50800000000000000
+      internalID: 6665295000857351696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_19
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 785
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0596ec6fdd4d7ec00800000000000000
+      internalID: 929945897868880208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_20
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 761
+        width: 30
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 718e0992453ea10f0800000000000000
+      internalID: -1145353204598249449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_21
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 771
+        width: 10
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ffeee43989c68b90800000000000000
+      internalID: -7239877759815716871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_22
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 757
+        width: 23
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 560d696425a9f7bb0800000000000000
+      internalID: -4936056988412489627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_23
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 749
+        width: 33
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83ec02a8cf2932a70800000000000000
+      internalID: 8801039710158900792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_24
+      rect:
+        serializedVersion: 2
+        x: 1238
+        y: 733
+        width: 27
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 619fd88309a79aea0800000000000000
+      internalID: -5861018680203282154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_25
+      rect:
+        serializedVersion: 2
+        x: 1308
+        y: 709
+        width: 50
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d565986429b769e80800000000000000
+      internalID: -8172208605638338979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_26
+      rect:
+        serializedVersion: 2
+        x: 1361
+        y: 684
+        width: 41
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfd208b6e2a8e9d40800000000000000
+      internalID: 5593059719217425916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_27
+      rect:
+        serializedVersion: 2
+        x: 1393
+        y: 759
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0c94e5e9dd4f1f60800000000000000
+      internalID: 8007204260748237837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_28
+      rect:
+        serializedVersion: 2
+        x: 1476
+        y: 773
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6a45c0957295bff0800000000000000
+      internalID: -20949589615621524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_29
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 740
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8639b10b0be5aad0800000000000000
+      internalID: -2691486769777920372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_30
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 710
+        width: 37
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 013fc4039612d2ba0800000000000000
+      internalID: -6112192383606263024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_31
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 739
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e36e634c4efe28e30800000000000000
+      internalID: 4504426343147431486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_32
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 694
+        width: 56
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3cef132d371c0290800000000000000
+      internalID: -7922932093101806533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_33
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 741
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66e96803bb2e475e0800000000000000
+      internalID: -1912654648124727706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_34
+      rect:
+        serializedVersion: 2
+        x: 1185
+        y: 686
+        width: 58
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69848954a5855e590800000000000000
+      internalID: -7645607647653640042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_35
+      rect:
+        serializedVersion: 2
+        x: 1242
+        y: 723
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d07c7564d2bdc190800000000000000
+      internalID: -7940493942678851371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_36
+      rect:
+        serializedVersion: 2
+        x: 1429
+        y: 717
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1df2d5d1ed92c3f00800000000000000
+      internalID: 1097798443123683281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_37
+      rect:
+        serializedVersion: 2
+        x: 1459
+        y: 741
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28aed63ea09f58860800000000000000
+      internalID: 7531699777007643266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_38
+      rect:
+        serializedVersion: 2
+        x: 1465
+        y: 749
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8e4091962d7ae030800000000000000
+      internalID: 3524767262975217291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_39
+      rect:
+        serializedVersion: 2
+        x: 1586
+        y: 741
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6853d89a219d8baa0800000000000000
+      internalID: -6144923017369799290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_40
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 723
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b8ba61c886bc4540800000000000000
+      internalID: 4993566785323841719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_41
+      rect:
+        serializedVersion: 2
+        x: 951
+        y: 733
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9581a30bd489d7a40800000000000000
+      internalID: 5367613790332000345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_42
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 700
+        width: 43
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f9165345ffae5510800000000000000
+      internalID: 1539861590538852849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_43
+      rect:
+        serializedVersion: 2
+        x: 1117
+        y: 713
+        width: 29
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4866aaecaa850690800000000000000
+      internalID: -7636545117861025714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_44
+      rect:
+        serializedVersion: 2
+        x: 1278
+        y: 706
+        width: 31
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 390ea9bcef42acb50800000000000000
+      internalID: 6614139679503212691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_45
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 711
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0fcf57ed01cfbe00800000000000000
+      internalID: 1062780302543277836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_46
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 716
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33c8cc2198a0a8c80800000000000000
+      internalID: -8319825777771377613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_47
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 717
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c5a51152b8568cd0800000000000000
+      internalID: -2556258215598381632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_48
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 690
+        width: 54
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8741f8284fec5cf60800000000000000
+      internalID: 8054071058179757176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_49
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 715
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eea37b93e81fc8980800000000000000
+      internalID: -8535181600617973010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_50
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 717
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f07b82cdb35596740800000000000000
+      internalID: 5145737764832589583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_51
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 715
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55772637d05b1e4e0800000000000000
+      internalID: -1954081693927049387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_52
+      rect:
+        serializedVersion: 2
+        x: 869
+        y: 708
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89c48d02fee93d5b0800000000000000
+      internalID: -5344753582873228136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_53
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 709
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e014520cd447c6f0800000000000000
+      internalID: -664486708291301143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_54
+      rect:
+        serializedVersion: 2
+        x: 1161
+        y: 713
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 901547264925e28c0800000000000000
+      internalID: -4022186619934846711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_55
+      rect:
+        serializedVersion: 2
+        x: 1230
+        y: 674
+        width: 29
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81db5fba9899e7c80800000000000000
+      internalID: -8323046244759519976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_56
+      rect:
+        serializedVersion: 2
+        x: 1411
+        y: 692
+        width: 25
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5ede9a1ef7a19d60800000000000000
+      internalID: 7895276331567341147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_57
+      rect:
+        serializedVersion: 2
+        x: 1449
+        y: 723
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e830de7ad84be550800000000000000
+      internalID: 6191122216018524393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_58
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 673
+        width: 56
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35330831f0ace49b0800000000000000
+      internalID: -5093911962408963245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_59
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 678
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a50d90e6640fd9c0800000000000000
+      internalID: -3900393912377997912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_60
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 692
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5210725f6c2105280800000000000000
+      internalID: -9056718204916268763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_61
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 692
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b53f8a8e7f5fd780800000000000000
+      internalID: -8656094961687644748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_62
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 648
+        width: 39
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 257dd0fdecd435c20800000000000000
+      internalID: 3193982111636641618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_63
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 700
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0deb143006ba58b0800000000000000
+      internalID: -5162613910836351731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_64
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 695
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b5006e6fd5a31c10800000000000000
+      internalID: 2023143036667561395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_65
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 694
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c678d03eab0c26d40800000000000000
+      internalID: 5576231197543860076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_66
+      rect:
+        serializedVersion: 2
+        x: 861
+        y: 675
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27f561eeb74aef920800000000000000
+      internalID: 3026036851821928306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_67
+      rect:
+        serializedVersion: 2
+        x: 871
+        y: 688
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcd726f98d2a9c7f0800000000000000
+      internalID: -591762824751841845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_68
+      rect:
+        serializedVersion: 2
+        x: 921
+        y: 662
+        width: 26
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef40d2f957950ba10800000000000000
+      internalID: 1923135402603775230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_69
+      rect:
+        serializedVersion: 2
+        x: 964
+        y: 692
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09eed6fbb7ae696d0800000000000000
+      internalID: -2983939885872845168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_70
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 674
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e8420c83513d9460800000000000000
+      internalID: 7250005210037373157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_71
+      rect:
+        serializedVersion: 2
+        x: 988
+        y: 676
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35dd0e7598c28e680800000000000000
+      internalID: -8725675309633839789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_72
+      rect:
+        serializedVersion: 2
+        x: 1016
+        y: 685
+        width: 19
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54b448a3d095a4e30800000000000000
+      internalID: 4488497891979316037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_73
+      rect:
+        serializedVersion: 2
+        x: 1187
+        y: 676
+        width: 22
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36a389b9678d6dc70800000000000000
+      internalID: 8995615309647329891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_74
+      rect:
+        serializedVersion: 2
+        x: 1258
+        y: 690
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02a89ca8c9c1d49e0800000000000000
+      internalID: -1635619630996682208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_75
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 673
+        width: 52
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b31cb17976820b1f0800000000000000
+      internalID: -1031279889285922501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_76
+      rect:
+        serializedVersion: 2
+        x: 1328
+        y: 695
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 109fda689d415dc40800000000000000
+      internalID: 5536354241421900033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_77
+      rect:
+        serializedVersion: 2
+        x: 1391
+        y: 704
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8caffe338880cce10800000000000000
+      internalID: 2219158097466751688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_78
+      rect:
+        serializedVersion: 2
+        x: 1393
+        y: 677
+        width: 17
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 627a13be9f3ad8b40800000000000000
+      internalID: 5444187818348881702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_79
+      rect:
+        serializedVersion: 2
+        x: 1395
+        y: 696
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cc6bf29df58dd530800000000000000
+      internalID: 3881405778002406599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_80
+      rect:
+        serializedVersion: 2
+        x: 1409
+        y: 682
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aed3ecf6beebd8bf0800000000000000
+      internalID: -320390080071057942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_81
+      rect:
+        serializedVersion: 2
+        x: 1443
+        y: 692
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58db548927629ff50800000000000000
+      internalID: 6915600976426941829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_82
+      rect:
+        serializedVersion: 2
+        x: 1611
+        y: 694
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c40a32adca9d07710800000000000000
+      internalID: 1689089196681306188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_83
+      rect:
+        serializedVersion: 2
+        x: 1643
+        y: 672
+        width: 17
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9994fcd8927d7ab00800000000000000
+      internalID: 839876429000690073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_84
+      rect:
+        serializedVersion: 2
+        x: 1683
+        y: 675
+        width: 17
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c90e9c698eb9b960800000000000000
+      internalID: 7618329742115998150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_85
+      rect:
+        serializedVersion: 2
+        x: 1724
+        y: 628
+        width: 45
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c95c0f5d3e9824710800000000000000
+      internalID: 1676053622975153564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_86
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1757
+        height: 690
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2aa49ba837a6bfa90800000000000000
+      internalID: -7279107328233092446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_87
+      rect:
+        serializedVersion: 2
+        x: 885
+        y: 674
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a92e999b342f6b60800000000000000
+      internalID: 7741446122872121767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_88
+      rect:
+        serializedVersion: 2
+        x: 941
+        y: 680
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23625e99475eaf8b0800000000000000
+      internalID: -5117525737592248782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_89
+      rect:
+        serializedVersion: 2
+        x: 1334
+        y: 682
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72181aefa9891b170800000000000000
+      internalID: 8192496988628025639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_90
+      rect:
+        serializedVersion: 2
+        x: 1419
+        y: 678
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07b9f1a6cc7572530800000000000000
+      internalID: 3830126543567297392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_91
+      rect:
+        serializedVersion: 2
+        x: 1675
+        y: 678
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14d5670c84c58c9b0800000000000000
+      internalID: -5059692713814368959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_92
+      rect:
+        serializedVersion: 2
+        x: 1691
+        y: 652
+        width: 28
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8e10335effbdfa70800000000000000
+      internalID: 8862450740773265038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_93
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 650
+        width: 26
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e536c194baa3a3980800000000000000
+      internalID: -8558463634523790498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_94
+      rect:
+        serializedVersion: 2
+        x: 1748
+        y: 643
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0583de5d751833240800000000000000
+      internalID: 4770298644566718544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_95
+      rect:
+        serializedVersion: 2
+        x: 1724
+        y: 551
+        width: 43
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c923f81ab0413010800000000000000
+      internalID: 1166784946492352967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_96
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 442
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d908cdd27093c3740800000000000000
+      internalID: 5133040378292502685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_97
+      rect:
+        serializedVersion: 2
+        x: 1703
+        y: 354
+        width: 32
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a304a6acbf3822c0800000000000000
+      internalID: -4456241751800937562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_98
+      rect:
+        serializedVersion: 2
+        x: 1731
+        y: 352
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2744a355f917db660800000000000000
+      internalID: 7403198291610584178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_99
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 288
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2f7152c95fea9ab0800000000000000
+      internalID: -5000421267450265812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_100
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 245
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af847bedc49fb2810800000000000000
+      internalID: 1741759789458213114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_101
+      rect:
+        serializedVersion: 2
+        x: 1750
+        y: 257
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39d894f63abdba050800000000000000
+      internalID: 5812981239045000595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_102
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 224
+        width: 10
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb7bbf08740e3d750800000000000000
+      internalID: 6328648499096958907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_103
+      rect:
+        serializedVersion: 2
+        x: 1747
+        y: 239
+        width: 27
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f84a019e98ce64b20800000000000000
+      internalID: 3118439869065503887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_104
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 215
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b294809e77accbc10800000000000000
+      internalID: 2070752545043138859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_105
+      rect:
+        serializedVersion: 2
+        x: 1322
+        y: 203
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6842e7998ace9fc0800000000000000
+      internalID: -3486126369230665618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_106
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 192
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4f5686d7efae7fc0800000000000000
+      internalID: -3495162850521489586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_107
+      rect:
+        serializedVersion: 2
+        x: 1643
+        y: 172
+        width: 72
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 904a4dbd516ecd620800000000000000
+      internalID: 2800366049874453513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_108
+      rect:
+        serializedVersion: 2
+        x: 1740
+        y: 168
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 453bb4fded9116900800000000000000
+      internalID: 675849864101999444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_109
+      rect:
+        serializedVersion: 2
+        x: 1756
+        y: 209
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24ee7202571f98c20800000000000000
+      internalID: 3209361694831144514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_110
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 196
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 191b3c7c8528dc690800000000000000
+      internalID: -7580259279974452847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_111
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 183
+        width: 9
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa21dbeb80cdc2120800000000000000
+      internalID: 2390527432344801962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_112
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 149
+        width: 48
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe9192275637fe9d0800000000000000
+      internalID: -2742846768501155345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_113
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 172
+        width: 40
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1a3b673ceb87d510800000000000000
+      internalID: 1573880441447594523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_114
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 174
+        width: 11
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da5c208f0b72d39f0800000000000000
+      internalID: -487189543657486931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_115
+      rect:
+        serializedVersion: 2
+        x: 1353
+        y: 192
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62f75ab2a40447540800000000000000
+      internalID: 5004695773219487526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_116
+      rect:
+        serializedVersion: 2
+        x: 1455
+        y: 190
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 619a148c82b6c9620800000000000000
+      internalID: 2782216492710734102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_117
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 144
+        width: 24
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e27dcbfbe495f9e00800000000000000
+      internalID: 1053659032587130670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_118
+      rect:
+        serializedVersion: 2
+        x: 957
+        y: 184
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fa177e4b1f13a0c0800000000000000
+      internalID: -4565771395082544400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_119
+      rect:
+        serializedVersion: 2
+        x: 1308
+        y: 176
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca1512f5044ea76b0800000000000000
+      internalID: -5297671046522908244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_120
+      rect:
+        serializedVersion: 2
+        x: 1482
+        y: 176
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0d03779d0cd4e2b0800000000000000
+      internalID: -5556074089334764278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_121
+      rect:
+        serializedVersion: 2
+        x: 1715
+        y: 176
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e53cd1c7ef8656480800000000000000
+      internalID: -8906597245841980578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_122
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 158
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 729576e71903168d0800000000000000
+      internalID: -2854947287327090393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_123
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 168
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76727c68e45eac190800000000000000
+      internalID: -7941282867483039897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_124
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 164
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb9e893d585f966f0800000000000000
+      internalID: -690751112695191106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_125
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 162
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57ce0234d8160f110800000000000000
+      internalID: 1292640352399846517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_126
+      rect:
+        serializedVersion: 2
+        x: 1449
+        y: 112
+        width: 114
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eac4edbe3f19e2ca0800000000000000
+      internalID: -6039729573436961618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_127
+      rect:
+        serializedVersion: 2
+        x: 1586
+        y: 166
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a127d86bc6c76320800000000000000
+      internalID: 2551226290868265385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_128
+      rect:
+        serializedVersion: 2
+        x: 1627
+        y: 160
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c7b144ded140e260800000000000000
+      internalID: 7124767035799746501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_129
+      rect:
+        serializedVersion: 2
+        x: 1637
+        y: 160
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9dd8908667ddd450800000000000000
+      internalID: 6115280704283139483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_130
+      rect:
+        serializedVersion: 2
+        x: 1669
+        y: 152
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01b48cccd0bd7f480800000000000000
+      internalID: -8865376489138795760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_131
+      rect:
+        serializedVersion: 2
+        x: 1683
+        y: 150
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aeb03be0943e17f60800000000000000
+      internalID: 8030449513497037802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_132
+      rect:
+        serializedVersion: 2
+        x: 1699
+        y: 162
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cadefe81e59623d00800000000000000
+      internalID: 950938324194815404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_133
+      rect:
+        serializedVersion: 2
+        x: 1707
+        y: 168
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d065bf66c8814850800000000000000
+      internalID: 6359514534682910932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_134
+      rect:
+        serializedVersion: 2
+        x: 1714
+        y: 154
+        width: 16
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67bb813da81195140800000000000000
+      internalID: 4708814173337336694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_135
+      rect:
+        serializedVersion: 2
+        x: 1734
+        y: 162
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23317c8d753817ea0800000000000000
+      internalID: -5876771625419467982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_136
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 144
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32d17ed7805da0f90800000000000000
+      internalID: -6986537639463150301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_137
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 150
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6abf5c309f12ca000800000000000000
+      internalID: 48451049388112806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_138
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 144
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ae018694c98bca70800000000000000
+      internalID: 8848317370331106977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_139
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 112
+        width: 34
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e2266e90e1b576f0800000000000000
+      internalID: -687447789815848217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_140
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 145
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b4f2c95a1babace0800000000000000
+      internalID: -1392831530077588297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_141
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 146
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a73e02c8c41e72150800000000000000
+      internalID: 5847890360048608122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_142
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 152
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5608c132058801a80800000000000000
+      internalID: -8498142619080294299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_143
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 152
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f5e457b9e4ad2c20800000000000000
+      internalID: 3183381835330938359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_144
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 148
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7e03aece641cfc80800000000000000
+      internalID: -8287726748122804611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_145
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 144
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 519ebc5faf152b570800000000000000
+      internalID: 8480931186599520533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_146
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 142
+        width: 35
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42b548358affba7d0800000000000000
+      internalID: -2905948036116751580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_147
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 146
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 600c1e6853ba4d360800000000000000
+      internalID: 7193562751202082822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_148
+      rect:
+        serializedVersion: 2
+        x: 853
+        y: 149
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85e0fb0ac18fb1dd0800000000000000
+      internalID: -2514143165116641704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_149
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 146
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b622a7c92528558c0800000000000000
+      internalID: -4011156601779379605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_150
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 152
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56040785d1cba5e40800000000000000
+      internalID: 5646031917086163045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_151
+      rect:
+        serializedVersion: 2
+        x: 1038
+        y: 143
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1edbc459dc1ae030800000000000000
+      internalID: 3524661378126962203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_152
+      rect:
+        serializedVersion: 2
+        x: 1409
+        y: 116
+        width: 25
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be60b0d700cb52ad0800000000000000
+      internalID: -2727567289019070741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_153
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 130
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fa9b974e724c1e90800000000000000
+      internalID: -7053689806234346767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_154
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 112
+        width: 33
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16aa6fd0f9ef4e260800000000000000
+      internalID: 7126100469494491745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_155
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 113
+        width: 11
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2abc7e8e77ed003e0800000000000000
+      internalID: -2089425620509930590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_156
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 123
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afcf5658c508a9720800000000000000
+      internalID: 2853734448756030714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_157
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 136
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31f70ef0a0fd5db90800000000000000
+      internalID: -7217617593482313965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_158
+      rect:
+        serializedVersion: 2
+        x: 1603
+        y: 126
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3358e118e03f70b00800000000000000
+      internalID: 794871102875534643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_159
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 112
+        width: 35
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36f1be0f506d488d0800000000000000
+      internalID: -2844913743586189469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_160
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 128
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5006478ed9f8e940800000000000000
+      internalID: 5325781293513179229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_161
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 120
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d0e470e780b25880800000000000000
+      internalID: -8623636238828248875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_162
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 112
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9702e3e65570e3930800000000000000
+      internalID: 4124742372221132921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_163
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 112
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 581c4fffe8942f5a0800000000000000
+      internalID: -6489043234559049339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_164
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 110
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c93e5d888cf2b5ab0800000000000000
+      internalID: -5018364821438602340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_165
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 112
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a4bb4effed549300800000000000000
+      internalID: 257934364011902118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_166
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 120
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9cd93d600c3a3300800000000000000
+      internalID: 232564303293176988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_167
+      rect:
+        serializedVersion: 2
+        x: 701
+        y: 112
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9276790d45279a80800000000000000
+      internalID: -8460252362190720353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_168
+      rect:
+        serializedVersion: 2
+        x: 1345
+        y: 112
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e20e76ee17856410800000000000000
+      internalID: 1469729420192121573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_169
+      rect:
+        serializedVersion: 2
+        x: 1474
+        y: 111
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 300ef5fad97f71770800000000000000
+      internalID: 8581599871601991683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_170
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 88
+        width: 57
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cc8cfcb891411700800000000000000
+      internalID: 509260357131078854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_171
+      rect:
+        serializedVersion: 2
+        x: 1353
+        y: 104
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a723241de51907e00800000000000000
+      internalID: 1040491350346314362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_172
+      rect:
+        serializedVersion: 2
+        x: 1637
+        y: 112
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6ca100fdd33acf50800000000000000
+      internalID: 6902386407206136939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_173
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 96
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba72d82ad4f0834e0800000000000000
+      internalID: -2001833208252127317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_174
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 63
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2904c4c51136991e0800000000000000
+      internalID: -2190610817524940654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_175
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 94
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 539449c8abea73700800000000000000
+      internalID: 520076398230260021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_176
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 96
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ae51d65e6678a6f0800000000000000
+      internalID: -673157928016847191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_177
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 98
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 940e291c067e59160800000000000000
+      internalID: 7031780795959402569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_178
+      rect:
+        serializedVersion: 2
+        x: 1443
+        y: 104
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d022f3d93b2eb8aa0800000000000000
+      internalID: -6157578804433837555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_179
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 71
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0474c7a204ea0add0800000000000000
+      internalID: -2476788204439845056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_180
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 65
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cd862484d8517c50800000000000000
+      internalID: 6661202993631104457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_181
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 77
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f4144fc1e9146310800000000000000
+      internalID: 1397270242027377906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameClearButtons_182
+      rect:
+        serializedVersion: 2
+        x: 1449
+        y: 53
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9f5a8fc81eeefd90800000000000000
+      internalID: -7061945375341781094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      GameClearButtons_0: 2395079596244998581
+      GameClearButtons_1: 3507730694726733234
+      GameClearButtons_10: 8128805477764608305
+      GameClearButtons_100: 1741759789458213114
+      GameClearButtons_101: 5812981239045000595
+      GameClearButtons_102: 6328648499096958907
+      GameClearButtons_103: 3118439869065503887
+      GameClearButtons_104: 2070752545043138859
+      GameClearButtons_105: -3486126369230665618
+      GameClearButtons_106: -3495162850521489586
+      GameClearButtons_107: 2800366049874453513
+      GameClearButtons_108: 675849864101999444
+      GameClearButtons_109: 3209361694831144514
+      GameClearButtons_11: -5804041477811241973
+      GameClearButtons_110: -7580259279974452847
+      GameClearButtons_111: 2390527432344801962
+      GameClearButtons_112: -2742846768501155345
+      GameClearButtons_113: 1573880441447594523
+      GameClearButtons_114: -487189543657486931
+      GameClearButtons_115: 5004695773219487526
+      GameClearButtons_116: 2782216492710734102
+      GameClearButtons_117: 1053659032587130670
+      GameClearButtons_118: -4565771395082544400
+      GameClearButtons_119: -5297671046522908244
+      GameClearButtons_12: -9047463553124696258
+      GameClearButtons_120: -5556074089334764278
+      GameClearButtons_121: -8906597245841980578
+      GameClearButtons_122: -2854947287327090393
+      GameClearButtons_123: -7941282867483039897
+      GameClearButtons_124: -690751112695191106
+      GameClearButtons_125: 1292640352399846517
+      GameClearButtons_126: -6039729573436961618
+      GameClearButtons_127: 2551226290868265385
+      GameClearButtons_128: 7124767035799746501
+      GameClearButtons_129: 6115280704283139483
+      GameClearButtons_13: -5947421196101340389
+      GameClearButtons_130: -8865376489138795760
+      GameClearButtons_131: 8030449513497037802
+      GameClearButtons_132: 950938324194815404
+      GameClearButtons_133: 6359514534682910932
+      GameClearButtons_134: 4708814173337336694
+      GameClearButtons_135: -5876771625419467982
+      GameClearButtons_136: -6986537639463150301
+      GameClearButtons_137: 48451049388112806
+      GameClearButtons_138: 8848317370331106977
+      GameClearButtons_139: -687447789815848217
+      GameClearButtons_14: 4449817642780511617
+      GameClearButtons_140: -1392831530077588297
+      GameClearButtons_141: 5847890360048608122
+      GameClearButtons_142: -8498142619080294299
+      GameClearButtons_143: 3183381835330938359
+      GameClearButtons_144: -8287726748122804611
+      GameClearButtons_145: 8480931186599520533
+      GameClearButtons_146: -2905948036116751580
+      GameClearButtons_147: 7193562751202082822
+      GameClearButtons_148: -2514143165116641704
+      GameClearButtons_149: -4011156601779379605
+      GameClearButtons_15: -5224096549070828156
+      GameClearButtons_150: 5646031917086163045
+      GameClearButtons_151: 3524661378126962203
+      GameClearButtons_152: -2727567289019070741
+      GameClearButtons_153: -7053689806234346767
+      GameClearButtons_154: 7126100469494491745
+      GameClearButtons_155: -2089425620509930590
+      GameClearButtons_156: 2853734448756030714
+      GameClearButtons_157: -7217617593482313965
+      GameClearButtons_158: 794871102875534643
+      GameClearButtons_159: -2844913743586189469
+      GameClearButtons_16: 5881134570962221188
+      GameClearButtons_160: 5325781293513179229
+      GameClearButtons_161: -8623636238828248875
+      GameClearButtons_162: 4124742372221132921
+      GameClearButtons_163: -6489043234559049339
+      GameClearButtons_164: -5018364821438602340
+      GameClearButtons_165: 257934364011902118
+      GameClearButtons_166: 232564303293176988
+      GameClearButtons_167: -8460252362190720353
+      GameClearButtons_168: 1469729420192121573
+      GameClearButtons_169: 8581599871601991683
+      GameClearButtons_17: -1464901030133036234
+      GameClearButtons_170: 509260357131078854
+      GameClearButtons_171: 1040491350346314362
+      GameClearButtons_172: 6902386407206136939
+      GameClearButtons_173: -2001833208252127317
+      GameClearButtons_174: -2190610817524940654
+      GameClearButtons_175: 520076398230260021
+      GameClearButtons_176: -673157928016847191
+      GameClearButtons_177: 7031780795959402569
+      GameClearButtons_178: -6157578804433837555
+      GameClearButtons_179: -2476788204439845056
+      GameClearButtons_18: 6665295000857351696
+      GameClearButtons_180: 6661202993631104457
+      GameClearButtons_181: 1397270242027377906
+      GameClearButtons_182: -7061945375341781094
+      GameClearButtons_19: 929945897868880208
+      GameClearButtons_2: 4062775894102286050
+      GameClearButtons_20: -1145353204598249449
+      GameClearButtons_21: -7239877759815716871
+      GameClearButtons_22: -4936056988412489627
+      GameClearButtons_23: 8801039710158900792
+      GameClearButtons_24: -5861018680203282154
+      GameClearButtons_25: -8172208605638338979
+      GameClearButtons_26: 5593059719217425916
+      GameClearButtons_27: 8007204260748237837
+      GameClearButtons_28: -20949589615621524
+      GameClearButtons_29: -2691486769777920372
+      GameClearButtons_3: 3082674469135360009
+      GameClearButtons_30: -6112192383606263024
+      GameClearButtons_31: 4504426343147431486
+      GameClearButtons_32: -7922932093101806533
+      GameClearButtons_33: -1912654648124727706
+      GameClearButtons_34: -7645607647653640042
+      GameClearButtons_35: -7940493942678851371
+      GameClearButtons_36: 1097798443123683281
+      GameClearButtons_37: 7531699777007643266
+      GameClearButtons_38: 3524767262975217291
+      GameClearButtons_39: -6144923017369799290
+      GameClearButtons_4: -3524715384977276263
+      GameClearButtons_40: 4993566785323841719
+      GameClearButtons_41: 5367613790332000345
+      GameClearButtons_42: 1539861590538852849
+      GameClearButtons_43: -7636545117861025714
+      GameClearButtons_44: 6614139679503212691
+      GameClearButtons_45: 1062780302543277836
+      GameClearButtons_46: -8319825777771377613
+      GameClearButtons_47: -2556258215598381632
+      GameClearButtons_48: 8054071058179757176
+      GameClearButtons_49: -8535181600617973010
+      GameClearButtons_5: 8210931688978321111
+      GameClearButtons_50: 5145737764832589583
+      GameClearButtons_51: -1954081693927049387
+      GameClearButtons_52: -5344753582873228136
+      GameClearButtons_53: -664486708291301143
+      GameClearButtons_54: -4022186619934846711
+      GameClearButtons_55: -8323046244759519976
+      GameClearButtons_56: 7895276331567341147
+      GameClearButtons_57: 6191122216018524393
+      GameClearButtons_58: -5093911962408963245
+      GameClearButtons_59: -3900393912377997912
+      GameClearButtons_6: 414553196932522851
+      GameClearButtons_60: -9056718204916268763
+      GameClearButtons_61: -8656094961687644748
+      GameClearButtons_62: 3193982111636641618
+      GameClearButtons_63: -5162613910836351731
+      GameClearButtons_64: 2023143036667561395
+      GameClearButtons_65: 5576231197543860076
+      GameClearButtons_66: 3026036851821928306
+      GameClearButtons_67: -591762824751841845
+      GameClearButtons_68: 1923135402603775230
+      GameClearButtons_69: -2983939885872845168
+      GameClearButtons_7: -2701630614629268169
+      GameClearButtons_70: 7250005210037373157
+      GameClearButtons_71: -8725675309633839789
+      GameClearButtons_72: 4488497891979316037
+      GameClearButtons_73: 8995615309647329891
+      GameClearButtons_74: -1635619630996682208
+      GameClearButtons_75: -1031279889285922501
+      GameClearButtons_76: 5536354241421900033
+      GameClearButtons_77: 2219158097466751688
+      GameClearButtons_78: 5444187818348881702
+      GameClearButtons_79: 3881405778002406599
+      GameClearButtons_8: 214920727428774161
+      GameClearButtons_80: -320390080071057942
+      GameClearButtons_81: 6915600976426941829
+      GameClearButtons_82: 1689089196681306188
+      GameClearButtons_83: 839876429000690073
+      GameClearButtons_84: 7618329742115998150
+      GameClearButtons_85: 1676053622975153564
+      GameClearButtons_86: -7279107328233092446
+      GameClearButtons_87: 7741446122872121767
+      GameClearButtons_88: -5117525737592248782
+      GameClearButtons_89: 8192496988628025639
+      GameClearButtons_9: 7669307643210670356
+      GameClearButtons_90: 3830126543567297392
+      GameClearButtons_91: -5059692713814368959
+      GameClearButtons_92: 8862450740773265038
+      GameClearButtons_93: -8558463634523790498
+      GameClearButtons_94: 4770298644566718544
+      GameClearButtons_95: 1166784946492352967
+      GameClearButtons_96: 5133040378292502685
+      GameClearButtons_97: -4456241751800937562
+      GameClearButtons_98: 7403198291610584178
+      GameClearButtons_99: -5000421267450265812
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

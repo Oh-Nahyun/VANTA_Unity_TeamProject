@@ -21,6 +21,7 @@ public class SkillManager : MonoBehaviour
     [Header("참조")]
     [SerializeField] private PlayerAttack _playerAttack;
     [SerializeField] private PlayerMove _playerMove;
+    [SerializeField] private Player _player;
     [SerializeField] private Animator _animator;
     [Header("스킬 사용시 이펙트")]
     [SerializeField] private GameObject _skillUseEffect;
@@ -142,7 +143,7 @@ public class SkillManager : MonoBehaviour
 
         _playerAttack.enabled = false;
         _playerMove.enabled = false;
-
+        _player.OffPlayerHittable();
         Time.timeScale = _timeSlowAmount;
 
         ScreenControl();
@@ -154,7 +155,8 @@ public class SkillManager : MonoBehaviour
     private void ScreenControl()
     {
         HitableObject hitableObject=FindAnyObjectByType<HitableObject>();
-        CameraFocusingController.Instance.Focus(hitableObject.transform,10,-1f);
+        CameraFocusingController.Instance.Focus(hitableObject.transform,-1f);
+        hitableObject.GetComponent<IBossMovable>().MoveBlock();
         
         _skillFocusScreenController
             .StartFocusScreenSetting(
@@ -240,8 +242,13 @@ public class SkillManager : MonoBehaviour
             false
         );
 
+        HitableObject hitableObject=FindAnyObjectByType<HitableObject>();
+        hitableObject.GetComponent<IBossMovable>().MoveUnblock();
+        
         _playerAttack.enabled = true;
         _playerMove.enabled = true;
+        _player.OnPlayerHittable();
+        
 
         Time.timeScale = 1f;
     }

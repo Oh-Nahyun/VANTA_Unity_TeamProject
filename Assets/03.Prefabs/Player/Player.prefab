@@ -4806,7 +4806,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1101554189
-  m_SortingLayer: 15
+  m_SortingLayer: 17
   m_SortingOrder: -1
   m_MaskInteraction: 0
   m_RenderMode: 0
@@ -9779,6 +9779,90 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!1 &2852318908446206204
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7698044464048324261}
+  - component: {fileID: 8943412540018336293}
+  m_Layer: 0
+  m_Name: Spot Light 2D
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7698044464048324261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2852318908446206204}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 651033612902867162}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8943412540018336293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2852318908446206204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
+  m_ComponentVersion: 3
+  m_LightType: 3
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.529
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 2
+  m_LightVolumeIntensity: 1
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 2d8124d500000000cfa8f7eab577723d6301cbffe5d223216557971a2d46d711550b2519d51012403b15d5a0f7789f5c1758e3b5ff81ec05871673c46f9749d183e549d2ffbf219bf39d57be93489485
+  m_LightCookieSprite: {fileID: 0}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 1
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.3
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: 0, y: -0.00000011920929, z: 0}
+    m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 5
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
 --- !u!1 &2956777276440735805
 GameObject:
   m_ObjectHideFlags: 0
@@ -9837,6 +9921,7 @@ MonoBehaviour:
   _weaknessThreadController: {fileID: 4868506792254174702}
   _playerAttack: {fileID: 4589030193044622876}
   _playerMove: {fileID: 6093219973355731838}
+  _player: {fileID: 5284014296633525175}
   _animator: {fileID: 3366168568141648262}
   _skillUseEffect: {fileID: 736861416815842658}
   _timeSlowAmount: 0.2
@@ -9950,7 +10035,7 @@ MonoBehaviour:
   _dashEase: 6
   _dashIgnoreLayers:
     serializedVersion: 2
-    m_Bits: 2097152
+    m_Bits: 2097344
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 65728
@@ -14872,7 +14957,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1101554189
-  m_SortingLayer: 15
+  m_SortingLayer: 17
   m_SortingOrder: -1
   m_MaskInteraction: 0
   m_RenderMode: 0
@@ -19956,6 +20041,7 @@ GameObject:
   - component: {fileID: 3083380816372574740}
   - component: {fileID: 1527369805069074017}
   - component: {fileID: 1449693323339180968}
+  - component: {fileID: 8028567086285024404}
   m_Layer: 14
   m_Name: Player
   m_TagString: Player
@@ -19979,6 +20065,7 @@ Transform:
   - {fileID: 757985402418200370}
   - {fileID: 3035129069256369356}
   - {fileID: 7265169187209551804}
+  - {fileID: 7698044464048324261}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2090054125781608419
@@ -20027,7 +20114,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -766909053
-  m_SortingLayer: 13
+  m_SortingLayer: 15
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 3234629978573100161, guid: 07608b3a6b77bda4e84ab7ea9554c061, type: 3}
@@ -20078,7 +20165,7 @@ MonoBehaviour:
   _hitCoolTime: 2
   _hitVfx: {fileID: 2955623459812423943, guid: e6f4b5929f28cae4994fbb10fadead7a, type: 3}
   _damagedSlowAmount: 0.1
-  _damagedSlowInDuration: 3
+  _damagedSlowInDuration: 1.5
   _damagedSlowHoldDuration: 0.15
   _damagedSlowRecoverDuration: 1
 --- !u!114 &6093219973355731838
@@ -20149,7 +20236,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2097344
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -20256,6 +20343,25 @@ MonoBehaviour:
   _crackDistortion: 0.005
   _crackGlowIntensity: 0.4
   _brokenDuration: 0.2
+--- !u!114 &8028567086285024404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4512711204945311804}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c43b2a8bae1f1904f8f56478c401d8dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatusManager
+  _spotLight: {fileID: 8943412540018336293}
+  _playerMove: {fileID: 6093219973355731838}
+  _playerAttack: {fileID: 4589030193044622876}
+  _cinemachineCamera: {fileID: 0}
+  _fadeOutDuration: 3
+  _targetOrthographicSize: 3
+  _zoomDuration: 3
 --- !u!1 &4629908935146602055
 GameObject:
   m_ObjectHideFlags: 0
@@ -25197,7 +25303,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -999090553
-  m_SortingLayer: 11
+  m_SortingLayer: 13
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_RenderMode: 0
@@ -25357,6 +25463,7 @@ MonoBehaviour:
   _boss: {fileID: 0}
   _targetCamera: {fileID: 0}
   _rotationSpeed: 1.5
+  _boss1ThreadOffset: {x: 0, y: 1}
 --- !u!114 &8560408500020679105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30525,7 +30632,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1101554189
-  m_SortingLayer: 15
+  m_SortingLayer: 17
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
@@ -35460,7 +35567,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1101554189
-  m_SortingLayer: 15
+  m_SortingLayer: 17
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_RenderMode: 4

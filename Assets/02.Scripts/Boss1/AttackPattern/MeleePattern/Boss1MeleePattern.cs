@@ -31,12 +31,14 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
     [Header("보스 이동 기능")]
     [SerializeField] private Boss1Movement _boss1Movement;
 
-    [SerializeField] private Transform _playerTransform;
+    private Transform _playerTransform;
 
     [Header("근거리 공격 선택")]
     [SerializeField] private float _spitPreferredDistance = 4f;
 
     [SerializeField] private float _preferredWeightMultiplier = 2f;
+    
+    [SerializeField] private Boss1PhaseController _boss1PhaseController;
 
     private bool _isPhase2;
 
@@ -50,10 +52,32 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
     {
         return true;
     }
+    
+    private void Start()
+    {
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    private void OnEnable()
+    {
+        _boss1PhaseController.OnPhaseChanged += ChangePhase;
+    }
+    
+    private void OnDisable()
+    {
+        _boss1PhaseController.OnPhaseChanged -= ChangePhase;
+    }
+
+    private void ChangePhase(Boss1PhaseController.Boss1Phase phase)
+    {
+        _isPhase2 = phase == Boss1PhaseController.Boss1Phase.phase2;
+    }
+    
+    
 
     public float GetWeight()
     {
-        return 100f;
+        return 10f;
     }
     
     public void EnterAttack()
@@ -63,8 +87,6 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
         _boss1Movement.StartControlled();
         _currentAttack = SelectAttack();
         _currentAttack.EnterAttack();
-
-        Debug.Log("Boss1 근거리 패턴 시작");
     }
 
     public void UpdateAttack() //현재 프레임의 근거리 패턴 전체 관리
@@ -93,12 +115,13 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
 
     public void ExitAttack()
     {
+        if (_currentAttack != null)
+        {
+            _currentAttack.ExitAttack();
+            _currentAttack = null;
+        }
+        
         _boss1Movement.StartNormalChase();
-    }
-
-    public void SetPhase2(bool isPhase2)
-    {
-        _isPhase2 = isPhase2;
     }
 
     private IBoss1MeleeAttack SelectAttack()

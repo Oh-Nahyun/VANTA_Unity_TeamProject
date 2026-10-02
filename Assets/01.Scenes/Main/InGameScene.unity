@@ -863,6 +863,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 537864551881236395, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _playerTransform
+      value: 
+      objectReference: {fileID: 650435853}
+    - target: {fileID: 2627111689535811849, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _playerTransform
+      value: 
+      objectReference: {fileID: 650435853}
+    - target: {fileID: 3060184153963347236, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _playerTransform
+      value: 
+      objectReference: {fileID: 650435853}
+    - target: {fileID: 3619018780754979877, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _playerTransform
+      value: 
+      objectReference: {fileID: 650435853}
+    - target: {fileID: 3901018116763532789, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _playerTransform
+      value: 
+      objectReference: {fileID: 650435853}
     - target: {fileID: 5486056013902944760, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -907,10 +927,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss1
       objectReference: {fileID: 0}
-    - target: {fileID: 8279119010861365979, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 9165167924702793645, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _playerTransform
+      value: 
+      objectReference: {fileID: 650435853}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1038,10 +1058,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 57864106689596397, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0000002486729
+      objectReference: {fileID: 0}
+    - target: {fileID: 57864106689596397, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.4285699
+      objectReference: {fileID: 0}
     - target: {fileID: 111102412088274012, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
       objectReference: {fileID: 650435853}
+    - target: {fileID: 2559930616085129532, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2559930616085129532, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3
+      objectReference: {fileID: 0}
     - target: {fileID: 4190518624736082801, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
       propertyPath: m_Name
       value: Camera

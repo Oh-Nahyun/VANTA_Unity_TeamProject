@@ -38,7 +38,7 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
 
     private void Start()
     {
-        _playerTransform = GameObject.FindWithTag("Player").transform;
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         StartNormalChase();
     }
 

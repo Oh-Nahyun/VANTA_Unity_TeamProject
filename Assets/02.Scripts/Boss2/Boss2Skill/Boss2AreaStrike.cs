@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -42,10 +43,16 @@ public class Boss2AreaStrike : MonoBehaviour
     [Tooltip("폭발 스프라이트에서 실제로 보이는 가로 지름 (루트 스케일 1 기준). Swing 클립 ≈ 0.89")]
     [SerializeField] private float _explosionVisualDiameter = 0.89f;
 
+    [Tooltip("폭발이 시작되면 Sorting Group 을 이 정렬 레이어로 바꾼다 (Player 보다 앞)")]
+    [SerializeField] private string _strikeSortingLayer = "Vfx";
+
     private const string RandomStartParameter = "RandomStart";
 
+    // 더미끼리 마스크가 섞이지 않게 묶는 그룹. 그룹 안의 스프라이트는 이 그룹의 정렬 레이어로 그려진다.
+    private SortingGroup _sortingGroup;
     private Animator _animator;
     private CircleCollider2D _collider2D;
+    [SerializeField] private ParticleSystem _explosionEffect;
 
     private float _elapsedTime = 0f;
     private float _indicatorEndScale;
@@ -67,6 +74,7 @@ public class Boss2AreaStrike : MonoBehaviour
         transform.localScale = new Vector3(scale, scale, 1f);
 
         _animator = GetComponent<Animator>();
+        _sortingGroup = GetComponent<SortingGroup>();
 
         _collider2D = GetComponent<CircleCollider2D>();
         _collider2D.enabled = false;
@@ -110,6 +118,12 @@ public class Boss2AreaStrike : MonoBehaviour
         _indicatorFill.gameObject.SetActive(false);
         _indicatorBorder.gameObject.SetActive(false);
 
+        // 인디케이터가 꺼졌으니 그룹 = 폭발뿐. 그룹 레이어를 바꿔 Player 앞에 그린다.
+        if (_sortingGroup != null)
+        {
+            _sortingGroup.sortingLayerName = _strikeSortingLayer;
+        }
+
         _animator.SetInteger(RandomStartParameter, Random.Range(_strikeVariantMin, _strikeVariantMax + 1));
         Destroy(gameObject, _maxLifeTime);
     }
@@ -144,6 +158,11 @@ public class Boss2AreaStrike : MonoBehaviour
     {
         // 이미 원 안에 있던 Player 도 콜라이더가 켜지는 순간 OnTriggerEnter2D 를 받는다.
         _collider2D.enabled = true;
+
+        if (_explosionEffect != null)
+        {
+            _explosionEffect.Play();
+        }
     }
 
     // 애니메이션 이벤트: 마지막 프레임

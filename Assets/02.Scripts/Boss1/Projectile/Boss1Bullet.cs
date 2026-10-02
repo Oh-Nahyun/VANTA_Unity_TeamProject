@@ -6,6 +6,8 @@ public class Boss1Bullet : MonoBehaviour
     [SerializeField] private float _speed = 3f;
     [SerializeField] private float _lifeTime = 3f;
     
+    private Boss1ProjectileManager _projectileManager;
+    
     private Rigidbody2D _rigidBody;
 
     private void Awake()
@@ -13,10 +15,20 @@ public class Boss1Bullet : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody2D>();
     }
 
-    public void Initialize(Vector2 direction)
+    public void Initialize(Vector2 direction, Boss1ProjectileManager projectileManager)
     {
+        _projectileManager = projectileManager;
+        _projectileManager.RegisterProjectile(gameObject);
         _rigidBody.linearVelocity = direction.normalized * _speed;
         Destroy(gameObject, _lifeTime);
+    }
+
+    private void OnDestroy()
+    {
+        if (_projectileManager != null)
+        {
+            _projectileManager.UnregisterProjectile(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

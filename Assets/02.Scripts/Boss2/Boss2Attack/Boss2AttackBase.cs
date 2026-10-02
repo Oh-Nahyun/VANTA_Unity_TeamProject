@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -28,6 +29,7 @@ public class Boss2AttackBase : MonoBehaviour
 
     [SerializeField] private BoxCollider2D _attackBoxCollider;
     protected Animator _animator;
+    private const string HitTrigger = "Hit";
     // 공격 박스 판정 한 번(StartDamage ~ EndDamage)에서 이미 맞은 대상
     private readonly HashSet<GameObject> _hitTargetsThisSwing = new HashSet<GameObject>();
 
@@ -47,6 +49,13 @@ public class Boss2AttackBase : MonoBehaviour
     private int _targetHitCount = 0;
     private float _stepStartTime = 0f;
 
+    [FormerlySerializedAs("_smashImpulse")]
+    [Header("이펙트")]
+    [Tooltip("보스 본체의 CinemachineImpulseSource. 비워두면 흔들지 않는다.")] 
+    [SerializeField] private CinemachineImpulseSource _cameraImpulse;
+    
+
+    
     public bool IsAttacking => _currentHit >= 0;
     // 자식이 인스펙터의 즉사기 데미지 설정을 쓰도록 연다.
     protected int InstantKillDamage => _instantKillDamage;
@@ -142,10 +151,21 @@ public class Boss2AttackBase : MonoBehaviour
         return _comboSteps != null && _comboSteps.Length > 0;
     }
 
+    // 행동을 시작하기 직전에 맞아 걸려 있던 피격 트리거를 지운다.
+    // 남아 있으면 행동 애니메이션으로 넘어간 직후 AnyState → Hit 전이가 발동해 행동이 끊긴다.
+    protected void ClearPendingHit()
+    {
+        if (_animator != null)
+        {
+            _animator.ResetTrigger(HitTrigger);
+        }
+    }
+
     private void StartHit(int hitIndex)
     {
         // CrossFade 로 끊긴 이전 타의 EndDamage 이벤트가 누락됐을 수 있으므로 히트박스를 먼저 끈다.
         EndDamage();
+        ClearPendingHit();
 
         _currentHit = hitIndex;
         _stepStartTime = Time.time;
@@ -200,6 +220,8 @@ public class Boss2AttackBase : MonoBehaviour
             _hitTargetsThisSwing.Clear();
             _attackBoxCollider.enabled = true;
         }
+        
+
     }
 
     public void EndDamage()
@@ -210,6 +232,15 @@ public class Boss2AttackBase : MonoBehaviour
         }
     }
 
+    public void CameraShakePoint(float shakeForce)
+    {
+        // 카메라 쉐이크
+        if (_cameraImpulse != null)
+        {
+            _cameraImpulse.GenerateImpulseWithForce(shakeForce);
+        }
+    }
+    
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") == false)

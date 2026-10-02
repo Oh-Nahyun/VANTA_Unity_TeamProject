@@ -1,28 +1,48 @@
+using System;
 using UnityEngine;
 
 public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
 {
     [SerializeField] private Boss1Movement _boss1Movement;
-    [SerializeField] private Transform _playerTransform;
+    private Transform _playerTransform;
+    
+    [Serializable]
+    private class PhaseSettings
+    {
+        [Header("공격전 빠르게 위치 조정")]
+        [SerializeField] private float _moveSpeed = 7f; // 침뱉기 공격전 y축 맞춰야해서 빠르게 설정
+        
+        [Header("공격전 전조 시간")]
+        [SerializeField] private float _telegraphDuration = 0.2f;
 
-    [Header("공격전 빠르게 위치 조정")]
-    [SerializeField] private float _moveSpeed = 7f; // 침뱉기 공격전 y축 맞춰야해서 빠르게 설정
+        [Header("공격후 후딜레이 시간")]
+        [SerializeField] private float _recoveryDuration = 0.4f;
+        
+        public float MoveSpeed => _moveSpeed;
+        public float TelegraphDuration => _telegraphDuration;
+        public float RecoveryDuration => _recoveryDuration;
+    }
+    
     [SerializeField] private float _maxAttackDistance = 3f;
     [SerializeField] private float _yTolerance = 0.5f;
-
-    [Header("공격전 전조 시간")]
-    [SerializeField] private float _telegraphDuration = 0.2f;
-
-    [Header("공격후 후딜레이 시간")]
-    [SerializeField] private float _recoveryDuration = 0.4f;
     
     [SerializeField] private Boss1SpitHitBox _spitHitBox;
 
     [SerializeField] private Animator _animator;
     
+    [Header("페이즈별 난이도 세팅")]
+    [SerializeField] private PhaseSettings _phase1Settings;
+    [SerializeField] private PhaseSettings _phase2Settings;
+    
+    private Boss1PhaseController _boss1PhaseController;
+    
     private float _timer;
 
     private SpitState _currentState;
+    
+    private bool _isAttackActive;
+    
+    private bool _isPhase2;
     
     private enum SpitState
     {
@@ -33,9 +53,37 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
     }
     
     public bool IsFinished { get; private set; }
+    
+    private PhaseSettings CurrentPhaseSettings => _isPhase2 ? _phase2Settings : _phase1Settings;
+    
+    private void Awake()
+    {
+        _boss1PhaseController = GetComponent<Boss1PhaseController>();
+    }
+    
+    private void OnEnable()
+    {
+        _boss1PhaseController.OnPhaseChanged += ChangePhase;
+    }
+    
+    private void OnDisable()
+    {
+        _boss1PhaseController.OnPhaseChanged -= ChangePhase;
+    }
+
+    private void ChangePhase(Boss1PhaseController.Boss1Phase phase)
+    {
+        _isPhase2 = phase == Boss1PhaseController.Boss1Phase.phase2;
+    }
+    
+    private void Start()
+    {
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     public void EnterAttack()
     {
+        _isAttackActive = true;
         IsFinished = false;
         _timer = 0f;
         _spitHitBox.DisableHitBox();
@@ -69,6 +117,8 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
 
     public void ExitAttack()
     {
+        _isAttackActive = false;
+        
         _spitHitBox.DisableHitBox();
         _boss1Movement.UnlockFacing();
         _boss1Movement.StopMove();   
@@ -85,14 +135,14 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
         if (xDistance > _maxAttackDistance)
         {
             Vector2 direction = new Vector2(xDifference, yDifference);
-            _boss1Movement.MoveInDirection(direction, _moveSpeed);
+            _boss1Movement.MoveInDirection(direction, CurrentPhaseSettings.MoveSpeed);
             return;
         }
         
         if (yDistance > _yTolerance)
         {
             Vector2 direction = new Vector2(0f, Mathf.Sign(yDifference));
-            _boss1Movement.MoveInDirection(direction, _moveSpeed);
+            _boss1Movement.MoveInDirection(direction, CurrentPhaseSettings.MoveSpeed);
             return;
         }
         
@@ -106,7 +156,7 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
         _boss1Movement.StopMove();
         _timer += Time.deltaTime;
 
-        if (_timer >= _telegraphDuration)
+        if (_timer >= CurrentPhaseSettings.TelegraphDuration)
         {
             _timer = 0f;
             _animator.SetTrigger("SpitAttack");
@@ -123,7 +173,7 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
     {
         _timer += Time.deltaTime;
         
-        if (_timer >= _recoveryDuration)
+        if (_timer >= CurrentPhaseSettings.RecoveryDuration)
         {
             _timer = 0f;
             IsFinished = true;
@@ -132,6 +182,11 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
 
     public void EnableSpitHitBox()
     {
+        if (!_isAttackActive)
+        {
+            return;
+        }
+        
         _spitHitBox.EnableHitBox();
     }
 

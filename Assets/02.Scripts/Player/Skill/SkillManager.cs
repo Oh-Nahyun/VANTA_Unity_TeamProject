@@ -143,7 +143,9 @@ public class SkillManager : MonoBehaviour
 
         _playerAttack.enabled = false;
         _playerMove.enabled = false;
+        
         _player.OffPlayerHittable();
+        
         Time.timeScale = _timeSlowAmount;
 
         ScreenControl();
@@ -156,6 +158,18 @@ public class SkillManager : MonoBehaviour
     {
         HitableObject hitableObject=FindAnyObjectByType<HitableObject>();
         CameraFocusingController.Instance.Focus(hitableObject.transform,-1f);
+        
+        ObjectFocus objectFocus = hitableObject.GetComponent<ObjectFocus>();
+
+        if (objectFocus == null)
+        {
+            
+            objectFocus = hitableObject.gameObject.AddComponent<ObjectFocus>();
+
+        }
+
+        objectFocus.StartFocus();
+        
         hitableObject.GetComponent<IBossMovable>().MoveBlock();
         
         _skillFocusScreenController
@@ -244,7 +258,8 @@ public class SkillManager : MonoBehaviour
 
         HitableObject hitableObject=FindAnyObjectByType<HitableObject>();
         hitableObject.GetComponent<IBossMovable>().MoveUnblock();
-        
+        hitableObject.GetComponent<ObjectFocus>().EndFocus();
+
         _playerAttack.enabled = true;
         _playerMove.enabled = true;
         _player.OnPlayerHittable();

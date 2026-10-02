@@ -20361,7 +20361,7 @@ MonoBehaviour:
   _cinemachineCamera: {fileID: 0}
   _startOuterRadius: 13
   _targetOuterRadius: 5
-  _spotLightDuration: 3
+  _spotLightDuration: 0.5
   _startOrthographicSize: 5
   _targetOrthographicSize: 3
   _zoomDuration: 3

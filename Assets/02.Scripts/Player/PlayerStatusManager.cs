@@ -5,6 +5,10 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerStatusManager : MonoBehaviour
 {
+    [Header("시작 연출 사용")]
+    [SerializeField] private bool _useStartSequence = true;
+
+    [Header("참조")]
     [SerializeField] private Light2D _spotLight;
     [SerializeField] private PlayerMove _playerMove;
     [SerializeField] private PlayerAttack _playerAttack;
@@ -29,27 +33,45 @@ public class PlayerStatusManager : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
 
-        _playerMove.enabled = false;
-        _playerAttack.enabled = false;
+        if (_useStartSequence)
+        {
+            _playerMove.enabled = false;
+            _playerAttack.enabled = false;
 
-        Time.timeScale = 0.6f;
+            Time.timeScale = 0.6f;
 
-        _spotLight.pointLightOuterRadius =
-            _startOuterRadius;
+            _spotLight.pointLightOuterRadius =
+                _startOuterRadius;
+        }
+        else
+        {
+            ApplyFinalSetting();
+        }
     }
 
     private void Start()
     {
         var lens = _cinemachineCamera.Lens;
 
-        lens.OrthographicSize =
-            _startOrthographicSize;
+        if (_useStartSequence)
+        {
+            lens.OrthographicSize =
+                _startOrthographicSize;
+        }
+        else
+        {
+            lens.OrthographicSize =
+                _targetOrthographicSize;
+        }
 
         _cinemachineCamera.Lens = lens;
     }
 
     private void Update()
     {
+        if (!_useStartSequence)
+            return;
+
         if (Input.GetMouseButtonDown(0) && !_isStart)
         {
             StartPlayerOriginSetting();
@@ -58,6 +80,9 @@ public class PlayerStatusManager : MonoBehaviour
 
     public void StartPlayerOriginSetting()
     {
+        if (!_useStartSequence)
+            return;
+
         if (_isStart)
             return;
 
@@ -112,6 +137,19 @@ public class PlayerStatusManager : MonoBehaviour
         _originSequence.OnComplete(
             ActivatePlayer
         );
+    }
+
+    private void ApplyFinalSetting()
+    {
+        _isStart = true;
+
+        Time.timeScale = 1f;
+
+        _spotLight.pointLightOuterRadius =
+            _targetOuterRadius;
+
+        _playerMove.enabled = true;
+        _playerAttack.enabled = true;
     }
 
     private void ActivatePlayer()

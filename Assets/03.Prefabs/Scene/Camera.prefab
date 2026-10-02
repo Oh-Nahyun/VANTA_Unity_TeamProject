@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraFocusingController
   _camera: {fileID: 111102412088274012}
   _focusDamping: 0.3
-  _zoomInDuration: 0.25
+  _zoomInDuration: 0.5
   _zoomOutDuration: 0
   _targetChangeDuration: 0
 --- !u!1 &5182591038039288955

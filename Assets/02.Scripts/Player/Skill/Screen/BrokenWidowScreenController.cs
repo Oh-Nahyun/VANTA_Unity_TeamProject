@@ -10,13 +10,13 @@ public class BrokenWidowScreenController : MonoBehaviour
     [Header("Broken Setting")]
     [SerializeField] private float _crackIntensity = 0.02f;
     [SerializeField] private float _crackDistortion = 0.01f;
+    [SerializeField] private float _crackGlowIntensity = 0.6f;
     [SerializeField] private float _brokenDuration = 0.2f;
 
     private Material _originalMaterial;
     private Material _runtimeMaterial;
 
-    private Tween _intensityTween;
-    private Tween _distortionTween;
+    private Sequence _brokenSequence;
 
     private static readonly int CrackIntensityID =
         Shader.PropertyToID("_CrackIntensity");
@@ -26,6 +26,9 @@ public class BrokenWidowScreenController : MonoBehaviour
 
     private static readonly int CrackDistortionID =
         Shader.PropertyToID("_CrackDistortion");
+
+    private static readonly int CrackGlowIntensityID =
+        Shader.PropertyToID("_CrackGlowIntensity");
 
     private void Awake()
     {
@@ -61,10 +64,8 @@ public class BrokenWidowScreenController : MonoBehaviour
         if (_runtimeMaterial == null)
             return;
 
-        _intensityTween?.Kill();
-        _distortionTween?.Kill();
+        _brokenSequence?.Kill();
 
-        // 매번 다른 방향으로 Crack 회전
         float randomRotation =
             Random.Range(0f, 360f);
 
@@ -73,7 +74,6 @@ public class BrokenWidowScreenController : MonoBehaviour
             randomRotation
         );
 
-        // 0부터 시작
         _runtimeMaterial.SetFloat(
             CrackIntensityID,
             0f
@@ -84,8 +84,16 @@ public class BrokenWidowScreenController : MonoBehaviour
             0f
         );
 
-        // Crack 표시
-        _intensityTween =
+        _runtimeMaterial.SetFloat(
+            CrackGlowIntensityID,
+            0f
+        );
+
+        _brokenSequence =
+            DOTween.Sequence()
+                .SetUpdate(true);
+
+        _brokenSequence.Join(
             _runtimeMaterial
                 .DOFloat(
                     _crackIntensity,
@@ -93,10 +101,9 @@ public class BrokenWidowScreenController : MonoBehaviour
                     _brokenDuration
                 )
                 .SetEase(Ease.OutCubic)
-                .SetUpdate(true);
+        );
 
-        // 화면 왜곡
-        _distortionTween =
+        _brokenSequence.Join(
             _runtimeMaterial
                 .DOFloat(
                     _crackDistortion,
@@ -104,7 +111,17 @@ public class BrokenWidowScreenController : MonoBehaviour
                     _brokenDuration
                 )
                 .SetEase(Ease.OutCubic)
-                .SetUpdate(true);
+        );
+
+        _brokenSequence.Join(
+            _runtimeMaterial
+                .DOFloat(
+                    _crackGlowIntensity,
+                    CrackGlowIntensityID,
+                    _brokenDuration
+                )
+                .SetEase(Ease.OutCubic)
+        );
     }
 
     public void ResetBroken()
@@ -112,8 +129,8 @@ public class BrokenWidowScreenController : MonoBehaviour
         if (_runtimeMaterial == null)
             return;
 
-        _intensityTween?.Kill();
-        _distortionTween?.Kill();
+        _brokenSequence?.Kill();
+        _brokenSequence = null;
 
         _runtimeMaterial.SetFloat(
             CrackIntensityID,
@@ -124,12 +141,16 @@ public class BrokenWidowScreenController : MonoBehaviour
             CrackDistortionID,
             0f
         );
+
+        _runtimeMaterial.SetFloat(
+            CrackGlowIntensityID,
+            0f
+        );
     }
 
     private void OnDestroy()
     {
-        _intensityTween?.Kill();
-        _distortionTween?.Kill();
+        _brokenSequence?.Kill();
 
         if (_brokenFullScreenFeature != null &&
             _originalMaterial != null)
@@ -141,6 +162,7 @@ public class BrokenWidowScreenController : MonoBehaviour
         if (_runtimeMaterial != null)
         {
             Destroy(_runtimeMaterial);
+            _runtimeMaterial = null;
         }
     }
 }

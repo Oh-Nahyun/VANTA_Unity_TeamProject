@@ -58,6 +58,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9045406404762705793}
+  - component: {fileID: 9089184121780177488}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -83,6 +84,23 @@ Transform:
   - {fileID: 57864106689596397}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9089184121780177488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4190518624736082801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3329452e8026fdb49938ac99b848df73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFocusingController
+  _camera: {fileID: 111102412088274012}
+  _focusDamping: 0.3
+  _zoomInDuration: 0.25
+  _zoomOutDuration: 0
+  _targetChangeDuration: 0
 --- !u!1 &5182591038039288955
 GameObject:
   m_ObjectHideFlags: 0

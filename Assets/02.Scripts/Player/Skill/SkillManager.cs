@@ -153,10 +153,14 @@ public class SkillManager : MonoBehaviour
 
     private void ScreenControl()
     {
+        HitableObject hitableObject=FindAnyObjectByType<HitableObject>();
+        CameraFocusingController.Instance.Focus(hitableObject.transform,10,-1f);
+        
         _skillFocusScreenController
             .StartFocusScreenSetting(
                 DashPointCreat
             );
+        
     }
 
 
@@ -192,6 +196,8 @@ public class SkillManager : MonoBehaviour
 
     private void StartDash()
     {
+        CameraFocusingController.Instance.ReturnCamera();
+
         List<SkillIndicator> _choicedSequnce =
             _skillDashPointCalculater
                 .GetChoiceSequence();

@@ -5,12 +5,16 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
 {
     [SerializeField] private Boss1Movement _boss1Movement;
     private Transform _playerTransform;
+    
+    [Header("공격지점 선정 제한 시간")]
+    [SerializeField] private float _maxPositioningTime = 0.5f;
+
 
     
     [Serializable]
     private class PhaseSettings
     {
-        [Header("공격전 빠르게 위치 조정")]
+        [Header("공격전 이동속도 급상승")]
         [SerializeField] private float _moveSpeed = 7f; // 근거리 공격전 위치 조절이라서 빠르게 설정
         
         [Header("공격전 전조 시간")]
@@ -39,6 +43,7 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
     private Boss1PhaseController _boss1PhaseController;
     
     private float _timer;
+    private float _positioningTimer;
 
     private ClawState _currentState;
 
@@ -88,6 +93,7 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
         _isAttackActive = true;
         IsFinished = false;
         _timer = 0f;
+        _positioningTimer = 0f;
         _clawHitBox.DisableHitBox();
         _boss1Movement.LockFacing();
         _currentState = ClawState.Positioning;
@@ -136,6 +142,18 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
 
         if (xDistance < _minAttackDistance)
         {
+            _positioningTimer += Time.deltaTime;
+            
+            if (_positioningTimer >= _maxPositioningTime)
+            {
+                _boss1Movement.StopMove();
+                _positioningTimer = 0f;
+                _timer = 0f;
+                _currentState = ClawState.Telegraph;
+            
+                return;
+            }
+            
             Vector2 direction = new Vector2(-Mathf.Sign(xDifference), 0f);
             _boss1Movement.MoveInDirection(direction, CurrentPhaseSettings.MoveSpeed);
             return;

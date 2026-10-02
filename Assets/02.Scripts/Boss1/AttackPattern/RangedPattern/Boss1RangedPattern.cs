@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
 {
+    [Header("원거리 공격 가중치")]
+    [SerializeField] private float _weight = 10f;
+    
     [Serializable]
     private class RangedAttackData
     {
@@ -94,7 +97,7 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
 
     public float GetWeight()
     {
-        return 10f;
+        return _weight;
     }
     
     public void EnterAttack()

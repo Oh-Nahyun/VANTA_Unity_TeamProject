@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectZoom : MonoBehaviour
@@ -25,8 +26,12 @@ public class ObjectZoom : MonoBehaviour
 
     private void Awake()
     {
+        
         _follow = _camera.GetComponent<CinemachineFollow>();
-
+        if (_follow == null)
+        {
+            _follow=_camera.AddComponent<CinemachineFollow>();
+        }
         _defaultOrthographicSize = _camera.Lens.OrthographicSize;
         _defaultDamping = _follow.TrackerSettings.PositionDamping;
     }

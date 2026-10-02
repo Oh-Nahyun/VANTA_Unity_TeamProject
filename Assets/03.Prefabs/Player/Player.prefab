@@ -9945,9 +9945,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillAttack
   _dashTimeSlow: 0.05
   _dashDuration: 0.05
-  _dashZoomAmount: 0.8
+  _dashZoomAmount: 1.2
   _dashWaitTime: 0.5
   _dashEase: 6
+  _dashIgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 2097152
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 65728
@@ -19952,6 +19955,7 @@ GameObject:
   - component: {fileID: 2424616315455123119}
   - component: {fileID: 3083380816372574740}
   - component: {fileID: 1527369805069074017}
+  - component: {fileID: 1449693323339180968}
   m_Layer: 14
   m_Name: Player
   m_TagString: Player
@@ -20072,6 +20076,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _health: 2
   _hitCoolTime: 2
+  _hitVfx: {fileID: 2955623459812423943, guid: e6f4b5929f28cae4994fbb10fadead7a, type: 3}
+  _damagedSlowAmount: 0.1
+  _damagedSlowInDuration: 3
+  _damagedSlowHoldDuration: 0.15
+  _damagedSlowRecoverDuration: 1
 --- !u!114 &6093219973355731838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20087,6 +20096,10 @@ MonoBehaviour:
   _moveSpeed: 3
   _dashDistance: 3
   _dashDuration: 0.5
+  _dashCollisionMask:
+    serializedVersion: 2
+    m_Bits: 512
+  _collisionOffset: 0.05
   _dashEffect: {fileID: 4367466542359643468, guid: 767cc2a0211457b4da9c92da34ab890a, type: 3}
 --- !u!114 &4589030193044622876
 MonoBehaviour:
@@ -20225,6 +20238,24 @@ MonoBehaviour:
   _alarmMoveKeyPad: {fileID: 3585278104208373336, guid: 4cbff80999d60c448814aab2b0576829, type: 3}
   _alarmMoveAttackKeyPad: {fileID: 3585278104208373336, guid: c1c112f808dae27489f553938d92a838, type: 3}
   _spawnDistance: 200
+--- !u!114 &1449693323339180968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4512711204945311804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d13de45e6f5a51444998f11805c761ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrokenWidowScreenController
+  _brokenFullScreenFeature: {fileID: -3509418064757597372, guid: 424799608f7334c24bf367e4bbfa7f9a, type: 2}
+  _hurtMaterial: {fileID: 2100000, guid: 9c906798ae64fac40bc6327f0880896e, type: 2}
+  _crackIntensity: 0.02
+  _crackDistortion: 0.005
+  _crackGlowIntensity: 0.4
+  _brokenDuration: 0.2
 --- !u!1 &4629908935146602055
 GameObject:
   m_ObjectHideFlags: 0
@@ -25340,12 +25371,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaknessMainLineControl
   _threadFullScreenFeature: {fileID: 7758598042631646636, guid: 424799608f7334c24bf367e4bbfa7f9a, type: 2}
   _threadWidth: 0.008
-  _fadeInDuration: 0.25
+  _fadeInDuration: 0.5
   _fadeOutDuration: 0.25
-  _normalGlowIntensity: 1.5
+  _normalGlowIntensity: 0.3
   _spawnGlowIntensity: 6
   _glowFlashInDuration: 0.08
   _glowFlashOutDuration: 0.4
+  _startCurveFrequency: 20
+  _normalCurveFrequency: 10
+  _startCurveStrength: 10
+  _normalCurveStrength: 0
+  _curveSetDuration: 1.5
+  _normalCoreWidth: 0.005
+  _normalGlowWidth: 0.01
+  _widthStartDelay: 0.05
+  _widthGrowDuration: 3
+  _strengthRange: {x: 0, y: 0.03}
+  _coreWidthRange: {x: 0.005, y: 0.008}
+  _glowWidthRange: {x: 0.01, y: 0.028}
+  _randomDuration: 0.5
   _brokenMultiplier: 50
   _brokenDuration: 0.2
 --- !u!114 &4570641681982353890

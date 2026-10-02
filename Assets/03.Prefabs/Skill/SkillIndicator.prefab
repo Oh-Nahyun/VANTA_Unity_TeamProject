@@ -148,7 +148,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 20, y: 20}
+  m_Size: {x: 60, y: 60}
   m_EdgeRadius: 0
 --- !u!114 &6201331024561835750
 MonoBehaviour:
@@ -204,6 +204,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillIndicatorOrbit
   _orbitSpeed: 150
+  _orbitRadius: 2
+  _boss1YOffset: 1
+  _showDebug: 1
 --- !u!114 &1788690956688383571
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,8 +2,13 @@ using UnityEngine;
 
 public class Boss1SplitBullet : MonoBehaviour
 {
+    [Header("확산탄 이동 속도")]
     [SerializeField] private float _speed = 2f;
+    
+    [Header("확산탄 분열 시작 전 이동 시간")]
     [SerializeField] private float _flyDuration = 2f;
+    
+    [Header("멈춘 후에 분열 전 대기 시간")]
     [SerializeField] private float _warningDuration = 0.7f;
     
     [Header("분열되는 탄환 개수")]

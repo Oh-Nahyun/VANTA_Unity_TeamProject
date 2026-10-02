@@ -3,7 +3,10 @@ using UnityEngine;
 
 public class Boss1Bullet : MonoBehaviour
 {
+    [Header("일반탄 이동 속도")]
     [SerializeField] private float _speed = 3f;
+    
+    [Header("일반탄 살아있는 시간")]
     [SerializeField] private float _lifeTime = 3f;
     
     private Boss1ProjectileManager _projectileManager;

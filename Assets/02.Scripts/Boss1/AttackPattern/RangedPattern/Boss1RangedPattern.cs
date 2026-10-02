@@ -51,6 +51,7 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
     private readonly List<IBoss1RangedAttack> _activeAttacks = new();
     
     [SerializeField] private Boss1PhaseController _boss1PhaseController;
+    private Boss1Movement _boss1Movement;
 
     private bool _isPhase2;
 
@@ -69,6 +70,11 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
     public bool CanUse()
     {
         return true;
+    }
+
+    private void Awake()
+    {
+        _boss1Movement = GetComponent<Boss1Movement>();
     }
     
     private void OnEnable()
@@ -94,6 +100,9 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
     public void EnterAttack()
     {
         IsFinished = false;
+        
+        _boss1Movement.Stop();
+        _boss1Movement.LockFacing();
 
         _currentCycleCount = 0;
         _activeAttacks.Clear();
@@ -126,6 +135,9 @@ public class Boss1RangedPattern : MonoBehaviour, IBoss1Attack
     public void ExitAttack()
     {
         ExitAllActiveAttacks();
+        
+        _boss1Movement.UnlockFacing();
+        _boss1Movement.StartNormalChase();
     }
     
     private void StartCycle()

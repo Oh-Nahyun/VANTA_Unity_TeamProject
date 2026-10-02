@@ -17,7 +17,7 @@ public class SkillDashPointCreator : MonoBehaviour
 
     [Tooltip("랜덤 후보를 몇 개 만들어 비교할지")]
     [SerializeField] private int _candidateCount = 30;
-    public List<Vector3> CreateDashPoint(int count, Action onComplete)
+    public List<Vector3> CreateDashPoint(int count)
     {
         List<Vector3> selectedPositions = new();
         Vector3 firstPosition = GetOppositePosition();
@@ -28,8 +28,7 @@ public class SkillDashPointCreator : MonoBehaviour
             Vector3 position = FindBestPosition(selectedPositions);
             selectedPositions.Add(position);
         }
-
-        onComplete.Invoke();
+        
         return selectedPositions;
 
     }

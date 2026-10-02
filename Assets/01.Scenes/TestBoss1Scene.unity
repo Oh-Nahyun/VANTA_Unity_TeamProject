@@ -129,7 +129,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 57864106689596397, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000005392776
+      value: 2.0800054
       objectReference: {fileID: 0}
     - target: {fileID: 57864106689596397, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -141,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 1095888717}
     - target: {fileID: 2559930616085129532, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.08
       objectReference: {fileID: 0}
     - target: {fileID: 2559930616085129532, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -524,7 +524,7 @@ PrefabInstance:
       objectReference: {fileID: 217339449}
     - target: {fileID: 651033612902867162, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.08
       objectReference: {fileID: 0}
     - target: {fileID: 651033612902867162, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: m_LocalPosition.y
@@ -626,7 +626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d15c37fb9f210409fad3571ea32a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
---- !u!1001 &1604741807
+--- !u!1001 &1562564810
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -636,11 +636,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6015451416661366157, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.6197414
+      value: 1.83568
       objectReference: {fileID: 0}
     - target: {fileID: 6015451416661366157, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.238438
+      value: -1.85899
       objectReference: {fileID: 0}
     - target: {fileID: 6015451416661366157, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1003,4 +1003,4 @@ SceneRoots:
   - {fileID: 691842877}
   - {fileID: 1733891861}
   - {fileID: 217339448}
-  - {fileID: 1604741807}
+  - {fileID: 1562564810}

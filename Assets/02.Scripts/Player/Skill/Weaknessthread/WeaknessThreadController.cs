@@ -8,12 +8,14 @@ public class WeaknessThreadController : MonoBehaviour
     [SerializeField] private Camera _targetCamera;
     [Header("Thread Movement")]
     [SerializeField] private float _rotationSpeed = 3f;
-    
+    [SerializeField] private Vector2 _boss1ThreadOffset;
+
     private WeaknessEdgeLineControl _weaknessEdgeLineControl;
     private WeaknessMainLineControl _weaknessMainLineControl;
     
     private Vector2 _threadDirection;
-    
+    private bool _isBoss1;
+
     private bool _threadRunning;
     
 
@@ -22,8 +24,10 @@ public class WeaknessThreadController : MonoBehaviour
         if (_targetCamera == null)
             _targetCamera = Camera.main;
 
-        _weaknessEdgeLineControl=GetComponent<WeaknessEdgeLineControl>();
-        _weaknessMainLineControl=GetComponent<WeaknessMainLineControl>();
+        _weaknessEdgeLineControl = GetComponent<WeaknessEdgeLineControl>();
+        _weaknessMainLineControl = GetComponent<WeaknessMainLineControl>();
+
+       
     }
 
     
@@ -50,8 +54,19 @@ public class WeaknessThreadController : MonoBehaviour
             Mathf.Sin(radian)
         ).normalized;
         
+
+        
         _threadRunning = true;
 
+        HitableObject hitableObject =
+            FindAnyObjectByType<HitableObject>();
+
+        if (hitableObject != null)
+        {
+            _boss = hitableObject.transform;
+            _isBoss1 = hitableObject is Boss1Life;
+        }
+        
         UpdateThread();
 
         _weaknessMainLineControl.FadeInThread();
@@ -89,9 +104,20 @@ public class WeaknessThreadController : MonoBehaviour
             return;
         }
 
+        Vector3 bossPosition = _boss.position;
+
+        if (_isBoss1)
+        {
+            bossPosition += new Vector3(
+                _boss1ThreadOffset.x,
+                _boss1ThreadOffset.y,
+                0f
+            );
+        }
+
         Vector3 bossScreen =
             _targetCamera.WorldToViewportPoint(
-                _boss.position
+                bossPosition
             );
 
         Vector2 center =
@@ -101,7 +127,7 @@ public class WeaknessThreadController : MonoBehaviour
             );
 
         Vector3 directionPoint =
-            _boss.position +
+            bossPosition +
             new Vector3(
                 _threadDirection.x,
                 _threadDirection.y,
@@ -130,9 +156,10 @@ public class WeaknessThreadController : MonoBehaviour
                 screenDirection.x
             );
 
-
-        _weaknessMainLineControl.UpdateMainThreadDirection(center, normal);
-        
+        _weaknessMainLineControl.UpdateMainThreadDirection(
+            center,
+            normal
+        );
     }
     
 

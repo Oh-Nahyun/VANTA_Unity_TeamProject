@@ -177,7 +177,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 10
+  spritePixelsToUnits: 1
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -252,11 +252,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UISprite_0
+      name: Line_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 755
+        x: 12
+        y: 750
         width: 862
         height: 82
       alignment: 0
@@ -274,12 +274,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UISprite_1
+      name: Line_1
       rect:
         serializedVersion: 2
-        x: 912
-        y: 755
-        width: 862
+        x: 920
+        y: 750
+        width: 853
         height: 82
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -296,11 +296,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UISprite_2
+      name: Line_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 648
+        x: 12
+        y: 650
         width: 862
         height: 82
       alignment: 0
@@ -318,12 +318,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UISprite_3
+      name: Line_3
       rect:
         serializedVersion: 2
-        x: 912
-        y: 648
-        width: 862
+        x: 920
+        y: 652
+        width: 854
         height: 82
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -340,7 +340,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UISprite_4
+      name: Line_4
       rect:
         serializedVersion: 2
         x: 12
@@ -362,12 +362,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UISprite_5
+      name: Line_5
       rect:
         serializedVersion: 2
-        x: 912
-        y: 549
-        width: 862
+        x: 920
+        y: 554
+        width: 854
         height: 82
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -384,11 +384,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UISprite_6
+      name: Line_6
       rect:
         serializedVersion: 2
-        x: 1
-        y: 446
+        x: 12
+        y: 450
         width: 862
         height: 82
       alignment: 0
@@ -406,12 +406,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UISprite_7
+      name: Line_7
       rect:
         serializedVersion: 2
-        x: 912
+        x: 920
         y: 446
-        width: 862
+        width: 854
         height: 82
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -428,11 +428,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UISprite_8
+      name: Line_8
       rect:
         serializedVersion: 2
         x: 12
-        y: 349
+        y: 354
         width: 862
         height: 82
       alignment: 0
@@ -450,12 +450,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UISprite_9
+      name: Line_9
       rect:
         serializedVersion: 2
-        x: 912
-        y: 344
-        width: 862
+        x: 918
+        y: 348
+        width: 854
         height: 82
       alignment: 9
       pivot: {x: 0.50289625, y: 0.60656476}
@@ -472,11 +472,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UISprite_10
+      name: Line_10
       rect:
         serializedVersion: 2
-        x: 11
-        y: 252
+        x: 12
+        y: 251
         width: 862
         height: 82
       alignment: 0
@@ -494,13 +494,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UISprite_11
+      name: Line_11
       rect:
         serializedVersion: 2
-        x: 912
-        y: 242
-        width: 862
-        height: 82
+        x: 921
+        y: 237
+        width: 853
+        height: 97
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -516,11 +516,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UISprite_12
+      name: Line_12
       rect:
         serializedVersion: 2
         x: 12
-        y: 144
+        y: 152
         width: 862
         height: 82
       alignment: 0
@@ -538,12 +538,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UISprite_13
+      name: Line_13
       rect:
         serializedVersion: 2
-        x: 912
-        y: 149
-        width: 862
+        x: 922
+        y: 151
+        width: 851
         height: 82
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -560,11 +560,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UISprite_14
+      name: Line_14
       rect:
         serializedVersion: 2
         x: 12
-        y: 50
+        y: 54
         width: 862
         height: 82
       alignment: 0
@@ -582,12 +582,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UISprite_15
+      name: Line_15
       rect:
         serializedVersion: 2
-        x: 912
-        y: 53
-        width: 862
+        x: 919
+        y: 58
+        width: 854
         height: 82
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -619,22 +619,22 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":8.0},"gridSpriteSize":{"x":862.0,"y":82.0},"gridSpriteOffset":{"x":0.0,"y":50.0},"gridSpritePadding":{"x":50.0,"y":25.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      UISprite_0: -7039278036542493594
-      UISprite_1: -5551083720047672995
-      UISprite_10: -5291051713414902621
-      UISprite_11: 4280211716573651247
-      UISprite_12: 4953155891259474736
-      UISprite_13: -2873450439533561124
-      UISprite_14: 82146563501875287
-      UISprite_15: 5796633646872042464
-      UISprite_2: 7690824269795830559
-      UISprite_3: 3068757142155030363
-      UISprite_4: -3731450349067041433
-      UISprite_5: 5666370372913619140
-      UISprite_6: 8646562429103647828
-      UISprite_7: 2901559807424179428
-      UISprite_8: 6514417398518891740
-      UISprite_9: 3543829753800550933
+      Line_0: -7039278036542493594
+      Line_1: -5551083720047672995
+      Line_10: -5291051713414902621
+      Line_11: 4280211716573651247
+      Line_12: 4953155891259474736
+      Line_13: -2873450439533561124
+      Line_14: 82146563501875287
+      Line_15: 5796633646872042464
+      Line_2: 7690824269795830559
+      Line_3: 3068757142155030363
+      Line_4: -3731450349067041433
+      Line_5: 5666370372913619140
+      Line_6: 8646562429103647828
+      Line_7: 2901559807424179428
+      Line_8: 6514417398518891740
+      Line_9: 3543829753800550933
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

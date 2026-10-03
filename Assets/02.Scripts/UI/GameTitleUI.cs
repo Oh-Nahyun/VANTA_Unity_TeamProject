@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameTitleButtonUI : MonoBehaviour
+public class GameTitleUI : MonoBehaviour
 {
     [Header("게임 시작 버튼")]
     [SerializeField] private Button _gameStartButton;
@@ -27,7 +27,7 @@ public class GameTitleButtonUI : MonoBehaviour
 
     private void OnClickSettingsButton()
     {
-        // TODO : 게임 설정 시스템 구현하기
+        // TODO : [UGUI] 게임 설정 시스템 구현하기
     }
 
     private void OnClickExitButton()

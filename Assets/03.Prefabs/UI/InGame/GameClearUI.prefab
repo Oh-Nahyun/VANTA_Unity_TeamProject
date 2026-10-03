@@ -90,6 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dfdbe15dc5766e4ebfc5645fb1c8651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameClearUI
+  _gameNextButton: {fileID: 0}
+  _gameTitleButton: {fileID: 0}
 --- !u!1 &4969032459982536782
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ public class GameClearUI : MonoBehaviour
 
     private void OnClickNextButton()
     {
-        // TODO : 보스 클리어 후 다음 연출 시작하기
+        // TODO : [UGUI] 보스 클리어 후 다음 연출 시작하기
     }
 
     private void OnClickTitleButton()

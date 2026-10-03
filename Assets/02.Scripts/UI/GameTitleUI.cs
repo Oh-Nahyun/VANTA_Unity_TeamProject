@@ -27,7 +27,7 @@ public class GameTitleUI : MonoBehaviour
 
     private void OnClickSettingsButton()
     {
-        // TODO : 게임 설정 시스템 구현하기
+        // TODO : [UGUI] 게임 설정 시스템 구현하기
     }
 
     private void OnClickExitButton()

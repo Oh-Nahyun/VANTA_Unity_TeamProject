@@ -469,3 +469,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74de3ba21eb6a1540b36eb93c3297e92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOverUI
+  _gameRetryButton: {fileID: 0}
+  _gameTitleButton: {fileID: 0}

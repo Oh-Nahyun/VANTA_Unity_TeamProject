@@ -17,6 +17,14 @@ public class GameResultUI : MonoBehaviour
     private void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        SetGameResult();
+    }
+
+    private void SetGameResult()
+    {
+        _gameOverUI.SetActive(false);
+        _gameClearUI.SetActive(false);
     }
 
     public void ShowGameOverUI()
@@ -26,6 +34,6 @@ public class GameResultUI : MonoBehaviour
 
     public void ShowGameClearUI()
     {
-        _gameOverUI.SetActive(true);
+        _gameClearUI.SetActive(true);
     }
 }

@@ -81,6 +81,7 @@ MonoBehaviour:
   _gameStartButton: {fileID: 7958441949938177428}
   _gameSettingsButton: {fileID: 6955312671024129626}
   _gameExitButton: {fileID: 6209762017645922951}
+  _gameSettingPanel: {fileID: 0}
 --- !u!1 &3018883952103958599
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +388,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3949852896649861647, guid: 1627717d09c28624494e0fa2afcdebe1, type: 3}
+  m_Sprite: {fileID: -6772394974690532592, guid: 1627717d09c28624494e0fa2afcdebe1, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -436,7 +437,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 3215825851317365810}
   m_OnClick:
     m_PersistentCalls:

@@ -13,6 +13,9 @@ public class GameTitleUI : MonoBehaviour
     [Header("게임 종료 버튼")]
     [SerializeField] private Button _gameExitButton;
 
+    [Header("게임 설정 패널")]
+    [SerializeField] private GameObject _gameSettingPanel;
+
     private void Start()
     {
         _gameStartButton.onClick.AddListener(OnClickStartButton);
@@ -28,6 +31,7 @@ public class GameTitleUI : MonoBehaviour
     private void OnClickSettingsButton()
     {
         // TODO : [UGUI] 게임 설정 시스템 구현하기
+        _gameSettingPanel.active = true;
     }
 
     private void OnClickExitButton()

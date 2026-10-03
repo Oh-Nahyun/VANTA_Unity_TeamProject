@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameTitleButtonUI : MonoBehaviour
+public class GameTitleUI : MonoBehaviour
 {
     [Header("게임 시작 버튼")]
     [SerializeField] private Button _gameStartButton;

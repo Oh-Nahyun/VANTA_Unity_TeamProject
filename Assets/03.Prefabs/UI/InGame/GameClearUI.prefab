@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5081824932997686824}
   - component: {fileID: 1268433044081592966}
   - component: {fileID: 7029552166675250124}
+  - component: {fileID: 8272099938229487448}
   m_Layer: 5
   m_Name: GameClearUI
   m_TagString: Untagged
@@ -77,6 +78,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8272099938229487448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050101410752640745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfdbe15dc5766e4ebfc5645fb1c8651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameClearUI
 --- !u!1 &4969032459982536782
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,7 +30,6 @@ public class GameTitleUI : MonoBehaviour
 
     private void OnClickSettingsButton()
     {
-        // TODO : [UGUI] 게임 설정 시스템 구현하기
         _gameSettingPanel.active = true;
     }
 

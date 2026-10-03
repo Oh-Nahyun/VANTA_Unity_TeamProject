@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1b77235cf2ed1844cb5ada044e76b17f
+guid: e1ba3e7f0851ab344b97195988ebea87
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -188,57 +188,6 @@ TextureImporter:
   - first:
       213: 8237975822591103688
     second: Front_61
-  - first:
-      213: -5578228499731403513
-    second: Front_62
-  - first:
-      213: -199203436635312977
-    second: Front_63
-  - first:
-      213: -8369339544440118559
-    second: Front_64
-  - first:
-      213: 5991060831133543172
-    second: Front_65
-  - first:
-      213: -9071361950920264078
-    second: Front_66
-  - first:
-      213: 6901972547378168833
-    second: Front_67
-  - first:
-      213: -4659440554382304175
-    second: Front_68
-  - first:
-      213: -1502116229584106280
-    second: Front_69
-  - first:
-      213: 8223004391383765986
-    second: Front_70
-  - first:
-      213: 8378698562178113970
-    second: Front_71
-  - first:
-      213: -4062701191051778095
-    second: Front_72
-  - first:
-      213: -7319858250354026597
-    second: Front_73
-  - first:
-      213: 2846500653363225131
-    second: Front_74
-  - first:
-      213: -7600216498337797934
-    second: Front_75
-  - first:
-      213: 5568074647520115401
-    second: Front_76
-  - first:
-      213: 269281380219339444
-    second: Front_77
-  - first:
-      213: -3381787411369396345
-    second: Front_78
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -271,7 +220,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -309,7 +258,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -364,9 +313,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 383
-        width: 253
-        height: 373
+        y: 444
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -385,10 +334,10 @@ TextureImporter:
       name: Front_1
       rect:
         serializedVersion: 2
-        x: 196
-        y: 383
-        width: 253
-        height: 373
+        x: 222
+        y: 444
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -407,10 +356,10 @@ TextureImporter:
       name: Front_2
       rect:
         serializedVersion: 2
-        x: 425
-        y: 383
-        width: 253
-        height: 373
+        x: 445
+        y: 444
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -429,10 +378,10 @@ TextureImporter:
       name: Front_3
       rect:
         serializedVersion: 2
-        x: 659
-        y: 383
-        width: 253
-        height: 373
+        x: 668
+        y: 444
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -451,10 +400,10 @@ TextureImporter:
       name: Front_4
       rect:
         serializedVersion: 2
-        x: 906
-        y: 383
-        width: 253
-        height: 373
+        x: 885
+        y: 444
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -473,10 +422,10 @@ TextureImporter:
       name: Front_5
       rect:
         serializedVersion: 2
-        x: 1172
-        y: 383
-        width: 253
-        height: 373
+        x: 1107
+        y: 444
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -495,10 +444,10 @@ TextureImporter:
       name: Front_6
       rect:
         serializedVersion: 2
-        x: 1449
-        y: 383
-        width: 285
-        height: 373
+        x: 1326
+        y: 444
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -517,10 +466,10 @@ TextureImporter:
       name: Front_7
       rect:
         serializedVersion: 2
-        x: 42
-        y: 37
-        width: 253
-        height: 320
+        x: 1542
+        y: 444
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -539,10 +488,10 @@ TextureImporter:
       name: Front_8
       rect:
         serializedVersion: 2
-        x: 290
-        y: 37
-        width: 253
-        height: 320
+        x: 3
+        y: 65
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -561,10 +510,10 @@ TextureImporter:
       name: Front_9
       rect:
         serializedVersion: 2
-        x: 552
-        y: 37
-        width: 253
-        height: 320
+        x: 225
+        y: 65
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -583,10 +532,10 @@ TextureImporter:
       name: Front_10
       rect:
         serializedVersion: 2
-        x: 804
-        y: 37
-        width: 253
-        height: 320
+        x: 447
+        y: 65
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -605,10 +554,10 @@ TextureImporter:
       name: Front_11
       rect:
         serializedVersion: 2
-        x: 1079
-        y: 37
-        width: 253
-        height: 320
+        x: 667
+        y: 65
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -627,10 +576,10 @@ TextureImporter:
       name: Front_12
       rect:
         serializedVersion: 2
-        x: 1289
-        y: 37
-        width: 253
-        height: 320
+        x: 888
+        y: 65
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -649,10 +598,10 @@ TextureImporter:
       name: Front_13
       rect:
         serializedVersion: 2
-        x: 1556
-        y: 37
-        width: 215
-        height: 320
+        x: 1109
+        y: 65
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -667,11 +616,55 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Front_14
+      rect:
+        serializedVersion: 2
+        x: 1329
+        y: 65
+        width: 227
+        height: 350
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4f30bd7daf355040800000000000000
+      internalID: 4635681405818388303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Front_15
+      rect:
+        serializedVersion: 2
+        x: 1547
+        y: 65
+        width: 227
+        height: 350
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e36428ce3bc90de0800000000000000
+      internalID: -1366337541423995933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: efb99ccd419ad8343b8a67662929b554
+    spriteID: d70a0030a265c1c4fae69d6392b5f022
     internalID: 0
     vertices: []
     indices: 
@@ -681,7 +674,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":7.0,"y":2.0},"gridSpriteSize":{"x":253.0,"y":443.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":2.0},"gridSpriteSize":{"x":221.0,"y":443.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Front_0: 9040879190431018056
       Front_1: -4617293510232987901
@@ -689,6 +682,8 @@ TextureImporter:
       Front_11: 1806524451038542486
       Front_12: -2842654299206228624
       Front_13: -1863286547234825662
+      Front_14: 4635681405818388303
+      Front_15: -1366337541423995933
       Front_2: 3754754863996910684
       Front_3: -5829380985280236941
       Front_4: -2074089879795968147

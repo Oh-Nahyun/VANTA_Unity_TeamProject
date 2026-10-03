@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d613bf4526cdf824cace1d5c1e74609e
+guid: 57378b7427da68645b5bdd587a0fa6ae
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -83,39 +83,6 @@ TextureImporter:
   - first:
       213: -3509006971447685495
     second: Back_26
-  - first:
-      213: 599243908360480079
-    second: Back_27
-  - first:
-      213: 5193853826052550798
-    second: Back_28
-  - first:
-      213: -504111183631853548
-    second: Back_29
-  - first:
-      213: 1898374986032944891
-    second: Back_30
-  - first:
-      213: 85663049899661579
-    second: Back_31
-  - first:
-      213: 7152558471477788465
-    second: Back_32
-  - first:
-      213: -3953196415417316437
-    second: Back_33
-  - first:
-      213: -16752045788882392
-    second: Back_34
-  - first:
-      213: -8402391965159183024
-    second: Back_35
-  - first:
-      213: 5929340708770379722
-    second: Back_36
-  - first:
-      213: -2761446988789559408
-    second: Back_37
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -148,7 +115,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -186,7 +153,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -240,10 +207,10 @@ TextureImporter:
       name: Back_0
       rect:
         serializedVersion: 2
-        x: 8
+        x: 10
         y: 454
-        width: 180
-        height: 180
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -262,10 +229,10 @@ TextureImporter:
       name: Back_1
       rect:
         serializedVersion: 2
-        x: 210
-        y: 454
-        width: 180
-        height: 180
+        x: 222
+        y: 455
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,13 +248,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_4
+      name: Back_2
       rect:
         serializedVersion: 2
-        x: 733
-        y: 454
-        width: 217
-        height: 236
+        x: 432
+        y: 455
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -303,13 +270,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_5
+      name: Back_3
       rect:
         serializedVersion: 2
-        x: 942
-        y: 452
-        width: 237
-        height: 266
+        x: 639
+        y: 455
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -325,13 +292,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_6
+      name: Back_4
       rect:
         serializedVersion: 2
-        x: 1180
-        y: 452
-        width: 295
-        height: 329
+        x: 855
+        y: 455
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -347,13 +314,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_7
+      name: Back_5
       rect:
         serializedVersion: 2
-        x: 1474
-        y: 453
-        width: 295
-        height: 355
+        x: 1078
+        y: 455
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -369,13 +336,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_8
+      name: Back_6
       rect:
         serializedVersion: 2
-        x: 22
-        y: 72
-        width: 295
-        height: 307
+        x: 1301
+        y: 455
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -391,13 +358,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_9
+      name: Back_7
       rect:
         serializedVersion: 2
-        x: 315
-        y: 72
-        width: 295
-        height: 308
+        x: 1537
+        y: 455
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -413,13 +380,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_10
+      name: Back_8
       rect:
         serializedVersion: 2
-        x: 592
-        y: 72
-        width: 295
-        height: 308
+        x: 12
+        y: 83
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -435,13 +402,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_11
+      name: Back_9
       rect:
         serializedVersion: 2
-        x: 858
-        y: 71
-        width: 282
-        height: 306
+        x: 243
+        y: 83
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -457,13 +424,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_12
+      name: Back_10
       rect:
         serializedVersion: 2
-        x: 1146
-        y: 71
-        width: 295
-        height: 305
+        x: 463
+        y: 83
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -479,45 +446,111 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_2
+      name: Back_11
       rect:
         serializedVersion: 2
-        x: 388
-        y: 453
-        width: 180
-        height: 180
+        x: 685
+        y: 83
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 529cc83b276373a468b0816d1d70cfff
+      spriteID: 91846145409f96ec0800000000000000
+      internalID: -3573051032355846119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Back_12
+      rect:
+        serializedVersion: 2
+        x: 901
+        y: 83
+        width: 227
+        height: 350
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad51db810678f9a30800000000000000
       internalID: 4224243822298469850
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_3
+      name: Back_13
       rect:
         serializedVersion: 2
-        x: 579
-        y: 453
-        width: 154
-        height: 186
+        x: 1108
+        y: 83
+        width: 227
+        height: 350
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 130c5c0eb9e693544aebe573bf1cafe0
+      spriteID: ec68f5a3011d56fc0800000000000000
       internalID: -3502163267581671730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Back_14
+      rect:
+        serializedVersion: 2
+        x: 1329
+        y: 83
+        width: 227
+        height: 350
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77cb3f7f90c57ee00800000000000000
+      internalID: 1073928234035559543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Back_15
+      rect:
+        serializedVersion: 2
+        x: 1545
+        y: 83
+        width: 227
+        height: 350
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5346dd31ad3c192b0800000000000000
+      internalID: -5579463121931770827
       vertices: []
       indices: 
       edges: []
@@ -526,7 +559,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 68d40acd3e846d149a9288b956336ae9
+    spriteID: 96bb319c74dc26d4fb4d4bcc91653b31
     internalID: 0
     vertices: []
     indices: 
@@ -536,21 +569,24 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":2.0},"gridSpriteSize":{"x":295.0,"y":443.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":2.0},"gridSpriteSize":{"x":221.0,"y":443.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Back_0: 5000927251509650613
       Back_1: 564042922023100985
-      Back_10: 2231772683120516731
-      Back_11: -5840571216706997033
-      Back_12: 5728532789161517212
-      Back_2: 4224243822298469850
-      Back_3: -3502163267581671730
-      Back_4: -6931248352422374901
-      Back_5: 4990789188432626572
-      Back_6: -2435556808807701032
-      Back_7: 7727881620317917970
-      Back_8: -9143305190424803007
-      Back_9: -1487660749042531935
+      Back_10: 5728532789161517212
+      Back_11: -3573051032355846119
+      Back_12: 4224243822298469850
+      Back_13: -3502163267581671730
+      Back_14: 1073928234035559543
+      Back_15: -5579463121931770827
+      Back_2: -6931248352422374901
+      Back_3: 4990789188432626572
+      Back_4: -2435556808807701032
+      Back_5: 7727881620317917970
+      Back_6: -9143305190424803007
+      Back_7: -1487660749042531935
+      Back_8: 2231772683120516731
+      Back_9: -5840571216706997033
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

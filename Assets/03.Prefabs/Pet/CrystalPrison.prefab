@@ -193,7 +193,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1243391977
-  m_SortingLayer: 8
+  m_SortingLayer: 11
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 9040879190431018056, guid: 1b77235cf2ed1844cb5ada044e76b17f, type: 3}
@@ -389,3 +389,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae298face59ab8428c6a80c1a85f4c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrystalPrison
+  _skillDuration: 5
+  _damage: 20
+  AttackTarget: {fileID: 0}

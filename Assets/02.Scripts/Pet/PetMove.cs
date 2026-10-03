@@ -8,6 +8,12 @@ public class PetMove : MonoBehaviour
     [Header("펫 이동 속도")]
     [SerializeField] private float _moveSpeed = 1f;
 
+    [Header("펫 이동 시 나타날 먼지 파티클 시스템")]
+    [SerializeField] private ParticleSystem _footStepDustParticle;
+
+    [Header("펫 이동 시 나타날 먼지 파티클 갯수")]
+    [SerializeField] private int _footStepDustCount = 3;
+
     /// <summary>
     /// 펫 클래스
     /// </summary>
@@ -47,6 +53,7 @@ public class PetMove : MonoBehaviour
         {
             Chase();
         }
+
         Run();
     }
 
@@ -68,6 +75,7 @@ public class PetMove : MonoBehaviour
         {
             _pet.SpriteRenderer.flipX = false;
         }
+
         transform.Translate((Vector3)(direction * _moveSpeed) * Time.deltaTime);
     }
 
@@ -93,5 +101,10 @@ public class PetMove : MonoBehaviour
             return;
 
         _canChase = true;
+    }
+
+    public void PlayFootStepDustParticle()
+    {
+        _footStepDustParticle.Emit(_footStepDustCount);
     }
 }

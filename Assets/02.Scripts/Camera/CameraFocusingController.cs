@@ -5,8 +5,8 @@ using UnityEngine;
 public class CameraFocusingController : MonoBehaviour
 {
     private static CameraFocusingController _instance;
-
     public static CameraFocusingController Instance => _instance;
+
     [Header("Camera")]
     [SerializeField] private CinemachineCamera _camera;
 
@@ -22,7 +22,6 @@ public class CameraFocusingController : MonoBehaviour
     private float _defaultOrthographicSize;
     private Vector3 _defaultDamping;
 
-    private Sequence _focusSequence;
     private Tween _zoomTween;
     private Tween _dampingTween;
 
@@ -37,6 +36,7 @@ public class CameraFocusingController : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
 
         InitializeCamera();
@@ -58,18 +58,11 @@ public class CameraFocusingController : MonoBehaviour
         }
 
         _defaultTarget = _camera.Follow;
-
-        _defaultOrthographicSize =
-            _camera.Lens.OrthographicSize;
-
-        _defaultDamping =
-            _follow.TrackerSettings.PositionDamping;
+        _defaultOrthographicSize = _camera.Lens.OrthographicSize;
+        _defaultDamping = _follow.TrackerSettings.PositionDamping;
     }
 
-    public void Focus(
-        Transform target,
-        float duration,
-        float zoomAmount)
+    public void Focus(Transform target, float zoomAmount)
     {
         if (target == null || _camera == null)
             return;
@@ -81,16 +74,6 @@ public class CameraFocusingController : MonoBehaviour
         _camera.Follow = target;
 
         ZoomIn(zoomAmount);
-
-        _focusSequence =
-            DOTween.Sequence()
-                .SetUpdate(true);
-
-        _focusSequence.AppendInterval(duration);
-
-        _focusSequence.OnComplete(
-            ReturnCamera
-        );
     }
 
     private void ZoomIn(float zoomAmount)
@@ -106,8 +89,7 @@ public class CameraFocusingController : MonoBehaviour
         _zoomTween =
             DOTween.To(
                     () => _camera.Lens.OrthographicSize,
-                    value =>
-                        _camera.Lens.OrthographicSize = value,
+                    value => _camera.Lens.OrthographicSize = value,
                     targetSize,
                     _zoomInDuration
                 )
@@ -123,16 +105,8 @@ public class CameraFocusingController : MonoBehaviour
 
         _dampingTween =
             DOTween.To(
-                    () =>
-                        _follow
-                            .TrackerSettings
-                            .PositionDamping,
-
-                    value =>
-                        _follow
-                            .TrackerSettings
-                            .PositionDamping = value,
-
+                    () => _follow.TrackerSettings.PositionDamping,
+                    value => _follow.TrackerSettings.PositionDamping = value,
                     focusDamping,
                     _targetChangeDuration
                 )
@@ -147,18 +121,14 @@ public class CameraFocusingController : MonoBehaviour
 
         _isFocusing = false;
 
-        _focusSequence?.Kill();
-        _zoomTween?.Kill();
-        _dampingTween?.Kill();
+        KillTweens();
 
-        _camera.Follow =
-            _defaultTarget;
+        _camera.Follow = _defaultTarget;
 
         _zoomTween =
             DOTween.To(
                     () => _camera.Lens.OrthographicSize,
-                    value =>
-                        _camera.Lens.OrthographicSize = value,
+                    value => _camera.Lens.OrthographicSize = value,
                     _defaultOrthographicSize,
                     _zoomOutDuration
                 )
@@ -167,16 +137,8 @@ public class CameraFocusingController : MonoBehaviour
 
         _dampingTween =
             DOTween.To(
-                    () =>
-                        _follow
-                            .TrackerSettings
-                            .PositionDamping,
-
-                    value =>
-                        _follow
-                            .TrackerSettings
-                            .PositionDamping = value,
-
+                    () => _follow.TrackerSettings.PositionDamping,
+                    value => _follow.TrackerSettings.PositionDamping = value,
                     _defaultDamping,
                     _targetChangeDuration
                 )
@@ -186,11 +148,9 @@ public class CameraFocusingController : MonoBehaviour
 
     private void KillTweens()
     {
-        _focusSequence?.Kill();
         _zoomTween?.Kill();
         _dampingTween?.Kill();
 
-        _focusSequence = null;
         _zoomTween = null;
         _dampingTween = null;
     }

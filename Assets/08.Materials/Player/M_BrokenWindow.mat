@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _CrackTex:
-        m_Texture: {fileID: 2800000, guid: 5bb4797b3d90ac147a4dff06b63b6088, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1ee216d3b960fd14e8682dda39e07681, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -46,15 +46,15 @@ Material:
     - _CrackGlowIntensity: 0
     - _CrackIntensity: 0
     - _CrackRotation: 0
-    - _CrackScale: 0.4
+    - _CrackScale: 1
     - _CrackWidth: 1
     - _DistortionRange: 0
     - _DistortionStrength: 0.02
     - _ImpactRadius: 30
     m_Colors:
-    - _CrackColor: {r: 0.33681917, g: 0.33681917, b: 0.8207547, a: 1}
+    - _CrackColor: {r: 0, g: 0, b: 0, a: 1}
     - _CrackDistortionDirection: {r: 1, g: 0.5, b: 0, a: 0}
-    - _CrackGlowColor: {r: 0.085172676, g: 0.13871153, b: 0.20754719, a: 1}
+    - _CrackGlowColor: {r: 0.10332858, g: 0.13120843, b: 0.16981131, a: 1}
     - _CrackOffset: {r: 0, g: 0, b: 0, a: 0}
     - _ImpactCenter: {r: 0.5, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []

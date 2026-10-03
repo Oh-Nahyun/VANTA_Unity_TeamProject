@@ -6,7 +6,6 @@ public class SkillIndicator : MonoBehaviour
 {
     private ObjectSelect _objectSelector;
     private ObjectSquash _objectSquash;
-    private ObjectFocus _objectFocus;
     private SkillIndicatorOrbit _skillIndicatorOrbit;
     private SkillIndicatorMove _skillIndicatorMove;
     private SkillIndicatorSelectIndicator _skillIndicatorSelectIndicator;
@@ -14,7 +13,6 @@ public class SkillIndicator : MonoBehaviour
     private void Awake()
     {
         _objectSelector = GetComponent<ObjectSelect>();
-        _objectFocus = GetComponent<ObjectFocus>();
         _skillIndicatorOrbit = GetComponent<SkillIndicatorOrbit>();
         _skillIndicatorMove = GetComponent<SkillIndicatorMove>();
         _skillIndicatorSelectIndicator=GetComponent<SkillIndicatorSelectIndicator>();
@@ -54,7 +52,7 @@ public class SkillIndicator : MonoBehaviour
     public void Select()
     {
         _objectSelector.StartSelect();
-        _objectFocus.StartFocus();
+        //_objectFocus.StartFocus();
         _skillIndicatorSelectIndicator.IndicatingStart();
     }
 
@@ -62,7 +60,7 @@ public class SkillIndicator : MonoBehaviour
     {
 
         _objectSelector.EndSelect();
-        _objectFocus.EndFocus();
+        //_objectFocus.EndFocus();
         _skillIndicatorSelectIndicator.IndicatingStop();
     }
 
@@ -74,7 +72,7 @@ public class SkillIndicator : MonoBehaviour
     {
         _isChoiced = true;
         _objectSelector.EndSelect();
-        _objectFocus.EndFocus();
+        //_objectFocus.EndFocus();
         
         if (_objectSquash != null)
         {

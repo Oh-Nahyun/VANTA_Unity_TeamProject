@@ -83,6 +83,8 @@ public class SkillFocusScreenController : MonoBehaviour
                 0f
             )
         );
+        
+   
     }
 
     public void StartFocusScreenSetting(Action onComplete)

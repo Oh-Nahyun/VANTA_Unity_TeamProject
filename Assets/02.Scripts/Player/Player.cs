@@ -26,14 +26,15 @@ public class Player : MonoBehaviour
 
     private Animator _animator;
     private BrokenWidowScreenController _brokenWidowScreenController;
-
+    private PlayerStatusManager _playerStatusManager;
     private Sequence _damagedSlowSequence;
 
     private void Awake()
     {
         _brokenWidowScreenController =
             GetComponent<BrokenWidowScreenController>();
-
+        _playerStatusManager=GetComponent<PlayerStatusManager>();
+        
         _animator =
             GetComponent<Animator>();
     }
@@ -62,6 +63,11 @@ public class Player : MonoBehaviour
         }
     }
 
+
+    public void InitPlayer()
+    {
+        _playerStatusManager.StartPlayerOriginSetting();
+    }
     public void OnPlayerHittable()
     {
         _isHittable = true;

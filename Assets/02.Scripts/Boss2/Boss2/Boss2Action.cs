@@ -19,6 +19,9 @@ public class Boss2Action
     public int ComboMin = 1;
     public int ComboMax = 1;
 
+    [Tooltip("BladeAuraSlash 일 때 발사 수 (Single / Triple). None 이면 공격 패턴의 기본값")]
+    public SlashProjectileType ProjectileType = SlashProjectileType.None;
+
     [Header("조건")]
     [Tooltip("플레이어와의 거리가 이 범위일 때만 후보")]
     public float DistanceMin = 0f;

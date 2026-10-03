@@ -1089,9 +1089,6 @@
             "m_Id": "62cc26d5f93b47f493dd8c0ba7855dd7"
         },
         {
-            "m_Id": "c90178982cd54274885d858cff7e4a7f"
-        },
-        {
             "m_Id": "6005af96eebb408c9a7d3666d6c1d1bb"
         },
         {
@@ -3010,29 +3007,6 @@
     "m_DefaultValue": 0.0,
     "m_Labels": [],
     "m_LiteralMode": false
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
-    "m_ObjectId": "c90178982cd54274885d858cff7e4a7f",
-    "m_Id": 1138825885,
-    "m_DisplayName": "Position",
-    "m_SlotType": 0,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "_Position",
-    "m_StageCapability": 3,
-    "m_Value": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_Labels": []
 }
 
 {

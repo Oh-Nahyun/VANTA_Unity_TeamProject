@@ -21,6 +21,41 @@ public class Boss2AttackPattern : Boss2AttackBase
     // 기본은 모든 레이어. 대상은 태그(Player)로 한 번 더 거른다.
     [SerializeField] private LayerMask _spinTargetLayers = ~0;
 
+    [Header("검기 공통")]
+    [Tooltip("발사 중심에서 발사체가 생기는 위치까지 거리")]
+    [SerializeField] private float _bladeAuraSpawnDistance = 0.8f;
+
+    [Tooltip("보스 피벗 기준 발사 중심 보정 (검 높이 등)")]
+    [SerializeField] private Vector2 _bladeAuraSpawnOffset = new Vector2(0f, 0.3f);
+
+    [Header("검기 1·3방향 (BladeAuraSlash)")]
+    [Tooltip("날릴 발사체 (Dark / Blood / 기본 SlashProjectile 교체 가능)")]
+    [SerializeField] private ProjectileBase _bladeAuraProjectile;
+
+    [SerializeField] private float _bladeAuraSpeed = 6f;
+
+    [Tooltip("재생할 애니메이션 (상태 이름 = 클립 이름). 클립의 BladeAuraSlashHit 이벤트에서 발사")]
+    [SerializeField] private string _bladeAuraStateName = "BladeAuraSlash";
+
+    [Tooltip("행동에 발사 수가 지정되지 않았을 때 쓰는 값 (Single / Triple)")]
+    [SerializeField] private SlashProjectileType _bladeAuraDefaultType = SlashProjectileType.Triple;
+
+    [Header("검기 8방향 (BladeAuraSlashAll)")]
+    [Tooltip("비워 두면 1·3방향 발사체를 쓴다")]
+    [SerializeField] private ProjectileBase _bladeAuraAllProjectile;
+
+    [Tooltip("0 이하면 1·3방향 속도를 쓴다")]
+    [SerializeField] private float _bladeAuraAllSpeed = 0f;
+
+    [Tooltip("재생할 애니메이션 (상태 이름 = 클립 이름). 클립의 BladeAuraSlashAllHit 이벤트에서 발사")]
+    [SerializeField] private string _bladeAuraAllStateName = "BladeAuraSlashAll";
+
+    private Vector2 _pendingAuraDirection = Vector2.right;
+    private SlashProjectileType _pendingAuraType = SlashProjectileType.None;
+    private bool _hasFiredBladeAura;
+
+    private Vector2 BladeAuraCenter => (Vector2)transform.position + _bladeAuraSpawnOffset;
+
     private Boss2AttackPatternType _currentAttackPatternType = Boss2AttackPatternType.None;
     private Animator _patternAnimator;
     private Boss2MoveBase _mover;
@@ -54,8 +89,10 @@ public class Boss2AttackPattern : Boss2AttackBase
 
     /// <summary>
     /// 공격 명령. comboCount 는 ComboAttack 에서만 쓰며, 스텝을 번갈아 가며 그 타수만큼 연속으로 친다.
+    /// projectileType 은 BladeAuraSlash 에서만 쓰며 Single / Triple 을 고른다. (None 이면 인스펙터 기본값)
     /// </summary>
-    public void ApplyAttackPattern(Boss2AttackPatternType attackPatternType, int comboCount = 1)
+    public void ApplyAttackPattern(Boss2AttackPatternType attackPatternType, int comboCount = 1,
+        SlashProjectileType projectileType = SlashProjectileType.None)
     {
         switch (attackPatternType)
         {
@@ -78,12 +115,18 @@ public class Boss2AttackPattern : Boss2AttackBase
             }
             case Boss2AttackPatternType.BladeAuraSlash:
             {
-                BladeAuraSlash();
+                SlashProjectileType type = projectileType != SlashProjectileType.None ? projectileType : _bladeAuraDefaultType;
+                BladeAuraSlash(GetTargetDirection(), type);
                 break;
             }
             case Boss2AttackPatternType.SpinningSlash:
             {
                 SpinningSlash();
+                break;
+            }
+            case Boss2AttackPatternType.BladeAuraSlashAll:
+            {
+                BladeAuraSlashAll();
                 break;
             }
         }
@@ -114,9 +157,130 @@ public class Boss2AttackPattern : Boss2AttackBase
         TryStartSingleAttack(Boss2AttackPatternType.SmashAttack, _smashStateName, false);
     }
 
-    public void BladeAuraSlash()
+    /// <summary>
+    /// 검기 1·3방향. direction 에 가장 가까운 8방위를 기준으로
+    /// Single 은 그 방향 1발, Triple 은 앞뒤 인접 방향까지 3발을 쏜다. (8방향은 BladeAuraSlashAll)
+    /// 실제 발사는 BladeAuraSlash 클립의 BladeAuraSlashHit 이벤트에서 한다.
+    /// </summary>
+    public void BladeAuraSlash(Vector2 direction, SlashProjectileType type)
     {
-        Debug.LogWarning("BladeAuraSlash 패턴은 아직 구현되지 않았습니다.");
+        if (type == SlashProjectileType.None)
+            return;
+
+        if (type == SlashProjectileType.All)
+        {
+            Debug.LogWarning("8방향은 BladeAuraSlashAll 패턴으로 쏩니다. Triple 로 대신 실행합니다.");
+            type = SlashProjectileType.Triple;
+        }
+
+        if (_bladeAuraProjectile == null)
+        {
+            Debug.LogWarning("Blade Aura Projectile 이 비어 있어 검기를 발사할 수 없습니다.");
+            return;
+        }
+
+        _pendingAuraDirection = direction.sqrMagnitude > 0.0001f ? direction : Vector2.right;
+        _pendingAuraType = type;
+        _hasFiredBladeAura = false;
+        TryStartSingleAttack(Boss2AttackPatternType.BladeAuraSlash, _bladeAuraStateName, true);
+    }
+
+    /// <summary>
+    /// 검기 8방향. 방향과 상관없이 보스 주위 8방위 모두로 쏜다.
+    /// 실제 발사는 BladeAuraSlashAll 클립의 BladeAuraSlashAllHit 이벤트에서 한다.
+    /// </summary>
+    public void BladeAuraSlashAll()
+    {
+        if (AllProjectile == null)
+        {
+            Debug.LogWarning("Blade Aura 발사체가 비어 있어 8방향 검기를 발사할 수 없습니다.");
+            return;
+        }
+
+        _pendingAuraType = SlashProjectileType.All;
+        _hasFiredBladeAura = false;
+        TryStartSingleAttack(Boss2AttackPatternType.BladeAuraSlashAll, _bladeAuraAllStateName, true);
+    }
+
+    // 8방향 전용 값이 비어 있으면 1·3방향 값을 쓴다.
+    private ProjectileBase AllProjectile => _bladeAuraAllProjectile != null ? _bladeAuraAllProjectile : _bladeAuraProjectile;
+    private float AllSpeed => _bladeAuraAllSpeed > 0f ? _bladeAuraAllSpeed : _bladeAuraSpeed;
+
+    // 대상(플레이어) 방향. 대상이 없으면 오른쪽.
+    private Vector2 GetTargetDirection()
+    {
+        if (_mover is Boss2MovePattern movePattern && movePattern.Target != null)
+            return movePattern.Target.position - transform.position;
+
+        return Vector2.right;
+    }
+
+    // 발사할 _projectileDirections 인덱스 목록
+    private int[] GetBladeAuraIndices(Vector2 direction, SlashProjectileType type)
+    {
+        int center = DirectionToIndex(direction);
+        switch (type)
+        {
+            case SlashProjectileType.Single:
+            {
+                return new[] { center };
+            }
+            case SlashProjectileType.Triple:
+            {
+                // 배열이 시계 방향 순서라 인덱스 ±1 이 곧 양옆 인접 방향이다.
+                return new[] { WrapDirectionIndex(center - 1), center, WrapDirectionIndex(center + 1) };
+            }
+            case SlashProjectileType.All:
+            {
+                int[] all = new int[_projectileDirections.Length];
+                for (int i = 0; i < all.Length; i++)
+                {
+                    all[i] = i;
+                }
+                return all;
+            }
+            default:
+            {
+                return new int[0];
+            }
+        }
+    }
+
+    /// <summary>
+    /// 애니메이션 이벤트: BladeAuraSlash 클립의 휘두르는 프레임. 1·3방향으로 발사한다.
+    /// </summary>
+    public void BladeAuraSlashHit()
+    {
+        if (_currentAttackPatternType != Boss2AttackPatternType.BladeAuraSlash || _hasFiredBladeAura)
+            return;
+
+        FireBladeAura(_bladeAuraProjectile, _bladeAuraSpeed);
+    }
+
+    /// <summary>
+    /// 애니메이션 이벤트: BladeAuraSlashAll 클립의 발사 프레임. 8방향으로 발사한다.
+    /// </summary>
+    public void BladeAuraSlashAllHit()
+    {
+        if (_currentAttackPatternType != Boss2AttackPatternType.BladeAuraSlashAll || _hasFiredBladeAura)
+            return;
+
+        FireBladeAura(AllProjectile, AllSpeed);
+    }
+
+    // 정해 둔 방향들로 발사체를 생성한다. 한 번의 공격에서 한 번만 쏜다.
+    private void FireBladeAura(ProjectileBase prefab, float speed)
+    {
+        _hasFiredBladeAura = true;
+        foreach (int index in GetBladeAuraIndices(_pendingAuraDirection, _pendingAuraType))
+        {
+            // 대각선 (1,1) 은 길이가 1.41 이라 정규화해야 발사 거리·속도가 방향마다 같다.
+            Vector2 direction = _projectileDirections[index].normalized;
+            Vector2 spawnPosition = BladeAuraCenter + direction * _bladeAuraSpawnDistance;
+
+            ProjectileBase projectile = Instantiate(prefab, spawnPosition, Quaternion.identity);
+            projectile.Launch(direction, speed);
+        }
     }
 
     /// <summary>
@@ -184,6 +348,10 @@ public class Boss2AttackPattern : Boss2AttackBase
 
         yield return new WaitForSeconds(GetClipLength(stateName));
 
+        // 클립에 발사 이벤트가 빠져 있어도 검기는 나가도록, 끝날 때까지 안 쐈으면 여기서 쏜다.
+        BladeAuraSlashHit();
+        BladeAuraSlashAllHit();
+
         FinishSingleAttack();
         EndPattern();
     }
@@ -249,15 +417,38 @@ public class Boss2AttackPattern : Boss2AttackBase
     {
         Gizmos.color = new Color(1f, 0.5f, 0f);
         Gizmos.DrawWireSphere(SpinCenter, _spinRadius);
+
+        // 검기 발사 위치: 원 위의 8방위 점 (플레이 전에도 보이도록 방향을 직접 계산)
+        Gizmos.color = new Color(0.6f, 0.4f, 1f);
+        Gizmos.DrawWireSphere(BladeAuraCenter, _bladeAuraSpawnDistance);
+        for (int i = 0; i < 8; i++)
+        {
+            float clockwise = i * 45f * Mathf.Deg2Rad;
+            Vector2 direction = new Vector2(Mathf.Sin(clockwise), Mathf.Cos(clockwise));
+            Gizmos.DrawSphere(BladeAuraCenter + direction * _bladeAuraSpawnDistance, 0.06f);
+        }
     }
+
+    // 테스트: 진행 중인 행동을 정리하고 플레이어 방향으로 검기
+    private void TestBladeAura(SlashProjectileType type)
+    {
+        PlayTestAttack(Boss2AttackPatternType.None);
+        ApplyAttackPattern(Boss2AttackPatternType.BladeAuraSlash, 1, type);
+    }
+
+    [ContextMenu("Test/BladeAura Single")]
+    private void TestBladeAuraSingle() => TestBladeAura(SlashProjectileType.Single);
+
+    [ContextMenu("Test/BladeAura Triple")]
+    private void TestBladeAuraTriple() => TestBladeAura(SlashProjectileType.Triple);
+
+    [ContextMenu("Test/BladeAura All (8방향)")]
+    private void TestBladeAuraAll() => PlayTestAttack(Boss2AttackPatternType.BladeAuraSlashAll);
 
     // ---- 테스트용: 플레이 중 컴포넌트 ⋮ 메뉴에서 실행 ----
     [ContextMenu("Test/Combo 1")]
     private void TestCombo1() => PlayTestAttack(Boss2AttackPatternType.ComboAttack);
-
-    [ContextMenu("Test/Combo 3")]
-    private void TestCombo3() => PlayTestAttack(Boss2AttackPatternType.ComboAttack,3);
-
+    
     [ContextMenu("Test/Combo 5")]
     private void TestCombo5() => PlayTestAttack(Boss2AttackPatternType.ComboAttack,5);
 

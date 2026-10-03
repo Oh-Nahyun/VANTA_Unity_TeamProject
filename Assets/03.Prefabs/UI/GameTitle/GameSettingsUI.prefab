@@ -1695,6 +1695,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0983a0cc995472548891f09c5c66a21d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameSettingsUI
+  _masterVolumeSlider: {fileID: 3762609033401524379}
+  _bgmVolumeSlider: {fileID: 4494921215799707524}
+  _sfxVolumeSlider: {fileID: 8218055489503521616}
   _goBackButton: {fileID: 1011172318299127518}
 --- !u!1 &9135876377204377280
 GameObject:

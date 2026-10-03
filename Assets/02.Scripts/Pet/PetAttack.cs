@@ -17,6 +17,9 @@ public class PetAttack : MonoBehaviour
     [Header("펫 공격 스킬 크리스탈 생츄어리 프리팹")]
     [SerializeField] private GameObject _crystalSanctuaryPrefab;
 
+    [Header("펫 기본 공격 및 스킬 발동 시 나타날 말풍선")]
+    [SerializeField] private SpeechBubbles _speechBubbles;
+
     /// <summary>
     /// 펫 클래스
     /// </summary>
@@ -56,6 +59,8 @@ public class PetAttack : MonoBehaviour
 
     public void FireEnergyBullet()
     {
+        _speechBubbles.ChangeSpriteToEnergyBullet();
+
         float middleIndex = (_energyBulletCount - 1) * 0.5f;
         _energyBulletCount = _pet.PlayerSkillManager.GetSkillStack;
         _pet.Animator.SetTrigger("IsFire");
@@ -74,6 +79,8 @@ public class PetAttack : MonoBehaviour
 
     public void UseCrystalPrison()
     {
+        _speechBubbles.ChangeSpriteToCrystalPrison();
+
         GameObject prison = Instantiate(_crystalPrisonPrefab, _attackTarget.transform.position, transform.rotation);
         CrystalPrison crystalPrison = prison.GetComponent<CrystalPrison>();
         crystalPrison.AttackTarget = _attackTarget;
@@ -81,6 +88,8 @@ public class PetAttack : MonoBehaviour
 
     public void UseCrystalSanctuary()
     {
+        _speechBubbles.ChangeSpriteToCrystalSanctuary();
+
         for (int i = 0; i < 3; i++)
         {
             float randomFloat = Random.Range(1f, 2f);

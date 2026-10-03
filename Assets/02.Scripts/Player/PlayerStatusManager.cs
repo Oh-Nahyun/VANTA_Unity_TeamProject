@@ -49,6 +49,11 @@ public class PlayerStatusManager : MonoBehaviour
         }
     }
 
+    public void PlayerControlOff()
+    {
+        _playerMove.enabled = false;
+        _playerAttack.enabled = false;
+    }
     private void Start()
     {
         var lens = _cinemachineCamera.Lens;

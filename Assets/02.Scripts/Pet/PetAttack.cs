@@ -43,7 +43,7 @@ public class PetAttack : MonoBehaviour
 
         // TODO : [펫] 아래 함수 호출 코드는 테스트용으로 추후 삭제하기
         //FireEnergyBullet();
-        UseCrystalPrison();
+        //UseCrystalPrison();
         //UseCrystalSanctuary();
     }
 

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Boss1SplitBullet : MonoBehaviour
 {
+    // commit 체크용 주석
     [Header("확산탄 이동 속도")]
     [SerializeField] private float _speed = 2f;
     

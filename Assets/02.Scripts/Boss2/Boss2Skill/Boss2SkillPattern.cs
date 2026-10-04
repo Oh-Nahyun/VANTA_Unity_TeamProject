@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
+public class Boss2SkillPattern : Boss2AttackBase
 {
     // 주의: 기반 클래스가 private Start / Update 를 갖고 있다.
     // 여기서 Start, Update, Awake 를 선언하면 Unity 가 이쪽만 호출해 기반 쪽 갱신이 멈춘다.
@@ -74,15 +74,9 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
     // 이번 스킬이 어둠을 켰는지. 끝날 때(정상·취소 공통) 이 값으로 되돌린다.
     private bool _darkenedBySkill;
 
-    
-    private bool _isAvoided = false;
 
-    [Header("즉사기 회피")]
-    [Tooltip("회피 결과를 기다리는 최대 실시간(초). PlayerAvoid 의 입력 제한시간(2초)보다 길게")]
-    [SerializeField] private float _avoidMaxWaitTime = 3f;
-
-    // AvoidPoint 에서 QTE 를 시작하고 결과를 기다리는 중인지
-    private bool _isWaitingAvoidResult;
+    // 회피(QTE) 판정. 대기 시간 등 설정은 Boss2AvoidJudge 컴포넌트에 있다.
+    private Boss2AvoidJudge _avoidJudge;
 
     // 이번 즉사기에서 이미 플레이어 위로 순간이동했는지
     private bool _hasTeleported;
@@ -93,7 +87,6 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
 
     [Tooltip("순간이동 직후 몸에서 검은 입자가 흩어져 나가는 효과")]
     [SerializeField] private ParticleSystem _releaseEffect;
-    private float _avoidWaitStartTime;
 
     private const int MaxSpacingAttempts = 30;
 
@@ -139,6 +132,7 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
         _movePattern = GetComponent<Boss2MovePattern>();
         _attackPattern = GetComponent<Boss2AttackPattern>();
         _boss = GetComponent<Boss2>();
+        _avoidJudge = Boss2AvoidJudge.GetOrAdd(gameObject);
     }
 
     private void OnDisable()
@@ -183,8 +177,8 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
             return;
 
         _currentSkillPatternType = Boss2SkillPatternType.InstantKill;
-        // 이전 즉사기의 회피 결과가 남아 있으면 이번 즉사기가 데미지를 주지 못한다.
-        _isAvoided = false;
+        // 이전 공격의 회피 결과가 남아 있으면 이번 즉사기가 데미지를 주지 못한다.
+        _avoidJudge.ResetResult();
         _hasTeleported = false;
         _skillRoutine = StartCoroutine(InstantKillRoutine());
     }
@@ -240,7 +234,7 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
     public void InstantKillHit()
     {
         // 회피 실패 시 데미지
-        if (_isAvoided == false)
+        if (_avoidJudge.LastResult == false)
         {
             foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
             {
@@ -257,28 +251,14 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
     }
 
     // 애니메이션 이벤트: EndInstantKillSkill 의 내려베기 직전.
-    // 플레이어 회피 입력(QTE)을 시작하고, 결과(AvoidResultBehavior)가 올 때까지 보스 모션을 멈춘다.
+    // 플레이어 회피 입력(QTE)을 시작하고, 결과가 올 때까지 보스 모션을 멈춘다. (Boss2AvoidJudge)
+    // 즉사기는 거리와 상관없이 모든 플레이어가 대상이고, 피한 뒤 보스에게 반격하는 회피(Counter)다.
     public void AvoidPoint()
     {
-        bool hasStarted = false;
-        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            PlayerAvoid playerAvoid = playerObject.GetComponent<PlayerAvoid>();
-            // Player 태그만 있고 Player 컴포넌트가 없는 오브젝트(테스트 더미 등)는 건너뛴다.
-            if (playerAvoid == null)
-                continue;
-
-            playerAvoid.StartAvoidAttackInteraction(gameObject);
-            hasStarted = true;
-        }
-
-        // 회피할 플레이어가 없으면 기다리지 않고 그대로 판정으로 간다.
-        if (hasStarted == false)
+        if (_currentSkillPatternType != Boss2SkillPatternType.InstantKill)
             return;
 
-        _isWaitingAvoidResult = true;
-        _avoidWaitStartTime = Time.realtimeSinceStartup;
-        _animator.speed = 0f;
+        _avoidJudge.Begin(InstantKillCenter, 0f, Boss2AvoidType.Counter);
     }
 
     // 애니메이션 이벤트: Boss2AOESkill 의 참격 프레임
@@ -408,18 +388,9 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
                 break;
             }
 
-            if (_isWaitingAvoidResult)
+            // 회피 결과를 기다리는 동안은 시간 초과 카운트를 멈춘다. (대기 시간 초과는 Boss2AvoidJudge 가 처리)
+            if (_avoidJudge.IsWaiting == false)
             {
-                // 결과가 끝내 오지 않으면(PlayerAvoid 이상 등) 실패로 보고 진행한다. 실시간 기준.
-                if (Time.realtimeSinceStartup - _avoidWaitStartTime >= _avoidMaxWaitTime)
-                {
-                    _isAvoided = false;
-                    ResumeAfterAvoid();
-                }
-            }
-            else
-            {
-                // 회피 결과를 기다리는 동안은 시간 초과 카운트를 멈춘다.
                 elapsed += Time.deltaTime;
             }
 
@@ -432,45 +403,16 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
 
     private void AppearAboveTarget()
     {
-        Transform target = FindInstantKillTarget();
-        if (target == null)
+        // 순간이동은 Boss2AttackBase 의 공용 기능을 쓴다. (회전베기와 공유)
+        if (AppearAbove(FindInstantKillTarget(), _instantKillAppearHeight) == false)
         {
             Debug.LogWarning("즉사기 대상을 찾지 못해 제자리에서 공격합니다.");
-            return;
         }
-
-        Vector2 appearPosition = (Vector2)target.position + Vector2.up * _instantKillAppearHeight;
-        // 이동 봉쇄(위치 고정) 중이어도 위치를 직접 정하는 것은 막히지 않는다. 물리 쪽 위치도 함께 옮긴다.
-        if (_rigidbody2D != null)
-        {
-            _rigidbody2D.position = appearPosition;
-        }
-
-        transform.position = new Vector3(appearPosition.x, appearPosition.y, transform.position.z);
     }
 
-    // 이동 패턴이 쫓는 대상을 우선 쓰고, 없으면 Player 태그 중 가장 가까운 대상(자기 자신 제외)을 쓴다.
     private Transform FindInstantKillTarget()
     {
-        if (_movePattern != null && _movePattern.Target != null)
-            return _movePattern.Target;
-
-        Transform nearest = null;
-        float nearestSqr = float.MaxValue;
-        foreach (GameObject candidate in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            if (candidate.transform.IsChildOf(transform))
-                continue;
-
-            float sqr = (candidate.transform.position - transform.position).sqrMagnitude;
-            if (sqr < nearestSqr)
-            {
-                nearestSqr = sqr;
-                nearest = candidate.transform;
-            }
-        }
-
-        return nearest;
+        return FindAttackTarget();
     }
 
     private IEnumerator AreaOfEffectRoutine()
@@ -548,7 +490,7 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
     private void FinishSkill()
     {
         // 회피 결과 대기 중에 스킬이 끊겨도 보스가 멈춘 채로 남지 않게 한다.
-        _isWaitingAvoidResult = false;
+        _avoidJudge.Cancel();
         _animator.speed = 1f;
 
         // 즉사기가 끊겨도 잠식 입자가 남지 않게 한다.
@@ -671,22 +613,4 @@ public class Boss2SkillPattern : Boss2AttackBase, IAvoidInteraction
 
     [ContextMenu("Test/AreaOfEffect")]
     private void TestAreaOfEffect() => PlayTestSkill(Boss2SkillPatternType.AreaOfEffect);
-
-    // IAvoidInteraction: PlayerAvoid 가 입력 성공(true) / 시간 초과(false) 때 호출한다.
-    public void AvoidResultBehavior(bool result)
-    {
-        // 즉사기 밖에서 온 결과(디버그 키 등)는 무시한다.
-        if (_isWaitingAvoidResult == false)
-            return;
-
-        _isAvoided = result;
-        ResumeAfterAvoid();
-    }
-
-    // 회피 결과 대기를 끝내고 모션을 다시 재생한다. 이어지는 InstantKillHit 이 _isAvoided 로 판정한다.
-    private void ResumeAfterAvoid()
-    {
-        _isWaitingAvoidResult = false;
-        _animator.speed = 1f;
-    }
 }

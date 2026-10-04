@@ -14,8 +14,10 @@ public class Boss2MovePattern : Boss2MoveBase
     {
         _target = target;
     }
-    // (임시) 공격 가능 범위. 접근 패턴은 타깃과 이 거리 안으로 들어오면 끝난다.
-    [SerializeField] private float _attackRange = 1f;
+    // 접근 패턴은 공격 박스(AttackZone)가 타깃 위에 오는 지점까지 간다. 그 지점과 이 거리 안이면 도착.
+    [SerializeField] private float _arriveTolerance = 0.15f;
+    // ChaseBlink 는 남은 거리가 이보다 멀 때만 구른다. 가까이서 구르면 공격 위치를 지나쳐 버린다.
+    [SerializeField] private float _blinkMinDistance = 2.5f;
     // BackStep 은 타깃과 이 거리 이상 벌어지면 끝난다.
     [SerializeField] private float _backStepDistance = 3f;
     
@@ -90,38 +92,57 @@ public class Boss2MovePattern : Boss2MoveBase
         _currentMovePatternType = Boss2MovePatternType.None;
     }
 
-    // 접근 패턴 공통 종료 조건: 공격 가능 범위 안에 들어옴
-    private bool IsInAttackRange(Vector2 toTarget)
+    /// <summary>
+    /// 공격 박스(AttackZone)가 타깃 위에 오도록 보스가 서야 할 지점.
+    /// 보스가 타깃의 왼쪽에서 오면 타깃 왼쪽에, 오른쪽에서 오면 오른쪽에 선다.
+    /// </summary>
+    private Vector2 GetAttackStandPoint()
     {
-        return toTarget.magnitude <= _attackRange;
+        Vector2 target = _target.position;
+        float side = transform.position.x <= target.x ? -1f : 1f;
+        return target + new Vector2(side * AttackZoneOffset, 0f);
+    }
+
+    // 접근 패턴 공통 도착 처리. 공격 위치에 도착했으면 미끄러지지 않게 바로 멈추고 타깃을 바라본다.
+    private bool TryArrive(Vector2 toStandPoint)
+    {
+        if (toStandPoint.magnitude > _arriveTolerance)
+            return false;
+
+        StopImmediately();
+        FaceTowards(_target.position);
+        return true;
     }
 
     // 걸어서 압박하며 접근
     private bool PressureWalk(Vector2 toTarget)
     {
-        if (IsInAttackRange(toTarget)) return true;
+        Vector2 toStandPoint = GetAttackStandPoint() - (Vector2)transform.position;
+        if (TryArrive(toStandPoint)) return true;
 
-        Walk(toTarget);
+        Walk(toStandPoint);
         return false;
     }
 
     // 달려서 추격
     private bool ChaseRun(Vector2 toTarget)
     {
-        if (IsInAttackRange(toTarget)) return true;
+        Vector2 toStandPoint = GetAttackStandPoint() - (Vector2)transform.position;
+        if (TryArrive(toStandPoint)) return true;
 
-        Run(toTarget);
+        Run(toStandPoint);
         return false;
     }
 
-    // 구르기로 순간이동하듯 접근. 쿨타임 동안은 걸어서 따라간다.
+    // 구르기로 순간이동하듯 접근. 가까워졌거나 쿨타임 동안은 걸어서 따라간다.
     private bool ChaseBlink(Vector2 toTarget)
     {
-        if (IsInAttackRange(toTarget)) return true;
+        Vector2 toStandPoint = GetAttackStandPoint() - (Vector2)transform.position;
+        if (TryArrive(toStandPoint)) return true;
 
-        if (TryDodge(toTarget) == false)
+        if (toStandPoint.magnitude < _blinkMinDistance || TryDodge(toStandPoint) == false)
         {
-            Walk(toTarget);
+            Walk(toStandPoint);
         }
         return false;
     }

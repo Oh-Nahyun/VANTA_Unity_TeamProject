@@ -19,6 +19,9 @@ GameObject:
   - component: {fileID: 8034692196780386006}
   - component: {fileID: 322370360651168047}
   - component: {fileID: 7095277919416841659}
+  - component: {fileID: 4913912167840964551}
+  - component: {fileID: 6845646447280917101}
+  - component: {fileID: 2798039105125746960}
   m_Layer: 21
   m_Name: Boss2
   m_TagString: Boss
@@ -148,6 +151,7 @@ MonoBehaviour:
     InputDeadline: 1.05
     MaxStepTime: 1.08
   _maxComboCount: 8
+  _comboSpeed: 1.5
   _cameraImpulse: {fileID: 7095277919416841659}
   _smashStateName: Boss2SmashAttack
   _spinStateName: Boss2SpecialAttack
@@ -156,14 +160,16 @@ MonoBehaviour:
   _spinTargetLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+  _spinAvoidable: 1
+  _spinAppearHeight: 1
   _bladeAuraSpawnDistance: 0.8
   _bladeAuraSpawnOffset: {x: 0, y: 0.3}
-  _bladeAuraProjectile: {fileID: 718022737307712645, guid: 2909834a9b918d34e9000e8158bdb344, type: 3}
+  _bladeAuraProjectile: {fileID: 718022737307712645, guid: a8bb7853b68d5c145b5e867ddd33d8c8, type: 3}
   _bladeAuraSpeed: 6
   _bladeAuraStateName: BladeAuraSlash
   _bladeAuraDefaultType: 2
-  _bladeAuraAllProjectile: {fileID: 0}
-  _bladeAuraAllSpeed: 0
+  _bladeAuraAllProjectile: {fileID: 718022737307712645, guid: a8bb7853b68d5c145b5e867ddd33d8c8, type: 3}
+  _bladeAuraAllSpeed: 7
   _bladeAuraAllStateName: BladeAuraSlashAll
   _spinningSlashEffect: {fileID: 5018011064343898608}
 --- !u!114 &4474688203573458451
@@ -193,7 +199,8 @@ MonoBehaviour:
   _useKeyboardInput: 0
   _attackZone: {fileID: 5667757336281504092}
   _target: {fileID: 0}
-  _attackRange: 1
+  _arriveTolerance: 0.15
+  _blinkMinDistance: 2.5
   _backStepDistance: 3
 --- !u!114 &2645136463047186946
 MonoBehaviour:
@@ -215,6 +222,7 @@ MonoBehaviour:
   _attackKey: 32
   _comboSteps: []
   _maxComboCount: 8
+  _comboSpeed: 1
   _cameraImpulse: {fileID: 0}
   _instantKillStartState: StartInstantKillSkill
   _instantKillEndState: EndInstantKillSkill
@@ -240,7 +248,6 @@ MonoBehaviour:
   _areaOfEffectVoice: {fileID: 8300000, guid: eee0e25ec0d79564e8a7e4abf47e528c, type: 3}
   _darknessEffect: {fileID: 5604903214433855731}
   _bossDarknessLight: {fileID: 5757791400549728732}
-  _avoidMaxWaitTime: 3
   _engulfEffect: {fileID: 681323519645991027}
   _releaseEffect: {fileID: 8706602223476031304}
   _aoeInvincible: 1
@@ -336,46 +343,59 @@ MonoBehaviour:
   _moveTimeout: 4
   _logDecisions: 0
   _actions:
-  - Name: "\uADFC\uC811 \uB09C\uD0C0"
+  - Name: "\uC81C\uC790\uB9AC \uC5F0\uD0C0"
     Move: 0
     Attack: 1
     ComboMin: 2
     ComboMax: 3
     ProjectileType: 0
     DistanceMin: 0
-    DistanceMax: 1.5
+    DistanceMax: 0.8
     HealthMin: 0
     HealthMax: 1
     Cooldown: 0
     Weight: 5
     IsInvincible: 0
-  - Name: "\uC555\uBC15 \uCF64\uBCF4"
+  - Name: "\uC81C\uC790\uB9AC \uD68C\uC804\uCC38"
+    Move: 0
+    Attack: 4
+    ComboMin: 1
+    ComboMax: 1
+    ProjectileType: 0
+    DistanceMin: 0
+    DistanceMax: 0.1
+    HealthMin: 0
+    HealthMax: 0.4
+    Cooldown: 10
+    Weight: 3
+    IsInvincible: 1
+  - Name: "\uCD94\uACA9 \uC5F0\uD0C0"
     Move: 3
     Attack: 1
-    ComboMin: 3
-    ComboMax: 4
+    ComboMin: 2
+    ComboMax: 3
     ProjectileType: 0
-    DistanceMin: 1.5
-    DistanceMax: 5
+    DistanceMin: 0.8
+    DistanceMax: 1.2
     HealthMin: 0
     HealthMax: 1
     Cooldown: 3
-    Weight: 4
+    Weight: 3
     IsInvincible: 0
-  - Name: "\uCD94\uACA9 \uAC15\uD0C0"
+  - Name: "\uB3CC\uC9C4 \uAC15\uD0C0"
     Move: 1
     Attack: 2
     ComboMin: 1
     ComboMax: 1
     ProjectileType: 0
     DistanceMin: 4
-    DistanceMax: 999
+    DistanceMax: 100
     HealthMin: 0
     HealthMax: 1
-    Cooldown: 6
-    Weight: 3
+    Cooldown: 3
+    Weight: 5
     IsInvincible: 1
-  - Name: "\uAE30\uC2B5 \uD68C\uC804\uBCA0\uAE30"
+  - Name: "\uC21C\uBCF4 \uD68C\uC804\uCC38"
     Move: 2
     Attack: 4
     ComboMin: 1
@@ -385,32 +405,32 @@ MonoBehaviour:
     DistanceMax: 100
     HealthMin: 0
     HealthMax: 0.7
-    Cooldown: 8
+    Cooldown: 7
     Weight: 3
     IsInvincible: 1
-  - Name: "\uADFC\uC811 \uD68C\uC804 \uBC18\uACA9"
-    Move: 0
-    Attack: 4
-    ComboMin: 1
-    ComboMax: 1
-    ProjectileType: 0
-    DistanceMin: 0
-    DistanceMax: 1.5
-    HealthMin: 0
-    HealthMax: 0.4
-    Cooldown: 10
-    Weight: 3
-    IsInvincible: 1
-  - Name: "\uD6C4\uD1F4 \uD68C\uC804 \uBC18\uACA9"
+  - Name: "\uD68C\uD53C \uAC80\uACA9"
     Move: 5
     Attack: 3
     ComboMin: 0
     ComboMax: 0
-    ProjectileType: 0
+    ProjectileType: 2
     DistanceMin: 0
     DistanceMax: 1.5
     HealthMin: 0
     HealthMax: 1
+    Cooldown: 5
+    Weight: 5
+    IsInvincible: 1
+  - Name: "\uD68C\uD53C \uB09C\uACA9"
+    Move: 5
+    Attack: 5
+    ComboMin: 0
+    ComboMax: 0
+    ProjectileType: 3
+    DistanceMin: 0
+    DistanceMax: 1.5
+    HealthMin: 0
+    HealthMax: 0.9
     Cooldown: 5
     Weight: 3
     IsInvincible: 1
@@ -498,6 +518,55 @@ MonoBehaviour:
     DissipationDistance: 100
     PropagationSpeed: 343
   DefaultVelocity: {x: 0, y: -1, z: 0}
+--- !u!114 &4913912167840964551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4133056159387206755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 403fa5ac92fc3a84aaf58fb9911fa9d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss2AvoidJudge
+  _maxWaitTime: 3
+--- !u!114 &6845646447280917101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4133056159387206755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40ffb29de8f15e4408edaacf8e4b5324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss2MoveArea
+  _bounds: {fileID: 0}
+  _fallbackBoundsName: CameraMoveBound
+  _blockLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  _minDistanceRatio: 0.5
+--- !u!114 &2798039105125746960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4133056159387206755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a94bf07e3f43744d8b937fa7e6571d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss2AfterImage
+  _ghostSprite: {fileID: -297473348006037033, guid: e2b79cd234d42944d9115523f5c8e076, type: 3}
+  _ghostVisualOffset: {x: 0.39, y: 1.83}
+  _ghostColor: {r: 0.7, g: 0.07, b: 0.12, a: 0.6}
+  _ghostCount: 5
+  _spawnInterval: 0.02
+  _fadeTime: 0.25
 --- !u!1 &4421348120962838745
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,6 +20,10 @@ public class Boss2AttackPattern : Boss2AttackBase
     [SerializeField] private Vector2 _spinCenterOffset = Vector2.zero;
     // 기본은 모든 레이어. 대상은 태그(Player)로 한 번 더 거른다.
     [SerializeField] private LayerMask _spinTargetLayers = ~0;
+    [Tooltip("켜면 반경 안의 플레이어에게 회피 입력(QTE)을 띄우고, 성공하면 데미지를 주지 않는다")]
+    [SerializeField] private bool _spinAvoidable = true;
+    [Tooltip("사라졌다 나타날 때(SpinningSlashAppear 이벤트) 대상 위로 얼마나 떨어져 나타날지")]
+    [SerializeField] private float _spinAppearHeight = 1f;
 
     [Header("검기 공통")]
     [Tooltip("발사 중심에서 발사체가 생기는 위치까지 거리")]
@@ -60,6 +64,7 @@ public class Boss2AttackPattern : Boss2AttackBase
     private Animator _patternAnimator;
     private Boss2MoveBase _mover;
     private Boss2SkillPattern _skillPattern;
+    private Boss2AvoidJudge _avoidJudge;
     // 콤보가 아닌 단발 공격(Smash, SpinningSlash)을 재생하는 코루틴
     private Coroutine _singleAttackRoutine;
     // 이번 단발 공격이 직접 이동을 막았는지. 다른 효과가 걸어둔 봉쇄는 풀지 않기 위해 기억한다.
@@ -78,6 +83,7 @@ public class Boss2AttackPattern : Boss2AttackBase
         _patternAnimator = GetComponent<Animator>();
         _mover = GetComponent<Boss2MoveBase>();
         _skillPattern = GetComponent<Boss2SkillPattern>();
+        _avoidJudge = Boss2AvoidJudge.GetOrAdd(gameObject);
         ComboEnded += EndPattern;
     }
 
@@ -289,7 +295,45 @@ public class Boss2AttackPattern : Boss2AttackBase
     /// </summary>
     public void SpinningSlash()
     {
+        // 이전 공격의 회피 결과가 남아 있으면 이번 공격이 데미지를 주지 못한다.
+        _avoidJudge.ResetResult();
         TryStartSingleAttack(Boss2AttackPatternType.SpinningSlash, _spinStateName, true);
+    }
+
+    /// <summary>
+    /// Boss2SpecialAttack 클립에서 사라졌던 보스가 다시 보이기 직전의 애니메이션 이벤트에서 호출된다.
+    /// 사라져 있는 동안 플레이어가 움직였어도, 나타나는 순간의 플레이어 위로 순간이동한다.
+    /// 회피 판정(SpinningSlashAvoidPoint)이 새 위치를 기준으로 하도록 그보다 먼저 와야 한다.
+    /// </summary>
+    public void SpinningSlashAppear()
+    {
+        if (_currentAttackPatternType != Boss2AttackPatternType.SpinningSlash)
+            return;
+
+        Transform target = FindAttackTarget();
+        if (AppearAbove(target, _spinAppearHeight) == false)
+        {
+            Debug.LogWarning("회전베기 대상을 찾지 못해 제자리에서 나타납니다.");
+            return;
+        }
+
+        if (_mover != null)
+        {
+            _mover.FaceTowards(target.position);
+        }
+    }
+
+    /// <summary>
+    /// Boss2SpecialAttack 클립의 타격 직전 애니메이션 이벤트에서 호출된다.
+    /// 반경 안의 플레이어에게 피하기만 하는 회피 입력(Dodge QTE)을 띄우고, 결과가 올 때까지 보스 모션을 멈춘다.
+    /// 즉사기의 AvoidPoint 와 이름이 같으면 두 패턴이 함께 반응하므로 이름을 다르게 둔다.
+    /// </summary>
+    public void SpinningSlashAvoidPoint()
+    {
+        if (_spinAvoidable == false || _currentAttackPatternType != Boss2AttackPatternType.SpinningSlash)
+            return;
+
+        _avoidJudge.Begin(SpinCenter, _spinRadius, Boss2AvoidType.Dodge);
     }
 
     /// <summary>
@@ -297,11 +341,14 @@ public class Boss2AttackPattern : Boss2AttackBase
     /// </summary>
     public void SpinningSlashHit()
     {
-        // Effect 
+        // Effect
         //Instantiate(_spinningSlashEffect);
         _spinningSlashEffect.GetComponent<ParticleSystem>().Play();
-        
-        // Damage 
+
+        // Damage: 회피에 성공했으면 주지 않는다.
+        if (_spinAvoidable && _avoidJudge.LastResult)
+            return;
+
         DealAreaDamage(SpinCenter, _spinRadius, _spinTargetLayers);
     }
 
@@ -346,7 +393,17 @@ public class Boss2AttackPattern : Boss2AttackBase
         // layer 0, 시간 오프셋 0 을 명시해 매번 처음부터 재생한다. (콤보의 StartHit 과 같은 방식)
         _patternAnimator.CrossFade(stateName, 0.05f, 0, 0f);
 
-        yield return new WaitForSeconds(GetClipLength(stateName));
+        // 회피 결과를 기다리며 애니메이터가 멈춘 동안은 시간을 세지 않아야 공격이 중간에 끝나지 않는다.
+        float clipLength = GetClipLength(stateName);
+        float elapsed = 0f;
+        while (elapsed < clipLength)
+        {
+            if (_avoidJudge.IsWaiting == false)
+            {
+                elapsed += Time.deltaTime;
+            }
+            yield return null;
+        }
 
         // 클립에 발사 이벤트가 빠져 있어도 검기는 나가도록, 끝날 때까지 안 쐈으면 여기서 쏜다.
         BladeAuraSlashHit();
@@ -370,6 +427,9 @@ public class Boss2AttackPattern : Boss2AttackBase
     {
         // EndDamage 이벤트가 누락됐을 때를 대비해 히트박스를 확실히 끈다.
         EndDamage();
+
+        // 회피 결과 대기 중에 공격이 끊겨도 보스가 멈춘 채로 남지 않게 한다.
+        _avoidJudge.Cancel();
 
         if (_blockedMoveBySkill)
         {

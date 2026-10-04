@@ -6,10 +6,13 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
     [SerializeField] private Boss1Movement _boss1Movement;
     private Transform _playerTransform;
     
+    [Header("공격지점 선정 제한 시간")]
+    [SerializeField] private float _maxPositioningTime = 0.5f;
+    
     [Serializable]
     private class PhaseSettings
     {
-        [Header("공격전 빠르게 위치 조정")]
+        [Header("공격전 이동속도 급상승")]
         [SerializeField] private float _moveSpeed = 7f; // 침뱉기 공격전 y축 맞춰야해서 빠르게 설정
         
         [Header("공격전 전조 시간")]

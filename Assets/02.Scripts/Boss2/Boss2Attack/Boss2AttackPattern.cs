@@ -22,8 +22,12 @@ public class Boss2AttackPattern : Boss2AttackBase
     [SerializeField] private LayerMask _spinTargetLayers = ~0;
     [Tooltip("켜면 반경 안의 플레이어에게 회피 입력(QTE)을 띄우고, 성공하면 데미지를 주지 않는다")]
     [SerializeField] private bool _spinAvoidable = true;
-    [Tooltip("사라졌다 나타날 때(SpinningSlashAppear 이벤트) 대상 위로 얼마나 떨어져 나타날지")]
+    [Tooltip("사라졌다 나타날 때(SpinningSlashAppear 이벤트) 보이는 보스 그림의 중심이 대상 위로 얼마나 떨어질지")]
     [SerializeField] private float _spinAppearHeight = 1f;
+    [Tooltip("회전베기 프레임(다시 보일 때)의 보스 그림 중심이 피벗에서 떨어진 거리. 그림이 칸 위쪽에 그려져 있다")]
+    [SerializeField] private Vector2 _spinVisualOffset = new Vector2(0f, 1.83f);
+    [Tooltip("회전베기 프레임의 보스 그림 크기. 나타날 자리가 맵 안인지 이 크기로 판정한다")]
+    [SerializeField] private Vector2 _spinVisualSize = new Vector2(2.6f, 2.6f);
 
     [Header("검기 공통")]
     [Tooltip("발사 중심에서 발사체가 생기는 위치까지 거리")]
@@ -311,7 +315,7 @@ public class Boss2AttackPattern : Boss2AttackBase
             return;
 
         Transform target = FindAttackTarget();
-        if (AppearAbove(target, _spinAppearHeight) == false)
+        if (AppearAbove(target, _spinAppearHeight, _spinVisualOffset, _spinVisualSize) == false)
         {
             Debug.LogWarning("회전베기 대상을 찾지 못해 제자리에서 나타납니다.");
             return;

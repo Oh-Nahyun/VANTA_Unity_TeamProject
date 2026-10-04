@@ -2144,6 +2144,7 @@ MonoBehaviour:
   _boss: {fileID: 0}
   _targetCamera: {fileID: 0}
   _rotationSpeed: 3
+  _boss1ThreadOffset: {x: 0, y: 0}
 --- !u!4 &1048423644
 Transform:
   m_ObjectHideFlags: 0
@@ -2446,8 +2447,6 @@ MonoBehaviour:
   _boss: {fileID: 0}
   _player: {fileID: 473873737}
   _spawnRadius: 2
-  _minPointDistance: 2
-  _candidateCount: 30
 --- !u!114 &1212879515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2480,6 +2479,7 @@ MonoBehaviour:
   _weaknessThreadController: {fileID: 1048423643}
   _playerAttack: {fileID: 473873732}
   _playerMove: {fileID: 473873733}
+  _player: {fileID: 0}
   _animator: {fileID: 473873735}
   _skillUseEffect: {fileID: 1707015192}
   _timeSlowAmount: 0.2
@@ -8975,94 +8975,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss2
       objectReference: {fileID: 0}
-    - target: {fileID: 4827965982157604352, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _bladeAuraAllSpeed
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4827965982157604352, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _bladeAuraProjectile
-      value: 
-      objectReference: {fileID: 718022737307712645, guid: a8bb7853b68d5c145b5e867ddd33d8c8, type: 3}
-    - target: {fileID: 4827965982157604352, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _bladeAuraAllProjectile
-      value: 
-      objectReference: {fileID: 718022737307712645, guid: a8bb7853b68d5c145b5e867ddd33d8c8, type: 3}
     - target: {fileID: 5604903214433855731, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: _globalLight
       value: 
       objectReference: {fileID: 619394801}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[0].Name
-      value: "\uC81C\uC790\uB9AC \uC5F0\uD0C0"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[1].Name
-      value: "\uCD94\uACA9 \uC5F0\uD0C0"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[2].Name
-      value: "\uB3CC\uC9C4 \uAC15\uD0C0"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[3].Name
-      value: "\uC21C\uBCF4 \uD68C\uC804\uCC38"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[4].Name
-      value: "\uC81C\uC790\uB9AC \uD68C\uC804\uCC38"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[5].Name
-      value: "\uD68C\uD53C \uAC80\uACA9"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[6].Move
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[6].Name
-      value: "\uD68C\uD53C \uB09C\uACA9"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[5].Weight
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[6].Attack
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[6].Weight
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[6].Cooldown
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[6].HealthMax
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[6].DistanceMax
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[6].IsInvincible
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[5].ProjectileType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8034692196780386006, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _actions.Array.data[6].ProjectileType
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

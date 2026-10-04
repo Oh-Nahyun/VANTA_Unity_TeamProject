@@ -145,6 +145,20 @@ public class Boss2MoveBase : MonoBehaviour, IBossMovable
     }
 
     /// <summary>
+    /// 감속 없이 그 자리에 멈춘다. StopMove 는 감속하며 미끄러지므로,
+    /// 공격 위치에 정확히 서야 하는 접근 이동의 도착 처리에 쓴다.
+    /// </summary>
+    protected void StopImmediately()
+    {
+        StopMove();
+        _velocity = Vector2.zero;
+        _rigidbody2D.linearVelocity = Vector2.zero;
+    }
+
+    // 보스 중심에서 공격 박스(AttackZone) 중심까지의 가로 거리
+    protected float AttackZoneOffset => _attackZoneOffset;
+
+    /// <summary>
     /// 구르기 시도. 이미 구르는 중이거나 쿨타임이면 실패한다.
     /// </summary>
     protected bool TryDodge(Vector2 direction)

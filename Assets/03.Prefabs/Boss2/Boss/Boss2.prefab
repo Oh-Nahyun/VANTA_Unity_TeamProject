@@ -156,12 +156,14 @@ MonoBehaviour:
   _smashStateName: Boss2SmashAttack
   _spinStateName: Boss2SpecialAttack
   _spinRadius: 3
-  _spinCenterOffset: {x: 0, y: 0}
+  _spinCenterOffset: {x: 0, y: 1.83}
   _spinTargetLayers:
     serializedVersion: 2
     m_Bits: 4294967295
   _spinAvoidable: 1
   _spinAppearHeight: 1
+  _spinVisualOffset: {x: 0, y: 1.83}
+  _spinVisualSize: {x: 2.6, y: 2.6}
   _bladeAuraSpawnDistance: 0.8
   _bladeAuraSpawnOffset: {x: 0, y: 0.3}
   _bladeAuraProjectile: {fileID: 718022737307712645, guid: a8bb7853b68d5c145b5e867ddd33d8c8, type: 3}

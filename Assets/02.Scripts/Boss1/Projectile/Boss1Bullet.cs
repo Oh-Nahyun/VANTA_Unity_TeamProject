@@ -85,7 +85,7 @@ public class Boss1Bullet : MonoBehaviour
         Collider2D collider = GetComponent<Collider2D>();
         collider.enabled = false;
 
-        _animator.SetTrigger("Death");
+        _animator.SetTrigger("Impact");
     }
     
     private void StartDisappear()

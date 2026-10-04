@@ -344,6 +344,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &124585155 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4512711204945311804, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+  m_PrefabInstance: {fileID: 650435852}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &150558518
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -514,7 +519,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5284014296633525175, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
   m_PrefabInstance: {fileID: 650435852}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 124585155}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4d15c37fb9f210409fad3571ea32a36, type: 3}
@@ -596,30 +601,10 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 1909520137}
-    - target: {fileID: 5284014296633525175, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
-      propertyPath: _deathVfx
-      value: 
-      objectReference: {fileID: 2955623459812423943, guid: 268983da5ec965d468fa4fde6b11266d, type: 3}
-    - target: {fileID: 5284014296633525175, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
-      propertyPath: _deathLight
-      value: 
-      objectReference: {fileID: 2031130844}
-    - target: {fileID: 5284014296633525175, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
-      propertyPath: _deathLightRadius
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6580554956825290881, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _boss
       value: 
       objectReference: {fileID: 3386041}
-    - target: {fileID: 8028567086285024404, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
-      propertyPath: _useStartSequence
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8137248592232807175, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
-      propertyPath: _enemyLayer.m_Bits
-      value: 2162880
-      objectReference: {fileID: 0}
     - target: {fileID: 8948303197541117886, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _skillSpace
       value: 
@@ -627,13 +612,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4512711204945311804, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 650435865}
   m_SourcePrefab: {fileID: 100100000, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
 --- !u!4 &650435853 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 651033612902867162, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
   m_PrefabInstance: {fileID: 650435852}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &650435865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124585155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d97e907b4aea9643a5a883f9ec32459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerFinisher
+  _slowAmount: 0.2
+  _avoidZoomAmount: 1.5
+  _avoidDuration: 4
+  _dashDistance: 1.5
+  _avoidDashDuration: 0.5
+  _attackPassDistance: 1.5
+  _focusScreenController: {fileID: 1618081010}
 --- !u!1001 &741357264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1237,6 +1244,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
+--- !u!114 &1618081010 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1332611649402532543, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+  m_PrefabInstance: {fileID: 650435852}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a6832b9fff3bcd4986c83d28a835401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkillScreenController
 --- !u!1 &1653093704 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4646086499943569539, guid: 058cc52bb14154f46b3e86c521d3b90c, type: 3}
@@ -1253,17 +1271,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
---- !u!114 &2031130844 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3588000712453903779, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
-  m_PrefabInstance: {fileID: 650435852}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
 --- !u!1 &2048237930
 GameObject:
   m_ObjectHideFlags: 0

@@ -184,8 +184,9 @@ private void DeathEffect()
     {
         _animator.SetTrigger("DeathStart");
     }
-    
-    _playerStatusManager.PlayerControlOff();
+        GetComponent<PlayerMove>().DashToReverseSideByHit();
+
+        _playerStatusManager.PlayerControlOff();
 
     // 기존 피격 슬로우 종료
     _damagedSlowSequence?.Kill();

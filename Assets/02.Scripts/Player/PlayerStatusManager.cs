@@ -6,7 +6,7 @@ using UnityEngine.Rendering.Universal;
 public class PlayerStatusManager : MonoBehaviour
 {
     [Header("시작 연출 사용")]
-    [SerializeField] private bool _useStartSequence = true;
+    [SerializeField] private bool _useStartSequence = false;
 
     [Header("참조")]
     [SerializeField] private Light2D _spotLight;

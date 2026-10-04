@@ -4,14 +4,44 @@ public class Boss1AttackController : MonoBehaviour
 {
     [SerializeField] private MonoBehaviour[] _attackBehaviours;
     
-    [SerializeField] private float _chaseDuration = 1f;
+    [Header("플레이어 추격 시간")]
+    [SerializeField] private float _chaseDuration = 1.5f;
+    
+    [Header("공격 패턴 가중치 증감 판단용 플레이어 거리")]
+    [SerializeField] private float _distanceThreshold = 5f;
+    
+    [Header("플레이어 거리에 따른 공격 패턴 가중치 보정")]
+    [SerializeField] private float _meleeWeightBonus = 5f;
+    [SerializeField] private float _rangedWeightBonus = 5f;
 
+    [Header("원거리 패턴 미선택 가중치 보정")]
+    [SerializeField] private float _rangedMissBonusAmount = 2f;
+    [Header("원거리 패턴 미선택 가중치 보정 최대치")]
+    [SerializeField] private float _maxRangedMissBonus = 8f;
+    
+    [Header("점프 공격 가중치 보정 최소 요구 시간")]
+    [SerializeField] private float _jumpBonusStartTime = 3f;
+    [Header("점프 공격 가중치 보정 초당 가중치 증가량")]
+    [SerializeField] private float _jumpBonusPerSecond = 2f;
+    [Header("점프 공격 가중치 보정 최대치")]
+    [SerializeField] private float _maxJumpBonus = 10f;
+    [Header("점프 공격 미선택 가중치 보정")]
+    [SerializeField] private float _jumpMissBonusAmount = 1f;
+    [Header("점프 공격 미선택 가중치 보정 최대치")]
+    [SerializeField] private float _maxJumpMissBonus = 4f;
+
+    private float _playerFarTimer;
+    private float _rangedMissBonus;
+    private float _jumpMissBonus;
+    
+    private Transform _playerTransform;
+    
     private AttackState _currentState; // 추격 or 공격
-    private IBoss1Attack _currentAttack; // 근거리 패턴 or 원거리 패턴
+    private IBoss1Attack _currentAttack; // 근거리 패턴 or 원거리 패턴 or 점프 공격
 
     private bool _isAttackLocked; // 페이즈2 전환 중일 때 공격 못하게 하기
 
-    private float _stateTimer;
+    private float _stateTimer; // Chase를 얼마나 하고 있는지
 
     private enum AttackState
     {
@@ -21,6 +51,7 @@ public class Boss1AttackController : MonoBehaviour
 
     private void Start()
     {
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         ChangeState(AttackState.Chase);
     }
 
@@ -30,6 +61,8 @@ public class Boss1AttackController : MonoBehaviour
         {
             return;
         }
+
+        UpdatePlayerFarTimer();
         
         switch (_currentState)
         {
@@ -52,6 +85,12 @@ public class Boss1AttackController : MonoBehaviour
             _currentAttack.ExitAttack();
             _currentAttack = null;
         }
+        
+        _playerFarTimer = 0f;
+        _rangedMissBonus = 0f;
+        _jumpMissBonus = 0f;
+        
+        ChangeState(AttackState.Chase);
     }
 
     public void UnlockAttack()
@@ -97,14 +136,71 @@ public class Boss1AttackController : MonoBehaviour
         {
             return;
         }
+
+        if (_currentAttack is Boss1JumpAttack)
+        {
+            _playerFarTimer = 0f;
+        }
         
         _currentAttack.ExitAttack();
         _currentAttack = null;
         ChangeState(AttackState.Chase);
     }
+
+    private void UpdatePlayerFarTimer()
+    {
+        float distance = Vector2.Distance(_playerTransform.position, transform.position);
+
+        if (distance > _distanceThreshold)
+        {
+            _playerFarTimer += Time.deltaTime;
+        }
+        else
+        {
+            _playerFarTimer = 0f;
+        }
+    }
+
+    private float GetAdjustedWeight(IBoss1Attack attack, float distance)
+    {
+        float weight = attack.GetWeight();
+
+        if (distance <= _distanceThreshold && attack is Boss1MeleePattern)
+        {
+            weight += _meleeWeightBonus;
+        }
+
+        if (distance > _distanceThreshold && attack is Boss1RangedPattern)
+        {
+            weight += _rangedWeightBonus;
+        }
+
+        if (attack is Boss1RangedPattern)
+        {
+            weight += _rangedMissBonus;
+        }
+
+        if (attack is Boss1JumpAttack)
+        {
+            weight += _jumpMissBonus;
+
+            if (_playerFarTimer >= _jumpBonusStartTime)
+            {
+                float jumpBonus = (_playerFarTimer - _jumpBonusStartTime) * _jumpBonusPerSecond;
+            
+                jumpBonus = Mathf.Min(jumpBonus, _maxJumpBonus);
+            
+                weight += jumpBonus;
+            }
+        }
+
+        return weight;
+    }
     
     private IBoss1Attack SelectRandomAttack()
     {
+        float distance = Vector2.Distance(_playerTransform.position, transform.position);
+        
         float totalWeight = 0f;
 
         foreach (MonoBehaviour behaviour in _attackBehaviours)
@@ -121,7 +217,7 @@ public class Boss1AttackController : MonoBehaviour
                 continue;
             }
 
-            totalWeight += attack.GetWeight();
+            totalWeight += GetAdjustedWeight(attack, distance);
         }
 
         if (totalWeight <= 0f)
@@ -146,10 +242,11 @@ public class Boss1AttackController : MonoBehaviour
                 continue;
             }
 
-            currentWeight += attack.GetWeight();
+            currentWeight += GetAdjustedWeight(attack, distance);
 
             if (randomValue <= currentWeight)
             {
+                UpdatePatternBonus(attack);
                 return attack;
             }
         }
@@ -157,6 +254,32 @@ public class Boss1AttackController : MonoBehaviour
         return null;
     }
 
+    private void UpdatePatternBonus(IBoss1Attack selectedAttack)
+    {
+        if (selectedAttack is Boss1RangedPattern)
+        {
+            _rangedMissBonus = 0f;
+        }
+
+        else
+        {
+            _rangedMissBonus += _rangedMissBonusAmount;
+            _rangedMissBonus = Mathf.Min(_rangedMissBonus, _maxRangedMissBonus);
+        }
+
+        if (selectedAttack is Boss1JumpAttack)
+        {
+            _jumpMissBonus = 0f;
+            _playerFarTimer = 0f;
+        }
+
+        else
+        {
+            _jumpMissBonus += _jumpMissBonusAmount;
+            _jumpMissBonus = Mathf.Min(_jumpMissBonus, _maxJumpMissBonus);
+        }
+    }
+    
     private void ChangeState(AttackState newState)
     {
         _currentState = newState;

@@ -16,6 +16,7 @@ public class Boss1JumpAttack : MonoBehaviour, IBoss1Attack
     
     private Boss1Movement _boss1Movement;
     private BoxCollider2D _boxCollider2D;
+    private Boss1PhaseController _boss1PhaseController;
     
     private Transform _playerTransform;
 
@@ -30,6 +31,8 @@ public class Boss1JumpAttack : MonoBehaviour, IBoss1Attack
     private float _timer;
 
     private Vector2 _landingPosition;
+
+    private bool _isPhase2;
 
     private bool _isAscendStarted;
     private bool _isWarningStarted;
@@ -48,18 +51,34 @@ public class Boss1JumpAttack : MonoBehaviour, IBoss1Attack
     
     
     public bool IsFinished{ get; private set; }
-    
-    public bool CanUse()
-    {
-        return true;
-    }
 
     private void Awake()
     {
         _boss1Movement = GetComponent<Boss1Movement>();
         _boxCollider2D = GetComponent<BoxCollider2D>();
+        _boss1PhaseController  = GetComponent<Boss1PhaseController>();
         _playerTransform = GameObject.FindWithTag("Player").transform;
-    } 
+    }
+
+    private void OnEnable()
+    {
+        _boss1PhaseController.OnPhaseChanged += ChangePhase;
+    }
+    
+    private void OnDisable()
+    {
+        _boss1PhaseController.OnPhaseChanged -= ChangePhase;
+    }
+    
+    private void ChangePhase(Boss1PhaseController.Boss1Phase phase)
+    {
+        _isPhase2 = phase == Boss1PhaseController.Boss1Phase.phase2;
+    }
+    
+    public bool CanUse()
+    {
+        return _isPhase2;
+    }
     
     public float GetWeight()
     {

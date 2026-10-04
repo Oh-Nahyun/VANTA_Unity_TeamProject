@@ -1,0 +1,445 @@
+fileFormatVersion: 2
+guid: f1a71ce856d1f5e4388b865b77626f78
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2395079596244998581
+    second: GameClearButtons_0
+  - first:
+      213: 3507730694726733234
+    second: GameClearButtons_1
+  - first:
+      213: 4062775894102286050
+    second: GameClearButtons_2
+  - first:
+      213: 3082674469135360009
+    second: GameClearButtons_3
+  - first:
+      213: -3524715384977276263
+    second: GameClearButtons_4
+  - first:
+      213: 8210931688978321111
+    second: GameClearButtons_5
+  - first:
+      213: 414553196932522851
+    second: GameClearButtons_6
+  - first:
+      213: -2701630614629268169
+    second: GameClearButtons_7
+  - first:
+      213: 214920727428774161
+    second: GameClearButtons_8
+  - first:
+      213: 7669307643210670356
+    second: GameClearButtons_9
+  - first:
+      213: 8128805477764608305
+    second: GameClearButtons_10
+  - first:
+      213: -5804041477811241973
+    second: GameClearButtons_11
+  - first:
+      213: -9047463553124696258
+    second: GameClearButtons_12
+  - first:
+      213: -5947421196101340389
+    second: GameClearButtons_13
+  - first:
+      213: 4449817642780511617
+    second: GameClearButtons_14
+  - first:
+      213: -5224096549070828156
+    second: GameClearButtons_15
+  - first:
+      213: 5881134570962221188
+    second: GameClearButtons_16
+  - first:
+      213: -1464901030133036234
+    second: GameClearButtons_17
+  - first:
+      213: 6665295000857351696
+    second: GameClearButtons_18
+  - first:
+      213: 929945897868880208
+    second: GameClearButtons_19
+  - first:
+      213: -1145353204598249449
+    second: GameClearButtons_20
+  - first:
+      213: -7239877759815716871
+    second: GameClearButtons_21
+  - first:
+      213: -4936056988412489627
+    second: GameClearButtons_22
+  - first:
+      213: 8801039710158900792
+    second: GameClearButtons_23
+  - first:
+      213: -5861018680203282154
+    second: GameClearButtons_24
+  - first:
+      213: -8172208605638338979
+    second: GameClearButtons_25
+  - first:
+      213: 5593059719217425916
+    second: GameClearButtons_26
+  - first:
+      213: 8007204260748237837
+    second: GameClearButtons_27
+  - first:
+      213: -20949589615621524
+    second: GameClearButtons_28
+  - first:
+      213: -2691486769777920372
+    second: GameClearButtons_29
+  - first:
+      213: -6112192383606263024
+    second: GameClearButtons_30
+  - first:
+      213: 4504426343147431486
+    second: GameClearButtons_31
+  - first:
+      213: -7922932093101806533
+    second: GameClearButtons_32
+  - first:
+      213: -1912654648124727706
+    second: GameClearButtons_33
+  - first:
+      213: -7645607647653640042
+    second: GameClearButtons_34
+  - first:
+      213: -7940493942678851371
+    second: GameClearButtons_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: NextButton_Normal
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 279
+        width: 275
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99243183802b51fc0800000000000000
+      internalID: -3524715384977276263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NextButton_Highlighted
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 280
+        width: 275
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7de0d842ed613f170800000000000000
+      internalID: 8210931688978321111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NextButton_Pressed
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 280
+        width: 275
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3636aabafe9c0c500800000000000000
+      internalID: 414553196932522851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NextButton_Disabled
+      rect:
+        serializedVersion: 2
+        x: 935
+        y: 279
+        width: 275
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 735c3b41541e18ad0800000000000000
+      internalID: -2701630614629268169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TitleButton_Normal
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 82
+        width: 275
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 119b24d434d8bf200800000000000000
+      internalID: 214920727428774161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TitleButton_Highlighted
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 83
+        width: 275
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 411a2c2faaade6a60800000000000000
+      internalID: 7669307643210670356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TitleButton_Pressed
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 83
+        width: 275
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 131b86683815fc070800000000000000
+      internalID: 8128805477764608305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TitleButton_Disabled
+      rect:
+        serializedVersion: 2
+        x: 936
+        y: 81
+        width: 275
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0c7d6de607e37fa0800000000000000
+      internalID: -5804041477811241973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: aeca4d2196715e44a9d837b8fd73809d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":4.0},"gridSpriteSize":{"x":320.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      GameClearButtons_0: 2395079596244998581
+      GameClearButtons_1: 3507730694726733234
+      GameClearButtons_12: -9047463553124696258
+      GameClearButtons_13: -5947421196101340389
+      GameClearButtons_14: 4449817642780511617
+      GameClearButtons_15: -5224096549070828156
+      GameClearButtons_2: 4062775894102286050
+      GameClearButtons_3: 3082674469135360009
+      NextButton_Disabled: -2701630614629268169
+      NextButton_Highlighted: 8210931688978321111
+      NextButton_Normal: -3524715384977276263
+      NextButton_Pressed: 414553196932522851
+      TitleButton_Disabled: -5804041477811241973
+      TitleButton_Highlighted: 7669307643210670356
+      TitleButton_Normal: 214920727428774161
+      TitleButton_Pressed: 8128805477764608305
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

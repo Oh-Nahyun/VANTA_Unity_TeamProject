@@ -7,6 +7,7 @@ public class PlayerAvoidKeyGenerator : MonoBehaviour
     [SerializeField] private Canvas _canvas;
     [SerializeField] private GameObject _alarmMoveKeyPad;
     [SerializeField] private GameObject _alarmMoveAttackKeyPad;
+    [SerializeField] private GameObject _alarmFinisherKeyPad;
 
     [Header("Spawn")]
     [SerializeField] private float _spawnDistance = 100f;
@@ -54,6 +55,40 @@ public class PlayerAvoidKeyGenerator : MonoBehaviour
         
     }
 
+    public void CreateFinisherKey()
+    {
+        ClearAlarmKeyPad();
+
+        RectTransform canvasRect =
+            _canvas.transform as RectTransform;
+
+        // 플레이어의 Canvas 기준 위치
+        Vector2 playerCanvasPosition = GetPlayerCanvasLoc();
+
+        // Left / Right / Up 중 랜덤
+        Vector2 direction = GetRandomDirection();
+
+        Vector2 spawnPosition =
+            playerCanvasPosition + direction * _spawnDistance;
+
+      
+            _currentAlarmKeyPad = Instantiate(
+                _alarmFinisherKeyPad,
+                _canvas.transform
+            );
+      
+     
+        
+
+
+
+        RectTransform alarmRect =
+            _currentAlarmKeyPad.GetComponent<RectTransform>();
+
+        alarmRect.anchoredPosition = spawnPosition;
+
+
+    }
     private Vector2 GetPlayerCanvasLoc()
     {
         RectTransform canvasRect =

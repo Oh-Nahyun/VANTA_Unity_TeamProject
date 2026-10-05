@@ -148,7 +148,6 @@ GameObject:
   - component: {fileID: 8811557061119323487}
   - component: {fileID: 1754895991205458046}
   - component: {fileID: 1186838113549015420}
-  - component: {fileID: -4902917981890440779}
   m_Layer: 5
   m_Name: PlayerAvoidAttackKeyPad
   m_TagString: Untagged
@@ -216,19 +215,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-4902917981890440779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3585278104208373336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad4083d2be794cc49a3dc22c29fd4c7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AvoidKeyText
-  _textMeshPro: {fileID: 4648210412478384361}
 --- !u!1 &4658496298014934900
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +241,7 @@ Transform:
   m_GameObject: {fileID: 4658496298014934900}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -49.1, z: 0}
+  m_LocalPosition: {x: 0, y: -100, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -307,7 +293,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2053879661
-  m_SortingLayer: 16
+  m_SortingLayer: 18
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8646562429103647828, guid: baac8aafe94c5ab4fa5f4f419d50a03f, type: 3}
@@ -346,7 +332,7 @@ Transform:
   m_GameObject: {fileID: 7649572340056233678}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 46.4, z: 0}
+  m_LocalPosition: {x: 0, y: 100, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -398,7 +384,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2053879661
-  m_SortingLayer: 16
+  m_SortingLayer: 18
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8646562429103647828, guid: baac8aafe94c5ab4fa5f4f419d50a03f, type: 3}

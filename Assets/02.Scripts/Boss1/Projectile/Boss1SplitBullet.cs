@@ -19,8 +19,12 @@ public class Boss1SplitBullet : MonoBehaviour
     private Boss1ProjectileManager _projectileManager;
     
     private Rigidbody2D _rigidBody;
+    private Collider2D _collider;
+    private Animator _animator;
     
     private float _timer;
+    
+    private bool _isDestroying;
 
     private SplitBulletState _currentState;
 
@@ -34,11 +38,19 @@ public class Boss1SplitBullet : MonoBehaviour
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
+        if (_isDestroying)
+        {
+            return;
+        }
+        
         _timer += Time.deltaTime;
+        
         switch(_currentState)
         {
             case SplitBulletState.Fly:
@@ -59,6 +71,8 @@ public class Boss1SplitBullet : MonoBehaviour
         _projectileManager.RegisterProjectile(gameObject);
         
         _timer = 0f;
+        _isDestroying = false;
+        
         _currentState = SplitBulletState.Fly;
         _rigidBody.linearVelocity = direction.normalized * _speed;
     }
@@ -69,9 +83,10 @@ public class Boss1SplitBullet : MonoBehaviour
         {
             return;
         }
+        
         _rigidBody.linearVelocity = Vector2.zero;
-        _timer = 0f;
-        _currentState = SplitBulletState.Warning;
+        _animator.SetTrigger("Warning");
+        ChangeState(SplitBulletState.Warning);
     }
 
     private void UpdateWarning()
@@ -80,8 +95,7 @@ public class Boss1SplitBullet : MonoBehaviour
         {
             return;
         } 
-        _currentState = SplitBulletState.Split;
-
+        ChangeState(SplitBulletState.Split);
     }
 
     private void UpdateSplit()
@@ -99,15 +113,7 @@ public class Boss1SplitBullet : MonoBehaviour
             bullet.Initialize(direction, _projectileManager);
         }
 
-        Destroy(gameObject);
-    }
-    
-    private void OnDestroy()
-    {
-        if (_projectileManager != null)
-        {
-            _projectileManager.UnregisterProjectile(gameObject);
-        }
+        StartDisappear();
     }
     
     private void ChangeState(SplitBulletState newState)
@@ -118,15 +124,55 @@ public class Boss1SplitBullet : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (_isDestroying)
+        {
+            return;
+        }
+        
         if (other.CompareTag("Player"))
         {
             Player player = other.GetComponent<Player>();
+            
             if (player == null)
             {
                 return;
             }
+            
             player.TakeDamage();
-            Destroy(gameObject);
+            StartImpact();
+        }
+    }
+    private void StartImpact()
+    {
+        _isDestroying = true;
+
+        _rigidBody.linearVelocity = Vector2.zero;
+        _collider.enabled = false;
+
+        _animator.SetTrigger("Impact");
+    }
+
+    private void StartDisappear()
+    {
+        _isDestroying = true;
+
+        _rigidBody.linearVelocity = Vector2.zero;
+        _collider.enabled = false;
+
+        _animator.SetTrigger("Disappear");
+    }
+
+    public void DestroyBullet()
+    {
+        Destroy(gameObject);
+    }
+    
+    
+    private void OnDestroy()
+    {
+        if (_projectileManager != null)
+        {
+            _projectileManager.UnregisterProjectile(gameObject);
         }
     }
 }

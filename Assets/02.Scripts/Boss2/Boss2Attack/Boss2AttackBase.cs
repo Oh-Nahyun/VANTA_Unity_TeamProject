@@ -43,6 +43,10 @@ public class Boss2AttackBase : MonoBehaviour
     [SerializeField] private ComboStep[] _comboSteps;
     [SerializeField] private int _maxComboCount = 8;
 
+    [Tooltip("연타 속도 배율. 애니메이션(AttackSpeed 파라미터)과 ComboStep 의 시간 값을 같은 비율로 바꾼다.\nComboStep 의 시간은 1배속 기준으로 적는다.")]
+    [SerializeField] private float _comboSpeed = 1f;
+    private const string AttackSpeedParam = "AttackSpeed";
+
     // 발사체 시작 좌표 ( 자식에서도 활용 가능 )
     protected Vector2[] _projectileDirections;
     
@@ -138,7 +142,7 @@ public class Boss2AttackBase : MonoBehaviour
         }
 
         float elapsed = Time.time - _stepStartTime;
-        if (elapsed > CurrentStep.InputDeadline)
+        if (elapsed > ScaleComboTime(CurrentStep.InputDeadline))
             return;
 
         // 이미 예약된 타보다 한 타만 더. 연타로 여러 번 눌러도 누른 횟수만큼만 쌓인다.
@@ -179,6 +183,12 @@ public class Boss2AttackBase : MonoBehaviour
 
     private ComboStep CurrentStep => _comboSteps[_currentHit % _comboSteps.Length];
 
+    // ComboStep 의 시간(1배속 기준)을 현재 연타 속도에 맞춘 실제 시간으로 바꾼다.
+    private float ScaleComboTime(float time)
+    {
+        return time / Mathf.Max(_comboSpeed, 0.01f);
+    }
+
     private bool HasComboSteps()
     {
         return _comboSteps != null && _comboSteps.Length > 0;
@@ -203,6 +213,9 @@ public class Boss2AttackBase : MonoBehaviour
         _currentHit = hitIndex;
         _stepStartTime = Time.time;
 
+        // 연타 상태(Boss2Attack / Boss2DoubleAttack)의 Speed Multiplier. 판정 이벤트도 같이 빨라진다.
+        _animator.SetFloat(AttackSpeedParam, _comboSpeed);
+
         // layer 0, 시간 오프셋 0 을 명시해야 같은 상태로 넘어갈 때도 처음부터 재생된다.
         _animator.CrossFade(CurrentStep.StateName, 0.05f, 0, 0f);
         ComboStepStarted?.Invoke(_currentHit);
@@ -216,13 +229,13 @@ public class Boss2AttackBase : MonoBehaviour
         // 연결 검사를 리셋 검사보다 먼저 한다.
         // ChainTime 이 MaxStepTime 에 가까워도 예약된 다음 타가 리셋에 먹히지 않게 하기 위함.
         bool hasNextHit = _currentHit + 1 < _targetHitCount;
-        if (hasNextHit && elapsed >= step.ChainTime)
+        if (hasNextHit && elapsed >= ScaleComboTime(step.ChainTime))
         {
             StartHit(_currentHit + 1);
             return;
         }
 
-        if (elapsed >= step.MaxStepTime)
+        if (elapsed >= ScaleComboTime(step.MaxStepTime))
         {
             ResetCombo();
         }
@@ -344,5 +357,101 @@ public class Boss2AttackBase : MonoBehaviour
         {
             Debug.Log("player is Null");
         }
+    }
+
+    // ---- 순간이동 (즉사기·회전베기 공용) ----
+
+    /// <summary>
+    /// 이동 패턴이 쫓는 대상을 우선 쓰고, 없으면 Player 태그 중 가장 가까운 대상(자기 자신 제외)을 쓴다.
+    /// </summary>
+    protected Transform FindAttackTarget()
+    {
+        Boss2MovePattern movePattern = GetComponent<Boss2MovePattern>();
+        if (movePattern != null && movePattern.Target != null)
+            return movePattern.Target;
+
+        Transform nearest = null;
+        float nearestSqr = float.MaxValue;
+        foreach (GameObject candidate in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (candidate.transform.IsChildOf(transform))
+                continue;
+
+            float sqr = (candidate.transform.position - transform.position).sqrMagnitude;
+            if (sqr < nearestSqr)
+            {
+                nearestSqr = sqr;
+                nearest = candidate.transform;
+            }
+        }
+
+        return nearest;
+    }
+
+    /// <summary>
+    /// 대상 위 height 만큼 떨어진 자리로 순간이동한다. 대상이 없으면 제자리에 남고 false 를 돌려준다.
+    /// Boss2MoveArea 가 있으면, 위쪽이 맵 밖이거나 벽이면 아래·왼쪽·오른쪽 중 가능한 자리로 바꾼다.
+    /// 자리가 바뀌었으면 Boss2AfterImage 로 원래 자리(대상 위)에서 순보해 온 것처럼 잔상을 남긴다.
+    /// </summary>
+    protected bool AppearAbove(Transform target, float height)
+    {
+        if (target == null)
+            return false;
+
+        Vector2 idealPosition = (Vector2)target.position + Vector2.up * height;
+        Vector2 appearPosition = idealPosition;
+        Boss2MoveArea moveArea = GetComponent<Boss2MoveArea>();
+        if (moveArea != null)
+        {
+            appearPosition = moveArea.ResolveAppearPosition(target.position, height);
+        }
+
+        TeleportWithAfterImage(target, idealPosition, appearPosition, moveArea);
+        return true;
+    }
+
+    /// <summary>
+    /// 그림이 피벗에서 떨어져 그려지는 공격(회전베기 등)용. 보이는 그림의 중심이 대상 위 height 에 오도록 순간이동한다.
+    /// visualOffset 은 피벗에서 그림 중심까지, visualSize 는 그림 크기다. 맵 판정도 이 그림 박스로 한다.
+    /// </summary>
+    protected bool AppearAbove(Transform target, float height, Vector2 visualOffset, Vector2 visualSize)
+    {
+        if (target == null)
+            return false;
+
+        Vector2 idealPosition = (Vector2)target.position + Vector2.up * height - visualOffset;
+        Vector2 appearPosition = idealPosition;
+        Boss2MoveArea moveArea = GetComponent<Boss2MoveArea>();
+        if (moveArea != null)
+        {
+            appearPosition = moveArea.ResolveAppearPosition(target.position, height, visualOffset, visualSize);
+        }
+
+        TeleportWithAfterImage(target, idealPosition, appearPosition, moveArea);
+        return true;
+    }
+
+    private void TeleportWithAfterImage(Transform target, Vector2 idealPosition, Vector2 appearPosition, Boss2MoveArea moveArea)
+    {
+
+        // 실제 위치는 처음부터 갈 수 있는 자리로 정하고, 순보는 잔상으로만 보여 준다.
+        // 그래서 판정·회피 타이밍은 바뀌지 않고, 맵 밖 잔상은 그리지 않는다.
+        Boss2AfterImage afterImage = GetComponent<Boss2AfterImage>();
+        if (afterImage != null && (appearPosition - idealPosition).sqrMagnitude > 0.0001f)
+        {
+            bool faceLeft = target.position.x < appearPosition.x;
+            afterImage.Play(idealPosition, appearPosition, faceLeft,
+                moveArea != null ? (System.Func<Vector2, bool>)moveArea.IsInsideArea : null);
+        }
+
+        // 이동 봉쇄(위치 고정) 중이어도 위치를 직접 정하는 것은 막히지 않는다. 물리 쪽 위치도 함께 옮긴다.
+        Rigidbody2D body = GetComponent<Rigidbody2D>();
+        if (body != null)
+        {
+            body.position = appearPosition;
+            body.linearVelocity = Vector2.zero;
+        }
+
+        transform.position = new Vector3(appearPosition.x, appearPosition.y, transform.position.z);
     }
 }

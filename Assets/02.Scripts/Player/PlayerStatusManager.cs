@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.Rendering.Universal;
 public class PlayerStatusManager : MonoBehaviour
 {
     [Header("시작 연출 사용")]
-    [SerializeField] private bool _useStartSequence = true;
+    [SerializeField] private bool _useStartSequence = false;
 
     [Header("참조")]
     [SerializeField] private Light2D _spotLight;
@@ -49,22 +50,32 @@ public class PlayerStatusManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void PlayerControlOff()
     {
-        var lens = _cinemachineCamera.Lens;
+        _playerMove.enabled = false;
+        _playerAttack.enabled = false;
+    }
 
+    private void OnEnable()
+    {
         if (_useStartSequence)
         {
-            lens.OrthographicSize =
-                _startOrthographicSize;
-        }
-        else
-        {
-            lens.OrthographicSize =
-                _targetOrthographicSize;
-        }
+            var lens = _cinemachineCamera.Lens;
 
-        _cinemachineCamera.Lens = lens;
+            if (_useStartSequence)
+            {
+                lens.OrthographicSize =
+                    _startOrthographicSize;
+            }
+            else
+            {
+                lens.OrthographicSize =
+                    _targetOrthographicSize;
+            }
+
+            _cinemachineCamera.Lens = lens;
+        }
+       
     }
 
     private void Update()

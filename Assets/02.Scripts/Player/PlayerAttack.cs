@@ -159,8 +159,6 @@ public class PlayerAttack : MonoBehaviour
                 hitObject.ExecuteHitEvent(_doubleSlashDamage, DamageIndicatorType.Middle);
                 Instantiate(_doubleSlashEffect, hit.transform.position, Quaternion.identity);
                 _skillIndicatorController.CommandToPetAttack();
-                PlayerPetCaller.Instance.CallPetToFire();
-
                 StackforSkillPoint();
             }
 
@@ -185,6 +183,21 @@ public class PlayerAttack : MonoBehaviour
 
         return hits;
     }
+
+public void ExaminePetAttack()
+{
+    Collider2D[] hits = ShotTraceForAttackExamine();
+
+
+    foreach (Collider2D hit in hits)
+    {
+        HitableObject hitObject = hit.GetComponent<HitableObject>();
+        if (hitObject != null)
+        {
+            PlayerPetCaller.Instance.CallPetToFire();
+        }
+    }
+}
 
     private void DrawDebugCircle(Vector2 center, float radius, float duration)
     {

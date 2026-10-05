@@ -9911,8 +9911,6 @@ MonoBehaviour:
   _boss: {fileID: 0}
   _player: {fileID: 651033612902867162}
   _spawnRadius: 2
-  _minPointDistance: 2
-  _candidateCount: 30
 --- !u!114 &2747918412719892539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9954,7 +9952,7 @@ MonoBehaviour:
     m_Bits: 2097344
   _enemyLayer:
     serializedVersion: 2
-    m_Bits: 65728
+    m_Bits: 2162880
   _dashDamage: 100
   _dashHitRadius: 0.5
   _weaknessAngleTolerance: 10
@@ -20042,6 +20040,7 @@ GameObject:
   - component: {fileID: 1527369805069074017}
   - component: {fileID: 1449693323339180968}
   - component: {fileID: 8028567086285024404}
+  - component: {fileID: 7842500543627820772}
   m_Layer: 14
   m_Name: Player
   m_TagString: Player
@@ -20164,10 +20163,14 @@ MonoBehaviour:
   _health: 2
   _hitCoolTime: 2
   _hitVfx: {fileID: 2955623459812423943, guid: e6f4b5929f28cae4994fbb10fadead7a, type: 3}
+  _deathVfx: {fileID: 2955623459812423943, guid: 268983da5ec965d468fa4fde6b11266d, type: 3}
   _damagedSlowAmount: 0.1
   _damagedSlowInDuration: 1.5
   _damagedSlowHoldDuration: 0.15
   _damagedSlowRecoverDuration: 1
+  _deathLight: {fileID: 3588000712453903779}
+  _deathLightRadius: 1
+  _deathLightShrinkDuration: 0.7
 --- !u!114 &6093219973355731838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20324,6 +20327,7 @@ MonoBehaviour:
   _canvas: {fileID: 0}
   _alarmMoveKeyPad: {fileID: 3585278104208373336, guid: 4cbff80999d60c448814aab2b0576829, type: 3}
   _alarmMoveAttackKeyPad: {fileID: 3585278104208373336, guid: c1c112f808dae27489f553938d92a838, type: 3}
+  _alarmFinisherKeyPad: {fileID: 0}
   _spawnDistance: 200
 --- !u!114 &1449693323339180968
 MonoBehaviour:
@@ -20355,6 +20359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c43b2a8bae1f1904f8f56478c401d8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatusManager
+  _useStartSequence: 0
   _spotLight: {fileID: 3588000712453903779}
   _playerMove: {fileID: 6093219973355731838}
   _playerAttack: {fileID: 4589030193044622876}
@@ -20365,6 +20370,25 @@ MonoBehaviour:
   _startOrthographicSize: 5
   _targetOrthographicSize: 3
   _zoomDuration: 3
+--- !u!114 &7842500543627820772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4512711204945311804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d97e907b4aea9643a5a883f9ec32459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerFinisher
+  _slowAmount: 0.2
+  _avoidZoomAmount: 1.5
+  _avoidDuration: 4
+  _dashDistance: 1.5
+  _avoidDashDuration: 0.5
+  _attackPassDistance: 1.5
+  _focusScreenController: {fileID: 1332611649402532543}
 --- !u!1 &4629908935146602055
 GameObject:
   m_ObjectHideFlags: 0

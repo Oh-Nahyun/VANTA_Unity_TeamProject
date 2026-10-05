@@ -677,6 +677,10 @@ PrefabInstance:
       propertyPath: _targetCamera
       value: 
       objectReference: {fileID: 285070221}
+    - target: {fileID: 1527369805069074017, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _canvas
+      value: 
+      objectReference: {fileID: 2139010139}
     - target: {fileID: 2424616315455123119, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _petAttack
       value: 
@@ -1085,6 +1089,14 @@ PrefabInstance:
       propertyPath: _globalLight
       value: 
       objectReference: {fileID: 619394801}
+    - target: {fileID: 5667757336281504092, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5667757336281504092, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: m_TagString
+      value: BossBullet
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

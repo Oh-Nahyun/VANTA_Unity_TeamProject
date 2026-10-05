@@ -143,11 +143,15 @@ public class Boss2MoveArea : MonoBehaviour
                 || IsInsideArea(center + new Vector2(half.x, -half.y)) == false
                 || IsInsideArea(center + new Vector2(-half.x, half.y)) == false
                 || IsInsideArea(center + new Vector2(half.x, half.y)) == false)
+            {
                 return false;
+            }
         }
 
         if (_blockLayers != 0 && Physics2D.OverlapBox(center, size, 0f, _blockLayers) != null)
+        {
             return false;
+        }
 
         return true;
     }

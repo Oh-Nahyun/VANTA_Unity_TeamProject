@@ -1,371 +1,531 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerFinisher : MonoBehaviour
 {
-    [Header("타임슬로우 량")]
-    [SerializeField] private float _slowAmount = 0.2f;
+    [Header("피니셔 유지 시간 - 실제 시간")]
+    [SerializeField, Min(0.1f)]
+    private float _finisherDuration = 3f;
 
-    [Header("회피기 사용할 때 줌 량")]
-    [SerializeField] private float _avoidZoomAmount = 1.5f;
+    [Header("타임슬로우")]
+    [SerializeField, Range(0.01f, 1f)]
+    private float _slowAmount = 0.2f;
 
-    [Header("좌클릭 공격 가능 시간 (실제 시간)")]
-    [SerializeField] private float _avoidDuration = 2f;
+    [Header("보스 중심 대쉬 반경")]
+    [SerializeField, Min(0.1f)]
+    private float _slashRadius = 2.5f;
 
-    [Header("회피 거리")]
-    [SerializeField] private float _dashDistance = 1.5f;
+    [Header("대쉬 시간 - 실제 시간")]
+    [SerializeField, Min(0.01f)]
+    private float _dashDuration = 0.12f;
 
-    [Header("회피 이동 시간")]
-    [SerializeField] private float _avoidDashDuration = 0.5f;
+    [Header("공격 시작점 이동 시간 - 실제 시간")]
+    [SerializeField, Min(0.01f)]
+    private float _repositionDuration = 0.04f;
 
-    [Header("회피 공격 관통 거리")]
-    [SerializeField] private float _attackPassDistance = 1.5f;
+    [Header("피니셔 줌")]
+    [SerializeField]
+    private float _finisherZoomAmount = 1.5f;
+
+    [Header("종료 연출 라이트")]
+    [SerializeField]
+    private Light2D _finalLight;
+
+    [SerializeField, Min(0f)]
+    private float _finalLightRadius = 1f;
+
+    [SerializeField, Min(0.01f)]
+    private float _finalLightShrinkDuration = 0.3f;
 
     [Header("Focus")]
     [SerializeField]
     private SkillFocusScreenController _focusScreenController;
 
-    private Animator _animator;
     private ObjectZoom _objectZoom;
-    private PlayerAvoidKeyGenerator _playerAvoidKeyGenerator;
     private PlayerMove _playerMove;
     private PlayerAttack _playerAttack;
     private SkillAttack _skillAttack;
     private SkillManager _skillManager;
     private Rigidbody2D _rigidbody;
 
-    private bool _isAvoidInteraction;
+    private HitableObject _target;
+    private GameObject _caller;
+
+    private Tween _finisherTimer;
+    private Tween _lightTween;
+
+    private bool _isFinishing;
     private bool _isDashing;
-    private bool _isReverseDashing;
+    private bool _isFinalPhase;
     private bool _hasReportedSuccess;
 
-    private GameObject _avoidCaller;
+    private bool _hasFinalDashArrived;
+    private bool _hasFinishedAttackPhase;
+    private bool _hasStartedLightEffect;
 
-    private Tween _avoidTimer;
-    private Tween _avoidMoveTween;
-
-    private float _previousTimeScale;
-    private bool _previousMoveEnabled;
-    private bool _previousAttackEnabled;
-    private bool _previousSkillManagerEnabled;
+    private int _finisherVersion;
 
     private void Awake()
     {
         _objectZoom = GetComponentInChildren<ObjectZoom>();
-        _playerAvoidKeyGenerator = GetComponent<PlayerAvoidKeyGenerator>();
         _playerMove = GetComponent<PlayerMove>();
         _playerAttack = GetComponent<PlayerAttack>();
         _skillAttack = GetComponentInChildren<SkillAttack>();
         _skillManager = GetComponentInChildren<SkillManager>();
-        _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
+        // 테스트용 시작 키
         if (Input.GetKeyDown(KeyCode.L))
         {
             StartPlayerFinisher();
         }
 
-        CheckInputSuccess();
-    }
-
-    private void CheckInputSuccess()
-    {
-        if (!_isAvoidInteraction)
+        if (!_isFinishing || _hasFinishedAttackPhase)
             return;
 
-        if (_isDashing || _isReverseDashing)
+        // 최종 대쉬의 이동 완료 콜백을 기다림
+        if (_isFinalPhase)
             return;
 
-        if (Input.GetMouseButtonDown(0))
+        if (!IsTargetValid())
         {
-            AttackToBoss();
+            FinishAttackPhase();
+            return;
+        }
+
+        // 대쉬 중 클릭은 무시
+        if (!_isDashing && Input.GetMouseButtonDown(0))
+        {
+            PlaySlash(false);
         }
     }
 
     public void StartPlayerFinisher(GameObject caller = null)
     {
-        if (_isAvoidInteraction || _isDashing)
+        if (_isFinishing)
             return;
 
-        if (_rigidbody == null || _skillAttack == null)
+        StartFinisher(
+            FindAnyObjectByType<HitableObject>(),
+            caller
+        );
+    }
+
+    public void StartFinisher(
+        HitableObject target,
+        GameObject caller = null)
+    {
+        if (_isFinishing || !isActiveAndEnabled)
+            return;
+
+        if (_rigidbody == null ||
+            _skillAttack == null ||
+            !_skillAttack.isActiveAndEnabled ||
+            target == null ||
+            !target.gameObject.activeInHierarchy)
         {
-            Debug.LogError("Rigidbody2D 또는 SkillAttack 없음");
+            Debug.LogWarning(
+                "피니셔에 필요한 컴포넌트 또는 타겟 없음",
+                this
+            );
             return;
         }
 
-        HitableObject boss = FindAnyObjectByType<HitableObject>();
-
-        if (boss == null)
-        {
-            Debug.LogError("HitableObject 없음");
+        if (!_skillAttack.BeginFinisher())
             return;
-        }
 
-        _avoidTimer?.Kill();
-        _avoidMoveTween?.Kill();
+        _finisherVersion++;
+        int version = _finisherVersion;
 
-        _isAvoidInteraction = true;
-        _isReverseDashing = false;
+        _target = target;
+        _caller = caller;
+
+        _isFinishing = true;
+        _isDashing = false;
+        _isFinalPhase = false;
         _hasReportedSuccess = false;
-        _avoidCaller = caller;
 
-        // 피니셔 시작 전 상태 저장
-        _previousTimeScale = Time.timeScale;
-
-
-        _playerAvoidKeyGenerator.CreateFinisherKey();
+        _hasFinalDashArrived = false;
+        _hasFinishedAttackPhase = false;
+        _hasStartedLightEffect = false;
 
         if (_playerMove != null)
         {
-            _previousMoveEnabled = _playerMove.enabled;
             _playerMove.enabled = false;
         }
 
         if (_playerAttack != null)
         {
-            _previousAttackEnabled = _playerAttack.enabled;
             _playerAttack.enabled = false;
         }
 
         if (_skillManager != null)
         {
-            _previousSkillManagerEnabled = _skillManager.enabled;
             _skillManager.enabled = false;
         }
 
-        _objectZoom.ZoomIn(
-          _avoidZoomAmount
-      );
-
-        SetFinisherReadyState();
-        DashToReverseSide();
-
-        if (!_isAvoidInteraction)
-            return;
-
-        // 대기 상태로 돌아가도 타이머는 초기화하지 않음
-        _avoidTimer = DOVirtual
-            .DelayedCall(_avoidDuration, FinisherEnd)
-            .SetUpdate(true);
-    }
-
-    // 피니셔 시작과 돌진 후 대기에 공통으로 적용
-    private void SetFinisherReadyState()
-    {
-        if (!_isAvoidInteraction)
-            return;
+        _rigidbody.linearVelocity = Vector2.zero;
 
         Time.timeScale = _slowAmount;
 
-        if (_animator != null)
-        {
-            _animator.ResetTrigger("Avoid");
-            _animator.SetBool("AvoidReady", true);
-        }
-
         if (_objectZoom != null)
         {
-            _objectZoom.ZoomIn(_avoidZoomAmount);
+            _objectZoom.ZoomIn(_finisherZoomAmount);
         }
 
-     
+        if (_focusScreenController != null)
+        {
+            _focusScreenController.EndFocusScreenSetting();
+        }
 
-        //if (_focusScreenController != null)
-        //{
-        //    _focusScreenController.EndFocusScreenSetting();
-        //    _focusScreenController.StartFocusScreenSetting(null);
-        //}
+        _finisherTimer?.Kill();
+
+        // 지정 시간이 되면 클릭 여부와 관계없이 최종 대쉬
+        _finisherTimer = DOVirtual
+            .DelayedCall(
+                Mathf.Max(0.1f, _finisherDuration),
+                () =>
+                {
+                    if (!IsCurrentFinisher(version))
+                        return;
+
+                    _finisherTimer = null;
+                    StartFinalDash();
+                }
+            )
+            .SetUpdate(true);
     }
 
-    public void DashToReverseSide()
+    private void StartFinalDash()
     {
-        if (!_isAvoidInteraction)
-            return;
-
-        HitableObject boss = FindAnyObjectByType<HitableObject>();
-
-        if (_rigidbody == null || boss == null)
+        if (!_isFinishing ||
+            _isFinalPhase ||
+            _hasFinishedAttackPhase)
         {
-            Debug.LogError("Rigidbody2D 또는 HitableObject 없음");
-            FinisherEnd();
             return;
         }
 
-        Vector2 direction =
-            (_rigidbody.position - (Vector2)boss.transform.position)
-            .normalized;
+        if (!IsTargetValid())
+        {
+            FinishAttackPhase();
+            return;
+        }
 
-        Vector2 targetPosition =
-            _rigidbody.position + direction * _dashDistance;
+        _isFinalPhase = true;
 
-        _avoidMoveTween?.Kill();
+        // 진행 중인 일반 대쉬의 콜백 무효화
+        _finisherVersion++;
 
-        _isReverseDashing = true;
+        _skillAttack.EndFinisher();
 
-        _avoidMoveTween = _rigidbody
-            .DOMove(targetPosition, _avoidDashDuration)
-            .SetEase(Ease.OutQuad)
-            .SetUpdate(true)
-            .OnComplete(() =>
-            {
-                _avoidMoveTween = null;
-                _isReverseDashing = false;
+        if (!_skillAttack.BeginFinisher())
+        {
+            FinishAttackPhase();
+            return;
+        }
 
-                // 시작 때 적용한 대기 상태를 유지하고 입력 대기
-            });
+        _isDashing = false;
+
+        PlaySlash(true);
     }
 
-    private void AttackToBoss()
+    private void PlaySlash(bool isFinal)
     {
-        if (!_isAvoidInteraction || _isDashing || _isReverseDashing)
-            return;
-
-        HitableObject boss = FindAnyObjectByType<HitableObject>();
-
-        if (boss == null || _rigidbody == null || _skillAttack == null)
+        if (!_isFinishing ||
+            _isDashing ||
+            _hasFinishedAttackPhase)
         {
-            Debug.LogError(
-                "HitableObject, Rigidbody2D 또는 SkillAttack 없음"
-            );
-
-            FinisherEnd();
             return;
         }
 
-        Vector2 startPosition = _rigidbody.position;
-        Vector2 bossPosition = boss.transform.position;
+        if (!isFinal && _isFinalPhase)
+            return;
 
-        Vector2 attackDirection =
-            (bossPosition - startPosition).normalized;
-
-        Vector2 targetPosition =
-            bossPosition + attackDirection * _attackPassDistance;
+        if (!IsTargetValid())
+        {
+            FinishAttackPhase();
+            return;
+        }
 
         _isDashing = true;
 
-        // 공격 중에는 대기 포커스 해제
-        if (_focusScreenController != null)
-        {
-            _focusScreenController.EndFocusScreenSetting();
-        }
+        int version = _finisherVersion;
 
-        if (_animator != null)
-        {
-            _animator.SetBool("AvoidReady", false);
-            _animator.SetTrigger("Avoid");
-        }
+        // 매 공격마다 랜덤 방향
+        float angle = Random.Range(0f, 360f);
+        float radians = angle * Mathf.Deg2Rad;
 
+        Vector2 axis = new Vector2(
+            Mathf.Cos(radians),
+            Mathf.Sin(radians)
+        );
 
-        // 첫 번째 공격 입력에서만 성공 결과 전달
-        if (!_hasReportedSuccess)
-        {
-            _hasReportedSuccess = true;
+        Vector2 center = _target.transform.position;
 
-            if (_avoidCaller != null)
+        Vector2 startPosition =
+            center + axis * Mathf.Max(0.1f, _slashRadius);
+
+        // 공격 시작점으로 이동: 공격 판정 없음
+        _skillAttack.FinisherDash(
+            startPosition,
+            Mathf.Max(0.01f, _repositionDuration),
+            false,
+            () =>
             {
-                IAvoidInteraction interaction =
-                    _avoidCaller.GetComponent<IAvoidInteraction>();
+                if (!IsCurrentFinisher(version))
+                    return;
 
-                interaction?.AvoidResultBehavior(true);
+                if (!IsTargetValid())
+                {
+                    FinishAttackPhase();
+                    return;
+                }
+
+                PlayAttackDash(axis, version, isFinal);
             }
-        }
-
-        // 성공 결과 처리 중 종료된 경우 돌진하지 않음
-        if (!_isAvoidInteraction)
-        {
-            _isDashing = false;
-            return;
-        }
-
-        _skillAttack.SingleDash(
-            targetPosition,
-            AttackToBossComplete
         );
     }
 
-    private void AttackToBossComplete()
+    private void PlayAttackDash(
+        Vector2 axis,
+        int version,
+        bool isFinal)
     {
-        _isDashing = false;
-
-        if (!_isAvoidInteraction)
+        if (!IsCurrentFinisher(version))
             return;
 
-        // 처음과 동일한 대기 연출로 복귀
-        SetFinisherReadyState();
+        if (!IsTargetValid())
+        {
+            FinishAttackPhase();
+            return;
+        }
+
+        Vector2 center = _target.transform.position;
+
+        Vector2 direction =
+            center - _rigidbody.position;
+
+        if (direction.sqrMagnitude < 0.0001f)
+        {
+            direction = -axis;
+        }
+
+        direction.Normalize();
+
+        Vector2 endPosition =
+            center + direction * Mathf.Max(0.1f, _slashRadius);
+
+        // 보스를 관통하는 대쉬 공격
+        _skillAttack.FinisherDash(
+            endPosition,
+            Mathf.Max(0.01f, _dashDuration),
+            true,
+            () =>
+            {
+                if (!IsCurrentFinisher(version))
+                    return;
+
+                // 최종 대쉬 이동 완료 시점에만 기록
+                if (isFinal)
+                {
+                    _hasFinalDashArrived = true;
+                }
+
+                ReportSuccess();
+
+                if (!IsCurrentFinisher(version))
+                    return;
+
+                _isDashing = false;
+
+                if (isFinal || !IsTargetValid())
+                {
+                    FinishAttackPhase();
+                }
+            }
+        );
     }
 
-    private void FinisherEnd()
+    private bool IsCurrentFinisher(int version)
     {
-        if (!_isAvoidInteraction)
+        return _isFinishing &&
+               !_hasFinishedAttackPhase &&
+               version == _finisherVersion;
+    }
+
+    private bool IsTargetValid()
+    {
+        return _target != null &&
+               _target.gameObject.activeInHierarchy &&
+               _rigidbody != null &&
+               _skillAttack != null &&
+               _skillAttack.isActiveAndEnabled;
+    }
+
+    private void ReportSuccess()
+    {
+        if (_hasReportedSuccess)
             return;
 
-        _isAvoidInteraction = false;
-        _isReverseDashing = false;
+        _hasReportedSuccess = true;
 
-        _avoidTimer?.Kill();
-        _avoidTimer = null;
-
-        _avoidMoveTween?.Kill();
-        _avoidMoveTween = null;
-
-        if (_animator != null)
+        if (_caller != null)
         {
-            _animator.ResetTrigger("Avoid");
-            _animator.SetBool("AvoidReady", false);
+            IAvoidInteraction interaction =
+                _caller.GetComponent<IAvoidInteraction>();
+
+            interaction?.AvoidResultBehavior(true);
+        }
+    }
+
+    private void FinishAttackPhase()
+    {
+        if (!_isFinishing || _hasFinishedAttackPhase)
+            return;
+
+        _hasFinishedAttackPhase = true;
+
+        _isFinalPhase = true;
+        _isDashing = false;
+
+        _finisherVersion++;
+
+        _finisherTimer?.Kill();
+        _finisherTimer = null;
+
+        if (_skillAttack != null)
+        {
+            _skillAttack.EndFinisher();
         }
 
-        if (_playerAvoidKeyGenerator != null)
+        if (_rigidbody != null)
         {
-            //_playerAvoidKeyGenerator.ClearAlarmKeyPad();
+            _rigidbody.linearVelocity = Vector2.zero;
         }
 
-        Time.timeScale = _previousTimeScale;
-
-        if (_objectZoom != null)
+        // 最終 대쉬가 도착했을 때만 라이트 연출
+        if (_hasFinalDashArrived)
         {
-            _objectZoom.ZoomOut();
+            FinisherEnd();
+        }
+    }
+
+    // 종료 시 라이트 로직만 실행
+    public void FinisherEnd()
+    {
+        if (!_isFinishing ||
+            !_hasFinalDashArrived ||
+            _hasStartedLightEffect ||
+            !isActiveAndEnabled)
+        {
+            return;
         }
 
-        if (_focusScreenController != null)
+        if (_finalLight == null)
         {
-            _focusScreenController.EndFocusScreenSetting();
+            Debug.LogWarning(
+                "종료 연출에 사용할 Light2D를 지정해주세요.",
+                this
+            );
+            return;
         }
 
-        if (_playerMove != null)
+        // 라이트 연출 중복 실행 방지
+        _hasStartedLightEffect = true;
+
+        _lightTween?.Kill();
+        _lightTween = null;
+
+        // 지정한 라이트만 남기기
+        Light2D[] lights = FindObjectsByType<Light2D>(
+            FindObjectsInactive.Include,
+            FindObjectsSortMode.None
+        );
+
+        foreach (Light2D light in lights)
         {
-            _playerMove.enabled = _previousMoveEnabled;
+            light.enabled = light == _finalLight;
         }
 
-        if (_playerAttack != null)
+        _finalLight.gameObject.SetActive(true);
+        _finalLight.enabled = true;
+
+        float targetRadius =
+            Mathf.Max(0f, _finalLightRadius);
+
+        float startOuterRadius =
+            _finalLight.pointLightOuterRadius;
+
+        float startInnerRadius =
+            _finalLight.pointLightInnerRadius;
+
+        float innerRatio = startOuterRadius > 0f
+            ? Mathf.Clamp01(
+                startInnerRadius / startOuterRadius
+            )
+            : 0f;
+
+        _lightTween = DOTween.To(
+                () => _finalLight != null
+                    ? _finalLight.pointLightOuterRadius
+                    : targetRadius,
+                radius =>
+                {
+                    if (_finalLight == null)
+                        return;
+
+                    _finalLight.pointLightInnerRadius =
+                        radius * innerRatio;
+
+                    _finalLight.pointLightOuterRadius = radius;
+                },
+                targetRadius,
+                Mathf.Max(0.01f, _finalLightShrinkDuration)
+            )
+            .SetDelay(1f)
+            .SetEase(Ease.OutExpo)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                _lightTween = null;
+            });
+    }
+
+    private void StopTweens()
+    {
+        _finisherVersion++;
+
+        _finisherTimer?.Kill();
+        _finisherTimer = null;
+
+        _lightTween?.Kill();
+        _lightTween = null;
+
+        if (_isFinishing && _skillAttack != null)
         {
-            _playerAttack.enabled = _previousAttackEnabled;
+            _skillAttack.EndFinisher();
         }
 
-        if (_skillManager != null)
-        {
-            _skillManager.enabled = _previousSkillManagerEnabled;
-        }
+        _isFinishing = false;
+        _isDashing = false;
+        _isFinalPhase = false;
 
-        _avoidCaller = null;
+        _hasFinalDashArrived = false;
+        _hasFinishedAttackPhase = false;
+        _hasStartedLightEffect = false;
     }
 
     private void OnDisable()
     {
-        FinisherEnd();
-
-        _avoidTimer?.Kill();
-        _avoidMoveTween?.Kill();
-
-        _avoidTimer = null;
-        _avoidMoveTween = null;
+        StopTweens();
     }
 
     private void OnDestroy()
     {
-        _avoidTimer?.Kill();
-        _avoidMoveTween?.Kill();
+        StopTweens();
     }
 }

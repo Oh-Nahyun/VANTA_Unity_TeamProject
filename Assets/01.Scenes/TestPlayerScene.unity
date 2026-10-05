@@ -430,7 +430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &265060036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,7 +609,8 @@ PrefabInstance:
       propertyPath: _skillSpace
       value: 
       objectReference: {fileID: 1653093704}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -634,12 +635,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97e907b4aea9643a5a883f9ec32459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFinisher
+  _finisherDuration: 3
   _slowAmount: 0.2
-  _avoidZoomAmount: 1.5
-  _avoidDuration: 4
-  _dashDistance: 1.5
-  _avoidDashDuration: 0.5
-  _attackPassDistance: 1.5
+  _slashRadius: 2.5
+  _dashDuration: 0.12
+  _repositionDuration: 0.04
+  _finisherZoomAmount: 1.5
+  _finalLight: {fileID: 2120527301}
+  _finalLightRadius: 1
+  _finalLightShrinkDuration: 1
   _focusScreenController: {fileID: 1618081010}
 --- !u!1001 &741357264
 PrefabInstance:
@@ -1302,6 +1306,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2120527301 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3588000712453903779, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+  m_PrefabInstance: {fileID: 650435852}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
 --- !u!224 &2135513554 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1241632644749344934, guid: f6a9a734fbe8a3c45a269ac45617ef05, type: 3}

@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -54,22 +55,27 @@ public class PlayerStatusManager : MonoBehaviour
         _playerMove.enabled = false;
         _playerAttack.enabled = false;
     }
-    private void Start()
-    {
-        var lens = _cinemachineCamera.Lens;
 
+    private void OnEnable()
+    {
         if (_useStartSequence)
         {
-            lens.OrthographicSize =
-                _startOrthographicSize;
-        }
-        else
-        {
-            lens.OrthographicSize =
-                _targetOrthographicSize;
-        }
+            var lens = _cinemachineCamera.Lens;
 
-        _cinemachineCamera.Lens = lens;
+            if (_useStartSequence)
+            {
+                lens.OrthographicSize =
+                    _startOrthographicSize;
+            }
+            else
+            {
+                lens.OrthographicSize =
+                    _targetOrthographicSize;
+            }
+
+            _cinemachineCamera.Lens = lens;
+        }
+       
     }
 
     private void Update()

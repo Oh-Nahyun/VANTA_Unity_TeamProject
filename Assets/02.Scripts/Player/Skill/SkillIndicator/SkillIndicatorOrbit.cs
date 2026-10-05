@@ -2,15 +2,12 @@ using UnityEngine;
 
 public class SkillIndicatorOrbit : MonoBehaviour
 {
-    [Header("공전 설정")]
-    [SerializeField] private float _orbitSpeed = 30f;
+    [Header("공전 설정")] [SerializeField] private float _orbitSpeed = 30f;
     [SerializeField] private float _orbitRadius = 4f;
 
-    [Header("Boss1 설정")]
-    [SerializeField] private float _boss1YOffset = 1f;
+    [Header("Boss1 설정")] [SerializeField] private float _boss1YOffset = 1f;
 
-    [Header("Debug")]
-    [SerializeField] private bool _showDebug = true;
+    [Header("Debug")] [SerializeField] private bool _showDebug = true;
 
     private Transform _target;
     private float _currentAngle;
@@ -51,7 +48,7 @@ public class SkillIndicatorOrbit : MonoBehaviour
         UpdateOrbitPosition();
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         if (!_isOrbiting || _target == null)
             return;
@@ -61,6 +58,8 @@ public class SkillIndicatorOrbit : MonoBehaviour
 
         UpdateOrbitPosition();
     }
+
+
 
     private Vector2 GetOrbitCenter()
     {

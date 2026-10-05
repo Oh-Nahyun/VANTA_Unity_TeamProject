@@ -58,6 +58,9 @@ public class SkillAttack : MonoBehaviour
 
     private int _playerLayer;
 
+    private Tween _finisherTween;
+    private bool _finisherRunning;
+    
     private void Awake()
     {
         if (_rigidbody != null)
@@ -397,8 +400,138 @@ public class SkillAttack : MonoBehaviour
         _weaknessAttackSuccessAction?.Invoke();
     }
 
-    private void OnDestroy()
+    public bool BeginFinisher()
+{
+    if (_rigidbody == null || _finisherRunning)
+        return false;
+
+    // 结束原来的技能移动
+    _dashSequence?.Kill();
+    _dashSequence = null;
+
+    _dashCount = 0;
+    _isWeaknessAttackSuccess = false;
+    _finisherRunning = true;
+
+    SetDashCollisionIgnore(true);
+
+    return true;
+}
+
+
+public void FinisherDash(
+    Vector2 targetPosition,
+    float duration,
+    bool checkHit,
+    Action onComplete)
+{
+    if (!_finisherRunning || _rigidbody == null)
+        return;
+
+    _finisherTween?.Kill();
+    _finisherTween = null;
+
+    Vector2 startPosition = _rigidbody.position;
+    Vector2 direction = targetPosition - startPosition;
+
+    if (_spriteRenderer != null &&
+        Mathf.Abs(direction.x) > 0.01f)
     {
-        SetDashCollisionIgnore(false);
+        _spriteRenderer.flipX = direction.x < 0f;
     }
+
+    if (checkHit)
+    {
+        if (_animator != null)
+        {
+            _animator.ResetTrigger("OneDashSkill");
+            _animator.SetTrigger("OneDashSkill");
+        }
+
+        if (_skillDashScreenController != null)
+        {
+            _skillDashScreenController
+                .StartDashScreenSetting(direction);
+        }
+
+        if (_skillDashStartVfxPrefab != null)
+        {
+            Instantiate(
+                _skillDashStartVfxPrefab,
+                _rigidbody.position,
+                Quaternion.identity
+            );
+        }
+    }
+
+    _finisherTween = _rigidbody
+        .DOMove(targetPosition, Mathf.Max(0.01f, duration))
+        .SetEase(Ease.Linear)
+        .SetUpdate(true)
+        .OnComplete(() =>
+        {
+            _finisherTween = null;
+
+            if (!_finisherRunning)
+                return;
+
+            if (checkHit)
+            {
+                CheckDashHit(
+                    startPosition,
+                    _rigidbody.position
+                );
+
+                // 伤害事件可能结束或禁用 피니셔
+                if (!_finisherRunning)
+                    return;
+
+                if (_skillDashScreenController != null)
+                {
+                    _skillDashScreenController
+                        .EndDashScreenSetting();
+                }
+
+                if (_skillDashEndVfxPrefab != null)
+                {
+                    Instantiate(
+                        _skillDashEndVfxPrefab,
+                        _rigidbody.position,
+                        Quaternion.identity
+                    );
+                }
+            }
+
+            onComplete?.Invoke();
+        });
+}
+
+public void EndFinisher()
+{
+    if (!_finisherRunning)
+        return;
+
+    _finisherRunning = false;
+
+    _finisherTween?.Kill();
+    _finisherTween = null;
+
+    SetDashCollisionIgnore(false);
+
+    if (_skillDashScreenController != null)
+    {
+        _skillDashScreenController
+            .EndDashScreenSetting();
+    }
+}
+
+private void OnDestroy()
+{
+    EndFinisher();
+
+    _dashSequence?.Kill();
+    _dashSequence = null;
+
+    SetDashCollisionIgnore(false);
+}
 }

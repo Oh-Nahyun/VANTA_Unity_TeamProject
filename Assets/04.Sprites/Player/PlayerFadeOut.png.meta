@@ -1,0 +1,608 @@
+fileFormatVersion: 2
+guid: a79ae2c90519b1947a8091785d7a41c0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2114931712421166512
+    second: PlayerFadeOut_0
+  - first:
+      213: -1104141940904283441
+    second: PlayerFadeOut_1
+  - first:
+      213: 8602730624399879592
+    second: PlayerFadeOut_2
+  - first:
+      213: -2909420584470760454
+    second: PlayerFadeOut_3
+  - first:
+      213: -8771536169426450382
+    second: PlayerFadeOut_4
+  - first:
+      213: 3306201271389170239
+    second: PlayerFadeOut_5
+  - first:
+      213: 8599578025234417558
+    second: PlayerFadeOut_6
+  - first:
+      213: -4728101546246296696
+    second: PlayerFadeOut_7
+  - first:
+      213: -4468484435624230259
+    second: PlayerFadeOut_8
+  - first:
+      213: 298266964920862556
+    second: PlayerFadeOut_9
+  - first:
+      213: -7782895244999464369
+    second: PlayerFadeOut_10
+  - first:
+      213: -2062930689401255596
+    second: PlayerFadeOut_11
+  - first:
+      213: -2999784964177178857
+    second: PlayerFadeOut_12
+  - first:
+      213: 1746787615093696249
+    second: PlayerFadeOut_13
+  - first:
+      213: 6865031867528623951
+    second: PlayerFadeOut_14
+  - first:
+      213: 3219077594522990565
+    second: PlayerFadeOut_15
+  - first:
+      213: 6684832898536151048
+    second: PlayerFadeOut_16
+  - first:
+      213: 5548529283855240111
+    second: PlayerFadeOut_17
+  - first:
+      213: -6447714750808799763
+    second: PlayerFadeOut_18
+  - first:
+      213: 8494859534189015387
+    second: PlayerFadeOut_19
+  - first:
+      213: -8334433725803223889
+    second: PlayerFadeOut_20
+  - first:
+      213: -8782314922334859542
+    second: PlayerFadeOut_21
+  - first:
+      213: 4537333521932429960
+    second: PlayerFadeOut_22
+  - first:
+      213: -4361283698247339799
+    second: PlayerFadeOut_23
+  - first:
+      213: -5436975326318755892
+    second: PlayerFadeOut_24
+  - first:
+      213: 395557249339053492
+    second: PlayerFadeOut_25
+  - first:
+      213: 3207160650653886203
+    second: PlayerFadeOut_26
+  - first:
+      213: 8424233224575587766
+    second: PlayerFadeOut_27
+  - first:
+      213: 5043293765449118202
+    second: PlayerFadeOut_28
+  - first:
+      213: 1117936346859561451
+    second: PlayerFadeOut_29
+  - first:
+      213: -8941960638283619751
+    second: PlayerFadeOut_30
+  - first:
+      213: 856491585952675853
+    second: PlayerFadeOut_31
+  - first:
+      213: 1973766135174986260
+    second: PlayerFadeOut_32
+  - first:
+      213: -5504042503057800500
+    second: PlayerFadeOut_33
+  - first:
+      213: -7474038368604769626
+    second: PlayerFadeOut_34
+  - first:
+      213: 6571107481777005380
+    second: PlayerFadeOut_35
+  - first:
+      213: 6752420717827657318
+    second: PlayerFadeOut_36
+  - first:
+      213: -7492408798365735655
+    second: PlayerFadeOut_37
+  - first:
+      213: 820758483947239535
+    second: PlayerFadeOut_38
+  - first:
+      213: -375792736865271619
+    second: PlayerFadeOut_39
+  - first:
+      213: -4404164289066984531
+    second: PlayerFadeOut_40
+  - first:
+      213: -6533574696073840801
+    second: PlayerFadeOut_41
+  - first:
+      213: -202192303346052735
+    second: PlayerFadeOut_42
+  - first:
+      213: -2091501239924761355
+    second: PlayerFadeOut_43
+  - first:
+      213: 95794637740930935
+    second: PlayerFadeOut_44
+  - first:
+      213: 1081181195674601554
+    second: PlayerFadeOut_45
+  - first:
+      213: 4711701421436782834
+    second: PlayerFadeOut_46
+  - first:
+      213: 1490510476568716307
+    second: PlayerFadeOut_47
+  - first:
+      213: 689794491859122606
+    second: PlayerFadeOut_48
+  - first:
+      213: 6305818980915994924
+    second: PlayerFadeOut_49
+  - first:
+      213: 92760659945540711
+    second: PlayerFadeOut_50
+  - first:
+      213: -5122156739200253894
+    second: PlayerFadeOut_51
+  - first:
+      213: -7336821683013986278
+    second: PlayerFadeOut_52
+  - first:
+      213: -6002653133153066918
+    second: PlayerFadeOut_53
+  - first:
+      213: -7324039004809581613
+    second: PlayerFadeOut_54
+  - first:
+      213: 222666549054621493
+    second: PlayerFadeOut_55
+  - first:
+      213: -121171337802903834
+    second: PlayerFadeOut_56
+  - first:
+      213: -9093946241831104012
+    second: PlayerFadeOut_57
+  - first:
+      213: 4468842420216213363
+    second: PlayerFadeOut_58
+  - first:
+      213: -2738938797882685999
+    second: PlayerFadeOut_59
+  - first:
+      213: 8151880035390460945
+    second: PlayerFadeOut_60
+  - first:
+      213: 6060319144997004076
+    second: PlayerFadeOut_61
+  - first:
+      213: 4617614467252028400
+    second: PlayerFadeOut_62
+  - first:
+      213: -6795637901126243807
+    second: PlayerFadeOut_63
+  - first:
+      213: 3870943668834641573
+    second: PlayerFadeOut_64
+  - first:
+      213: -521314305821476877
+    second: PlayerFadeOut_65
+  - first:
+      213: -906139895883134005
+    second: PlayerFadeOut_66
+  - first:
+      213: -8811970653442499051
+    second: PlayerFadeOut_67
+  - first:
+      213: -7313315133672794268
+    second: PlayerFadeOut_68
+  - first:
+      213: 5514461249059070042
+    second: PlayerFadeOut_69
+  - first:
+      213: 4307222634346372466
+    second: PlayerFadeOut_70
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 70
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PlayerFadeOut_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 288
+        width: 144
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0528dec10d046a2e0800000000000000
+      internalID: -2114931712421166512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerFadeOut_1
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 288
+        width: 144
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc23ac631cc4da0f0800000000000000
+      internalID: -1104141940904283441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerFadeOut_2
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 288
+        width: 144
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8adaab57ce9036770800000000000000
+      internalID: 8602730624399879592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerFadeOut_3
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 288
+        width: 144
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af33968a469af97d0800000000000000
+      internalID: -2909420584470760454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerFadeOut_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 144
+        width: 144
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23888d6d35e354680800000000000000
+      internalID: -8771536169426450382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerFadeOut_5
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 144
+        width: 144
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3aa8111a8cf1ed20800000000000000
+      internalID: 3306201271389170239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerFadeOut_6
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 144
+        width: 144
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6974a54c6a6d75770800000000000000
+      internalID: 8599578025234417558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerFadeOut_7
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 144
+        width: 144
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88ba30ab1b8626eb0800000000000000
+      internalID: -4728101546246296696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerFadeOut_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 144
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d828142b411ccf1c0800000000000000
+      internalID: -4468484435624230259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerFadeOut_9
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 144
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c57875c6938a32400800000000000000
+      internalID: 298266964920862556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerFadeOut_10
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 144
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4aeabd920a9df390800000000000000
+      internalID: -7782895244999464369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerFadeOut_11
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 0
+        width: 144
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4598cf5c77ffe53e0800000000000000
+      internalID: -2062930689401255596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: afeddf254292c6e45bd2591b3e35bbf7
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":144.0,"y":144.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      PlayerFadeOut_0: -2114931712421166512
+      PlayerFadeOut_1: -1104141940904283441
+      PlayerFadeOut_10: -7782895244999464369
+      PlayerFadeOut_11: -2062930689401255596
+      PlayerFadeOut_2: 8602730624399879592
+      PlayerFadeOut_3: -2909420584470760454
+      PlayerFadeOut_4: -8771536169426450382
+      PlayerFadeOut_5: 3306201271389170239
+      PlayerFadeOut_6: 8599578025234417558
+      PlayerFadeOut_7: -4728101546246296696
+      PlayerFadeOut_8: -4468484435624230259
+      PlayerFadeOut_9: 298266964920862556
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

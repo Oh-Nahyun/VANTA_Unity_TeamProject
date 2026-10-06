@@ -71,7 +71,7 @@ public class SkillIndicator : MonoBehaviour
     public void ChoicedToAttack()
     {
         _isChoiced = true;
-        _objectSelector.EndSelect();
+        //_objectSelector.EndSelect();
         //_objectFocus.EndFocus();
         
         if (_objectSquash != null)

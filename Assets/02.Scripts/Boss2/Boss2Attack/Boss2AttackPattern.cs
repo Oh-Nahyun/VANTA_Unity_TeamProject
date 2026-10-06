@@ -75,6 +75,9 @@ public class Boss2AttackPattern : Boss2AttackBase
 
     [SerializeField]private GameObject _spinningSlashEffect;
 
+    [Header("사운드")]
+    [SerializeField] private GameObject _auraSlashSound;
+
 
     public bool IsPatternRunning => _currentAttackPatternType != Boss2AttackPatternType.None;
     public Boss2AttackPatternType CurrentAttackPatternType => _currentAttackPatternType;
@@ -530,35 +533,12 @@ public class Boss2AttackPattern : Boss2AttackBase
         }
     }
 
-    // 테스트: 진행 중인 행동을 정리하고 플레이어 방향으로 검기
-    private void TestBladeAura(SlashProjectileType type)
+    public void AuraSlashSoundPoint()
     {
-        PlayTestAttack(Boss2AttackPatternType.None);
-        ApplyAttackPattern(Boss2AttackPatternType.BladeAuraSlash, 1, type);
+        if (_auraSlashSound != null)
+        {
+            _auraSlashSound.GetComponent<SoundGenerator>().ActivateSound();
+        }
     }
-
-    [ContextMenu("Test/BladeAura Single")]
-    private void TestBladeAuraSingle() => TestBladeAura(SlashProjectileType.Single);
-
-    [ContextMenu("Test/BladeAura Triple")]
-    private void TestBladeAuraTriple() => TestBladeAura(SlashProjectileType.Triple);
-
-    [ContextMenu("Test/BladeAura All (8방향)")]
-    private void TestBladeAuraAll() => PlayTestAttack(Boss2AttackPatternType.BladeAuraSlashAll);
-
-    // ---- 테스트용: 플레이 중 컴포넌트 ⋮ 메뉴에서 실행 ----
-    [ContextMenu("Test/Combo 1")]
-    private void TestCombo1() => PlayTestAttack(Boss2AttackPatternType.ComboAttack);
-    
-    [ContextMenu("Test/Combo 5")]
-    private void TestCombo5() => PlayTestAttack(Boss2AttackPatternType.ComboAttack,5);
-
-    [ContextMenu("Test/Smash")]
-    private void TestSmash() => PlayTestAttack(Boss2AttackPatternType.SmashAttack);
-
-    [ContextMenu("Test/Spinning Slash")]
-    private void TestSpinningSlash() => PlayTestAttack(Boss2AttackPatternType.SpinningSlash);
-
-    [ContextMenu("Test/Spinning Slash In Place")]
-    private void TestSpinningSlashInPlace() => PlayTestAttack(Boss2AttackPatternType.SpinningSlashInPlace);
+   
 }

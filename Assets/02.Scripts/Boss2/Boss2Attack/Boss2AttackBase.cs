@@ -60,7 +60,9 @@ public class Boss2AttackBase : MonoBehaviour
     [Header("이펙트")]
     [Tooltip("보스 본체의 CinemachineImpulseSource. 비워두면 흔들지 않는다.")] 
     [SerializeField] private CinemachineImpulseSource _cameraImpulse;
-    
+
+    [Header("사운드")]
+    [SerializeField] private GameObject _slashSound;
 
     
     public bool IsAttacking => _currentHit >= 0;
@@ -465,4 +467,15 @@ public class Boss2AttackBase : MonoBehaviour
 
         transform.position = new Vector3(appearPosition.x, appearPosition.y, transform.position.z);
     }
+    
+
+    
+    public void SlashSoundPoint()
+    {
+        if (_slashSound != null)
+        {
+            _slashSound.GetComponent<SoundGenerator>().ActivateSound();
+        }
+    }
+
 }

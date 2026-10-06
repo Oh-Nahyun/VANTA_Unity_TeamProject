@@ -345,6 +345,17 @@ public class Boss2AttackBase : MonoBehaviour
         return damaged.Count;
     }
 
+    /// <summary>
+    /// 범위 판정 없이 대상 하나에게 바로 범위 공격 데미지(_areaOfEffectDamage)를 준다. 회피 실패처럼 맞을 대상이 이미 정해진 공격에 쓴다.
+    /// </summary>
+    protected void DealDirectDamage(GameObject target)
+    {
+        if (target == null)
+            return;
+
+        DeliverDamage(target, _areaOfEffectDamage);
+    }
+
     private void DeliverDamage(GameObject target, int damage)
     {
         // 지금 플레이어가 없는 관계로 데미지를 넘기는 더미로 대체

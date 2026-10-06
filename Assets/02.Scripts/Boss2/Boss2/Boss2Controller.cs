@@ -603,8 +603,8 @@ public class Boss2Controller : MonoBehaviour
             new Boss2Action
             {
                 Name = "근접 회전 반격", 
-                Move = Boss2MovePatternType.None, 
-                Attack = Boss2AttackPatternType.SpinningSlash,
+                Move = Boss2MovePatternType.None,
+                Attack = Boss2AttackPatternType.SpinningSlashInPlace,
                 DistanceMin = 0f, 
                 DistanceMax = 1.5f, 
                 HealthMax = 0.4f, 

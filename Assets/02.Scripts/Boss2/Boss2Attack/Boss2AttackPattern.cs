@@ -12,16 +12,15 @@ public class Boss2AttackPattern : Boss2AttackBase
     // Animator 의 상태 이름이자 클립 이름. 클립 길이만큼 기다렸다가 패턴을 끝낸다.
     [SerializeField] private string _smashStateName = "Boss2SmashAttack";
 
-    [Header("스피닝 슬래시")]
+    [Header("스피닝 슬래시 (순보 SpinningSlash / 제자리 SpinningSlashInPlace)")]
+    // 두 회전참이 같은 클립을 쓰고, 클립 이벤트에서 타입별로 동작을 나눈다.
     [SerializeField] private string _spinStateName = "Boss2SpecialAttack";
-    // 범위 반경. Boss2 를 선택하면 Scene 뷰에 원으로 보인다.
+    // 제자리 회전참의 범위 반경. Boss2 를 선택하면 Scene 뷰에 원으로 보인다.
     [SerializeField] private float _spinRadius = 1.5f;
     // 보스 피벗 기준 원 중심 위치
     [SerializeField] private Vector2 _spinCenterOffset = Vector2.zero;
     // 기본은 모든 레이어. 대상은 태그(Player)로 한 번 더 거른다.
     [SerializeField] private LayerMask _spinTargetLayers = ~0;
-    [Tooltip("켜면 반경 안의 플레이어에게 회피 입력(QTE)을 띄우고, 성공하면 데미지를 주지 않는다")]
-    [SerializeField] private bool _spinAvoidable = true;
     [Tooltip("사라졌다 나타날 때(SpinningSlashAppear 이벤트) 보이는 보스 그림의 중심이 대상 위로 얼마나 떨어질지")]
     [SerializeField] private float _spinAppearHeight = 1f;
     [Tooltip("회전베기 프레임(다시 보일 때)의 보스 그림 중심이 피벗에서 떨어진 거리. 그림이 칸 위쪽에 그려져 있다")]
@@ -137,6 +136,11 @@ public class Boss2AttackPattern : Boss2AttackBase
             case Boss2AttackPatternType.BladeAuraSlashAll:
             {
                 BladeAuraSlashAll();
+                break;
+            }
+            case Boss2AttackPatternType.SpinningSlashInPlace:
+            {
+                SpinningSlashInPlace();
                 break;
             }
         }
@@ -294,8 +298,8 @@ public class Boss2AttackPattern : Boss2AttackBase
     }
 
     /// <summary>
-    /// 제자리에서 회전하며 반경 안의 대상 전부에게 한 번 범위 데미지를 준다.
-    /// 판정 순간은 클립의 SpinningSlashHit 이벤트가 정한다.
+    /// 순보 회전참. 사라졌다가 플레이어 위로 순간이동해 회피 입력(Dodge QTE)을 띄운다.
+    /// 성공하면 데미지가 없고, 실패하면 회피 입력을 받은 플레이어에게 위치와 상관없이 데미지를 준다.
     /// </summary>
     public void SpinningSlash()
     {
@@ -305,7 +309,20 @@ public class Boss2AttackPattern : Boss2AttackBase
     }
 
     /// <summary>
+    /// 제자리 회전참. 순간이동·회피 입력 없이 그 자리에서 회전하며 반경 안의 대상 전부에게 한 번 범위 데미지를 준다.
+    /// 판정 순간은 클립의 SpinningSlashHit 이벤트가 정한다.
+    /// </summary>
+    public void SpinningSlashInPlace()
+    {
+        TryStartSingleAttack(Boss2AttackPatternType.SpinningSlashInPlace, _spinStateName, true);
+    }
+
+    private bool IsSpinning => _currentAttackPatternType == Boss2AttackPatternType.SpinningSlash
+        || _currentAttackPatternType == Boss2AttackPatternType.SpinningSlashInPlace;
+
+    /// <summary>
     /// Boss2SpecialAttack 클립에서 사라졌던 보스가 다시 보이기 직전의 애니메이션 이벤트에서 호출된다.
+    /// 순보 회전참만 순간이동한다. (제자리 회전참은 그 자리에서 다시 보인다)
     /// 사라져 있는 동안 플레이어가 움직였어도, 나타나는 순간의 플레이어 위로 순간이동한다.
     /// 회피 판정(SpinningSlashAvoidPoint)이 새 위치를 기준으로 하도록 그보다 먼저 와야 한다.
     /// </summary>
@@ -329,31 +346,51 @@ public class Boss2AttackPattern : Boss2AttackBase
 
     /// <summary>
     /// Boss2SpecialAttack 클립의 타격 직전 애니메이션 이벤트에서 호출된다.
-    /// 반경 안의 플레이어에게 피하기만 하는 회피 입력(Dodge QTE)을 띄우고, 결과가 올 때까지 보스 모션을 멈춘다.
+    /// 순보 회전참만, 거리와 상관없이 플레이어에게 피하기만 하는 회피 입력(Dodge QTE)을 띄우고 결과가 올 때까지 보스 모션을 멈춘다.
     /// 즉사기의 AvoidPoint 와 이름이 같으면 두 패턴이 함께 반응하므로 이름을 다르게 둔다.
     /// </summary>
     public void SpinningSlashAvoidPoint()
     {
-        if (_spinAvoidable == false || _currentAttackPatternType != Boss2AttackPatternType.SpinningSlash)
+        if (_currentAttackPatternType != Boss2AttackPatternType.SpinningSlash)
             return;
 
-        _avoidJudge.Begin(SpinCenter, _spinRadius, Boss2AvoidType.Dodge);
+        _avoidJudge.Begin(SpinCenter, 0f, Boss2AvoidType.Dodge);
     }
 
     /// <summary>
     /// Boss2SpecialAttack 클립의 애니메이션 이벤트에서 호출된다.
+    /// 제자리 회전참은 반경 안에 범위 데미지, 순보 회전참은 회피 실패한 플레이어에게 직접 데미지.
     /// </summary>
     public void SpinningSlashHit()
     {
+        if (IsSpinning == false)
+            return;
+
         // Effect
         //Instantiate(_spinningSlashEffect);
         _spinningSlashEffect.GetComponent<ParticleSystem>().Play();
 
-        // Damage: 회피에 성공했으면 주지 않는다.
-        if (_spinAvoidable && _avoidJudge.LastResult)
+        if (_currentAttackPatternType == Boss2AttackPatternType.SpinningSlashInPlace)
+        {
+            DealAreaDamage(SpinCenter, _spinRadius, _spinTargetLayers);
+            return;
+        }
+
+        // 순보 회전참: 회피에 성공했으면 주지 않는다.
+        if (_avoidJudge.LastResult)
             return;
 
-        DealAreaDamage(SpinCenter, _spinRadius, _spinTargetLayers);
+        // 회피 입력을 받을 수 있는 플레이어가 없었으면(PlayerAvoid 없는 더미 등) 범위 판정으로 대신한다.
+        if (_avoidJudge.Participants.Count == 0)
+        {
+            DealAreaDamage(SpinCenter, _spinRadius, _spinTargetLayers);
+            return;
+        }
+
+        foreach (GameObject player in _avoidJudge.Participants)
+        {
+            DealDirectDamage(player);
+        }
     }
 
     private void TryStartSingleAttack(Boss2AttackPatternType patternType, string stateName, bool blockMove)
@@ -521,4 +558,7 @@ public class Boss2AttackPattern : Boss2AttackBase
 
     [ContextMenu("Test/Spinning Slash")]
     private void TestSpinningSlash() => PlayTestAttack(Boss2AttackPatternType.SpinningSlash);
+
+    [ContextMenu("Test/Spinning Slash In Place")]
+    private void TestSpinningSlashInPlace() => PlayTestAttack(Boss2AttackPatternType.SpinningSlashInPlace);
 }

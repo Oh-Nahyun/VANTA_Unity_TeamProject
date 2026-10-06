@@ -214,7 +214,22 @@ public class PlayerMove : MonoBehaviour
                     _dashTween = null;
                 });
     }
+    public void StopPlayerMovement()
+    {
+        _dashTween?.Kill();
+        _dashTween = null;
 
+        _isDashing = false;
+
+        _moveDirection = Vector2.zero;
+
+        _rigidbody.linearVelocity = Vector2.zero;
+        _rigidbody.angularVelocity = 0f;
+
+        SetMoveAnimation(false);
+
+        _player.OnPlayerHittable();
+    }
     private float GetDashDistance(
         Vector2 direction,
         float distance)

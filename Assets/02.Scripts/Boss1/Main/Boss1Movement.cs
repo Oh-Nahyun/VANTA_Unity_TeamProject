@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.UIElements;
-
 public class Boss1Movement : MonoBehaviour, IBossMovable
 {
     [SerializeField] private float _normalChaseSpeed= 4f;

@@ -58,7 +58,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: 2411e6f0a24667a44a12fadcdcb6e7e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -149,7 +149,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: 2411e6f0a24667a44a12fadcdcb6e7e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -587,7 +587,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: 2411e6f0a24667a44a12fadcdcb6e7e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -800,7 +800,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: 2411e6f0a24667a44a12fadcdcb6e7e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1005,7 +1005,7 @@ GameObject:
   - component: {fileID: 8109099250593597371}
   - component: {fileID: 638726390486851493}
   - component: {fileID: 2839262255638538226}
-  m_Layer: 21
+  m_Layer: 8
   m_Name: SpitHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1127,7 +1127,7 @@ GameObject:
   - component: {fileID: 4095238899386842120}
   - component: {fileID: 6130388190563637053}
   - component: {fileID: 5818488566624348837}
-  m_Layer: 21
+  m_Layer: 8
   m_Name: ClawHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1256,7 +1256,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 2d8124d500000000cfa8f7eab577723d6301cbffe5d223216557971a2d46d711550b2519d51012403b15d5a0f7789f5c1758e3b5ff81ec05871673c46f9749d183e549d2ffbf219bf39d57be93489485
@@ -1279,8 +1279,8 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0.5
-  m_PointLightOuterRadius: 1.5
+  m_PointLightInnerRadius: 1
+  m_PointLightOuterRadius: 5
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -1349,7 +1349,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: 2411e6f0a24667a44a12fadcdcb6e7e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1582,7 +1582,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: 2411e6f0a24667a44a12fadcdcb6e7e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1639,6 +1639,7 @@ GameObject:
   - component: {fileID: 3619018780754979877}
   - component: {fileID: 2681289112121689932}
   - component: {fileID: 2846696346554286157}
+  - component: {fileID: 2552285932042894549}
   m_Layer: 21
   m_Name: Boss1
   m_TagString: Boss
@@ -1688,7 +1689,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &8031792694458176255
 BoxCollider2D:
@@ -2016,6 +2017,26 @@ MonoBehaviour:
   _visualPivot: {fileID: 9210076179707630864}
   _animator: {fileID: 192520389527177166}
   _jumpWarningZonePrefab: {fileID: 3349574119125732286, guid: 1541569aa2252d94580ecec63acfdfe7, type: 3}
+--- !u!114 &2552285932042894549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8279119010861365979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebdbae9070bfff54c9b62025159b0509, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss1HitFlash
+  _bodyRenderers:
+  - {fileID: 893110162044737656}
+  - {fileID: 1126790908906711496}
+  - {fileID: 1127222389669799434}
+  - {fileID: 7982885276898025428}
+  - {fileID: 5595718493614784077}
+  - {fileID: 6951695134325924738}
+  _flashDuration: 0.01
 --- !u!1 &8715783226715852835
 GameObject:
   m_ObjectHideFlags: 0

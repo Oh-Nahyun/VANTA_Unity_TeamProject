@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
 
 public class Player : MonoBehaviour
@@ -26,7 +27,9 @@ public class Player : MonoBehaviour
     [Header("사망 시 조명 반경")]
     [SerializeField] private float _deathLightRadius = 0.3f;
     [SerializeField] private float _deathLightShrinkDuration = 0.7f;
-    
+
+    [Header("사망 시 이벤트 바인딩")]
+    [SerializeField] private UnityEvent _deathEvent;
     private float _curTime;
 
     private bool _isHitCoolTime;
@@ -321,22 +324,40 @@ private void DeathEffect()
         DOVirtual.DelayedCall(1f, () =>
         {
             if (_deathLight == null)
+            {
+                _deathEvent?.Invoke();
                 return;
+            }
 
             float duration = 0.5f;
-            float startOuterRadius = _deathLight.pointLightOuterRadius;
-            float startInnerRadius = _deathLight.pointLightInnerRadius;
+            float startOuterRadius =
+                _deathLight.pointLightOuterRadius;
 
-            DOVirtual.Float(1f, 0f, duration, value =>
-                {
-                    if (_deathLight == null)
-                        return;
+            float startInnerRadius =
+                _deathLight.pointLightInnerRadius;
 
-                    _deathLight.pointLightInnerRadius = startInnerRadius * value;
-                    _deathLight.pointLightOuterRadius = startOuterRadius * value;
-                })
+            DOVirtual.Float(
+                    1f,
+                    0f,
+                    duration,
+                    value =>
+                    {
+                        if (_deathLight == null)
+                            return;
+
+                        _deathLight.pointLightInnerRadius =
+                            startInnerRadius * value;
+
+                        _deathLight.pointLightOuterRadius =
+                            startOuterRadius * value;
+                    })
                 .SetEase(Ease.InOutSine)
-                .SetUpdate(true);
+                .SetUpdate(true)
+                .OnComplete(() =>
+                {
+                    _deathEvent?.Invoke();
+                });
+
         }, true);
     });
 }

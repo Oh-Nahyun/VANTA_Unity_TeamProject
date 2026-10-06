@@ -8,7 +8,7 @@ public class SkillIndicatorAttack : MonoBehaviour
     [Header("Attack")]
     [SerializeField] private float _attackDuration = 0.25f;
     [SerializeField] private float _attackDamage = 10f;
-
+    [SerializeField]float _randomAttackRange = 1f;
     [Header("Circle Movement")]
     [SerializeField] private float _attackCurve = 0.4f;
     [SerializeField] private float _returnCurve = 0.4f;
@@ -135,8 +135,16 @@ public class SkillIndicatorAttack : MonoBehaviour
         Vector3 startPosition =
             transform.position;
 
+        
+
         Vector3 targetPosition =
-            target.transform.position;
+            target.transform.position +
+            new Vector3(
+                Random.Range(-_randomAttackRange, _randomAttackRange),
+                Random.Range(-_randomAttackRange, _randomAttackRange),
+                0f
+            );
+        
 
         Vector3 direction =
             (targetPosition - startPosition).normalized;

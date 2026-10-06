@@ -638,6 +638,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSpot Light 2D
       objectReference: {fileID: 0}
+    - target: {fileID: 4102109235389495285, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 2097152
+      objectReference: {fileID: 0}
     - target: {fileID: 4495319775031833695, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _targetCamera
       value: 

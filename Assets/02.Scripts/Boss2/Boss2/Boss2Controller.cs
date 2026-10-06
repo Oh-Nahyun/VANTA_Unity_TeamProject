@@ -55,6 +55,8 @@ public class Boss2Controller : MonoBehaviour
     private Boss2MovePattern _move;
     private Boss2AttackPattern _attack;
     private Boss2SkillPattern _skill;
+    // 없어도 된다. 있으면 GhostTrail 행동의 이동·공격 동안 켠다.
+    private Boss2GhostTrail _ghostTrail;
 
     private Boss2State _state = Boss2State.Idle;
     private float _stateEnterTime;
@@ -79,6 +81,7 @@ public class Boss2Controller : MonoBehaviour
         _move = GetComponent<Boss2MovePattern>();
         _attack = GetComponent<Boss2AttackPattern>();
         _skill = GetComponent<Boss2SkillPattern>();
+        _ghostTrail = GetComponent<Boss2GhostTrail>();
 
         _aoeTriggered = new bool[_aoeHealthThresholds.Length];
     }
@@ -498,23 +501,24 @@ public class Boss2Controller : MonoBehaviour
         {
             _boss.SetInvincible(IsInvincibleIn(next));
         }
+
+        // 고스트 트레일도 무적과 같은 규칙으로 행동의 이동·공격 동안만 켠다.
+        if (_ghostTrail != null)
+        {
+            _ghostTrail.SetFsmTrail(IsActionPhase(next) && _currentAction.GhostTrail);
+        }
     }
 
     // 무적 행동은 이동부터 공격이 끝날 때까지 무적. Think · Recover · Idle · Dead 에서는 해제된다.
     private bool IsInvincibleIn(Boss2State state)
     {
-        switch (state)
-        {
-            case Boss2State.Move:
-            case Boss2State.Attack:
-            {
-                return _currentAction != null && _currentAction.IsInvincible;
-            }
-            default:
-            {
-                return false;
-            }
-        }
+        return IsActionPhase(state) && _currentAction.IsInvincible;
+    }
+
+    // 행동(이동 → 공격)이 진행 중인 상태인지
+    private bool IsActionPhase(Boss2State state)
+    {
+        return _currentAction != null && (state == Boss2State.Move || state == Boss2State.Attack);
     }
 
     // ---- 피격 ----
@@ -582,10 +586,11 @@ public class Boss2Controller : MonoBehaviour
                 Name = "추격 강타", 
                 Move = Boss2MovePatternType.ChaseRun, 
                 Attack = Boss2AttackPatternType.SmashAttack,
-                DistanceMin = 1.5f, 
-                DistanceMax = 100f, 
+                DistanceMin = 1.5f,
+                DistanceMax = 100f,
                 Cooldown = 6f,
                 IsInvincible = true,
+                GhostTrail = true,
                 Weight = 4f,
             },
             new Boss2Action
@@ -595,9 +600,10 @@ public class Boss2Controller : MonoBehaviour
                 Attack = Boss2AttackPatternType.SpinningSlash,
                 DistanceMin = 1.5f, 
                 DistanceMax = 100f, 
-                HealthMax = 0.7f, 
+                HealthMax = 0.7f,
                 Cooldown = 8f,
                 IsInvincible = true,
+                GhostTrail = true,
                 Weight = 3f,
             },
             new Boss2Action

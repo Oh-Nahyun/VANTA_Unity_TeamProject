@@ -1143,8 +1143,8 @@ Transform:
   m_GameObject: {fileID: 6249850835482319577}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.1, y: 0.91, z: 0}
-  m_LocalScale: {x: 1.219236, y: 1.9414634, z: 1}
+  m_LocalPosition: {x: 2.1, y: 0.66, z: 0}
+  m_LocalScale: {x: 1.319951, y: 2.1900403, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9210076179707630864}
@@ -1763,13 +1763,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d2ea75177a010468f395448c928f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1Movement
-  _normalChaseSpeed: 1.5
+  _normalChaseSpeed: 1.2
   _aggressiveChaseSpeed: 4
   _stopDistance: 2.5
   _yTolerance: 0.2
   _animator: {fileID: 192520389527177166}
   _visualPivot: {fileID: 9210076179707630864}
   _horizontalFlip: 0.42
+  _moveSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1.1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.25
+      value: 0.9
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 1.1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.67
+      value: 0.9
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1.1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _animationReferenceSpeed: 1.1
+  _animationSpeedFollowRatio: 0.5
 --- !u!114 &6958992141590794150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1917,7 +1970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 584929f51a598484e8bf086a9fe14f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1MeleePattern
-  _weight: 10
+  _weight: 500
   _meleeAttacks:
   - _attackBehaviour: {fileID: 3060184153963347236}
     _weight: 10

@@ -24,7 +24,7 @@ public class PlayerMove : MonoBehaviour
     private Animator _animator;
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
-
+    private Player _player;
     private bool _isDashing;
 
     private Tween _dashTween;
@@ -35,6 +35,7 @@ public class PlayerMove : MonoBehaviour
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
+        _player=GetComponent<Player>();
     }
 
     private void Update()
@@ -184,7 +185,7 @@ public class PlayerMove : MonoBehaviour
         direction.Normalize();
 
         _isDashing = true;
-
+        _player.OffPlayerHittable();
         float availableDistance =
             GetDashDistance(
                 direction,
@@ -208,6 +209,8 @@ public class PlayerMove : MonoBehaviour
                 .OnComplete(() =>
                 {
                     _isDashing = false;
+                    _player.OnPlayerHittable();
+
                     _dashTween = null;
                 });
     }

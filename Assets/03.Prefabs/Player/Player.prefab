@@ -10076,7 +10076,7 @@ GameObject:
   - component: {fileID: 3386699539412082978}
   - component: {fileID: 3588000712453903779}
   m_Layer: 0
-  m_Name: Spot Light 2D
+  m_Name: PlayerSpot Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20065,6 +20065,7 @@ Transform:
   - {fileID: 3035129069256369356}
   - {fileID: 7265169187209551804}
   - {fileID: 3386699539412082978}
+  - {fileID: 5987175310829146532}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2090054125781608419
@@ -20161,16 +20162,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _health: 2
-  _hitCoolTime: 2
+  _hitCoolTime: 4
   _hitVfx: {fileID: 2955623459812423943, guid: e6f4b5929f28cae4994fbb10fadead7a, type: 3}
   _deathVfx: {fileID: 2955623459812423943, guid: 268983da5ec965d468fa4fde6b11266d, type: 3}
-  _damagedSlowAmount: 0.1
+  _damagedSlowAmount: 0.15
   _damagedSlowInDuration: 1.5
   _damagedSlowHoldDuration: 0.15
   _damagedSlowRecoverDuration: 1
   _deathLight: {fileID: 3588000712453903779}
   _deathLightRadius: 1
   _deathLightShrinkDuration: 0.7
+  _deathEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6093219973355731838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20216,7 +20220,7 @@ MonoBehaviour:
   _slashEffect: {fileID: 3042519775331041172, guid: 1a3c2ecb0f269ad4095c2651c8462a0e, type: 3}
   _doubleSlashEffect: {fileID: 4306488877223958017, guid: f2b2174306f2a7a4cae5fb635c05c0aa, type: 3}
   _skillIndicatorController: {fileID: 4399322351995847099}
-  _skillManager: {fileID: 0}
+  _skillManager: {fileID: 4902766636836062051}
 --- !u!50 &4102109235389495285
 Rigidbody2D:
   serializedVersion: 5
@@ -20239,7 +20243,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2097344
+    m_Bits: 2097152
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -20344,9 +20348,13 @@ MonoBehaviour:
   _brokenFullScreenFeature: {fileID: -3509418064757597372, guid: 424799608f7334c24bf367e4bbfa7f9a, type: 2}
   _hurtMaterial: {fileID: 2100000, guid: 9c906798ae64fac40bc6327f0880896e, type: 2}
   _crackIntensity: 0.02
-  _crackDistortion: 0.005
+  _crackDistortion: 0.07
   _crackGlowIntensity: 0.4
   _brokenDuration: 0.2
+  _deathCrackIntensity: 1
+  _deathCrackDistortion: 1
+  _deathCrackGlowIntensity: 0.4
+  _deathBrokenDuration: 0.5
 --- !u!114 &8028567086285024404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20382,12 +20390,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97e907b4aea9643a5a883f9ec32459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFinisher
+  _finisherDuration: 3
   _slowAmount: 0.2
-  _avoidZoomAmount: 1.5
-  _avoidDuration: 4
-  _dashDistance: 1.5
-  _avoidDashDuration: 0.5
-  _attackPassDistance: 1.5
+  _slashRadius: 2.5
+  _dashDuration: 0.12
+  _repositionDuration: 0.04
+  _finisherZoomAmount: 1.5
+  _finalLight: {fileID: 3588000712453903779}
+  _finalLightRadius: 1
+  _finalLightShrinkDuration: 0.3
   _focusScreenController: {fileID: 1332611649402532543}
 --- !u!1 &4629908935146602055
 GameObject:
@@ -25687,6 +25698,113 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!1 &6672759776011030664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5987175310829146532}
+  - component: {fileID: 5070296840551672591}
+  - component: {fileID: 31402728142932421}
+  m_Layer: 14
+  m_Name: PlayerShadow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5987175310829146532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672759776011030664}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 651033612902867162}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &5070296840551672591
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672759776011030664}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 0.4528302, g: 0.42933428, b: 0.42933428, a: 0.5686275}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &31402728142932421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672759776011030664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ee99ab02fb39443bc91b6a4354dce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectShadowController
+  _targetRenderer: {fileID: 2090054125781608419}
+  _shadowRenderer: {fileID: 5070296840551672591}
+  _shadowOffset: {x: 0, y: -0.4}
 --- !u!1 &6913804903665789761
 GameObject:
   m_ObjectHideFlags: 0

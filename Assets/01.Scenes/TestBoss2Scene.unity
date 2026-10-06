@@ -543,7 +543,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 57864106689596397, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.1041381
+      value: -3.1049492
       objectReference: {fileID: 0}
     - target: {fileID: 57864106689596397, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1089,13 +1089,9 @@ PrefabInstance:
       propertyPath: _globalLight
       value: 
       objectReference: {fileID: 619394801}
-    - target: {fileID: 5667757336281504092, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5667757336281504092, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: m_TagString
-      value: BossBullet
+    - target: {fileID: 7543237873420159181, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: m_FalloffIntensity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

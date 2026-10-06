@@ -60,7 +60,9 @@ public class Boss2AttackBase : MonoBehaviour
     [Header("이펙트")]
     [Tooltip("보스 본체의 CinemachineImpulseSource. 비워두면 흔들지 않는다.")] 
     [SerializeField] private CinemachineImpulseSource _cameraImpulse;
-    
+
+    [Header("사운드")]
+    [SerializeField] private GameObject _slashSound;
 
     
     public bool IsAttacking => _currentHit >= 0;
@@ -345,6 +347,17 @@ public class Boss2AttackBase : MonoBehaviour
         return damaged.Count;
     }
 
+    /// <summary>
+    /// 범위 판정 없이 대상 하나에게 바로 범위 공격 데미지(_areaOfEffectDamage)를 준다. 회피 실패처럼 맞을 대상이 이미 정해진 공격에 쓴다.
+    /// </summary>
+    protected void DealDirectDamage(GameObject target)
+    {
+        if (target == null)
+            return;
+
+        DeliverDamage(target, _areaOfEffectDamage);
+    }
+
     private void DeliverDamage(GameObject target, int damage)
     {
         // 지금 플레이어가 없는 관계로 데미지를 넘기는 더미로 대체
@@ -454,4 +467,15 @@ public class Boss2AttackBase : MonoBehaviour
 
         transform.position = new Vector3(appearPosition.x, appearPosition.y, transform.position.z);
     }
+    
+
+    
+    public void SlashSoundPoint()
+    {
+        if (_slashSound != null)
+        {
+            _slashSound.GetComponent<SoundGenerator>().ActivateSound();
+        }
+    }
+
 }

@@ -124,6 +124,11 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 1237226069521675108, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
   m_PrefabInstance: {fileID: 1393359851}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &427643390 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 641561829333948831, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+  m_PrefabInstance: {fileID: 3534419576666443009}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &549925208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -533,6 +538,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1091004337 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2730437308857772986, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+  m_PrefabInstance: {fileID: 3534419576666443009}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1393359851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -543,7 +553,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 57864106689596397, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.1041381
+      value: -3.1081026
       objectReference: {fileID: 0}
     - target: {fileID: 57864106689596397, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -677,6 +687,10 @@ PrefabInstance:
       propertyPath: _targetCamera
       value: 
       objectReference: {fileID: 285070221}
+    - target: {fileID: 1527369805069074017, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _canvas
+      value: 
+      objectReference: {fileID: 2139010139}
     - target: {fileID: 2424616315455123119, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _petAttack
       value: 
@@ -1081,10 +1095,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss2
       objectReference: {fileID: 0}
+    - target: {fileID: 4827965982157604352, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _auraSlashSound
+      value: 
+      objectReference: {fileID: 427643390}
     - target: {fileID: 5604903214433855731, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: _globalLight
       value: 
       objectReference: {fileID: 619394801}
+    - target: {fileID: 9214237589838081223, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _hitSound
+      value: 
+      objectReference: {fileID: 1091004337}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -139,6 +139,25 @@ public class SkillAttack : MonoBehaviour
 
         CompleteDashSequence(onComplete);
     }
+    
+    public void FinishDash(
+        Vector2 targetPosition,float amount,
+        Action onComplete)
+    {
+        if (_rigidbody == null)
+            return;
+
+        StartDashSequence();
+
+        FinisherDash(
+            targetPosition,
+            null,
+            amount
+        );
+
+        CompleteDashSequence(onComplete);
+    }
+    
 
     private void StartDashSequence()
     {
@@ -235,7 +254,81 @@ public class SkillAttack : MonoBehaviour
             _dashWaitTime
         );
     }
+    private void FinisherDash(
+        Vector2 targetPosition,
+        Action dashComplete,
+        float amount )
+    {
+        Vector2 dashStartPosition = Vector2.zero;
 
+        _dashSequence.AppendCallback(() =>
+        {
+            dashStartPosition = _rigidbody.position;
+
+            Vector2 moveDirection =
+                targetPosition - _rigidbody.position;
+
+            if (Mathf.Abs(moveDirection.x) > 0.01f)
+            {
+                _spriteRenderer.flipX =
+                    moveDirection.x < 0f;
+            }
+
+            _skillDashScreenController
+                .StartDashScreenSetting(moveDirection);
+
+            Time.timeScale = _dashTimeSlow;
+
+            Instantiate(
+                _skillDashStartVfxPrefab,
+                transform.position,
+                Quaternion.identity
+            );
+        });
+
+        _dashSequence.AppendInterval(_dashWaitTime);
+
+        _dashSequence.AppendCallback(() =>
+        {
+            Time.timeScale = 1f;
+        });
+
+        _dashSequence.Append(
+            _rigidbody
+                .DOMove(
+                    targetPosition,
+                    _dashDuration
+                )
+                .SetEase(_dashEase)
+        );
+
+        _dashSequence.AppendCallback(() =>
+        {
+            Vector2 dashEndPosition =
+                _rigidbody.position;
+
+            _animator.SetTrigger(
+                "OneDashSkill"
+            );
+            
+            _skillDashScreenController
+                .EndDashScreenSetting();
+
+            Instantiate(
+                _skillDashEndVfxPrefab,
+                transform.position,
+                Quaternion.identity
+            );
+            
+            _skillDashSlashScreenController
+                .PlayFinishSlash(dashStartPosition,dashEndPosition,amount);
+            dashComplete?.Invoke();
+        });
+
+        _dashSequence.AppendInterval(
+            _dashWaitTime
+        );
+    }
     private void CompleteDashSequence(
         Action onComplete)
     {

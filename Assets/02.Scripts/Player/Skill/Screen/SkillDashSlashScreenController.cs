@@ -195,7 +195,71 @@ public class SkillDashSlashScreenController : MonoBehaviour
                     _slashTween = null;
                 });
     }
+    public void PlayFinishSlash(
+        Vector2 worldStart,
+        Vector2 worldEnd,
+        float amount)
+    {
+        if (_runtimeSlashMaterial == null ||
+            _targetCamera == null)
+        {
+            return;
+        }
 
+        Color slashColor = Color.Lerp(
+            _normalColor,
+            _finisherColor,
+            Mathf.Clamp01(amount)
+        );
+
+        _runtimeSlashMaterial.SetColor(
+            SlashColorID,
+            slashColor
+        );
+
+        // 이하 기존 코드 그대로
+        Vector3 startViewport3 =
+            _targetCamera.WorldToViewportPoint(worldStart);
+
+        Vector3 endViewport3 =
+            _targetCamera.WorldToViewportPoint(worldEnd);
+
+        Vector2 startViewport =
+            new Vector2(startViewport3.x, startViewport3.y);
+
+        Vector2 endViewport =
+            new Vector2(endViewport3.x, endViewport3.y);
+
+        Vector2 direction = endViewport - startViewport;
+
+        if (direction.sqrMagnitude <= 0f)
+            return;
+
+        direction.Normalize();
+
+        Vector2 normal =
+            new Vector2(-direction.y, direction.x);
+
+        Vector2 center =
+            (startViewport + endViewport) * 0.5f;
+
+        _runtimeSlashMaterial.SetVector(SlashCenterID, center);
+        _runtimeSlashMaterial.SetVector(SlashNormalID, normal);
+
+        _slashTween?.Kill();
+
+        _runtimeSlashMaterial.SetFloat(SlashProgressID, 0f);
+
+        _slashTween = _runtimeSlashMaterial
+            .DOFloat(1f, SlashProgressID, _slashDuration)
+            .SetEase(Ease.Linear)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                _runtimeSlashMaterial.SetFloat(SlashProgressID, 0f);
+                _slashTween = null;
+            });
+    }
     private void OnDestroy()
     {
         _slashTween?.Kill();

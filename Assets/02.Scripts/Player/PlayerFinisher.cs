@@ -295,9 +295,13 @@ public class PlayerFinisher : MonoBehaviour
         Debug.Log(
             $"Final Charge Ratio : {_finalChargeRatio}"
         );
-
-        _skillAttack.SingleDash(
-            targetPosition,
+        float chargeRatio =
+            Mathf.Clamp01(
+                (float)_currentChargeCount /
+                _maxChargeCount
+            );
+        _skillAttack.FinishDash(
+            targetPosition,chargeRatio,
             FinisherEnd
         );
     }

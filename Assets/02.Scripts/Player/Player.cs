@@ -188,6 +188,11 @@ private void DeathEffect()
 
         _playerStatusManager.PlayerControlOff();
 
+        if (_brokenWidowScreenController != null)
+        {
+            _brokenWidowScreenController.ApplyDeathBroken();
+        }
+        
     // 기존 피격 슬로우 종료
     _damagedSlowSequence?.Kill();
     _damagedSlowSequence = null;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerFinisher : MonoBehaviour
 {
-    [Header("Screen Split")]
+    [Header("Screen Split - 최대 차징 기준")]
     [SerializeField] private Material _screenSplitMaterial;
     [SerializeField] private float _splitAmount = 0.05f;
     [SerializeField] private float _lineWidth = 0.003f;
@@ -19,11 +19,12 @@ public class PlayerFinisher : MonoBehaviour
     [SerializeField] private SkillAttack _skillAttack;
     [SerializeField] private SkillFocusScreenController _skillFocusScreenController;
     [SerializeField] private GameObject _finisherVfx;
+    [SerializeField] private PlayerAvoidKeyGenerator _playerAvoidKeyGenerator;
 
     [Header("Charging")]
     [SerializeField] private GameObject _chargingObject;
     [SerializeField] private float _chargingDuration = 2f;
-    [SerializeField] private int _maxChargeCount = 10;
+    [SerializeField, Min(1)] private int _maxChargeCount = 10;
     [SerializeField] private float _chargeScaleDuration = 0.08f;
     [SerializeField] private float _chargingShrinkDuration = 0.08f;
 
@@ -54,7 +55,6 @@ public class PlayerFinisher : MonoBehaviour
     private Tween _chargingTimerTween;
 
     private float _currentShakeForce;
-
     private int _currentChargeCount;
     private float _finalChargeRatio;
 
@@ -85,6 +85,15 @@ public class PlayerFinisher : MonoBehaviour
 
     public void StartFinisher()
     {
+        if (_isFinisherStarted)
+            return;
+
+        HitableObject hitableObject =
+            FindAnyObjectByType<HitableObject>();
+
+        if (hitableObject == null)
+            return;
+
         _isFinisherStarted = true;
 
         PlayerMove playerMove =
@@ -99,23 +108,13 @@ public class PlayerFinisher : MonoBehaviour
 
         _animator.SetTrigger("StartFinisher");
 
-        HitableObject hitableObject =
-            FindAnyObjectByType<HitableObject>();
-
-        if (hitableObject == null)
-        {
-            _isFinisherStarted = false;
-            return;
-        }
-
         ObjectFocus objectFocus =
             hitableObject.GetComponent<ObjectFocus>();
 
         if (objectFocus == null)
         {
             objectFocus =
-                hitableObject.gameObject
-                    .AddComponent<ObjectFocus>();
+                hitableObject.gameObject.AddComponent<ObjectFocus>();
         }
 
         objectFocus.StartFocus();
@@ -125,16 +124,17 @@ public class PlayerFinisher : MonoBehaviour
 
         bossMovable?.MoveBlock();
 
+        _playerAvoidKeyGenerator.CreateFinisherKey();
+
         CameraFocusingController.Instance.SlowFocus(
             transform,
             0.8f,
             _chargingDuration
         );
 
-        _skillFocusScreenController
-            .StartFocusScreenSetting(
-                StartCharging
-            );
+        _skillFocusScreenController.StartFocusScreenSetting(
+            StartCharging
+        );
     }
 
     private void StartCharging()
@@ -143,23 +143,22 @@ public class PlayerFinisher : MonoBehaviour
 
         _currentChargeCount = 0;
         _finalChargeRatio = 0f;
-
-        _currentShakeForce =
-            _startShakeForce;
+        _currentShakeForce = _startShakeForce;
 
         _isCharging = true;
 
-        _chargingObject.SetActive(true);
-
-        _chargingObject.transform.localScale =
-            Vector3.zero;
+        if (_chargingObject != null)
+        {
+            _chargingObject.SetActive(true);
+            _chargingObject.transform.localScale = Vector3.zero;
+        }
 
         _chargingTimerTween =
             DOVirtual.DelayedCall(
-                    _chargingDuration,
-                    ChargingComplete
-                )
-                .SetUpdate(true);
+                _chargingDuration,
+                ChargingComplete
+            )
+            .SetUpdate(true);
     }
 
     private void AddCharge()
@@ -167,20 +166,20 @@ public class PlayerFinisher : MonoBehaviour
         if (!_isCharging)
             return;
 
-        if (_currentChargeCount >= _maxChargeCount)
+        int maxChargeCount =
+            Mathf.Max(1, _maxChargeCount);
+
+        if (_currentChargeCount >= maxChargeCount)
             return;
 
         _currentChargeCount++;
 
         float chargeRatio =
             Mathf.Clamp01(
-                (float)_currentChargeCount /
-                _maxChargeCount
+                (float)_currentChargeCount / maxChargeCount
             );
 
-        UpdateChargeVisual(
-            chargeRatio
-        );
+        UpdateChargeVisual(chargeRatio);
 
         _currentShakeForce =
             Mathf.Lerp(
@@ -197,13 +196,18 @@ public class PlayerFinisher : MonoBehaviour
         }
 
         Debug.Log(
-            $"Charge : {_currentChargeCount}/{_maxChargeCount} " +
+            $"Charge : {_currentChargeCount}/{maxChargeCount} " +
             $"({chargeRatio * 100f:0}%)"
         );
+
+        // 최대 차징에 도달하면 즉시 완료하고 대시.
+        if (_currentChargeCount >= maxChargeCount)
+        {
+            ChargingComplete();
+        }
     }
 
-    private void UpdateChargeVisual(
-        float chargeRatio)
+    private void UpdateChargeVisual(float chargeRatio)
     {
         if (_chargingObject == null)
             return;
@@ -225,15 +229,24 @@ public class PlayerFinisher : MonoBehaviour
 
     private void ChargingComplete()
     {
+        // 타이머와 최대 차징이 겹쳐도 한 번만 실행.
         if (!_isCharging)
             return;
 
         _isCharging = false;
 
+        _chargingTimerTween?.Kill();
+        _chargingTimerTween = null;
+
+        _chargingTween?.Kill();
+        _chargingTween = null;
+
+        _playerAvoidKeyGenerator.ClearAlarmKeyPad();
+
         _finalChargeRatio =
             Mathf.Clamp01(
                 (float)_currentChargeCount /
-                _maxChargeCount
+                Mathf.Max(1, _maxChargeCount)
             );
 
         Debug.Log(
@@ -242,27 +255,29 @@ public class PlayerFinisher : MonoBehaviour
             $"({_finalChargeRatio * 100f:0}%)"
         );
 
-        _chargingTimerTween?.Kill();
-        _chargingTimerTween = null;
+        if (_chargingObject != null)
+        {
+            // 확정된 차징 크기에서 축소 시작.
+            _chargingObject.transform.localScale =
+                Vector3.one * _finalChargeRatio;
 
-        _chargingTween?.Kill();
+            _chargingTween =
+                _chargingObject.transform
+                    .DOScale(
+                        Vector3.zero,
+                        _chargingShrinkDuration
+                    )
+                    .SetEase(Ease.InQuad)
+                    .SetUpdate(true)
+                    .OnComplete(() =>
+                    {
+                        _chargingObject.SetActive(false);
+                        _chargingTween = null;
+                    });
+        }
 
-        _chargingTween =
-            _chargingObject.transform
-                .DOScale(
-                    Vector3.zero,
-                    _chargingShrinkDuration
-                )
-                .SetEase(Ease.InQuad)
-                .SetUpdate(true)
-                .OnComplete(() =>
-                {
-                    _chargingObject.SetActive(false);
-
-                    _chargingTween = null;
-
-                    AttackToBoss();
-                });
+        // 오브젝트 축소 완료를 기다리지 않고 즉시 대시.
+        AttackToBoss();
     }
 
     private void AttackToBoss()
@@ -280,44 +295,37 @@ public class PlayerFinisher : MonoBehaviour
             boss.transform.position;
 
         Vector2 attackDirection =
-            (
-                bossPosition -
-                startPosition
-            ).normalized;
+            (bossPosition - startPosition).normalized;
 
         Vector2 targetPosition =
-            bossPosition +
-            attackDirection * 2f;
+            bossPosition + attackDirection * 2f;
 
-        _finisherDashStart =
-            startPosition;
+        _finisherDashStart = startPosition;
 
         Debug.Log(
             $"Final Charge Ratio : {_finalChargeRatio}"
         );
-        float chargeRatio =
-            Mathf.Clamp01(
-                (float)_currentChargeCount /
-                _maxChargeCount
-            );
+        Instantiate(_finisherVfx, bossPosition, Quaternion.identity);
+
         _skillAttack.FinishDash(
-            targetPosition,chargeRatio,
+            targetPosition,
+            _finalChargeRatio,
             FinisherEnd
         );
     }
 
     private void FinisherEnd()
     {
-        Camera cam =
-            Camera.main;
+        Camera cam = Camera.main;
 
-        if (
-            cam == null ||
-            _screenSplitMaterial == null
-        )
+        if (cam == null || _screenSplitMaterial == null)
         {
             return;
         }
+
+        // 이전 트윈을 먼저 중지하고 초기값 설정.
+        _screenSplitTween?.Kill();
+        _screenSplitTween = null;
 
         Vector2 finisherDashEnd =
             transform.position;
@@ -344,6 +352,7 @@ public class PlayerFinisher : MonoBehaviour
                 endViewport.y
             );
 
+
         _screenSplitMaterial.SetVector(
             DashStartID,
             dashStart
@@ -369,16 +378,25 @@ public class PlayerFinisher : MonoBehaviour
             1f
         );
 
-        _screenSplitTween?.Kill();
+        // 최종 차징 결과에 따라 화면 분리량과 선 두께 결정.
+        float chargeRatio =
+            Mathf.Clamp01(_finalChargeRatio);
+
+        float targetSplitAmount =
+            _splitAmount * chargeRatio;
+
+        float targetLineWidth =
+            _lineWidth * chargeRatio;
 
         Sequence sequence =
             DOTween.Sequence()
                 .SetUpdate(true);
 
+        
         sequence.Append(
             _screenSplitMaterial
                 .DOFloat(
-                    _splitAmount,
+                    targetSplitAmount,
                     SplitAmountID,
                     _splitOpenDuration
                 )
@@ -388,7 +406,7 @@ public class PlayerFinisher : MonoBehaviour
         sequence.Join(
             _screenSplitMaterial
                 .DOFloat(
-                    _lineWidth,
+                    targetLineWidth,
                     LineWidthID,
                     _splitOpenDuration
                 )
@@ -443,8 +461,7 @@ public class PlayerFinisher : MonoBehaviour
             _isFinisherStarted = false;
         });
 
-        _screenSplitTween =
-            sequence;
+        _screenSplitTween = sequence;
     }
 
     private void StopCharging()
@@ -467,7 +484,6 @@ public class PlayerFinisher : MonoBehaviour
             return;
 
         _screenSplitTween?.Kill();
-
         _screenSplitTween = null;
 
         _screenSplitMaterial.SetFloat(

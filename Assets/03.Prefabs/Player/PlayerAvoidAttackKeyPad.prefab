@@ -67,15 +67,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC6B0\uD074\uB9AD"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c001df918ee2cbb4cb96092871c7bfff, type: 2}
-  m_sharedMaterial: {fileID: 865699552812866727, guid: c001df918ee2cbb4cb96092871c7bfff, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 613e47e0ec640e245bd5fbb61c0e977d, type: 2}
+  m_sharedMaterial: {fileID: 7880990028077831163, guid: 613e47e0ec640e245bd5fbb61c0e977d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294046193
-  m_fontColor: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
+    rgba: 4294957919
+  m_fontColor: {r: 0.3726415, g: 0.8607676, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -294,7 +294,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2053879661
   m_SortingLayer: 18
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8646562429103647828, guid: baac8aafe94c5ab4fa5f4f419d50a03f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -385,7 +385,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -2053879661
   m_SortingLayer: 18
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8646562429103647828, guid: baac8aafe94c5ab4fa5f4f419d50a03f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

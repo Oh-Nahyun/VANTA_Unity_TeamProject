@@ -570,6 +570,10 @@ PrefabInstance:
       propertyPath: _canvas
       value: 
       objectReference: {fileID: 1379121724}
+    - target: {fileID: 1527369805069074017, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _alarmFinisherKeyPad
+      value: 
+      objectReference: {fileID: 3585278104208373336, guid: 98370611893c0324f8e613b298f84241, type: 3}
     - target: {fileID: 2424616315455123119, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _petAttack
       value: 
@@ -625,7 +629,7 @@ PrefabInstance:
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _finisherVfx
       value: 
-      objectReference: {fileID: 4306488877223958017, guid: bdfa5128a4ae8e547afe61fb1b8aa1bd, type: 3}
+      objectReference: {fileID: 1226031520979461127, guid: a0d61b658f72e8b47a0700487073cf25, type: 3}
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _skillAttack
       value: 
@@ -651,6 +655,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 458564724}
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _maxChargeCount
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _chargingDuration
       value: 5
       objectReference: {fileID: 0}
@@ -670,6 +678,10 @@ PrefabInstance:
       propertyPath: _chargingShrinkDuration
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _playerAvoidKeyGenerator
+      value: 
+      objectReference: {fileID: 1176936297}
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _skillFocusScreenController
       value: 
@@ -1111,6 +1123,17 @@ MonoBehaviour:
   - {fileID: 2089918558}
   _spawnInterval: 0.01
   _lifeTime: 0.5
+--- !u!114 &1176936297 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1527369805069074017, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+  m_PrefabInstance: {fileID: 650435852}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176936278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b38a953e52176d5429c3204dd5d392d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAvoidKeyGenerator
 --- !u!1 &1212384389
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,7 +1443,7 @@ Canvas:
   m_GameObject: {fileID: 1379121721}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 339276089}
   m_PlaneDistance: 100
   m_PixelPerfect: 0

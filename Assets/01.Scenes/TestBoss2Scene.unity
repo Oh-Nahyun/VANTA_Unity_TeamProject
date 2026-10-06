@@ -1095,6 +1095,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss2
       objectReference: {fileID: 0}
+    - target: {fileID: 4247759179295928200, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: m_Layer
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247759179295928200, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: m_TagString
+      value: BossAttack
+      objectReference: {fileID: 0}
     - target: {fileID: 4827965982157604352, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: _auraSlashSound
       value: 
@@ -1103,6 +1111,14 @@ PrefabInstance:
       propertyPath: _globalLight
       value: 
       objectReference: {fileID: 619394801}
+    - target: {fileID: 5667757336281504092, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: m_Layer
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 5667757336281504092, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: m_TagString
+      value: BossAttack
+      objectReference: {fileID: 0}
     - target: {fileID: 9214237589838081223, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: _hitSound
       value: 

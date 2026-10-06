@@ -44,6 +44,9 @@ public class SkillAttack : MonoBehaviour
     [SerializeField] private GameObject _weakHitVfx;
 
     [SerializeField] private UnityEvent _weaknessAttackSuccessAction;
+    
+    
+
 
     private bool _isWeaknessAttackSuccess;
     private int _dashCount;
@@ -308,11 +311,7 @@ public class SkillAttack : MonoBehaviour
 
         direction.Normalize();
 
-        _skillDashSlashScreenController
-            .PlaySlash(
-                start,
-                end
-            );
+     
 
         float dot = Mathf.Abs(
             Vector2.Dot(
@@ -331,6 +330,16 @@ public class SkillAttack : MonoBehaviour
             !_isWeaknessAttackSuccess &&
             dot >= threshold;
 
+        
+        
+        _skillDashSlashScreenController
+            .PlaySlash(
+                start,
+                end,isWeaknessAttack
+                    ? SlashType.Critical
+                    : SlashType.Normal
+            );
+        
         RaycastHit2D[] hits =
             Physics2D.CircleCastAll(
                 start,

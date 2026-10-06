@@ -76,6 +76,62 @@ public class CameraFocusingController : MonoBehaviour
         ZoomIn(zoomAmount);
     }
 
+    public void SlowFocus(
+        Transform target,
+        float zoomAmount,
+        float duration)
+    {
+        if (target == null || _camera == null)
+            return;
+
+        KillTweens();
+
+        _isFocusing = true;
+
+        _camera.Follow = target;
+
+        float targetSize =
+            _defaultOrthographicSize - zoomAmount;
+
+        targetSize = Mathf.Max(
+            0.1f,
+            targetSize
+        );
+
+        _zoomTween =
+            DOTween.To(
+                    () => _camera.Lens.OrthographicSize,
+                    value =>
+                        _camera.Lens.OrthographicSize = value,
+                    targetSize,
+                    duration
+                )
+                .SetEase(Ease.InOutSine)
+                .SetUpdate(true);
+
+        Vector3 focusDamping =
+            new Vector3(
+                _focusDamping,
+                _focusDamping,
+                _defaultDamping.z
+            );
+
+        _dampingTween =
+            DOTween.To(
+                    () =>
+                        _follow
+                            .TrackerSettings
+                            .PositionDamping,
+                    value =>
+                        _follow
+                            .TrackerSettings
+                            .PositionDamping = value,
+                    focusDamping,
+                    duration
+                )
+                .SetEase(Ease.InOutSine)
+                .SetUpdate(true);
+    }
     private void ZoomIn(float zoomAmount)
     {
         float targetSize =

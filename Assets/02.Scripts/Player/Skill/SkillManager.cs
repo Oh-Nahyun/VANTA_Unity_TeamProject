@@ -129,6 +129,8 @@ public class SkillManager : MonoBehaviour
             _skillStack
         );
         
+     
+
         _playerMove.DashToReverseSide();
 
         _skillSpaceController.StartSkillSpaceDissolve(_skillTime);
@@ -268,7 +270,7 @@ public class SkillManager : MonoBehaviour
             _player.OnPlayerHittable();
         });
         
-
+     
         Time.timeScale = 1f;
     }
 

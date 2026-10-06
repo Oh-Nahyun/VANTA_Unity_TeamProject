@@ -2,6 +2,12 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
+public enum SlashType
+{
+    Normal,
+    Critical,
+    Finisher
+}
 public class SkillDashSlashScreenController : MonoBehaviour
 {
     [SerializeField]
@@ -27,7 +33,17 @@ public class SkillDashSlashScreenController : MonoBehaviour
 
     private static readonly int SlashNormalID =
         Shader.PropertyToID("_SlashNormal");
-
+    
+    private static readonly int SlashColorID =
+        Shader.PropertyToID("_GlowColor");
+    
+    [ColorUsage(true, true)]
+    [SerializeField] private Color _normalColor = Color.cyan;
+    [ColorUsage(true, true)]
+    [SerializeField] private Color _criticalColor = Color.magenta;
+    [ColorUsage(true, true)]
+    [SerializeField] private Color _finisherColor = Color.gold;
+    
     private void Awake()
     {
         if (_targetCamera == null)
@@ -68,8 +84,36 @@ public class SkillDashSlashScreenController : MonoBehaviour
 
     public void PlaySlash(
         Vector2 worldStart,
-        Vector2 worldEnd)
+        Vector2 worldEnd,
+        SlashType inputType)
     {
+        
+        Color slashColor;
+
+        switch (inputType)
+        {
+            case SlashType.Normal:
+                slashColor = _normalColor;
+                break;
+
+            case SlashType.Critical:
+                slashColor = _criticalColor;
+                break;
+
+            case SlashType.Finisher:
+                slashColor = _finisherColor;
+                break;
+
+            default:
+                slashColor = _normalColor;
+                break;
+        }
+
+        _runtimeSlashMaterial.SetColor(
+            SlashColorID,
+            slashColor
+        );
+        
         if (_runtimeSlashMaterial == null ||
             _targetCamera == null)
         {

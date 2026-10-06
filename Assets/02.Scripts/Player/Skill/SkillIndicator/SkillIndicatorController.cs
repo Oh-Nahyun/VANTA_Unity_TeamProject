@@ -93,9 +93,15 @@ public class SkillIndicatorController : MonoBehaviour
             if (_pets[i] == null)
                 continue;
 
+            _pets[i].GetComponent<SkillIndicatorAttack>().PauseAttack();
+
             _pets[i]
                 .GetComponent<SkillIndicatorMove>()
-                .MoveToPoint(points[i]);
+                .MoveToPoint(
+                    points[i],
+                    i,
+                    count
+                );
         }
     }
 

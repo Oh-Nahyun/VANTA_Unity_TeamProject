@@ -216,7 +216,10 @@ public class SkillIndicatorMove : MonoBehaviour
         );
     }
 
-    public void MoveToPoint(Vector3 point)
+    public void MoveToPoint(
+        Vector3 point,
+        int orbitIndex,
+        int orbitTotalCount)
     {
         _isPointFix = true;
 
@@ -232,7 +235,10 @@ public class SkillIndicatorMove : MonoBehaviour
                 .SetEase(_pointMoveEase)
                 .OnComplete(() =>
                 {
-                    _skillIndicatorOrbit.Initialize();
+                    _skillIndicatorOrbit.Initialize(
+                        orbitIndex,
+                        orbitTotalCount
+                    );
                     _skillIndicatorLocReveal.StartReveal();
                 });
     }

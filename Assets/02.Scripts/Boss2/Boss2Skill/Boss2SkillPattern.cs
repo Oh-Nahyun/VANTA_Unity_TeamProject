@@ -34,6 +34,14 @@ public class Boss2SkillPattern : Boss2AttackBase
     // 더미끼리 이 거리보다 가까이 생기지 않게 한다. 자리가 부족하면 조건을 포기하고 배치한다.
     [SerializeField] private float _minStrikeSpacing = 1f;
 
+    [Header("광역기 플레이어 주위")]
+    [Tooltip("전체 더미 중 시전 순간의 플레이어 주위에 놓을 개수. 범위 안에서 매번 랜덤, 나머지는 맵 전체에 놓는다")]
+    [SerializeField] private int _nearPlayerCountMin = 4;
+    [SerializeField] private int _nearPlayerCountMax = 6;
+
+    [Tooltip("플레이어 주위 더미를 놓을 반경 (플레이어 중심)")]
+    [SerializeField] private float _nearPlayerRadius = 2f;
+
     [Header("광역기 순차 생성")]
     [Tooltip("다음 묶음까지 대기 시간(초). 범위 안에서 매번 랜덤")]
     [SerializeField] private float _spawnIntervalMin = 0.08f;
@@ -47,10 +55,18 @@ public class Boss2SkillPattern : Boss2AttackBase
     [SerializeField] private float _aoeMaxDuration = 15f;
 
     [Header("맵 범위 (타원)")]
+    [Tooltip("켜면 씬의 맵 벽(EdgeColliderGenerator) 타원을 그대로 쓴다. 씬에 없으면 아래 값을 쓴다")]
+    [SerializeField] private bool _useSceneMapWall = true;
+
+    [Tooltip("맵 벽에서 이만큼 안쪽에만 더미를 놓는다 (벽에 걸치지 않게)")]
+    [SerializeField] private float _arenaInset = 0.5f;
+
     [SerializeField] private Vector2 _arenaCenter = Vector2.zero;
 
     // 타원의 가로·세로 전체 길이. EdgeColliderGenerator 와 같은 규격.
     [SerializeField] private Vector2 _arenaSize = new Vector2(10f, 6f);
+
+    private EdgeColliderGenerator _mapWall;
 
     [Header("판정 대상")]
     // 기본은 모든 레이어. 대상은 태그(Player)로 한 번 더 거른다.
@@ -133,6 +149,28 @@ public class Boss2SkillPattern : Boss2AttackBase
         _attackPattern = GetComponent<Boss2AttackPattern>();
         _boss = GetComponent<Boss2>();
         _avoidJudge = Boss2AvoidJudge.GetOrAdd(gameObject);
+        FindMapWall();
+    }
+
+    private void FindMapWall()
+    {
+        if (_useSceneMapWall && _mapWall == null)
+        {
+            _mapWall = FindAnyObjectByType<EdgeColliderGenerator>();
+        }
+    }
+
+    // 광역기 더미를 놓는 타원. 씬의 맵 벽이 있으면 그 타원을, 없으면 인스펙터 값을 쓴다.
+    private Vector2 ArenaCenter => _useSceneMapWall && _mapWall != null ? _mapWall.Center : _arenaCenter;
+
+    private Vector2 ArenaSize
+    {
+        get
+        {
+            Vector2 size = _useSceneMapWall && _mapWall != null ? _mapWall.Size : _arenaSize;
+            float inset = _arenaInset * 2f;
+            return new Vector2(Mathf.Max(size.x - inset, 0.1f), Mathf.Max(size.y - inset, 0.1f));
+        }
     }
 
     private void OnDisable()
@@ -271,11 +309,25 @@ public class Boss2SkillPattern : Boss2AttackBase
         }
 
         // 1. 위치는 처음에 한 번에 정한다. (간격·맵 범위 규칙 유지)
+        //    일부는 시전 순간의 플레이어 주위에, 나머지는 맵 전체에 놓는다.
+        FindMapWall();
         int count = Random.Range(_strikeCountMin, _strikeCountMax + 1);
         List<Vector2> positions = new List<Vector2>(count);
-        for (int i = 0; i < count; i++)
+
+        Transform target = FindAttackTarget();
+        if (target != null)
         {
-            positions.Add(PickStrikePosition(positions));
+            Vector2 playerPosition = target.position;
+            int nearCount = Mathf.Min(count, Random.Range(_nearPlayerCountMin, Mathf.Max(_nearPlayerCountMin, _nearPlayerCountMax) + 1));
+            for (int i = 0; i < nearCount; i++)
+            {
+                positions.Add(PickStrikePosition(positions, () => RandomPointNear(playerPosition)));
+            }
+        }
+
+        while (positions.Count < count)
+        {
+            positions.Add(PickStrikePosition(positions, RandomPointInArena));
         }
 
         // 2. 나타나는 순서만 섞는다. (Fisher–Yates)
@@ -524,34 +576,42 @@ public class Boss2SkillPattern : Boss2AttackBase
         _currentSkillPatternType = Boss2SkillPatternType.None;
     }
 
-    public void PlayTestSkill(Boss2SkillPatternType type)
+    // sampler 로 뽑고, 이미 놓인 더미와 최소 간격을 지키도록 몇 번 다시 뽑는다.
+    private Vector2 PickStrikePosition(List<Vector2> placed, System.Func<Vector2> sampler)
     {
-        if (_attackPattern != null)
-        {
-            _attackPattern.ApplyAttackPattern(Boss2AttackPatternType.None);
-        }
-        if (_movePattern != null)
-        {
-            _movePattern.ApplyMovePattern(Boss2MovePatternType.None);
-        }
-        ApplySkillPattern(Boss2SkillPatternType.None);
-        ApplySkillPattern(type);
-    }
-
-
-// 타원 안 균일 분포로 뽑고, 이미 놓인 더미와 최소 간격을 지키도록 몇 번 다시 뽑는다.
-    private Vector2 PickStrikePosition(List<Vector2> placed)
-    {
-        Vector2 candidate = RandomPointInArena();
+        Vector2 candidate = sampler();
         for (int attempt = 0; attempt < MaxSpacingAttempts; attempt++)
         {
             if (IsFarEnough(candidate, placed))
                 return candidate;
 
-            candidate = RandomPointInArena();
+            candidate = sampler();
         }
 
         return candidate;
+    }
+
+    // center 중심 _nearPlayerRadius 원 안 균일 분포. 맵 타원 밖이면 타원 안쪽으로 끌어당긴다.
+    private Vector2 RandomPointNear(Vector2 center)
+    {
+        Vector2 point = center + Random.insideUnitCircle * _nearPlayerRadius;
+        return ClampToArena(point);
+    }
+
+    // 맵 타원 밖의 점을 같은 방향의 타원 경계 조금 안쪽으로 옮긴다.
+    private Vector2 ClampToArena(Vector2 point)
+    {
+        Vector2 center = ArenaCenter;
+        Vector2 halfSize = ArenaSize * 0.5f;
+        Vector2 local = point - center;
+        float nx = local.x / Mathf.Max(halfSize.x, 0.0001f);
+        float ny = local.y / Mathf.Max(halfSize.y, 0.0001f);
+        float distance = Mathf.Sqrt(nx * nx + ny * ny);
+        if (distance <= 1f)
+            return point;
+
+        const float InsideRatio = 0.95f;
+        return center + local / distance * InsideRatio;
     }
 
     private bool IsFarEnough(Vector2 candidate, List<Vector2> placed)
@@ -571,9 +631,10 @@ public class Boss2SkillPattern : Boss2AttackBase
         // 반지름에 제곱근을 씌워야 가운데로 몰리지 않고 넓이 기준으로 고르게 퍼진다.
         float radius = Mathf.Sqrt(Random.value);
         float angle = Random.value * Mathf.PI * 2f;
-        return _arenaCenter + new Vector2(
-            Mathf.Cos(angle) * radius * _arenaSize.x * 0.5f,
-            Mathf.Sin(angle) * radius * _arenaSize.y * 0.5f);
+        Vector2 size = ArenaSize;
+        return ArenaCenter + new Vector2(
+            Mathf.Cos(angle) * radius * size.x * 0.5f,
+            Mathf.Sin(angle) * radius * size.y * 0.5f);
     }
 
     private float GetClipLength(string clipName)
@@ -590,14 +651,17 @@ public class Boss2SkillPattern : Boss2AttackBase
 
     private void OnDrawGizmosSelected()
     {
-        // 맵 범위 타원
+        // 맵 범위 타원 (편집 중에도 씬의 맵 벽 기준으로 보이도록 찾는다)
+        FindMapWall();
+        Vector2 center = ArenaCenter;
+        Vector2 size = ArenaSize;
         Gizmos.color = new Color(0.3f, 0.8f, 1f);
         const int Segments = 48;
-        Vector3 previous = _arenaCenter + new Vector2(_arenaSize.x * 0.5f, 0f);
+        Vector3 previous = center + new Vector2(size.x * 0.5f, 0f);
         for (int i = 1; i <= Segments; i++)
         {
             float angle = (float)i / Segments * Mathf.PI * 2f;
-            Vector3 next = _arenaCenter + new Vector2(Mathf.Cos(angle) * _arenaSize.x * 0.5f, Mathf.Sin(angle) * _arenaSize.y * 0.5f);
+            Vector3 next = center + new Vector2(Mathf.Cos(angle) * size.x * 0.5f, Mathf.Sin(angle) * size.y * 0.5f);
             Gizmos.DrawLine(previous, next);
             previous = next;
         }
@@ -607,10 +671,4 @@ public class Boss2SkillPattern : Boss2AttackBase
         Gizmos.DrawWireSphere(InstantKillCenter, _instantKillRadius);
     }
 
-    // ---- 테스트용: 플레이 중 컴포넌트 ⋮ 메뉴에서 실행 ----
-    [ContextMenu("Test/InstantKill")]
-    private void TestInstantKill() => PlayTestSkill(Boss2SkillPatternType.InstantKill);
-
-    [ContextMenu("Test/AreaOfEffect")]
-    private void TestAreaOfEffect() => PlayTestSkill(Boss2SkillPatternType.AreaOfEffect);
 }

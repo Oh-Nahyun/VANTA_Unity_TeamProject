@@ -4,6 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Boss2Controller 인스펙터 아래에 액션·스킬 테스트 버튼을 붙인다.
 /// 버튼은 실제 FSM 경로(이동 → 공격 → Recover, 무적 포함)로 한 번 실행하고 끝나면 Idle 에서 멈춘다.
+/// 연속 실행 버튼은 모든 액션을 순서대로 Recover 없이 바로바로 이어서 실행한다.
 /// </summary>
 [CustomEditor(typeof(Boss2Controller))]
 public class Boss2ControllerEditor : Editor
@@ -23,7 +24,25 @@ public class Boss2ControllerEditor : Editor
 
         Boss2Controller controller = (Boss2Controller)target;
         string state = controller.CurrentStateName + (controller.IsTestRunning ? "  (테스트 중)" : "");
+        if (controller.TestQueueRemaining > 0)
+        {
+            state += $"  남은 연속 테스트 {controller.TestQueueRemaining}";
+        }
         EditorGUILayout.LabelField("현재 상태", state);
+
+        EditorGUILayout.Space(4f);
+        using (new EditorGUILayout.HorizontalScope())
+        {
+            if (GUILayout.Button("모든 액션 연속 실행", GUILayout.Height(28f)))
+            {
+                controller.TestAllActions(false);
+            }
+
+            if (GUILayout.Button("모든 액션 + 스킬 연속 실행", GUILayout.Height(28f)))
+            {
+                controller.TestAllActions(true);
+            }
+        }
 
         EditorGUILayout.Space(4f);
         for (int i = 0; i < controller.Actions.Count; i++)

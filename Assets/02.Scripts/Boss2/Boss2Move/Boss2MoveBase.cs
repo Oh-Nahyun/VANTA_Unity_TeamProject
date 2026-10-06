@@ -57,6 +57,9 @@ public class Boss2MoveBase : MonoBehaviour, IBossMovable
     private Rigidbody2D _rigidbody2D;
     [SerializeField] private GameObject _attackZone;
     
+    [Header("사운드")]
+    [SerializeField] private GameObject _footStepSound;
+    
 
     private static readonly (KeyCode key, Vector2 dir)[] DodgeKeys =
     {
@@ -358,5 +361,13 @@ public class Boss2MoveBase : MonoBehaviour, IBossMovable
     {
         _spriteRenderer.flipX = isLeft;
         _attackZone.transform.localPosition = new Vector3(isLeft ? -_attackZoneOffset : _attackZoneOffset, 0f, 0f);
+    }
+    
+    public void FootStepPoint()
+    {
+        if (_footStepSound != null)
+        {
+            _footStepSound.GetComponent<SoundGenerator>().ActivateSound();
+        }
     }
 }

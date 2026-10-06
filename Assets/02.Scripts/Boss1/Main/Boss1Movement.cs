@@ -1,6 +1,5 @@
+using System;
 using UnityEngine;
-using UnityEngine.UIElements;
-
 public class Boss1Movement : MonoBehaviour, IBossMovable
 {
     [SerializeField] private float _normalChaseSpeed= 4f;
@@ -12,6 +11,15 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
 
     [SerializeField] private Transform _visualPivot;
     [SerializeField] private float _horizontalFlip = 0.42f;
+
+    [Header("이동 중 걸음걸이에 따라 속도 변화")]
+    [SerializeField] private AnimationCurve _moveSpeedCurve = AnimationCurve.Linear(0f, 1f, 1f, 1f);
+    
+    [Header("이동 애니메이션 기본 배속")]
+    [SerializeField] private float _animationReferenceSpeed = 1.1f;
+
+    [Header("이동속도를 애니메이션 배속에 반영하는 정도")]
+    [SerializeField] private float _animationSpeedFollowRatio = 0.38f;
     
     
     private Rigidbody2D _rigidBody;
@@ -59,7 +67,8 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
         switch (_moveMode)
         {
             case MoveMode.NormalChase:
-                ChasePlayer(_normalChaseSpeed);
+                SetMoveAnimationSpeed(_normalChaseSpeed);
+                ChasePlayer(_normalChaseSpeed * GetMoveSpeedMultiplier());
                 break;
             case MoveMode.AggressiveChase:
                 ChasePlayer(_aggressiveChaseSpeed);
@@ -82,6 +91,25 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
     public void MoveUnblock()
     {
         _isMoveBlocked = false;
+    }
+
+    private float GetMoveSpeedMultiplier() //이동 애니메이션 한 사이클에서 이동 속도 자연스럽게 변경
+    {
+        AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+
+        float normalizedTime = stateInfo.normalizedTime % 1f;
+        
+        return _moveSpeedCurve.Evaluate(normalizedTime);
+    }
+    
+    private void SetMoveAnimationSpeed (float moveSpeed) 
+    {
+        float speedRatio = moveSpeed / _normalChaseSpeed;
+
+        float adjustedRatio = Mathf.Lerp(1f, speedRatio, _animationSpeedFollowRatio);
+        
+        float animationSpeed = _animationReferenceSpeed * adjustedRatio;
+        _animator.SetFloat("MoveAnimationSpeed", animationSpeed);
     }
     
 
@@ -126,6 +154,7 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
     public void StartControlled()
     {
         _moveMode = MoveMode.Controlled;
+        _rigidBody.linearVelocity = Vector2.zero;
     }
     
     private void FacePlayer()
@@ -155,7 +184,11 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
     
     public void MoveInDirection(Vector2 direction, float speed) //외부용
     {
-        _rigidBody.linearVelocity = direction.normalized * speed;
+        SetMoveAnimationSpeed(speed);
+        
+        float adjustedSpeed = speed * GetMoveSpeedMultiplier();
+
+        _rigidBody.linearVelocity = direction.normalized * adjustedSpeed;
     }
 
     public void StopMove() //외부용, 근거리 패턴용도, Stop()이랑 헷갈리면 안됨!

@@ -9,6 +9,9 @@ public class Boss1Bullet : MonoBehaviour
     
     [Header("일반탄 살아있는 시간")]
     [SerializeField] private float _lifeTime = 3f;
+    
+    [Header("비행 중 회전 속도")]
+    [SerializeField] private float _rotationSpeed = 120f;
 
     private float _lifeTimer;
     
@@ -17,6 +20,7 @@ public class Boss1Bullet : MonoBehaviour
     private Animator _animator;
     
     private bool _isDestroying;
+    private bool _isFlying;
 
     private void Awake()
     {
@@ -32,9 +36,12 @@ public class Boss1Bullet : MonoBehaviour
         }
         
         _lifeTimer += Time.deltaTime;
+        
+        transform.Rotate(0f, 0f, _rotationSpeed * Time.deltaTime);
 
         if (_lifeTimer >= _lifeTime)
         {
+            _isFlying = false;
             StartDisappear();
         }
     }
@@ -45,6 +52,8 @@ public class Boss1Bullet : MonoBehaviour
         _projectileManager = projectileManager;
         _projectileManager.RegisterProjectile(gameObject);
         _rigidBody.linearVelocity = direction.normalized * _speed;
+        
+        _isFlying = true;
 
         _lifeTimer = 0f;
         _isDestroying = false;
@@ -73,6 +82,7 @@ public class Boss1Bullet : MonoBehaviour
                 return;
             }
             player.TakeDamage();
+            _isFlying = false;
             StartImpact();
         }
     }

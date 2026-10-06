@@ -94,11 +94,12 @@ public class PlayerAvoid : MonoBehaviour
      
     }
 
+ 
     public void StartAvoidInteraction(GameObject caller = null)
     {
         _avoidTimer?.Kill();
         _avoidMoveTween?.Kill();
-
+        _playerMove.StopPlayerMovement();
         _avoidKey = KeyCode.Space;
 
         _isAvoidInteraction = true;
@@ -143,6 +144,7 @@ public class PlayerAvoid : MonoBehaviour
     {
         _avoidTimer?.Kill();
         _avoidMoveTween?.Kill();
+        _playerMove.StopPlayerMovement();
 
         _avoidKey = KeyCode.Mouse1;
 

@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
 
     [Header("사망 시 남길 조명")]
     [SerializeField] private Light2D _deathLight;
-
+    
     [Header("사망 시 조명 반경")]
     [SerializeField] private float _deathLightRadius = 0.3f;
     [SerializeField] private float _deathLightShrinkDuration = 0.7f;

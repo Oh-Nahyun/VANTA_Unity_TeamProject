@@ -4919,6 +4919,7 @@ GameObject:
   - component: {fileID: 2955623459812423942}
   - component: {fileID: 4925757733793842494}
   - component: {fileID: 4222099017898869114}
+  - component: {fileID: 8842859867448175624}
   m_Layer: 0
   m_Name: PlayerDeath
   m_TagString: Untagged
@@ -9892,6 +9893,19 @@ MonoBehaviour:
     DissipationDistance: 100
     PropagationSpeed: 343
   DefaultVelocity: {x: 0, y: -5, z: 0}
+--- !u!114 &8842859867448175624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2955623459812423943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df24c6aec89330b43b973c4dd6f8c706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundGenerator
+  _sound: {fileID: 8300000, guid: 83f5fff1648f9f5488b6702f3f179016, type: 3}
 --- !u!1 &8907369062276510966
 GameObject:
   m_ObjectHideFlags: 0

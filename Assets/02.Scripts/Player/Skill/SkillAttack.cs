@@ -35,7 +35,7 @@ public class SkillAttack : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private SkillManager _skillManager;
-
+    [SerializeField] private PlayerAfterImageController _playerAfterImageController;
     [Header("VFX")]
     [SerializeField] private GameObject _skillDashStartVfxPrefab;
     [SerializeField] private GameObject _skillDashEndVfxPrefab;
@@ -142,7 +142,7 @@ public class SkillAttack : MonoBehaviour
         _dashSequence?.Kill();
 
         Time.timeScale = 1f;
-
+        _playerAfterImageController.OnAfterImage();
         _objectZoom.ZoomIn(_dashZoomAmount);
 
         SetDashCollisionIgnore(true);
@@ -258,6 +258,7 @@ public class SkillAttack : MonoBehaviour
             .OnKill(() =>
             {
                 Time.timeScale = 1f;
+                _playerAfterImageController.OffAfterImage();
 
                 SetDashCollisionIgnore(false);
 
@@ -417,117 +418,10 @@ public class SkillAttack : MonoBehaviour
 
     return true;
 }
-
-
-public void FinisherDash(
-    Vector2 targetPosition,
-    float duration,
-    bool checkHit,
-    Action onComplete)
-{
-    if (!_finisherRunning || _rigidbody == null)
-        return;
-
-    _finisherTween?.Kill();
-    _finisherTween = null;
-
-    Vector2 startPosition = _rigidbody.position;
-    Vector2 direction = targetPosition - startPosition;
-
-    if (_spriteRenderer != null &&
-        Mathf.Abs(direction.x) > 0.01f)
-    {
-        _spriteRenderer.flipX = direction.x < 0f;
-    }
-
-    if (checkHit)
-    {
-        if (_animator != null)
-        {
-            _animator.ResetTrigger("OneDashSkill");
-            _animator.SetTrigger("OneDashSkill");
-        }
-
-        if (_skillDashScreenController != null)
-        {
-            _skillDashScreenController
-                .StartDashScreenSetting(direction);
-        }
-
-        if (_skillDashStartVfxPrefab != null)
-        {
-            Instantiate(
-                _skillDashStartVfxPrefab,
-                _rigidbody.position,
-                Quaternion.identity
-            );
-        }
-    }
-
-    _finisherTween = _rigidbody
-        .DOMove(targetPosition, Mathf.Max(0.01f, duration))
-        .SetEase(Ease.Linear)
-        .SetUpdate(true)
-        .OnComplete(() =>
-        {
-            _finisherTween = null;
-
-            if (!_finisherRunning)
-                return;
-
-            if (checkHit)
-            {
-                CheckDashHit(
-                    startPosition,
-                    _rigidbody.position
-                );
-
-                // 伤害事件可能结束或禁用 피니셔
-                if (!_finisherRunning)
-                    return;
-
-                if (_skillDashScreenController != null)
-                {
-                    _skillDashScreenController
-                        .EndDashScreenSetting();
-                }
-
-                if (_skillDashEndVfxPrefab != null)
-                {
-                    Instantiate(
-                        _skillDashEndVfxPrefab,
-                        _rigidbody.position,
-                        Quaternion.identity
-                    );
-                }
-            }
-
-            onComplete?.Invoke();
-        });
-}
-
-public void EndFinisher()
-{
-    if (!_finisherRunning)
-        return;
-
-    _finisherRunning = false;
-
-    _finisherTween?.Kill();
-    _finisherTween = null;
-
-    SetDashCollisionIgnore(false);
-
-    if (_skillDashScreenController != null)
-    {
-        _skillDashScreenController
-            .EndDashScreenSetting();
-    }
-}
+    
 
 private void OnDestroy()
 {
-    EndFinisher();
 
     _dashSequence?.Kill();
     _dashSequence = null;

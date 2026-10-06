@@ -24,6 +24,7 @@ public class PlayerMove : MonoBehaviour
     private Animator _animator;
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
+    private PlayerAfterImageController _playerAfterImageController;
     private Player _player;
     private bool _isDashing;
 
@@ -36,6 +37,7 @@ public class PlayerMove : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
         _player=GetComponent<Player>();
+        _playerAfterImageController=GetComponent<PlayerAfterImageController>();
     }
 
     private void Update()
@@ -117,6 +119,7 @@ public class PlayerMove : MonoBehaviour
             Quaternion.identity
         );
 
+        _playerAfterImageController.OnAfterImage();
         SetDashAnimation();
 
         StartDash(
@@ -210,6 +213,7 @@ public class PlayerMove : MonoBehaviour
                 {
                     _isDashing = false;
                     _player.OnPlayerHittable();
+                    _playerAfterImageController.OffAfterImage();
 
                     _dashTween = null;
                 });

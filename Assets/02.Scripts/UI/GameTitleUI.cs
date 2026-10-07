@@ -25,7 +25,7 @@ public class GameTitleUI : MonoBehaviour
 
     private void OnClickStartButton()
     {
-        SceneManager.LoadScene(1); // InGameScene
+        //SceneManager.LoadScene(1); // InGameScene
     }
 
     private void OnClickSettingsButton()

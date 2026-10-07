@@ -6,6 +6,8 @@ public class Boss1Life : HitableObject
     [SerializeField] private int _maxHealth= 10000;
     [SerializeField] private float _phase2HealthPercent = 0.4f;
     
+    private Boss1HitFlash _boss1HitFlash;
+    
     private int _currentHealth;
     public float HealthRatio => _maxHealth > 0f ? Mathf.Clamp01((float)_currentHealth / (float)_maxHealth) : 0f;
 
@@ -18,6 +20,7 @@ public class Boss1Life : HitableObject
     private void Awake()
     {   
         _currentHealth = _maxHealth;
+        _boss1HitFlash = GetComponent<Boss1HitFlash>();
     }
 
     protected override void HitEvent(int damage)
@@ -32,10 +35,12 @@ public class Boss1Life : HitableObject
             return;
         }
         _currentHealth = Mathf.Max(_currentHealth - damage, 0);
+        _boss1HitFlash.PlayHitFlash();
 
         if (_currentHealth <= 0f)
         {
             Die();
+            return;
         }
 
         if (_isPhase2Triggered == false && _currentHealth <= _maxHealth * _phase2HealthPercent)

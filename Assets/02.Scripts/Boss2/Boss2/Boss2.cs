@@ -22,7 +22,10 @@ public class Boss2 : HitableObject
 
     private Boss2AttackPattern _attackPattern;
     private Boss2SkillPattern _skillPattern;
-
+    
+    [Header("사운드")]
+    [SerializeField] private GameObject _hitSound;
+    
     // 공격·스킬을 하는 중인지. 이때는 데미지만 받고 피격 모션으로 행동이 끊기지 않는다(슈퍼아머).
     private bool IsActing =>
         (_attackPattern != null && (_attackPattern.IsPatternRunning || _attackPattern.IsAttacking))
@@ -86,5 +89,13 @@ public void TakeDamage(int damage)
     {
         if (_isInvincible == true) return;
         TakeDamage(damage);
+    }
+    
+    public void HitSoundPoint()
+    {
+        if (_hitSound != null)
+        {
+            _hitSound.GetComponent<SoundGenerator>().ActivateSound();
+        }
     }
 }

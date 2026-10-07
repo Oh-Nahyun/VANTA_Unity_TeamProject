@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4845536450282360906}
   - component: {fileID: 5623706937189105366}
   - component: {fileID: 3555924745645702091}
+  - component: {fileID: 1206670344135137212}
   m_Layer: 5
   m_Name: GameTitleUI
   m_TagString: Untagged
@@ -59,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 91243d223d47c2144b73ec5699315768, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -93,6 +94,20 @@ MonoBehaviour:
   _gameSettingsButton: {fileID: 6296561001284494379}
   _gameExitButton: {fileID: 8365002317010119165}
   _gameSettingPanel: {fileID: 0}
+--- !u!114 &1206670344135137212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6619280108851222775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aaed049548f51147b8abf1bfb43e814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TitleDissolveEffect
+  _dissolveImage: {fileID: 5623706937189105366}
+  DissolveDuration: 0.7
 --- !u!1 &6730679602173066583
 GameObject:
   m_ObjectHideFlags: 0

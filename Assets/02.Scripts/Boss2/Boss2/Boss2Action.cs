@@ -41,6 +41,9 @@ public class Boss2Action
     [Tooltip("이 행동의 이동 + 공격 동안 무적 (Recover 부터 해제)")]
     public bool IsInvincible = false;
 
+    [Tooltip("이 행동의 이동 + 공격 동안 고스트 트레일 (보스에 Boss2GhostTrail 이 있어야 보인다)")]
+    public bool GhostTrail = false;
+
     // 런타임 기록 (저장하지 않음)
     [System.NonSerialized] public float LastUsedTime = float.NegativeInfinity;
 

@@ -35,10 +35,12 @@ public class Boss1AttackController : MonoBehaviour
     private float _jumpMissBonus;
     
     private Transform _playerTransform;
+    private Boss1Movement _boss1Movement;
     
     private AttackState _currentState; // 추격 or 공격
     private IBoss1Attack _currentAttack; // 근거리 패턴 or 원거리 패턴 or 점프 공격
-
+    
+    private bool _isBattleStarted = false; // 보스 등장 인트로 후에 이거 true여야지, 보스 패턴 실행함
     private bool _isAttackLocked; // 페이즈2 전환 중일 때 공격 못하게 하기
 
     private float _stateTimer; // Chase를 얼마나 하고 있는지
@@ -49,14 +51,23 @@ public class Boss1AttackController : MonoBehaviour
         Attack
     }
 
+    private void Awake()
+    {
+        _boss1Movement = GetComponent<Boss1Movement>();
+    }
+
     private void Start()
     {
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        ChangeState(AttackState.Chase);
     }
 
     private void Update()
     {
+        if (!_isBattleStarted)
+        {
+            return;
+        }
+        
         if (_isAttackLocked)
         {
             return;
@@ -74,6 +85,18 @@ public class Boss1AttackController : MonoBehaviour
                 UpdateCurrentAttack();
                 break;
         }
+    }
+    
+    public void StartBattle()
+    {
+        if (_isBattleStarted)
+        {
+            return;
+        }
+        
+        _isBattleStarted = true;
+        
+        EnterChaseState();
     }
 
     public void LockAttack()
@@ -126,7 +149,7 @@ public class Boss1AttackController : MonoBehaviour
     {
         if (_currentAttack == null)
         {
-            ChangeState(AttackState.Chase);
+            EnterChaseState();
             return;
         }
         
@@ -144,7 +167,7 @@ public class Boss1AttackController : MonoBehaviour
         
         _currentAttack.ExitAttack();
         _currentAttack = null;
-        ChangeState(AttackState.Chase);
+        EnterChaseState();
     }
 
     private void UpdatePlayerFarTimer()
@@ -278,6 +301,12 @@ public class Boss1AttackController : MonoBehaviour
             _jumpMissBonus += _jumpMissBonusAmount;
             _jumpMissBonus = Mathf.Min(_jumpMissBonus, _maxJumpMissBonus);
         }
+    }
+    
+    private void EnterChaseState()
+    {
+        ChangeState(AttackState.Chase);
+        _boss1Movement.StartNormalChase();
     }
     
     private void ChangeState(AttackState newState)

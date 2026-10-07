@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -24,18 +25,20 @@ public class PlayerMove : MonoBehaviour
     private Animator _animator;
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
+    private PlayerAfterImageController _playerAfterImageController;
     private Player _player;
     private bool _isDashing;
 
     private Tween _dashTween;
 
-    private void Start()
+    private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
         _player=GetComponent<Player>();
+        _playerAfterImageController=GetComponent<PlayerAfterImageController>();
     }
 
     private void Update()
@@ -117,12 +120,62 @@ public class PlayerMove : MonoBehaviour
             Quaternion.identity
         );
 
+        _playerAfterImageController.OnAfterImage();
         SetDashAnimation();
 
         StartDash(
             _lastMoveDirection,
             _dashDistance,
             _dashDuration
+        );
+    }
+
+    public void DashToPoint(
+        Vector2 position,
+        Action onComplete)
+    {
+        if (_isDashing)
+            return;
+
+        Vector2 currentPosition =
+            _rigidbody.position;
+
+        Vector2 direction =
+            position - currentPosition;
+
+        float distance =
+            direction.magnitude;
+
+        if (distance <= 0f)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        direction.Normalize();
+
+        Instantiate(
+            _dashEffect,
+            transform.position,
+            Quaternion.identity
+        );
+
+        _playerAfterImageController.OnAfterImage();
+
+        SetDashAnimation();
+
+        StartDash(
+            direction,
+            distance,
+            _dashDuration
+        );
+
+        DOVirtual.DelayedCall(
+            _dashDuration,
+            () =>
+            {
+                onComplete?.Invoke();
+            }
         );
     }
 
@@ -210,6 +263,7 @@ public class PlayerMove : MonoBehaviour
                 {
                     _isDashing = false;
                     _player.OnPlayerHittable();
+                    _playerAfterImageController.OffAfterImage();
 
                     _dashTween = null;
                 });

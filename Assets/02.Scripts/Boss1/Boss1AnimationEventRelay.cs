@@ -2,10 +2,16 @@ using UnityEngine;
 
 public class Boss1AnimationEventRelay : MonoBehaviour
 {
+    [SerializeField] private Boss1IntroController _boss1IntroController;
+    
     [SerializeField] private Boss1ClawAttack _boss1ClawAttack;
     [SerializeField] private Boss1SpitAttack _boss1SpitAttack;
-
     [SerializeField] private Boss1JumpAttack _boss1JumpAttack;
+    
+    public void RemoveWarningZone()
+    {
+        _boss1IntroController.RemoveWarningZone();
+    }
     
     public void EnableClawHitBox()
     {

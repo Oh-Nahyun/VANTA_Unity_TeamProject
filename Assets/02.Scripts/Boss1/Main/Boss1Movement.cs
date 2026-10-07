@@ -25,7 +25,7 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
     private Rigidbody2D _rigidBody;
     private Transform _playerTransform;
     
-    private MoveMode _moveMode;
+    private MoveMode _moveMode = MoveMode.Stop;
 
     private bool _isMoveBlocked = false; // IBossMovable 관련, true면 이동 속박됨, false면 이동 제약 없음
 
@@ -47,7 +47,6 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
     private void Start()
     {
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        StartNormalChase();
     }
 
     private void FixedUpdate()

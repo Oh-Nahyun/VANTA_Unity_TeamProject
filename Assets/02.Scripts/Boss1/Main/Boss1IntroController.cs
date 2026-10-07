@@ -49,6 +49,9 @@ public class Boss1IntroController : MonoBehaviour
     private Tween _roarShakeTween;
     private Vector3 _visualPivotOriginPosition;
     
+    [Header("포효 카메라 쉐이크")]
+    [SerializeField] private GameObject _roarCameraShakePrefab;
+    
     [SerializeField] private SpriteRenderer[] _bossSpriteRenderers;
     [SerializeField] private GameObject _warningZonePrefab;
     [SerializeField] private Animator _animator;
@@ -176,6 +179,7 @@ public class Boss1IntroController : MonoBehaviour
 
     private IEnumerator RoarRoutine()
     {
+        Instantiate(_roarCameraShakePrefab);
         _roarShakeTween?.Kill();
 
         _visualPivot.localPosition = _visualPivotOriginPosition;

@@ -647,6 +647,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d15c37fb9f210409fad3571ea32a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+--- !u!1 &1224484900 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4190518624736082801, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
+  m_PrefabInstance: {fileID: 217339448}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1520045355
 GameObject:
   m_ObjectHideFlags: 0
@@ -803,6 +808,10 @@ PrefabInstance:
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6531711006687170515, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _waveStrength
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 6531711006687170515, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: _clawThreatCount
       value: 1
       objectReference: {fileID: 0}
@@ -814,6 +823,10 @@ PrefabInstance:
       propertyPath: _roarShakeDuration
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 6531711006687170515, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _roarCameraShakePrefab
+      value: 
+      objectReference: {fileID: 1224484900}
     - target: {fileID: 8279119010861365979, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: m_Name
       value: Boss1

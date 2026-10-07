@@ -130,6 +130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f61d2e1bc16e2644d9ef01287319dd62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAfterImage
+--- !u!1 &179392106 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4688422388301230656, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+  m_PrefabInstance: {fileID: 3534419576666443009}
+  m_PrefabAsset: {fileID: 0}
 --- !u!20 &285070221 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 1237226069521675108, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
@@ -208,11 +213,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 058cc52bb14154f46b3e86c521d3b90c, type: 3}
---- !u!1 &571086941 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9022921627500305013, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-  m_PrefabInstance: {fileID: 3534419576666443009}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &635679531
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,11 +503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f61d2e1bc16e2644d9ef01287319dd62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAfterImage
---- !u!1 &1213277348 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7373041550950345524, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-  m_PrefabInstance: {fileID: 3534419576666443009}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1279694517 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1193837272474764848, guid: 058cc52bb14154f46b3e86c521d3b90c, type: 3}
@@ -1145,18 +1140,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2645136463047186946, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _fogEffect
-      value: 
-      objectReference: {fileID: 571086941}
-    - target: {fileID: 2645136463047186946, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _moonLightEffect
-      value: 
-      objectReference: {fileID: 1213277348}
     - target: {fileID: 4133056159387206755, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: m_Name
       value: Boss2
       objectReference: {fileID: 0}
+    - target: {fileID: 4474688203573458451, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+      propertyPath: _sprintSound
+      value: 
+      objectReference: {fileID: 179392106}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -488,6 +488,7 @@ MonoBehaviour:
   _useKeyboardInput: 0
   _attackZone: {fileID: 5667757336281504092}
   _footStepSound: {fileID: 4439367323298386275}
+  _sprintSound: {fileID: 0}
   _target: {fileID: 0}
   _arriveTolerance: 0.15
   _blinkMinDistance: 2.5
@@ -540,8 +541,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16384
   _areaOfEffectCircle: {fileID: 3203674287824424439, guid: 9a3273ed7f017bc42afa00000dbb28d7, type: 3}
-  _fogEffect: {fileID: 0}
-  _moonLightEffect: {fileID: 0}
+  _fogEffect: {fileID: 9022921627500305013}
+  _moonLightEffect: {fileID: 7373041550950345524}
   _instantKillVoice: {fileID: 8300000, guid: 887bc53dc8295be4f984276e9a2ecfee, type: 3}
   _areaOfEffectVoice: {fileID: 8300000, guid: eee0e25ec0d79564e8a7e4abf47e528c, type: 3}
   _darknessEffect: {fileID: 5604903214433855731}
@@ -974,6 +975,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundGenerator
   _sound: {fileID: 8300000, guid: 86c31f81b90fdf649a6d5f91fc823a62, type: 3}
+--- !u!1 &4688422388301230656
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7265637237632120449}
+  - component: {fileID: 5928497572798698971}
+  m_Layer: 21
+  m_Name: Sprint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7265637237632120449
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4688422388301230656}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6596725298612930207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5928497572798698971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4688422388301230656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df24c6aec89330b43b973c4dd6f8c706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundGenerator
+  _sound: {fileID: 8300000, guid: d35ab75fbc22b054b800b64595846e99, type: 3}
 --- !u!1 &4694593598835377155
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,6 +1050,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8443422114202608489}
+  - {fileID: 7265637237632120449}
   - {fileID: 4962150583276573220}
   - {fileID: 1010808698777573622}
   - {fileID: 3941897591880264931}
@@ -1768,6 +1815,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6617083936181170432, guid: 545c06dcdc488cd429ab0610aa568db8, type: 3}
   m_PrefabInstance: {fileID: 6380063444008260428}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7373041550950345524 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4528589189234980984, guid: 545c06dcdc488cd429ab0610aa568db8, type: 3}
+  m_PrefabInstance: {fileID: 6380063444008260428}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7150842500298217737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1832,6 +1884,11 @@ PrefabInstance:
 --- !u!4 &8372999090502439401 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1661330259114166496, guid: 5efbbeed79e58834d970e58e83a76fbe, type: 3}
+  m_PrefabInstance: {fileID: 7150842500298217737}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &9022921627500305013 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2164892439617389436, guid: 5efbbeed79e58834d970e58e83a76fbe, type: 3}
   m_PrefabInstance: {fileID: 7150842500298217737}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7788197923696166706

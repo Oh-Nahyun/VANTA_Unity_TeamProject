@@ -38,7 +38,8 @@ public class Boss1AttackController : MonoBehaviour
     
     private AttackState _currentState; // 추격 or 공격
     private IBoss1Attack _currentAttack; // 근거리 패턴 or 원거리 패턴 or 점프 공격
-
+    
+    private bool _isBattleStarted = false; // 보스 등장 인트로 후에 이거 true여야지, 보스 패턴 실행함
     private bool _isAttackLocked; // 페이즈2 전환 중일 때 공격 못하게 하기
 
     private float _stateTimer; // Chase를 얼마나 하고 있는지
@@ -57,6 +58,11 @@ public class Boss1AttackController : MonoBehaviour
 
     private void Update()
     {
+        if (!_isBattleStarted)
+        {
+            return;
+        }
+        
         if (_isAttackLocked)
         {
             return;
@@ -74,6 +80,11 @@ public class Boss1AttackController : MonoBehaviour
                 UpdateCurrentAttack();
                 break;
         }
+    }
+    
+    public void StartBattle()
+    {
+        _isBattleStarted = true;
     }
 
     public void LockAttack()

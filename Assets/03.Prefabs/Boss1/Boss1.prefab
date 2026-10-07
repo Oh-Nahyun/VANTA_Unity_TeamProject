@@ -865,6 +865,7 @@ Transform:
   - {fileID: 1350498476404146791}
   - {fileID: 9194194233165060837}
   - {fileID: 5691608955840068536}
+  - {fileID: 8181918376263410163}
   - {fileID: 1563079758274436983}
   - {fileID: 1017186265158649239}
   - {fileID: 4095238899386842120}
@@ -1005,7 +1006,7 @@ GameObject:
   - component: {fileID: 8109099250593597371}
   - component: {fileID: 638726390486851493}
   - component: {fileID: 2839262255638538226}
-  m_Layer: 8
+  m_Layer: 22
   m_Name: SpitHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1127,7 +1128,7 @@ GameObject:
   - component: {fileID: 4095238899386842120}
   - component: {fileID: 6130388190563637053}
   - component: {fileID: 5818488566624348837}
-  m_Layer: 8
+  m_Layer: 22
   m_Name: ClawHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1615,6 +1616,97 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &8131178700399946577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8181918376263410163}
+  - component: {fileID: 1373314090291436016}
+  m_Layer: 21
+  m_Name: HeadAImed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8181918376263410163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8131178700399946577}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.85, y: 1.45, z: 0}
+  m_LocalScale: {x: 0.07, y: 0.07, z: 1.4}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 9210076179707630864}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!212 &1373314090291436016
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8131178700399946577}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 299320877
+  m_SortingLayer: 6
+  m_SortingOrder: 30
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: -498521219443821271, guid: 4f361441bcbbddc42895e467c99a8517, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 9.59, y: 10.15}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
 --- !u!1 &8279119010861365979
 GameObject:
   m_ObjectHideFlags: 0
@@ -1640,6 +1732,7 @@ GameObject:
   - component: {fileID: 2681289112121689932}
   - component: {fileID: 2846696346554286157}
   - component: {fileID: 2552285932042894549}
+  - component: {fileID: 6531711006687170515}
   m_Layer: 21
   m_Name: Boss1
   m_TagString: Boss
@@ -1896,6 +1989,7 @@ MonoBehaviour:
     _maxConcurrentAttacks: 2
     _cycleCount: 3
   _boss1PhaseController: {fileID: 6958992141590794150}
+  _animator: {fileID: 192520389527177166}
 --- !u!114 &2627111689535811849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2090,6 +2184,30 @@ MonoBehaviour:
   - {fileID: 5595718493614784077}
   - {fileID: 6951695134325924738}
   _flashDuration: 0.01
+--- !u!114 &6531711006687170515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8279119010861365979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabb897bd428614498c8f20c7c81b8c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss1IntroController
+  _waringDuration: 2
+  _bossSpriteRenderers:
+  - {fileID: 3934178270892128627}
+  - {fileID: 893110162044737656}
+  - {fileID: 1126790908906711496}
+  - {fileID: 1127222389669799434}
+  - {fileID: 5049025449453266164}
+  - {fileID: 7982885276898025428}
+  - {fileID: 5595718493614784077}
+  - {fileID: 6951695134325924738}
+  - {fileID: 7348953112424561859}
+  _warningZonePrefab: {fileID: 3349574119125732286, guid: 6cc9be58f0c82084286e9f5e902241b5, type: 3}
 --- !u!1 &8715783226715852835
 GameObject:
   m_ObjectHideFlags: 0

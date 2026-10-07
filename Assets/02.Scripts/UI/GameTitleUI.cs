@@ -34,6 +34,16 @@ public class GameTitleUI : MonoBehaviour
         StartCoroutine(DestroyTitleUICoroutine());
     }
 
+    private void OnClickSettingsButton()
+    {
+        _gameSettingPanel.active = true;
+    }
+
+    private void OnClickExitButton()
+    {
+        StartCoroutine(ExitAfterFadeOutCoroutine());
+    }
+
     private IEnumerator DestroyTitleUICoroutine()
     {
         _titleDissolveEffect.PlayButtonDissolve();
@@ -45,14 +55,10 @@ public class GameTitleUI : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
-    private void OnClickSettingsButton()
-    {
-        _gameSettingPanel.active = true;
-    }
-
-    private void OnClickExitButton()
+    private IEnumerator ExitAfterFadeOutCoroutine()
     {
         _titleFadeInOutEffect.FadeOut();
+        yield return new WaitForSeconds(_titleFadeInOutEffect.FadeDuration);
 
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;

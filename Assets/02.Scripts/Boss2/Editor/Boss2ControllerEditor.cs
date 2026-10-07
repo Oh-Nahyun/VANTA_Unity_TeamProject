@@ -49,7 +49,8 @@ public class Boss2ControllerEditor : Editor
         {
             Boss2Action action = controller.Actions[i];
             string invincible = action.IsInvincible ? "  [무적]" : "";
-            if (GUILayout.Button($"{action.Name}   ({action.Move} → {action.Attack}){invincible}"))
+            string ghostTrail = action.GhostTrail ? "  [잔상]" : "";
+            if (GUILayout.Button($"{action.Name}   ({action.Move} → {action.Attack}){invincible}{ghostTrail}"))
             {
                 controller.TestAction(i);
             }

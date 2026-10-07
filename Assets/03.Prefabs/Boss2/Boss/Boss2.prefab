@@ -407,6 +407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss2
   _health: 5000
   _maxHealth: 0
+  _hitSound: {fileID: 2730437308857772986}
 --- !u!114 &4827965982157604352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,7 +438,6 @@ MonoBehaviour:
   _maxComboCount: 8
   _comboSpeed: 1.5
   _cameraImpulse: {fileID: 7095277919416841659}
-  _hitSound: {fileID: 2730437308857772986}
   _slashSound: {fileID: 7959016645909478120}
   _smashStateName: Boss2SmashAttack
   _spinStateName: Boss2SpecialAttack
@@ -459,6 +459,7 @@ MonoBehaviour:
   _bladeAuraAllSpeed: 7
   _bladeAuraAllStateName: BladeAuraSlashAll
   _spinningSlashEffect: {fileID: 5018011064343898608}
+  _auraSlashSound: {fileID: 641561829333948831}
 --- !u!114 &4474688203573458451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,7 +513,6 @@ MonoBehaviour:
   _maxComboCount: 8
   _comboSpeed: 1
   _cameraImpulse: {fileID: 0}
-  _hitSound: {fileID: 0}
   _slashSound: {fileID: 0}
   _instantKillStartState: StartInstantKillSkill
   _instantKillEndState: EndInstantKillSkill
@@ -651,6 +651,7 @@ MonoBehaviour:
     Cooldown: 0
     Weight: 5
     IsInvincible: 0
+    GhostTrail: 0
   - Name: "\uC81C\uC790\uB9AC \uD68C\uC804\uCC38"
     Move: 0
     Attack: 6
@@ -664,6 +665,7 @@ MonoBehaviour:
     Cooldown: 10
     Weight: 3
     IsInvincible: 1
+    GhostTrail: 0
   - Name: "\uCD94\uACA9 \uC5F0\uD0C0"
     Move: 3
     Attack: 1
@@ -677,6 +679,7 @@ MonoBehaviour:
     Cooldown: 3
     Weight: 3
     IsInvincible: 0
+    GhostTrail: 0
   - Name: "\uB3CC\uC9C4 \uAC15\uD0C0"
     Move: 1
     Attack: 2
@@ -690,6 +693,7 @@ MonoBehaviour:
     Cooldown: 3
     Weight: 5
     IsInvincible: 1
+    GhostTrail: 0
   - Name: "\uC21C\uBCF4 \uD68C\uC804\uCC38"
     Move: 2
     Attack: 4
@@ -703,6 +707,7 @@ MonoBehaviour:
     Cooldown: 7
     Weight: 3
     IsInvincible: 1
+    GhostTrail: 0
   - Name: "\uD68C\uD53C \uAC80\uACA9"
     Move: 5
     Attack: 3
@@ -716,6 +721,7 @@ MonoBehaviour:
     Cooldown: 5
     Weight: 5
     IsInvincible: 1
+    GhostTrail: 0
   - Name: "\uD68C\uD53C \uB09C\uACA9"
     Move: 5
     Attack: 5
@@ -729,6 +735,7 @@ MonoBehaviour:
     Cooldown: 5
     Weight: 3
     IsInvincible: 1
+    GhostTrail: 0
   _aoeHealthThresholds:
   - 0.8
   - 0.6
@@ -1778,6 +1785,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpinningZone
       objectReference: {fileID: 0}
+    - target: {fileID: 5340205731375211102, guid: 3a47ed8307f99584da93ed6ac7cc2d2f, type: 3}
+      propertyPath: m_Layer
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 5340205731375211102, guid: 3a47ed8307f99584da93ed6ac7cc2d2f, type: 3}
+      propertyPath: m_TagString
+      value: BossAttack
+      objectReference: {fileID: 0}
     - target: {fileID: 8514508278185011091, guid: 3a47ed8307f99584da93ed6ac7cc2d2f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1882,11 +1897,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4012278826734768088, guid: 9aaba93133a3c5649a0f3c7a0ea70e0e, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 4012278826734768088, guid: 9aaba93133a3c5649a0f3c7a0ea70e0e, type: 3}
       propertyPath: m_TagString
-      value: BossBullet
+      value: BossAttack
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

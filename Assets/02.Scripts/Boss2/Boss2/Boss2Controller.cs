@@ -55,6 +55,8 @@ public class Boss2Controller : MonoBehaviour
     private Boss2MovePattern _move;
     private Boss2AttackPattern _attack;
     private Boss2SkillPattern _skill;
+    // 없어도 된다. 있으면 GhostTrail 행동의 이동·공격 동안 켠다.
+    private Boss2GhostTrail _ghostTrail;
 
     private Boss2State _state = Boss2State.Idle;
     private float _stateEnterTime;
@@ -63,6 +65,9 @@ public class Boss2Controller : MonoBehaviour
 
     // 테스트로 실행한 행동인지. 끝나면 다음 판단(Think)으로 가지 않고 Idle 에서 멈춘다.
     private bool _isTestRun;
+
+    // 연속 테스트에서 남은 행동들. 하나가 끝나면 Recover 없이 바로 다음 것을 꺼내 실행한다.
+    private readonly Queue<System.Action> _testQueue = new Queue<System.Action>();
 
     private bool[] _aoeTriggered;
     private int _pendingAoeCount;
@@ -76,6 +81,7 @@ public class Boss2Controller : MonoBehaviour
         _move = GetComponent<Boss2MovePattern>();
         _attack = GetComponent<Boss2AttackPattern>();
         _skill = GetComponent<Boss2SkillPattern>();
+        _ghostTrail = GetComponent<Boss2GhostTrail>();
 
         _aoeTriggered = new bool[_aoeHealthThresholds.Length];
     }
@@ -190,6 +196,7 @@ public class Boss2Controller : MonoBehaviour
     public void StopFsm()
     {
         _isTestRun = false;
+        _testQueue.Clear();
         StopAllPatterns();
         EnterState(Boss2State.Idle);
     }
@@ -198,6 +205,7 @@ public class Boss2Controller : MonoBehaviour
     public IReadOnlyList<Boss2Action> Actions => _actions;
     public bool IsTestRunning => _isTestRun;
     public string CurrentStateName => _state.ToString();
+    public int TestQueueRemaining => _testQueue.Count;
 
     /// <summary>
     /// _actions[index] 를 조건(거리·체력·쿨다운)과 상관없이 바로 실행한다. 플레이 중에만 동작.
@@ -208,6 +216,46 @@ public class Boss2Controller : MonoBehaviour
             return;
 
         StartAction(_actions[index], "테스트");
+    }
+
+    /// <summary>
+    /// _actions 를 순서대로 모두 실행한다. 하나가 끝나면 Recover 를 거치지 않고 바로 다음 행동으로 넘어간다.
+    /// includeSkills 면 마지막에 즉사기·광역기도 이어서 실행한다. 플레이 중에만 동작.
+    /// </summary>
+    public void TestAllActions(bool includeSkills)
+    {
+        if (CanStartTest() == false)
+            return;
+
+        for (int i = 0; i < _actions.Count; i++)
+        {
+            Boss2Action action = _actions[i];
+            string reason = $"연속 테스트 {i + 1}/{_actions.Count}";
+            _testQueue.Enqueue(() => StartAction(action, reason));
+        }
+
+        if (includeSkills)
+        {
+            _testQueue.Enqueue(() => StartSkill(Boss2SkillPatternType.InstantKill, "연속 테스트"));
+            _testQueue.Enqueue(() => StartSkill(Boss2SkillPatternType.AreaOfEffect, "연속 테스트"));
+        }
+
+        RunNextTest();
+    }
+
+    [ContextMenu("Test/All Actions")]
+    private void TestAllActionsOnly() => TestAllActions(false);
+
+    [ContextMenu("Test/All Actions + Skills")]
+    private void TestAllActionsAndSkills() => TestAllActions(true);
+
+    private bool RunNextTest()
+    {
+        if (_testQueue.Count == 0)
+            return false;
+
+        _testQueue.Dequeue().Invoke();
+        return true;
     }
 
     /// <summary>
@@ -233,6 +281,7 @@ public class Boss2Controller : MonoBehaviour
         if (Application.isPlaying == false || _boss == null || _boss.IsDead)
             return false;
 
+        _testQueue.Clear();
         StopAllPatterns();
         if (Target == null)
         {
@@ -412,6 +461,7 @@ public class Boss2Controller : MonoBehaviour
 
     private void EnterDead()
     {
+        _testQueue.Clear();
         StopAllPatterns();
         EnterState(Boss2State.Dead);
     }
@@ -425,6 +475,10 @@ public class Boss2Controller : MonoBehaviour
 
     private void EnterState(Boss2State next)
     {
+        // 연속 테스트 중이면 행동이 끝나는 즉시(Recover 생략) 다음 행동을 실행한다.
+        if (_isTestRun && (next == Boss2State.Recover || next == Boss2State.Think) && RunNextTest())
+            return;
+
         // 테스트 행동이 끝나 다음 판단으로 넘어가려 하면 Idle 에서 멈춘다. (Recover 후·이동 시간 초과·스킬 거절 모두)
         if (_isTestRun && next == Boss2State.Think)
         {
@@ -447,23 +501,24 @@ public class Boss2Controller : MonoBehaviour
         {
             _boss.SetInvincible(IsInvincibleIn(next));
         }
+
+        // 고스트 트레일도 무적과 같은 규칙으로 행동의 이동·공격 동안만 켠다.
+        if (_ghostTrail != null)
+        {
+            _ghostTrail.SetFsmTrail(IsActionPhase(next) && _currentAction.GhostTrail);
+        }
     }
 
     // 무적 행동은 이동부터 공격이 끝날 때까지 무적. Think · Recover · Idle · Dead 에서는 해제된다.
     private bool IsInvincibleIn(Boss2State state)
     {
-        switch (state)
-        {
-            case Boss2State.Move:
-            case Boss2State.Attack:
-            {
-                return _currentAction != null && _currentAction.IsInvincible;
-            }
-            default:
-            {
-                return false;
-            }
-        }
+        return IsActionPhase(state) && _currentAction.IsInvincible;
+    }
+
+    // 행동(이동 → 공격)이 진행 중인 상태인지
+    private bool IsActionPhase(Boss2State state)
+    {
+        return _currentAction != null && (state == Boss2State.Move || state == Boss2State.Attack);
     }
 
     // ---- 피격 ----
@@ -531,10 +586,11 @@ public class Boss2Controller : MonoBehaviour
                 Name = "추격 강타", 
                 Move = Boss2MovePatternType.ChaseRun, 
                 Attack = Boss2AttackPatternType.SmashAttack,
-                DistanceMin = 1.5f, 
-                DistanceMax = 100f, 
+                DistanceMin = 1.5f,
+                DistanceMax = 100f,
                 Cooldown = 6f,
                 IsInvincible = true,
+                GhostTrail = true,
                 Weight = 4f,
             },
             new Boss2Action
@@ -544,16 +600,17 @@ public class Boss2Controller : MonoBehaviour
                 Attack = Boss2AttackPatternType.SpinningSlash,
                 DistanceMin = 1.5f, 
                 DistanceMax = 100f, 
-                HealthMax = 0.7f, 
+                HealthMax = 0.7f,
                 Cooldown = 8f,
                 IsInvincible = true,
+                GhostTrail = true,
                 Weight = 3f,
             },
             new Boss2Action
             {
                 Name = "근접 회전 반격", 
-                Move = Boss2MovePatternType.None, 
-                Attack = Boss2AttackPatternType.SpinningSlash,
+                Move = Boss2MovePatternType.None,
+                Attack = Boss2AttackPatternType.SpinningSlashInPlace,
                 DistanceMin = 0f, 
                 DistanceMax = 1.5f, 
                 HealthMax = 0.4f, 

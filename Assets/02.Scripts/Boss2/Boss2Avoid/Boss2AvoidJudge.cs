@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -12,6 +13,10 @@ public class Boss2AvoidJudge : MonoBehaviour, IAvoidInteraction
 
     private Animator _animator;
     private float _waitStartTime;
+    private readonly List<GameObject> _participants = new List<GameObject>();
+
+    // 마지막 Begin 에서 회피 입력을 띄운 플레이어들. 실패 시 데미지를 줄 대상을 공격 쪽에서 알 수 있게 한다.
+    public IReadOnlyList<GameObject> Participants => _participants;
 
     // 회피 결과를 기다리며 보스 모션을 멈춘 상태인지
     public bool IsWaiting { get; private set; }
@@ -64,7 +69,7 @@ public class Boss2AvoidJudge : MonoBehaviour, IAvoidInteraction
     /// </summary>
     public bool Begin(Vector2 center, float radius, Boss2AvoidType avoidType)
     {
-        bool hasStarted = false;
+        _participants.Clear();
         foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
         {
             PlayerAvoid playerAvoid = playerObject.GetComponent<PlayerAvoid>();
@@ -84,10 +89,10 @@ public class Boss2AvoidJudge : MonoBehaviour, IAvoidInteraction
                     playerAvoid.StartAvoidAttackInteraction(gameObject);
                     break;
             }
-            hasStarted = true;
+            _participants.Add(playerObject);
         }
 
-        if (hasStarted == false)
+        if (_participants.Count == 0)
             return false;
 
         IsWaiting = true;
@@ -99,6 +104,7 @@ public class Boss2AvoidJudge : MonoBehaviour, IAvoidInteraction
     public void ResetResult()
     {
         LastResult = false;
+        _participants.Clear();
     }
 
     /// <summary>

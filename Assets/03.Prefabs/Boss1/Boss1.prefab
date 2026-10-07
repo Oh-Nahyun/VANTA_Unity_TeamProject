@@ -736,7 +736,7 @@ Transform:
   m_GameObject: {fileID: 2835865572223978270}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.40200007, y: 1.53, z: 0}
+  m_LocalPosition: {x: 0.537, y: 1.167, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -988,7 +988,7 @@ Transform:
   m_GameObject: {fileID: 4608215776097713678}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.388, y: 2.185, z: 0}
+  m_LocalPosition: {x: 0.511, y: 1.787, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1110,7 +1110,7 @@ Transform:
   m_GameObject: {fileID: 5818181297762096994}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.1059998, y: 1.784, z: 0}
+  m_LocalPosition: {x: 1.22, y: 1.399, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1970,7 +1970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 584929f51a598484e8bf086a9fe14f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1MeleePattern
-  _weight: 500
+  _weight: 10
   _meleeAttacks:
   - _attackBehaviour: {fileID: 3060184153963347236}
     _weight: 10

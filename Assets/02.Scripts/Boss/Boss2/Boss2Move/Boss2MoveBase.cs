@@ -247,7 +247,7 @@ public class Boss2MoveBase : MonoBehaviour, IBossMovable
         {
             _dodgeCooldownTimer = Mathf.Max(_dodgeCooldownTimer - Time.deltaTime, 0f);
         }
-
+        
         if (_state != MoveState.Dodge) return;
 
         _dodgeTimer -= Time.deltaTime;

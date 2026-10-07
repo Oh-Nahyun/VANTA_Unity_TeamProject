@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: 45b6c4a51c305744a9a7785d937d4569
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2731804216126588619
+    second: GIF - Pet Waddle Parade_0
+  - first:
+      213: 3316517421608415914
+    second: GIF - Pet Waddle Parade_1
+  - first:
+      213: -109421421642759767
+    second: GIF - Pet Waddle Parade_2
+  - first:
+      213: 1324095995186994652
+    second: GIF - Pet Waddle Parade_3
+  - first:
+      213: 7384156506556321943
+    second: GIF - Pet Waddle Parade_4
+  - first:
+      213: -1696017377151698084
+    second: GIF - Pet Waddle Parade_5
+  - first:
+      213: -463191954997592640
+    second: GIF - Pet Waddle Parade_6
+  - first:
+      213: -8757643601459855067
+    second: GIF - Pet Waddle Parade_7
+  - first:
+      213: 7926640357713150337
+    second: GIF - Pet Waddle Parade_8
+  - first:
+      213: -5650202828268199568
+    second: GIF - Pet Waddle Parade_9
+  - first:
+      213: -2684495760884535612
+    second: GIF - Pet Waddle Parade_10
+  - first:
+      213: 9127473595539100616
+    second: GIF - Pet Waddle Parade_11
+  - first:
+      213: -8239833624731835689
+    second: GIF - Pet Waddle Parade_12
+  - first:
+      213: -2334191658803638097
+    second: GIF - Pet Waddle Parade_13
+  - first:
+      213: 8451515725398902323
+    second: GIF - Pet Waddle Parade_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GIF - Pet Waddle Parade_0
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 31
+        width: 78
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5393cd50a8ea61ad0800000000000000
+      internalID: -2731804216126588619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GIF - Pet Waddle Parade_1
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 27
+        width: 82
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa23d56f503a60e20800000000000000
+      internalID: 3316517421608415914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GIF - Pet Waddle Parade_2
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 31
+        width: 66
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a14a28fbc14b7ef0800000000000000
+      internalID: -109421421642759767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GIF - Pet Waddle Parade_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 19
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdd53a1da42206210800000000000000
+      internalID: 1324095995186994652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GIF - Pet Waddle Parade_4
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 19
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 790dd23483bc97660800000000000000
+      internalID: 7384156506556321943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GIF - Pet Waddle Parade_5
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 19
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5bbbfd6e298678e0800000000000000
+      internalID: -1696017377151698084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GIF - Pet Waddle Parade_6
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 19
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cdbc8bfe596299f0800000000000000
+      internalID: -463191954997592640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GIF - Pet Waddle Parade_7
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 19
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52143816b89967680800000000000000
+      internalID: -8757643601459855067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GIF - Pet Waddle Parade_8
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 19
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18184cf7865110e60800000000000000
+      internalID: 7926640357713150337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GIF - Pet Waddle Parade_9
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 19
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 071aa28b6727691b0800000000000000
+      internalID: -5650202828268199568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GIF - Pet Waddle Parade_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 11
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ce6f6b1451cebad0800000000000000
+      internalID: -2684495760884535612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GIF - Pet Waddle Parade_11
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 11
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c39dde20ec4bae70800000000000000
+      internalID: 9127473595539100616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GIF - Pet Waddle Parade_12
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 11
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d22a8d89fa36ad80800000000000000
+      internalID: -8239833624731835689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GIF - Pet Waddle Parade_13
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 11
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa0545bad094b9fd0800000000000000
+      internalID: -2334191658803638097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GIF - Pet Waddle Parade_14
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 11
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 336870236c0d94570800000000000000
+      internalID: 8451515725398902323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      GIF - Pet Waddle Parade_0: -2731804216126588619
+      GIF - Pet Waddle Parade_1: 3316517421608415914
+      GIF - Pet Waddle Parade_10: -2684495760884535612
+      GIF - Pet Waddle Parade_11: 9127473595539100616
+      GIF - Pet Waddle Parade_12: -8239833624731835689
+      GIF - Pet Waddle Parade_13: -2334191658803638097
+      GIF - Pet Waddle Parade_14: 8451515725398902323
+      GIF - Pet Waddle Parade_2: -109421421642759767
+      GIF - Pet Waddle Parade_3: 1324095995186994652
+      GIF - Pet Waddle Parade_4: 7384156506556321943
+      GIF - Pet Waddle Parade_5: -1696017377151698084
+      GIF - Pet Waddle Parade_6: -463191954997592640
+      GIF - Pet Waddle Parade_7: -8757643601459855067
+      GIF - Pet Waddle Parade_8: 7926640357713150337
+      GIF - Pet Waddle Parade_9: -5650202828268199568
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

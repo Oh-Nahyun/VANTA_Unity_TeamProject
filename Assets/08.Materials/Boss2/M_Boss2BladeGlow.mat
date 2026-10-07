@@ -46,20 +46,33 @@ Material:
     m_Ints: []
     m_Floats:
     - _Alpha: 0
+    - _BladeFlowAmount: 0.35
+    - _BladeFlowSpeed: 1.5
     - _BloodBrightness: 1
     - _BloodKeyFuzziness: 0.1
     - _BloodKeyRange: 0.42
     - _DissolveAmount: 0
+    - _DissolveBottomY: -0.5
+    - _DissolveDirection: 0
+    - _DissolveEdgeIntensity: 1
     - _DissolveEdgeWidth: 0.05
+    - _DissolveTopY: 2.8
+    - _FlashAmount: 0
     - _GlowAmount: 0
     - _GlowIntensity: 2.2
     - _NoiseScale: 30
+    - _OutlineAmount: 0
+    - _OutlinePulseSpeed: 8
+    - _OutlineWidth: 1
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}
+    - _BladeFlowColor: {r: 2.5, g: 0.4, b: 0.75, a: 1}
     - _BloodColor: {r: 0.702, g: 0.0706, b: 0.1176, a: 1}
     - _BloodKeyColor: {r: 1, g: 0.4941, b: 0.6353, a: 1}
-    - _DissolveEdgeColor: {r: 0.10930267, g: 0.012682444, b: 0.14150941, a: 1}
+    - _DissolveEdgeColor: {r: 1.2, g: 0.2, b: 2, a: 1}
+    - _FlashColor: {r: 2, g: 0.7, b: 0.8, a: 1}
     - _GlowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 3, g: 0.3, b: 0.75, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &5661584336893475004

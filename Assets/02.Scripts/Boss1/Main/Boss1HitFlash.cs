@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class Boss1HitFlash : MonoBehaviour

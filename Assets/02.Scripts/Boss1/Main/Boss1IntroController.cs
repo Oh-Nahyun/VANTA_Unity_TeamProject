@@ -11,6 +11,8 @@ public class Boss1IntroController : MonoBehaviour
     [SerializeField] private Animator _animator;
 
     private Boss1AttackController _boss1AttackController;
+    
+    private GameObject _warningZone;
 
     private void Awake()
     {
@@ -30,7 +32,7 @@ public class Boss1IntroController : MonoBehaviour
 
     private IEnumerator IntroRoutine()
     {
-        GameObject warningZone = Instantiate(_warningZonePrefab, transform.position, Quaternion.identity);
+        _warningZone = Instantiate(_warningZonePrefab, transform.position, Quaternion.identity);
         
         yield return new WaitForSeconds(_waringDuration);
 
@@ -50,5 +52,16 @@ public class Boss1IntroController : MonoBehaviour
         {
             spriteRenderer.forceRenderingOff = !visible;
         }
+    }
+
+    public void RemoveWarningZone()
+    {
+        if (_warningZone == null)
+        {
+            return;
+        }
+        
+        Destroy(_warningZone);
+        _warningZone = null;
     }
 }

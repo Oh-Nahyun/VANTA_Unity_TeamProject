@@ -35,6 +35,7 @@ public class Boss1AttackController : MonoBehaviour
     private float _jumpMissBonus;
     
     private Transform _playerTransform;
+    private Boss1Movement _boss1Movement;
     
     private AttackState _currentState; // 추격 or 공격
     private IBoss1Attack _currentAttack; // 근거리 패턴 or 원거리 패턴 or 점프 공격
@@ -50,10 +51,14 @@ public class Boss1AttackController : MonoBehaviour
         Attack
     }
 
+    private void Awake()
+    {
+        _boss1Movement = GetComponent<Boss1Movement>();
+    }
+
     private void Start()
     {
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        ChangeState(AttackState.Chase);
     }
 
     private void Update()
@@ -84,7 +89,14 @@ public class Boss1AttackController : MonoBehaviour
     
     public void StartBattle()
     {
+        if (_isBattleStarted)
+        {
+            return;
+        }
+        
         _isBattleStarted = true;
+        
+        EnterChaseState();
     }
 
     public void LockAttack()
@@ -137,7 +149,7 @@ public class Boss1AttackController : MonoBehaviour
     {
         if (_currentAttack == null)
         {
-            ChangeState(AttackState.Chase);
+            EnterChaseState();
             return;
         }
         
@@ -155,7 +167,7 @@ public class Boss1AttackController : MonoBehaviour
         
         _currentAttack.ExitAttack();
         _currentAttack = null;
-        ChangeState(AttackState.Chase);
+        EnterChaseState();
     }
 
     private void UpdatePlayerFarTimer()
@@ -289,6 +301,12 @@ public class Boss1AttackController : MonoBehaviour
             _jumpMissBonus += _jumpMissBonusAmount;
             _jumpMissBonus = Mathf.Min(_jumpMissBonus, _maxJumpMissBonus);
         }
+    }
+    
+    private void EnterChaseState()
+    {
+        ChangeState(AttackState.Chase);
+        _boss1Movement.StartNormalChase();
     }
     
     private void ChangeState(AttackState newState)

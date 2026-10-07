@@ -11,7 +11,6 @@ public class GameStartActing : MonoBehaviour
     [Header("보스 HP바 ")][SerializeField]private GameObject _bossHPVar;
     [Header("보스 등장 호출 ")][SerializeField]private UnityEvent _boss1DropStart;
     [Header("보스 착지 Vfx 호출 ")][SerializeField]private GameObject _bossDropVfx;
-    public GameObject TestBoss;
     private void Awake()
     {
         _playerMove = GetComponent<PlayerMove>();
@@ -52,7 +51,6 @@ public class GameStartActing : MonoBehaviour
 
     private void FocusToBoss()
     {
-        TestBoss.SetActive(true);
 
         HitableObject hitableObject=FindAnyObjectByType<HitableObject>();
         Transform zoomTransform = hitableObject.transform;

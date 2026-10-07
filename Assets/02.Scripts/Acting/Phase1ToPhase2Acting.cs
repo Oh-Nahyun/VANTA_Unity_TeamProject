@@ -5,6 +5,7 @@ using UnityEngine;
 public class Phase1ToPhase2Acting : MonoBehaviour
 {
     [Header("배경체인져")][SerializeField]private EnvironmentChanger _environmentChanger;
+    [Header("불끄기")][SerializeField]private LightOff _lightOff;
     private PlayerStatusManager _playerStatusManager;
 
     private void Awake()
@@ -30,26 +31,34 @@ public class Phase1ToPhase2Acting : MonoBehaviour
             3f,
             () =>
             {
-                StartChangeEnvironment();
+                StartOffLight();
             }
         );
         //3초 대기후 배경 변화 연출 시작
     }
 
-    private void StartChangeEnvironment()
+    private void StartOffLight()
     {
-        CameraFocusingController.Instance.ShowOrigin();
-        //CameraFocusingController.Instance.SlowFocus(transform,-1.5f,1f);
+        CameraFocusingController.Instance.ShowOrigin(); 
         DOVirtual.DelayedCall(
             1,
             () =>
             {
-                //_playerStatusManager.DefaultCameraSet();
-
-                _environmentChanger.StartChangeBackground(StartBossChange);
+                _lightOff.StartLightOff(StartBackgroundPhase2);
             }
         );
 
+    }
+
+    private void StartBackgroundPhase2()
+    {
+        DOVirtual.DelayedCall(
+            3,
+            () =>
+            {
+                _environmentChanger.StartChangeBackground(StartBossChange);
+            }
+        );
     }
 
     private void StartBossChange()

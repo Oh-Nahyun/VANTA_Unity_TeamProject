@@ -72,7 +72,7 @@ public class EnvironmentChanger : MonoBehaviour
     }
 
     public void StartChangeBackground(
-        Action onComplete)
+        Action onComplete = null)
     {
         if (_targetRenderer == null)
             return;
@@ -147,7 +147,8 @@ public class EnvironmentChanger : MonoBehaviour
         int index)
     {
         if (index < 0 ||
-            index >= _fires.Count)
+            index >= _fires.Count ||
+            index >= SelectedRadiusIDs.Length)
         {
             ChangeComplete();
             return;
@@ -177,12 +178,9 @@ public class EnvironmentChanger : MonoBehaviour
             _propertyBlock
         );
 
-        fire.ChangeFire(
-            () =>
-            {
-                StartRadiusTween(index);
-            }
-        );
+        fire.ActivateFire();
+
+        StartRadiusTween(index);
     }
 
     private void SetFireCenters()
@@ -203,7 +201,8 @@ public class EnvironmentChanger : MonoBehaviour
              i < count;
              i++)
         {
-            Fire fire = _fires[i];
+            Fire fire =
+                _fires[i];
 
             if (fire == null)
                 continue;
@@ -322,7 +321,7 @@ public class EnvironmentChanger : MonoBehaviour
     {
         _completedChangeCount++;
 
-        if (_completedChangeCount !=
+        if (_completedChangeCount <
             _targetChangeCount)
         {
             return;
@@ -415,4 +414,4 @@ public class EnvironmentChanger : MonoBehaviour
     {
         KillTweens();
     }
-}
+}   

@@ -26,7 +26,6 @@ public class PlayerStatusManager : MonoBehaviour
     [SerializeField] private float _startOrthographicSize = 5f;
     [SerializeField] private float _targetOrthographicSize = 3f;
     [SerializeField] private float _zoomDuration = 1f;
-    [Header("게임 start ui ")][SerializeField]private GameObject _gameStartUI;
 
     private Sequence _originSequence;
     private Animator _animator;
@@ -106,7 +105,6 @@ public class PlayerStatusManager : MonoBehaviour
 
         if (_isStart)
             return;
-        _gameStartUI.gameObject.SetActive(false);
         _isStart = true;
 
         Time.timeScale = 1f;

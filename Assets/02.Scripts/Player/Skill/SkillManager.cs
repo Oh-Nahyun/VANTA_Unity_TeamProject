@@ -129,6 +129,8 @@ public class SkillManager : MonoBehaviour
             _skillStack
         );
         
+     
+
         _playerMove.DashToReverseSide();
 
         _skillSpaceController.StartSkillSpaceDissolve(_skillTime);
@@ -262,9 +264,13 @@ public class SkillManager : MonoBehaviour
 
         _playerAttack.enabled = true;
         _playerMove.enabled = true;
-        _player.OnPlayerHittable();
         
-
+        DOVirtual.DelayedCall(1f, () =>
+        {
+            _player.OnPlayerHittable();
+        });
+        
+     
         Time.timeScale = 1f;
     }
 

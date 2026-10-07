@@ -21,7 +21,6 @@ public class SkillIndicatorAttack : MonoBehaviour
     [SerializeField] private float _idleMaxDuration = 1.5f;
 
     private SkillIndicatorMove _skillIndicatorMove;
-    private Animator _animator;
 
     private bool _isAttacking;
     public bool IsAttacking => _isAttacking;
@@ -36,8 +35,7 @@ public class SkillIndicatorAttack : MonoBehaviour
         _skillIndicatorMove =
             GetComponent<SkillIndicatorMove>();
 
-        _animator =
-            GetComponent<Animator>();
+       
 
         SetDefaultAngle();
         StartIdleRotation();
@@ -218,14 +216,7 @@ public class SkillIndicatorAttack : MonoBehaviour
                 .OnUpdate(UpdateRotationByMovement)
         );
 
-        _attackSequence.InsertCallback(
-            _attackDuration * 0.55f,
-            () =>
-            {
-                _animator.SetTrigger("Strike");
-            }
-        );
-
+        
         _attackSequence.AppendCallback(() =>
         {
             if (target == null)
@@ -274,7 +265,6 @@ public class SkillIndicatorAttack : MonoBehaviour
 
         _isAttacking = false;
 
-        _animator.SetTrigger("Choice");
 
         if (_skillIndicatorMove != null)
         {

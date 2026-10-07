@@ -40,7 +40,7 @@ Texture2D:
   m_ColorSpace: 1
   m_PlatformBlob: 
   image data: 1
-  _typelessdata: cd
+  _typelessdata: 00
   m_StreamData:
     serializedVersion: 2
     offset: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
     m_SubscriptSize: 0
     m_UnderlineOffset: 0
     m_UnderlineThickness: 0
-    m_StrikethroughOffset: 0
+    m_StrikethroughOffset: 3.6
     m_StrikethroughThickness: 0
     m_TabWidth: 4
   m_Material: {fileID: 2435158925703276915}
@@ -260,9 +260,9 @@ Material:
     - _OutlineWidth: 0
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 1
-    - _ScaleRatioB: 1
-    - _ScaleRatioC: 1
+    - _ScaleRatioA: 0.9
+    - _ScaleRatioB: 0.73125
+    - _ScaleRatioC: 0.73125
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0

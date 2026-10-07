@@ -216,6 +216,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+--- !u!4 &447761295 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9210076179707630864, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+  m_PrefabInstance: {fileID: 1733891861}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &585678637
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,6 +785,34 @@ PrefabInstance:
     - target: {fileID: 5486056013902944760, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6531711006687170515, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _visualPivot
+      value: 
+      objectReference: {fileID: 447761295}
+    - target: {fileID: 6531711006687170515, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _roarDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6531711006687170515, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _waveDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6531711006687170515, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _waveInterval
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6531711006687170515, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _clawThreatCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6531711006687170515, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _roarWaveMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: d7ec4078de80b2d419e9928e3a7b2550, type: 2}
+    - target: {fileID: 6531711006687170515, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _roarShakeDuration
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8279119010861365979, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: m_Name

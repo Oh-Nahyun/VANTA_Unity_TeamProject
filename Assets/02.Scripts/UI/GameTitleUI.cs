@@ -16,15 +16,8 @@ public class GameTitleUI : MonoBehaviour
     [Header("게임 설정 패널")]
     [SerializeField] private GameObject _gameSettingPanel;
 
-    /// <summary>
-    /// 타이틀 디졸브 효과용 클래스
-    /// </summary>
-    private TitleDissolveEffect _titleDissolveEffect;
-
-    private void Awake()
-    {
-        _titleDissolveEffect = GetComponent<TitleDissolveEffect>();
-    }
+    [Header("타이틀 디졸브 효과용 클래스")]
+    [SerializeField] TitleDissolveEffect _titleDissolveEffect;
 
     private void Start()
     {
@@ -35,13 +28,17 @@ public class GameTitleUI : MonoBehaviour
 
     private void OnClickStartButton()
     {
-        _titleDissolveEffect.PlayDissolve();
         StartCoroutine(DestroyTitleUICoroutine());
     }
 
     private IEnumerator DestroyTitleUICoroutine()
     {
-        yield return new WaitForSeconds(_titleDissolveEffect.DissolveDuration);
+        _titleDissolveEffect.PlayButtonDissolve();
+        yield return new WaitForSeconds(_titleDissolveEffect.ButtonDissolveDuration);
+        transform.GetChild(0).gameObject.SetActive(false);
+
+        _titleDissolveEffect.PlayTitleDissolve();
+        yield return new WaitForSeconds(_titleDissolveEffect.TitleDissolveDuration);
         gameObject.SetActive(false);
     }
 

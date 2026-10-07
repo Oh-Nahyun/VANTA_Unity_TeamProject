@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -30,7 +31,7 @@ public class PlayerMove : MonoBehaviour
 
     private Tween _dashTween;
 
-    private void Start()
+    private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
@@ -126,6 +127,55 @@ public class PlayerMove : MonoBehaviour
             _lastMoveDirection,
             _dashDistance,
             _dashDuration
+        );
+    }
+
+    public void DashToPoint(
+        Vector2 position,
+        Action onComplete)
+    {
+        if (_isDashing)
+            return;
+
+        Vector2 currentPosition =
+            _rigidbody.position;
+
+        Vector2 direction =
+            position - currentPosition;
+
+        float distance =
+            direction.magnitude;
+
+        if (distance <= 0f)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        direction.Normalize();
+
+        Instantiate(
+            _dashEffect,
+            transform.position,
+            Quaternion.identity
+        );
+
+        _playerAfterImageController.OnAfterImage();
+
+        SetDashAnimation();
+
+        StartDash(
+            direction,
+            distance,
+            _dashDuration
+        );
+
+        DOVirtual.DelayedCall(
+            _dashDuration,
+            () =>
+            {
+                onComplete?.Invoke();
+            }
         );
     }
 

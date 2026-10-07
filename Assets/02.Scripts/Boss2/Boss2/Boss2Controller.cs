@@ -66,6 +66,10 @@ public class Boss2Controller : MonoBehaviour
     // 테스트로 실행한 행동인지. 끝나면 다음 판단(Think)으로 가지 않고 Idle 에서 멈춘다.
     private bool _isTestRun;
 
+    // 일시정지: 상태·진행 중인 행동은 그대로 두고 FSM 판단만 멈춘다. (StopFsm 은 행동을 취소한다)
+    private bool _isPaused;
+    private float _pauseStartTime;
+
     // 연속 테스트에서 남은 행동들. 하나가 끝나면 Recover 없이 바로 다음 것을 꺼내 실행한다.
     private readonly Queue<System.Action> _testQueue = new Queue<System.Action>();
 
@@ -123,7 +127,7 @@ public class Boss2Controller : MonoBehaviour
 
     private void Update()
     {
-        if (_state == Boss2State.Idle || _state == Boss2State.Dead)
+        if (_isPaused || _state == Boss2State.Idle || _state == Boss2State.Dead)
             return;
 
         if (_boss.IsDead)
@@ -189,16 +193,50 @@ public class Boss2Controller : MonoBehaviour
         if (_boss.IsDead)
             return;
 
+        // 새로 시작하는 것이므로 일시정지 중이었다면 풀린 상태로 시작한다.
+        _isPaused = false;
         EnterState(Boss2State.Think);
     }
 
     [ContextMenu("FSM/Stop")]
     public void StopFsm()
     {
+        _isPaused = false;
         _isTestRun = false;
         _testQueue.Clear();
         StopAllPatterns();
         EnterState(Boss2State.Idle);
+    }
+
+    public bool IsPaused => _isPaused;
+
+    /// <summary>
+    /// FSM 판단을 그 자리에서 멈춘다. 현재 상태와 진행 중인 행동은 취소하지 않으므로 Resume 하면 이어서 진행한다.
+    /// 애니메이션·이동·공격 코루틴은 멈추지 않는다. (보스 전체 일시정지는 Boss2.PauseBoss 에서 함께 처리)
+    /// </summary>
+    [ContextMenu("FSM/Pause")]
+    public void Pause()
+    {
+        if (_isPaused)
+            return;
+
+        _isPaused = true;
+        _pauseStartTime = Time.time;
+        Log($"일시정지 ({_state})");
+    }
+
+    /// <summary>
+    /// 멈췄던 상태에서 이어서 진행한다. 멈춰 있던 시간은 상태 경과 시간(Think 대기·이동 시간 초과·Recover)에서 뺀다.
+    /// </summary>
+    [ContextMenu("FSM/Resume")]
+    public void Resume()
+    {
+        if (_isPaused == false)
+            return;
+
+        _isPaused = false;
+        _stateEnterTime += Time.time - _pauseStartTime;
+        Log($"재개 ({_state})");
     }
 
     // ---- 테스트: 액션·스킬 하나를 실제 FSM 경로(무적·Recover 포함)로 실행하고 끝나면 Idle 로 멈춘다 ----
@@ -282,6 +320,7 @@ public class Boss2Controller : MonoBehaviour
             return false;
 
         _testQueue.Clear();
+        _isPaused = false;
         StopAllPatterns();
         if (Target == null)
         {

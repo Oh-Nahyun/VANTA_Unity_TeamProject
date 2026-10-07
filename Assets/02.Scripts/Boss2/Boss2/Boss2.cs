@@ -1,12 +1,14 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 
-public class Boss2 : HitableObject
+public class Boss2 : Boss
 {
     [Header("보스2 스탯")]
     [SerializeField] private int _health = 100;
     [SerializeField] private int _maxHealth;
+    private float _cachedAnimationSpeed = 1f;
     
     private Animator _animator;
 
@@ -22,6 +24,7 @@ public class Boss2 : HitableObject
 
     private Boss2AttackPattern _attackPattern;
     private Boss2SkillPattern _skillPattern;
+    private Boss2Controller _controller;
     
     [Header("사운드")]
     [SerializeField] private GameObject _hitSound;
@@ -37,6 +40,7 @@ public class Boss2 : HitableObject
         _attackPattern = GetComponent<Boss2AttackPattern>();
         _skillPattern = GetComponent<Boss2SkillPattern>();
         _maxHealth = _health;
+        _controller = GetComponent<Boss2Controller>();
     }
 
     public void SetInvincible(bool bInvincible)
@@ -74,6 +78,20 @@ public void TakeDamage(int damage)
         {
             Debug.LogWarning("데미지는 음수 불가");
         }
+    }
+
+    public override void PauseBoss()
+    {
+        _controller.Pause();
+        // 속도 저장
+        _cachedAnimationSpeed = _animator.speed;
+        _animator.speed = 0;
+    }
+
+    public override void ResumeBoss()
+    {
+        _controller.Resume();
+        _animator.speed = _cachedAnimationSpeed;
     }
 
     private void Death()

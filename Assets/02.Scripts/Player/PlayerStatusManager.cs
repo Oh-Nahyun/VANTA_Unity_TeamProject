@@ -13,6 +13,7 @@ public class PlayerStatusManager : MonoBehaviour
     [SerializeField] private Light2D _spotLight;
     [SerializeField] private PlayerMove _playerMove;
     [SerializeField] private PlayerAttack _playerAttack;
+    [SerializeField] private SkillManager _skillManager;
     [SerializeField] private CinemachineCamera _cinemachineCamera;
 
     [Header("Spot Light")]
@@ -55,12 +56,22 @@ public class PlayerStatusManager : MonoBehaviour
     {
         _playerMove.enabled = false;
         _playerAttack.enabled = false;
+        _skillManager.enabled = false;
     }
 
     private void OnEnable()
     {
         if (_useStartSequence)
         {
+            DefaultCameraSet();
+
+        }
+
+    }
+
+    public void DefaultCameraSet()
+    {
+      
             var lens = _cinemachineCamera.Lens;
 
             if (_useStartSequence)
@@ -75,8 +86,7 @@ public class PlayerStatusManager : MonoBehaviour
             }
 
             _cinemachineCamera.Lens = lens;
-        }
-       
+        
     }
 
     private void Update()
@@ -164,13 +174,15 @@ public class PlayerStatusManager : MonoBehaviour
 
         _playerMove.enabled = true;
         _playerAttack.enabled = true;
+        _skillManager.enabled = true;
         _animator.SetTrigger("Start");
     }
 
-    private void ActivatePlayer()
+    public void ActivatePlayer()
     {
         _playerMove.enabled = true;
         _playerAttack.enabled = true;
+        _skillManager.enabled = true;
     }
 
     private void OnDestroy()

@@ -74,12 +74,6 @@ public class GameStartActing : MonoBehaviour
         
         GetComponent<PlayerStatusManager>().ApplyFinalSetting();
         
-        DOVirtual.DelayedCall(
-            2,
-            () =>
-            {
-                CameraFocusingController.Instance.ReturnCamera();
-            }
-        );
+      
     }
 }

@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnvironmentChanger : MonoBehaviour
 {
@@ -11,14 +13,11 @@ public class EnvironmentChanger : MonoBehaviour
     [Header("맵의 불")]
     [SerializeField] private List<Fire> _fires;
 
-    [Header("카메라")]
-    [SerializeField] private Camera _targetCamera;
-
     [Header("불 변경 간격")]
     [SerializeField] private float _changeInterval = 0.4f;
 
     [Header("Radius")]
-    [SerializeField] private float _targetRadius = 0.4f;
+    [SerializeField] private float _targetRadius = 5f;
     [SerializeField] private float _radiusDuration = 0.4f;
 
     [Header("Camera Shake")]
@@ -32,7 +31,10 @@ public class EnvironmentChanger : MonoBehaviour
     private readonly List<Tween> _radiusTweens =
         new List<Tween>();
 
-    private bool _isPhase2;
+    private int _targetChangeCount;
+    private int _completedChangeCount;
+
+    private Action _onComplete;
 
     private static readonly int[] SelectCenterIDs =
     {
@@ -63,34 +65,14 @@ public class EnvironmentChanger : MonoBehaviour
 
     private void Awake()
     {
-        if (_targetCamera == null)
-        {
-            _targetCamera = Camera.main;
-        }
-
         _propertyBlock =
             new MaterialPropertyBlock();
 
         ResetPropertyBlock();
     }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            StartChangeBackground();
-        }
-    }
-
-    private void LateUpdate()
-    {
-        if (!_isPhase2)
-            return;
-
-        UpdateFireCenters();
-    }
-
-    public void StartChangeBackground()
+    public void StartChangeBackground(
+        Action onComplete)
     {
         if (_targetRenderer == null)
             return;
@@ -99,9 +81,16 @@ public class EnvironmentChanger : MonoBehaviour
 
         ResetPropertyBlock();
 
-        _isPhase2 = true;
+        _completedChangeCount = 0;
+        _onComplete = onComplete;
 
-        UpdateFireCenters();
+        _targetChangeCount = Mathf.Min(
+            _fires.Count,
+            SelectCenterIDs.Length,
+            SelectedRadiusIDs.Length
+        );
+
+        SetFireCenters();
 
         _targetRenderer.GetPropertyBlock(
             _propertyBlock
@@ -116,16 +105,18 @@ public class EnvironmentChanger : MonoBehaviour
             _propertyBlock
         );
 
+        if (_targetChangeCount <= 0)
+        {
+            CompleteEnvironmentChange();
+            return;
+        }
+
         _changeSequence =
             DOTween.Sequence();
 
-        int count = Mathf.Min(
-            _fires.Count,
-            SelectCenterIDs.Length,
-            SelectedRadiusIDs.Length
-        );
-
-        for (int i = 0; i < count; i++)
+        for (int i = 0;
+             i < _targetChangeCount;
+             i++)
         {
             int index = i;
 
@@ -136,7 +127,7 @@ public class EnvironmentChanger : MonoBehaviour
                 }
             );
 
-            if (index < count - 1)
+            if (i < _targetChangeCount - 1)
             {
                 _changeSequence.AppendInterval(
                     _changeInterval
@@ -152,18 +143,26 @@ public class EnvironmentChanger : MonoBehaviour
         );
     }
 
-    private void ChangeEnvironment(int index)
+    private void ChangeEnvironment(
+        int index)
     {
         if (index < 0 ||
             index >= _fires.Count)
         {
+            ChangeComplete();
             return;
         }
 
-        Fire fire = _fires[index];
+        Fire fire =
+            _fires[index];
 
         if (fire == null)
+        {
+            ChangeComplete();
             return;
+        }
+
+        SetFireCenter(index);
 
         _targetRenderer.GetPropertyBlock(
             _propertyBlock
@@ -186,17 +185,12 @@ public class EnvironmentChanger : MonoBehaviour
         );
     }
 
-    private void UpdateFireCenters()
+    private void SetFireCenters()
     {
-        if (_targetRenderer == null ||
-            _targetCamera == null)
-        {
-        
+        if (_targetRenderer == null)
+            return;
 
-             return;
-        }   
-
-    _targetRenderer.GetPropertyBlock(
+        _targetRenderer.GetPropertyBlock(
             _propertyBlock
         );
 
@@ -205,27 +199,26 @@ public class EnvironmentChanger : MonoBehaviour
             SelectCenterIDs.Length
         );
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0;
+             i < count;
+             i++)
         {
             Fire fire = _fires[i];
 
             if (fire == null)
                 continue;
 
-            Vector3 viewportPosition =
-                _targetCamera.WorldToViewportPoint(
-                    fire.transform.position
-                );
-
-            Vector2 selectCenter =
-                new Vector2(
-                    viewportPosition.x,
-                    viewportPosition.y
-                );
+            Vector3 worldPosition =
+                fire.transform.position;
 
             _propertyBlock.SetVector(
                 SelectCenterIDs[i],
-                selectCenter
+                new Vector4(
+                    worldPosition.x,
+                    worldPosition.y,
+                    0f,
+                    0f
+                )
             );
         }
 
@@ -234,7 +227,49 @@ public class EnvironmentChanger : MonoBehaviour
         );
     }
 
-    private void StartRadiusTween(int index)
+    private void SetFireCenter(
+        int index)
+    {
+        if (_targetRenderer == null)
+            return;
+
+        if (index < 0 ||
+            index >= _fires.Count ||
+            index >= SelectCenterIDs.Length)
+        {
+            return;
+        }
+
+        Fire fire =
+            _fires[index];
+
+        if (fire == null)
+            return;
+
+        Vector3 worldPosition =
+            fire.transform.position;
+
+        _targetRenderer.GetPropertyBlock(
+            _propertyBlock
+        );
+
+        _propertyBlock.SetVector(
+            SelectCenterIDs[index],
+            new Vector4(
+                worldPosition.x,
+                worldPosition.y,
+                0f,
+                0f
+            )
+        );
+
+        _targetRenderer.SetPropertyBlock(
+            _propertyBlock
+        );
+    }
+
+    private void StartRadiusTween(
+        int index)
     {
         int radiusID =
             SelectedRadiusIDs[index];
@@ -243,7 +278,9 @@ public class EnvironmentChanger : MonoBehaviour
 
         PlayCameraShake();
 
-        Tween tween = DOTween.To(
+        Tween tween = null;
+
+        tween = DOTween.To(
                 () => currentRadius,
                 value =>
                 {
@@ -268,16 +305,40 @@ public class EnvironmentChanger : MonoBehaviour
                 _targetRadius,
                 _radiusDuration
             )
-            .SetEase(Ease.InOutSine);
+            .SetEase(Ease.InOutSine)
+            .OnComplete(
+                () =>
+                {
+                    _radiusTweens.Remove(tween);
+
+                    ChangeComplete();
+                }
+            );
 
         _radiusTweens.Add(tween);
+    }
 
-        tween.OnComplete(
-            () =>
-            {
-                _radiusTweens.Remove(tween);
-            }
-        );
+    private void ChangeComplete()
+    {
+        _completedChangeCount++;
+
+        if (_completedChangeCount !=
+            _targetChangeCount)
+        {
+            return;
+        }
+
+        CompleteEnvironmentChange();
+    }
+
+    private void CompleteEnvironmentChange()
+    {
+        Action callback =
+            _onComplete;
+
+        _onComplete = null;
+
+        callback?.Invoke();
     }
 
     private void PlayCameraShake()
@@ -342,11 +403,12 @@ public class EnvironmentChanger : MonoBehaviour
         }
 
         _radiusTweens.Clear();
+
+        _onComplete = null;
     }
 
     public void EndPhase2()
     {
-        _isPhase2 = false;
     }
 
     private void OnDestroy()

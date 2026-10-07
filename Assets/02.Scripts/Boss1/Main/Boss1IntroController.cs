@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class Boss1IntroController : MonoBehaviour
 {
+    [Header("경고존 등장 전 시간")]
+    [SerializeField] private float _warningZoneAppearDuration = 1f;
+    
+    
     [Header("등장 경고 시간")]
     [SerializeField] private float _waringDuration = 2f;
     
@@ -20,11 +24,6 @@ public class Boss1IntroController : MonoBehaviour
         _boss1AttackController = GetComponent < Boss1AttackController>();
     }
     
-    private void Start()
-    {
-        StartIntro();
-    }
-
     public void StartIntro()
     {
         StartCoroutine(IntroRoutine());
@@ -32,6 +31,8 @@ public class Boss1IntroController : MonoBehaviour
 
     private IEnumerator IntroRoutine()
     {
+        yield return new WaitForSeconds(_warningZoneAppearDuration);
+        
         _warningZone = Instantiate(_warningZonePrefab, transform.position, Quaternion.identity);
         
         yield return new WaitForSeconds(_waringDuration);

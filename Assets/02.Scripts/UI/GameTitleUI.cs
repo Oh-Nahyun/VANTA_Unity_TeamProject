@@ -1,5 +1,5 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameTitleUI : MonoBehaviour
@@ -16,6 +16,9 @@ public class GameTitleUI : MonoBehaviour
     [Header("게임 설정 패널")]
     [SerializeField] private GameObject _gameSettingPanel;
 
+    [Header("타이틀 디졸브 효과용 클래스")]
+    [SerializeField] TitleDissolveEffect _titleDissolveEffect;
+
     private void Start()
     {
         _gameStartButton.onClick.AddListener(OnClickStartButton);
@@ -25,7 +28,18 @@ public class GameTitleUI : MonoBehaviour
 
     private void OnClickStartButton()
     {
-        SceneManager.LoadScene(1); // InGameScene
+        StartCoroutine(DestroyTitleUICoroutine());
+    }
+
+    private IEnumerator DestroyTitleUICoroutine()
+    {
+        _titleDissolveEffect.PlayButtonDissolve();
+        yield return new WaitForSeconds(_titleDissolveEffect.ButtonDissolveDuration);
+        transform.GetChild(1).gameObject.SetActive(false);
+
+        _titleDissolveEffect.PlayTitleDissolve();
+        yield return new WaitForSeconds(_titleDissolveEffect.TitleDissolveDuration);
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void OnClickSettingsButton()

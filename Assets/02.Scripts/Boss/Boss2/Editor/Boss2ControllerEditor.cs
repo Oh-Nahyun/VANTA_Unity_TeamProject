@@ -23,7 +23,9 @@ public class Boss2ControllerEditor : Editor
         }
 
         Boss2Controller controller = (Boss2Controller)target;
-        string state = controller.CurrentStateName + (controller.IsTestRunning ? "  (테스트 중)" : "");
+        string state = controller.CurrentStateName
+            + (controller.IsTestRunning ? "  (테스트 중)" : "")
+            + (controller.IsPaused ? "  (일시정지)" : "");
         if (controller.TestQueueRemaining > 0)
         {
             state += $"  남은 연속 테스트 {controller.TestQueueRemaining}";
@@ -81,6 +83,25 @@ public class Boss2ControllerEditor : Editor
             if (GUILayout.Button("FSM 정지"))
             {
                 controller.StopFsm();
+            }
+        }
+
+        using (new EditorGUILayout.HorizontalScope())
+        {
+            using (new EditorGUI.DisabledScope(controller.IsPaused))
+            {
+                if (GUILayout.Button("FSM 일시정지"))
+                {
+                    controller.Pause();
+                }
+            }
+
+            using (new EditorGUI.DisabledScope(controller.IsPaused == false))
+            {
+                if (GUILayout.Button("FSM 재개"))
+                {
+                    controller.Resume();
+                }
             }
         }
     }

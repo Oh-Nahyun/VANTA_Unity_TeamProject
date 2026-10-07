@@ -75,6 +75,10 @@ public class Boss2SkillPattern : Boss2AttackBase
     [Header("효과")]
     [SerializeField] private ParticleSystem _areaOfEffectCircle;
 
+    [SerializeField] private GameObject _fogEffect;
+    [SerializeField] private GameObject _moonLightEffect;
+    
+    
     [Header("사운드")]
     [SerializeField] private AudioClip _instantKillVoice;
     [SerializeField] private AudioClip _areaOfEffectVoice;
@@ -150,6 +154,8 @@ public class Boss2SkillPattern : Boss2AttackBase
         _boss = GetComponent<Boss2>();
         _avoidJudge = Boss2AvoidJudge.GetOrAdd(gameObject);
         FindMapWall();
+        _moonLightEffect.SetActive(false);
+        _fogEffect.GetComponent<ParticleSystem>().Play();
     }
 
     private void FindMapWall()
@@ -472,6 +478,8 @@ public class Boss2SkillPattern : Boss2AttackBase
         BeginSkill();
         _animator.CrossFade(_aoeStateName, 0.05f, 0, 0f);
 
+        
+        
         // 맵을 어둡게 하고 플레이어 주변·보스만 밝힌다. FinishSkill 에서 되돌린다.
         if (_darknessEffect != null)
         {
@@ -479,8 +487,10 @@ public class Boss2SkillPattern : Boss2AttackBase
             _darkenedBySkill = true;
         }
 
+        // 효과 부분
         Instantiate(_areaOfEffectCircle, transform.position,transform.rotation);
-
+        _moonLightEffect.SetActive(true);
+        
         // 사운드 부분
         SoundManager.Instance.PlayEffectSound(_areaOfEffectVoice);
         

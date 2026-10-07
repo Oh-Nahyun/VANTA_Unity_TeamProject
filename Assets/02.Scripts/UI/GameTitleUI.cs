@@ -35,11 +35,11 @@ public class GameTitleUI : MonoBehaviour
     {
         _titleDissolveEffect.PlayButtonDissolve();
         yield return new WaitForSeconds(_titleDissolveEffect.ButtonDissolveDuration);
-        transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(false);
 
         _titleDissolveEffect.PlayTitleDissolve();
         yield return new WaitForSeconds(_titleDissolveEffect.TitleDissolveDuration);
-        gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void OnClickSettingsButton()

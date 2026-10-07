@@ -18,9 +18,11 @@ public class PlayerFinisher : MonoBehaviour
     [SerializeField] private PlayerAttack _playerAttack;
     [SerializeField] private SkillAttack _skillAttack;
     [SerializeField] private SkillFocusScreenController _skillFocusScreenController;
-    [SerializeField] private GameObject _finisherVfx;
+    [SerializeField] private GameObject _finisherVfx1;
+    [SerializeField] private GameObject _finisherVfx2;
+    [SerializeField] private GameObject _finisherVfx3;
     [SerializeField] private PlayerAvoidKeyGenerator _playerAvoidKeyGenerator;
-
+    [SerializeField] private WeaknessThreadController _weaknessThreadController;
     [Header("Charging")]
     [SerializeField] private GameObject _chargingObject;
     [SerializeField] private float _chargingDuration = 2f;
@@ -32,7 +34,10 @@ public class PlayerFinisher : MonoBehaviour
     [SerializeField] private CinemachineImpulseSource _impulseSource;
     [SerializeField] private float _startShakeForce = 0.03f;
     [SerializeField] private float _maxShakeForce = 1f;
-
+    [Header("Charging Camera Zoom")]
+    [SerializeField] private float _startZoomAmount = 0.2f;
+    [SerializeField] private float _zoomPerCharge = 0.08f;
+    [SerializeField] private float _chargeZoomDuration = 0.08f;
     private static readonly int DashStartID =
         Shader.PropertyToID("_DashStart");
 
@@ -128,10 +133,12 @@ public class PlayerFinisher : MonoBehaviour
 
         CameraFocusingController.Instance.SlowFocus(
             transform,
-            0.8f,
-            _chargingDuration
+            _startZoomAmount,
+            _chargeZoomDuration
+
         );
 
+        _weaknessThreadController.MakeFinishWeaknessThread(transform.position,hitableObject.transform.position);
         _skillFocusScreenController.StartFocusScreenSetting(
             StartCharging
         );
@@ -173,7 +180,15 @@ public class PlayerFinisher : MonoBehaviour
             return;
 
         _currentChargeCount++;
+        float currentZoomAmount =
+            _startZoomAmount +
+            (_zoomPerCharge * _currentChargeCount);
 
+        CameraFocusingController.Instance.SlowFocus(
+            transform,
+            currentZoomAmount,
+            _chargeZoomDuration
+        );
         float chargeRatio =
             Mathf.Clamp01(
                 (float)_currentChargeCount / maxChargeCount
@@ -233,6 +248,9 @@ public class PlayerFinisher : MonoBehaviour
         if (!_isCharging)
             return;
 
+        CameraFocusingController.Instance.ReturnCamera();
+        _weaknessThreadController.BrokenThread();
+        
         _isCharging = false;
 
         _chargingTimerTween?.Kill();
@@ -275,7 +293,7 @@ public class PlayerFinisher : MonoBehaviour
                         _chargingTween = null;
                     });
         }
-
+        
         // 오브젝트 축소 완료를 기다리지 않고 즉시 대시.
         AttackToBoss();
     }
@@ -305,8 +323,21 @@ public class PlayerFinisher : MonoBehaviour
         Debug.Log(
             $"Final Charge Ratio : {_finalChargeRatio}"
         );
-        Instantiate(_finisherVfx, bossPosition, Quaternion.identity);
 
+        if (_finalChargeRatio < 0.4)
+        {
+            Instantiate(_finisherVfx1, bossPosition, Quaternion.identity);
+        }else if (_finalChargeRatio >= 0.4 && _finalChargeRatio < 0.8)
+        {
+            Instantiate(_finisherVfx2, bossPosition, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(_finisherVfx3, bossPosition, Quaternion.identity);
+
+        }
+        
+        
         _skillAttack.FinishDash(
             targetPosition,
             _finalChargeRatio,

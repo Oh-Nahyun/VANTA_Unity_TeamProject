@@ -414,6 +414,17 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 1237226069521675108, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
   m_PrefabInstance: {fileID: 1412761079}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &433942951 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4868506792254174702, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+  m_PrefabInstance: {fileID: 650435852}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a53acacea803f443b95933df941bb4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaknessThreadController
 --- !u!114 &434475371 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4902766636836062051, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
@@ -635,6 +646,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1429949407}
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _finisherVfx1
+      value: 
+      objectReference: {fileID: 1226031520979461127, guid: 0cec31f512d973f49b748c5c40b18e97, type: 3}
+    - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _finisherVfx2
+      value: 
+      objectReference: {fileID: 1226031520979461127, guid: 4316de4d1a1bd30459855e853a008dc6, type: 3}
+    - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _finisherVfx3
+      value: 
+      objectReference: {fileID: 1226031520979461127, guid: a0d61b658f72e8b47a0700487073cf25, type: 3}
+    - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _playerAttack
       value: 
       objectReference: {fileID: 1176936283}
@@ -649,6 +672,10 @@ PrefabInstance:
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _maxShakeForce
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _zoomPerCharge
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _chargingObject
@@ -667,6 +694,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _chargeZoomDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _splitCloseDuration
       value: 3
       objectReference: {fileID: 0}
@@ -682,6 +713,10 @@ PrefabInstance:
       propertyPath: _playerAvoidKeyGenerator
       value: 
       objectReference: {fileID: 1176936297}
+    - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _weaknessThreadController
+      value: 
+      objectReference: {fileID: 433942951}
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _skillFocusScreenController
       value: 

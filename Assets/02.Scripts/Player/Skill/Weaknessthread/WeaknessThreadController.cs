@@ -15,7 +15,7 @@ public class WeaknessThreadController : MonoBehaviour
     
     private Vector2 _threadDirection;
     private bool _isBoss1;
-
+    private bool _isFinisher;
     private bool _threadRunning;
     
 
@@ -37,6 +37,9 @@ public class WeaknessThreadController : MonoBehaviour
         if (!_threadRunning)
             return;
 
+        if (_isFinisher)
+            return;
+        
         UpdateThreadDirection();
         UpdateThread();
     }
@@ -72,7 +75,27 @@ public class WeaknessThreadController : MonoBehaviour
         _weaknessMainLineControl.FadeInThread();
         _weaknessEdgeLineControl.FadeInRay();
     }
+    public void MakeFinishWeaknessThread(
+        Vector2 start,
+        Vector2 end)
+    {
+        _isFinisher = true;
+        Vector2 direction = end - start;
 
+        if (direction.sqrMagnitude <= 0f)
+            return;
+
+        _threadDirection = direction.normalized;
+
+        _threadRunning = true;
+        HitableObject hitableObject =FindAnyObjectByType<HitableObject>();
+        _boss = hitableObject.transform;
+        
+        UpdateThread();
+
+        _weaknessMainLineControl.FadeInThread();
+        _weaknessEdgeLineControl.FadeInRay();
+    }
     public void EndWeaknessThread()
     {
         _threadRunning = false;

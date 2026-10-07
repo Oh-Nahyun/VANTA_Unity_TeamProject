@@ -206,11 +206,42 @@ public class SkillDashSlashScreenController : MonoBehaviour
             return;
         }
 
-        Color slashColor = Color.Lerp(
-            _normalColor,
-            _finisherColor,
-            Mathf.Clamp01(amount)
-        );
+        Color slashColor;
+
+        amount = Mathf.Clamp01(amount);
+
+        if (amount <= 0.3f)
+        {
+            float t = Mathf.InverseLerp(
+                0f,
+                0.3f,
+                amount
+            );
+
+            slashColor = Color.Lerp(
+                _normalColor,
+                _criticalColor,
+                t
+            );
+        }
+        else if (amount <= 0.7f)
+        {
+            slashColor = _criticalColor;
+        }
+        else
+        {
+            float t = Mathf.InverseLerp(
+                0.7f,
+                1f,
+                amount
+            );
+
+            slashColor = Color.Lerp(
+                _criticalColor,
+                _finisherColor,
+                t
+            );
+        }
 
         _runtimeSlashMaterial.SetColor(
             SlashColorID,

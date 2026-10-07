@@ -19,6 +19,9 @@ public class GameTitleUI : MonoBehaviour
     [Header("타이틀 디졸브 효과용 클래스")]
     [SerializeField] TitleDissolveEffect _titleDissolveEffect;
 
+    [Header("타이틀 페이드 아웃 효과용 클래스")]
+    [SerializeField] TitleFadeInOutEffect _titleFadeInOutEffect;
+
     private void Start()
     {
         _gameStartButton.onClick.AddListener(OnClickStartButton);
@@ -49,6 +52,8 @@ public class GameTitleUI : MonoBehaviour
 
     private void OnClickExitButton()
     {
+        _titleFadeInOutEffect.FadeOut();
+
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

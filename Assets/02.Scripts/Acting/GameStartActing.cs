@@ -1,13 +1,16 @@
 using System;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameStartActing : MonoBehaviour
 {
     [Header("회피시 이동할 장소")][SerializeField]private Transform _movePoint;
     private PlayerMove _playerMove;
     [Header("보스 HP바 ")][SerializeField]private GameObject _bossHPVar;
-   
+    [Header("보스 등장 호출 ")][SerializeField]private UnityEvent _boss1DropStart;
+    [Header("보스 착지 Vfx 호출 ")][SerializeField]private GameObject _bossDropVfx;
     public GameObject TestBoss;
     private void Awake()
     {
@@ -16,9 +19,23 @@ public class GameStartActing : MonoBehaviour
 
     public void MoveToPoint()
     {
+        _boss1DropStart.Invoke();
+        CameraFocusingController.Instance.SlowFocus(transform,1f,1f);
+
+        DOVirtual.DelayedCall(
+            3f,
+            () =>
+            {
+                Time.timeScale = 0.3f;
+                Instantiate(_bossDropVfx,new Vector3(0.25f,-0.41f,0),Quaternion.identity);
+                CameraFocusingController.Instance.ShowOrigin();
+            
+                _playerMove.DashToPoint(_movePoint.position,PointMoveComplete);
+
+            }
+        );
         
-        Time.timeScale = 0.3f;
-        _playerMove.DashToPoint(_movePoint.position,PointMoveComplete);
+        
     }
 
     private void PointMoveComplete()
@@ -38,7 +55,9 @@ public class GameStartActing : MonoBehaviour
         TestBoss.SetActive(true);
 
         HitableObject hitableObject=FindAnyObjectByType<HitableObject>();
-        CameraFocusingController.Instance.SlowFocus(hitableObject.transform,1f,1f);
+        Transform zoomTransform = hitableObject.transform;
+        zoomTransform.position += zoomTransform.up * 3f;
+        CameraFocusingController.Instance.SlowFocus(zoomTransform,1f,1f);
         DOVirtual.DelayedCall(
             5,
             () =>

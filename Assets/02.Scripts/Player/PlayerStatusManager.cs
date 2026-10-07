@@ -3,6 +3,7 @@ using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 
 public class PlayerStatusManager : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class PlayerStatusManager : MonoBehaviour
     [SerializeField] private float _startOuterRadius = 10f;
     [SerializeField] private float _targetOuterRadius = 6f;
     [SerializeField] private float _spotLightDuration = 1f;
-
+    [SerializeField] private float _startActionRadius = 3f;
     [Header("Camera")]
     [SerializeField] private float _startOrthographicSize = 5f;
     [SerializeField] private float _targetOrthographicSize = 3f;
@@ -29,6 +30,7 @@ public class PlayerStatusManager : MonoBehaviour
 
     private Sequence _originSequence;
     private Animator _animator;
+    private Tween _startActingLightTween;
 
     private bool _isStart;
 
@@ -160,8 +162,20 @@ public class PlayerStatusManager : MonoBehaviour
 
     private void StartActing()
     {
+        _startActingLightTween?.Kill();
+
+        _startActingLightTween = DOTween.To(
+                () => _spotLight.pointLightOuterRadius,
+                value => _spotLight.pointLightOuterRadius = value,
+                _startActionRadius,
+                _spotLightDuration
+            )
+            .SetEase(Ease.InOutSine)
+            .SetUpdate(true);
+
         GetComponent<GameStartActing>().MoveToPoint();
     }
+    
     
     public void ApplyFinalSetting()
     {
@@ -188,6 +202,7 @@ public class PlayerStatusManager : MonoBehaviour
     private void OnDestroy()
     {
         _originSequence?.Kill();
+        _startActingLightTween?.Kill();
 
         Time.timeScale = 1f;
     }

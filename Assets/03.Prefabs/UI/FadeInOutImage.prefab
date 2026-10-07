@@ -89,4 +89,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TitleFadeEffect
   _fadeImage: {fileID: 3107612871336598335}
-  _fadeDuration: 1.3
+  FadeDuration: 1

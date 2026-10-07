@@ -633,7 +633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossHealthUI
   _currentFillSlider: {fileID: 7232952399406589668}
   _delayedFillSlider: {fileID: 956607685207646181}
-  _delayedDuration: 0.75
+  _delayedDuration: 0.35
   _delayedDecreaseSpeed: 0.8
   _leftImage: {fileID: 3545876346730217283}
   _rightImage: {fileID: 5791915407788983533}

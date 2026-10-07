@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1900e847bcfce3d4f8c6e79d5f92ce01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1AnimationEventRelay
+  _boss1IntroController: {fileID: 6531711006687170515}
   _boss1ClawAttack: {fileID: 3060184153963347236}
   _boss1SpitAttack: {fileID: 3619018780754979877}
   _boss1JumpAttack: {fileID: 2846696346554286157}
@@ -2208,6 +2209,7 @@ MonoBehaviour:
   - {fileID: 6951695134325924738}
   - {fileID: 7348953112424561859}
   _warningZonePrefab: {fileID: 3349574119125732286, guid: 6cc9be58f0c82084286e9f5e902241b5, type: 3}
+  _animator: {fileID: 192520389527177166}
 --- !u!1 &8715783226715852835
 GameObject:
   m_ObjectHideFlags: 0

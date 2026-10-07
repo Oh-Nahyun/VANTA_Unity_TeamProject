@@ -1,6 +1,7 @@
 using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerFinisher : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class PlayerFinisher : MonoBehaviour
     [SerializeField] private float _startZoomAmount = 0.2f;
     [SerializeField] private float _zoomPerCharge = 0.08f;
     [SerializeField] private float _chargeZoomDuration = 0.08f;
+    [SerializeField]private UnityEvent _gameClear;
     private static readonly int DashStartID =
         Shader.PropertyToID("_DashStart");
 
@@ -497,12 +499,19 @@ public class PlayerFinisher : MonoBehaviour
 
             _screenSplitTween = null;
 
-            _animator.SetTrigger("Start");
+            _animator.SetTrigger("PlayerChange");
 
+            GameClear();
             _isFinisherStarted = false;
         });
 
         _screenSplitTween = sequence;
+    }
+
+    private void GameClear()
+    {
+        _gameClear.Invoke();
+
     }
 
     private void StopCharging()

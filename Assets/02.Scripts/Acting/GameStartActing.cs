@@ -26,7 +26,7 @@ public class GameStartActing : MonoBehaviour
             3f,
             () =>
             {
-                Time.timeScale = 0.3f;
+                Time.timeScale = 0.2f;
                 Instantiate(_bossDropVfx,new Vector3(0.25f,-0.41f,0),Quaternion.identity);
                 CameraFocusingController.Instance.ShowOrigin();
             

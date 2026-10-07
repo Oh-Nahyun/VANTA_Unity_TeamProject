@@ -26,10 +26,12 @@ public class PlayerFinisher : MonoBehaviour
     [Header("Charging")]
     [SerializeField] private GameObject _chargingObject;
     [SerializeField] private float _chargingDuration = 2f;
+
+    [SerializeField, Min(1)] private int _minChargeCount = 3;
     [SerializeField, Min(1)] private int _maxChargeCount = 10;
+
     [SerializeField] private float _chargeScaleDuration = 0.08f;
     [SerializeField] private float _chargingShrinkDuration = 0.08f;
-
     [Header("Charging Camera Shake")]
     [SerializeField] private CinemachineImpulseSource _impulseSource;
     [SerializeField] private float _startShakeForce = 0.03f;
@@ -157,17 +159,25 @@ public class PlayerFinisher : MonoBehaviour
         if (_chargingObject != null)
         {
             _chargingObject.SetActive(true);
-            _chargingObject.transform.localScale = Vector3.zero;
+            _chargingObject.transform.localScale =
+                Vector3.zero;
         }
 
-        _chargingTimerTween =
-            DOVirtual.DelayedCall(
-                _chargingDuration,
-                ChargingComplete
-            )
-            .SetUpdate(true);
+        StartChargeTimer();
     }
+    private void CheckChargingComplete()
+    {
+        if (!_isCharging)
+            return;
 
+        if (_currentChargeCount < _minChargeCount)
+        {
+            StartChargeTimer();
+            return;
+        }
+
+        ChargingComplete();
+    }
     private void AddCharge()
     {
         if (!_isCharging)
@@ -541,4 +551,17 @@ public class PlayerFinisher : MonoBehaviour
 
         ResetScreenSplit();
     }
+    
+    private void StartChargeTimer()
+    {
+        _chargingTimerTween?.Kill();
+
+        _chargingTimerTween =
+            DOVirtual.DelayedCall(
+                    _chargingDuration,
+                    CheckChargingComplete
+                )
+                .SetUpdate(true);
+    }
+    
 }

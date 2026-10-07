@@ -2,6 +2,12 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
+public enum SlashType
+{
+    Normal,
+    Critical,
+    Finisher
+}
 public class SkillDashSlashScreenController : MonoBehaviour
 {
     [SerializeField]
@@ -27,7 +33,17 @@ public class SkillDashSlashScreenController : MonoBehaviour
 
     private static readonly int SlashNormalID =
         Shader.PropertyToID("_SlashNormal");
-
+    
+    private static readonly int SlashColorID =
+        Shader.PropertyToID("_GlowColor");
+    
+    [ColorUsage(true, true)]
+    [SerializeField] private Color _normalColor = Color.cyan;
+    [ColorUsage(true, true)]
+    [SerializeField] private Color _criticalColor = Color.magenta;
+    [ColorUsage(true, true)]
+    [SerializeField] private Color _finisherColor = Color.gold;
+    
     private void Awake()
     {
         if (_targetCamera == null)
@@ -68,8 +84,36 @@ public class SkillDashSlashScreenController : MonoBehaviour
 
     public void PlaySlash(
         Vector2 worldStart,
-        Vector2 worldEnd)
+        Vector2 worldEnd,
+        SlashType inputType)
     {
+        
+        Color slashColor;
+
+        switch (inputType)
+        {
+            case SlashType.Normal:
+                slashColor = _normalColor;
+                break;
+
+            case SlashType.Critical:
+                slashColor = _criticalColor;
+                break;
+
+            case SlashType.Finisher:
+                slashColor = _finisherColor;
+                break;
+
+            default:
+                slashColor = _normalColor;
+                break;
+        }
+
+        _runtimeSlashMaterial.SetColor(
+            SlashColorID,
+            slashColor
+        );
+        
         if (_runtimeSlashMaterial == null ||
             _targetCamera == null)
         {
@@ -151,7 +195,102 @@ public class SkillDashSlashScreenController : MonoBehaviour
                     _slashTween = null;
                 });
     }
+    public void PlayFinishSlash(
+        Vector2 worldStart,
+        Vector2 worldEnd,
+        float amount)
+    {
+        if (_runtimeSlashMaterial == null ||
+            _targetCamera == null)
+        {
+            return;
+        }
 
+        Color slashColor;
+
+        amount = Mathf.Clamp01(amount);
+
+        if (amount <= 0.3f)
+        {
+            float t = Mathf.InverseLerp(
+                0f,
+                0.3f,
+                amount
+            );
+
+            slashColor = Color.Lerp(
+                _normalColor,
+                _criticalColor,
+                t
+            );
+        }
+        else if (amount <= 0.7f)
+        {
+            slashColor = _criticalColor;
+        }
+        else
+        {
+            float t = Mathf.InverseLerp(
+                0.7f,
+                1f,
+                amount
+            );
+
+            slashColor = Color.Lerp(
+                _criticalColor,
+                _finisherColor,
+                t
+            );
+        }
+
+        _runtimeSlashMaterial.SetColor(
+            SlashColorID,
+            slashColor
+        );
+
+        // 이하 기존 코드 그대로
+        Vector3 startViewport3 =
+            _targetCamera.WorldToViewportPoint(worldStart);
+
+        Vector3 endViewport3 =
+            _targetCamera.WorldToViewportPoint(worldEnd);
+
+        Vector2 startViewport =
+            new Vector2(startViewport3.x, startViewport3.y);
+
+        Vector2 endViewport =
+            new Vector2(endViewport3.x, endViewport3.y);
+
+        Vector2 direction = endViewport - startViewport;
+
+        if (direction.sqrMagnitude <= 0f)
+            return;
+
+        direction.Normalize();
+
+        Vector2 normal =
+            new Vector2(-direction.y, direction.x);
+
+        Vector2 center =
+            (startViewport + endViewport) * 0.5f;
+
+        _runtimeSlashMaterial.SetVector(SlashCenterID, center);
+        _runtimeSlashMaterial.SetVector(SlashNormalID, normal);
+
+        _slashTween?.Kill();
+
+        _runtimeSlashMaterial.SetFloat(SlashProgressID, 0f);
+
+        _slashTween = _runtimeSlashMaterial
+            .DOFloat(1f, SlashProgressID, _slashDuration)
+            .SetEase(Ease.Linear)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                _runtimeSlashMaterial.SetFloat(SlashProgressID, 0f);
+                _slashTween = null;
+            });
+    }
     private void OnDestroy()
     {
         _slashTween?.Kill();

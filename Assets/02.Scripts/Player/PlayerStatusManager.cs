@@ -24,6 +24,7 @@ public class PlayerStatusManager : MonoBehaviour
     [SerializeField] private float _startOrthographicSize = 5f;
     [SerializeField] private float _targetOrthographicSize = 3f;
     [SerializeField] private float _zoomDuration = 1f;
+    [Header("게임 start ui ")][SerializeField]private GameObject _gameStartUI;
 
     private Sequence _originSequence;
     private Animator _animator;
@@ -83,10 +84,7 @@ public class PlayerStatusManager : MonoBehaviour
         if (!_useStartSequence)
             return;
 
-        if (Input.GetMouseButtonDown(0) && !_isStart)
-        {
-            StartPlayerOriginSetting();
-        }
+       
     }
 
     public void StartPlayerOriginSetting()
@@ -96,7 +94,7 @@ public class PlayerStatusManager : MonoBehaviour
 
         if (_isStart)
             return;
-
+        _gameStartUI.gameObject.SetActive(false);
         _isStart = true;
 
         Time.timeScale = 1f;
@@ -146,11 +144,16 @@ public class PlayerStatusManager : MonoBehaviour
         );
 
         _originSequence.OnComplete(
-            ActivatePlayer
+            StartActing
         );
     }
 
-    private void ApplyFinalSetting()
+    private void StartActing()
+    {
+        GetComponent<GameStartActing>().MoveToPoint();
+    }
+    
+    public void ApplyFinalSetting()
     {
         _isStart = true;
 
@@ -161,6 +164,7 @@ public class PlayerStatusManager : MonoBehaviour
 
         _playerMove.enabled = true;
         _playerAttack.enabled = true;
+        _animator.SetTrigger("Start");
     }
 
     private void ActivatePlayer()

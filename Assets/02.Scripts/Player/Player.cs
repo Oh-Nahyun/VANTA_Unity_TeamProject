@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void DamagedEffect()
+    public void DamagedEffect()
     {
         if (_animator != null)
         {

@@ -31,7 +31,6 @@ public class SkillIndicatorMove : MonoBehaviour
     private SkillIndicatorOrbit _skillIndicatorOrbit;
     private SkillIndicatorSkillLocReveal _skillIndicatorLocReveal;
 
-    private Animator _animator;
     private SpriteRenderer _spriteRenderer;
 
     private bool _isPointFix;
@@ -52,8 +51,6 @@ public class SkillIndicatorMove : MonoBehaviour
         _skillIndicatorLocReveal =
             GetComponent<SkillIndicatorSkillLocReveal>();
 
-        _animator =
-            GetComponent<Animator>();
 
         _spriteRenderer =
             GetComponent<SpriteRenderer>();
@@ -176,10 +173,7 @@ public class SkillIndicatorMove : MonoBehaviour
             movement.sqrMagnitude >
             _moveThreshold * _moveThreshold;
 
-        _animator.SetBool(
-            "IsMove",
-            isMoving
-        );
+    
 
         if (Mathf.Abs(movement.x) >
             _moveThreshold)
@@ -209,7 +203,7 @@ public class SkillIndicatorMove : MonoBehaviour
         _floatTimeOffset =
             petNumber * 0.7f;
 
-        _animator.SetTrigger("Spawn");
+    
 
         _skillIndicatorLocReveal.SetPetNumber(
             petNumber

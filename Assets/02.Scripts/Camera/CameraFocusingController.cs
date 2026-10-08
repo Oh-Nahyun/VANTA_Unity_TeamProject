@@ -1,3 +1,4 @@
+using System.Collections;
 using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -51,6 +52,13 @@ public class CameraFocusingController : MonoBehaviour
         CreateOriginTarget();
     }
 
+    private void Start()
+    {
+        StartCoroutine(
+            RefreshCameraBindingAfterStart()
+        );
+    }
+
     private void InitializeCamera()
     {
         if (_camera == null)
@@ -62,6 +70,66 @@ public class CameraFocusingController : MonoBehaviour
             return;
         }
 
+        EnsureCameraObjectIsActive();
+        ResolveBrain();
+
+        if (_brain != null)
+        {
+            ConfigureBrain();
+        }
+
+        ResolveFollowComponent();
+
+        _defaultTarget =
+            _camera.Follow;
+
+        ResolveDefaultTarget();
+        RefreshCameraState(
+            true
+        );
+
+        _defaultOrthographicSize =
+            _camera.Lens.OrthographicSize;
+
+        _defaultDamping =
+            _follow
+                .TrackerSettings
+                .PositionDamping;
+    }
+
+    private IEnumerator RefreshCameraBindingAfterStart()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            yield return null;
+
+            RefreshCameraState(
+                true
+            );
+        }
+    }
+
+    private void EnsureCameraObjectIsActive()
+    {
+        if (_camera == null)
+            return;
+
+        if (!_camera.gameObject.activeSelf)
+        {
+            _camera.gameObject.SetActive(
+                true
+            );
+        }
+
+        if (!_camera.enabled)
+        {
+            _camera.enabled =
+                true;
+        }
+    }
+
+    private void ResolveBrain()
+    {
         if (_brain == null)
         {
             _brain =
@@ -69,13 +137,22 @@ public class CameraFocusingController : MonoBehaviour
                     ? Camera.main.GetComponent<CinemachineBrain>()
                     : FindAnyObjectByType<CinemachineBrain>();
         }
+    }
 
-        if (_brain != null)
-        {
-            _brain.UpdateMethod =
-                CinemachineBrain.UpdateMethods.SmartUpdate;
-        }
+    private void ConfigureBrain()
+    {
+        if (_brain == null)
+            return;
 
+        _brain.enabled = true;
+        _brain.UpdateMethod =
+            CinemachineBrain.UpdateMethods.SmartUpdate;
+        _brain.BlendUpdateMethod =
+            CinemachineBrain.BrainUpdateMethods.LateUpdate;
+    }
+
+    private void ResolveFollowComponent()
+    {
         _follow =
             _camera.GetComponent<CinemachineFollow>();
 
@@ -85,19 +162,6 @@ public class CameraFocusingController : MonoBehaviour
                 _camera.gameObject
                     .AddComponent<CinemachineFollow>();
         }
-
-        _defaultTarget =
-            _camera.Follow;
-
-        ResolveDefaultTarget();
-
-        _defaultOrthographicSize =
-            _camera.Lens.OrthographicSize;
-
-        _defaultDamping =
-            _follow
-                .TrackerSettings
-                .PositionDamping;
     }
 
     private void CreateOriginTarget()
@@ -125,12 +189,17 @@ public class CameraFocusingController : MonoBehaviour
         }
 
         KillTweens();
+        RefreshCameraState(
+            false
+        );
         ResolveDefaultTarget();
 
         _isFocusing = true;
         _currentFocusTarget = target;
 
         _camera.Follow = target;
+        _camera.PreviousStateIsValid =
+            false;
 
         ZoomIn(
             zoomAmount
@@ -149,12 +218,17 @@ public class CameraFocusingController : MonoBehaviour
         }
 
         KillTweens();
+        RefreshCameraState(
+            false
+        );
         ResolveDefaultTarget();
 
         _isFocusing = true;
         _currentFocusTarget = target;
 
         _camera.Follow = target;
+        _camera.PreviousStateIsValid =
+            false;
 
         float targetSize =
             _defaultOrthographicSize -
@@ -233,6 +307,9 @@ public class CameraFocusingController : MonoBehaviour
         }
 
         KillTweens();
+        RefreshCameraState(
+            false
+        );
 
         _isFocusing = true;
         _currentFocusTarget = _originTarget;
@@ -242,6 +319,8 @@ public class CameraFocusingController : MonoBehaviour
 
         _camera.Follow =
             _originTarget;
+        _camera.PreviousStateIsValid =
+            false;
 
         Vector3 originDamping =
             new Vector3(
@@ -383,6 +462,8 @@ public class CameraFocusingController : MonoBehaviour
 
         _camera.Follow =
             _defaultTarget;
+        _camera.PreviousStateIsValid =
+            false;
 
         _zoomTween =
             DOTween.To(
@@ -448,9 +529,32 @@ public class CameraFocusingController : MonoBehaviour
         }
 
         GameObject player =
-            GameObject.FindGameObjectWithTag(
-                "Player"
-            );
+            null;
+
+        try
+        {
+            player =
+                GameObject.FindGameObjectWithTag(
+                    "Player"
+                );
+        }
+        catch (UnityException)
+        {
+            player =
+                null;
+        }
+
+        if (player == null)
+        {
+            Player playerComponent =
+                FindAnyObjectByType<Player>();
+
+            if (playerComponent != null)
+            {
+                player =
+                    playerComponent.gameObject;
+            }
+        }
 
         if (player == null)
             return;
@@ -471,6 +575,10 @@ public class CameraFocusingController : MonoBehaviour
         if (_camera == null)
             return;
 
+        RefreshCameraState(
+            false
+        );
+
         if (_camera.Follow != null)
             return;
 
@@ -483,6 +591,37 @@ public class CameraFocusingController : MonoBehaviour
             _isFocusing && _currentFocusTarget != null
                 ? _currentFocusTarget
                 : _defaultTarget;
+    }
+
+    private void RefreshCameraState(
+        bool resetPreviousState)
+    {
+        if (_camera == null)
+            return;
+
+        EnsureCameraObjectIsActive();
+        ResolveBrain();
+        ConfigureBrain();
+        ResolveFollowComponent();
+        ResolveDefaultTarget();
+
+        Transform target =
+            _isFocusing && _currentFocusTarget != null
+                ? _currentFocusTarget
+                : _defaultTarget;
+
+        if (target != null &&
+            _camera.Follow != target)
+        {
+            _camera.Follow =
+                target;
+        }
+
+        if (resetPreviousState)
+        {
+            _camera.PreviousStateIsValid =
+                false;
+        }
     }
 
     private void OnDestroy()

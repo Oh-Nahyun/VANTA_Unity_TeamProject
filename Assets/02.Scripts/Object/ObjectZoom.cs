@@ -27,8 +27,12 @@ public class ObjectZoom : MonoBehaviour
 
     private void Awake()
     {
+        if (_follow == null)
+        {
+            _follow = _camera.GetComponent<CinemachineFollow>();
+        }
         
-        _follow = _camera.GetComponent<CinemachineFollow>();
+
         if (_follow == null)
         {
             _follow=_camera.AddComponent<CinemachineFollow>();

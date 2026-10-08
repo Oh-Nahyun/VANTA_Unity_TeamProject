@@ -92,6 +92,10 @@ public class BossHealthUI : MonoBehaviour
         {
             _healthRatio = _boss2.HealthRatio;
         }
+        else
+        {
+            return;
+        }
 
         if (_healthRatio != _previousHealthRatio)
         {

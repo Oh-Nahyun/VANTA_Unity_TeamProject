@@ -7,6 +7,8 @@ public class Boss1AnimationEventRelay : MonoBehaviour
     [SerializeField] private Boss1ClawAttack _boss1ClawAttack;
     [SerializeField] private Boss1SpitAttack _boss1SpitAttack;
     [SerializeField] private Boss1JumpAttack _boss1JumpAttack;
+
+    [SerializeField] private Boss1DeathController _boss1DeathController;
     
     public void RemoveWarningZone()
     {
@@ -67,5 +69,9 @@ public class Boss1AnimationEventRelay : MonoBehaviour
     {
         _boss1JumpAttack.EndJumpLand();
     }
-    
+
+    public void EndDeathCollapse()
+    {
+        _boss1DeathController.EndDeathCollapse();
+    }
 }

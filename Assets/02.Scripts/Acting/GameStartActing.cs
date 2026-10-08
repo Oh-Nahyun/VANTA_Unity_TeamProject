@@ -93,7 +93,7 @@ public class GameStartActing : MonoBehaviour
 
     private void FocusToPlayer()
     {
-        CameraFocusingController.Instance.SlowFocus(transform,1f,1f);
+        CameraFocusingController.Instance.SlowFocus(transform,1f,2f);
         _boss1DropFinish.Invoke();
 
         DOVirtual.DelayedCall(

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 570644754176533298}
-  - component: {fileID: 8447274174017537738}
+  - component: {fileID: 4716494454615983664}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8447274174017537738
+--- !u!114 &4716494454615983664
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,5 +43,5 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91e68cb4c01d00447aa453b85aebbd15, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneManager
+  m_EditorClassIdentifier: Assembly-CSharp::InGameSceneManager
   _titleFadeInOutEffect: {fileID: 0}

@@ -985,7 +985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4133056159387206755, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4474688203573458451, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: m_Enabled
@@ -1277,7 +1277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8279119010861365979, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9165167924702793645, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: _playerTransform
@@ -1791,9 +1791,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3779943177872337717, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
       propertyPath: m_Name
-      value: SceneManager
+      value: InGameSceneManager
       objectReference: {fileID: 0}
-    - target: {fileID: 8447274174017537738, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
+    - target: {fileID: 4716494454615983664, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
       propertyPath: _titleFadeInOutEffect
       value: 
       objectReference: {fileID: 349215009}

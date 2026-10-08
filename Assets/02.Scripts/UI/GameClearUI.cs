@@ -23,6 +23,6 @@ public class GameClearUI : MonoBehaviour
 
     private void OnClickTitleButton()
     {
-        SceneManager.LoadScene(0); // GameTitleScene
+        //SceneManager.LoadScene(0); // GameTitleScene
     }
 }

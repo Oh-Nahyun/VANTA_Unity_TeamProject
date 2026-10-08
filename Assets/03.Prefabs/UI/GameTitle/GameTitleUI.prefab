@@ -56,6 +56,7 @@ MonoBehaviour:
   _gameExitButton: {fileID: 8365002317010119165}
   _gameSettingPanel: {fileID: 0}
   _titleDissolveEffect: {fileID: 1206670344135137212}
+  _titleFadeInOutEffect: {fileID: 0}
 --- !u!114 &1206670344135137212
 MonoBehaviour:
   m_ObjectHideFlags: 0

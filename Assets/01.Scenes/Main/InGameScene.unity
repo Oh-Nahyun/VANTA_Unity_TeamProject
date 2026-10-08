@@ -577,6 +577,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b800e96b693632948a9d5dc9902b282e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TitleFadeEffect
+--- !u!1 &370225943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4133056159387206755, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+  m_PrefabInstance: {fileID: 914828781}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &433695950 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6128494016554429484, guid: 058cc52bb14154f46b3e86c521d3b90c, type: 3}
@@ -1378,6 +1383,10 @@ PrefabInstance:
       propertyPath: _playerTransform
       value: 
       objectReference: {fileID: 650435853}
+    - target: {fileID: 1053428467882602870, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _boss2
+      value: 
+      objectReference: {fileID: 370225943}
     - target: {fileID: 2627111689535811849, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: _playerTransform
       value: 
@@ -1456,7 +1465,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9214237589838081223, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
   m_PrefabInstance: {fileID: 914828781}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 370225943}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 349eca76ea90d1e4ab422e6affdf09cf, type: 3}

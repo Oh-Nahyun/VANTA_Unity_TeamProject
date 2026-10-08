@@ -18,11 +18,11 @@ public class GameOverUI : MonoBehaviour
 
     private void OnClickRetryButton()
     {
-        SceneManager.LoadScene(1); // InGameScene
+        //SceneManager.LoadScene(1); // InGameScene
     }
 
     private void OnClickTitleButton()
     {
-        SceneManager.LoadScene(0); // GameTitleScene
+        //SceneManager.LoadScene(0); // GameTitleScene
     }
 }

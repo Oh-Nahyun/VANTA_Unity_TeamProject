@@ -19,6 +19,9 @@ public class GameTitleUI : MonoBehaviour
     [Header("타이틀 디졸브 효과용 클래스")]
     [SerializeField] TitleDissolveEffect _titleDissolveEffect;
 
+    [Header("타이틀 페이드 아웃 효과용 클래스")]
+    [SerializeField] TitleFadeInOutEffect _titleFadeInOutEffect;
+
     private void Start()
     {
         _gameStartButton.onClick.AddListener(OnClickStartButton);
@@ -29,6 +32,16 @@ public class GameTitleUI : MonoBehaviour
     private void OnClickStartButton()
     {
         StartCoroutine(DestroyTitleUICoroutine());
+    }
+
+    private void OnClickSettingsButton()
+    {
+        _gameSettingPanel.active = true;
+    }
+
+    private void OnClickExitButton()
+    {
+        StartCoroutine(ExitAfterFadeOutCoroutine());
     }
 
     private IEnumerator DestroyTitleUICoroutine()
@@ -42,13 +55,11 @@ public class GameTitleUI : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
-    private void OnClickSettingsButton()
+    private IEnumerator ExitAfterFadeOutCoroutine()
     {
-        _gameSettingPanel.active = true;
-    }
+        _titleFadeInOutEffect.FadeOut();
+        yield return new WaitForSeconds(_titleFadeInOutEffect.FadeDuration);
 
-    private void OnClickExitButton()
-    {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

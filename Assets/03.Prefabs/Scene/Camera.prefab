@@ -103,6 +103,7 @@ MonoBehaviour:
   _zoomInDuration: 0.5
   _zoomOutDuration: 0
   _targetChangeDuration: 0
+  _defaultOrthographicSize: 3
   _originOrthographicSize: 5
   _originDuration: 1
 --- !u!114 &5758837840507072478
@@ -272,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBrain
-  ShowDebugText: 1
+  ShowDebugText: 0
   ShowCameraFrustum: 1
   IgnoreTimeScale: 0
   WorldUpOverride: {fileID: 0}

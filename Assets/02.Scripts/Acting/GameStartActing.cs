@@ -13,6 +13,9 @@ public class GameStartActing : MonoBehaviour
     [Header("보스 최초등장할떄 ")][SerializeField]private UnityEvent _boss1DropStart;
     [Header("보스 최초등장할떄 플레이어 이모션 ")][SerializeField]private UnityEvent _boss1DropEmotion;
 
+    
+    [Header("보스 최초등장할떄 플레이어 이모션 ")][SerializeField]private UnityEvent _bossMoveStart;
+
     [Header("보스 낙하해 등장했을때 ")][SerializeField]private UnityEvent _boss1DropFinish;
 
     [Header("보스 낙하해 등장했을때 이름 뜨기 ")][SerializeField]private UnityEvent _boss1DropName;
@@ -118,6 +121,6 @@ public class GameStartActing : MonoBehaviour
         
         GetComponent<PlayerStatusManager>().ApplyFinalSetting();
         
-      
+        _bossMoveStart.Invoke();
     }
 }

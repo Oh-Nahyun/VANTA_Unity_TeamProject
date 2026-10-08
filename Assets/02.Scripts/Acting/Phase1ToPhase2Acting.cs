@@ -7,7 +7,8 @@ public class Phase1ToPhase2Acting : MonoBehaviour
     [Header("배경체인져")][SerializeField]private EnvironmentChanger _environmentChanger;
     [Header("불끄기")][SerializeField]private LightOff _lightOff;
     private PlayerStatusManager _playerStatusManager;
-
+    [Header("보스 최초등장할떄 소리 ")]
+    [SerializeField] private AudioClip _boss2StageBgm;
     private void Awake()
     {
         _playerStatusManager = GetComponent<PlayerStatusManager>();
@@ -15,7 +16,10 @@ public class Phase1ToPhase2Acting : MonoBehaviour
 
     private void Update()
     {
-        
+        if (Input.GetMouseButtonDown(1))
+        {
+            StartPhaseChange();
+        }
     }
 
     public void StartPhaseChange()
@@ -121,5 +125,6 @@ public class Phase1ToPhase2Acting : MonoBehaviour
     {
         _playerStatusManager.ApplyFinalSetting();
             CameraFocusingController.Instance.SlowFocus(transform,0f,1f);
+            SoundManager.Instance.PlayBGM(_boss2StageBgm);
     }
 }

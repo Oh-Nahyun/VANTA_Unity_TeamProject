@@ -140,7 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC88C\uD074\uB9AD"
+  m_text: "\uC88C\uD074\uB9AD \uBC18\uBCF5!\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 613e47e0ec640e245bd5fbb61c0e977d, type: 2}
   m_sharedMaterial: {fileID: 7880990028077831163, guid: 613e47e0ec640e245bd5fbb61c0e977d, type: 2}
@@ -167,8 +167,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -303,9 +303,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8fc3e8ec28e3a84eb0f07f2ba8f80a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIAttentionShake
-  _shakeStrength: 0.0001
-  _shakeDuration: 1
-  _vibrato: 1
+  _shakeDistance: 2
+  _moveDuration: 0.04
+  _shakeCount: 30
   _interval: 1.5
 --- !u!1 &5169683530996576237
 GameObject:

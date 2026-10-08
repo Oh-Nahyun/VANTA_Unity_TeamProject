@@ -40,10 +40,17 @@ public class Boss1IntroController : MonoBehaviour
     [SerializeField] private Material _roarWaveMaterial;
     [SerializeField] private float _waveDuration = 0.8f;
     [SerializeField] private float _waveStrength = 0.03f;
+    [SerializeField] private float _waveStrength2 = 0.02f;
     
     [Header("포효 파동 반복")]
     [SerializeField] private int _waveCount = 3;
     [SerializeField] private float _waveInterval = 0.15f;
+    
+    [Header("포효 파동 겹침")]
+    [SerializeField] private float _waveOverlapDelay = 0.2f;
+    
+    [Header("포효 카메라 쉐이크")]
+    [SerializeField] private CinemachineImpulseSource _roarImpulseSource;
 
     private Tween _waveTween;
     
@@ -66,7 +73,9 @@ public class Boss1IntroController : MonoBehaviour
         _visualPivotOriginPosition = _visualPivot.localPosition;
         
         _roarWaveMaterial.SetFloat("_WaveStrength", 0f);
+        _roarWaveMaterial.SetFloat("_WaveStrength2", 0f);
         _roarWaveMaterial.SetFloat("_WaveProgress", 0f);
+        _roarWaveMaterial.SetFloat("_WaveProgress2", 0f);
     }
 
     /// <summary>
@@ -80,6 +89,7 @@ public class Boss1IntroController : MonoBehaviour
         StartCoroutine(IntroRoutine());
     }
     */
+
     
     public void StartIntro() // 인게임 테스트용
     {
@@ -138,13 +148,20 @@ public class Boss1IntroController : MonoBehaviour
         _waveTween?.Kill();
 
         _roarWaveMaterial.SetFloat("_WaveProgress", 0f);
+        _roarWaveMaterial.SetFloat("_WaveProgress2", 0f);
         _roarWaveMaterial.SetFloat("_WaveStrength", _waveStrength);
+        _roarWaveMaterial.SetFloat("_WaveStrength2", _waveStrength2);
 
         Sequence sequence = DOTween.Sequence();
+        
+        float cycleDuration = _waveDuration + _waveOverlapDelay + _waveInterval;
 
         for (int i = 0; i < _waveCount; i++)
         {
-            sequence.Append(
+            float startTime = i * cycleDuration;
+            
+            sequence.Insert(
+                startTime,
                 DOVirtual.Float(
                     0f,
                     1f,
@@ -155,21 +172,32 @@ public class Boss1IntroController : MonoBehaviour
                             "_WaveProgress",
                             value
                         );
-                    }
-                )
+                    })
             );
 
-            // 마지막 파동 뒤에는 간격이 필요 없음
-            if (i < _waveCount - 1)
-            {
-                sequence.AppendInterval(_waveInterval);
-            }
+            // 첫 번째 파동보다 조금 늦게 두 번째 파동 시작
+            sequence.Insert(
+                startTime + _waveOverlapDelay,
+                DOVirtual.Float(
+                    0f,
+                    1f,
+                    _waveDuration,
+                    value =>
+                    {
+                        _roarWaveMaterial.SetFloat(
+                            "_WaveProgress2",
+                            value
+                        );
+                    })
+            );
         }
 
         sequence.OnComplete(() =>
         {
             _roarWaveMaterial.SetFloat("_WaveProgress", 0f);
+            _roarWaveMaterial.SetFloat("_WaveProgress2", 0f);
             _roarWaveMaterial.SetFloat("_WaveStrength", 0f);
+            _roarWaveMaterial.SetFloat("_WaveStrength2", 0f);
 
             _waveTween = null;
         });
@@ -179,6 +207,8 @@ public class Boss1IntroController : MonoBehaviour
 
     private IEnumerator RoarRoutine()
     {
+        _roarImpulseSource.GenerateImpulse();
+        
         _roarShakeTween?.Kill();
 
         _visualPivot.localPosition = _visualPivotOriginPosition;
@@ -205,7 +235,9 @@ public class Boss1IntroController : MonoBehaviour
         _waveTween = null;
 
         _roarWaveMaterial.SetFloat("_WaveProgress", 0f);
+        _roarWaveMaterial.SetFloat("_WaveProgress2", 0f);
         _roarWaveMaterial.SetFloat("_WaveStrength", 0f);
+        _roarWaveMaterial.SetFloat("_WaveStrength2", 0f);
         
         _animator.Play("IntroClawEnd", 0, 0f);
     }

@@ -19,10 +19,11 @@ public class GameClearUI : MonoBehaviour
     private void OnClickNextButton()
     {
         // TODO : [UGUI] 보스 클리어 후 다음 연출 시작하기
+        SceneManager.LoadScene(0); // InGameScene
     }
 
     private void OnClickTitleButton()
     {
-        //SceneManager.LoadScene(0); // GameTitleScene
+        SceneManager.LoadScene(0); // InGameScene
     }
 }

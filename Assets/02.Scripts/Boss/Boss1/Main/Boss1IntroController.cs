@@ -245,6 +245,10 @@ public class Boss1IntroController : MonoBehaviour
     public void EndIntroClawEnd()
     {
         _animator.Play("Idle", 0, 0f);
+    }
+    
+    public void Boss1StartBattle()
+    {
         _boss1AttackController.StartBattle();
     }
 }

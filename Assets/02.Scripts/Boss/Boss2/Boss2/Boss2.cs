@@ -113,10 +113,11 @@ public void TakeDamage(int damage)
     {
         // Effet
         //Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
-        if (onFinisher != null) 
+        if (OnFinisher != null) 
         {
-            onFinisher.Invoke();
+            OnFinisher.Invoke();
         }
+        // Destroy
         // Destroy
         Destroy(gameObject);
     }

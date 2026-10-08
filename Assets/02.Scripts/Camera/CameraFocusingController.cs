@@ -9,6 +9,7 @@ public class CameraFocusingController : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField] private CinemachineCamera _camera;
+    [SerializeField] private CinemachineBrain _brain;
 
     [Header("Focus Setting")]
     [SerializeField] private float _focusDamping = 0.3f;
@@ -24,6 +25,7 @@ public class CameraFocusingController : MonoBehaviour
 
     private Transform _defaultTarget;
     private Transform _originTarget;
+    private Transform _currentFocusTarget;
 
     private float _defaultOrthographicSize;
     private Vector3 _defaultDamping;
@@ -60,6 +62,20 @@ public class CameraFocusingController : MonoBehaviour
             return;
         }
 
+        if (_brain == null)
+        {
+            _brain =
+                Camera.main != null
+                    ? Camera.main.GetComponent<CinemachineBrain>()
+                    : FindAnyObjectByType<CinemachineBrain>();
+        }
+
+        if (_brain != null)
+        {
+            _brain.UpdateMethod =
+                CinemachineBrain.UpdateMethods.SmartUpdate;
+        }
+
         _follow =
             _camera.GetComponent<CinemachineFollow>();
 
@@ -72,6 +88,8 @@ public class CameraFocusingController : MonoBehaviour
 
         _defaultTarget =
             _camera.Follow;
+
+        ResolveDefaultTarget();
 
         _defaultOrthographicSize =
             _camera.Lens.OrthographicSize;
@@ -107,8 +125,10 @@ public class CameraFocusingController : MonoBehaviour
         }
 
         KillTweens();
+        ResolveDefaultTarget();
 
         _isFocusing = true;
+        _currentFocusTarget = target;
 
         _camera.Follow = target;
 
@@ -129,8 +149,10 @@ public class CameraFocusingController : MonoBehaviour
         }
 
         KillTweens();
+        ResolveDefaultTarget();
 
         _isFocusing = true;
+        _currentFocusTarget = target;
 
         _camera.Follow = target;
 
@@ -213,6 +235,7 @@ public class CameraFocusingController : MonoBehaviour
         KillTweens();
 
         _isFocusing = true;
+        _currentFocusTarget = _originTarget;
 
         _originTarget.position =
             Vector3.zero;
@@ -343,8 +366,20 @@ public class CameraFocusingController : MonoBehaviour
             return;
 
         _isFocusing = false;
+        _currentFocusTarget = null;
 
         KillTweens();
+
+        ResolveDefaultTarget();
+
+        if (_defaultTarget == null)
+        {
+            Debug.LogWarning(
+                "카메라 기본 Follow 타겟을 찾지 못했습니다."
+            );
+
+            return;
+        }
 
         _camera.Follow =
             _defaultTarget;
@@ -395,6 +430,59 @@ public class CameraFocusingController : MonoBehaviour
 
         _zoomTween = null;
         _dampingTween = null;
+    }
+
+    private void ResolveDefaultTarget()
+    {
+        if (_defaultTarget != null)
+            return;
+
+        if (_camera != null &&
+            _camera.Follow != null &&
+            _camera.Follow != _originTarget)
+        {
+            _defaultTarget =
+                _camera.Follow;
+
+            return;
+        }
+
+        GameObject player =
+            GameObject.FindGameObjectWithTag(
+                "Player"
+            );
+
+        if (player == null)
+            return;
+
+        _defaultTarget =
+            player.transform;
+
+        if (_camera != null &&
+            _camera.Follow == null)
+        {
+            _camera.Follow =
+                _defaultTarget;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (_camera == null)
+            return;
+
+        if (_camera.Follow != null)
+            return;
+
+        ResolveDefaultTarget();
+
+        if (_defaultTarget == null)
+            return;
+
+        _camera.Follow =
+            _isFocusing && _currentFocusTarget != null
+                ? _currentFocusTarget
+                : _defaultTarget;
     }
 
     private void OnDestroy()

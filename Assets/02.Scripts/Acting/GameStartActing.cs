@@ -8,9 +8,15 @@ public class GameStartActing : MonoBehaviour
 {
     [Header("회피시 이동할 장소")][SerializeField]private Transform _movePoint;
     private PlayerMove _playerMove;
-    [Header("보스 HP바 ")][SerializeField]private GameObject _bossHPVar;
-    [Header("보스 등장 호출 ")][SerializeField]private UnityEvent _boss1DropStart;
     [Header("보스 착지 Vfx 호출 ")][SerializeField]private GameObject _bossDropVfx;
+    [Header("보스 HP바 ")][SerializeField]private GameObject _bossHPVar;
+    [Header("보스 최초등장할떄 ")][SerializeField]private UnityEvent _boss1DropStart;
+    [Header("보스 최초등장할떄 플레이어 이모션 ")][SerializeField]private UnityEvent _boss1DropEmotion;
+
+    [Header("보스 낙하해 등장했을때 ")][SerializeField]private UnityEvent _boss1DropFinish;
+
+    [Header("보스 낙하해 등장했을때 이름 뜨기 ")][SerializeField]private UnityEvent _boss1DropName;
+
     private void Awake()
     {
         _playerMove = GetComponent<PlayerMove>();
@@ -21,6 +27,14 @@ public class GameStartActing : MonoBehaviour
         _boss1DropStart.Invoke();
         CameraFocusingController.Instance.SlowFocus(transform,1f,1f);
 
+        DOVirtual.DelayedCall(
+            1f,
+            () =>
+            {
+                _boss1DropEmotion.Invoke();
+
+            }
+        );
         DOVirtual.DelayedCall(
             3f,
             () =>
@@ -52,10 +66,22 @@ public class GameStartActing : MonoBehaviour
     private void FocusToBoss()
     {
 
-        HitableObject hitableObject=FindAnyObjectByType<HitableObject>();
-        Transform zoomTransform = hitableObject.transform;
-        zoomTransform.position += zoomTransform.up * 3f;
-        CameraFocusingController.Instance.SlowFocus(zoomTransform,1f,1f);
+        HitableObject hitableObject = FindAnyObjectByType<HitableObject>();
+
+        GameObject zoomTarget = new GameObject("ZoomTarget");
+
+        zoomTarget.transform.position =
+            hitableObject.transform.position +
+            hitableObject.transform.up * 1f;
+        //CameraFocusingController.Instance.SlowFocus(hitableObject.transform,1f,1f);
+        CameraFocusingController.Instance.Focus(zoomTarget.transform,1);
+        DOVirtual.DelayedCall(
+            1,
+            () =>
+            {
+                _boss1DropName.Invoke();
+            }
+        );
         DOVirtual.DelayedCall(
             5,
             () =>
@@ -68,7 +94,8 @@ public class GameStartActing : MonoBehaviour
     private void FocusToPlayer()
     {
         CameraFocusingController.Instance.SlowFocus(transform,1f,1f);
-        
+        _boss1DropFinish.Invoke();
+
         DOVirtual.DelayedCall(
             2,
             () =>

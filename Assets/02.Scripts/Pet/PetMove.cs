@@ -45,6 +45,16 @@ public class PetMove : MonoBehaviour
     /// </summary>
     private bool _canChase;
 
+    /// <summary>
+    /// 펫의 게임 시작 시 플레이어 추적 거리
+    /// </summary>
+    private float _gameStartChaseDistance;
+
+    /// <summary>
+    /// 펫의 전투 시작 시 플레이어 추적 거리
+    /// </summary>
+    private float _inGameChaseDistance;
+
     private void Awake()
     {
         _pet = GetComponent<Pet>();
@@ -56,6 +66,10 @@ public class PetMove : MonoBehaviour
         _timer = 0f;
         _timeBeforeRun = 1.7f;
         _canChase = true;
+        _gameStartChaseDistance = 1f;
+        _inGameChaseDistance = 2.5f;
+
+        ChangeChaseDistanceWhenGameStart();
     }
 
     private void Update()
@@ -126,5 +140,15 @@ public class PetMove : MonoBehaviour
     public void PlayFootStepDustParticle()
     {
         _footStepDustParticle.Emit(_footStepDustCount);
+    }
+
+    private void ChangeChaseDistanceWhenGameStart()
+    {
+        _pet.CircleCollider2D.radius = _gameStartChaseDistance;
+    }
+
+    public void ChangeChaseDistanceWhenInGame()
+    {
+        _pet.CircleCollider2D.radius = _inGameChaseDistance;
     }
 }

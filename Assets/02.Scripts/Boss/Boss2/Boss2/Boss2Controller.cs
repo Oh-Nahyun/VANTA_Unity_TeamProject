@@ -416,10 +416,10 @@ public class Boss2Controller : MonoBehaviour
         return true;
     }
 
-    // 직전과 같은 선택은 가중치를 절반으로 해 반복을 줄인다.
+    // 직전과 같은 선택은 가중치를 0으로 해 반복을 없앤다. 원래는 0.5f 절반
     private float AdjustForRepeat(string name, float weight)
     {
-        return name == _lastChoiceName ? weight * 0.5f : weight;
+        return name == _lastChoiceName ? weight * 0f : weight;
     }
 
     private static int PickWeighted(List<float> weights)

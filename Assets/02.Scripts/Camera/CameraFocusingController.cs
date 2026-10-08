@@ -13,6 +13,7 @@ public class CameraFocusingController : MonoBehaviour
     [SerializeField] private CinemachineBrain _brain;
 
     [Header("Focus Setting")]
+    [SerializeField, Min(0.1f)] private float _defaultOrthographicSize = 3f;
     [SerializeField] private float _focusDamping = 0.3f;
     [SerializeField] private float _zoomInDuration = 0.25f;
     [SerializeField] private float _zoomOutDuration = 0.3f;
@@ -31,7 +32,6 @@ public class CameraFocusingController : MonoBehaviour
     private Transform _originTarget;
     private Transform _currentFocusTarget;
 
-    private float _defaultOrthographicSize;
     private Vector3 _defaultDamping;
 
     private Tween _zoomTween;
@@ -90,9 +90,6 @@ public class CameraFocusingController : MonoBehaviour
         RefreshCameraState(
             true
         );
-
-        _defaultOrthographicSize =
-            _camera.Lens.OrthographicSize;
 
         _defaultDamping =
             _follow

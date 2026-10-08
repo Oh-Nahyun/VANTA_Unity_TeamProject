@@ -13,6 +13,11 @@ public class Pet : MonoBehaviour
     public SpriteRenderer SpriteRenderer;
 
     /// <summary>
+    /// 펫 원형 콜라이더 2D
+    /// </summary>
+    public CircleCollider2D CircleCollider2D;
+
+    /// <summary>
     /// 플레이어 스킬 매니저 클래스
     /// </summary>
     public SkillManager PlayerSkillManager;
@@ -21,6 +26,12 @@ public class Pet : MonoBehaviour
     {
         Animator = GetComponent<Animator>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
+        CircleCollider2D = GetComponent<CircleCollider2D>();
         PlayerSkillManager = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<SkillManager>();
+    }
+
+    public void Death()
+    {
+        Animator.SetTrigger("IsDeath");
     }
 }

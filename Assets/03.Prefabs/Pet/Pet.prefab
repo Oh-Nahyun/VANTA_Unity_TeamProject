@@ -200,6 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Pet
   Animator: {fileID: 640092444070100262}
   SpriteRenderer: {fileID: 6119124529000901739}
+  CircleCollider2D: {fileID: 0}
   PlayerSkillManager: {fileID: 0}
 --- !u!114 &964765425002006797
 MonoBehaviour:
@@ -320,7 +321,7 @@ SpriteRenderer:
   m_SortingOrder: -2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4723107735738678597, guid: 474c676841ce0d844a26b5c5c601da3c, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.3764706}
+  m_Color: {r: 0.4509804, g: 0.42745098, b: 0.42745098, a: 0.5686275}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
@@ -343,7 +344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PetShadow
   _bodySpriteRenderer: {fileID: 6119124529000901739}
   _shadowSpriteRenderer: {fileID: 4863273135137886632}
-  _shadowColor: {r: 0, g: 0, b: 0, a: 0.3764706}
+  _shadowColor: {r: 0.4509804, g: 0.42745098, b: 0.42745098, a: 0.5686275}
 --- !u!1 &2090642661046176864
 GameObject:
   m_ObjectHideFlags: 0

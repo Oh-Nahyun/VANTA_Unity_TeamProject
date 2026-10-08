@@ -6,6 +6,17 @@ using UnityEngine;
 [DefaultExecutionOrder(10000)]
 public class CameraStatusUpdater : MonoBehaviour
 {
+#if DEVELOPMENT_BUILD && !UNITY_EDITOR
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    private static void InstallBuildDiagnostics()
+    {
+        if (FindAnyObjectByType<CameraStatusUpdater>() == null)
+        {
+            new GameObject("Camera Build Diagnostics").AddComponent<CameraStatusUpdater>();
+        }
+    }
+#endif
+
     [SerializeField] private CinemachineCamera _camera;
     [SerializeField] private CinemachineBrain _brain;
     [SerializeField] private bool _enableLogging = true;
@@ -24,6 +35,7 @@ public class CameraStatusUpdater : MonoBehaviour
         if (_enableLogging)
         {
             LogStatus("Start");
+            Debug.Log($"[CameraStatus] Diagnostics v2 scene={UnityEngine.SceneManagement.SceneManager.GetActiveScene().path} unity={Application.unityVersion} build={Application.buildGUID} editor={Application.isEditor} logPath={Application.consoleLogPath}", this);
         }
     }
 
@@ -92,6 +104,17 @@ public class CameraStatusUpdater : MonoBehaviour
             log.AppendLine($"OutputChannel={_camera.OutputChannel} priority={_camera.Priority.Value} previousStateValid={_camera.PreviousStateIsValid}");
             log.AppendLine($"Follow={Describe(target)} targetPosition={Position(target)} cameraPosition={Position(_camera.transform)} stateRawPosition={_camera.State.RawPosition.ToString("F3")}");
             var state = _camera.State;
+            log.AppendLine($"RequestedSize={_camera.Lens.OrthographicSize:F3} stateAspect={state.Lens.Aspect:F3} orthographic={state.Lens.Orthographic}");
+            var confiner = _camera.GetComponent<CinemachineConfiner2D>();
+            if (confiner != null)
+            {
+                var shape = confiner.BoundingShape2D;
+                log.AppendLine($"Confiner enabled={confiner.isActiveAndEnabled} shape={Describe(shape)} shapeEnabled={(shape != null && shape.isActiveAndEnabled)} bounds={(shape != null ? shape.bounds.ToString() : "NONE")} oversizeWindow={confiner.OversizeWindow.Enabled}");
+            }
+            else
+            {
+                log.AppendLine("Confiner=MISSING");
+            }
             log.AppendLine($"CameraFinalPosition={state.GetFinalPosition().ToString("F3")} positionCorrection={state.PositionCorrection.ToString("F3")} orthographicSize={state.Lens.OrthographicSize:F3}");
 
             var follow = _camera.GetComponent<CinemachineFollow>();
@@ -117,6 +140,7 @@ public class CameraStatusUpdater : MonoBehaviour
         }
 
         var main = Camera.main;
+        log.AppendLine($"Screen={Screen.width}x{Screen.height} mainAspect={(main != null ? main.aspect : 0f):F3}");
         log.AppendLine($"MainCamera={Describe(main)} position={Position(main != null ? main.transform : null)}");
 #if UNITY_EDITOR
         log.AppendLine($"EditorSelection={Describe(UnityEditor.Selection.activeGameObject)}");

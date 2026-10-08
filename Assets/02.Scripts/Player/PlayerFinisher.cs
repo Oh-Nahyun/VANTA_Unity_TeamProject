@@ -70,6 +70,8 @@ public class PlayerFinisher : MonoBehaviour
     private bool _isFinisherStarted;
     private bool _isCharging;
 
+    
+    
     private void Awake()
     {
         ResetScreenSplit();
@@ -77,8 +79,7 @@ public class PlayerFinisher : MonoBehaviour
 
     private void Update()
     {
-        if (!Input.GetButtonDown("Fire1"))
-            return;
+       
 
         if (_isCharging)
         {
@@ -86,10 +87,9 @@ public class PlayerFinisher : MonoBehaviour
             return;
         }
 
-        if (_isFinisherStarted)
-            return;
+       
 
-        StartFinisher();
+   
     }
 
     public void StartFinisher()

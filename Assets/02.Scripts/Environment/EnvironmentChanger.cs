@@ -35,6 +35,14 @@ public class EnvironmentChanger : MonoBehaviour
     private int _completedChangeCount;
 
     private Action _onComplete;
+    private Action<int> _onChangeStep;
+    private IReadOnlyList<Fire> _activeFires;
+    private bool _activateFiresOnChange;
+
+    public IReadOnlyList<Fire> Fires => _fires;
+
+    private IReadOnlyList<Fire> ActiveFires =>
+        _activeFires ?? _fires;
 
     private static readonly int[] SelectCenterIDs =
     {
@@ -74,6 +82,57 @@ public class EnvironmentChanger : MonoBehaviour
     public void StartChangeBackground(
         Action onComplete = null)
     {
+        StartChangeBackground(
+            _fires,
+            true,
+            null,
+            onComplete
+        );
+    }
+
+    public void StartChangeBackground(
+        IReadOnlyList<Fire> fires,
+        Action onComplete = null)
+    {
+        StartChangeBackground(
+            fires,
+            true,
+            null,
+            onComplete
+        );
+    }
+
+    public void StartChangeBackground(
+        IReadOnlyList<Fire> fires,
+        Action<int> onChangeStep,
+        Action onComplete = null)
+    {
+        StartChangeBackground(
+            fires,
+            true,
+            onChangeStep,
+            onComplete
+        );
+    }
+
+    public void StartChangeBackgroundWithoutFireActivation(
+        IReadOnlyList<Fire> fires,
+        Action onComplete = null)
+    {
+        StartChangeBackground(
+            fires,
+            false,
+            null,
+            onComplete
+        );
+    }
+
+    private void StartChangeBackground(
+        IReadOnlyList<Fire> fires,
+        bool activateFiresOnChange,
+        Action<int> onChangeStep,
+        Action onComplete)
+    {
         if (_targetRenderer == null)
             return;
 
@@ -81,11 +140,15 @@ public class EnvironmentChanger : MonoBehaviour
 
         ResetPropertyBlock();
 
+        _activeFires = fires ?? _fires;
+        _activateFiresOnChange = activateFiresOnChange;
+        _onChangeStep = onChangeStep;
+
         _completedChangeCount = 0;
         _onComplete = onComplete;
 
         _targetChangeCount = Mathf.Min(
-            _fires.Count,
+            ActiveFires.Count,
             SelectCenterIDs.Length,
             SelectedRadiusIDs.Length
         );
@@ -147,7 +210,7 @@ public class EnvironmentChanger : MonoBehaviour
         int index)
     {
         if (index < 0 ||
-            index >= _fires.Count ||
+            index >= ActiveFires.Count ||
             index >= SelectedRadiusIDs.Length)
         {
             ChangeComplete();
@@ -155,13 +218,20 @@ public class EnvironmentChanger : MonoBehaviour
         }
 
         Fire fire =
-            _fires[index];
+            ActiveFires[index];
 
         if (fire == null)
         {
             ChangeComplete();
             return;
         }
+
+        if (_activateFiresOnChange)
+        {
+            fire.ActivateFire();
+        }
+
+        _onChangeStep?.Invoke(index);
 
         SetFireCenter(index);
 
@@ -178,7 +248,6 @@ public class EnvironmentChanger : MonoBehaviour
             _propertyBlock
         );
 
-        fire.ActivateFire();
 
         StartRadiusTween(index);
     }
@@ -193,7 +262,7 @@ public class EnvironmentChanger : MonoBehaviour
         );
 
         int count = Mathf.Min(
-            _fires.Count,
+            ActiveFires.Count,
             SelectCenterIDs.Length
         );
 
@@ -202,7 +271,7 @@ public class EnvironmentChanger : MonoBehaviour
              i++)
         {
             Fire fire =
-                _fires[i];
+                ActiveFires[i];
 
             if (fire == null)
                 continue;
@@ -233,14 +302,14 @@ public class EnvironmentChanger : MonoBehaviour
             return;
 
         if (index < 0 ||
-            index >= _fires.Count ||
+            index >= ActiveFires.Count ||
             index >= SelectCenterIDs.Length)
         {
             return;
         }
 
         Fire fire =
-            _fires[index];
+            ActiveFires[index];
 
         if (fire == null)
             return;
@@ -336,6 +405,8 @@ public class EnvironmentChanger : MonoBehaviour
             _onComplete;
 
         _onComplete = null;
+        _onChangeStep = null;
+        _activeFires = null;
 
         callback?.Invoke();
     }
@@ -404,6 +475,8 @@ public class EnvironmentChanger : MonoBehaviour
         _radiusTweens.Clear();
 
         _onComplete = null;
+        _onChangeStep = null;
+        _activeFires = null;
     }
 
     public void EndPhase2()

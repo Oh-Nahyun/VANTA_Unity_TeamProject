@@ -43,6 +43,12 @@ public class LightOff : MonoBehaviour
     private int _completedCount;
 
     private Action _onComplete;
+    private IReadOnlyList<Fire> _activeFires;
+
+    public IReadOnlyList<Fire> Fires => _fires;
+
+    private IReadOnlyList<Fire> ActiveFires =>
+        _activeFires ?? _fires;
 
     private static readonly int[] SelectCenterIDs =
     {
@@ -103,17 +109,28 @@ public class LightOff : MonoBehaviour
 
     public void StartLightOff(Action onComplete = null)
     {
+        StartLightOff(
+            _fires,
+            onComplete
+        );
+    }
+
+    public void StartLightOff(
+        IReadOnlyList<Fire> fires,
+        Action onComplete = null)
+    {
         if (_runtimeMaterial == null)
             return;
 
         KillTweens();
         ResetMaterial();
 
+        _activeFires = fires ?? _fires;
         _onComplete = onComplete;
         _completedCount = 0;
 
         _targetCount = Mathf.Min(
-            _fires.Count,
+            ActiveFires.Count,
             SelectCenterIDs.Length,
             SelectedRadiusIDs.Length
         );
@@ -179,14 +196,14 @@ public class LightOff : MonoBehaviour
     private void FireOff(int index)
     {
         if (index < 0 ||
-            index >= _fires.Count ||
+            index >= ActiveFires.Count ||
             index >= SelectedRadiusIDs.Length)
         {
             RadiusComplete();
             return;
         }
 
-        Fire fire = _fires[index];
+        Fire fire = ActiveFires[index];
 
         if (fire == null)
         {
@@ -205,8 +222,8 @@ public class LightOff : MonoBehaviour
         int index)
     {
         if (index < 0 ||
-            index >= _fires.Count ||
-            _fires[index] == null)
+            index >= ActiveFires.Count ||
+            ActiveFires[index] == null)
         {
             RadiusComplete();
             return;
@@ -252,14 +269,18 @@ public class LightOff : MonoBehaviour
 
         KillTweens();
 
+        _activeFires = _fires;
+        _onComplete = onComplete;
+        _completedCount = 0;
+
         UpdateFirePositions();
 
-        int count = Mathf.Min(
-            _fires.Count,
+        _targetCount = Mathf.Min(
+            ActiveFires.Count,
             SelectedRadiusIDs.Length
         );
 
-        if (count <= 0)
+        if (_targetCount <= 0)
         {
             _runtimeMaterial.SetFloat(
                 HiddenActiveID,
@@ -271,51 +292,72 @@ public class LightOff : MonoBehaviour
             return;
         }
 
-        int completedCount = 0;
+        _runtimeMaterial.SetFloat(
+            HiddenActiveID,
+            1f
+        );
 
-        for (int i = 0; i < count; i++)
+        _sequence = DOTween.Sequence();
+
+        for (int i = 0; i < _targetCount; i++)
         {
             int index = i;
 
-            Tween tween = null;
+            _sequence.AppendCallback(
+                () =>
+                {
+                    LightOn(
+                        index,
+                        LightOnComplete
+                    );
+                }
+            );
 
-            tween = DOTween.To(
-                    () => _currentRadius[index],
-                    value =>
-                    {
-                        _currentRadius[index] =
-                            value;
-
-                        _runtimeMaterial.SetFloat(
-                            SelectedRadiusIDs[index],
-                            value
-                        );
-                    },
-                    0f,
-                    _radiusDuration
-                )
-                .SetEase(Ease.InOutSine)
-                .OnComplete(
-                    () =>
-                    {
-                        _radiusTweens.Remove(tween);
-
-                        completedCount++;
-
-                        if (completedCount >= count)
-                        {
-                            _runtimeMaterial.SetFloat(
-                                HiddenActiveID,
-                                0f
-                            );
-
-                            onComplete?.Invoke();
-                        }
-                    }
+            if (i < _targetCount - 1)
+            {
+                _sequence.AppendInterval(
+                    _changeInterval
                 );
-
-            _radiusTweens.Add(tween);
+            }
         }
+
+        _sequence.OnComplete(
+            () =>
+            {
+                _sequence = null;
+            }
+        );
+    }
+
+    public void BeginSyncedLightOn(
+        IReadOnlyList<Fire> fires = null)
+    {
+        if (_runtimeMaterial == null)
+            return;
+
+        KillTweens();
+
+        _activeFires = fires ?? _fires;
+
+        UpdateFirePositions();
+
+        _runtimeMaterial.SetFloat(
+            HiddenActiveID,
+            1f
+        );
+    }
+
+    public void CompleteSyncedLightOn()
+    {
+        if (_runtimeMaterial == null)
+            return;
+
+        _runtimeMaterial.SetFloat(
+            HiddenActiveID,
+            0f
+        );
+
+        _activeFires = null;
     }
 
     private void UpdateFirePositions()
@@ -327,7 +369,7 @@ public class LightOff : MonoBehaviour
         }
 
         int count = Mathf.Min(
-            _fires.Count,
+            ActiveFires.Count,
             SelectCenterIDs.Length
         );
 
@@ -347,13 +389,13 @@ public class LightOff : MonoBehaviour
         }
 
         if (index < 0 ||
-            index >= _fires.Count ||
+            index >= ActiveFires.Count ||
             index >= SelectCenterIDs.Length)
         {
             return;
         }
 
-        Fire fire = _fires[index];
+        Fire fire = ActiveFires[index];
 
         if (fire == null)
             return;
@@ -387,12 +429,31 @@ public class LightOff : MonoBehaviour
         CompleteLightOff();
     }
 
+    private void LightOnComplete()
+    {
+        _completedCount++;
+
+        if (_completedCount <
+            _targetCount)
+        {
+            return;
+        }
+
+        _runtimeMaterial.SetFloat(
+            HiddenActiveID,
+            0f
+        );
+
+        CompleteLightOff();
+    }
+
     private void CompleteLightOff()
     {
         Action callback =
             _onComplete;
 
         _onComplete = null;
+        _activeFires = null;
 
         callback?.Invoke();
     }
@@ -435,8 +496,83 @@ public class LightOff : MonoBehaviour
         _radiusTweens.Clear();
 
         _onComplete = null;
+        _activeFires = null;
+    }
+    public void LightOn(int index, Action onComplete = null)
+    {
+        LightOn(
+            index,
+            true,
+            onComplete
+        );
     }
 
+    public void LightOnWithoutFireActivation(
+        int index,
+        Action onComplete = null)
+    {
+        LightOn(
+            index,
+            false,
+            onComplete
+        );
+    }
+
+    private void LightOn(
+        int index,
+        bool activateFire,
+        Action onComplete = null)
+    {
+        if (_runtimeMaterial == null ||
+            index < 0 ||
+            index >= ActiveFires.Count ||
+            index >= SelectedRadiusIDs.Length)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        Fire fire = ActiveFires[index];
+
+        if (fire == null)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        UpdateFirePosition(index);
+
+        if (activateFire)
+        {
+            fire.ActivateFire();
+        }
+
+        Tween tween = null;
+
+        tween = DOTween.To(
+                () => _currentRadius[index],
+                value =>
+                {
+                    _currentRadius[index] = value;
+
+                    _runtimeMaterial.SetFloat(
+                        SelectedRadiusIDs[index],
+                        value
+                    );
+                },
+                0f,
+                _radiusDuration
+            )
+            .SetEase(Ease.InOutSine)
+            .OnComplete(() =>
+            {
+                _radiusTweens.Remove(tween);
+
+                onComplete?.Invoke();
+            });
+
+        _radiusTweens.Add(tween);
+    }
     private void OnDestroy()
     {
         KillTweens();

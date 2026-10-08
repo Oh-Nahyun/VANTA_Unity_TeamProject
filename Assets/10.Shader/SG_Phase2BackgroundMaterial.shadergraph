@@ -10103,7 +10103,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
     "m_ObjectId": "9db59d09631a4835a95940867171e983",
     "m_Id": 0,
-    "m_DisplayName": "_SelectCente6",
+    "m_DisplayName": "_SelectCenter6",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -10291,10 +10291,10 @@
     "promotedFromAssetID": "",
     "promotedFromCategoryName": "",
     "promotedOrdering": -1,
-    "m_Name": "_SelectCente6",
+    "m_Name": "_SelectCenter6",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "_SelectCente6",
-    "m_DefaultReferenceName": "_SelectCente6",
+    "m_RefNameGeneratedByDisplayName": "_SelectCenter6",
+    "m_DefaultReferenceName": "_SelectCenter6",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -11268,8 +11268,8 @@
     "m_ObjectId": "b45da30bf947443c9cabec1dd82f8120",
     "m_Title": "part",
     "m_Position": {
-        "x": -5006.00048828125,
-        "y": 232.00003051757813
+        "x": -5006.0,
+        "y": 232.0
     }
 }
 
@@ -12631,8 +12631,8 @@
     "m_ObjectId": "cd96a2692f9f4af8aa3077a2c87ff2f8",
     "m_Title": "part",
     "m_Position": {
-        "x": -4989.99951171875,
-        "y": 1101.9998779296875
+        "x": -4990.0,
+        "y": 1102.0
     }
 }
 
@@ -13636,8 +13636,8 @@
     "m_ObjectId": "dfd19dbcd1c746bb8790e74b70d6a91a",
     "m_Title": "part",
     "m_Position": {
-        "x": -5021.00048828125,
-        "y": -1071.0001220703125
+        "x": -5021.0,
+        "y": -1071.0
     }
 }
 

@@ -32,7 +32,7 @@ public class Fire : MonoBehaviour
         _animator.SetTrigger("DeactivateFire");
 
         _deactivateTween = DOVirtual.DelayedCall(
-            2f,
+            1f,
             () =>
             {
                 SpriteStatusChange();

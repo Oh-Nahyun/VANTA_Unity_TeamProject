@@ -15,10 +15,7 @@ public class Phase1ToPhase2Acting : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            StartPhaseChange();
-        }
+        
     }
 
     public void StartPhaseChange()
@@ -44,7 +41,10 @@ public class Phase1ToPhase2Acting : MonoBehaviour
             1,
             () =>
             {
-                _lightOff.StartLightOff(StartBackgroundPhase2);
+                _lightOff.StartLightOff(
+                    _environmentChanger.Fires,
+                    StartBackgroundPhase2
+                );
             }
         );
 
@@ -56,7 +56,49 @@ public class Phase1ToPhase2Acting : MonoBehaviour
             3,
             () =>
             {
-                _environmentChanger.StartChangeBackground(StartBossChange);
+                int targetLightCount =
+                    Mathf.Min(
+                        _lightOff.Fires.Count,
+                        8
+                    );
+
+                int completedLightCount = 0;
+                bool environmentComplete = false;
+
+                void CompleteBackgroundPhase2()
+                {
+                    if (!environmentComplete ||
+                        completedLightCount < targetLightCount)
+                    {
+                        return;
+                    }
+
+                    _lightOff.CompleteSyncedLightOn();
+
+                    StartBossChange();
+                }
+
+                _lightOff.BeginSyncedLightOn(_lightOff.Fires);
+
+                _environmentChanger.StartChangeBackground(
+                    _lightOff.Fires,
+                    index =>
+                    {
+                        _lightOff.LightOnWithoutFireActivation(
+                            index,
+                            () =>
+                            {
+                                completedLightCount++;
+                                CompleteBackgroundPhase2();
+                            }
+                        );
+                    },
+                    () =>
+                    {
+                        environmentComplete = true;
+                        CompleteBackgroundPhase2();
+                    }
+                );
             }
         );
     }

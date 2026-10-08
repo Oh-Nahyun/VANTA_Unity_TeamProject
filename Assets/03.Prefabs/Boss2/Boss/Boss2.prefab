@@ -409,6 +409,9 @@ MonoBehaviour:
   _health: 5000
   _maxHealth: 0
   _hitSound: {fileID: 2730437308857772986}
+  onFinisher:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4827965982157604352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -488,7 +491,7 @@ MonoBehaviour:
   _useKeyboardInput: 0
   _attackZone: {fileID: 5667757336281504092}
   _footStepSound: {fileID: 4439367323298386275}
-  _sprintSound: {fileID: 0}
+  _sprintSound: {fileID: 4688422388301230656}
   _target: {fileID: 0}
   _arriveTolerance: 0.15
   _blinkMinDistance: 2.5

@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using Unity.Cinemachine;
 using UnityEngine;
 
 /// <summary>
@@ -49,9 +50,6 @@ public class Boss1IntroController : MonoBehaviour
     private Tween _roarShakeTween;
     private Vector3 _visualPivotOriginPosition;
     
-    [Header("포효 카메라 쉐이크")]
-    [SerializeField] private GameObject _roarCameraShakePrefab;
-    
     [SerializeField] private SpriteRenderer[] _bossSpriteRenderers;
     [SerializeField] private GameObject _warningZonePrefab;
     [SerializeField] private Animator _animator;
@@ -76,12 +74,12 @@ public class Boss1IntroController : MonoBehaviour
     /// 이것만 실행하면 보스1 알아서 작동합니다~
     /// </summary>
 
-    private void Start()
+    private void Start() // 내꺼 시작용 (PR, 프리팹 오버라이드 할 때 꺼야함)
     {
         StartCoroutine(IntroRoutine());
     }
     
-    public void StartIntro()
+    public void StartIntro() // 인게임 테스트용
     {
         StartCoroutine(IntroRoutine());
     }
@@ -179,7 +177,6 @@ public class Boss1IntroController : MonoBehaviour
 
     private IEnumerator RoarRoutine()
     {
-        Instantiate(_roarCameraShakePrefab);
         _roarShakeTween?.Kill();
 
         _visualPivot.localPosition = _visualPivotOriginPosition;

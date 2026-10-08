@@ -409,7 +409,7 @@ MonoBehaviour:
   _health: 5000
   _maxHealth: 0
   _hitSound: {fileID: 2730437308857772986}
-  onFinisher:
+  OnFinisher:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &4827965982157604352
@@ -521,7 +521,7 @@ MonoBehaviour:
   _slashSound: {fileID: 0}
   _instantKillStartState: StartInstantKillSkill
   _instantKillEndState: EndInstantKillSkill
-  _instantKillAppearHeight: 1
+  _instantKillAppearHeight: 0.3
   _instantKillRadius: 1
   _aoeStateName: Boss2AOESkill
   _areaStrikePrefab: {fileID: 624373018500441915, guid: 7b6f88b6ca25cf54cb9702ab64a835cf, type: 3}
@@ -752,6 +752,7 @@ MonoBehaviour:
   _instantKillWeightPerHit: 1
   _instantKillWeight: 0
   _maxInstantKillWeight: 3
+  _noDamageKillTime: 10
 --- !u!95 &322370360651168047
 Animator:
   serializedVersion: 7
@@ -931,6 +932,7 @@ Transform:
   - {fileID: 43170280872316821}
   - {fileID: 8372999090502439401}
   - {fileID: 242652465627193932}
+  - {fileID: 2119206067566436299}
   m_Father: {fileID: 1073874748574327932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4439367323298386275
@@ -1310,6 +1312,68 @@ Transform:
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 9045642989665155945, guid: 0288049706283f4419a96d7201dc88bd, type: 3}
   m_PrefabInstance: {fileID: 386329663398757409}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1104063878630837254
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7837657488774029246}
+    m_Modifications:
+    - target: {fileID: 1313505795245593549, guid: 39d06b7c7a7928745ad9f6d790a697e5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313505795245593549, guid: 39d06b7c7a7928745ad9f6d790a697e5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313505795245593549, guid: 39d06b7c7a7928745ad9f6d790a697e5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313505795245593549, guid: 39d06b7c7a7928745ad9f6d790a697e5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313505795245593549, guid: 39d06b7c7a7928745ad9f6d790a697e5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313505795245593549, guid: 39d06b7c7a7928745ad9f6d790a697e5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313505795245593549, guid: 39d06b7c7a7928745ad9f6d790a697e5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313505795245593549, guid: 39d06b7c7a7928745ad9f6d790a697e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313505795245593549, guid: 39d06b7c7a7928745ad9f6d790a697e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313505795245593549, guid: 39d06b7c7a7928745ad9f6d790a697e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5253263723120112549, guid: 39d06b7c7a7928745ad9f6d790a697e5, type: 3}
+      propertyPath: m_Name
+      value: FootDustVFX
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 39d06b7c7a7928745ad9f6d790a697e5, type: 3}
+--- !u!4 &2119206067566436299 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1313505795245593549, guid: 39d06b7c7a7928745ad9f6d790a697e5, type: 3}
+  m_PrefabInstance: {fileID: 1104063878630837254}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4425614018668018978
 PrefabInstance:

@@ -117,7 +117,7 @@ public void TakeDamage(int damage)
         {
             OnFinisher.Invoke();
         }
-        // Destroy
+        
         // Destroy
         Destroy(gameObject);
     }

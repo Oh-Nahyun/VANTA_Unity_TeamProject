@@ -4,6 +4,7 @@ using UnityEngine.Rendering;
 
 /// <summary>
 /// 발 먼지 / 공격 불꽃 파티클 프리팹을 만든다. 메뉴: Tools / Boss2 VFX / Build Foot Dust + Hit Spark
+/// 만든 발 먼지를 플레이어·보스2 발밑에 붙이기: Tools / Boss2 VFX / Attach Foot Dust (Player + Boss2)
 ///   - FootDustVFX : 캐릭터 자식으로 붙이면 이동한 거리만큼 발밑에서 먼지가 퐁퐁 피어오른다 (Rate over Distance)
 ///   - HitSparkVFX : 공격 순간에 생성(또는 Play)하면 불티가 매번 다른 랜덤 방향으로 튄다. 다 튀면 스스로 파괴
 /// 값은 절대값으로 넣으므로 여러 번 실행해도 결과가 같다. 텍스처는 같은 폴더의 T_FootDust / T_HitSpark / T_HitFlash.
@@ -41,7 +42,7 @@ public static class HandMadeVfxBuilder
             main.gravityModifier = -0.05f;                      // 살짝 떠오른다
             main.simulationSpace = ParticleSystemSimulationSpace.World;   // 지나간 자리에 남는다
             main.scalingMode = ParticleSystemScalingMode.Hierarchy;
-            main.maxParticles = 50;
+            main.maxParticles = 15;                             // 순간이동 때 먼지가 한꺼번에 쏟아지지 않게
 
             // 걸을 때만: 1 유닛 이동마다 4개 (가만히 있으면 안 나온다)
             ParticleSystem.EmissionModule emission = ps.emission;
@@ -91,6 +92,71 @@ public static class HandMadeVfxBuilder
         {
             Object.DestroyImmediate(root);
         }
+    }
+
+    // ---------------------------------------------------------------- 발 먼지 붙이기
+
+    private static readonly string[] FootDustTargets =
+    {
+        "Assets/03.Prefabs/Player/Player.prefab",
+        "Assets/03.Prefabs/Boss2/Boss/Boss2.prefab",
+    };
+
+    /// <summary>
+    /// FootDustVFX 를 플레이어·보스2 프리팹의 발밑(그림자 위치)에 자식으로 붙인다. 이미 있으면 지우고 다시 붙인다.
+    /// </summary>
+    [MenuItem("Tools/Boss2 VFX/Attach Foot Dust (Player + Boss2)")]
+    public static void AttachFootDust()
+    {
+        GameObject dustPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(Folder + "/FootDustVFX.prefab");
+        if (dustPrefab == null)
+        {
+            Debug.LogError("[HandMadeVfxBuilder] FootDustVFX.prefab 이 없습니다. 먼저 Build Foot Dust + Hit Spark 를 실행하세요.");
+            return;
+        }
+
+        foreach (string path in FootDustTargets)
+        {
+            GameObject root = PrefabUtility.LoadPrefabContents(path);
+            try
+            {
+                Transform old = root.transform.Find("FootDustVFX");
+                if (old != null)
+                {
+                    Object.DestroyImmediate(old.gameObject);
+                }
+
+                GameObject dust = (GameObject)PrefabUtility.InstantiatePrefab(dustPrefab, root.transform);
+                dust.name = "FootDustVFX";
+                dust.transform.localPosition = FindFootLocalPosition(root.transform);
+
+                PrefabUtility.SaveAsPrefabAsset(root, path);
+                Debug.Log($"[HandMadeVfxBuilder] {path} 에 발 먼지 부착 (로컬 위치 {dust.transform.localPosition})");
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(root);
+            }
+        }
+    }
+
+    // 발 위치: 이름에 Shadow 가 들어간 자식(발밑 그림자)이 있으면 그 위치, 없으면 스프라이트 아래 끝
+    private static Vector3 FindFootLocalPosition(Transform root)
+    {
+        foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
+        {
+            if (t != root && t.name.Contains("Shadow"))
+                return root.InverseTransformPoint(t.position);
+        }
+
+        SpriteRenderer sprite = root.GetComponentInChildren<SpriteRenderer>(true);
+        if (sprite != null && sprite.sprite != null)
+        {
+            Bounds b = sprite.bounds;
+            return root.InverseTransformPoint(new Vector3(b.center.x, b.min.y, 0f));
+        }
+
+        return Vector3.zero;
     }
 
     // ---------------------------------------------------------------- 공격 불꽃

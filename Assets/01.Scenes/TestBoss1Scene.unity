@@ -598,6 +598,10 @@ PrefabInstance:
       propertyPath: _boss
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8028567086285024404, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _useStartSequence
       value: 0

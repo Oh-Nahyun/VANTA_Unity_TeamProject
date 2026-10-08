@@ -5,6 +5,7 @@ public class Boss1Life : HitableObject
 {
     [SerializeField] private int _maxHealth= 10000;
     [SerializeField] private float _phase2HealthPercent = 0.4f;
+    [SerializeField] private GameObject _boss2;
     
     private Boss1HitFlash _boss1HitFlash;
     
@@ -50,7 +51,7 @@ public class Boss1Life : HitableObject
         }
         
     }
-
+    
     private void Die()
     {
         if (_isDead)
@@ -59,6 +60,11 @@ public class Boss1Life : HitableObject
         }
         
         _isDead = true;
-        OnDeath?.Invoke();
+        
+        _boss2.SetActive(true); // 임시: 보스2 활성화
+        
+        OnDeath?.Invoke(); // 지금은 역할 없음, 나중에 사망 연출 때 추가
+        
+        Destroy(gameObject); // 임시: 보스1 파괴
     }
 }

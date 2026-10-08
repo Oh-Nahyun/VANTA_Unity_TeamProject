@@ -10156,7 +10156,7 @@ MonoBehaviour:
   m_ApplyToSortingLayers: 2d8124d500000000cfa8f7eab577723d6301cbffe5d223216557971a2d46d711550b2519d51012403b15d5a0f7789f5c1758e3b5ff81ec05871673c46f9749d183e549d2ffbf219bf39d57be93489485
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
-  m_LightOrder: 1
+  m_LightOrder: 2
   m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
@@ -20079,6 +20079,8 @@ GameObject:
   - component: {fileID: 8028567086285024404}
   - component: {fileID: 7842500543627820772}
   - component: {fileID: 9222041240703321016}
+  - component: {fileID: 2186686988792586930}
+  - component: {fileID: 3727620830820517672}
   m_Layer: 14
   m_Name: Player
   m_TagString: Player
@@ -20212,7 +20214,19 @@ MonoBehaviour:
   _deathLightShrinkDuration: 0.7
   _deathEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameResultUI, Assembly-CSharp
+        m_MethodName: ShowGameOverUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6093219973355731838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20405,14 +20419,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c43b2a8bae1f1904f8f56478c401d8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatusManager
-  _useStartSequence: 0
+  _useStartSequence: 1
   _spotLight: {fileID: 3588000712453903779}
   _playerMove: {fileID: 6093219973355731838}
   _playerAttack: {fileID: 4589030193044622876}
+  _skillManager: {fileID: 4902766636836062051}
   _cinemachineCamera: {fileID: 0}
   _startOuterRadius: 13
   _targetOuterRadius: 5
   _spotLightDuration: 0.5
+  _startActionRadius: 3
   _startOrthographicSize: 5
   _targetOrthographicSize: 3
   _zoomDuration: 3
@@ -20456,6 +20472,21 @@ MonoBehaviour:
   _startZoomAmount: 0.2
   _zoomPerCharge: 0.1
   _chargeZoomDuration: 1
+  _gameClear:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameResultUI, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &9222041240703321016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20478,6 +20509,50 @@ MonoBehaviour:
   - {fileID: 0}
   _spawnInterval: 0.01
   _lifeTime: 0.5
+--- !u!114 &2186686988792586930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4512711204945311804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2fce5ab80d60e547b6c8425b4c272ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameStartActing
+  _movePoint: {fileID: 0}
+  _bossHPVar: {fileID: 0}
+  _boss1DropStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Boss1IntroController, Assembly-CSharp
+        m_MethodName: StartIntro
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _bossDropVfx: {fileID: 6547965365630005983, guid: 10140e8c547ce934db1613b424e6a8e5, type: 3}
+--- !u!114 &3727620830820517672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4512711204945311804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0870c62f1e89e44290439665be524af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Phase1ToPhase2Acting
+  _environmentChanger: {fileID: 0}
+  _lightOff: {fileID: 0}
 --- !u!1 &4629908935146602055
 GameObject:
   m_ObjectHideFlags: 0

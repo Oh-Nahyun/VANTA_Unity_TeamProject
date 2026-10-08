@@ -1,5 +1,4 @@
 using DG.Tweening;
-using UnityEditor.SearchService;
 using UnityEngine;
 
 public class SkillIndicator : MonoBehaviour
@@ -10,16 +9,17 @@ public class SkillIndicator : MonoBehaviour
     private SkillIndicatorMove _skillIndicatorMove;
     private SkillIndicatorSelectIndicator _skillIndicatorSelectIndicator;
     private bool _isChoiced;
+
     private void Awake()
     {
         _objectSelector = GetComponent<ObjectSelect>();
         _skillIndicatorOrbit = GetComponent<SkillIndicatorOrbit>();
         _skillIndicatorMove = GetComponent<SkillIndicatorMove>();
-        _skillIndicatorSelectIndicator=GetComponent<SkillIndicatorSelectIndicator>();
+        _skillIndicatorSelectIndicator = GetComponent<SkillIndicatorSelectIndicator>();
     }
+
     public static SkillIndicator GetAtScreenPosition(Camera targetCamera, Vector2 screenPosition, LayerMask layerMask)
     {
-
         Ray ray = targetCamera.ScreenPointToRay(screenPosition);
         RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity, layerMask);
 
@@ -58,7 +58,6 @@ public class SkillIndicator : MonoBehaviour
 
     public void Deselect()
     {
-
         _objectSelector.EndSelect();
         //_objectFocus.EndFocus();
         _skillIndicatorSelectIndicator.IndicatingStop();
@@ -68,12 +67,13 @@ public class SkillIndicator : MonoBehaviour
     {
         return _isChoiced;
     }
+
     public void ChoicedToAttack()
     {
         _isChoiced = true;
         //_objectSelector.EndSelect();
         //_objectFocus.EndFocus();
-        
+
         if (_objectSquash != null)
         {
             _objectSquash.PlaySquash();
@@ -89,5 +89,4 @@ public class SkillIndicator : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
 }

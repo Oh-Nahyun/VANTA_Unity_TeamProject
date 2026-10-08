@@ -98,7 +98,18 @@ public void TakeDamage(int damage)
     {
         // Effet
         //Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
-
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            PlayerFinisher playerFinisher = playerObject.GetComponent<PlayerFinisher>();
+            if (playerFinisher != null)
+            {
+                PauseBoss();
+                playerFinisher.StartFinisher();
+            }
+        }
+        
+        
         // Destroy
         Destroy(gameObject);
     }

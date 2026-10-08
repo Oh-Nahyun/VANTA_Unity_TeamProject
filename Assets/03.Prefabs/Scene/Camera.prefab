@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFocusingController
   _camera: {fileID: 111102412088274012}
+  _brain: {fileID: 8776461330246514828}
   _focusDamping: 0.3
   _zoomInDuration: 0.5
   _zoomOutDuration: 0
@@ -132,7 +133,7 @@ Transform:
   m_GameObject: {fileID: 5182591038039288955}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.55, y: -0.41, z: -10}
+  m_LocalPosition: {x: 0.6, y: -0.49, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -259,7 +260,7 @@ MonoBehaviour:
   IgnoreTimeScale: 0
   WorldUpOverride: {fileID: 0}
   ChannelMask: -1
-  UpdateMethod: 2
+  UpdateMethod: 1
   BlendUpdateMethod: 1
   LensModeOverride:
     Enabled: 0
@@ -382,7 +383,7 @@ Transform:
   m_GameObject: {fileID: 8637754420156181256}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.55, y: -0.41, z: -10}
+  m_LocalPosition: {x: 0.6, y: -0.49, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

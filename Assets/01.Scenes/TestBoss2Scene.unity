@@ -130,11 +130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f61d2e1bc16e2644d9ef01287319dd62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAfterImage
---- !u!1 &179392106 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4688422388301230656, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-  m_PrefabInstance: {fileID: 3534419576666443009}
-  m_PrefabAsset: {fileID: 0}
 --- !u!20 &285070221 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 1237226069521675108, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
@@ -535,7 +530,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 57864106689596397, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.1095326
+      value: -3.103095
       objectReference: {fileID: 0}
     - target: {fileID: 57864106689596397, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1144,10 +1139,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss2
       objectReference: {fileID: 0}
-    - target: {fileID: 4474688203573458451, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _sprintSound
-      value: 
-      objectReference: {fileID: 179392106}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

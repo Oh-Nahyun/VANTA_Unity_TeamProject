@@ -1,7 +1,5 @@
-using DG.Tweening;
-using TMPro;
 using UnityEngine;
-
+using UnityEngine.Events;
 
 public class Boss2 : Boss
 {
@@ -28,6 +26,9 @@ public class Boss2 : Boss
     
     [Header("사운드")]
     [SerializeField] private GameObject _hitSound;
+
+    [Header("이벤트")]
+    public UnityEvent OnFinisher;
     
     // 공격·스킬을 하는 중인지. 이때는 데미지만 받고 피격 모션으로 행동이 끊기지 않는다(슈퍼아머).
     private bool IsActing =>
@@ -68,7 +69,7 @@ public void TakeDamage(int damage)
 
             if (_health <= 0)
             {
-                //Death();
+                Finisher();
                 _animator.SetTrigger("Death");
                 // 체력 바를 위해서
                 _health = 0;
@@ -94,10 +95,8 @@ public void TakeDamage(int damage)
         _animator.speed = _cachedAnimationSpeed;
     }
 
-    private void Death()
+    private void Finisher()
     {
-        // Effet
-        //Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
@@ -108,8 +107,16 @@ public void TakeDamage(int damage)
                 playerFinisher.StartFinisher();
             }
         }
-        
-        
+    }
+    
+    public void Death()
+    {
+        // Effet
+        //Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
+        if (onFinisher != null) 
+        {
+            onFinisher.Invoke();
+        }
         // Destroy
         Destroy(gameObject);
     }

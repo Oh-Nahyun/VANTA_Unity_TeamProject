@@ -119,7 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraStatusUpdater
   _camera: {fileID: 111102412088274012}
   _brain: {fileID: 8776461330246514828}
-  _enableLogging: 1
+  _enableLogging: 0
   _logInterval: 3
 --- !u!1 &5182591038039288955
 GameObject:

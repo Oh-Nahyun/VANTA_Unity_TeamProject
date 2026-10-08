@@ -1,34 +1,19 @@
 fileFormatVersion: 2
-guid: ce68c7cfe703d8c4d999e2168826c5f4
+guid: 96fc17e442eb11e438a3e61115598e4a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7244325221791330846
-    second: AimHead3_0
+      213: -6411056804209969628
+    second: SplitHead_0
   - first:
-      213: 7075208579563659396
-    second: AimHead3_1
+      213: -5728138199827244338
+    second: SplitHead_1
   - first:
-      213: -5243336872135489890
-    second: AimHead3_2
+      213: -2085636127030050197
+    second: SplitHead_2
   - first:
-      213: 2604001960520488080
-    second: AimHead3_3
-  - first:
-      213: 6275003483495674988
-    second: AimHead3_4
-  - first:
-      213: 8427404170519083911
-    second: AimHead3_5
-  - first:
-      213: 7202164595796716456
-    second: AimHead3_6
-  - first:
-      213: 2666650695846529294
-    second: AimHead3_7
-  - first:
-      213: 1664558917015795171
-    second: AimHead3_8
+      213: -3802744082843788490
+    second: SplitHead_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -150,13 +135,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AimHead3_0
+      name: SplitHead_0
       rect:
         serializedVersion: 2
-        x: 86
-        y: 39
-        width: 993
-        height: 1165
+        x: 32
+        y: 53
+        width: 1207
+        height: 1152
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -165,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2ed89b5c79cf67b90800000000000000
-      internalID: -7244325221791330846
+      spriteID: 426b636cdc95707a0800000000000000
+      internalID: -6411056804209969628
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AimHead3_1
+      name: SplitHead_1
       rect:
         serializedVersion: 2
-        x: 1055
-        y: 499
-        width: 83
-        height: 73
+        x: 1147
+        y: 372
+        width: 14
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,130 +172,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 48020b097b0303260800000000000000
-      internalID: 7075208579563659396
+      spriteID: eca93fef7a09180b0800000000000000
+      internalID: -5728138199827244338
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AimHead3_2
+      name: SplitHead_2
       rect:
         serializedVersion: 2
-        x: 998
-        y: 325
-        width: 84
-        height: 65
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e9608aa25eceb37b0800000000000000
-      internalID: -5243336872135489890
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AimHead3_3
-      rect:
-        serializedVersion: 2
-        x: 1122
-        y: 379
-        width: 85
-        height: 71
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0949e3b8cf5432420800000000000000
-      internalID: 2604001960520488080
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AimHead3_4
-      rect:
-        serializedVersion: 2
-        x: 416
-        y: 160
-        width: 25
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c64391efb6a451750800000000000000
-      internalID: 6275003483495674988
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AimHead3_5
-      rect:
-        serializedVersion: 2
-        x: 504
-        y: 128
-        width: 8
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 78b7f6a517724f470800000000000000
-      internalID: 8427404170519083911
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AimHead3_6
-      rect:
-        serializedVersion: 2
-        x: 508
-        y: 130
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8abab5a8a8a33f360800000000000000
-      internalID: 7202164595796716456
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AimHead3_7
-      rect:
-        serializedVersion: 2
-        x: 547
-        y: 102
+        x: 1160
+        y: 375
         width: 9
-        height: 13
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -319,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e090bf9eda8d10520800000000000000
-      internalID: 2666650695846529294
+      spriteID: b6207ad1ef45e03e0800000000000000
+      internalID: -2085636127030050197
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AimHead3_8
+      name: SplitHead_3
       rect:
         serializedVersion: 2
-        x: 553
-        y: 97
-        width: 7
-        height: 15
+        x: 90
+        y: 106
+        width: 6
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -341,8 +216,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3e57f6c0483b91710800000000000000
-      internalID: 1664558917015795171
+      spriteID: 63b906a8760f93bc0800000000000000
+      internalID: -3802744082843788490
       vertices: []
       indices: 
       edges: []
@@ -361,15 +236,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      AimHead3_0: -7244325221791330846
-      AimHead3_1: 7075208579563659396
-      AimHead3_2: -5243336872135489890
-      AimHead3_3: 2604001960520488080
-      AimHead3_4: 6275003483495674988
-      AimHead3_5: 8427404170519083911
-      AimHead3_6: 7202164595796716456
-      AimHead3_7: 2666650695846529294
-      AimHead3_8: 1664558917015795171
+      SplitHead_0: -6411056804209969628
+      SplitHead_1: -5728138199827244338
+      SplitHead_2: -2085636127030050197
+      SplitHead_3: -3802744082843788490
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

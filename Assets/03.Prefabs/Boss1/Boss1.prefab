@@ -2475,16 +2475,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss1IntroController
   _warningZoneAppearDuration: 1
   _warningDuration: 2
-  _roarDuration: 2
+  _roarDuration: 2.3
   _visualPivot: {fileID: 9210076179707630864}
   _roarShakeDuration: 0.1
   _roarShakeStrength: 0.1
   _roarShakeVibrato: 30
   _roarWaveMaterial: {fileID: 2100000, guid: d7ec4078de80b2d419e9928e3a7b2550, type: 2}
-  _waveDuration: 0.5
+  _waveDuration: 0.3
   _waveStrength: 0.03
-  _waveCount: 3
+  _waveStrength2: 0.015
+  _waveCount: 5
   _waveInterval: 0.1
+  _waveOverlapDelay: 0.1
   _roarImpulseSource: {fileID: 5299817573255665665}
   _bossSpriteRenderers:
   - {fileID: 3934178270892128627}

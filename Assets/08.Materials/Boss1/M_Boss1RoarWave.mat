@@ -54,12 +54,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
-    - _WaveFrequency: 40
+    - _WaveFrequency: 20
     - _WaveMaxRadius: 1.2
     - _WaveProgress: 0
     - _WaveProgress2: 0
     - _WaveStrength: 0
-    - _WaveWidth: 0.3
+    - _WaveStrength2: 0
+    - _WaveWidth: 0.7
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

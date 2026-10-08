@@ -40,6 +40,7 @@ public class Boss1IntroController : MonoBehaviour
     [SerializeField] private Material _roarWaveMaterial;
     [SerializeField] private float _waveDuration = 0.8f;
     [SerializeField] private float _waveStrength = 0.03f;
+    [SerializeField] private float _waveStrength2 = 0.02f;
     
     [Header("포효 파동 반복")]
     [SerializeField] private int _waveCount = 3;
@@ -72,6 +73,7 @@ public class Boss1IntroController : MonoBehaviour
         _visualPivotOriginPosition = _visualPivot.localPosition;
         
         _roarWaveMaterial.SetFloat("_WaveStrength", 0f);
+        _roarWaveMaterial.SetFloat("_WaveStrength2", 0f);
         _roarWaveMaterial.SetFloat("_WaveProgress", 0f);
         _roarWaveMaterial.SetFloat("_WaveProgress2", 0f);
     }
@@ -81,11 +83,12 @@ public class Boss1IntroController : MonoBehaviour
     /// 이것만 실행하면 보스1 알아서 작동합니다~
     /// </summary>
 
-
+    /*
     private void Start() // 내꺼 시작용 (PR, 프리팹 오버라이드 할 때 꺼야함)
     {
         StartCoroutine(IntroRoutine());
     }
+    */
 
     
     public void StartIntro() // 인게임 테스트용
@@ -147,6 +150,7 @@ public class Boss1IntroController : MonoBehaviour
         _roarWaveMaterial.SetFloat("_WaveProgress", 0f);
         _roarWaveMaterial.SetFloat("_WaveProgress2", 0f);
         _roarWaveMaterial.SetFloat("_WaveStrength", _waveStrength);
+        _roarWaveMaterial.SetFloat("_WaveStrength2", _waveStrength2);
 
         Sequence sequence = DOTween.Sequence();
         
@@ -193,6 +197,7 @@ public class Boss1IntroController : MonoBehaviour
             _roarWaveMaterial.SetFloat("_WaveProgress", 0f);
             _roarWaveMaterial.SetFloat("_WaveProgress2", 0f);
             _roarWaveMaterial.SetFloat("_WaveStrength", 0f);
+            _roarWaveMaterial.SetFloat("_WaveStrength2", 0f);
 
             _waveTween = null;
         });
@@ -232,6 +237,7 @@ public class Boss1IntroController : MonoBehaviour
         _roarWaveMaterial.SetFloat("_WaveProgress", 0f);
         _roarWaveMaterial.SetFloat("_WaveProgress2", 0f);
         _roarWaveMaterial.SetFloat("_WaveStrength", 0f);
+        _roarWaveMaterial.SetFloat("_WaveStrength2", 0f);
         
         _animator.Play("IntroClawEnd", 0, 0f);
     }

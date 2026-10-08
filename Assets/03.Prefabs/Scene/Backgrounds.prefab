@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1530040251090979105}
   - component: {fileID: 126607976330448904}
   m_Layer: 15
-  m_Name: HiddenBackground (1)
+  m_Name: HiddenBackgroundWide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -397,6 +397,7 @@ GameObject:
   - component: {fileID: 4717907994209131698}
   - component: {fileID: 7422322696308972951}
   - component: {fileID: 4873263198742671813}
+  - component: {fileID: 2043828414333172617}
   m_Layer: 15
   m_Name: FireSprite
   m_TagString: Untagged
@@ -500,6 +501,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2043828414333172617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923068468036586896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0abfe22c6b48e740a534d6000e95b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Fire
 --- !u!1 &2134772055353928482
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,6 +732,128 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2336792063763453160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4940368374382324116}
+  m_Layer: 15
+  m_Name: StartMovePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4940368374382324116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2336792063763453160}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.26, y: -5.39, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5820308081845112137}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2668961292723043338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4374550733139762642}
+  - component: {fileID: 1276221099537699844}
+  m_Layer: 15
+  m_Name: Phase2Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4374550733139762642
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2668961292723043338}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.13, y: -2.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5820308081845112137}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1276221099537699844
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2668961292723043338}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: d8bd858cc74e480419327f45aa5899dc, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: -719027923
+  m_SortingLayer: -1
+  m_SortingOrder: 1
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: -1084817135046024376, guid: 967caaae1ba0618478c89662b211d084, type: 3}
+  m_Color: {r: 0.80893373, g: 0, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 16.7, y: 9.42}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
 --- !u!1 &3236960003553518930
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,6 +1054,7 @@ GameObject:
   - component: {fileID: 2890726818267538470}
   - component: {fileID: 7331406303040837929}
   - component: {fileID: 3166109899702792289}
+  - component: {fileID: 2006569363688464127}
   m_Layer: 15
   m_Name: FireSprite (1)
   m_TagString: Untagged
@@ -1022,6 +1158,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2006569363688464127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3350206008701816480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0abfe22c6b48e740a534d6000e95b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Fire
 --- !u!1 &3357239071591167552
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,6 +1181,7 @@ GameObject:
   - component: {fileID: 1710728196799121841}
   - component: {fileID: 4111299776879482570}
   - component: {fileID: 3755247080141958945}
+  - component: {fileID: 23019781288924058}
   m_Layer: 15
   m_Name: FireSprite (7)
   m_TagString: Untagged
@@ -1136,6 +1285,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &23019781288924058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3357239071591167552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0abfe22c6b48e740a534d6000e95b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Fire
 --- !u!1 &3382096389887796388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1147,7 +1308,7 @@ GameObject:
   - component: {fileID: 590952363800964257}
   - component: {fileID: 7584298208688279297}
   m_Layer: 15
-  m_Name: FrontBackground (1)
+  m_Name: FrontBackgroundWide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1441,6 +1602,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5820308081845112137}
+  - component: {fileID: 1256438119044725688}
+  - component: {fileID: 1401487558941887295}
+  - component: {fileID: 342990662345343339}
   m_Layer: 15
   m_Name: Backgrounds
   m_TagString: Untagged
@@ -1462,6 +1626,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6016818828424317732}
+  - {fileID: 4374550733139762642}
   - {fileID: 590952363800964257}
   - {fileID: 5611652763917943853}
   - {fileID: 1530040251090979105}
@@ -1473,8 +1638,115 @@ Transform:
   - {fileID: 559798513847978281}
   - {fileID: 1407797759026072135}
   - {fileID: 3326100789927993021}
+  - {fileID: 4940368374382324116}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1256438119044725688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4080235191158301563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db9df541ab58a74485ad60205d5a381, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnvironmentChanger
+  _targetRenderer: {fileID: 1276221099537699844}
+  _fires:
+  - {fileID: 23019781288924058}
+  - {fileID: 1037410471663340773}
+  - {fileID: 353262700087135752}
+  - {fileID: 8442926308321280602}
+  - {fileID: 920288745356426402}
+  - {fileID: 2043828414333172617}
+  - {fileID: 2006569363688464127}
+  - {fileID: 4801843359534104964}
+  _changeInterval: 1
+  _targetRadius: 4
+  _radiusDuration: 0.1
+  _impulseSource: {fileID: 1401487558941887295}
+  _impulseForce: 0.05
+--- !u!114 &1401487558941887295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4080235191158301563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
+  ImpulseDefinition:
+    ImpulseChannel: 1
+    ImpulseShape: 4
+    CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ImpulseDuration: 0.2
+    ImpulseType: 0
+    DissipationRate: 0.25
+    RawSignal: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    RepeatMode: 0
+    Randomize: 1
+    TimeEnvelope:
+      AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      AttackTime: 0
+      SustainTime: 0.2
+      DecayTime: 0.7
+      ScaleWithImpact: 1
+      HoldForever: 0
+    ImpactRadius: 100
+    DirectionMode: 0
+    DissipationMode: 2
+    DissipationDistance: 100
+    PropagationSpeed: 343
+  DefaultVelocity: {x: 0, y: -1, z: 0}
+--- !u!114 &342990662345343339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4080235191158301563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dc0ada8e0332b742a5c98f5271bc768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LightOff
+  _lightFeature: {fileID: -396598309921544879, guid: 424799608f7334c24bf367e4bbfa7f9a, type: 2}
+  _targetCamera: {fileID: 0}
+  _fires:
+  - {fileID: 2043828414333172617}
+  - {fileID: 1037410471663340773}
+  - {fileID: 353262700087135752}
+  - {fileID: 2006569363688464127}
+  - {fileID: 4801843359534104964}
+  - {fileID: 8442926308321280602}
+  - {fileID: 920288745356426402}
+  - {fileID: 23019781288924058}
+  _changeInterval: 0.1
+  _targetRadius: 0.15
+  _radiusDuration: 0.4
 --- !u!1 &4504568459329079802
 GameObject:
   m_ObjectHideFlags: 0
@@ -1691,6 +1963,7 @@ GameObject:
   - component: {fileID: 8690375190261313467}
   - component: {fileID: 7224569228669375610}
   - component: {fileID: 715625838249645593}
+  - component: {fileID: 1037410471663340773}
   m_Layer: 15
   m_Name: FireSprite (2)
   m_TagString: Untagged
@@ -1794,6 +2067,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1037410471663340773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5012698552057655564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0abfe22c6b48e740a534d6000e95b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Fire
 --- !u!1 &5076434444926705507
 GameObject:
   m_ObjectHideFlags: 0
@@ -2052,6 +2337,7 @@ GameObject:
   - component: {fileID: 1917087587703146567}
   - component: {fileID: 627111391066694914}
   - component: {fileID: 2242529537904634479}
+  - component: {fileID: 4801843359534104964}
   m_Layer: 15
   m_Name: FireSprite (6)
   m_TagString: Untagged
@@ -2155,6 +2441,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4801843359534104964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6022703623974332279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0abfe22c6b48e740a534d6000e95b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Fire
 --- !u!1 &6093696247937482636
 GameObject:
   m_ObjectHideFlags: 0
@@ -2205,6 +2503,7 @@ GameObject:
   - component: {fileID: 5050466499668547746}
   - component: {fileID: 4806703063721456963}
   - component: {fileID: 6729563729055592840}
+  - component: {fileID: 8442926308321280602}
   m_Layer: 15
   m_Name: FireSprite (4)
   m_TagString: Untagged
@@ -2308,6 +2607,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8442926308321280602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6775749471491333803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0abfe22c6b48e740a534d6000e95b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Fire
 --- !u!1 &7688979921034242809
 GameObject:
   m_ObjectHideFlags: 0
@@ -2424,6 +2735,7 @@ GameObject:
   - component: {fileID: 1093742751002762016}
   - component: {fileID: 5994925660383412139}
   - component: {fileID: 5459488605647833397}
+  - component: {fileID: 920288745356426402}
   m_Layer: 15
   m_Name: FireSprite (5)
   m_TagString: Untagged
@@ -2527,6 +2839,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &920288745356426402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057279555263613316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0abfe22c6b48e740a534d6000e95b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Fire
 --- !u!1 &8853361925721969510
 GameObject:
   m_ObjectHideFlags: 0
@@ -2538,6 +2862,7 @@ GameObject:
   - component: {fileID: 5835485287014554667}
   - component: {fileID: 8748048303934146748}
   - component: {fileID: 6914951942536995830}
+  - component: {fileID: 353262700087135752}
   m_Layer: 15
   m_Name: FireSprite (3)
   m_TagString: Untagged
@@ -2641,3 +2966,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &353262700087135752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8853361925721969510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0abfe22c6b48e740a534d6000e95b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Fire

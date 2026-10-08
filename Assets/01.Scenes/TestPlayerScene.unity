@@ -445,9 +445,8 @@ MonoBehaviour:
   - {fileID: 2132700185}
   - {fileID: 905776566}
   - {fileID: 1551791808}
-  _targetCamera: {fileID: 339276089}
   _changeInterval: 0.4
-  _targetRadius: 0.35
+  _targetRadius: 3.5
   _radiusDuration: 0.1
   _impulseSource: {fileID: 159120365}
   _impulseForce: 0.01
@@ -1155,6 +1154,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 277677806}
     - target: {fileID: 8028567086285024404, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _skillManager
+      value: 
+      objectReference: {fileID: 434475371}
+    - target: {fileID: 8028567086285024404, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _useStartSequence
       value: 0
       objectReference: {fileID: 0}
@@ -1197,6 +1200,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4512711204945311804, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1558039752}
+    - targetCorrespondingSourceObject: {fileID: 4512711204945311804, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1558039753}
   m_SourcePrefab: {fileID: 100100000, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
 --- !u!4 &650435853 stripped
 Transform:
@@ -1749,7 +1755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8279119010861365979, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9165167924702793645, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: _playerTransform
@@ -2066,7 +2072,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameStartActing
   _movePoint: {fileID: 1077977028}
   _bossHPVar: {fileID: 221942844}
-  testBoss: {fileID: 1297851029}
+  TestBoss: {fileID: 1297851029}
+--- !u!114 &1558039753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558039738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0870c62f1e89e44290439665be524af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Phase1ToPhase2Acting
+  _environmentChanger: {fileID: 159120364}
 --- !u!1 &1593661214 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3350206008701816480, guid: 058cc52bb14154f46b3e86c521d3b90c, type: 3}
@@ -2273,7 +2292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1698909848217781799, guid: ac5c938f50605e6498f04bdd20e4205f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -181
+      value: -181.00003
       objectReference: {fileID: 0}
     - target: {fileID: 1698909848217781799, guid: ac5c938f50605e6498f04bdd20e4205f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

@@ -16,9 +16,15 @@ public class CameraFocusingController : MonoBehaviour
     [SerializeField] private float _zoomOutDuration = 0.3f;
     [SerializeField] private float _targetChangeDuration = 0.15f;
 
+    [Header("Show Origin")]
+    [SerializeField] private float _originOrthographicSize = 5f;
+    [SerializeField] private float _originDuration = 1f;
+
     private CinemachineFollow _follow;
 
     private Transform _defaultTarget;
+    private Transform _originTarget;
+
     private float _defaultOrthographicSize;
     private Vector3 _defaultDamping;
 
@@ -40,32 +46,65 @@ public class CameraFocusingController : MonoBehaviour
         }
 
         InitializeCamera();
+        CreateOriginTarget();
     }
 
     private void InitializeCamera()
     {
         if (_camera == null)
         {
-            Debug.LogError("CinemachineCamera가 없습니다.");
+            Debug.LogError(
+                "CinemachineCamera가 없습니다."
+            );
+
             return;
         }
 
-        _follow = _camera.GetComponent<CinemachineFollow>();
+        _follow =
+            _camera.GetComponent<CinemachineFollow>();
 
         if (_follow == null)
         {
-            _follow = _camera.gameObject.AddComponent<CinemachineFollow>();
+            _follow =
+                _camera.gameObject
+                    .AddComponent<CinemachineFollow>();
         }
 
-        _defaultTarget = _camera.Follow;
-        _defaultOrthographicSize = _camera.Lens.OrthographicSize;
-        _defaultDamping = _follow.TrackerSettings.PositionDamping;
+        _defaultTarget =
+            _camera.Follow;
+
+        _defaultOrthographicSize =
+            _camera.Lens.OrthographicSize;
+
+        _defaultDamping =
+            _follow
+                .TrackerSettings
+                .PositionDamping;
     }
 
-    public void Focus(Transform target, float zoomAmount)
+    private void CreateOriginTarget()
     {
-        if (target == null || _camera == null)
+        GameObject originObject =
+            new GameObject(
+                "CameraOriginTarget"
+            );
+
+        originObject.transform.position =
+            Vector3.zero;
+
+        _originTarget =
+            originObject.transform;
+    }
+
+    public void Focus(
+        Transform target,
+        float zoomAmount)
+    {
+        if (target == null ||
+            _camera == null)
+        {
             return;
+        }
 
         KillTweens();
 
@@ -73,7 +112,9 @@ public class CameraFocusingController : MonoBehaviour
 
         _camera.Follow = target;
 
-        ZoomIn(zoomAmount);
+        ZoomIn(
+            zoomAmount
+        );
     }
 
     public void SlowFocus(
@@ -81,8 +122,11 @@ public class CameraFocusingController : MonoBehaviour
         float zoomAmount,
         float duration)
     {
-        if (target == null || _camera == null)
+        if (target == null ||
+            _camera == null)
+        {
             return;
+        }
 
         KillTweens();
 
@@ -91,22 +135,32 @@ public class CameraFocusingController : MonoBehaviour
         _camera.Follow = target;
 
         float targetSize =
-            _defaultOrthographicSize - zoomAmount;
+            _defaultOrthographicSize -
+            zoomAmount;
 
-        targetSize = Mathf.Max(
-            0.1f,
-            targetSize
-        );
+        targetSize =
+            Mathf.Max(
+                0.1f,
+                targetSize
+            );
 
         _zoomTween =
             DOTween.To(
-                    () => _camera.Lens.OrthographicSize,
+                    () =>
+                        _camera
+                            .Lens
+                            .OrthographicSize,
                     value =>
-                        _camera.Lens.OrthographicSize = value,
+                        _camera
+                            .Lens
+                            .OrthographicSize =
+                            value,
                     targetSize,
                     duration
                 )
-                .SetEase(Ease.InOutSine)
+                .SetEase(
+                    Ease.InOutSine
+                )
                 .SetUpdate(true);
 
         Vector3 focusDamping =
@@ -125,31 +179,135 @@ public class CameraFocusingController : MonoBehaviour
                     value =>
                         _follow
                             .TrackerSettings
-                            .PositionDamping = value,
+                            .PositionDamping =
+                            value,
                     focusDamping,
                     duration
                 )
-                .SetEase(Ease.InOutSine)
-                .SetUpdate(true);
-    }
-    private void ZoomIn(float zoomAmount)
-    {
-        float targetSize =
-            _defaultOrthographicSize - zoomAmount;
+                .SetEase(
+                    Ease.InOutSine
+                )
+                .SetUpdate(true)
+                .OnComplete(
+                    () =>
+                    {
+                        _dampingTween = null;
 
-        targetSize = Mathf.Max(
-            0.1f,
-            targetSize
-        );
+                        if (zoomAmount == 0)
+                        {
+                            ReturnCamera();
+                        }
+                    }
+                );
+    }
+
+    public void ShowOrigin()
+    {
+        if (_camera == null ||
+            _follow == null ||
+            _originTarget == null)
+        {
+            return;
+        }
+
+        KillTweens();
+
+        _isFocusing = true;
+
+        _originTarget.position =
+            Vector3.zero;
+
+        _camera.Follow =
+            _originTarget;
+
+        Vector3 originDamping =
+            new Vector3(
+                _focusDamping,
+                _focusDamping,
+                _defaultDamping.z
+            );
 
         _zoomTween =
             DOTween.To(
-                    () => _camera.Lens.OrthographicSize,
-                    value => _camera.Lens.OrthographicSize = value,
+                    () =>
+                        _camera
+                            .Lens
+                            .OrthographicSize,
+                    value =>
+                        _camera
+                            .Lens
+                            .OrthographicSize =
+                            value,
+                    _originOrthographicSize,
+                    _originDuration
+                )
+                .SetEase(
+                    Ease.InOutSine
+                )
+                .SetUpdate(true)
+                .OnComplete(
+                    () =>
+                    {
+                        _zoomTween = null;
+                    }
+                );
+
+        _dampingTween =
+            DOTween.To(
+                    () =>
+                        _follow
+                            .TrackerSettings
+                            .PositionDamping,
+                    value =>
+                        _follow
+                            .TrackerSettings
+                            .PositionDamping =
+                            value,
+                    originDamping,
+                    _originDuration
+                )
+                .SetEase(
+                    Ease.InOutSine
+                )
+                .SetUpdate(true)
+                .OnComplete(
+                    () =>
+                    {
+                        _dampingTween = null;
+                    }
+                );
+    }
+
+    private void ZoomIn(
+        float zoomAmount)
+    {
+        float targetSize =
+            _defaultOrthographicSize -
+            zoomAmount;
+
+        targetSize =
+            Mathf.Max(
+                0.1f,
+                targetSize
+            );
+
+        _zoomTween =
+            DOTween.To(
+                    () =>
+                        _camera
+                            .Lens
+                            .OrthographicSize,
+                    value =>
+                        _camera
+                            .Lens
+                            .OrthographicSize =
+                            value,
                     targetSize,
                     _zoomInDuration
                 )
-                .SetEase(Ease.OutQuad)
+                .SetEase(
+                    Ease.OutQuad
+                )
                 .SetUpdate(true);
 
         Vector3 focusDamping =
@@ -161,12 +319,21 @@ public class CameraFocusingController : MonoBehaviour
 
         _dampingTween =
             DOTween.To(
-                    () => _follow.TrackerSettings.PositionDamping,
-                    value => _follow.TrackerSettings.PositionDamping = value,
+                    () =>
+                        _follow
+                            .TrackerSettings
+                            .PositionDamping,
+                    value =>
+                        _follow
+                            .TrackerSettings
+                            .PositionDamping =
+                            value,
                     focusDamping,
                     _targetChangeDuration
                 )
-                .SetEase(Ease.OutQuad)
+                .SetEase(
+                    Ease.OutQuad
+                )
                 .SetUpdate(true);
     }
 
@@ -179,26 +346,45 @@ public class CameraFocusingController : MonoBehaviour
 
         KillTweens();
 
-        _camera.Follow = _defaultTarget;
+        _camera.Follow =
+            _defaultTarget;
 
         _zoomTween =
             DOTween.To(
-                    () => _camera.Lens.OrthographicSize,
-                    value => _camera.Lens.OrthographicSize = value,
+                    () =>
+                        _camera
+                            .Lens
+                            .OrthographicSize,
+                    value =>
+                        _camera
+                            .Lens
+                            .OrthographicSize =
+                            value,
                     _defaultOrthographicSize,
                     _zoomOutDuration
                 )
-                .SetEase(Ease.OutQuad)
+                .SetEase(
+                    Ease.OutQuad
+                )
                 .SetUpdate(true);
 
         _dampingTween =
             DOTween.To(
-                    () => _follow.TrackerSettings.PositionDamping,
-                    value => _follow.TrackerSettings.PositionDamping = value,
+                    () =>
+                        _follow
+                            .TrackerSettings
+                            .PositionDamping,
+                    value =>
+                        _follow
+                            .TrackerSettings
+                            .PositionDamping =
+                            value,
                     _defaultDamping,
                     _targetChangeDuration
                 )
-                .SetEase(Ease.OutQuad)
+                .SetEase(
+                    Ease.OutQuad
+                )
                 .SetUpdate(true);
     }
 
@@ -214,6 +400,13 @@ public class CameraFocusingController : MonoBehaviour
     private void OnDestroy()
     {
         KillTweens();
+
+        if (_originTarget != null)
+        {
+            Destroy(
+                _originTarget.gameObject
+            );
+        }
 
         if (Instance == this)
         {

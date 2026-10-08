@@ -3,6 +3,7 @@ using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 
 public class PlayerStatusManager : MonoBehaviour
 {
@@ -13,21 +14,22 @@ public class PlayerStatusManager : MonoBehaviour
     [SerializeField] private Light2D _spotLight;
     [SerializeField] private PlayerMove _playerMove;
     [SerializeField] private PlayerAttack _playerAttack;
+    [SerializeField] private SkillManager _skillManager;
     [SerializeField] private CinemachineCamera _cinemachineCamera;
 
     [Header("Spot Light")]
     [SerializeField] private float _startOuterRadius = 10f;
     [SerializeField] private float _targetOuterRadius = 6f;
     [SerializeField] private float _spotLightDuration = 1f;
-
+    [SerializeField] private float _startActionRadius = 3f;
     [Header("Camera")]
     [SerializeField] private float _startOrthographicSize = 5f;
     [SerializeField] private float _targetOrthographicSize = 3f;
     [SerializeField] private float _zoomDuration = 1f;
-    [Header("게임 start ui ")][SerializeField]private GameObject _gameStartUI;
 
     private Sequence _originSequence;
     private Animator _animator;
+    private Tween _startActingLightTween;
 
     private bool _isStart;
 
@@ -55,12 +57,22 @@ public class PlayerStatusManager : MonoBehaviour
     {
         _playerMove.enabled = false;
         _playerAttack.enabled = false;
+        _skillManager.enabled = false;
     }
 
     private void OnEnable()
     {
         if (_useStartSequence)
         {
+            DefaultCameraSet();
+
+        }
+
+    }
+
+    public void DefaultCameraSet()
+    {
+      
             var lens = _cinemachineCamera.Lens;
 
             if (_useStartSequence)
@@ -75,8 +87,7 @@ public class PlayerStatusManager : MonoBehaviour
             }
 
             _cinemachineCamera.Lens = lens;
-        }
-       
+        
     }
 
     private void Update()
@@ -94,7 +105,6 @@ public class PlayerStatusManager : MonoBehaviour
 
         if (_isStart)
             return;
-        _gameStartUI.gameObject.SetActive(false);
         _isStart = true;
 
         Time.timeScale = 1f;
@@ -150,8 +160,20 @@ public class PlayerStatusManager : MonoBehaviour
 
     private void StartActing()
     {
+        _startActingLightTween?.Kill();
+
+        _startActingLightTween = DOTween.To(
+                () => _spotLight.pointLightOuterRadius,
+                value => _spotLight.pointLightOuterRadius = value,
+                _startActionRadius,
+                _spotLightDuration
+            )
+            .SetEase(Ease.InOutSine)
+            .SetUpdate(true);
+
         GetComponent<GameStartActing>().MoveToPoint();
     }
+    
     
     public void ApplyFinalSetting()
     {
@@ -164,18 +186,21 @@ public class PlayerStatusManager : MonoBehaviour
 
         _playerMove.enabled = true;
         _playerAttack.enabled = true;
+        _skillManager.enabled = true;
         _animator.SetTrigger("Start");
     }
 
-    private void ActivatePlayer()
+    public void ActivatePlayer()
     {
         _playerMove.enabled = true;
         _playerAttack.enabled = true;
+        _skillManager.enabled = true;
     }
 
     private void OnDestroy()
     {
         _originSequence?.Kill();
+        _startActingLightTween?.Kill();
 
         Time.timeScale = 1f;
     }

@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -7,7 +6,8 @@ public class Fire : MonoBehaviour
     private Animator _animator;
     private SpriteRenderer _fireSprite;
 
-    private Tween _changeTween;
+    private bool _isActive = true;
+    private Tween _deactivateTween;
 
     private void Awake()
     {
@@ -15,14 +15,32 @@ public class Fire : MonoBehaviour
         _fireSprite = GetComponent<SpriteRenderer>();
     }
 
-    private void ActivateFire()
+    public void ActivateFire()
     {
+        _isActive = true;
+
+        SpriteStatusChange();
+
         _animator.SetTrigger("ActivateFire");
+        
     }
 
-    private void DeactivateFire()
+    public void DeactivateFire()
     {
+        _deactivateTween?.Kill();
+        _isActive = false;
         _animator.SetTrigger("DeactivateFire");
+
+        _deactivateTween = DOVirtual.DelayedCall(
+            1f,
+            () =>
+            {
+                SpriteStatusChange();
+
+                ChangeColor();
+                _deactivateTween = null;
+            }
+        );
     }
 
     private void ChangeColor()
@@ -30,29 +48,15 @@ public class Fire : MonoBehaviour
         _fireSprite.color = Color.red;
     }
 
-    public void ChangeFire(Action onActivate = null)
-    {
-        _changeTween?.Kill();
-
-        DeactivateFire();
-
-        _changeTween = DOVirtual.DelayedCall(
-            2f,
-            () =>
-            {
-                ChangeColor();
-
-                ActivateFire();
-
-                onActivate?.Invoke();
-
-                _changeTween = null;
-            }
-        );
-    }
-
     private void OnDestroy()
     {
-        _changeTween?.Kill();
+        _deactivateTween?.Kill();
     }
+    
+    public void SpriteStatusChange()
+    {
+        _fireSprite.enabled = _isActive;
+
+    }
+ 
 }

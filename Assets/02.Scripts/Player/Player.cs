@@ -355,6 +355,7 @@ private void DeathEffect()
                 .SetUpdate(true)
                 .OnComplete(() =>
                 {
+                    Debug.Log("플레이어 사망");
                     _deathEvent?.Invoke();
                 });
 

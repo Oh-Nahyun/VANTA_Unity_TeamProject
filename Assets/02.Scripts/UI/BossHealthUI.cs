@@ -93,7 +93,7 @@ public class BossHealthUI : MonoBehaviour
             _healthRatio = _boss2.HealthRatio;
         }
 
-        if (!Mathf.Approximately(_healthRatio, _previousHealthRatio))
+        if (_healthRatio != _previousHealthRatio)
         {
             UpdateHp(_healthRatio);
         }

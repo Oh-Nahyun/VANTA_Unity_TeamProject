@@ -59,7 +59,8 @@ public class Boss2MoveBase : MonoBehaviour, IBossMovable
     
     [Header("사운드")]
     [SerializeField] private GameObject _footStepSound;
-    
+    [SerializeField] private GameObject _sprintSound;
+
 
     private static readonly (KeyCode key, Vector2 dir)[] DodgeKeys =
     {
@@ -368,6 +369,14 @@ public class Boss2MoveBase : MonoBehaviour, IBossMovable
         if (_footStepSound != null)
         {
             _footStepSound.GetComponent<SoundGenerator>().ActivateSound();
+        }
+    }
+
+    public void SprintPoint()
+    {
+        if (_sprintSound != null)
+        {
+            _sprintSound.GetComponent<SoundGenerator>().ActivateSound();
         }
     }
 }

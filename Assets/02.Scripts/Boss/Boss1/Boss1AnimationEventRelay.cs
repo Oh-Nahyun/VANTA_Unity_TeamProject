@@ -12,7 +12,22 @@ public class Boss1AnimationEventRelay : MonoBehaviour
     {
         _boss1IntroController.RemoveWarningZone();
     }
+ 
+    public void EndIntroJumpLand()
+    {
+        _boss1IntroController.EndIntroJumpLand();
+    }
     
+    public void EndIntroClawStart()
+    {
+        _boss1IntroController.EndIntroClawStart();
+    }
+    
+    public void EndIntroClawEnd()
+    {
+        _boss1IntroController.EndIntroClawEnd();
+    }
+
     public void EnableClawHitBox()
     {
         _boss1ClawAttack.EnableClawHitBox();

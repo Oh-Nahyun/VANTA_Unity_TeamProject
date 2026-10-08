@@ -74,10 +74,12 @@ public class Boss1IntroController : MonoBehaviour
     /// 이것만 실행하면 보스1 알아서 작동합니다~
     /// </summary>
 
+    /*
     private void Start() // 내꺼 시작용 (PR, 프리팹 오버라이드 할 때 꺼야함)
     {
         StartCoroutine(IntroRoutine());
     }
+    */
     
     public void StartIntro() // 인게임 테스트용
     {

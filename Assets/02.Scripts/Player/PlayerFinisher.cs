@@ -81,7 +81,7 @@ public class PlayerFinisher : MonoBehaviour
     {
        
 
-        if (_isCharging)
+        if (_isCharging&&Input.GetButtonDown("Fire1"))
         {
             AddCharge();
             return;

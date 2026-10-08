@@ -142,8 +142,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC2A4\uD398\uC774\uC2A4"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 788199a916cf3d54a80af678504d9bef, type: 2}
-  m_sharedMaterial: {fileID: 7867354623546401073, guid: 788199a916cf3d54a80af678504d9bef, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: caca24793c866914cbe6365493959d56, type: 2}
+  m_sharedMaterial: {fileID: -8120907556937374709, guid: caca24793c866914cbe6365493959d56, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -303,9 +303,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8fc3e8ec28e3a84eb0f07f2ba8f80a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIAttentionShake
-  _shakeStrength: 5
-  _shakeDuration: 0.15
-  _vibrato: 6
+  _shakeDistance: 2
+  _moveDuration: 0.04
+  _shakeCount: 3
   _interval: 1.5
 --- !u!1 &8840319229979412200
 GameObject:

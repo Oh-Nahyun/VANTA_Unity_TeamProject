@@ -20,6 +20,11 @@ public class SkillDashPointCreator : MonoBehaviour
         if (count <= 0)
             return positions;
 
+        if (_boss == null)
+        {
+            HitableObject hitableObject = FindAnyObjectByType<HitableObject>();
+            _boss = hitableObject.transform;
+        }
         Vector3 center = _boss.position;
         Vector2 direction = (Vector2)(center - _player.position);
 

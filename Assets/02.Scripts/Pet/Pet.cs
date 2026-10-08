@@ -29,4 +29,9 @@ public class Pet : MonoBehaviour
         CircleCollider2D = GetComponent<CircleCollider2D>();
         PlayerSkillManager = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<SkillManager>();
     }
+
+    public void Death()
+    {
+        Animator.SetTrigger("IsDeath");
+    }
 }

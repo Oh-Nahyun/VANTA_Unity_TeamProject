@@ -514,38 +514,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4863273135137886632, guid: a57dfeb12bb26814f84f8ac45ef461df, type: 3}
-      propertyPath: m_Color.a
-      value: 0.5686275
-      objectReference: {fileID: 0}
-    - target: {fileID: 4863273135137886632, guid: a57dfeb12bb26814f84f8ac45ef461df, type: 3}
-      propertyPath: m_Color.b
-      value: 0.42745098
-      objectReference: {fileID: 0}
-    - target: {fileID: 4863273135137886632, guid: a57dfeb12bb26814f84f8ac45ef461df, type: 3}
-      propertyPath: m_Color.g
-      value: 0.42745098
-      objectReference: {fileID: 0}
-    - target: {fileID: 4863273135137886632, guid: a57dfeb12bb26814f84f8ac45ef461df, type: 3}
-      propertyPath: m_Color.r
-      value: 0.4509804
-      objectReference: {fileID: 0}
-    - target: {fileID: 7104258673999980942, guid: a57dfeb12bb26814f84f8ac45ef461df, type: 3}
-      propertyPath: _shadowColor.a
-      value: 0.5686275
-      objectReference: {fileID: 0}
-    - target: {fileID: 7104258673999980942, guid: a57dfeb12bb26814f84f8ac45ef461df, type: 3}
-      propertyPath: _shadowColor.b
-      value: 0.42745098
-      objectReference: {fileID: 0}
-    - target: {fileID: 7104258673999980942, guid: a57dfeb12bb26814f84f8ac45ef461df, type: 3}
-      propertyPath: _shadowColor.g
-      value: 0.42745098
-      objectReference: {fileID: 0}
-    - target: {fileID: 7104258673999980942, guid: a57dfeb12bb26814f84f8ac45ef461df, type: 3}
-      propertyPath: _shadowColor.r
-      value: 0.4509804
-      objectReference: {fileID: 0}
     - target: {fileID: 8146332938898543726, guid: a57dfeb12bb26814f84f8ac45ef461df, type: 3}
       propertyPath: PlayerSkillManager
       value: 

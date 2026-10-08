@@ -23,6 +23,9 @@ public class CameraFocusingController : MonoBehaviour
     [SerializeField] private float _originDuration = 1f;
 
     private CinemachineFollow _follow;
+    private CinemachineConfiner2D _confiner;
+    private float _lastConfinerOrthographicSize;
+    private bool _confinerLensInitialized;
 
     private Transform _defaultTarget;
     private Transform _originTarget;
@@ -575,6 +578,8 @@ public class CameraFocusingController : MonoBehaviour
         if (_camera == null)
             return;
 
+        RefreshConfinerLensCache();
+
         RefreshCameraState(
             false
         );
@@ -591,6 +596,27 @@ public class CameraFocusingController : MonoBehaviour
             _isFocusing && _currentFocusTarget != null
                 ? _currentFocusTarget
                 : _defaultTarget;
+    }
+
+    private void RefreshConfinerLensCache()
+    {
+        if (_confiner == null)
+        {
+            _confiner = _camera.GetComponent<CinemachineConfiner2D>();
+            _confinerLensInitialized = false;
+        }
+
+        if (_confiner == null)
+            return;
+
+        float size = _camera.Lens.OrthographicSize;
+        if (_confinerLensInitialized && size == _lastConfinerOrthographicSize)
+            return;
+
+        // Lens changes from either camera tweens or the player intro need a new solution.
+        _confiner.InvalidateLensCache();
+        _lastConfinerOrthographicSize = size;
+        _confinerLensInitialized = true;
     }
 
     private void RefreshCameraState(

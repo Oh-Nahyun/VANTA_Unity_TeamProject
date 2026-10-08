@@ -119,11 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &53392320 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8637754420156181256, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
-  m_PrefabInstance: {fileID: 1412761079}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &62363018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1679,9 +1674,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
-    - target: {fileID: 8637754420156181256, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 5758837840507072478, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
+      propertyPath: _enableLogging
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9045406404762705793, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1744,7 +1739,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 111102412088274012, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
   m_PrefabInstance: {fileID: 1412761079}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 53392320}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}

@@ -1,8 +1,15 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Boss1DeathController : MonoBehaviour
 {
+    [Header("보스2 여기에 넣기")]
+    [SerializeField] private GameObject _boss2;
+    
+    [Header("주저앉은 후 대기 시간")]
+    [SerializeField] private float _collapseWaitDuration = 1.5f;
+    
     [SerializeField] private Vector2 _center = new Vector2(0.42f, -0.74f);
     
     [SerializeField] private float _startMoveSpeed= 1f;
@@ -14,6 +21,7 @@ public class Boss1DeathController : MonoBehaviour
     private Boss1AttackController _boss1AttackController;
     private Boss1Movement _boss1Movement;
     private Boss1ProjectileManager _boss1ProjectileManager;
+    [SerializeField] private Animator _animator;
 
     private bool _isMovingToCenter;
 
@@ -87,5 +95,27 @@ public class Boss1DeathController : MonoBehaviour
     {
         _isMovingToCenter = false;
         _boss1Movement.Stop();
+        _animator.Play("DeathCollapse", 0, 0f);
+    }
+    
+    public void EndDeathCollapse()
+    {
+        _animator.Play("DeathIdle", 0, 0f);
+
+        StartCoroutine(CollapseWaitRoutine());
+    }
+
+    private IEnumerator CollapseWaitRoutine()
+    {
+        yield return new WaitForSeconds(_collapseWaitDuration);
+        
+        OnCollapseFinished?.Invoke();
+        
+        if (_boss2 != null)
+        {
+            _boss2.SetActive(true);
+        }
+        
+        Destroy(gameObject);
     }
 }

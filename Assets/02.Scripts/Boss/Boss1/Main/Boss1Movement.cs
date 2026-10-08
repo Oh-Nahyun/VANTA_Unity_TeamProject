@@ -204,4 +204,20 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
     {
         _isFacingLocked = false;
     }
+    
+    public void FaceTarget(Vector2 targetPosition)
+    {
+        Vector3 scale = _visualPivot.localScale;
+
+        if (targetPosition.x < _rigidBody.position.x)
+        {
+            scale.x = -1f;
+        }
+        else if (targetPosition.x > _rigidBody.position.x)
+        {
+            scale.x = 1f;
+        }
+
+        _visualPivot.localScale = scale;
+    }
 }

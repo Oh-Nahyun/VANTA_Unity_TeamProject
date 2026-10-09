@@ -1,5 +1,73 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &165918326169270022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8978827573372652481}
+  - component: {fileID: 4852110286957003826}
+  - component: {fileID: 1443849978656167588}
+  m_Layer: 21
+  m_Name: Shadow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8978827573372652481
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165918326169270022}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9210076179707630864}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &4852110286957003826
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165918326169270022}
+  m_Enabled: 1
+  m_SortingLayerID: -352868145
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
+--- !u!114 &1443849978656167588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165918326169270022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c31a216e60fd72241bd9b84eb95ccaa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss1Shadow
+  _sources:
+  - {fileID: 893110162044737656}
+  - {fileID: 1126790908906711496}
+  - {fileID: 1127222389669799434}
+  - {fileID: 7982885276898025428}
+  - {fileID: 5595718493614784077}
+  - {fileID: 6951695134325924738}
+  _mirrorY: -0.2
+  _reflectionColor: {r: 0.35686275, g: 0.35686275, b: 0.35686275, a: 0.5686275}
+  _reflectionMaterial: {fileID: 0}
 --- !u!1 &860853907162976592
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,6 +941,7 @@ Transform:
   - {fileID: 4095238899386842120}
   - {fileID: 8109099250593597371}
   - {fileID: 7679306794607553675}
+  - {fileID: 8978827573372652481}
   m_Father: {fileID: 5486056013902944760}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3134907557992669391
@@ -891,7 +960,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3353501463626363760
 Transform:
   m_ObjectHideFlags: 0
@@ -1918,8 +1987,8 @@ Transform:
   m_GameObject: {fileID: 8131178700399946577}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.85, y: 1.45, z: 0}
-  m_LocalScale: {x: 0.07, y: 0.07, z: 1.4}
+  m_LocalPosition: {x: 0.87, y: 1.25, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 9210076179707630864}
@@ -1973,7 +2042,7 @@ SpriteRenderer:
   m_SortingLayer: 6
   m_SortingOrder: 30
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -498521219443821271, guid: 4f361441bcbbddc42895e467c99a8517, type: 3}
+  m_Sprite: {fileID: -3539393764194442660, guid: 67cedb4159c354a4280932f2922ca7f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2120,7 +2189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8a5219359263a489d250db1b9bca3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossLife
-  _maxHealth: 30000
+  _maxHealth: 1000
   _phase2HealthPercent: 0.4
 --- !u!114 &7103835189215790258
 MonoBehaviour:

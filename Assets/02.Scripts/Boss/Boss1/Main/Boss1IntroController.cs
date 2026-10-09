@@ -103,7 +103,11 @@ public class Boss1IntroController : MonoBehaviour
         
         _warningZone = Instantiate(_warningZonePrefab, transform.position, Quaternion.identity);
         _warningZoneVFX = _warningZone.GetComponent<Boss1WarningZoneVFX>();
-        _warningZoneVFX?.Play(_warningDuration);
+        
+        if (_warningZoneVFX != null)
+        {
+            _warningZoneVFX.Play(_warningDuration);
+        }
         
         yield return new WaitForSeconds(_warningDuration);
 

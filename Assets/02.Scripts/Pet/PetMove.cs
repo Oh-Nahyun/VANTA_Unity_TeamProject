@@ -55,6 +55,11 @@ public class PetMove : MonoBehaviour
     /// </summary>
     private float _inGameChaseDistance;
 
+    /// <summary>
+    /// 펫이 이동 가능한 상태인지 확인용 변수
+    /// </summary>
+    public bool CanMove;
+
     private void Awake()
     {
         _pet = GetComponent<Pet>();
@@ -68,12 +73,15 @@ public class PetMove : MonoBehaviour
         _canChase = true;
         _gameStartChaseDistance = 1f;
         _inGameChaseDistance = 2.5f;
+        CanMove = true;
 
         ChangeChaseDistanceWhenGameStart();
     }
 
     private void Update()
     {
+        if (!CanMove) return;
+
         _timer += Time.deltaTime;
         if (_canChase && _timer >= _timeBeforeRun)
         {

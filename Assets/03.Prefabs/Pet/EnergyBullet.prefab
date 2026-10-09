@@ -338,6 +338,8 @@ MonoBehaviour:
   _bezierMoveSpeed: 1
   _homingMoveSpeed: 5
   _damage: 50
+  _energyBulletHitVFXPrefab: {fileID: 3046471801674820453, guid: d2a8a612875048088a26f85a3ed8f341, type: 3}
+  _energyBulletHitVFXLifetime: 1
   AttackTarget: {fileID: 0}
   BezierCurve: {fileID: 0}
 --- !u!114 &1260096435260396752

@@ -31,6 +31,9 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
     
     [Header("머리 인디케이터")]
     [SerializeField] private Boss1HeadIndicator _headIndicator;
+    
+    [Header("입 섬광")]
+    [SerializeField] private Boss1MuzzleFlash _muzzleFlash;
 
     private Boss1PhaseController _boss1PhaseController;
 
@@ -121,6 +124,11 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
     {
         _laser.Hide();
         
+        if (_muzzleFlash != null)
+        {
+            _muzzleFlash.StopHold();
+        }
+        
         if (_headIndicator != null)
         {
             _headIndicator.HideHeadIndicator();
@@ -140,7 +148,7 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         _timer += Time.deltaTime;
 
         // 실제 데미지가 없는 경고선 표시
-        _laser.ShowAim(_lockedDirection);
+        _laser.ShowAim(_lockedDirection, _timer / CurrentPhaseSettings.AimDuration);
 
         if (_timer < CurrentPhaseSettings.AimDuration)
         {
@@ -184,11 +192,21 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
             // Aim에서 사용하던 경고선을 제거하고
             // 실제 레이저로 넘어감
             _laser.HideAim();
+            
+            if (_muzzleFlash != null)
+            {
+                _muzzleFlash.StartHold();
+            }
         }
 
         if (_currentState == LaserState.End)
         {
             _laser.Hide();
+            
+            if (_muzzleFlash != null)
+            {
+                _muzzleFlash.StopHold();
+            }
         }
     }
 

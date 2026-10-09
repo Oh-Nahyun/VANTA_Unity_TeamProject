@@ -27,6 +27,9 @@ public class Boss1SplitBulletAttack : MonoBehaviour, IBoss1RangedAttack
     [Header("머리 인디케이터")]
     [SerializeField] private Boss1HeadIndicator _headIndicator;
     
+    [Header("발사 섬광")]
+    [SerializeField] private Boss1MuzzleFlash _muzzleFlash;
+    
     private Boss1PhaseController _boss1PhaseController;
     private Boss1ProjectileManager _projectileManager;
     
@@ -113,5 +116,10 @@ public class Boss1SplitBulletAttack : MonoBehaviour, IBoss1RangedAttack
         Vector2 direction = (_playerTransform.position - _splitHeadPivot.position).normalized;
         Boss1SplitBullet splitBullet = Instantiate(_splitBulletPrefab, _splitHeadPivot.position, Quaternion.identity);
         splitBullet.Initialize(direction, _projectileManager);
+        
+        if (_muzzleFlash != null)
+        {
+            _muzzleFlash.Play();
+        }
     }
 }

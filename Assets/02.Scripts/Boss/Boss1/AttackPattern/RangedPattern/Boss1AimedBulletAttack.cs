@@ -27,6 +27,9 @@ public class Boss1AimedBulletAttack : MonoBehaviour, IBoss1RangedAttack
     [Header("머리 인디케이터")]
     [SerializeField] private Boss1HeadIndicator _headIndicator;
     
+    [Header("발사 섬광")]
+    [SerializeField] private Boss1MuzzleFlash _muzzleFlash;
+    
     private Boss1PhaseController _boss1PhaseController;
     private Boss1ProjectileManager _projectileManager;
     
@@ -112,5 +115,10 @@ public class Boss1AimedBulletAttack : MonoBehaviour, IBoss1RangedAttack
         Vector2 direction = (_playerTransform.position - _aimedHeadPivot.position).normalized;
         Boss1Bullet bullet = Instantiate(_bulletPrefab, _aimedHeadPivot.position, Quaternion.identity);
         bullet.Initialize(direction, _projectileManager);
+        
+        if (_muzzleFlash != null)
+        {
+            _muzzleFlash.Play();
+        }
     }
 }

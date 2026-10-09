@@ -337,7 +337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PetEnergyBullet
   _bezierMoveSpeed: 1
   _homingMoveSpeed: 5
-  _damage: 10
+  _damage: 50
   AttackTarget: {fileID: 0}
   BezierCurve: {fileID: 0}
 --- !u!114 &1260096435260396752

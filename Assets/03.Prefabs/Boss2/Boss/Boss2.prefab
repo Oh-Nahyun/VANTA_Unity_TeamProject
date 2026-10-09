@@ -639,7 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d405c91ba2fee441a5dab0606b5c864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss2Controller
-  _runOnStart: 1
+  _runOnStart: 0
   _thinkDelay: 0.3
   _recoverTime: 0.8
   _moveTimeout: 4

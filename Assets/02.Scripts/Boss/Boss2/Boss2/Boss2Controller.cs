@@ -16,7 +16,7 @@ public class Boss2Controller : MonoBehaviour
     private enum Boss2State { Idle, Think, Move, Attack, Skill, Recover, Dead }
 
     [Header("FSM")]
-    [SerializeField] private bool _runOnStart = true;
+    [SerializeField] private bool _runOnStart = false;
     [SerializeField] private float _thinkDelay = 0.3f;
     [SerializeField] private float _recoverTime = 0.8f;
     [Tooltip("이동이 이 시간 안에 끝나지 않으면(플레이어가 계속 도망) 공격을 생략하고 다시 판단")]

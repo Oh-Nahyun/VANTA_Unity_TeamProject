@@ -57,6 +57,16 @@ public class CrystalPrison : MonoBehaviour
     /// </summary>
     private bool _isBreakReadyStarted;
 
+    /// <summary>
+    /// 펫 크리스탈 프리즌 종료 코루틴 시작 여부 확인용 변수
+    /// </summary>
+    private bool _isSkillProcessStart;
+
+    /// <summary>
+    /// 펫 크리스탈 프리즌 종료 여부 확인용 변수
+    /// </summary>
+    private bool _isSkillEnd;
+
     private void Awake()
     {
         _animatorFront = GetComponentsInChildren<Animator>()[0];
@@ -83,7 +93,7 @@ public class CrystalPrison : MonoBehaviour
             PlayBreakReadyVFX();
         }
 
-        if (_timer >= _timeBeforeUseSkill)
+        if (_timer >= _timeBeforeUseSkill && !_isSkillEnd)
         {
             IBossMovable moveTarget = AttackTarget.GetComponent<IBossMovable>();
             StartSkillProcess(moveTarget);
@@ -93,6 +103,10 @@ public class CrystalPrison : MonoBehaviour
     private void StartSkillProcess(IBossMovable moveTarget)
     {
         moveTarget.MoveBlock();
+
+        if (_isSkillProcessStart) return;
+
+        _isSkillProcessStart = true;
         StartCoroutine(EndSkillProcessCoroutine(moveTarget));
     }
 
@@ -100,8 +114,13 @@ public class CrystalPrison : MonoBehaviour
     {
         yield return new WaitForSeconds(_skillDuration);
 
-        moveTarget.MoveUnblock();
-        Hit();
+        _isSkillEnd = true;
+
+        if (AttackTarget != null)
+        {
+            moveTarget.MoveUnblock();
+            Hit();
+        }
 
         PlayEndAnimation();
         Destroy(gameObject, _timeBeforeDestroy);
@@ -110,6 +129,8 @@ public class CrystalPrison : MonoBehaviour
     private void Hit()
     {
         HitableObject hitTarget = AttackTarget.GetComponent<HitableObject>();
+        if (hitTarget == null) return;
+
         hitTarget.ExecuteHitEvent(_damage, DamageIndicatorType.Normal);
     }
 
@@ -134,6 +155,7 @@ public class CrystalPrison : MonoBehaviour
             _crystalPrisonVFX.StopCrystalPrisonCreateVFX();
             _crystalPrisonVFX.StopCrystalPrisonHoldVFX();
             _crystalPrisonVFX.StopCrystalPrisonBreakReadyVFX();
+            _crystalPrisonVFX.PlayCrystalPrisonBreakVFX();
         }
     }
 }

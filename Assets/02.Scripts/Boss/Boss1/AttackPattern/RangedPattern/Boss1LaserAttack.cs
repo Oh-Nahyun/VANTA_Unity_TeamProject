@@ -28,6 +28,9 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
     [Header("페이즈별 난이도 세팅")]
     [SerializeField] private PhaseSettings _phase1Settings;
     [SerializeField] private PhaseSettings _phase2Settings;
+    
+    [Header("머리 인디케이터")]
+    [SerializeField] private Boss1HeadIndicator _headIndicator;
 
     private Boss1PhaseController _boss1PhaseController;
 
@@ -89,6 +92,11 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         _laser.Hide();
 
         ChangeState(LaserState.Aim);
+        
+        if (_headIndicator != null)
+        {
+            _headIndicator.ShowHeadIndicator();
+        }
     }
 
     public void UpdateAttack()
@@ -112,6 +120,11 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
     public void ExitAttack()
     {
         _laser.Hide();
+        
+        if (_headIndicator != null)
+        {
+            _headIndicator.HideHeadIndicator();
+        }
     }
 
     private void UpdateAim()

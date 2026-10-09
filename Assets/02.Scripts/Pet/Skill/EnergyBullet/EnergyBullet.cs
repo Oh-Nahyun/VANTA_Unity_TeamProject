@@ -68,7 +68,12 @@ public class EnergyBullet : MonoBehaviour
     private void Update()
     {
         if (BezierCurve == null) return;
-        if (AttackTarget == null) return;
+        if (AttackTarget == null)
+        {
+            SpawnEnergyBulletHitVFX();
+            Destroy(gameObject);
+            return;
+        }
 
         _timer += Time.deltaTime;
         if (_timer >= _timeBeforeMove)

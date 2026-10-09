@@ -91,6 +91,8 @@ public class PetAttack : MonoBehaviour
 
     public void FireEnergyBullet()
     {
+        if (_attackTarget == null) return;
+
         StartEnergyBulletGameFeel();
 
         _energyBulletCount = _pet.PlayerSkillManager.GetSkillStack;
@@ -113,6 +115,8 @@ public class PetAttack : MonoBehaviour
 
     public void UseCrystalPrison()
     {
+        if (_attackTarget == null) return;
+
         _speechBubbles.ChangeSpriteToCrystalPrison();
 
         GameObject prison = Instantiate(_crystalPrisonPrefab, _attackTarget.transform.position, transform.rotation);
@@ -201,7 +205,7 @@ public class PetAttack : MonoBehaviour
 
         endPosition.x += (directionX < 0f) ? _energyBulletRecoilDistance : -_energyBulletRecoilDistance;
 
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.8f);
 
         while (timer < _energyBulletRecoilDuration)
         {
@@ -217,6 +221,9 @@ public class PetAttack : MonoBehaviour
 
         transform.position = endPosition;
         _pet.Animator.SetBool("IsRun", true);
+
+        yield return new WaitForSeconds(0.05f);
+
         timer = 0f;
 
         while (timer < _energyBulletRecoverDuration)

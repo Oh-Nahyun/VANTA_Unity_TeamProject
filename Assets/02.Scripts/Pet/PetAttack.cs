@@ -1,7 +1,11 @@
+using System.Collections;
 using UnityEngine;
 
 public class PetAttack : MonoBehaviour
 {
+    [Header("펫 기본 공격 연출 시 타겟을 바라보는 시간")]
+    [SerializeField] private float _watchTargetTime = 3f;
+
     [Header("펫 기본 공격 에너지 탄 생성 갯수")]
     [SerializeField] private int _energyBulletCount = 1;
 
@@ -59,10 +63,10 @@ public class PetAttack : MonoBehaviour
 
     public void FireEnergyBullet()
     {
-        _speechBubbles.ChangeSpriteToEnergyBullet();
+        EnergyBulletGameFeel();
 
-        float middleIndex = (_energyBulletCount - 1) * 0.5f;
         _energyBulletCount = _pet.PlayerSkillManager.GetSkillStack;
+        float middleIndex = (_energyBulletCount - 1) * 0.5f;
         _pet.Animator.SetTrigger("IsFire");
 
         for (int i = 0; i < _energyBulletCount; i++)
@@ -99,5 +103,35 @@ public class PetAttack : MonoBehaviour
             Instantiate(_crystalSanctuaryPrefab, randomPosition, transform.rotation);
             _crystalSanctuaryPrefab.transform.localScale = randomScale;
         }
+    }
+
+    private void EnergyBulletGameFeel()
+    {
+        _speechBubbles.ChangeSpriteToEnergyBullet();
+        StartCoroutine(PetMoveStopAndWatchTarget());
+    }
+
+    private IEnumerator PetMoveStopAndWatchTarget()
+    {
+        Vector2 direction = _attackTarget.transform.position - transform.position;
+        Vector3 bulletPosition = _energyBulletSpawnPosition.localPosition;
+
+        _pet.PetMove.CanMove = false;
+        if (direction.x < 0)
+        {
+            _pet.SpriteRenderer.flipX = true;
+            bulletPosition.x = -0.25f;
+        }
+        else
+        {
+            _pet.SpriteRenderer.flipX = false;
+            bulletPosition.x = 0.25f;
+        }
+
+        _energyBulletSpawnPosition.localPosition = bulletPosition;
+
+        yield return new WaitForSeconds(_watchTargetTime);
+
+        _pet.PetMove.CanMove = true;
     }
 }

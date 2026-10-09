@@ -13,7 +13,7 @@ public class SpeechBubbles : MonoBehaviour
     [SerializeField] private Sprite _crystalSanctuarySprite;
 
     [Header("펫 기본 공격 및 스킬 말풍선 스프라이트 출력 시간")]
-    [SerializeField] private float _speechBubblesTimer = 1f;
+    [SerializeField] private float _speechBubblesTimer = 1.5f;
 
     /// <summary>
     /// 펫 말풍선 스프라이트 랜더러

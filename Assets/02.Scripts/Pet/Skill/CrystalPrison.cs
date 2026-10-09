@@ -108,6 +108,7 @@ public class CrystalPrison : MonoBehaviour
         if (_crystalPrisonVFX != null)
         {
             _crystalPrisonVFX.StopCrystalPrisonCreateVFX();
+            _crystalPrisonVFX.StopCrystalPrisonHoldVFX();
         }
     }
 }

@@ -589,6 +589,10 @@ PrefabInstance:
       propertyPath: _petAttack
       value: 
       objectReference: {fileID: 786238565}
+    - target: {fileID: 3727620830820517672, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4495319775031833695, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _targetCamera
       value: 
@@ -798,6 +802,18 @@ PrefabInstance:
     - target: {fileID: 5486056013902944760, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069415254708912317, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069415254708912317, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069415254708912317, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8279119010861365979, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: m_Name

@@ -11,6 +11,12 @@ public class EnergyBullet : MonoBehaviour
     [Header("펫 에너지 탄 공격력")]
     [SerializeField] private float _damage = 10f;
 
+    [Header("펫 에너지 탄 피격 이펙트 프리팹")]
+    [SerializeField] private GameObject _energyBulletHitVFXPrefab;
+
+    [Header("펫 에너지 탄 피격 이펙트 삭제 시간")]
+    [SerializeField] private float _energyBulletHitVFXLifetime = 1f;
+
     /// <summary>
     /// 펫 공격 타겟
     /// </summary>
@@ -131,10 +137,19 @@ public class EnergyBullet : MonoBehaviour
         hitTarget.ExecuteHitEvent(_damage, DamageIndicatorType.Normal);
     }
 
+    private void SpawnEnergyBulletHitVFX()
+    {
+        if (_energyBulletHitVFXPrefab == null) return;
+
+        GameObject hitVFX = Instantiate(_energyBulletHitVFXPrefab, transform.position, Quaternion.identity);
+        Destroy(hitVFX, _energyBulletHitVFXLifetime);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Boss")) return;
 
+        SpawnEnergyBulletHitVFX();
         Hit();
         Destroy(gameObject);
     }

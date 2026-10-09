@@ -1,12 +1,22 @@
+using System.Collections;
 using UnityEngine;
 
 public class PetAttack : MonoBehaviour
 {
+    [Header("펫 기본 공격 연출 시 타겟을 바라보는 시간")]
+    [SerializeField] private float _watchTargetDuration = 3f;
+
+    [Header("펫 에너지 탄 발사 반동 거리")]
+    [SerializeField] private float _energyBulletRecoilDistance = 0.12f;
+
+    [Header("펫 에너지 탄 발사 반동 시간")]
+    [SerializeField] private float _energyBulletRecoilDuration = 0.08f;
+
     [Header("펫 기본 공격 에너지 탄 생성 갯수")]
     [SerializeField] private int _energyBulletCount = 1;
 
-    [Header("펫 기본 공격 에너지 탄 생성 위치")]
-    [SerializeField] private Transform _energyBulletSpawnPosition;
+    [Header("펫 기본 공격 에너지 탄 스폰 트랜스폼")]
+    [SerializeField] private Transform _energyBulletSpawnTransform;
 
     [Header("펫 기본 공격 에너지 탄 프리팹")]
     [SerializeField] private GameObject _energyBulletPrefab;
@@ -30,6 +40,21 @@ public class PetAttack : MonoBehaviour
     /// </summary>
     private GameObject _attackTarget;
 
+    /// <summary>
+    /// 펫 기본 공격 에너지 탄 생성 로컬 위치
+    /// </summary>
+    private Vector3 _energyBulletSpawnPosition;
+
+    /// <summary>
+    /// 펫 기본 공격 연출 시작 코루틴
+    /// </summary>
+    private Coroutine _energyBulletGameFeelStartCoroutine;
+
+    /// <summary>
+    /// 펫 기본 공격 연출 종료 코루틴
+    /// </summary>
+    private Coroutine _energyBulletGameFeelEndCoroutine;
+
     private void Awake()
     {
         _pet = GetComponent<Pet>();
@@ -37,6 +62,7 @@ public class PetAttack : MonoBehaviour
 
     private void Start()
     {
+        _energyBulletSpawnPosition = _energyBulletSpawnTransform.localPosition;
         _attackTarget = GameObject.FindGameObjectWithTag("Boss");
 
         if (_attackTarget == null) return;
@@ -59,15 +85,15 @@ public class PetAttack : MonoBehaviour
 
     public void FireEnergyBullet()
     {
-        _speechBubbles.ChangeSpriteToEnergyBullet();
+        StartEnergyBulletGameFeel();
 
-        float middleIndex = (_energyBulletCount - 1) * 0.5f;
         _energyBulletCount = _pet.PlayerSkillManager.GetSkillStack;
+        float middleIndex = (_energyBulletCount - 1) * 0.5f;
         _pet.Animator.SetTrigger("IsFire");
 
         for (int i = 0; i < _energyBulletCount; i++)
         {
-            GameObject bullet = Instantiate(_energyBulletPrefab, _energyBulletSpawnPosition.position,
+            GameObject bullet = Instantiate(_energyBulletPrefab, _energyBulletSpawnTransform.position,
                 transform.rotation);
             EnergyBullet energyBullet = bullet.GetComponent<EnergyBullet>();
             energyBullet.AttackTarget = _attackTarget;
@@ -75,6 +101,8 @@ public class PetAttack : MonoBehaviour
             float curveAmount = (i - middleIndex) * 2f;
             energyBullet.BezierCurve.SetCurveAmount(curveAmount);
         }
+
+        EndEnergyBulletGameFeel();
     }
 
     public void UseCrystalPrison()
@@ -96,8 +124,93 @@ public class PetAttack : MonoBehaviour
             Vector3 randomScale = new Vector3(randomFloat, randomFloat, randomFloat);
             Vector3 randomPosition = new Vector3(Random.Range(-6f, 6f), Random.Range(-3f, 1.5f), 0f);
 
-            Instantiate(_crystalSanctuaryPrefab, randomPosition, transform.rotation);
-            _crystalSanctuaryPrefab.transform.localScale = randomScale;
+            GameObject sanctuary = Instantiate(_crystalSanctuaryPrefab, randomPosition, transform.rotation);
+            sanctuary.transform.localScale = randomScale;
         }
+    }
+
+    private void StartEnergyBulletGameFeel()
+    {
+        _speechBubbles.ChangeSpriteToEnergyBullet();
+
+        if (_energyBulletGameFeelStartCoroutine != null)
+        {
+            StopCoroutine(_energyBulletGameFeelStartCoroutine);
+        }
+
+        _energyBulletGameFeelStartCoroutine = StartCoroutine(PetMoveStopAndWatchTarget());
+    }
+
+    private void EndEnergyBulletGameFeel()
+    {
+        if (_energyBulletGameFeelEndCoroutine != null)
+        {
+            StopCoroutine(_energyBulletGameFeelEndCoroutine);
+        }
+
+        _energyBulletGameFeelEndCoroutine = StartCoroutine(PetRecoilAfterFireEnergyBullet());
+    }
+
+    private IEnumerator PetMoveStopAndWatchTarget()
+    {
+        Vector2 direction = _attackTarget.transform.position - transform.position;
+        Vector3 bulletPosition = _energyBulletSpawnPosition;
+        float bulletPositionX = Mathf.Abs(bulletPosition.x);
+
+        _pet.PetMove.CanMove = false;
+
+        if (direction.x < 0)
+        {
+            _pet.SpriteRenderer.flipX = true;
+        }
+        else if (direction.x > 0)
+        {
+            _pet.SpriteRenderer.flipX = false;
+        }
+
+        if (direction.x > -0.5f && direction.x < 0.5f)
+        {
+            bulletPosition.x = 0f;
+            bulletPosition.y = 0.75f;
+        }
+        else
+        {
+            bulletPosition.x = (direction.x < 0) ? -bulletPositionX : bulletPositionX;
+        }
+
+        _energyBulletSpawnTransform.localPosition = bulletPosition;
+
+        yield return new WaitForSeconds(_watchTargetDuration);
+
+        _pet.PetMove.CanMove = true;
+        _energyBulletGameFeelStartCoroutine = null;
+    }
+
+    private IEnumerator PetRecoilAfterFireEnergyBullet()
+    {
+        float directionX = _attackTarget.transform.position.x - transform.position.x;
+        Vector3 startPosition = transform.position;
+        Vector3 endPosition = startPosition;
+
+        endPosition.x += (directionX < 0f) ? _energyBulletRecoilDistance : -_energyBulletRecoilDistance;
+
+        yield return new WaitForSeconds(0.6f);
+
+        float timer = 0f;
+
+        while (timer < _energyBulletRecoilDuration)
+        {
+            timer += Time.deltaTime;
+
+            float progress = Mathf.Clamp01(timer / _energyBulletRecoilDuration);
+            float easeOutQuadProgress = 1f - Mathf.Pow(1f - progress, 2f);
+
+            transform.position = Vector3.Lerp(startPosition, endPosition, easeOutQuadProgress);
+
+            yield return null;
+        }
+
+        transform.position = endPosition;
+        _energyBulletGameFeelEndCoroutine = null;
     }
 }

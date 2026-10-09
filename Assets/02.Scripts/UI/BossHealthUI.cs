@@ -78,11 +78,14 @@ public class BossHealthUI : MonoBehaviour
         if (_boss == null)
         {
             _boss = GameObject.FindGameObjectWithTag("Boss");
-            _boss1 = _boss.GetComponent<Boss1Life>();
-            _boss2 = _boss.GetComponent<Boss2>();
 
             if (_boss == null) return;
+
+            _boss1 = _boss.GetComponent<Boss1Life>();
+            _boss2 = _boss.GetComponent<Boss2>();
         }
+
+        if (_boss1 == null || _boss1 == null) return;
 
         if (_boss1 != null)
         {
@@ -91,10 +94,6 @@ public class BossHealthUI : MonoBehaviour
         else if (_boss2 != null)
         {
             _healthRatio = _boss2.HealthRatio;
-        }
-        else
-        {
-            return;
         }
 
         if (_healthRatio != _previousHealthRatio)

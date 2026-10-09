@@ -138,7 +138,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 40
+  spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -888,14 +888,6 @@ TextureImporter:
     nameFileIdTable:
       White Tiger Transform_0: -8764199514977879032
       White Tiger Transform_1: -1616259129408238877
-      White Tiger Transform_2: 1156869064954857484
-      White Tiger Transform_3: 2018587024591101735
-      White Tiger Transform_4: -2362030863078221987
-      White Tiger Transform_5: -9129112958075892437
-      White Tiger Transform_6: -3305320016935852533
-      White Tiger Transform_7: -5352780660021619674
-      White Tiger Transform_8: -3705266072948758037
-      White Tiger Transform_9: 6824065780439883727
       White Tiger Transform_10: 7549768797760627594
       White Tiger Transform_11: -6771255733779596196
       White Tiger Transform_12: 4614173311489944579
@@ -906,6 +898,7 @@ TextureImporter:
       White Tiger Transform_17: 6865540949283580008
       White Tiger Transform_18: 8375300722069219222
       White Tiger Transform_19: -4667508472529103163
+      White Tiger Transform_2: 1156869064954857484
       White Tiger Transform_20: -5582217727206671401
       White Tiger Transform_21: -2294809503249374859
       White Tiger Transform_22: 5525311047566745926
@@ -916,6 +909,13 @@ TextureImporter:
       White Tiger Transform_27: -8912997263162565135
       White Tiger Transform_28: 4752621977089859534
       White Tiger Transform_29: -1302167012077433395
+      White Tiger Transform_3: 2018587024591101735
+      White Tiger Transform_4: -2362030863078221987
+      White Tiger Transform_5: -9129112958075892437
+      White Tiger Transform_6: -3305320016935852533
+      White Tiger Transform_7: -5352780660021619674
+      White Tiger Transform_8: -3705266072948758037
+      White Tiger Transform_9: 6824065780439883727
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

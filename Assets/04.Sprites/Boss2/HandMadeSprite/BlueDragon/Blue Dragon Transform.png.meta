@@ -138,7 +138,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 40
+  spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -888,14 +888,6 @@ TextureImporter:
     nameFileIdTable:
       Blue Dragon Transform_0: 7925263720440427195
       Blue Dragon Transform_1: -4440683904531962306
-      Blue Dragon Transform_2: -8305240733012893840
-      Blue Dragon Transform_3: -4941581105440189287
-      Blue Dragon Transform_4: 4539761621575663216
-      Blue Dragon Transform_5: -4424682144364087167
-      Blue Dragon Transform_6: -6089870041119796026
-      Blue Dragon Transform_7: 5126118545440490647
-      Blue Dragon Transform_8: -8005324448292048296
-      Blue Dragon Transform_9: -1440018427584233020
       Blue Dragon Transform_10: 6151121283203933551
       Blue Dragon Transform_11: 3070616362190199333
       Blue Dragon Transform_12: -6674498066798266796
@@ -906,6 +898,7 @@ TextureImporter:
       Blue Dragon Transform_17: -716467235839694538
       Blue Dragon Transform_18: -3625802433526094846
       Blue Dragon Transform_19: -5904046288797304959
+      Blue Dragon Transform_2: -8305240733012893840
       Blue Dragon Transform_20: -1462810274999638533
       Blue Dragon Transform_21: -1753705708997142179
       Blue Dragon Transform_22: -4439216635417744081
@@ -916,6 +909,13 @@ TextureImporter:
       Blue Dragon Transform_27: 4110365237677031400
       Blue Dragon Transform_28: -8804819437786543181
       Blue Dragon Transform_29: -268730422268546282
+      Blue Dragon Transform_3: -4941581105440189287
+      Blue Dragon Transform_4: 4539761621575663216
+      Blue Dragon Transform_5: -4424682144364087167
+      Blue Dragon Transform_6: -6089870041119796026
+      Blue Dragon Transform_7: 5126118545440490647
+      Blue Dragon Transform_8: -8005324448292048296
+      Blue Dragon Transform_9: -1440018427584233020
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

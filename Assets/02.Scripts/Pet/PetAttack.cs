@@ -24,6 +24,9 @@ public class PetAttack : MonoBehaviour
     [Header("펫 기본 공격 에너지 탄 프리팹")]
     [SerializeField] private GameObject _energyBulletPrefab;
 
+    [Header("펫 기본 공격 기모으기 파티클 시스템")]
+    [SerializeField] private ParticleSystem _energyBulletChargeVFX;
+
     [Header("펫 공격 스킬 크리스탈 프리즌 프리팹")]
     [SerializeField] private GameObject _crystalPrisonPrefab;
 
@@ -231,5 +234,12 @@ public class PetAttack : MonoBehaviour
         transform.position = startPosition;
         _energyBulletGameFeelEndCoroutine = null;
         _pet.Animator.SetBool("IsRun", false);
+    }
+
+    public void PlayEnergyBulletChargeVFX()
+    {
+        _energyBulletChargeVFX.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        _energyBulletChargeVFX.transform.position = _energyBulletSpawnTransform.position;
+        _energyBulletChargeVFX.Play(true);
     }
 }

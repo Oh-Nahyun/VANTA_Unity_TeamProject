@@ -9,7 +9,7 @@ public class PetMove : MonoBehaviour
     [SerializeField] private float _moveSpeed = 1f;
 
     [Header("펫 이동 시 나타날 먼지 파티클 시스템")]
-    [SerializeField] private ParticleSystem _footStepDustParticle;
+    [SerializeField] private ParticleSystem _footStepDustVFX;
 
     [Header("펫 이동 시 나타날 먼지 파티클 X 위치 오프셋")]
     [SerializeField] private float _footStepDustOffsetX = -0.23f;
@@ -63,7 +63,7 @@ public class PetMove : MonoBehaviour
     private void Awake()
     {
         _pet = GetComponent<Pet>();
-        _footStepDustRenderer = _footStepDustParticle.GetComponent<ParticleSystemRenderer>();
+        _footStepDustRenderer = _footStepDustVFX.GetComponent<ParticleSystemRenderer>();
     }
 
     private void Start()
@@ -117,7 +117,7 @@ public class PetMove : MonoBehaviour
         }
 
         transform.Translate((Vector3)(direction * _moveSpeed) * Time.deltaTime);
-        _footStepDustParticle.transform.position = transform.position + dustOffset;
+        _footStepDustVFX.transform.position = transform.position + dustOffset;
         _footStepDustRenderer.flip = dustFlip;
     }
 
@@ -147,7 +147,7 @@ public class PetMove : MonoBehaviour
 
     public void PlayFootStepDustParticle()
     {
-        _footStepDustParticle.Emit(_footStepDustCount);
+        _footStepDustVFX.Emit(_footStepDustCount);
     }
 
     private void ChangeChaseDistanceWhenGameStart()

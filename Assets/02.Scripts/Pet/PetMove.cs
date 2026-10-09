@@ -71,11 +71,9 @@ public class PetMove : MonoBehaviour
         _timer = 0f;
         _timeBeforeRun = 1.7f;
         _canChase = true;
-        _gameStartChaseDistance = 1f;
+        _gameStartChaseDistance = 0.5f;
         _inGameChaseDistance = 2.5f;
         CanMove = true;
-
-        ChangeChaseDistanceWhenGameStart();
     }
 
     private void Update()
@@ -150,7 +148,7 @@ public class PetMove : MonoBehaviour
         _footStepDustVFX.Emit(_footStepDustCount);
     }
 
-    private void ChangeChaseDistanceWhenGameStart()
+    public void ChangeChaseDistanceWhenGameStart()
     {
         _pet.CircleCollider2D.radius = _gameStartChaseDistance;
     }

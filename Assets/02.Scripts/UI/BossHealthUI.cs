@@ -85,7 +85,7 @@ public class BossHealthUI : MonoBehaviour
             _boss2 = _boss.GetComponent<Boss2>();
         }
 
-        if (_boss1 == null || _boss1 == null) return;
+        if (_boss1 == null && _boss1 == null) return;
 
         if (_boss1 != null)
         {

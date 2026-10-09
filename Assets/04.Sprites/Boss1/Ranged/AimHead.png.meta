@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 342f133ce2179a2489cd39efe6a84c61
+guid: 71947ecf1d5cb6944ae4bef71172a2c4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2703249500400449632
-    second: WarningLaser_0
+      213: -3539393764194442660
+    second: AimHead_0
+  - first:
+      213: -5222083514494494099
+    second: AimHead_1
+  - first:
+      213: -5071840508799465473
+    second: AimHead_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WarningLaser_0
+      name: AimHead_0
       rect:
         serializedVersion: 2
-        x: 42
-        y: 57
-        width: 2085
-        height: 581
+        x: 102
+        y: 71
+        width: 959
+        height: 1015
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0a7016dd6e02c7ad0800000000000000
-      internalID: -2703249500400449632
+      spriteID: c5225fcbf1c81eec0800000000000000
+      internalID: -3539393764194442660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AimHead_1
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 541
+        width: 39
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6ad12b16be6787b0800000000000000
+      internalID: -5222083514494494099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AimHead_2
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 454
+        width: 38
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff74293dde33d99b0800000000000000
+      internalID: -5071840508799465473
       vertices: []
       indices: 
       edges: []
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      WarningLaser_0: -2703249500400449632
+      AimHead_0: -3539393764194442660
+      AimHead_1: -5222083514494494099
+      AimHead_2: -5071840508799465473
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

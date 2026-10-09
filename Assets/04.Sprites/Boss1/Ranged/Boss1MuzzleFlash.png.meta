@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 67cedb4159c354a4280932f2922ca7f4
+guid: 3afc958943dd7f746a7f5f5a3f7475b9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3539393764194442660
-    second: AimHead_0
-  - first:
-      213: -5222083514494494099
-    second: AimHead_1
-  - first:
-      213: -5071840508799465473
-    second: AimHead_2
+      213: 7854120507175726875
+    second: Boss1MuzzleFlash_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -43,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -103,19 +97,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -132,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AimHead_0
+      name: Boss1MuzzleFlash_0
       rect:
         serializedVersion: 2
-        x: 102
-        y: 71
-        width: 959
-        height: 1015
+        x: 29
+        y: 29
+        width: 332
+        height: 332
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,52 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c5225fcbf1c81eec0800000000000000
-      internalID: -3539393764194442660
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AimHead_1
-      rect:
-        serializedVersion: 2
-        x: 182
-        y: 541
-        width: 39
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d6ad12b16be6787b0800000000000000
-      internalID: -5222083514494494099
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AimHead_2
-      rect:
-        serializedVersion: 2
-        x: 204
-        y: 454
-        width: 38
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ff74293dde33d99b0800000000000000
-      internalID: -5071840508799465473
+      spriteID: b1fe1550df07ffc60800000000000000
+      internalID: 7854120507175726875
       vertices: []
       indices: 
       edges: []
@@ -211,9 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      AimHead_0: -3539393764194442660
-      AimHead_1: -5222083514494494099
-      AimHead_2: -5071840508799465473
+      Boss1MuzzleFlash_0: 7854120507175726875
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

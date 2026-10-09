@@ -22,11 +22,22 @@ public class Pet : MonoBehaviour
     /// </summary>
     public SkillManager PlayerSkillManager;
 
+    /// <summary>
+    /// 펫 이동 클래스
+    /// </summary>
+    public PetMove PetMove;
+
     private void Awake()
     {
         Animator = GetComponent<Animator>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
         CircleCollider2D = GetComponent<CircleCollider2D>();
         PlayerSkillManager = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<SkillManager>();
+        PetMove = GetComponent<PetMove>();
+    }
+
+    public void Death()
+    {
+        Animator.SetTrigger("IsDeath");
     }
 }

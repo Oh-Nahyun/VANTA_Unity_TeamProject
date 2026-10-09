@@ -114,9 +114,21 @@ public class PetAttack : MonoBehaviour
     private IEnumerator PetMoveStopAndWatchTarget()
     {
         Vector2 direction = _attackTarget.transform.position - transform.position;
+        Vector3 bulletPosition = _energyBulletSpawnPosition.localPosition;
 
         _pet.PetMove.CanMove = false;
-        _pet.SpriteRenderer.flipX = (direction.x < 0) ? true : false;
+        if (direction.x < 0)
+        {
+            _pet.SpriteRenderer.flipX = true;
+            bulletPosition.x = -0.25f;
+        }
+        else
+        {
+            _pet.SpriteRenderer.flipX = false;
+            bulletPosition.x = 0.25f;
+        }
+
+        _energyBulletSpawnPosition.localPosition = bulletPosition;
 
         yield return new WaitForSeconds(_watchTargetTime);
 

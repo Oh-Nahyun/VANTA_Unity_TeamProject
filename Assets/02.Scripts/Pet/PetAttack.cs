@@ -220,10 +220,10 @@ public class PetAttack : MonoBehaviour
         }
 
         transform.position = endPosition;
+
+        yield return new WaitForSeconds(0.5f);
+
         _pet.Animator.SetBool("IsRun", true);
-
-        yield return new WaitForSeconds(0.05f);
-
         timer = 0f;
 
         while (timer < _energyBulletRecoverDuration)

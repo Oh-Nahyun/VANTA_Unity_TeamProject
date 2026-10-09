@@ -9,6 +9,9 @@ public class CrystalPrison : MonoBehaviour
     [Header("펫 크리스탈 프리즌 공격력")]
     [SerializeField] private float _damage = 20f;
 
+    [Header("펫 크리스탈 프리즌 파괴 준비 이펙트 재생 시간")]
+    [SerializeField] private float _breakReadyDuration = 0.4f;
+
     /// <summary>
     /// 펫 공격 타겟
     /// </summary>
@@ -49,6 +52,11 @@ public class CrystalPrison : MonoBehaviour
     /// </summary>
     private float _timeBeforeDestroy;
 
+    /// <summary>
+    /// 펫 크리스탈 프리즌 파괴 준비 이펙트 시작 여부 확인용 변수
+    /// </summary>
+    private bool _isBreakReadyStarted;
+
     private void Awake()
     {
         _animatorFront = GetComponentsInChildren<Animator>()[0];
@@ -69,6 +77,12 @@ public class CrystalPrison : MonoBehaviour
         if (AttackTarget == null) return;
 
         _timer += Time.deltaTime;
+
+        if (!_isBreakReadyStarted && _timer >= _timeBeforeUseSkill + _skillDuration - _breakReadyDuration)
+        {
+            PlayBreakReadyVFX();
+        }
+
         if (_timer >= _timeBeforeUseSkill)
         {
             IBossMovable moveTarget = AttackTarget.GetComponent<IBossMovable>();
@@ -99,6 +113,16 @@ public class CrystalPrison : MonoBehaviour
         hitTarget.ExecuteHitEvent(_damage, DamageIndicatorType.Normal);
     }
 
+    private void PlayBreakReadyVFX()
+    {
+        _isBreakReadyStarted = true;
+
+        if (_crystalPrisonVFX != null)
+        {
+            _crystalPrisonVFX.PlayCrystalPrisonBreakReadyVFX();
+        }
+    }
+
     private void PlayEndAnimation()
     {
         _animatorFront.SetTrigger("IsEnd");
@@ -109,6 +133,7 @@ public class CrystalPrison : MonoBehaviour
         {
             _crystalPrisonVFX.StopCrystalPrisonCreateVFX();
             _crystalPrisonVFX.StopCrystalPrisonHoldVFX();
+            _crystalPrisonVFX.StopCrystalPrisonBreakReadyVFX();
         }
     }
 }

@@ -125,7 +125,7 @@ public class GameStartActing : MonoBehaviour
         GetComponent<PlayerStatusManager>().ApplyFinalSetting();
         
         _bossMoveStart.Invoke();
-        _PlayerBattleStartEvent.Invoke();
+        _playerBattleStartEvent.Invoke();
 
     }
 }

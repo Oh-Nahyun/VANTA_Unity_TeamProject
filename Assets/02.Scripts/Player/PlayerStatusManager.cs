@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 
@@ -26,6 +27,10 @@ public class PlayerStatusManager : MonoBehaviour
     [SerializeField] private float _startOrthographicSize = 5f;
     [SerializeField] private float _targetOrthographicSize = 3f;
     [SerializeField] private float _zoomDuration = 1f;
+    [Header("보스 최초등장할떄 소리 ")]
+    [SerializeField] private AudioClip _boss1StageBgm;
+    
+  
 
     private Sequence _originSequence;
     private Animator _animator;
@@ -106,7 +111,8 @@ public class PlayerStatusManager : MonoBehaviour
         if (_isStart)
             return;
         _isStart = true;
-
+        
+    SoundManager.Instance.PlayBGM(_boss1StageBgm);
         Time.timeScale = 1f;
 
         _originSequence?.Kill();

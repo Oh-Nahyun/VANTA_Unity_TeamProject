@@ -202,7 +202,7 @@ MonoBehaviour:
   SpriteRenderer: {fileID: 6119124529000901739}
   CircleCollider2D: {fileID: 0}
   PlayerSkillManager: {fileID: 0}
-  PetMove: {fileID: 0}
+  PetMove: {fileID: 964765425002006797}
 --- !u!114 &964765425002006797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,8 +218,8 @@ MonoBehaviour:
   _player: {fileID: 0}
   _moveSpeed: 2.5
   _footStepDustParticle: {fileID: 6251781367847903886}
-  _footStepDustOffsetX: -0.23
-  _footStepDustOffsetY: -0.09
+  _footStepDustOffsetX: -0.18
+  _footStepDustOffsetY: 0
   _footStepDustCount: 3
   CanMove: 0
 --- !u!114 &9040926827823601448
@@ -234,9 +234,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c9d9896176f7547a0504a5e7fad093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PetAttack
-  _watchTargetTime: 3
+  _watchTargetDuration: 3
+  _energyBulletRecoilDistance: 0.12
+  _energyBulletRecoilDuration: 0.08
   _energyBulletCount: 3
-  _energyBulletSpawnPosition: {fileID: 2901195168323718997}
+  _energyBulletSpawnTransform: {fileID: 2901195168323718997}
   _energyBulletPrefab: {fileID: 6523856158434468449, guid: 4832a329c9cbe5847a6601b82ebffe8a, type: 3}
   _crystalPrisonPrefab: {fileID: 5960170544083001488, guid: 1cc63ea2fc8955d45bf39528384acf3e, type: 3}
   _crystalSanctuaryPrefab: {fileID: 7285922598011615516, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
@@ -373,7 +375,7 @@ Transform:
   m_GameObject: {fileID: 2090642661046176864}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.25, y: 0.36, z: 0}
+  m_LocalPosition: {x: 0.45, y: 0.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

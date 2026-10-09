@@ -15,7 +15,7 @@ public class PetMove : MonoBehaviour
     [SerializeField] private float _footStepDustOffsetX = -0.23f;
 
     [Header("펫 이동 시 나타날 먼지 파티클 Y 위치 오프셋")]
-    [SerializeField] private float _footStepDustOffsetY = -0.09f;
+    [SerializeField] private float _footStepDustOffsetY = 0f;
 
     [Header("펫 이동 시 나타날 먼지 파티클 갯수")]
     [SerializeField] private int _footStepDustCount = 3;

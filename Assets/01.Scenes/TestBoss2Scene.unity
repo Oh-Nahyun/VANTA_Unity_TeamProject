@@ -1367,80 +1367,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1551791808}
   m_SourcePrefab: {fileID: 100100000, guid: 058cc52bb14154f46b3e86c521d3b90c, type: 3}
---- !u!1 &793406811
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 793406812}
-  - component: {fileID: 793406813}
-  m_Layer: 0
-  m_Name: Tester
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &793406812
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 793406811}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.33201, y: -0.86034, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &793406813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 793406811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d6d094bfcae58f4990f4b71467b19ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Tester
-  FadeIn:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 793913551}
-        m_TargetAssemblyTypeName: TitleFadeInOutEffect, Assembly-CSharp
-        m_MethodName: FadeIn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  FadeOut:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 793913551}
-        m_TargetAssemblyTypeName: TitleFadeInOutEffect, Assembly-CSharp
-        m_MethodName: FadeOut
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1001 &793913549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1543,17 +1469,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5880924285045222454, guid: 783bfadc82e0b764485f6f2ea64b97e5, type: 3}
   m_PrefabInstance: {fileID: 793913549}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &793913551 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6817876542445802363, guid: 783bfadc82e0b764485f6f2ea64b97e5, type: 3}
-  m_PrefabInstance: {fileID: 793913549}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b800e96b693632948a9d5dc9902b282e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TitleFadeEffect
 --- !u!1 &905776562 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6022703623974332279, guid: 058cc52bb14154f46b3e86c521d3b90c, type: 3}
@@ -2592,4 +2507,3 @@ SceneRoots:
   - {fileID: 982187453}
   - {fileID: 1379121725}
   - {fileID: 69273564}
-  - {fileID: 793406812}

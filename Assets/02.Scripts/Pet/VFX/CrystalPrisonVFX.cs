@@ -61,10 +61,48 @@ public class CrystalPrisonVFX : MonoBehaviour
 
     private void Awake()
     {
-        _crystalPrisonCreateParticles = _crystalPrisonCreateVFX.GetComponentsInChildren<ParticleSystem>();
-        _crystalPrisonHoldParticles = _crystalPrisonHoldVFX.GetComponentsInChildren<ParticleSystem>();
-        _crystalPrisonBreakReadyParticles = _crystalPrisonBreakReadyVFX.GetComponentsInChildren<ParticleSystem>();
-        _crystalPrisonBreakParticles = _crystalPrisonBreakVFX.GetComponentsInChildren<ParticleSystem>();
+        _crystalPrisonCreateVFX = FindVFXGroup(_crystalPrisonCreateVFX, "Create");
+        _crystalPrisonHoldVFX = FindVFXGroup(_crystalPrisonHoldVFX, "Hold");
+        _crystalPrisonBreakReadyVFX = FindVFXGroup(_crystalPrisonBreakReadyVFX, "BreakReady");
+        _crystalPrisonBreakVFX = FindVFXGroup(_crystalPrisonBreakVFX, "Break");
+
+        if (_crystalPrisonImpactShakeVFX == null && _crystalPrisonBreakVFX != null)
+        {
+            Transform impactShake = _crystalPrisonBreakVFX.transform.Find("ImpactShake");
+
+            if (impactShake != null)
+            {
+                _crystalPrisonImpactShakeVFX = impactShake.gameObject;
+            }
+        }
+
+        _crystalPrisonCreateParticles = GetParticles(_crystalPrisonCreateVFX);
+        _crystalPrisonHoldParticles = GetParticles(_crystalPrisonHoldVFX);
+        _crystalPrisonBreakReadyParticles = GetParticles(_crystalPrisonBreakReadyVFX);
+        _crystalPrisonBreakParticles = GetParticles(_crystalPrisonBreakVFX);
+    }
+
+    private GameObject FindVFXGroup(GameObject assignedVFX, string groupName)
+    {
+        if (assignedVFX != null) return assignedVFX;
+
+        Transform group = transform.Find(groupName);
+
+        if (group == null)
+        {
+            Debug.LogWarning($"[CrystalPrisonVFX] {groupName} 이펙트 오브젝트가 연결되지 않았고 같은 이름의 자식도 없습니다.", this);
+            return null;
+        }
+
+        Debug.LogWarning($"[CrystalPrisonVFX] {groupName} 이펙트 오브젝트가 Inspector에 연결되지 않아 같은 이름의 자식 오브젝트를 사용합니다.", this);
+        return group.gameObject;
+    }
+
+    private ParticleSystem[] GetParticles(GameObject vfx)
+    {
+        if (vfx == null) return new ParticleSystem[0];
+
+        return vfx.GetComponentsInChildren<ParticleSystem>();
     }
 
     private void Start()
@@ -139,7 +177,7 @@ public class CrystalPrisonVFX : MonoBehaviour
 
     public void PlayCrystalPrisonBreakVFX()
     {
-        if (_isBreakPlaying) return;
+        if (_isBreakPlaying || _crystalPrisonBreakVFX == null) return;
 
         _isBreakPlaying = true;
         _crystalPrisonBreakVFX.transform.SetParent(null, true);

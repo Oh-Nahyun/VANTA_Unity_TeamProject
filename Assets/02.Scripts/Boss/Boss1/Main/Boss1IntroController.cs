@@ -64,6 +64,7 @@ public class Boss1IntroController : MonoBehaviour
     private Boss1AttackController _boss1AttackController;
     
     private GameObject _warningZone;
+    private Boss1WarningZoneVFX _warningZoneVFX;
 
     private void Awake()
     {
@@ -101,6 +102,8 @@ public class Boss1IntroController : MonoBehaviour
         yield return new WaitForSeconds(_warningZoneAppearDuration);
         
         _warningZone = Instantiate(_warningZonePrefab, transform.position, Quaternion.identity);
+        _warningZoneVFX = _warningZone.GetComponent<Boss1WarningZoneVFX>();
+        _warningZoneVFX?.Play(_warningDuration);
         
         yield return new WaitForSeconds(_warningDuration);
 
@@ -124,8 +127,17 @@ public class Boss1IntroController : MonoBehaviour
             return;
         }
         
-        Destroy(_warningZone);
+        if (_warningZoneVFX != null)
+        {
+            _warningZoneVFX.Remove();
+        }
+        
+        else
+        {
+            Destroy(_warningZone);
+        }
         _warningZone = null;
+        _warningZoneVFX = null;
     }
     
     public void EndIntroJumpLand()

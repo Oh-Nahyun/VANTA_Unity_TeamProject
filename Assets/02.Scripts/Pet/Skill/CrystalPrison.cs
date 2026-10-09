@@ -30,6 +30,11 @@ public class CrystalPrison : MonoBehaviour
     private Animator _animatorGround;
 
     /// <summary>
+    /// 펫 크리스탈 프리즌 이펙트 클래스
+    /// </summary>
+    private CrystalPrisonVFX _crystalPrisonVFX;
+
+    /// <summary>
     /// 펫 크리스탈 프리즌 사용 시 대기 시간 계산용 변수
     /// </summary>
     private float _timer;
@@ -49,6 +54,7 @@ public class CrystalPrison : MonoBehaviour
         _animatorFront = GetComponentsInChildren<Animator>()[0];
         _animatorBack = GetComponentsInChildren<Animator>()[1];
         _animatorGround = GetComponentsInChildren<Animator>()[2];
+        _crystalPrisonVFX = GetComponentInChildren<CrystalPrisonVFX>();
     }
 
     private void Start()
@@ -98,5 +104,10 @@ public class CrystalPrison : MonoBehaviour
         _animatorFront.SetTrigger("IsEnd");
         _animatorBack.SetTrigger("IsEnd");
         _animatorGround.SetTrigger("IsEnd");
+
+        if (_crystalPrisonVFX != null)
+        {
+            _crystalPrisonVFX.StopCrystalPrisonCreateVFX();
+        }
     }
 }

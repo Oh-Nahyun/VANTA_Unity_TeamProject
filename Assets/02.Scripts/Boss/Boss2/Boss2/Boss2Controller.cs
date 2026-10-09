@@ -16,7 +16,7 @@ public class Boss2Controller : MonoBehaviour
     private enum Boss2State { Idle, Think, Move, Attack, Skill, Recover, Dead }
 
     [Header("FSM")]
-    [SerializeField] private bool _runOnStart = true;
+    [SerializeField] private bool _runOnStart = false;
     [SerializeField] private float _thinkDelay = 0.3f;
     [SerializeField] private float _recoverTime = 0.8f;
     [Tooltip("이동이 이 시간 안에 끝나지 않으면(플레이어가 계속 도망) 공격을 생략하고 다시 판단")]
@@ -41,6 +41,11 @@ public class Boss2Controller : MonoBehaviour
 
     // 무적: 행동은 Boss2Action.IsInvincible 로 여기서, 스킬(광역기·즉사기)은 Boss2SkillPattern 이 직접 처리한다.
 
+    [Tooltip("이 시간(초) 동안 한 대도 안 맞으면 즉사기")]
+    [SerializeField] private float _noDamageKillTime = 10f;
+    private float _lastDamagedTime;   // 마지막으로 맞은(또는 다시 잰) 시각
+    
+    
     private const string InstantKillName = "InstantKill";
 
     // 후보가 하나도 없을 때 거리를 좁히기 위한 기본 행동
@@ -192,9 +197,10 @@ public class Boss2Controller : MonoBehaviour
     {
         if (_boss.IsDead)
             return;
-
+        
         // 새로 시작하는 것이므로 일시정지 중이었다면 풀린 상태로 시작한다.
         _isPaused = false;
+        _lastDamagedTime = Time.time;
         EnterState(Boss2State.Think);
     }
 
@@ -236,6 +242,7 @@ public class Boss2Controller : MonoBehaviour
 
         _isPaused = false;
         _stateEnterTime += Time.time - _pauseStartTime;
+        _lastDamagedTime += Time.time - _pauseStartTime;
         Log($"재개 ({_state})");
     }
 
@@ -348,6 +355,13 @@ public class Boss2Controller : MonoBehaviour
             EnterState(Boss2State.Think);
             return;
         }
+        
+        // 중간에 데미지 안입은 시간이 일정시간 이상 되면 즉사기 발동!
+        if (Time.time - _lastDamagedTime >= _noDamageKillTime)
+        {
+            StartSkill(Boss2SkillPatternType.InstantKill, $"{_noDamageKillTime}초 무피격");
+            return;
+        }
 
         float distance = Vector2.Distance(transform.position, Target.position);
         float healthRatio = _boss.HealthRatio;
@@ -402,10 +416,10 @@ public class Boss2Controller : MonoBehaviour
         return true;
     }
 
-    // 직전과 같은 선택은 가중치를 절반으로 해 반복을 줄인다.
+    // 직전과 같은 선택은 가중치를 0으로 해 반복을 없앤다. 원래는 0.5f 절반
     private float AdjustForRepeat(string name, float weight)
     {
-        return name == _lastChoiceName ? weight * 0.5f : weight;
+        return name == _lastChoiceName ? weight * 0f : weight;
     }
 
     private static int PickWeighted(List<float> weights)
@@ -492,6 +506,7 @@ public class Boss2Controller : MonoBehaviour
         // 즉사기 누적 가중치는 실제로 시전됐을 때만 비운다. (거절되면 다음 판단에서 다시 후보)
         if (skillType == Boss2SkillPatternType.InstantKill)
         {
+            _lastDamagedTime = Time.time;
             _instantKillWeight = 0f;
         }
 
@@ -563,6 +578,8 @@ public class Boss2Controller : MonoBehaviour
     // ---- 피격 ----
     private void OnBossDamaged(int damage)
     {
+        _lastDamagedTime = Time.time;
+        
         if (damage >= _skillHitThreshold)
         {
             _instantKillWeight += _instantKillWeightPerHit;

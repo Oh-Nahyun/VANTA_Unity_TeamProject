@@ -498,18 +498,6 @@ PrefabInstance:
       propertyPath: PlayerSkillManager
       value: 
       objectReference: {fileID: 434475371}
-    - target: {fileID: 9040926827823601448, guid: a57dfeb12bb26814f84f8ac45ef461df, type: 3}
-      propertyPath: _energyBulletRecoilDistance
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9040926827823601448, guid: a57dfeb12bb26814f84f8ac45ef461df, type: 3}
-      propertyPath: _energyBulletRecoilDuration
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 9040926827823601448, guid: a57dfeb12bb26814f84f8ac45ef461df, type: 3}
-      propertyPath: _energyBulletRecoverDuration
-      value: 0.25
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

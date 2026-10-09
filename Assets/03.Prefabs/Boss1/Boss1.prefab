@@ -65,6 +65,9 @@ MonoBehaviour:
   - {fileID: 7982885276898025428}
   - {fileID: 5595718493614784077}
   - {fileID: 6951695134325924738}
+  - {fileID: 1373314090291436016}
+  - {fileID: 2553560990060678841}
+  - {fileID: 5125477251239251925}
   _mirrorY: -0.2
   _reflectionColor: {r: 0.35686275, g: 0.35686275, b: 0.35686275, a: 0.5686275}
   _reflectionMaterial: {fileID: 0}
@@ -1169,13 +1172,14 @@ GameObject:
   m_Component:
   - component: {fileID: 7645485923007167397}
   - component: {fileID: 2553560990060678841}
+  - component: {fileID: 5091793487310198175}
   m_Layer: 21
   m_Name: HeadSplit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7645485923007167397
 Transform:
   m_ObjectHideFlags: 0
@@ -1250,6 +1254,22 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5091793487310198175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5525333082896014108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aca13d2f4dbee2e499c0067584e5d7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss1HeadIndicator
+  _fadeInDuration: 0.12
+  _fadeOutDuration: 0.08
+  _punchStrength: 0.08
+  _punchDuration: 0.15
 --- !u!1 &5818181297762096994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1656,13 +1676,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5695113168828296542}
   - component: {fileID: 5125477251239251925}
+  - component: {fileID: 4743308090701921441}
   m_Layer: 21
   m_Name: HeadLaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5695113168828296542
 Transform:
   m_ObjectHideFlags: 0
@@ -1737,6 +1758,22 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4743308090701921441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321635963911759211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aca13d2f4dbee2e499c0067584e5d7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss1HeadIndicator
+  _fadeInDuration: 0.12
+  _fadeOutDuration: 0.08
+  _punchStrength: 0.08
+  _punchDuration: 0.15
 --- !u!1 &6615962817086348589
 GameObject:
   m_ObjectHideFlags: 0
@@ -2155,13 +2192,14 @@ GameObject:
   m_Component:
   - component: {fileID: 8181918376263410163}
   - component: {fileID: 1373314090291436016}
+  - component: {fileID: 2985050148909984635}
   m_Layer: 21
   m_Name: HeadAimed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8181918376263410163
 Transform:
   m_ObjectHideFlags: 0
@@ -2170,13 +2208,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8131178700399946577}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.889, y: 1.304, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 9210076179707630864}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1373314090291436016
 SpriteRenderer:
   serializedVersion: 2
@@ -2228,7 +2266,7 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_Sprite: {fileID: -3539393764194442660, guid: 67cedb4159c354a4280932f2922ca7f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 9.59, y: 10.15}
@@ -2236,6 +2274,22 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2985050148909984635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8131178700399946577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aca13d2f4dbee2e499c0067584e5d7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss1HeadIndicator
+  _fadeInDuration: 0.12
+  _fadeOutDuration: 0.08
+  _punchStrength: 0.08
+  _punchDuration: 0.15
 --- !u!1 &8279119010861365979
 GameObject:
   m_ObjectHideFlags: 0
@@ -2541,6 +2595,7 @@ MonoBehaviour:
   _phase2Settings:
     _aimedFireInterval: 0.6
     _aimedFireCount: 10
+  _headIndicator: {fileID: 2985050148909984635}
 --- !u!114 &3901018116763532789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2561,6 +2616,7 @@ MonoBehaviour:
   _phase2Settings:
     _splitFireInterval: 0.6
     _splitFireCount: 10
+  _headIndicator: {fileID: 5091793487310198175}
 --- !u!114 &537864551881236395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2583,6 +2639,7 @@ MonoBehaviour:
     _aimDuration: 1
     _sweepAngle: 90
     _sweepDuration: 0.9
+  _headIndicator: {fileID: 4743308090701921441}
 --- !u!114 &9165167924702793645
 MonoBehaviour:
   m_ObjectHideFlags: 0

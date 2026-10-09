@@ -514,6 +514,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6119124529000901739, guid: a57dfeb12bb26814f84f8ac45ef461df, type: 3}
+      propertyPath: m_Size.x
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6119124529000901739, guid: a57dfeb12bb26814f84f8ac45ef461df, type: 3}
+      propertyPath: m_Size.y
+      value: 0.28
+      objectReference: {fileID: 0}
     - target: {fileID: 8146332938898543726, guid: a57dfeb12bb26814f84f8ac45ef461df, type: 3}
       propertyPath: PlayerSkillManager
       value: 
@@ -1515,6 +1523,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8856960780408004671, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _boss2
+      value: 
+      objectReference: {fileID: 370225943}
     - target: {fileID: 9165167924702793645, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: _playerTransform
       value: 

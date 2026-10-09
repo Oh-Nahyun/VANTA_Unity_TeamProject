@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Phase1ToPhase2Acting : MonoBehaviour
 {
@@ -9,6 +10,19 @@ public class Phase1ToPhase2Acting : MonoBehaviour
     private PlayerStatusManager _playerStatusManager;
     [Header("보스 최초등장할떄 소리 ")]
     [SerializeField] private AudioClip _boss2StageBgm;
+    
+    [Header("페이즈 변환 시작할때 이벤트 ")]
+    [SerializeField] private UnityEvent _phaseStartEvent;
+    [Header("불이 꺼지기 시작할때 시작할때 이벤트 ")]
+    [SerializeField] private UnityEvent _lightOffStartEvent;
+    
+    [Header("불이 켜지기 시작할때 시작할때 이벤트 ")]
+    [SerializeField] private UnityEvent _lightOnStartEvent;
+    
+    [Header("불이 다 켜지고 난후 보스에게 포커싱이 된후  이벤트 ")]
+    [SerializeField] private UnityEvent _bossFocusEvent;
+    [Header("보스 포커싱후 다시 플레이어에게 복귀할대  이벤트 ")]
+    [SerializeField] private UnityEvent _returnPlayerEvent;
     private void Awake()
     {
         _playerStatusManager = GetComponent<PlayerStatusManager>();
@@ -16,14 +30,15 @@ public class Phase1ToPhase2Acting : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            StartPhaseChange();
-        }
+        
+        StartPhaseChange();
+        
     }
 
     public void StartPhaseChange()
     {
+        _phaseStartEvent.Invoke();
+        
         _playerStatusManager.PlayerControlOff();
         
         HitableObject hitableObject=FindAnyObjectByType<HitableObject>();
@@ -41,6 +56,7 @@ public class Phase1ToPhase2Acting : MonoBehaviour
     private void StartOffLight()
     {
         CameraFocusingController.Instance.ShowOrigin(); 
+        _lightOffStartEvent.Invoke();
         DOVirtual.DelayedCall(
             1,
             () =>
@@ -60,6 +76,8 @@ public class Phase1ToPhase2Acting : MonoBehaviour
             3,
             () =>
             {
+                _lightOnStartEvent.Invoke();
+                
                 int targetLightCount =
                     Mathf.Min(
                         _lightOff.Fires.Count,
@@ -112,6 +130,7 @@ public class Phase1ToPhase2Acting : MonoBehaviour
         HitableObject hitableObject=FindAnyObjectByType<HitableObject>();
         CameraFocusingController.Instance.SlowFocus(hitableObject.transform,1f,1f);
         //휘두르는 연출시작
+        _bossFocusEvent.Invoke();
         DOVirtual.DelayedCall(
             3f,
             () =>
@@ -123,6 +142,7 @@ public class Phase1ToPhase2Acting : MonoBehaviour
 
     private void StartPhase2Game()
     {
+        _returnPlayerEvent.Invoke();
         _playerStatusManager.ApplyFinalSetting();
             CameraFocusingController.Instance.SlowFocus(transform,0f,1f);
             SoundManager.Instance.PlayBGM(_boss2StageBgm);

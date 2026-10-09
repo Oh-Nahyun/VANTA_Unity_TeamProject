@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 
@@ -28,6 +29,9 @@ public class PlayerStatusManager : MonoBehaviour
     [SerializeField] private float _zoomDuration = 1f;
     [Header("보스 최초등장할떄 소리 ")]
     [SerializeField] private AudioClip _boss1StageBgm;
+    
+  
+
     private Sequence _originSequence;
     private Animator _animator;
     private Tween _startActingLightTween;

@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
 
     [Header("사망 시 이벤트 바인딩")]
     [SerializeField] private UnityEvent _deathEvent;
+    [Header("플레이어 사망 후 가루 될때 이벤트 바인딩")]
+    [SerializeField] private UnityEvent _playerFadeOutEvent;
     private float _curTime;
 
     private bool _isHitCoolTime;
@@ -315,6 +317,8 @@ private void DeathEffect()
     {
         _damagedSlowSequence = null;
 
+        _playerFadeOutEvent.Invoke();
+        
         if (_animator != null)
         {
             _animator.updateMode = AnimatorUpdateMode.UnscaledTime;

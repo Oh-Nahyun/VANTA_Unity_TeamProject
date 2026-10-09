@@ -73,10 +73,7 @@ public class Boss1IntroController : MonoBehaviour
         
         _visualPivotOriginPosition = _visualPivot.localPosition;
         
-        _roarWaveMaterial.SetFloat("_WaveStrength", 0f);
-        _roarWaveMaterial.SetFloat("_WaveStrength2", 0f);
-        _roarWaveMaterial.SetFloat("_WaveProgress", 0f);
-        _roarWaveMaterial.SetFloat("_WaveProgress2", 0f);
+        ResetRoarWave();
     }
 
     /// <summary>
@@ -210,10 +207,7 @@ public class Boss1IntroController : MonoBehaviour
 
         sequence.OnComplete(() =>
         {
-            _roarWaveMaterial.SetFloat("_WaveProgress", 0f);
-            _roarWaveMaterial.SetFloat("_WaveProgress2", 0f);
-            _roarWaveMaterial.SetFloat("_WaveStrength", 0f);
-            _roarWaveMaterial.SetFloat("_WaveStrength2", 0f);
+            ResetRoarWave();
 
             _waveTween = null;
         });
@@ -250,12 +244,25 @@ public class Boss1IntroController : MonoBehaviour
         _waveTween?.Kill();
         _waveTween = null;
 
+        ResetRoarWave();
+        
+        _animator.Play("IntroClawEnd", 0, 0f);
+    }
+    
+    private void OnDisable()
+    {
+        // 플레이 종료 시 머티리얼 파일을 원래 값(0)으로 되돌림
+        _waveTween?.Kill();
+        _waveTween = null;
+        ResetRoarWave();
+    }
+    
+    private void ResetRoarWave()
+    {
         _roarWaveMaterial.SetFloat("_WaveProgress", 0f);
         _roarWaveMaterial.SetFloat("_WaveProgress2", 0f);
         _roarWaveMaterial.SetFloat("_WaveStrength", 0f);
         _roarWaveMaterial.SetFloat("_WaveStrength2", 0f);
-        
-        _animator.Play("IntroClawEnd", 0, 0f);
     }
     
     public void EndIntroClawEnd()

@@ -31,7 +31,6 @@ public class Phase1ToPhase2Acting : MonoBehaviour
     private void Update()
     {
         
-        StartPhaseChange();
         
     }
 

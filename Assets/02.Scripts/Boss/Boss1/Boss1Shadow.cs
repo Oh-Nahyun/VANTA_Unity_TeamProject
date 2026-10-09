@@ -28,7 +28,7 @@ public class Boss1Shadow : MonoBehaviour
             mirror.sharedMaterial = _reflectionMaterial != null ? _reflectionMaterial : source.sharedMaterial;
 
             mirror.sortingLayerID = source.sortingLayerID;
-            mirror.sortingOrder = source.sortingOrder;
+            mirror.sortingOrder = -source.sortingOrder;
 
             _mirrors[i] = mirror;
         }

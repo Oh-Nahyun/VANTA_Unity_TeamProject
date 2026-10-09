@@ -41,8 +41,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 165918326169270022}
   m_Enabled: 1
-  m_SortingLayerID: -352868145
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
@@ -69,8 +69,8 @@ MonoBehaviour:
   - {fileID: 2553560990060678841}
   - {fileID: 5125477251239251925}
   _mirrorY: -0.2
-  _reflectionColor: {r: 0.35686275, g: 0.35686275, b: 0.35686275, a: 0.5686275}
-  _reflectionMaterial: {fileID: 0}
+  _reflectionColor: {r: 0.35686275, g: 0.35686275, b: 0.35686275, a: 0.56078434}
+  _reflectionMaterial: {fileID: 2100000, guid: 8afef942e50c3474ca6685ac0671f27d, type: 2}
 --- !u!1 &860853907162976592
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,7 +2277,7 @@ SpriteRenderer:
   m_SortingLayer: 6
   m_SortingOrder: 30
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -3539393764194442660, guid: 67cedb4159c354a4280932f2922ca7f4, type: 3}
+  m_Sprite: {fileID: -3539393764194442660, guid: 71947ecf1d5cb6944ae4bef71172a2c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -3027,6 +3027,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9194194233165060837}
     m_Modifications:
+    - target: {fileID: 1596470549595824940, guid: 4e61c1991f3e3d64598f02cef64df9ee, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1596470549595824940, guid: 4e61c1991f3e3d64598f02cef64df9ee, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1596470549595824940, guid: 4e61c1991f3e3d64598f02cef64df9ee, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 1596470549595824940, guid: 4e61c1991f3e3d64598f02cef64df9ee, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

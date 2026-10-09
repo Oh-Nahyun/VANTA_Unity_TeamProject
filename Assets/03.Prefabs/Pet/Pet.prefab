@@ -235,8 +235,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PetAttack
   _watchTargetDuration: 3
-  _energyBulletRecoilDistance: 0.12
-  _energyBulletRecoilDuration: 0.08
+  _energyBulletRecoilDistance: 0.3
+  _energyBulletRecoilDuration: 0.15
+  _energyBulletRecoverDuration: 0.25
   _energyBulletCount: 3
   _energyBulletSpawnTransform: {fileID: 2901195168323718997}
   _energyBulletPrefab: {fileID: 6523856158434468449, guid: 4832a329c9cbe5847a6601b82ebffe8a, type: 3}

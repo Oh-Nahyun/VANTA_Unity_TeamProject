@@ -7,10 +7,13 @@ public class PetAttack : MonoBehaviour
     [SerializeField] private float _watchTargetDuration = 3f;
 
     [Header("펫 에너지 탄 발사 반동 거리")]
-    [SerializeField] private float _energyBulletRecoilDistance = 0.12f;
+    [SerializeField] private float _energyBulletRecoilDistance = 0.2f;
 
     [Header("펫 에너지 탄 발사 반동 시간")]
-    [SerializeField] private float _energyBulletRecoilDuration = 0.08f;
+    [SerializeField] private float _energyBulletRecoilDuration = 0.1f;
+
+    [Header("펫 에너지 탄 발사 반동 복귀 시간")]
+    [SerializeField] private float _energyBulletRecoverDuration = 0.13f;
 
     [Header("펫 기본 공격 에너지 탄 생성 갯수")]
     [SerializeField] private int _energyBulletCount = 1;
@@ -188,6 +191,7 @@ public class PetAttack : MonoBehaviour
 
     private IEnumerator PetRecoilAfterFireEnergyBullet()
     {
+        float timer = 0f;
         float directionX = _attackTarget.transform.position.x - transform.position.x;
         Vector3 startPosition = transform.position;
         Vector3 endPosition = startPosition;
@@ -195,8 +199,6 @@ public class PetAttack : MonoBehaviour
         endPosition.x += (directionX < 0f) ? _energyBulletRecoilDistance : -_energyBulletRecoilDistance;
 
         yield return new WaitForSeconds(0.6f);
-
-        float timer = 0f;
 
         while (timer < _energyBulletRecoilDuration)
         {
@@ -211,6 +213,23 @@ public class PetAttack : MonoBehaviour
         }
 
         transform.position = endPosition;
+        _pet.Animator.SetBool("IsRun", true);
+        timer = 0f;
+
+        while (timer < _energyBulletRecoverDuration)
+        {
+            timer += Time.deltaTime;
+
+            float progress = Mathf.Clamp01(timer / _energyBulletRecoverDuration);
+            float easedProgress = progress * progress * (3f - 2f * progress);
+
+            transform.position = Vector3.Lerp(endPosition, startPosition, easedProgress);
+
+            yield return null;
+        }
+
+        transform.position = startPosition;
         _energyBulletGameFeelEndCoroutine = null;
+        _pet.Animator.SetBool("IsRun", false);
     }
 }

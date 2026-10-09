@@ -21,7 +21,7 @@ public class GameStartActing : MonoBehaviour
     [Header("보스 낙하해 등장했을때 이름 뜨기 ")][SerializeField]private UnityEvent _boss1DropName;
 
     [Header("플레이어 전투가 가능해질때 호출될 이벤트")]
-    [SerializeField] private UnityEvent _PlayerBattleStartEvent;
+    [SerializeField] private UnityEvent _playerBattleStartEvent;
     
     private void Awake()
     {

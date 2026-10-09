@@ -217,7 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Pet
   _player: {fileID: 0}
   _moveSpeed: 2.5
-  _footStepDustParticle: {fileID: 6251781367847903886}
+  _footStepDustVFX: {fileID: 6251781367847903886}
   _footStepDustOffsetX: -0.18
   _footStepDustOffsetY: 0
   _footStepDustCount: 3

@@ -9,6 +9,9 @@ public class CrystalPrison : MonoBehaviour
     [Header("펫 크리스탈 프리즌 공격력")]
     [SerializeField] private float _damage = 20f;
 
+    [Header("펫 크리스탈 프리즌 파괴 준비 이펙트 재생 시간")]
+    [SerializeField] private float _breakReadyDuration = 0.4f;
+
     /// <summary>
     /// 펫 공격 타겟
     /// </summary>
@@ -30,6 +33,11 @@ public class CrystalPrison : MonoBehaviour
     private Animator _animatorGround;
 
     /// <summary>
+    /// 펫 크리스탈 프리즌 이펙트 클래스
+    /// </summary>
+    private CrystalPrisonVFX _crystalPrisonVFX;
+
+    /// <summary>
     /// 펫 크리스탈 프리즌 사용 시 대기 시간 계산용 변수
     /// </summary>
     private float _timer;
@@ -44,11 +52,27 @@ public class CrystalPrison : MonoBehaviour
     /// </summary>
     private float _timeBeforeDestroy;
 
+    /// <summary>
+    /// 펫 크리스탈 프리즌 파괴 준비 이펙트 시작 여부 확인용 변수
+    /// </summary>
+    private bool _isBreakReadyStarted;
+
+    /// <summary>
+    /// 펫 크리스탈 프리즌 종료 코루틴 시작 여부 확인용 변수
+    /// </summary>
+    private bool _isSkillProcessStart;
+
+    /// <summary>
+    /// 펫 크리스탈 프리즌 종료 여부 확인용 변수
+    /// </summary>
+    private bool _isSkillEnd;
+
     private void Awake()
     {
         _animatorFront = GetComponentsInChildren<Animator>()[0];
         _animatorBack = GetComponentsInChildren<Animator>()[1];
         _animatorGround = GetComponentsInChildren<Animator>()[2];
+        _crystalPrisonVFX = GetComponentInChildren<CrystalPrisonVFX>();
     }
 
     private void Start()
@@ -63,7 +87,13 @@ public class CrystalPrison : MonoBehaviour
         if (AttackTarget == null) return;
 
         _timer += Time.deltaTime;
-        if (_timer >= _timeBeforeUseSkill)
+
+        if (!_isBreakReadyStarted && _timer >= _timeBeforeUseSkill + _skillDuration - _breakReadyDuration)
+        {
+            PlayBreakReadyVFX();
+        }
+
+        if (_timer >= _timeBeforeUseSkill && !_isSkillEnd)
         {
             IBossMovable moveTarget = AttackTarget.GetComponent<IBossMovable>();
             StartSkillProcess(moveTarget);
@@ -73,6 +103,10 @@ public class CrystalPrison : MonoBehaviour
     private void StartSkillProcess(IBossMovable moveTarget)
     {
         moveTarget.MoveBlock();
+
+        if (_isSkillProcessStart) return;
+
+        _isSkillProcessStart = true;
         StartCoroutine(EndSkillProcessCoroutine(moveTarget));
     }
 
@@ -80,8 +114,13 @@ public class CrystalPrison : MonoBehaviour
     {
         yield return new WaitForSeconds(_skillDuration);
 
-        moveTarget.MoveUnblock();
-        Hit();
+        _isSkillEnd = true;
+
+        if (AttackTarget != null)
+        {
+            moveTarget.MoveUnblock();
+            Hit();
+        }
 
         PlayEndAnimation();
         Destroy(gameObject, _timeBeforeDestroy);
@@ -90,7 +129,19 @@ public class CrystalPrison : MonoBehaviour
     private void Hit()
     {
         HitableObject hitTarget = AttackTarget.GetComponent<HitableObject>();
+        if (hitTarget == null) return;
+
         hitTarget.ExecuteHitEvent(_damage, DamageIndicatorType.Normal);
+    }
+
+    private void PlayBreakReadyVFX()
+    {
+        _isBreakReadyStarted = true;
+
+        if (_crystalPrisonVFX != null)
+        {
+            _crystalPrisonVFX.PlayCrystalPrisonBreakReadyVFX();
+        }
     }
 
     private void PlayEndAnimation()
@@ -98,5 +149,13 @@ public class CrystalPrison : MonoBehaviour
         _animatorFront.SetTrigger("IsEnd");
         _animatorBack.SetTrigger("IsEnd");
         _animatorGround.SetTrigger("IsEnd");
+
+        if (_crystalPrisonVFX != null)
+        {
+            _crystalPrisonVFX.StopCrystalPrisonCreateVFX();
+            _crystalPrisonVFX.StopCrystalPrisonHoldVFX();
+            _crystalPrisonVFX.StopCrystalPrisonBreakReadyVFX();
+            _crystalPrisonVFX.PlayCrystalPrisonBreakVFX();
+        }
     }
 }

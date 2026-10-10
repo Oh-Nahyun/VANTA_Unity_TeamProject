@@ -6,13 +6,13 @@ public class PetAttack : MonoBehaviour
     [Header("펫 기본 공격 연출 시 타겟을 바라보는 시간")]
     [SerializeField] private float _watchTargetDuration = 3f;
 
-    [Header("펫 에너지 탄 발사 반동 거리")]
+    [Header("펫 기본 공격 에너지 탄 발사 반동 거리")]
     [SerializeField] private float _energyBulletRecoilDistance = 0.2f;
 
-    [Header("펫 에너지 탄 발사 반동 시간")]
+    [Header("펫 기본 공격 에너지 탄 발사 반동 시간")]
     [SerializeField] private float _energyBulletRecoilDuration = 0.1f;
 
-    [Header("펫 에너지 탄 발사 반동 복귀 시간")]
+    [Header("펫 기본 공격 에너지 탄 발사 반동 복귀 시간")]
     [SerializeField] private float _energyBulletRecoverDuration = 0.13f;
 
     [Header("펫 기본 공격 에너지 탄 생성 갯수")]
@@ -30,7 +30,10 @@ public class PetAttack : MonoBehaviour
     [Header("펫 공격 스킬 크리스탈 프리즌 프리팹")]
     [SerializeField] private GameObject _crystalPrisonPrefab;
 
-    [Header("펫 공격 스킬 크리스탈 생츄어리 프리팹")]
+    [Header("펫 공격 스킬 크리스탈 프리즌 발동 연출이 끝난 뒤 추적 전 정지 시간")]
+    [SerializeField] private float _crystalPrisonMoveStopTime = 1.5f;
+
+    [Header("펫 유틸 스킬 크리스탈 생츄어리 프리팹")]
     [SerializeField] private GameObject _crystalSanctuaryPrefab;
 
     [Header("펫 기본 공격 및 스킬 발동 시 나타날 말풍선")]
@@ -61,14 +64,31 @@ public class PetAttack : MonoBehaviour
     /// </summary>
     private Coroutine _energyBulletGameFeelEndCoroutine;
 
+    /// <summary>
+    /// 펫 공격 스킬 크리스탈 프리즌 발동 이펙트 클래스
+    /// </summary>
+    private CrystalPrisonCastVFX _crystalPrisonCastVFX;
+
+    /// <summary>
+    /// 펫 공격 스킬 크리스탈 프리즌 발동하는 중인지 확인용 변수
+    /// </summary>
+    private bool _isCastingCrystalPrison;
+
+    /// <summary>
+    /// 펫 공격 스킬 크리스탈 프리즌 발동 중 이동 정지 코루틴
+    /// </summary>
+    private Coroutine _crystalPrisonMoveStopCoroutine;
+
     private void Awake()
     {
         _pet = GetComponent<Pet>();
+        _crystalPrisonCastVFX = GetComponentInChildren<CrystalPrisonCastVFX>();
     }
 
     private void Start()
     {
         _energyBulletSpawnPosition = _energyBulletSpawnTransform.localPosition;
+
         _attackTarget = GameObject.FindGameObjectWithTag("Boss");
 
         if (_attackTarget == null) return;
@@ -118,9 +138,46 @@ public class PetAttack : MonoBehaviour
         _speechBubbles.ChangeSpriteToCrystalPrison();
         _pet.Animator.SetTrigger("IsUseCrystalPrison");
 
-        GameObject prison = Instantiate(_crystalPrisonPrefab, _attackTarget.transform.position, transform.rotation);
+        StartCrystalPrisonMoveStop();
+        _crystalPrisonCastVFX.PlayCast(_attackTarget, SpawnCrystalPrison);
+    }
+
+    private void StartCrystalPrisonMoveStop()
+    {
+        if (_crystalPrisonMoveStopCoroutine != null)
+        {
+            StopCoroutine(_crystalPrisonMoveStopCoroutine);
+        }
+
+        _crystalPrisonMoveStopCoroutine = StartCoroutine(MoveStopDuringCrystalPrison());
+    }
+
+    private IEnumerator MoveStopDuringCrystalPrison()
+    {
+        float duration = _crystalPrisonCastVFX.CastDuration + _crystalPrisonMoveStopTime;
+
+        _isCastingCrystalPrison = true;
+        _pet.PetMove.CanMove = false;
+        _pet.Animator.SetBool("IsRun", false);
+
+        yield return new WaitForSeconds(duration);
+
+        _isCastingCrystalPrison = false;
+        _crystalPrisonMoveStopCoroutine = null;
+
+        if (_energyBulletGameFeelStartCoroutine == null)
+        {
+            _pet.PetMove.CanMove = true;
+        }
+    }
+
+    private void SpawnCrystalPrison(GameObject target)
+    {
+        if (target == null) return;
+
+        GameObject prison = Instantiate(_crystalPrisonPrefab, target.transform.position, transform.rotation);
         CrystalPrison crystalPrison = prison.GetComponent<CrystalPrison>();
-        crystalPrison.AttackTarget = _attackTarget;
+        crystalPrison.AttackTarget = target;
     }
 
     public void UseCrystalSanctuary()
@@ -192,7 +249,11 @@ public class PetAttack : MonoBehaviour
 
         yield return new WaitForSeconds(_watchTargetDuration);
 
-        _pet.PetMove.CanMove = true;
+        if (!_isCastingCrystalPrison)
+        {
+            _pet.PetMove.CanMove = true;
+        }
+
         _energyBulletGameFeelStartCoroutine = null;
     }
 

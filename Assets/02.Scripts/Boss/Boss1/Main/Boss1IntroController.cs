@@ -1,6 +1,4 @@
 using System.Collections;
-using DG.Tweening;
-using Unity.Cinemachine;
 using UnityEngine;
 
 /// <summary>
@@ -30,31 +28,7 @@ public class Boss1IntroController : MonoBehaviour
     
     [Header("포효 연출 시간")]
     [SerializeField] private float _roarDuration = 2f;
-
-    [SerializeField] private Transform _visualPivot;
-    [SerializeField] private float _roarShakeDuration = 1f;
-    [SerializeField] private float _roarShakeStrength = 0.1f;
-    [SerializeField] private int _roarShakeVibrato = 30;
     
-    [Header("포효 파동")]
-    [SerializeField] private Material _roarWaveMaterial;
-    [SerializeField] private float _waveDuration = 0.8f;
-    [SerializeField] private float _waveStrength = 0.03f;
-    [SerializeField] private float _waveStrength2 = 0.02f;
-    
-    [Header("포효 파동 반복")]
-    [SerializeField] private int _waveCount = 3;
-    [SerializeField] private float _waveInterval = 0.15f;
-    
-    [Header("포효 파동 겹침")]
-    [SerializeField] private float _waveOverlapDelay = 0.2f;
-    
-    [Header("포효 카메라 쉐이크")]
-    [SerializeField] private CinemachineImpulseSource _roarImpulseSource;
-
-    private Tween _waveTween;
-    
-    private Tween _roarShakeTween;
     private Vector3 _visualPivotOriginPosition;
     
     [SerializeField] private SpriteRenderer[] _bossSpriteRenderers;
@@ -62,6 +36,7 @@ public class Boss1IntroController : MonoBehaviour
     [SerializeField] private Animator _animator;
 
     private Boss1AttackController _boss1AttackController;
+    private Boss1RoarEffect _roarEffect;
     
     private GameObject _warningZone;
     private Boss1WarningZoneVFX _warningZoneVFX;
@@ -70,10 +45,7 @@ public class Boss1IntroController : MonoBehaviour
     {
         SetBossVisible(false);
         _boss1AttackController = GetComponent <Boss1AttackController>();
-        
-        _visualPivotOriginPosition = _visualPivot.localPosition;
-        
-        ResetRoarWave();
+        _roarEffect = GetComponent<Boss1RoarEffect>();
     }
 
     /// <summary>
@@ -155,83 +127,10 @@ public class Boss1IntroController : MonoBehaviour
     {
         StartCoroutine(RoarRoutine());
     }
-    
-    private void StartRoarWave()
-    {
-        _waveTween?.Kill();
-
-        _roarWaveMaterial.SetFloat("_WaveProgress", 0f);
-        _roarWaveMaterial.SetFloat("_WaveProgress2", 0f);
-        _roarWaveMaterial.SetFloat("_WaveStrength", _waveStrength);
-        _roarWaveMaterial.SetFloat("_WaveStrength2", _waveStrength2);
-
-        Sequence sequence = DOTween.Sequence();
-        
-        float cycleDuration = _waveDuration + _waveOverlapDelay + _waveInterval;
-
-        for (int i = 0; i < _waveCount; i++)
-        {
-            float startTime = i * cycleDuration;
-            
-            sequence.Insert(
-                startTime,
-                DOVirtual.Float(
-                    0f,
-                    1f,
-                    _waveDuration,
-                    value =>
-                    {
-                        _roarWaveMaterial.SetFloat(
-                            "_WaveProgress",
-                            value
-                        );
-                    })
-            );
-
-            // 첫 번째 파동보다 조금 늦게 두 번째 파동 시작
-            sequence.Insert(
-                startTime + _waveOverlapDelay,
-                DOVirtual.Float(
-                    0f,
-                    1f,
-                    _waveDuration,
-                    value =>
-                    {
-                        _roarWaveMaterial.SetFloat(
-                            "_WaveProgress2",
-                            value
-                        );
-                    })
-            );
-        }
-
-        sequence.OnComplete(() =>
-        {
-            ResetRoarWave();
-
-            _waveTween = null;
-        });
-
-        _waveTween = sequence;
-    }
 
     private IEnumerator RoarRoutine()
     {
-        _roarImpulseSource.GenerateImpulse();
-        
-        _roarShakeTween?.Kill();
-
-        _visualPivot.localPosition = _visualPivotOriginPosition;
-
-        _roarShakeTween = _visualPivot.DOShakePosition(_roarShakeDuration, _roarShakeStrength, _roarShakeVibrato, 
-                90f, false, false)
-            .OnComplete(() =>
-            {
-                _visualPivot.localPosition = _visualPivotOriginPosition;
-                _roarShakeTween = null;
-            });
-        
-        StartRoarWave();
+        _roarEffect.Play();
 
         // 전체 포효 연출 유지
         yield return new WaitForSeconds(_roarDuration);
@@ -241,28 +140,9 @@ public class Boss1IntroController : MonoBehaviour
     
     public void EndRoar()
     {
-        _waveTween?.Kill();
-        _waveTween = null;
-
-        ResetRoarWave();
+        _roarEffect.Stop();
         
         _animator.Play("IntroClawEnd", 0, 0f);
-    }
-    
-    private void OnDisable()
-    {
-        // 플레이 종료 시 머티리얼 파일을 원래 값(0)으로 되돌림
-        _waveTween?.Kill();
-        _waveTween = null;
-        ResetRoarWave();
-    }
-    
-    private void ResetRoarWave()
-    {
-        _roarWaveMaterial.SetFloat("_WaveProgress", 0f);
-        _roarWaveMaterial.SetFloat("_WaveProgress2", 0f);
-        _roarWaveMaterial.SetFloat("_WaveStrength", 0f);
-        _roarWaveMaterial.SetFloat("_WaveStrength2", 0f);
     }
     
     public void EndIntroClawEnd()

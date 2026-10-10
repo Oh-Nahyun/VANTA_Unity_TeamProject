@@ -601,6 +601,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss2IntroCinematic
       objectReference: {fileID: 0}
+    - target: {fileID: 554630969759713515, guid: a3ab9d8a69246d041a100a4c2bd361cd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1637018791108730087, guid: a3ab9d8a69246d041a100a4c2bd361cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

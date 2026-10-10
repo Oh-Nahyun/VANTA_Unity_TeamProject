@@ -95,7 +95,7 @@ public class PetAttack : MonoBehaviour
 
         _energyBulletCount = _pet.PlayerSkillManager.GetSkillStack;
         float middleIndex = (_energyBulletCount - 1) * 0.5f;
-        _pet.Animator.SetTrigger("IsFire");
+        _pet.Animator.SetTrigger("IsFireEnergyBullet");
 
         for (int i = 0; i < _energyBulletCount; i++)
         {
@@ -116,6 +116,7 @@ public class PetAttack : MonoBehaviour
         if (_attackTarget == null) return;
 
         _speechBubbles.ChangeSpriteToCrystalPrison();
+        _pet.Animator.SetTrigger("IsUseCrystalPrison");
 
         GameObject prison = Instantiate(_crystalPrisonPrefab, _attackTarget.transform.position, transform.rotation);
         CrystalPrison crystalPrison = prison.GetComponent<CrystalPrison>();
@@ -125,6 +126,7 @@ public class PetAttack : MonoBehaviour
     public void UseCrystalSanctuary()
     {
         _speechBubbles.ChangeSpriteToCrystalSanctuary();
+        _pet.Animator.SetTrigger("IsUseCrystalSanctuary");
 
         for (int i = 0; i < 3; i++)
         {

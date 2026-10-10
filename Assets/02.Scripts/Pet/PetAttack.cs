@@ -91,8 +91,6 @@ public class PetAttack : MonoBehaviour
 
     public void FireEnergyBullet()
     {
-        if (_attackTarget == null) return;
-
         StartEnergyBulletGameFeel();
 
         _energyBulletCount = _pet.PlayerSkillManager.GetSkillStack;

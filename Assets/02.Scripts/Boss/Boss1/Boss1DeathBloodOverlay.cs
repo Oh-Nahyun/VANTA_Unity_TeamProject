@@ -1,16 +1,34 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Boss1DeathBloodOverlay : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private Image _image;
+    [SerializeField] private Sprite[] _frames;
+    [SerializeField] private float _frameRate = 20f;
+
+    private void Awake()
     {
-        
+        _image.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Play()
     {
-        
+        StartCoroutine(PlayRoutine());
+    }
+
+    private IEnumerator PlayRoutine()
+    {
+        _image.enabled = true;
+
+        float frameTime = 1f / _frameRate;
+        foreach (Sprite frame in _frames)
+        {
+            _image.sprite = frame;
+            yield return new WaitForSeconds(frameTime);
+        }
+
+        Destroy(gameObject);
     }
 }

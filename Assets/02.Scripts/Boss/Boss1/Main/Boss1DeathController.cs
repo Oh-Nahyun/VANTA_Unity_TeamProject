@@ -29,6 +29,8 @@ public class Boss1DeathController : MonoBehaviour
     
     [SerializeField] private Vector2 _center = new Vector2(0.42f, -0.74f);
     
+    [SerializeField] private Boss1DeathBloodOverlay _bloodOverlayPrefab;
+    
     [SerializeField] private float _startMoveSpeed= 1f;
     [SerializeField] private float _endMoveSpeed = 0.6f;
     [SerializeField] private float _slowDownDistance = 4f;
@@ -196,6 +198,11 @@ public class Boss1DeathController : MonoBehaviour
             GameObject gore = Instantiate(_explosionParticlePrefab, position, Quaternion.identity);
             gore.GetComponent<ParticleSystem>().Play();
             Destroy(gore, 3f);
+        }
+        
+        if (_bloodOverlayPrefab != null)
+        {
+            Instantiate(_bloodOverlayPrefab).Play();
         }
     }
 }

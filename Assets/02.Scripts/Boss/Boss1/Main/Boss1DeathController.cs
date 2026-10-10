@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
+using DG.Tweening;
+using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Boss1DeathController : MonoBehaviour
 {
@@ -10,9 +13,19 @@ public class Boss1DeathController : MonoBehaviour
     [Header("주저앉은 후 대기 시간")]
     [SerializeField] private float _collapseWaitDuration = 1.5f;
     
-    // 임시: 폭발 연출 시간, 지금은 debug log만
-    [Header("임시 폭발 연출 시간")]
-    [SerializeField] private float _explosionDuration = 2f;
+    [Header("폭발 연출")]
+    [SerializeField] private float _explosionDuration = 2f;      // 폭발 시작 ~ 보스2 인트로에 신호 보낼 때까지
+    [SerializeField] private float _explosionImpactTime = 0.1f;  // Death 애니에서 터지는 프레임
+
+    [SerializeField] private CinemachineImpulseSource _explosionImpulseSource;
+    [SerializeField] private float _explosionImpulseForce = 0.6f;
+
+    [SerializeField] private Light2D _explosionLight;
+    [SerializeField] private float _explosionLightIntensity = 4f;
+    [SerializeField] private float _explosionLightDuration = 0.6f;
+
+    [SerializeField] private GameObject _explosionParticlePrefab;
+    [SerializeField] private Vector2 _explosionOffset = new Vector2(0f, 1f);
     
     [SerializeField] private Vector2 _center = new Vector2(0.42f, -0.74f);
     
@@ -39,6 +52,11 @@ public class Boss1DeathController : MonoBehaviour
         _boss1AttackController = GetComponent<Boss1AttackController>();
         _boss1Movement = GetComponent<Boss1Movement>();
         _boss1ProjectileManager = GetComponent<Boss1ProjectileManager>();
+        
+        if (_explosionLight != null)
+        {
+            _explosionLight.intensity = 0f;
+        }
     }
 
     private void OnEnable()
@@ -129,6 +147,7 @@ public class Boss1DeathController : MonoBehaviour
         else
         {
             Debug.LogWarning("_boss2Intro가 연결이 안됨");
+            PlayDeathExplosion();
         }
     }
     
@@ -145,14 +164,38 @@ public class Boss1DeathController : MonoBehaviour
     
     private IEnumerator DeathExplosionRoutine()
     {
-        Debug.Log("폭발 요청 폭발 시작 일단 2초");
+        _animator.Play("Death", 0, 0f);
 
-        // 폭발 연출 넣기
-        yield return new WaitForSecondsRealtime(_explosionDuration);
+        yield return new WaitForSeconds(_explosionImpactTime);
+        PlayExplosionImpact();
 
-        Debug.Log("폭발 끝");
+        yield return new WaitForSeconds(_explosionDuration - _explosionImpactTime);
+
         OnExplosionFinished?.Invoke();
-
         Destroy(gameObject);
+    }
+    
+    private void PlayExplosionImpact()
+    {
+        if (_explosionImpulseSource != null)
+        {
+            _explosionImpulseSource.GenerateImpulseWithVelocity(Vector3.down * _explosionImpulseForce);
+        }
+
+        if (_explosionLight != null)
+        {
+            _explosionLight.intensity = _explosionLightIntensity;
+            DOTween.To(() => _explosionLight.intensity, x => _explosionLight.intensity = x, 0f, _explosionLightDuration)
+                .SetEase(Ease.OutQuad)
+                .SetLink(_explosionLight.gameObject);
+        }
+
+        if (_explosionParticlePrefab != null)
+        {
+            Vector3 position = transform.position + (Vector3)_explosionOffset;
+            GameObject gore = Instantiate(_explosionParticlePrefab, position, Quaternion.identity);
+            gore.GetComponent<ParticleSystem>().Play();
+            Destroy(gore, 3f);
+        }
     }
 }

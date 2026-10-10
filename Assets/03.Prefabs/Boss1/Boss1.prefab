@@ -3623,8 +3623,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss1DeathController
   _boss2Intro: {fileID: 0}
   _collapseWaitDuration: 1.5
-  _explosionDuration: 2
-  _explosionImpactTime: 0.1
+  _explosionDuration: 2.4
+  _explosionImpactTime: 0.14
   _explosionImpulseSource: {fileID: 7153416756728420391}
   _explosionImpulseForce: 0.6
   _explosionLight: {fileID: 1670929816347415044}
@@ -3633,6 +3633,7 @@ MonoBehaviour:
   _explosionParticlePrefab: {fileID: 5220071264055085988, guid: 11ddbba6224dc9f46b204a27499f130f, type: 3}
   _explosionOffset: {x: 0, y: 1}
   _center: {x: 0.42, y: -0.74}
+  _bloodOverlayPrefab: {fileID: 5750695858227172182, guid: f870b6aec0b63eb4891537d3a7160862, type: 3}
   _startMoveSpeed: 1
   _endMoveSpeed: 0.6
   _slowDownDistance: 4

@@ -705,7 +705,7 @@ public class Boss2Controller : MonoBehaviour
             new Boss2Action
             {
                 Name = "추격 강타", 
-                Move = Boss2MovePatternType.ChaseRun, 
+                Move = Boss2MovePatternType.DashLine, 
                 Attack = Boss2AttackPatternType.SmashAttack,
                 DistanceMin = 1.5f,
                 DistanceMax = 100f,

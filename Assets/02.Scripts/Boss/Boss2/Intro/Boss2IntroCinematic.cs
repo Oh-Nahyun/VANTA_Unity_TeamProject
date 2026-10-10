@@ -23,6 +23,14 @@ public class Boss2IntroCinematic : MonoBehaviour
     [Tooltip("가스가 나오고 보스2가 서게 될 기준. 비어 있거나 이미 사라졌으면 보스2 위치를 쓴다.")]
     [SerializeField] private Transform _boss1;
 
+    [Header("보스1 사망 연결")]
+    [Tooltip("보스1이 중앙에서 주저앉고 대기가 끝나면(Boss1DeathController.OnCollapseFinished) 바로 재생한다.")]
+    [SerializeField] private bool _playOnBoss1Collapse = true;
+    [Tooltip("onFinished 없이 재생될 때(보스1 사망 연결·테스트) 시네마틱 동안 플레이어 조작·피격을 막고 끝나면 되돌린다.")]
+    [SerializeField] private bool _lockPlayerDuringIntro = true;
+    [Tooltip("보스1은 붕괴 직후 바로 파괴되므로, 그 순간 모습을 복제한 대역을 폭발 전까지 세워 둔다.")]
+    [SerializeField] private bool _useBoss1StandIn = true;
+
     [Header("전투 시작")]
     [Tooltip("시네마틱이 끝나고 플레이어가 준비할 시간. 이 시간 동안 보스2는 idle 로 멈춰 있다가 FSM 을 시작한다.")]
     [SerializeField] private float _battleStartDelay = 1f;
@@ -126,11 +134,31 @@ public class Boss2IntroCinematic : MonoBehaviour
     private Coroutine _explosionRoutine;
     private Boss1DeathController _boss1Death;
 
+    // 보스1 사망(붕괴 끝) 이벤트를 구독한 대상
+    private Boss1DeathController _boss1DeathForIntro;
+    // 이번 재생에서 플레이어를 잠갔는지 (끝날 때 되돌릴지)
+    private bool _isPlayerLocked;
+    private GameObject _boss1StandIn;
+
     private void Awake()
     {
         _director = GetComponent<PlayableDirector>();
         _director.playOnAwake = false;
         _director.timeUpdateMode = DirectorUpdateMode.UnscaledGameTime;
+
+        // 프리팹을 씬에 놓고 연결을 빠뜨려도 동작하도록, 비어 있으면 씬에서 찾는다.
+        if (_boss2 == null)
+        {
+            _boss2 = FindAnyObjectByType<Boss2>(FindObjectsInactive.Include);
+        }
+        if (_boss1 == null)
+        {
+            Boss1DeathController boss1Death = FindAnyObjectByType<Boss1DeathController>(FindObjectsInactive.Include);
+            if (boss1Death != null)
+            {
+                _boss1 = boss1Death.transform;
+            }
+        }
 
         if (_boss2 != null)
         {
@@ -175,6 +203,34 @@ public class Boss2IntroCinematic : MonoBehaviour
         StopEffects(true);
     }
 
+    private void Start()
+    {
+        if (_playOnBoss1Collapse == false || _boss1 == null)
+            return;
+
+        // 보스1이 꺼진 채로 시작해도 컴포넌트 참조만 있으면 구독된다.
+        _boss1DeathForIntro = _boss1.GetComponent<Boss1DeathController>();
+        if (_boss1DeathForIntro != null)
+        {
+            _boss1DeathForIntro.OnCollapseFinished += OnBoss1CollapseFinished;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_boss1DeathForIntro != null)
+        {
+            _boss1DeathForIntro.OnCollapseFinished -= OnBoss1CollapseFinished;
+        }
+    }
+
+    // 보스1이 중앙으로 이동해 주저앉고 대기가 끝나면 호출된다 (Boss1DeathController.CollapseWaitRoutine).
+    // 바로 뒤에 보스2가 켜지고 보스1은 파괴되지만, 보스2는 이 시네마틱이 숨겨 두고 보스1은 대역이 대신 보인다.
+    private void OnBoss1CollapseFinished()
+    {
+        Play(null);
+    }
+
     /// <summary>인트로 재생. 끝나고 전투가 시작될 때 onFinished 를 부른다.</summary>
     public void Play(Action onFinished)
     {
@@ -184,6 +240,13 @@ public class Boss2IntroCinematic : MonoBehaviour
         IsPlaying = true;
         _onFinished = onFinished;
         _isWaitingExplosion = false;
+
+        // 부른 쪽이 끝 처리를 넘기지 않았으면(보스1 사망 연결·테스트) 플레이어 조작은 이 시네마틱이 맡는다.
+        if (onFinished == null && _lockPlayerDuringIntro)
+        {
+            LockPlayer();
+        }
+        CreateBoss1StandIn();
 
         _anchor = IsBoss1Present ? _boss1.position : (_boss2 != null ? _boss2.transform.position : transform.position);
         _anchor.z = 0f;
@@ -291,6 +354,9 @@ public class Boss2IntroCinematic : MonoBehaviour
         _isWaitingExplosion = true;
         SetDirectorSpeed(0);
 
+        // 폭발과 함께 보스1 대역을 치운다. (실제 보스1 폭발을 연결하면 보스1 자신이 그 역할을 한다)
+        DestroyBoss1StandIn();
+
         if (_explosionRoutine != null)
         {
             StopCoroutine(_explosionRoutine);
@@ -383,6 +449,8 @@ public class Boss2IntroCinematic : MonoBehaviour
         EndIntroCamera();
         RestoreGlobalLights();
         StopEffects(true);
+        DestroyBoss1StandIn();
+        UnlockPlayer();
 
         if (_boss2 != null)
         {
@@ -534,6 +602,83 @@ public class Boss2IntroCinematic : MonoBehaviour
         color.a = alpha;
         image.color = color;
         image.enabled = alpha > 0.001f;
+    }
+
+    // ---- 플레이어 잠금 ----
+    // 시네마틱 동안 플레이어가 움직이거나 맞지 않게 한다. (Phase1ToPhase2Acting 의 PlayerControlOff → ApplyFinalSetting 과 같은 방식)
+    private void LockPlayer()
+    {
+        PlayerStatusManager status = FindAnyObjectByType<PlayerStatusManager>();
+        if (status != null)
+        {
+            status.PlayerControlOff();
+        }
+        Player player = FindAnyObjectByType<Player>();
+        if (player != null)
+        {
+            player.OffPlayerHittable();
+        }
+        _isPlayerLocked = true;
+    }
+
+    private void UnlockPlayer()
+    {
+        if (_isPlayerLocked == false)
+            return;
+
+        _isPlayerLocked = false;
+        PlayerStatusManager status = FindAnyObjectByType<PlayerStatusManager>();
+        if (status != null)
+        {
+            status.ApplyFinalSetting();
+        }
+        Player player = FindAnyObjectByType<Player>();
+        if (player != null)
+        {
+            player.OnPlayerHittable();
+        }
+    }
+
+    // ---- 보스1 대역 ----
+    // 보스1은 OnCollapseFinished 직후 파괴되므로, 그 순간 보이는 모습을 그대로 복제해 폭발 전까지 세워 둔다.
+    private void CreateBoss1StandIn()
+    {
+        DestroyBoss1StandIn();
+        if (_useBoss1StandIn == false || IsBoss1Present == false)
+            return;
+
+        GameObject standIn = new GameObject("Boss1StandIn");
+        foreach (SpriteRenderer source in _boss1.GetComponentsInChildren<SpriteRenderer>())
+        {
+            if (source.enabled == false || source.forceRenderingOff || source.sprite == null)
+                continue;
+
+            GameObject part = new GameObject(source.name);
+            part.transform.SetParent(standIn.transform, false);
+            part.transform.SetPositionAndRotation(source.transform.position, source.transform.rotation);
+            part.transform.localScale = source.transform.lossyScale;
+
+            SpriteRenderer copy = part.AddComponent<SpriteRenderer>();
+            copy.sprite = source.sprite;
+            copy.flipX = source.flipX;
+            copy.flipY = source.flipY;
+            copy.color = source.color;
+            copy.sharedMaterial = source.sharedMaterial;
+            copy.drawMode = source.drawMode;
+            copy.size = source.size;
+            copy.sortingLayerID = source.sortingLayerID;
+            copy.sortingOrder = source.sortingOrder;
+        }
+        _boss1StandIn = standIn;
+    }
+
+    private void DestroyBoss1StandIn()
+    {
+        if (_boss1StandIn != null)
+        {
+            Destroy(_boss1StandIn);
+            _boss1StandIn = null;
+        }
     }
 
     // Timeline 을 다시 만들면 트랙 ID 가 바뀌어 프리팹·씬에 저장된 바인딩이 끊긴다.

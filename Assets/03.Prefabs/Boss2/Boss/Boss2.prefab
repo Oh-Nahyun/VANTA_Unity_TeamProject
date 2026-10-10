@@ -304,6 +304,8 @@ GameObject:
   - component: {fileID: 6845646447280917101}
   - component: {fileID: 2798039105125746960}
   - component: {fileID: 6616809157687622342}
+  - component: {fileID: 1309759788905142726}
+  - component: {fileID: 2793592831111597014}
   m_Layer: 21
   m_Name: Boss2
   m_TagString: Boss
@@ -463,6 +465,9 @@ MonoBehaviour:
   _bladeAuraAllSpeed: 7
   _bladeAuraAllStateName: BladeAuraSlashAll
   _spinningSlashEffect: {fileID: 5018011064343898608}
+  _telegraphTime: 0.3
+  _auraIndicatorLength: 9
+  _auraIndicatorWidth: 1
   _auraSlashSound: {fileID: 641561829333948831}
 --- !u!114 &4474688203573458451
 MonoBehaviour:
@@ -496,6 +501,9 @@ MonoBehaviour:
   _arriveTolerance: 0.15
   _blinkMinDistance: 2.5
   _backStepDistance: 3
+  _dashTelegraphTime: 0.35
+  _dashIndicatorWidth: 1.2
+  _dashIndicatorExtra: 0.8
 --- !u!114 &2645136463047186946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -688,7 +696,7 @@ MonoBehaviour:
     IsInvincible: 0
     GhostTrail: 0
   - Name: "\uB3CC\uC9C4 \uAC15\uD0C0"
-    Move: 1
+    Move: 6
     Attack: 2
     ComboMin: 1
     ComboMax: 1
@@ -897,6 +905,77 @@ MonoBehaviour:
   _poolSize: 20
   _ghostTrailMaterial: {fileID: 0}
   _minSourceAlpha: 0.05
+--- !u!114 &1309759788905142726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4133056159387206755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 333d58e505bb7634b80cd4c348e9d303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss2EndingCinematic
+  _standTime: 0.084
+  _crouchTime: 0.17
+  _vanishStartTime: 0.25
+  _clipLength: 1.5
+  _focusZoom: 1
+  _focusDuration: 1
+  _beamPrefab: {fileID: 8837825850747328638, guid: 3d65d895cdd80e54ba1827ce7e3b5c57, type: 3}
+  _beamWidth: 7.5
+  _beamTopHeight: 9
+  _beamDropDuration: 1.2
+  _beforeCrouch: 0.3
+  _crouchHold: 2
+  _standHold: 0.5
+  _eyeFlamePrefab: {fileID: 435662610297089255, guid: b8499bc3909e8ec44b3f33f6e7b376da, type: 3}
+  _eyeOffset: {x: 0.03, y: 0.33}
+  _eyeCoverSize: {x: 0.3, y: 0.18}
+  _eyeCoverColor: {r: 0.13725491, g: 0.16078432, b: 0.19215687, a: 1}
+  _eyeFlameDuration: 1.4
+  _eyeOutDuration: 0.5
+  _afterEyeOut: 0.5
+  _floatHeight: 3
+  _floatDuration: 2
+  _hoverDuration: 1.5
+  _hoverAmplitude: 0.06
+  _hoverPeriod: 1.2
+  _riseAuraPrefab: {fileID: 2745353582706987117, guid: 38e0511a1360cad4f8892ac66e1f0a24, type: 3}
+  _riseAuraScale: 0.35
+  _riseAuraRate: 0.5
+  _smokePrefab: {fileID: 2745353582706987117, guid: 38e0511a1360cad4f8892ac66e1f0a24, type: 3}
+  _smokeScale: 0.3
+  _smokeBurst: 0.8
+  _smokeEmitDuration: 0.7
+  _smokeSortingOffset: 5
+  _blackoutDuration: 0.6
+  _onEndingFinished:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2793592831111597014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4133056159387206755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b74cd1f008b5b734d994e76110dbdd84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss2IndicatorSpawner
+  _lineBorderSprite: {fileID: 21300000, guid: 004a7e50600faf74790c50a59b55ca33, type: 3}
+  _lineFillSprite: {fileID: 21300000, guid: 3909891b8eb3ac34a870355ee936f693, type: 3}
+  _lineFillWidthRatio: 0.8
+  _lineFillColor: {r: 1, g: 1, b: 1, a: 0.7}
+  _circleBorderSprite: {fileID: 21300000, guid: a74d9a0f71b6bdc4a97b79df5276010e, type: 3}
+  _circleFillSprite: {fileID: 21300000, guid: 6349150a381b29f469e4e9027dc4674c, type: 3}
+  _borderColor: {r: 1, g: 1, b: 1, a: 0.5}
+  _fillColor: {r: 0.46, g: 0, b: 0, a: 0.53}
+  _sortingLayer: Zone
+  _material: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
 --- !u!1 &4421348120962838745
 GameObject:
   m_ObjectHideFlags: 0

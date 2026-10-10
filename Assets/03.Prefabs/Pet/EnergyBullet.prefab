@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 9132052088073144476}
   - component: {fileID: 5982745827940762503}
   - component: {fileID: 8682676551837259304}
+  - component: {fileID: 7968656464005603110}
   - component: {fileID: 1260096435260396752}
   m_Layer: 20
   m_Name: EnergyBullet
@@ -342,6 +343,25 @@ MonoBehaviour:
   _energyBulletHitVFXLifetime: 1
   AttackTarget: {fileID: 0}
   BezierCurve: {fileID: 0}
+--- !u!114 &7968656464005603110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6523856158434468449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936c2623a07d478ba806c4438a5f734a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnergyBulletDissolve
+  _dissolveMoveDuration: 0.5
+  _dissolveMoveSpeed: 3
+  _dissolveScatterAngle: 70
+  _dissolveWobbleStrength: 1.5
+  _dissolveWobbleFrequencyRange: {x: 8, y: 16}
+  _energyBulletDissolveVFXPrefab: {fileID: 7766905200611316499, guid: 64517546509243afba3c7f3ed57a67c9, type: 3}
+  _energyBulletDissolveVFXLifetime: 1
 --- !u!114 &1260096435260396752
 MonoBehaviour:
   m_ObjectHideFlags: 0

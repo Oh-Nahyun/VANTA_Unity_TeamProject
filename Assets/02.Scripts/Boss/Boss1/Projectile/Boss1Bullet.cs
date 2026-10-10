@@ -110,6 +110,17 @@ public class Boss1Bullet : MonoBehaviour
         _animator.SetTrigger("Disappear");
     }
     
+    public void ForceDisappear()
+    {
+        if (_isDestroying)
+        {
+            return;
+        }
+
+        _isFlying = false;
+        StartDisappear();
+    }
+    
     public void DestroyBullet()
     {
         Destroy(gameObject);

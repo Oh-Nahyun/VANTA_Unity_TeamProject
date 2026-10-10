@@ -161,6 +161,16 @@ public class Boss1SplitBullet : MonoBehaviour
 
         _animator.SetTrigger("Disappear");
     }
+    
+    public void ForceDisappear()
+    {
+        if (_isDestroying)
+        {
+            return;
+        }
+
+        StartDisappear();
+    }
 
     public void DestroyBullet()
     {

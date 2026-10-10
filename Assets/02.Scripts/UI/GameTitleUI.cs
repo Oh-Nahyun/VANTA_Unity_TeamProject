@@ -22,15 +22,28 @@ public class GameTitleUI : MonoBehaviour
     [Header("타이틀 페이드 아웃 효과용 클래스")]
     [SerializeField] TitleFadeInOutEffect _titleFadeInOutEffect;
 
+    /// <summary>
+    /// 게임 재도전 시 타이틀 UI 건너뛰기를 위한 확인용 변수
+    /// </summary>
+    private bool _isSkipTitleEffect;
+
     private void Start()
     {
         _gameStartButton.onClick.AddListener(OnClickStartButton);
         _gameSettingsButton.onClick.AddListener(OnClickSettingsButton);
         _gameExitButton.onClick.AddListener(OnClickExitButton);
+
+        if (InGameSceneManager.IsRetry)
+        {
+            InGameSceneManager.IsRetry = false;
+            StartCoroutine(StartGameWithoutTitleCoroutine());
+        }
     }
 
     private void OnClickStartButton()
     {
+        if (_isSkipTitleEffect) return;
+
         StartCoroutine(DestroyTitleUICoroutine());
     }
 
@@ -42,6 +55,18 @@ public class GameTitleUI : MonoBehaviour
     private void OnClickExitButton()
     {
         StartCoroutine(ExitAfterFadeOutCoroutine());
+    }
+
+    private IEnumerator StartGameWithoutTitleCoroutine()
+    {
+        transform.GetChild(1).gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
+
+        yield return null;
+
+        _isSkipTitleEffect = true;
+        _gameStartButton.onClick.Invoke();
+        _isSkipTitleEffect = false;
     }
 
     private IEnumerator DestroyTitleUICoroutine()

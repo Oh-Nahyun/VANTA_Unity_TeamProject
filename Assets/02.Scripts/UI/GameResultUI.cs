@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameResultUI : MonoBehaviour
 {
@@ -25,8 +26,13 @@ public class GameResultUI : MonoBehaviour
         _gameOverUI.SetActive(true);
     }
 
-    public void ShowGameClearUI()
+    // public void ShowGameClearUI()
+    // {
+    //     _gameClearUI.SetActive(true);
+    // }
+
+    public void LoadGameEndingScene()
     {
-        _gameClearUI.SetActive(true);
+        SceneManager.LoadScene(1); // GameEndingScene
     }
 }

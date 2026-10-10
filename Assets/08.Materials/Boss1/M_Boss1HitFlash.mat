@@ -68,10 +68,12 @@ Material:
     m_Floats:
     - _EnableExternalAlpha: 0
     - _FlashAmount: 0
+    - _Phase2Amount: 0
     - _ZWrite: 0
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Phae2Color: {r: 0.22745098, g: 0.03137255, b: 0.03137255, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

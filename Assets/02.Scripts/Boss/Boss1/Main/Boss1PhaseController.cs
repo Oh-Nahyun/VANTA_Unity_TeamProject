@@ -15,6 +15,7 @@ public class Boss1PhaseController : MonoBehaviour
         
         [SerializeField] private Boss1Life _boss1Life;
         [SerializeField] private Animator _animator;
+        [SerializeField] private Boss1Shadow _boss1Shadow;
         private Boss1AttackController _boss1AttackController;
         private Boss1Movement _boss1Movement;
         private Boss1ProjectileManager _boss1ProjectileManager;
@@ -99,7 +100,14 @@ public class Boss1PhaseController : MonoBehaviour
 
             // 2.버프
             _animator.Play("Buff", 0, 0f);
-            DOVirtual.Float(0f, 1f, _buffDuration, value => _boss1HitFlash.SetPhase2Amount(value))
+            DOVirtual.Float(0f, 1f, _buffDuration, value =>
+                {
+                    _boss1HitFlash.SetPhase2Amount(value);
+                    if (_boss1Shadow != null)
+                    {
+                        _boss1Shadow.SetPhase2Amount(value);
+                    }
+                })
                 .SetEase(Ease.InQuad)
                 .SetLink(gameObject);
             yield return new WaitForSeconds(_buffDuration);

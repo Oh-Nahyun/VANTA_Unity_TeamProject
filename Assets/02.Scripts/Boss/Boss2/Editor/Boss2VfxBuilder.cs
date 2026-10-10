@@ -258,6 +258,151 @@ public static class Boss2VfxBuilder
         }
     }
 
+    // ---------------------------------------------------------------- EndingBeamVFX
+
+    private const string EndingBeamPath = EffectFolder + "/EndingBeamVFX.prefab";
+    // 엔딩 빛줄기: 루트가 빛의 윗끝이고 아래(-Y)로 뻗는다. 두께는 1 이며 Boss2EndingCinematic 이 X 스케일로 정한다.
+    private const float EndingBeamLength = 11f;
+    // 엔딩 내내 켜 두고, 끝나면 스크립트가 지운다.
+    private const float EndingBeamDuration = 30f;
+
+    [MenuItem("Tools/Boss2 VFX/Build EndingBeamVFX (보스2 엔딩 빛줄기)")]
+    public static void BuildEndingBeam()
+    {
+        Material beamMaterial = GetOrCreateAdditiveMaterial(BeamMaterialPath, GetOrCreateBeamTexture());
+        Material dustMaterial = GetOrCreateAdditiveMaterial(DustMaterialPath, LoadMaterial(SmokeMaterialPath).GetTexture("_BaseMap"));
+
+        GameObject root = new GameObject("EndingBeamVFX");
+        try
+        {
+            Vector3 beamCenter = new Vector3(0f, -EndingBeamLength * 0.5f, 0f);
+            SetupEndingBeamPart(GetOrCreateChild(root.transform, "Beam"), beamCenter, 1f, new Color(0.75f, 0.85f, 1f, 0.5f), beamMaterial, 0);
+            SetupEndingBeamPart(GetOrCreateChild(root.transform, "BeamCore"), beamCenter, 0.35f, new Color(0.92f, 0.96f, 1f, 0.65f), beamMaterial, 1);
+
+            GameObject dust = GetOrCreateChild(root.transform, "MoonDust");
+            SetupMoonDust(dust, beamCenter, dustMaterial);
+            ParticleSystem dustPs = dust.GetComponent<ParticleSystem>();
+            ParticleSystem.MainModule dustMain = dustPs.main;
+            dustMain.duration = EndingBeamDuration;
+            dustMain.loop = true;
+            dustMain.startDelay = 0.6f;
+            ParticleSystem.ShapeModule dustShape = dustPs.shape;
+            dustShape.scale = new Vector3(0.8f, EndingBeamLength * 0.9f, 0f);
+
+            SavePrefab(root, EndingBeamPath);
+        }
+        finally
+        {
+            Object.DestroyImmediate(root);
+        }
+    }
+
+    // ---------------------------------------------------------------- EyeFlameVFX
+
+    private const string EyeFlamePath = EffectFolder + "/EyeFlameVFX.prefab";
+    private const string FireMaterialPath = MaterialFolder + "/M_Boss2FireAdditive.mat";
+
+    /// <summary>
+    /// 보스2 엔딩에서 눈 위에 타오르는 작은 검은 불. 루프로 타오르고, Boss2EndingCinematic 이 멈추면 불이 꺼진다.
+    ///   - Flame : 위로 날름거리며 사라지는 검은 불꽃 (알파)
+    ///   - Glow  : 불꽃 가장자리의 보랏빛 (가산) — 어두운 몸 위에서도 불 모양이 읽히게
+    /// </summary>
+    [MenuItem("Tools/Boss2 VFX/Build EyeFlameVFX (보스2 엔딩 눈의 검은 불)")]
+    public static void BuildEyeFlame()
+    {
+        Material smoke = LoadMaterial(SmokeMaterialPath);
+        Material fire = LoadMaterial(FireMaterialPath);
+
+        GameObject root = new GameObject("EyeFlameVFX");
+        try
+        {
+            SetupEyeFlameLayer(GetOrCreateChild(root.transform, "Glow"), fire, new Color(0.6f, 0.2f, 0.95f, 1f), 0.16f, 0.3f, 40f, 1);
+            SetupEyeFlameLayer(GetOrCreateChild(root.transform, "Flame"), smoke, new Color(0.03f, 0.01f, 0.06f, 1f), 0.14f, 0.26f, 60f, 2);
+            SavePrefab(root, EyeFlamePath);
+        }
+        finally
+        {
+            Object.DestroyImmediate(root);
+        }
+    }
+
+    private static void SetupEyeFlameLayer(GameObject go, Material material, Color color, float sizeMin, float sizeMax, float rate, int sortingOrder)
+    {
+        go.transform.localPosition = Vector3.zero;
+        go.transform.localRotation = Quaternion.identity;
+
+        ParticleSystem ps = GetOrAdd<ParticleSystem>(go);
+        ParticleSystem.MainModule main = ps.main;
+        main.duration = 1f;
+        main.loop = true;
+        main.playOnAwake = false;
+        main.startLifetime = new ParticleSystem.MinMaxCurve(0.35f, 0.6f);
+        main.startSpeed = new ParticleSystem.MinMaxCurve(0.4f, 0.8f);
+        main.startSize = new ParticleSystem.MinMaxCurve(sizeMin, sizeMax);
+        main.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
+        main.startColor = color;
+        main.simulationSpace = ParticleSystemSimulationSpace.World;
+        main.scalingMode = ParticleSystemScalingMode.Hierarchy;
+        main.maxParticles = 80;
+
+        // 눈 너비만큼 가로로 퍼진 자리에서 위로 날름거린다.
+        ParticleSystem.ShapeModule shape = ps.shape;
+        shape.enabled = true;
+        shape.shapeType = ParticleSystemShapeType.Box;
+        shape.scale = new Vector3(0.28f, 0.06f, 0f);
+
+        ParticleSystem.EmissionModule emission = ps.emission;
+        emission.enabled = true;
+        emission.rateOverTime = rate;
+
+        ParticleSystem.VelocityOverLifetimeModule velocity = ps.velocityOverLifetime;
+        velocity.enabled = true;
+        velocity.space = ParticleSystemSimulationSpace.World;
+        velocity.x = new ParticleSystem.MinMaxCurve(-0.08f, 0.08f);
+        velocity.y = new ParticleSystem.MinMaxCurve(0.5f, 0.9f);
+        velocity.z = new ParticleSystem.MinMaxCurve(0f, 0f);
+
+        ParticleSystem.SizeOverLifetimeModule size = ps.sizeOverLifetime;
+        size.enabled = true;
+        size.size = new ParticleSystem.MinMaxCurve(1f, Curve(0f, 1f, 1f, 0.1f));
+
+        ParticleSystem.ColorOverLifetimeModule colorOverLifetime = ps.colorOverLifetime;
+        colorOverLifetime.enabled = true;
+        colorOverLifetime.color = AlphaGradient(Color.white, (0f, 0f), (0.15f, 1f), (0.6f, 0.8f), (1f, 0f));
+
+        ParticleSystem.NoiseModule noise = ps.noise;
+        noise.enabled = true;
+        noise.strength = 0.25f;
+        noise.frequency = 2.5f;
+        noise.scrollSpeed = 1.5f;
+
+        ParticleSystemRenderer renderer = go.GetComponent<ParticleSystemRenderer>();
+        renderer.sharedMaterial = material;
+        renderer.renderMode = ParticleSystemRenderMode.Billboard;
+        // 보스2 본체(Boss 레이어) 위에 그려지도록 한다. Boss2EndingCinematic 이 본체 순서에 맞춰 다시 정한다.
+        renderer.sortingLayerName = "Boss";
+        renderer.sortingOrder = sortingOrder;
+    }
+
+    // 달빛 빛줄기와 같은 입자를 쓰되, 엔딩 동안 계속 켜져 있도록 수명·길이·알파를 바꾼다.
+    private static void SetupEndingBeamPart(GameObject go, Vector3 localPosition, float width, Color tint, Material material, int sortingOrder)
+    {
+        SetupBeam(go, localPosition, width, tint, material, sortingOrder);
+
+        ParticleSystem ps = go.GetComponent<ParticleSystem>();
+        ParticleSystem.MainModule main = ps.main;
+        main.duration = EndingBeamDuration;
+        main.startLifetime = EndingBeamDuration;
+        main.startSizeY = EndingBeamLength;
+
+        // 빛줄기가 내려오는 모습은 스크립트가 스케일로 보여 주므로, 알파는 바로 켜고 끝까지 유지한다.
+        ParticleSystem.ColorOverLifetimeModule color = ps.colorOverLifetime;
+        color.color = AlphaGradient(Color.white, (0f, 0f), (0.01f, 1f), (1f, 1f));
+
+        ParticleSystemRenderer renderer = go.GetComponent<ParticleSystemRenderer>();
+        renderer.maxParticleSize = 20f;
+    }
+
     // 긴 빛줄기 입자 하나. 축(부모)을 따라 돌도록 로컬 공간·로컬 정렬로 그린다.
     private static void SetupBeam(GameObject go, Vector3 localPosition, float width, Color tint, Material material, int sortingOrder)
     {

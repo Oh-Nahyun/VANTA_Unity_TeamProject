@@ -75,6 +75,16 @@ public class Boss2AttackPattern : Boss2AttackBase
 
     [SerializeField]private GameObject _spinningSlashEffect;
 
+    [Header("공격 예고 (인디케이터)")]
+    [Tooltip("검기·제자리 회전참 전에 인디케이터를 띄우고 기다리는 시간. 0 이면 예고 없이 바로 공격")]
+    [SerializeField] private float _telegraphTime = 0.3f;
+    [Tooltip("검기 인디케이터 길이 (발사체는 더 멀리 날아가지만 화면 안 정도만 보여 준다)")]
+    [SerializeField] private float _auraIndicatorLength = 9f;
+    [Tooltip("검기 인디케이터 두께 (발사체 판정 폭)")]
+    [SerializeField] private float _auraIndicatorWidth = 1f;
+
+    private Boss2IndicatorSpawner _indicatorSpawner;
+
     [Header("사운드")]
     [SerializeField] private GameObject _auraSlashSound;
 
@@ -87,6 +97,7 @@ public class Boss2AttackPattern : Boss2AttackBase
     private void OnEnable()
     {
         _patternAnimator = GetComponent<Animator>();
+        _indicatorSpawner = GetComponent<Boss2IndicatorSpawner>();
         _mover = GetComponent<Boss2MoveBase>();
         _skillPattern = GetComponent<Boss2SkillPattern>();
         _avoidJudge = Boss2AvoidJudge.GetOrAdd(gameObject);
@@ -426,12 +437,18 @@ public class Boss2AttackPattern : Boss2AttackBase
         EndDamage();
         ClearPendingHit();
 
-        // 이미 다른 효과(크리스탈 프리즌 등)로 묶여 있으면 손대지 않는다.
-        // 여기서 막지 않았으니 끝날 때 풀지도 않아, 그 효과의 봉쇄를 대신 풀어버리지 않는다.
-        _blockedMoveBySkill = blockMove && _mover != null && _mover.IsMoveBlocked == false;
+        // 공격 중 미끄러지지 않게 위치를 고정한다. 외부 얼음(크리스탈 프리즌 등)과는 따로 관리되므로
+        // 끝날 때 풀어도 그 효과의 봉쇄를 대신 풀어버리지 않는다.
+        _blockedMoveBySkill = blockMove && _mover != null;
         if (_blockedMoveBySkill)
         {
-            _mover.MoveBlock();
+            _mover.HoldForPattern();
+        }
+
+        // 공격 전에 맞을 자리를 인디케이터로 예고하고 잠시 기다린다. (검기 경로 · 회전 범위)
+        if (ShowTelegraph())
+        {
+            yield return new WaitForSeconds(_telegraphTime);
         }
 
         // layer 0, 시간 오프셋 0 을 명시해 매번 처음부터 재생한다. (콤보의 StartHit 과 같은 방식)
@@ -475,13 +492,56 @@ public class Boss2AttackPattern : Boss2AttackBase
         // 회피 결과 대기 중에 공격이 끊겨도 보스가 멈춘 채로 남지 않게 한다.
         _avoidJudge.Cancel();
 
+        // 예고 중에 끊기면 인디케이터도 바로 지운다.
+        if (_indicatorSpawner != null)
+        {
+            _indicatorSpawner.Clear();
+        }
+
         if (_blockedMoveBySkill)
         {
-            _mover.MoveUnblock();
+            _mover.ReleaseFromPattern();
             _blockedMoveBySkill = false;
         }
 
         _singleAttackRoutine = null;
+    }
+
+    // 지금 공격에 맞는 인디케이터를 띄운다. 띄웠으면 true (예고 시간만큼 기다린다).
+    //   검기 1·3·8방향: 발사 방향마다 직선 / 제자리 회전참: 회전 반경 원
+    private bool ShowTelegraph()
+    {
+        if (_indicatorSpawner == null || _telegraphTime <= 0f)
+            return false;
+
+        switch (_currentAttackPatternType)
+        {
+            case Boss2AttackPatternType.BladeAuraSlash:
+            case Boss2AttackPatternType.BladeAuraSlashAll:
+            {
+                // 발사 방향은 공격을 시작할 때 정해 두므로, 예고한 경로 그대로 날아간다.
+                if (_mover != null && _pendingAuraType != SlashProjectileType.All)
+                {
+                    _mover.FaceTowards(BladeAuraCenter + _pendingAuraDirection);
+                }
+                foreach (int index in GetBladeAuraIndices(_pendingAuraDirection, _pendingAuraType))
+                {
+                    Vector2 direction = _projectileDirections[index].normalized;
+                    Vector2 origin = BladeAuraCenter + direction * _bladeAuraSpawnDistance;
+                    _indicatorSpawner.ShowLine(origin, direction, _auraIndicatorLength, _auraIndicatorWidth, _telegraphTime);
+                }
+                return true;
+            }
+            case Boss2AttackPatternType.SpinningSlashInPlace:
+            {
+                _indicatorSpawner.ShowCircle(SpinCenter, _spinRadius, _telegraphTime);
+                return true;
+            }
+            default:
+            {
+                return false;
+            }
+        }
     }
 
     public void PlayTestAttack(Boss2AttackPatternType type, int count =1)

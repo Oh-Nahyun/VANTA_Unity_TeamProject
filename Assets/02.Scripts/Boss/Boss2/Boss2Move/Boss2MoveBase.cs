@@ -47,10 +47,17 @@ public class Boss2MoveBase : MonoBehaviour, IBossMovable
     private float _dodgeTimer;
     private float _dodgeCooldownTimer;
 
-    // 외부 효과(크리스탈 프리즌 등)에 의한 이동 봉쇄.
-    private bool _isMoveBlocked;
-    // 봉쇄를 풀 때 되돌릴 원래 제약 (회전 고정 등).
+    // 외부 효과(크리스탈 프리즌·플레이어 스킬 등)에 의한 이동 봉쇄 = 얼음. FSM 이 이걸 보고 행동을 바꾼다.
+    private bool _isFrozen;
+    // 보스 자신의 공격·스킬이 동작 중 미끄러지지 않게 거는 위치 고정. 얼음으로 보지 않는다.
+    private bool _isHeldByPattern;
+    // 위치 고정을 풀 때 되돌릴 원래 제약 (회전 고정 등).
     private RigidbodyConstraints2D _constraintsBeforeBlock;
+
+    /// <summary>외부 봉쇄(얼음)가 시작될 때 한 번. 이미 얼어 있으면 다시 부르지 않는다.</summary>
+    public event System.Action Frozen;
+    /// <summary>외부 봉쇄(얼음)가 풀릴 때 한 번.</summary>
+    public event System.Action Unfrozen;
 
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
@@ -73,7 +80,10 @@ public class Boss2MoveBase : MonoBehaviour, IBossMovable
     private readonly Dictionary<KeyCode, float> _lastTapTime = new Dictionary<KeyCode, float>();
 
     public Vector2 MoveDirection => _moveDirection;
-    public bool IsMoveBlocked => _isMoveBlocked;
+    // 얼음이든 패턴 고정이든 지금 제자리에 묶여 있는지
+    public bool IsMoveBlocked => _isFrozen || _isHeldByPattern;
+    // 외부 효과로 얼어 있는지 (패턴 고정은 제외)
+    public bool IsFrozen => _isFrozen;
     public bool IsDodging => _state == MoveState.Dodge;
     public bool IsSprinting => _state == MoveState.Normal && _velocity.magnitude > _walkSpeed + 0.1f;
     public float CurrentSpeed => _velocity.magnitude;
@@ -102,7 +112,7 @@ public class Boss2MoveBase : MonoBehaviour, IBossMovable
         TickTimers();
 
         // 봉쇄 중에는 입력과 패턴을 모두 무시하고 제자리에 있는다. 쿨타임은 위에서 계속 흐른다.
-        if (_isMoveBlocked)
+        if (IsMoveBlocked)
             return;
 
         if (_useKeyboardInput)
@@ -174,18 +184,73 @@ public class Boss2MoveBase : MonoBehaviour, IBossMovable
         return true;
     }
 
-    // ---- 이동 봉쇄 (IBossMovable) ----
+    // ---- 이동 봉쇄 (IBossMovable) = 얼음 ----
     /// <summary>
-    /// 보스를 제자리에 묶는다. 구르는 중이면 즉시 끊고, 밀려서도 움직이지 않게 위치를 고정한다.
-    /// 이미 봉쇄된 상태에서 다시 불러도 한 번 부른 것과 같다.
+    /// 외부 효과(크리스탈 프리즌·플레이어 스킬 등)가 보스를 제자리에 묶는다. FSM 은 Frozen 이벤트를 받아 행동을 바꾼다.
+    /// 이미 얼어 있는 상태에서 다시 불러도(크리스탈은 매 프레임 부른다) 한 번 부른 것과 같다.
     /// </summary>
     public void MoveBlock()
     {
-        if (_isMoveBlocked)
+        if (_isFrozen)
             return;
 
-        _isMoveBlocked = true;
+        bool wasBlocked = IsMoveBlocked;
+        _isFrozen = true;
+        if (wasBlocked == false)
+        {
+            ApplyPositionHold();
+        }
+        Frozen?.Invoke();
+    }
 
+    /// <summary>
+    /// 얼음을 푼다. 패턴 고정이 남아 있지 않으면 원래 제약을 되돌린다.
+    /// 얼어 있지 않을 때 불러도 아무 일도 없다.
+    /// </summary>
+    public void MoveUnblock()
+    {
+        if (_isFrozen == false)
+            return;
+
+        _isFrozen = false;
+        if (IsMoveBlocked == false)
+        {
+            ReleasePositionHold();
+        }
+        Unfrozen?.Invoke();
+    }
+
+    // ---- 패턴 위치 고정 (보스 자신의 공격·스킬용, 얼음 아님) ----
+    /// <summary>공격·스킬이 동작하는 동안 미끄러지지 않게 제자리에 고정한다. 얼음 상태와는 따로 관리된다.</summary>
+    public void HoldForPattern()
+    {
+        if (_isHeldByPattern)
+            return;
+
+        bool wasBlocked = IsMoveBlocked;
+        _isHeldByPattern = true;
+        if (wasBlocked == false)
+        {
+            ApplyPositionHold();
+        }
+    }
+
+    /// <summary>HoldForPattern 을 푼다. 얼어 있으면 위치 고정은 그대로 유지된다.</summary>
+    public void ReleaseFromPattern()
+    {
+        if (_isHeldByPattern == false)
+            return;
+
+        _isHeldByPattern = false;
+        if (IsMoveBlocked == false)
+        {
+            ReleasePositionHold();
+        }
+    }
+
+    // 제자리 고정 시작: 구르는 중이면 즉시 끊고, 밀려서도 움직이지 않게 위치를 고정한다.
+    private void ApplyPositionHold()
+    {
         if (_state == MoveState.Dodge)
         {
             _state = MoveState.Normal;
@@ -206,16 +271,9 @@ public class Boss2MoveBase : MonoBehaviour, IBossMovable
         _animator.SetBool("IsSprint", false);
     }
 
-    /// <summary>
-    /// 봉쇄를 푼다. 원래 제약을 되돌리고, 다음 프레임부터 입력·패턴대로 다시 움직인다.
-    /// 봉쇄 중이 아닐 때 불러도 아무 일도 없다.
-    /// </summary>
-    public void MoveUnblock()
+    // 제자리 고정 끝: 원래 제약을 되돌리고, 다음 프레임부터 입력·패턴대로 다시 움직인다.
+    private void ReleasePositionHold()
     {
-        if (_isMoveBlocked == false)
-            return;
-
-        _isMoveBlocked = false;
         _rigidbody2D.constraints = _constraintsBeforeBlock;
     }
 

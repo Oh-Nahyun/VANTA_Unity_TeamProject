@@ -60,6 +60,11 @@ public class Boss1AnimationEventRelay : MonoBehaviour
         _boss1SpitAttack.EndSpitAttack();
     }
 
+    public void JumpImpulse()
+    {
+        _boss1JumpAttack.JumpImpulse();
+    }
+    
     public void JumpLandImpact()
     {
         _boss1JumpAttack.JumpLandImpact();

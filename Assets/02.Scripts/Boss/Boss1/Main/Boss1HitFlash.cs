@@ -19,14 +19,24 @@ public class Boss1HitFlash : MonoBehaviour
             StopCoroutine(_flashCoroutine);
         }
 
-        _flashCoroutine = StartCoroutine(HitFlashCoroutine());
+        _flashCoroutine = StartCoroutine(HitFlashCoroutine(_flashDuration));
     }
+    
+    public void PlayHitFlash(float duration)
+    {
+        if (_flashCoroutine != null)
+        {
+            StopCoroutine(_flashCoroutine);
+        }
 
-    private IEnumerator HitFlashCoroutine()
+        _flashCoroutine = StartCoroutine(HitFlashCoroutine(duration));
+    }
+    
+    private IEnumerator HitFlashCoroutine(float duration)
     {
         SetFlashAmount(1f);
         
-        yield return new WaitForSeconds(_flashDuration);
+        yield return new WaitForSeconds(duration);
         
         SetFlashAmount(0f);
         

@@ -462,7 +462,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6531711006687170515, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
   m_PrefabInstance: {fileID: 1733891861}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1733891865}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cabb897bd428614498c8f20c7c81b8c7, type: 3}
@@ -922,13 +922,61 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5486056013902944760, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2009993052}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8279119010861365979, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1733891866}
   m_SourcePrefab: {fileID: 100100000, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
 --- !u!4 &1733891862 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5486056013902944760, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
   m_PrefabInstance: {fileID: 1733891861}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1733891863 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9210076179707630864, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+  m_PrefabInstance: {fileID: 1733891861}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1733891864 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5299817573255665665, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+  m_PrefabInstance: {fileID: 1733891861}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
+--- !u!1 &1733891865 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8279119010861365979, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+  m_PrefabInstance: {fileID: 1733891861}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1733891866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733891865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57224145f11b31c448bb8231425858ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss1RoarEffect
+  _visualPivot: {fileID: 1733891863}
+  _shakeDuration: 0.1
+  _shakeStrength: 0.1
+  _shakeVibrato: 30
+  _waveMaterial: {fileID: 2100000, guid: d7ec4078de80b2d419e9928e3a7b2550, type: 2}
+  _waveDuration: 0.3
+  _waveStrength: 0.03
+  _waveStrength2: 0.015
+  _waveCount: 5
+  _waveInterval: 0.1
+  _waveOverlapDelay: 0.1
+  _impulseSource: {fileID: 1733891864}
 --- !u!1 &1860284555
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Boss1DeathController : MonoBehaviour
 {
-    [Header("보스2 여기에 넣기")]
-    [SerializeField] private GameObject _boss2;
+    [Header("보스2 등장 연출")]
+    [SerializeField] private Boss2IntroCinematic _boss2Intro;
     
     [Header("주저앉은 후 대기 시간")]
     [SerializeField] private float _collapseWaitDuration = 1.5f;
+    
+    // 임시: 폭발 연출 시간, 지금은 debug log만
+    [Header("임시 폭발 연출 시간")]
+    [SerializeField] private float _explosionDuration = 2f;
     
     [SerializeField] private Vector2 _center = new Vector2(0.42f, -0.74f);
     
@@ -24,6 +28,7 @@ public class Boss1DeathController : MonoBehaviour
     [SerializeField] private Animator _animator;
 
     private bool _isMovingToCenter;
+    private bool _isExploding;
 
     public event Action OnCollapseFinished;
     public event Action OnExplosionFinished;
@@ -58,6 +63,11 @@ public class Boss1DeathController : MonoBehaviour
 
     private void StartDeathSequence()
     {
+        foreach (Collider2D collider in GetComponents<Collider2D>())
+        {
+            collider.enabled = false;
+        }
+        
         _boss1AttackController.LockAttack();
         _boss1Movement.Stop();
         _boss1ProjectileManager.DestroyAllProjectiles();
@@ -86,7 +96,7 @@ public class Boss1DeathController : MonoBehaviour
 
         float distanceRatio = Mathf.Clamp01(distance / _slowDownDistance);
         
-        float moveSpeed = Mathf.Lerp(_startMoveSpeed, _endMoveSpeed, distanceRatio);
+        float moveSpeed = Mathf.Lerp(_endMoveSpeed, _startMoveSpeed, distanceRatio);
         
         _boss1Movement.MoveInDirection(direction, moveSpeed);
     }
@@ -111,11 +121,38 @@ public class Boss1DeathController : MonoBehaviour
         
         OnCollapseFinished?.Invoke();
         
-        if (_boss2 != null)
+        if (_boss2Intro != null)
         {
-            _boss2.SetActive(true);
+            _boss2Intro.Play(null);
         }
         
+        else
+        {
+            Debug.LogWarning("_boss2Intro가 연결이 안됨");
+        }
+    }
+    
+    public void PlayDeathExplosion()
+    {
+        if (_isExploding)
+        {
+            return;
+        }
+
+        _isExploding = true;
+        StartCoroutine(DeathExplosionRoutine());
+    }
+    
+    private IEnumerator DeathExplosionRoutine()
+    {
+        Debug.Log("폭발 요청 폭발 시작 일단 2초");
+
+        // 폭발 연출 넣기
+        yield return new WaitForSecondsRealtime(_explosionDuration);
+
+        Debug.Log("폭발 끝");
+        OnExplosionFinished?.Invoke();
+
         Destroy(gameObject);
     }
 }

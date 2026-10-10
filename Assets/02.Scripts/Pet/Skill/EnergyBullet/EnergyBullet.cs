@@ -54,13 +54,13 @@ public class EnergyBullet : MonoBehaviour
 
     private void Start()
     {
-        if (BezierCurve == null) return;
-        if (AttackTarget == null) return;
-
         _timer = 0f;
         _timeBeforeMove = 0.6f;
         _bezierProgress = 0f;
         _isHoming = false;
+
+        if (BezierCurve == null) return;
+        if (AttackTarget == null) return;
 
         SetBezierPoints();
     }

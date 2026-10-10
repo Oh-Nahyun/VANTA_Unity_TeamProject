@@ -30,11 +30,17 @@ public class PetAttack : MonoBehaviour
     [Header("펫 공격 스킬 크리스탈 프리즌 프리팹")]
     [SerializeField] private GameObject _crystalPrisonPrefab;
 
-    [Header("펫 공격 스킬 크리스탈 프리즌 발동 연출이 끝난 뒤 추적 전 정지 시간")]
+    [Header("펫 공격 스킬 크리스탈 프리즌 발동 연출 끝난 뒤 추적 전 정지 시간")]
     [SerializeField] private float _crystalPrisonMoveStopTime = 1.5f;
 
     [Header("펫 유틸 스킬 크리스탈 생츄어리 프리팹")]
     [SerializeField] private GameObject _crystalSanctuaryPrefab;
+
+    [Header("펫 유틸 스킬 크리스탈 생츄어리 생성 갯수")]
+    [SerializeField, Min(1)] private int _crystalSanctuaryCount = 3;
+
+    [Header("펫 유틸 스킬 크리스탈 생츄어리 발동 연출 끝난 뒤 추적 전 정지 시간")]
+    [SerializeField] private float _crystalSanctuaryMoveStopTime = 0.3f;
 
     [Header("펫 기본 공격 및 스킬 발동 시 나타날 말풍선")]
     [SerializeField] private SpeechBubbles _speechBubbles;
@@ -70,24 +76,46 @@ public class PetAttack : MonoBehaviour
     private CrystalPrisonCastVFX _crystalPrisonCastVFX;
 
     /// <summary>
-    /// 펫 공격 스킬 크리스탈 프리즌 발동하는 중인지 확인용 변수
+    /// 펫 유틸 스킬 크리스탈 생츄어리 발동 이펙트 클래스
     /// </summary>
-    private bool _isCastingCrystalPrison;
+    private CrystalSanctuaryCastVFX _crystalSanctuaryCastVFX;
 
     /// <summary>
-    /// 펫 공격 스킬 크리스탈 프리즌 발동 중 이동 정지 코루틴
+    /// 펫 유틸 스킬 위치 및 스케일
     /// </summary>
-    private Coroutine _crystalPrisonMoveStopCoroutine;
+    private float _crystalSanctuaryMinPositionX;
+    private float _crystalSanctuaryMaxPositionX;
+    private float _crystalSanctuaryMinPositionY;
+    private float _crystalSanctuaryMaxPositionY;
+    private float _crystalSanctuaryMinScale;
+    private float _crystalSanctuaryMaxScale;
+
+    /// <summary>
+    /// 펫 스킬 발동 중인지 확인용 변수
+    /// </summary>
+    private bool _isCastingSkill;
+
+    /// <summary>
+    /// 펫 스킬 발동 중 이동 정지 코루틴
+    /// </summary>
+    private Coroutine _skillMoveStopCoroutine;
 
     private void Awake()
     {
         _pet = GetComponent<Pet>();
         _crystalPrisonCastVFX = GetComponentInChildren<CrystalPrisonCastVFX>();
+        _crystalSanctuaryCastVFX = GetComponentInChildren<CrystalSanctuaryCastVFX>();
     }
 
     private void Start()
     {
         _energyBulletSpawnPosition = _energyBulletSpawnTransform.localPosition;
+        _crystalSanctuaryMinPositionX = -6f;
+        _crystalSanctuaryMaxPositionX = 6f;
+        _crystalSanctuaryMinPositionY = -3f;
+        _crystalSanctuaryMaxPositionY = 1.5f;
+        _crystalSanctuaryMinScale = 1f;
+        _crystalSanctuaryMaxScale = 2f;
 
         _attackTarget = GameObject.FindGameObjectWithTag("Boss");
 
@@ -138,32 +166,30 @@ public class PetAttack : MonoBehaviour
         _speechBubbles.ChangeSpriteToCrystalPrison();
         _pet.Animator.SetTrigger("IsUseCrystalPrison");
 
-        StartCrystalPrisonMoveStop();
+        StartSkillMoveStop(_crystalPrisonCastVFX.CastDuration + _crystalPrisonMoveStopTime);
         _crystalPrisonCastVFX.PlayCast(_attackTarget, SpawnCrystalPrison);
     }
 
-    private void StartCrystalPrisonMoveStop()
+    private void StartSkillMoveStop(float duration)
     {
-        if (_crystalPrisonMoveStopCoroutine != null)
+        if (_skillMoveStopCoroutine != null)
         {
-            StopCoroutine(_crystalPrisonMoveStopCoroutine);
+            StopCoroutine(_skillMoveStopCoroutine);
         }
 
-        _crystalPrisonMoveStopCoroutine = StartCoroutine(MoveStopDuringCrystalPrison());
+        _skillMoveStopCoroutine = StartCoroutine(MoveStopDuringSkill(duration));
     }
 
-    private IEnumerator MoveStopDuringCrystalPrison()
+    private IEnumerator MoveStopDuringSkill(float duration)
     {
-        float duration = _crystalPrisonCastVFX.CastDuration + _crystalPrisonMoveStopTime;
-
-        _isCastingCrystalPrison = true;
+        _isCastingSkill = true;
         _pet.PetMove.CanMove = false;
         _pet.Animator.SetBool("IsRun", false);
 
         yield return new WaitForSeconds(duration);
 
-        _isCastingCrystalPrison = false;
-        _crystalPrisonMoveStopCoroutine = null;
+        _isCastingSkill = false;
+        _skillMoveStopCoroutine = null;
 
         if (_energyBulletGameFeelStartCoroutine == null)
         {
@@ -185,15 +211,25 @@ public class PetAttack : MonoBehaviour
         _speechBubbles.ChangeSpriteToCrystalSanctuary();
         _pet.Animator.SetTrigger("IsUseCrystalSanctuary");
 
-        for (int i = 0; i < 3; i++)
-        {
-            float randomFloat = Random.Range(1f, 2f);
-            Vector3 randomScale = new Vector3(randomFloat, randomFloat, randomFloat);
-            Vector3 randomPosition = new Vector3(Random.Range(-6f, 6f), Random.Range(-3f, 1.5f), 0f);
+        Vector3[] positions = new Vector3[_crystalSanctuaryCount];
+        float[] scales = new float[_crystalSanctuaryCount];
 
-            GameObject sanctuary = Instantiate(_crystalSanctuaryPrefab, randomPosition, transform.rotation);
-            sanctuary.transform.localScale = randomScale;
+        for (int i = 0; i < _crystalSanctuaryCount; i++)
+        {
+            positions[i] = new Vector3(Random.Range(_crystalSanctuaryMinPositionX, _crystalSanctuaryMaxPositionX),
+                Random.Range(_crystalSanctuaryMinPositionY, _crystalSanctuaryMaxPositionY), 0f);
+            scales[i] = Random.Range(_crystalSanctuaryMinScale, _crystalSanctuaryMaxScale);
         }
+
+        StartSkillMoveStop(_crystalSanctuaryCastVFX.GetCastDuration(_crystalSanctuaryCount) +
+                           _crystalSanctuaryMoveStopTime);
+        _crystalSanctuaryCastVFX.PlayCast(positions, scales, SpawnCrystalSanctuary);
+    }
+
+    private void SpawnCrystalSanctuary(Vector3 position, float scale)
+    {
+        GameObject sanctuary = Instantiate(_crystalSanctuaryPrefab, position, transform.rotation);
+        sanctuary.transform.localScale = new Vector3(scale, scale, scale);
     }
 
     private void StartEnergyBulletGameFeel()
@@ -249,7 +285,7 @@ public class PetAttack : MonoBehaviour
 
         yield return new WaitForSeconds(_watchTargetDuration);
 
-        if (!_isCastingCrystalPrison)
+        if (!_isCastingSkill)
         {
             _pet.PetMove.CanMove = true;
         }

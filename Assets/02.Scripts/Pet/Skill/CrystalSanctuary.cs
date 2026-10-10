@@ -35,11 +35,23 @@ public class CrystalSanctuary : MonoBehaviour
     /// </summary>
     private bool _isDestroyStart;
 
+    /// <summary>
+    /// 펫 크리스탈 생츄어리 파동 이펙트 클래스
+    /// </summary>
+    private CrystalSanctuaryWaveVFX _crystalSanctuaryWaveVFX;
+
+    /// <summary>
+    /// 펫 크리스탈 생츄어리 유지/소멸 보조 이펙트 클래스
+    /// </summary>
+    private CrystalSanctuaryAuraVFX _crystalSanctuaryAuraVFX;
+
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         _animator = GetComponent<Animator>();
         _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
+        _crystalSanctuaryWaveVFX = GetComponent<CrystalSanctuaryWaveVFX>();
+        _crystalSanctuaryAuraVFX = GetComponent<CrystalSanctuaryAuraVFX>();
     }
 
     private void Start()
@@ -60,9 +72,16 @@ public class CrystalSanctuary : MonoBehaviour
 
     private IEnumerator StartSkillProcessCoroutine()
     {
-        yield return new WaitForSeconds(_skillDuration);
+        float warningTime = Mathf.Min(_crystalSanctuaryAuraVFX.CollapseWarningTime, _skillDuration);
+
+        yield return new WaitForSeconds(_skillDuration - warningTime);
+
+        _crystalSanctuaryAuraVFX.PlayCollapseWarning();
+
+        yield return new WaitForSeconds(warningTime);
 
         _isDestroyStart = true;
+        _crystalSanctuaryAuraVFX.PlayCollapse();
 
         PlayEndAnimation();
         Destroy(gameObject, _timeBeforeDestroy);
@@ -79,6 +98,8 @@ public class CrystalSanctuary : MonoBehaviour
 
         _player.OffPlayerHittable();
         _animator.SetBool("IsPlayerInside", true);
+        _crystalSanctuaryWaveVFX.PlayEnterWaveVFX();
+        _crystalSanctuaryAuraVFX.SetPlayerInside(true);
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -94,5 +115,7 @@ public class CrystalSanctuary : MonoBehaviour
 
         _player.OnPlayerHittable();
         _animator.SetBool("IsPlayerInside", false);
+        _crystalSanctuaryWaveVFX.PlayExitWaveVFX();
+        _crystalSanctuaryAuraVFX.SetPlayerInside(false);
     }
 }

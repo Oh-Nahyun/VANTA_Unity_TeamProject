@@ -11,6 +11,7 @@ public class Boss1Shadow : MonoBehaviour
     [SerializeField] private Material _reflectionMaterial; // 비우면 원본 머티리얼 사용
 
     private SpriteRenderer[] _mirrors;
+    private static readonly int Phase2Amount = Shader.PropertyToID("_Phase2Amount");
 
     private void Awake()
     {
@@ -76,5 +77,26 @@ public class Boss1Shadow : MonoBehaviour
         
         float angle = sourceTransform.eulerAngles.z - transform.eulerAngles.z;
         mirrorTransform.localRotation = Quaternion.Euler(0f, 0f, -angle);
+    }
+    
+    public void SetPhase2Amount(float amount)
+    {
+        if (_mirrors == null)
+        {
+            return;
+        }
+
+        foreach (SpriteRenderer mirror in _mirrors)
+        {
+            if (mirror == null)
+            {
+                continue;
+            }
+
+            MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+            mirror.GetPropertyBlock(propertyBlock);
+            propertyBlock.SetFloat(Phase2Amount, amount);
+            mirror.SetPropertyBlock(propertyBlock);
+        }
     }
 }

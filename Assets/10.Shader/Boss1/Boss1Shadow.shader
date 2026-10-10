@@ -4,6 +4,8 @@ Shader "Boss1/Shadow"
     {
         [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
+        _Phase2Color ("Phase2 Color", Color) = (0.227, 0.031, 0.031, 1)
+        _Phase2Amount ("Phase2 Amount", Range(0, 1)) = 0
         _AlphaCutoff ("Alpha Cutoff", Range(0, 1)) = 0.01
         [IntRange] _StencilBit ("Stencil Bit", Range(1, 255)) = 128
     }
@@ -65,6 +67,8 @@ Shader "Boss1/Shadow"
             CBUFFER_START(UnityPerMaterial)
                 half4 _Color;
                 half  _AlphaCutoff;
+                half4 _Phase2Color;
+                half  _Phase2Amount;
             CBUFFER_END
 
             Varyings vert(Attributes input)
@@ -88,7 +92,8 @@ Shader "Boss1/Shadow"
                 
                 clip(tex.a - _AlphaCutoff);
                 
-                return half4(tex.rgb * input.color.rgb, input.color.a);
+                half3 rgb = (tex.rgb + _Phase2Color.rgb * _Phase2Amount) * input.color.rgb;
+                return half4(rgb, input.color.a);
             }
             ENDHLSL
         }

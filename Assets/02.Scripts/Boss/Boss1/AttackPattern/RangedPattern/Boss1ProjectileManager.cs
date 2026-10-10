@@ -31,4 +31,30 @@ public class Boss1ProjectileManager : MonoBehaviour
         }
         _projectiles.Clear();
     }
+    
+    public void DisappearAllProjectiles()
+    {
+        foreach (GameObject projectile in _projectiles)
+        {
+            if (projectile == null)
+            {
+                continue;
+            }
+
+            if (projectile.TryGetComponent(out Boss1Bullet bullet))
+            {
+                bullet.ForceDisappear();
+            }
+            else if (projectile.TryGetComponent(out Boss1SplitBullet splitBullet))
+            {
+                splitBullet.ForceDisappear();
+            }
+            else
+            {
+                Destroy(projectile);
+            }
+        }
+
+        _projectiles.Clear();
+    }
 }

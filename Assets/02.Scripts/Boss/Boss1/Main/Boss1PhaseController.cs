@@ -15,6 +15,7 @@ public class Boss1PhaseController : MonoBehaviour
         
         [SerializeField] private Boss1Life _boss1Life;
         [SerializeField] private Animator _animator;
+        [SerializeField] private Boss1Shadow _boss1Shadow;
         private Boss1AttackController _boss1AttackController;
         private Boss1Movement _boss1Movement;
         private Boss1ProjectileManager _boss1ProjectileManager;
@@ -38,7 +39,7 @@ public class Boss1PhaseController : MonoBehaviour
         [SerializeField] private float _roarDuration = 1.5f;
         [SerializeField] private float _roarStrength = 1.3f; // 등장보다 강하게 1f 이상으로
 
-        private Boss1RoarEffect _roarEffect;
+        private Boss1RoarEffect _boss1RoarEffect;
 
         private Coroutine _transitionCoroutine;
         private Tween _breakLightTween;
@@ -58,7 +59,7 @@ public class Boss1PhaseController : MonoBehaviour
             _boss1ProjectileManager = GetComponent<Boss1ProjectileManager>();
             _boxCollider2D = GetComponent<BoxCollider2D>();
             _boss1HitFlash = GetComponent<Boss1HitFlash>();
-            _roarEffect = GetComponent<Boss1RoarEffect>();
+            _boss1RoarEffect = GetComponent<Boss1RoarEffect>();
             
             if (_breakLight != null)
             {
@@ -82,7 +83,7 @@ public class Boss1PhaseController : MonoBehaviour
             
             _boss1AttackController.LockAttack();
             _boss1Movement.Stop();
-            _boss1ProjectileManager.DestroyAllProjectiles();
+            _boss1ProjectileManager.DisappearAllProjectiles();
             
             SetHittable(false);
             
@@ -97,14 +98,24 @@ public class Boss1PhaseController : MonoBehaviour
             PlayBreak();
             yield return new WaitForSeconds(_breakHoldTime);
 
-            // 2.각성
+            // 2.버프
             _animator.Play("Buff", 0, 0f);
+            DOVirtual.Float(0f, 1f, _buffDuration, value =>
+                {
+                    _boss1HitFlash.SetPhase2Amount(value);
+                    if (_boss1Shadow != null)
+                    {
+                        _boss1Shadow.SetPhase2Amount(value);
+                    }
+                })
+                .SetEase(Ease.InQuad)
+                .SetLink(gameObject);
             yield return new WaitForSeconds(_buffDuration);
 
             // 3.포효
-            _roarEffect.Play(_roarStrength);
+            _boss1RoarEffect.Play(_roarStrength);
             yield return new WaitForSeconds(_roarDuration);
-            _roarEffect.Stop();
+            _boss1RoarEffect.Stop();
 
             // 4.마무리
             _animator.Play("Idle", 0, 0f);

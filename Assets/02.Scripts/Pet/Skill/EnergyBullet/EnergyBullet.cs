@@ -47,9 +47,15 @@ public class EnergyBullet : MonoBehaviour
     /// </summary>
     private bool _isHoming;
 
+    /// <summary>
+    /// 펫 에너지 탄 타겟 상실 연출 클래스
+    /// </summary>
+    private EnergyBulletDissolveVFX _energyBulletDissolveVFX;
+
     private void Awake()
     {
         BezierCurve = GetComponent<BezierCurve>();
+        _energyBulletDissolveVFX = GetComponent<EnergyBulletDissolveVFX>();
     }
 
     private void Start()
@@ -68,10 +74,19 @@ public class EnergyBullet : MonoBehaviour
     private void Update()
     {
         if (BezierCurve == null) return;
+        if (_energyBulletDissolveVFX != null && _energyBulletDissolveVFX.IsDissolving) return;
+
         if (AttackTarget == null)
         {
-            SpawnEnergyBulletHitVFX();
-            Destroy(gameObject);
+            if (_energyBulletDissolveVFX != null)
+            {
+                _energyBulletDissolveVFX.StartDissolve();
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
             return;
         }
 
@@ -152,6 +167,7 @@ public class EnergyBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (_energyBulletDissolveVFX != null && _energyBulletDissolveVFX.IsDissolving) return;
         if (!other.CompareTag("Boss")) return;
 
         SpawnEnergyBulletHitVFX();

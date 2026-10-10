@@ -622,7 +622,9 @@ public class Boss2Controller : MonoBehaviour
         // 꺼져 있거나 죽었거나, 피니셔 등으로 일시정지 중이면 손대지 않는다.
         if (_isPaused || _boss == null || _boss.IsDead
             || _state == Boss2State.Idle || _state == Boss2State.Dead)
+        {
             return;
+        }
 
         if (_state == Boss2State.Move || _state == Boss2State.Attack || _state == Boss2State.Skill)
         {

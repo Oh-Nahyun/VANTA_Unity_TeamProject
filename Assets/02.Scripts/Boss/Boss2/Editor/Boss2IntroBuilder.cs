@@ -195,9 +195,29 @@ public static class Boss2IntroBuilder
 
     private static TimelineAsset CreateTimeline(Dictionary<string, SignalAsset> signals, out AnimationTrack valueTrack, out SignalTrack signalTrack)
     {
-        AssetDatabase.DeleteAsset(TimelinePath);
-        var timeline = ScriptableObject.CreateInstance<TimelineAsset>();
-        AssetDatabase.CreateAsset(timeline, TimelinePath);
+        // 에셋을 지우고 새로 만들면 GUID 가 바뀌어 프리팹·씬의 Director 가 Timeline 을 잃을 수 있으므로,
+        // 기존 에셋은 그대로 두고 안의 트랙·커브 클립만 비운 뒤 다시 채운다.
+        // (트랙 ID 는 새로 발급되지만 Boss2IntroCinematic 이 재생 직전에 트랙을 다시 연결한다)
+        var timeline = AssetDatabase.LoadAssetAtPath<TimelineAsset>(TimelinePath);
+        if (timeline == null)
+        {
+            timeline = ScriptableObject.CreateInstance<TimelineAsset>();
+            AssetDatabase.CreateAsset(timeline, TimelinePath);
+        }
+        else
+        {
+            foreach (TrackAsset oldTrack in new List<TrackAsset>(timeline.GetRootTracks()))
+            {
+                timeline.DeleteTrack(oldTrack);
+            }
+            foreach (Object sub in AssetDatabase.LoadAllAssetsAtPath(TimelinePath))
+            {
+                if (sub is AnimationClip)
+                {
+                    Object.DestroyImmediate(sub, true);
+                }
+            }
+        }
         timeline.editorSettings.frameRate = 60;
 
         // 1) 연출 값 커브 (Boss2IntroCinematic 의 직렬화 필드를 움직인다)

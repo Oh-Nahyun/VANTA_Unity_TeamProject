@@ -23,6 +23,8 @@ public class Boss2 : Boss
     private Boss2AttackPattern _attackPattern;
     private Boss2SkillPattern _skillPattern;
     private Boss2Controller _controller;
+    // Death 가 이미 시작됐는지 (엔딩 중 애니메이션 이벤트로 다시 불리는 것을 막는다)
+    private bool _isDeathStarted;
     
     [Header("사운드")]
     [SerializeField] private GameObject _hitSound;
@@ -109,15 +111,32 @@ public void TakeDamage(int damage)
         }
     }
     
+    /// <summary>
+    /// 피니셔가 끝나면(PlayerFinisher._gameClear) 호출된다. 엔딩 연출이 있으면 연출을 먼저 재생하고, 암흑까지 끝난 뒤 마무리한다.
+    /// 엔딩 중 Death 애니메이션 끝의 이벤트로 다시 불려도 한 번만 처리한다.
+    /// </summary>
     public void Death()
+    {
+        if (_isDeathStarted)
+            return;
+        _isDeathStarted = true;
+
+        Boss2EndingCinematic ending = GetComponent<Boss2EndingCinematic>();
+        if (ending != null && ending.Play(FinishDeath))
+            return;
+
+        FinishDeath();
+    }
+
+    private void FinishDeath()
     {
         // Effet
         //Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
-        if (OnFinisher != null) 
+        if (OnFinisher != null)
         {
             OnFinisher.Invoke();
         }
-        
+
         // Destroy
         Destroy(gameObject);
     }

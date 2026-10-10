@@ -21,17 +21,44 @@ public class Boss2MovePattern : Boss2MoveBase
     // BackStep 은 타깃과 이 거리 이상 벌어지면 끝난다.
     [SerializeField] private float _backStepDistance = 3f;
     
+    [Header("직선 돌진 (DashLine)")]
+    [Tooltip("돌진 전에 직선 인디케이터를 띄우고 기다리는 시간")]
+    [SerializeField] private float _dashTelegraphTime = 0.35f;
+    [Tooltip("돌진 인디케이터 두께")]
+    [SerializeField] private float _dashIndicatorWidth = 1.2f;
+    [Tooltip("인디케이터를 도착 지점보다 이만큼 더 길게 그린다 (공격 박스까지 덮도록)")]
+    [SerializeField] private float _dashIndicatorExtra = 0.8f;
+
     private Boss2MovePatternType _currentMovePatternType = Boss2MovePatternType.None;
+
+    // 직선 돌진: 시작할 때 고정한 도착 지점과 예고 진행 상태
+    private Vector2 _dashDestination;
+    private Vector2 _dashDirection;
+    private float _dashTelegraphTimer;
+    private bool _isDashTelegraphing;
+    private Boss2IndicatorSpawner _indicatorSpawner;
 
     public bool IsPatternRunning => _currentMovePatternType != Boss2MovePatternType.None;
     public Boss2MovePatternType CurrentMovePatternType => _currentMovePatternType;
 
     /// <summary>
     /// 이동 명령. 한 번 내리면 도착할 때까지 매 프레임 타깃을 쫓아간다.
+    /// (DashLine 은 시작 순간의 공격 위치로 직선 돌진)
     /// </summary>
     public void ApplyMovePattern(Boss2MovePatternType movePatternType)
     {
+        // 돌진 예고 중에 다른 명령(취소 포함)이 오면 인디케이터를 지운다.
+        if (_currentMovePatternType == Boss2MovePatternType.DashLine && movePatternType != Boss2MovePatternType.DashLine)
+        {
+            ClearIndicator();
+        }
+
         _currentMovePatternType = movePatternType;
+
+        if (movePatternType == Boss2MovePatternType.DashLine)
+        {
+            BeginDash();
+        }
     }
 
     protected override void TickPattern()
@@ -76,6 +103,11 @@ public class Boss2MovePattern : Boss2MoveBase
             case Boss2MovePatternType.BackStep:
             {
                 isFinished = BackStep(toTarget);
+                break;
+            }
+            case Boss2MovePatternType.DashLine:
+            {
+                isFinished = DashLine();
                 break;
             }
         }
@@ -147,6 +179,72 @@ public class Boss2MovePattern : Boss2MoveBase
         return false;
     }
 
+    // 직선 돌진 시작: 지금 공격 위치를 도착 지점으로 고정하고, 그 경로를 직선 인디케이터로 예고한다.
+    private void BeginDash()
+    {
+        if (_target == null)
+        {
+            _isDashTelegraphing = false;
+            _dashDestination = transform.position;
+            return;
+        }
+
+        _dashDestination = GetAttackStandPoint();
+        Vector2 toDestination = _dashDestination - (Vector2)transform.position;
+        _dashDirection = toDestination.sqrMagnitude > 0.0001f ? toDestination.normalized : Vector2.right;
+        _dashTelegraphTimer = 0f;
+        _isDashTelegraphing = true;
+
+        StopImmediately();
+        FaceTowards(_target.position);
+
+        if (_indicatorSpawner == null)
+        {
+            _indicatorSpawner = GetComponent<Boss2IndicatorSpawner>();
+        }
+        if (_indicatorSpawner != null && _dashTelegraphTime > 0f)
+        {
+            float length = toDestination.magnitude + _dashIndicatorExtra;
+            _indicatorSpawner.ShowLine(transform.position, _dashDirection, length, _dashIndicatorWidth, _dashTelegraphTime);
+        }
+    }
+
+    // 예고 동안 제자리에서 기다린 뒤, 고정한 도착 지점까지 방향을 바꾸지 않고 곧게 달린다.
+    private bool DashLine()
+    {
+        if (_isDashTelegraphing)
+        {
+            StopMove();
+            _dashTelegraphTimer += Time.deltaTime;
+            if (_dashTelegraphTimer >= _dashTelegraphTime)
+            {
+                _isDashTelegraphing = false;
+            }
+            return false;
+        }
+
+        Vector2 toDestination = _dashDestination - (Vector2)transform.position;
+        // 도착했거나 지나쳤으면(벽 등으로 비켜 간 경우 포함) 멈추고 타깃을 바라본다.
+        if (toDestination.magnitude <= _arriveTolerance || Vector2.Dot(toDestination, _dashDirection) <= 0f)
+        {
+            StopImmediately();
+            FaceTowards(_target.position);
+            return true;
+        }
+
+        Run(_dashDirection);
+        return false;
+    }
+
+    private void ClearIndicator()
+    {
+        _isDashTelegraphing = false;
+        if (_indicatorSpawner != null)
+        {
+            _indicatorSpawner.Clear();
+        }
+    }
+
     // TODO: 타깃 주위를 도는 이동. 구현 전까지는 바로 끝낸다.
     private bool RoundMove(Vector2 toTarget)
     {
@@ -199,6 +297,9 @@ public class Boss2MovePattern : Boss2MoveBase
 
     [ContextMenu("Test/ChaseBlink")]
     private void TestChaseBlink() => PlayTestMove(Boss2MovePatternType.ChaseBlink);
+
+    [ContextMenu("Test/DashLine")]
+    private void TestDashLine() => PlayTestMove(Boss2MovePatternType.DashLine);
 
     [ContextMenu("Test/RoundMove")]
     private void TestRoundMove() => PlayTestMove(Boss2MovePatternType.RoundMove);

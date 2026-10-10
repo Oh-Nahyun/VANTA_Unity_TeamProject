@@ -30,6 +30,8 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
     [SerializeField] private float _yTolerance = 0.5f;
     
     [SerializeField] private Boss1SpitHitBox _spitHitBox;
+    
+    [SerializeField] private Boss1MeleeTelegraph _telegraphFlash;
 
     [SerializeField] private Animator _animator;
     
@@ -40,6 +42,7 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
     private Boss1PhaseController _boss1PhaseController;
     
     private float _timer;
+    private float _positioningTimer;
 
     private SpitState _currentState;
     
@@ -89,6 +92,7 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
         _isAttackActive = true;
         IsFinished = false;
         _timer = 0f;
+        _positioningTimer = 0f;
         _spitHitBox.DisableHitBox();
         _boss1Movement.LockFacing();
         _currentState = SpitState.Positioning;
@@ -125,12 +129,19 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
         _spitHitBox.DisableHitBox();
         _boss1Movement.UnlockFacing();
         _boss1Movement.StopMove();   
+        
+        if (_telegraphFlash != null)
+        {
+            _telegraphFlash.Stop();
+        }
     }
 
     private void UpdatePositioning()
     {
+        float spitY = _spitHitBox.transform.position.y;
+        
         float xDifference = _playerTransform.position.x - transform.position.x;
-        float yDifference = _playerTransform.position.y - transform.position.y;
+        float yDifference = _playerTransform.position.y - spitY;
         
         float xDistance = Mathf.Abs(xDifference);
         float yDistance = Mathf.Abs(yDifference);
@@ -144,14 +155,30 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
         
         if (yDistance > _yTolerance)
         {
-            Vector2 direction = new Vector2(0f, Mathf.Sign(yDifference));
-            _boss1Movement.MoveInDirection(direction, CurrentPhaseSettings.MoveSpeed);
-            return;
+            _positioningTimer += Time.deltaTime;
+            
+            if (_positioningTimer < _maxPositioningTime)
+            {
+                Vector2 direction = new Vector2(0f, Mathf.Sign(yDifference));
+                _boss1Movement.MoveInDirection(direction, CurrentPhaseSettings.MoveSpeed);
+                return;
+            }
         }
-        
+
+        EnterTelegraph();
+    }
+    
+    private void EnterTelegraph()
+    {
         _boss1Movement.StopMove();
+        _positioningTimer = 0f;
         _timer = 0f;
         _currentState = SpitState.Telegraph;
+
+        if (_telegraphFlash != null)
+        {
+            _telegraphFlash.Play();
+        }
     }
 
     private void UpdateTelegraph()

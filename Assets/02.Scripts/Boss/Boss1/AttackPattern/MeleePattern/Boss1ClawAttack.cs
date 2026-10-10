@@ -1,4 +1,5 @@
 using System;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
@@ -34,11 +35,17 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
 
     [SerializeField] private Boss1ClawHitBox _clawHitBox;
     
+    [SerializeField] private Boss1MeleeTelegraph _telegraphFlash;
+    
     [SerializeField] private Animator _animator;
     
     [Header("페이즈별 난이도 세팅")]
     [SerializeField] private PhaseSettings _phase1Settings;
     [SerializeField] private PhaseSettings _phase2Settings;
+    
+    [Header("카메라 셰이크")]
+    [SerializeField] private CinemachineImpulseSource _clawImpulseSource;
+    [SerializeField] private float _impulseForce = 0.15f;
     
     private Boss1PhaseController _boss1PhaseController;
     
@@ -130,6 +137,11 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
         _clawHitBox.DisableHitBox();
         _boss1Movement.UnlockFacing();
         _boss1Movement.StopMove();   
+        
+        if (_telegraphFlash != null)
+        {
+            _telegraphFlash.Stop();
+        }
     }
 
     private void UpdatePositioning()
@@ -146,11 +158,7 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
             
             if (_positioningTimer >= _maxPositioningTime)
             {
-                _boss1Movement.StopMove();
-                _positioningTimer = 0f;
-                _timer = 0f;
-                _currentState = ClawState.Telegraph;
-            
+                EnterTelegraph();
                 return;
             }
             
@@ -173,9 +181,20 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
             return;
         }
         
+        EnterTelegraph();
+    }
+    
+    private void EnterTelegraph()
+    {
         _boss1Movement.StopMove();
+        _positioningTimer = 0f;
         _timer = 0f;
         _currentState = ClawState.Telegraph;
+
+        if (_telegraphFlash != null)
+        {
+            _telegraphFlash.Play();
+        }
     }
 
     private void UpdateTelegraph()
@@ -206,6 +225,20 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
             IsFinished = true;
         }
     }
+    
+    private void PlayClawImpulse()
+    {
+        if (_clawImpulseSource == null)
+        {
+            return;
+        }
+        
+        float facing = Mathf.Sign(_clawHitBox.transform.position.x - transform.position.x);
+
+        // 할퀴는 방향 + 살짝 아래로 내리찍는 느낌
+        Vector3 velocity = new Vector3(facing * _impulseForce, -_impulseForce * 0.5f, 0f);
+        _clawImpulseSource.GenerateImpulseWithVelocity(velocity);
+    }
 
     public void EnableClawHitBox()
     {
@@ -214,6 +247,7 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
             return;
         }
         _clawHitBox.EnableHitBox();
+        PlayClawImpulse();
     }
 
     public void DisableClawHitBox()

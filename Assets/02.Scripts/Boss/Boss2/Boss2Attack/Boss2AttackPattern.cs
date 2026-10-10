@@ -426,12 +426,12 @@ public class Boss2AttackPattern : Boss2AttackBase
         EndDamage();
         ClearPendingHit();
 
-        // 이미 다른 효과(크리스탈 프리즌 등)로 묶여 있으면 손대지 않는다.
-        // 여기서 막지 않았으니 끝날 때 풀지도 않아, 그 효과의 봉쇄를 대신 풀어버리지 않는다.
-        _blockedMoveBySkill = blockMove && _mover != null && _mover.IsMoveBlocked == false;
+        // 공격 중 미끄러지지 않게 위치를 고정한다. 외부 얼음(크리스탈 프리즌 등)과는 따로 관리되므로
+        // 끝날 때 풀어도 그 효과의 봉쇄를 대신 풀어버리지 않는다.
+        _blockedMoveBySkill = blockMove && _mover != null;
         if (_blockedMoveBySkill)
         {
-            _mover.MoveBlock();
+            _mover.HoldForPattern();
         }
 
         // layer 0, 시간 오프셋 0 을 명시해 매번 처음부터 재생한다. (콤보의 StartHit 과 같은 방식)
@@ -477,7 +477,7 @@ public class Boss2AttackPattern : Boss2AttackBase
 
         if (_blockedMoveBySkill)
         {
-            _mover.MoveUnblock();
+            _mover.ReleaseFromPattern();
             _blockedMoveBySkill = false;
         }
 

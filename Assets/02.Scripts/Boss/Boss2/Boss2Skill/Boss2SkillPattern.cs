@@ -515,11 +515,11 @@ public class Boss2SkillPattern : Boss2AttackBase
         // 시작 직전에 맞아 남아 있던 피격 트리거가 스킬 애니메이션을 끊지 않게 지운다.
         ClearPendingHit();
 
-        // 이미 다른 효과로 묶여 있으면 손대지 않는다. 막지 않았으니 끝날 때 풀지도 않는다.
-        _blockedMoveBySkill = (_mover != null && _mover.IsMoveBlocked == false);
+        // 스킬 중 미끄러지지 않게 위치를 고정한다. 외부 얼음과는 따로 관리되므로 끝날 때 풀어도 얼음은 유지된다.
+        _blockedMoveBySkill = _mover != null;
         if (_blockedMoveBySkill)
         {
-            _mover.MoveBlock();
+            _mover.HoldForPattern();
         }
 
         // 스킬 무적은 스킬이 직접 켠다. FSM·테스트 메뉴 등 어떤 경로로 시작해도 같게 동작한다.
@@ -567,7 +567,7 @@ public class Boss2SkillPattern : Boss2AttackBase
 
         if (_blockedMoveBySkill)
         {
-            _mover.MoveUnblock();
+            _mover.ReleaseFromPattern();
             _blockedMoveBySkill = false;
         }
 

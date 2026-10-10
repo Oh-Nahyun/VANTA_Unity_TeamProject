@@ -81,7 +81,12 @@ public class Boss2Controller : MonoBehaviour
     private bool[] _aoeTriggered;
     private int _pendingAoeCount;
 
+    // 얼음(외부 이동 봉쇄)이 시작된 시각. 풀릴 때 무피격 즉사기 시간에서 뺀다.
+    private float _frozenStartTime;
+
     private Transform Target => _move != null ? _move.Target : null;
+    // 크리스탈 프리즌·플레이어 스킬 등으로 얼어 있는지. 얼어 있으면 제자리 행동만 하고 광역기·즉사기는 미룬다.
+    private bool IsFrozen => _move != null && _move.IsFrozen;
     private float StateElapsed => Time.time - _stateEnterTime;
 
     private void Awake()
@@ -101,6 +106,11 @@ public class Boss2Controller : MonoBehaviour
         {
             _boss.Damaged += OnBossDamaged;
         }
+        if (_move != null)
+        {
+            _move.Frozen += OnFrozen;
+            _move.Unfrozen += OnUnfrozen;
+        }
     }
 
     private void OnDisable()
@@ -108,6 +118,11 @@ public class Boss2Controller : MonoBehaviour
         if (_boss != null)
         {
             _boss.Damaged -= OnBossDamaged;
+        }
+        if (_move != null)
+        {
+            _move.Frozen -= OnFrozen;
+            _move.Unfrozen -= OnUnfrozen;
         }
     }
 
@@ -341,8 +356,10 @@ public class Boss2Controller : MonoBehaviour
     // ---- 판단 ----
     private void Decide()
     {
-        // 1. 체력 선을 넘어 예약된 광역기가 있으면 가장 먼저
-        if (_pendingAoeCount > 0)
+        bool isFrozen = IsFrozen;
+
+        // 1. 체력 선을 넘어 예약된 광역기가 있으면 가장 먼저 (얼어 있는 동안은 예약만 유지하고 미룬다)
+        if (_pendingAoeCount > 0 && isFrozen == false)
         {
             _pendingAoeCount--;
             StartSkill(Boss2SkillPatternType.AreaOfEffect, $"광역기 (체력 선, 남은 예약 {_pendingAoeCount})");
@@ -356,8 +373,8 @@ public class Boss2Controller : MonoBehaviour
             return;
         }
         
-        // 중간에 데미지 안입은 시간이 일정시간 이상 되면 즉사기 발동!
-        if (Time.time - _lastDamagedTime >= _noDamageKillTime)
+        // 중간에 데미지 안입은 시간이 일정시간 이상 되면 즉사기 발동! (얼어 있으면 풀릴 때까지 미룬다)
+        if (isFrozen == false && Time.time - _lastDamagedTime >= _noDamageKillTime)
         {
             StartSkill(Boss2SkillPatternType.InstantKill, $"{_noDamageKillTime}초 무피격");
             return;
@@ -372,6 +389,10 @@ public class Boss2Controller : MonoBehaviour
         List<float> weights = new List<float>();
         foreach (Boss2Action action in _actions)
         {
+            // 얼어 있으면 이동기가 없는 제자리 행동만 후보로 둔다.
+            if (isFrozen && IsStationary(action) == false)
+                continue;
+
             if (action.IsAvailable(distance, healthRatio, now))
             {
                 candidates.Add(action);
@@ -379,7 +400,8 @@ public class Boss2Controller : MonoBehaviour
             }
         }
 
-        if (_instantKillWeight > _maxInstantKillWeight)
+        // 즉사기는 순간이동하므로 얼어 있는 동안은 후보에서 빼고 가중치는 유지한다.
+        if (isFrozen == false && _instantKillWeight > _maxInstantKillWeight)
         {
             candidates.Add(null);   // null = 즉사기
             weights.Add(AdjustForRepeat(InstantKillName, _instantKillWeight));
@@ -387,12 +409,21 @@ public class Boss2Controller : MonoBehaviour
 
         if (candidates.Count == 0)
         {
+            // 얼어 있을 때는 거리를 좁히러 걸어가지 않고, 그 자리에서 기다렸다가 다시 판단한다.
+            if (isFrozen)
+            {
+                Log($"얼음: 제자리 행동 후보 없음 (거리 {distance:F1}) → 대기");
+                EnterState(Boss2State.Think);
+                return;
+            }
+
             StartAction(_fallbackAction, $"후보 없음 (거리 {distance:F1})");
             return;
         }
 
         int picked = PickWeighted(weights);
-        string reason = $"거리 {distance:F1}, 체력 {healthRatio:P0}, 후보 {candidates.Count}, 즉사기 가중치 {_instantKillWeight}";
+        string reason = $"거리 {distance:F1}, 체력 {healthRatio:P0}, 후보 {candidates.Count}, 즉사기 가중치 {_instantKillWeight}"
+            + (isFrozen ? ", 얼음" : "");
 
         if (candidates[picked] == null)
         {
@@ -573,6 +604,40 @@ public class Boss2Controller : MonoBehaviour
     private bool IsActionPhase(Boss2State state)
     {
         return _currentAction != null && (state == Boss2State.Move || state == Boss2State.Attack);
+    }
+
+    // 이동기가 없는 행동인지: 이동 패턴이 없고, 순간이동하는 공격(순보 회전참)도 아니다.
+    private static bool IsStationary(Boss2Action action)
+    {
+        return action.Move == Boss2MovePatternType.None
+            && action.Attack != Boss2AttackPatternType.SpinningSlash;
+    }
+
+    // ---- 얼음 (외부 이동 봉쇄) ----
+    // 얼면 하던 행동을 취소하고 다시 판단한다. 다음 판단부터는 제자리 행동만 하고 광역기·즉사기는 미룬다.
+    private void OnFrozen()
+    {
+        _frozenStartTime = Time.time;
+
+        // 꺼져 있거나 죽었거나, 피니셔 등으로 일시정지 중이면 손대지 않는다.
+        if (_isPaused || _boss == null || _boss.IsDead
+            || _state == Boss2State.Idle || _state == Boss2State.Dead)
+            return;
+
+        if (_state == Boss2State.Move || _state == Boss2State.Attack || _state == Boss2State.Skill)
+        {
+            Log($"얼음 → 진행 중이던 행동 취소 ({_state})");
+            StopAllPatterns();
+            _currentAction = null;
+            EnterState(Boss2State.Think);
+        }
+    }
+
+    // 풀리면 얼어 있던 시간은 무피격 즉사기 시간에서 빼고, 다음 판단부터 미뤄 둔 광역기·즉사기를 포함해 정상 판단한다.
+    private void OnUnfrozen()
+    {
+        _lastDamagedTime += Time.time - _frozenStartTime;
+        Log("얼음 해제");
     }
 
     // ---- 피격 ----

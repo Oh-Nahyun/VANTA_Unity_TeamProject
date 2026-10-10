@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 /// <summary>
@@ -215,6 +216,7 @@ public class Boss2IntroCinematic : MonoBehaviour
             _slashRoot.position = _anchor;
         }
 
+        BindTimelineTracks();
         _director.time = 0;
         _director.Play();
         SetDirectorSpeed(1);
@@ -532,6 +534,28 @@ public class Boss2IntroCinematic : MonoBehaviour
         color.a = alpha;
         image.color = color;
         image.enabled = alpha > 0.001f;
+    }
+
+    // Timeline 을 다시 만들면 트랙 ID 가 바뀌어 프리팹·씬에 저장된 바인딩이 끊긴다.
+    // 재생 직전에 트랙 종류대로 이 오브젝트의 Animator(연출 값 커브) · SignalReceiver(시그널)에 다시 연결한다.
+    private void BindTimelineTracks()
+    {
+        if (_director.playableAsset is not TimelineAsset timeline)
+            return;
+
+        Animator animator = GetComponent<Animator>();
+        SignalReceiver receiver = GetComponent<SignalReceiver>();
+        foreach (TrackAsset track in timeline.GetOutputTracks())
+        {
+            if (track is AnimationTrack && animator != null)
+            {
+                _director.SetGenericBinding(track, animator);
+            }
+            else if (track is SignalTrack && receiver != null)
+            {
+                _director.SetGenericBinding(track, receiver);
+            }
+        }
     }
 
     private void SetDirectorSpeed(double speed)

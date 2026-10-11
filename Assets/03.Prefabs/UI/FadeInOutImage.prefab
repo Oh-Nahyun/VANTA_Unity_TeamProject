@@ -90,3 +90,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TitleFadeEffect
   _fadeImage: {fileID: 3107612871336598335}
   FadeDuration: 1
+  _fadeInSound: {fileID: 8300000, guid: 5c3e70c270338424ea2a031a966c7cee, type: 3}
+  _fadeOutSound: {fileID: 8300000, guid: 85970d0edb32cb74c974aa2c0586a7b2, type: 3}

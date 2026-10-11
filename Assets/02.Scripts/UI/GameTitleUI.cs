@@ -22,6 +22,15 @@ public class GameTitleUI : MonoBehaviour
     [Header("타이틀 페이드 아웃 효과용 클래스")]
     [SerializeField] TitleFadeInOutEffect _titleFadeInOutEffect;
 
+    [Header("버튼에 마우스를 올렸을 때 효과음")]
+    [SerializeField] private AudioClip _buttonHoverSound;
+
+    [Header("버튼 클릭 효과음")]
+    [SerializeField] private AudioClip _buttonClickSound;
+
+    [Header("게임 시작 버튼 클릭 효과음")]
+    [SerializeField] private AudioClip _titleStartSound;
+
     /// <summary>
     /// 게임 재도전 시 타이틀 UI 건너뛰기를 위한 확인용 변수
     /// </summary>
@@ -32,6 +41,10 @@ public class GameTitleUI : MonoBehaviour
         _gameStartButton.onClick.AddListener(OnClickStartButton);
         _gameSettingsButton.onClick.AddListener(OnClickSettingsButton);
         _gameExitButton.onClick.AddListener(OnClickExitButton);
+
+        SoundGenerator.AddHoverSound(_gameStartButton, _buttonHoverSound);
+        SoundGenerator.AddHoverSound(_gameSettingsButton, _buttonHoverSound);
+        SoundGenerator.AddHoverSound(_gameExitButton, _buttonHoverSound);
 
         if (InGameSceneManager.IsRetry)
         {
@@ -44,16 +57,19 @@ public class GameTitleUI : MonoBehaviour
     {
         if (_isSkipTitleEffect) return;
 
+        SoundManager.Instance.PlayEffectSound(_titleStartSound);
         StartCoroutine(DestroyTitleUICoroutine());
     }
 
     private void OnClickSettingsButton()
     {
+        SoundManager.Instance.PlayEffectSound(_buttonClickSound);
         _gameSettingPanel.active = true;
     }
 
     private void OnClickExitButton()
     {
+        SoundManager.Instance.PlayEffectSound(_buttonClickSound);
         StartCoroutine(ExitAfterFadeOutCoroutine());
     }
 

@@ -10,6 +10,12 @@ public class TitleFadeInOutEffect : MonoBehaviour
     [Header("페이드 효과 지속 시간")]
     public float FadeDuration = 1f;
 
+    [Header("페이드 인 효과음")]
+    [SerializeField] private AudioClip _fadeInSound;
+
+    [Header("페이드 아웃 효과음")]
+    [SerializeField] private AudioClip _fadeOutSound;
+
     /// <summary>
     /// 페이드 효과 적용할 이미지 머티리얼
     /// </summary>
@@ -31,12 +37,14 @@ public class TitleFadeInOutEffect : MonoBehaviour
     public void FadeOut()
     {
         ChangeSetActive(true);
+        SoundManager.Instance.PlayEffectSound(_fadeOutSound);
         StartCoroutine(FadeCoroutine(0f, 1f));
     }
 
     public void FadeIn()
     {
         ChangeSetActive(true);
+        SoundManager.Instance.PlayEffectSound(_fadeInSound);
         StartCoroutine(FadeCoroutine(1f, 0f));
     }
 

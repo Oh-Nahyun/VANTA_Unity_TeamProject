@@ -57,6 +57,9 @@ MonoBehaviour:
   _gameSettingPanel: {fileID: 0}
   _titleDissolveEffect: {fileID: 1206670344135137212}
   _titleFadeInOutEffect: {fileID: 0}
+  _buttonHoverSound: {fileID: 8300000, guid: b29c710d8a4b67047bbc8bdddc4e218a, type: 3}
+  _buttonClickSound: {fileID: 8300000, guid: c2303476eab72e24c841228fe9374fc2, type: 3}
+  _titleStartSound: {fileID: 8300000, guid: b57f68a97baf4214bbfe0ab129678733, type: 3}
 --- !u!114 &1206670344135137212
 MonoBehaviour:
   m_ObjectHideFlags: 0

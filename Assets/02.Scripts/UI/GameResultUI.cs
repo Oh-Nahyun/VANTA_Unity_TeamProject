@@ -10,6 +10,9 @@ public class GameResultUI : MonoBehaviour
     [Header("게임 클리어 UI")]
     [SerializeField] private GameObject _gameClearUI;
 
+    [Header("게임 오버 창이 뜰 때 효과음")]
+    [SerializeField] private AudioClip _gameOverSound;
+
     private void Start()
     {
         SetGameResult();
@@ -24,6 +27,7 @@ public class GameResultUI : MonoBehaviour
     public void ShowGameOverUI()
     {
         _gameOverUI.SetActive(true);
+        SoundManager.Instance.PlayEffectSound(_gameOverSound);
     }
 
     // public void ShowGameClearUI()

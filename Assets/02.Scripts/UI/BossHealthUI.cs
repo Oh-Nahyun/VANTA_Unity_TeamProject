@@ -34,6 +34,12 @@ public class BossHealthUI : MonoBehaviour
     [Header("보스 체력 UI 충격 연출")]
     [SerializeField] private BossHealthImpactEffect _impactEffect;
 
+    [Header("보스 체력 UI가 나타날 때 효과음")]
+    [SerializeField] private AudioClip _appearSound;
+
+    [Header("보스 체력 UI 피격 효과음")]
+    [SerializeField] private AudioClip _hitSound;
+
     /// <summary>
     /// 보스 게임 오브젝트
     /// </summary>
@@ -78,6 +84,11 @@ public class BossHealthUI : MonoBehaviour
     /// 보스 피격 연출 코루틴
     /// </summary>
     private Coroutine _hitEffectCoroutine;
+
+    private void OnEnable()
+    {
+        SoundManager.Instance.PlayEffectSound(_appearSound);
+    }
 
     private void Start()
     {
@@ -144,6 +155,8 @@ public class BossHealthUI : MonoBehaviour
             }
 
             _hitEffectCoroutine = StartCoroutine(PlayHitEffect());
+
+            SoundManager.Instance.PlayEffectSound(_hitSound);
 
             if (_impactEffect != null)
             {

@@ -306,6 +306,7 @@ GameObject:
   - component: {fileID: 6616809157687622342}
   - component: {fileID: 1309759788905142726}
   - component: {fileID: 2793592831111597014}
+  - component: {fileID: 7243024408931605888}
   m_Layer: 21
   m_Name: Boss2
   m_TagString: Boss
@@ -554,8 +555,8 @@ MonoBehaviour:
   _areaOfEffectCircle: {fileID: 3203674287824424439, guid: 9a3273ed7f017bc42afa00000dbb28d7, type: 3}
   _fogEffect: {fileID: 9022921627500305013}
   _moonLightEffect: {fileID: 7373041550950345524}
-  _instantKillVoice: {fileID: 8300000, guid: 887bc53dc8295be4f984276e9a2ecfee, type: 3}
-  _areaOfEffectVoice: {fileID: 8300000, guid: eee0e25ec0d79564e8a7e4abf47e528c, type: 3}
+  _instantKillVoice: {fileID: 0}
+  _areaOfEffectVoice: {fileID: 0}
   _darknessEffect: {fileID: 5604903214433855731}
   _bossDarknessLight: {fileID: 5757791400549728732}
   _engulfEffect: {fileID: 681323519645991027}
@@ -917,26 +918,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 333d58e505bb7634b80cd4c348e9d303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss2EndingCinematic
-  _standTime: 0.084
-  _crouchTime: 0.17
+  _crouchFrames:
+  - {fileID: 4723107735738678597, guid: 71948676c80310447a74748af9e04901, type: 3}
+  - {fileID: 21300000, guid: 67ef739571b7610408a8e91807ca0fcb, type: 3}
+  - {fileID: 6991849013916550155, guid: fa84e053f559fe14a8b7ae71773ed8de, type: 3}
+  - {fileID: 21300000, guid: 5379fcdbb5b06314b98c2c8213e1ebc0, type: 3}
+  - {fileID: -276728812324164698, guid: fa84e053f559fe14a8b7ae71773ed8de, type: 3}
+  _crouchDuration: 3.5
+  _eyesClosedSprite: {fileID: 3156895337291164288, guid: fa84e053f559fe14a8b7ae71773ed8de, type: 3}
   _vanishStartTime: 0.25
   _clipLength: 1.5
+  _vanishSpeed: 2
   _focusZoom: 1
-  _focusDuration: 1
+  _focusMoveDuration: 3.5
+  _spotlightRadius: 0.2
+  _spotlightShrinkDuration: 0.4
   _beamPrefab: {fileID: 8837825850747328638, guid: 3d65d895cdd80e54ba1827ce7e3b5c57, type: 3}
-  _beamWidth: 7.5
+  _beamWidthScale: 1
+  _spotlightEdge: 0.05
+  _beamWidthFallback: 3
   _beamTopHeight: 9
   _beamDropDuration: 1.2
-  _beforeCrouch: 0.3
-  _crouchHold: 2
-  _standHold: 0.5
+  _beamCloseDuration: 0.4
+  _afterBeam: 0.5
   _eyeFlamePrefab: {fileID: 435662610297089255, guid: b8499bc3909e8ec44b3f33f6e7b376da, type: 3}
-  _eyeOffset: {x: 0.03, y: 0.33}
-  _eyeCoverSize: {x: 0.3, y: 0.18}
-  _eyeCoverColor: {r: 0.13725491, g: 0.16078432, b: 0.19215687, a: 1}
+  _crouchEyeOffset: {x: 0.19, y: 0.17}
   _eyeFlameDuration: 1.4
-  _eyeOutDuration: 0.5
-  _afterEyeOut: 0.5
+  _afterEyeClose: 0.5
   _floatHeight: 3
   _floatDuration: 2
   _hoverDuration: 1.5
@@ -946,11 +954,14 @@ MonoBehaviour:
   _riseAuraScale: 0.35
   _riseAuraRate: 0.5
   _smokePrefab: {fileID: 2745353582706987117, guid: 38e0511a1360cad4f8892ac66e1f0a24, type: 3}
-  _smokeScale: 0.3
-  _smokeBurst: 0.8
-  _smokeEmitDuration: 0.7
+  _smokeScale: 0.55
+  _smokeBurst: 2.5
+  _smokeRate: 2
+  _smokeEmitDuration: 1
+  _smokeTint: {r: 0.45, g: 0.45, b: 0.45, a: 1}
   _smokeSortingOffset: 5
-  _blackoutDuration: 0.6
+  _eyelidDelay: 0.6
+  _eyelidDuration: 0.35
   _onEndingFinished:
     m_PersistentCalls:
       m_Calls: []
@@ -976,6 +987,23 @@ MonoBehaviour:
   _fillColor: {r: 0.46, g: 0, b: 0, a: 0.53}
   _sortingLayer: Zone
   _material: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+--- !u!114 &7243024408931605888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4133056159387206755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616d0facdd9ea274fab56bd00b52746d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss2BladeSpark
+  _sparkPrefab: {fileID: 1617529001408671510, guid: 8621f740b02a15d4594ed15f30e497a4, type: 3}
+  _bladePoint: {fileID: 6974456109595099286}
+  _offset: {x: 0, y: 0.3}
+  _scale: 1
+  _minInterval: 0.05
 --- !u!1 &4421348120962838745
 GameObject:
   m_ObjectHideFlags: 0

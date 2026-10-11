@@ -32,6 +32,7 @@ public class Boss2AttackBase : MonoBehaviour
     private const string HitTrigger = "Hit";
     // 공격 박스 판정 한 번(StartDamage ~ EndDamage)에서 이미 맞은 대상
     private readonly HashSet<GameObject> _hitTargetsThisSwing = new HashSet<GameObject>();
+    private Boss2BladeSpark _bladeSpark;
 
     [Header("공격 신호")]
     // 끄면 키 입력을 무시하고 RequestAttack / RequestCombo 신호로만 공격한다. (AI 전용)
@@ -267,8 +268,10 @@ public class Boss2AttackBase : MonoBehaviour
             // 판정이 새로 켜질 때마다 "이번 판정에서 맞은 대상"을 비운다. (DoubleAttack 은 판정마다 1회씩)
             _hitTargetsThisSwing.Clear();
             _attackBoxCollider.enabled = true;
+            // 휘두를 때마다 검 쪽에서 불꽃이 튄다.
+            PlayBladeSpark();
         }
-        
+
 
     }
 
@@ -277,6 +280,19 @@ public class Boss2AttackBase : MonoBehaviour
         if (_attackBoxCollider != null)
         {
             _attackBoxCollider.enabled = false;
+        }
+    }
+
+    // 검 쪽 불꽃 (Boss2BladeSpark 가 없으면 아무것도 하지 않는다)
+    protected void PlayBladeSpark()
+    {
+        if (_bladeSpark == null)
+        {
+            _bladeSpark = GetComponent<Boss2BladeSpark>();
+        }
+        if (_bladeSpark != null)
+        {
+            _bladeSpark.Play();
         }
     }
 

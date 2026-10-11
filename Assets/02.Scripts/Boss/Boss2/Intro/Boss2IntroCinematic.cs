@@ -45,16 +45,18 @@ public class Boss2IntroCinematic : MonoBehaviour
     [SerializeField] private Image _blackOverlay;
     [SerializeField] private CinemachineCamera _introCamera;
 
-    [Header("가스 (연막탄처럼 점점 많이·빠르게)")]
+    [Header("가스 (시작에 많이·빠르게, 서서히 줄어듦)")]
     [Tooltip("_gasAmount = 1 일 때 프리팹에 설정된 방출량의 몇 배로 뿜을지 (모든 자식 파티클에 적용)")]
     [SerializeField] private float _gasRateScale = 1f;
     [Tooltip("_gasAmount 0 → 1 사이 분출 속도 배율 (프리팹 속도 기준)")]
     [SerializeField] private float _gasMinSpeedScale = 0.35f;
     [SerializeField] private float _gasMaxSpeedScale = 1.2f;
     [Tooltip("시작 순간 한꺼번에 터져 나오는 양 (각 층 초당 방출량의 몇 초 분량). 0 이면 시작 분출 없음")]
-    [SerializeField] private float _gasStartBurst = 0.5f;
+    [SerializeField] private float _gasStartBurst = 0.8f;
     [Tooltip("시작 분출의 속도 배율 (프리팹 속도 기준)")]
     [SerializeField] private float _gasStartBurstSpeedScale = 1.3f;
+    [Tooltip("가스 입자 알파 배율 (프리팹 시작 색 기준). 낮출수록 옅다")]
+    [SerializeField, Range(0f, 1f)] private float _gasAlphaScale = 0.6f;
 
     [Header("화면 어둡게")]
     [Tooltip("최대로 어두울 때 글로벌 라이트 강도 배율")]
@@ -180,6 +182,8 @@ public class Boss2IntroCinematic : MonoBehaviour
             {
                 _gasBaseRates[i] = _gasSystems[i].emission.rateOverTimeMultiplier;
                 _gasBaseSpeeds[i] = _gasSystems[i].main.startSpeedMultiplier;
+                var main = _gasSystems[i].main;
+                main.startColor = ScaleAlpha(main.startColor, _gasAlphaScale);
             }
         }
 
@@ -528,6 +532,42 @@ public class Boss2IntroCinematic : MonoBehaviour
             var main = _gasSystems[i].main;
             main.startSpeedMultiplier = _gasBaseSpeeds[i] * speedScale;
         }
+    }
+
+    // 시작 색의 알파만 배율로 낮춘다. (단색·두 색·그라디언트 모드 모두)
+    private static ParticleSystem.MinMaxGradient ScaleAlpha(ParticleSystem.MinMaxGradient color, float scale)
+    {
+        switch (color.mode)
+        {
+            case ParticleSystemGradientMode.Color:
+                return new ParticleSystem.MinMaxGradient(ScaleAlpha(color.color, scale));
+            case ParticleSystemGradientMode.TwoColors:
+                return new ParticleSystem.MinMaxGradient(ScaleAlpha(color.colorMin, scale), ScaleAlpha(color.colorMax, scale));
+            case ParticleSystemGradientMode.TwoGradients:
+                return new ParticleSystem.MinMaxGradient(ScaleAlpha(color.gradientMin, scale), ScaleAlpha(color.gradientMax, scale));
+            default:
+                var result = new ParticleSystem.MinMaxGradient(ScaleAlpha(color.gradient, scale));
+                result.mode = color.mode;
+                return result;
+        }
+    }
+
+    private static Color ScaleAlpha(Color color, float scale)
+    {
+        color.a *= scale;
+        return color;
+    }
+
+    private static Gradient ScaleAlpha(Gradient gradient, float scale)
+    {
+        GradientAlphaKey[] alphaKeys = gradient.alphaKeys;
+        for (int i = 0; i < alphaKeys.Length; i++)
+        {
+            alphaKeys[i].alpha *= scale;
+        }
+        var result = new Gradient { mode = gradient.mode };
+        result.SetKeys(gradient.colorKeys, alphaKeys);
+        return result;
     }
 
     // 시작하자마자 검은 기운이 한 번에 터져 나오게 각 층에서 한꺼번에 뿜는다.

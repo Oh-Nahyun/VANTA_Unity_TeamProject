@@ -22,16 +22,46 @@ public class GameTitleUI : MonoBehaviour
     [Header("타이틀 페이드 아웃 효과용 클래스")]
     [SerializeField] TitleFadeInOutEffect _titleFadeInOutEffect;
 
+    [Header("버튼에 마우스를 올렸을 때 효과음")]
+    [SerializeField] private AudioClip _buttonHoverSound;
+
+    [Header("버튼 클릭 효과음")]
+    [SerializeField] private AudioClip _buttonClickSound;
+
+    [Header("게임 시작 버튼 클릭 효과음")]
+    [SerializeField] private AudioClip _titleStartSound;
+
     /// <summary>
     /// 게임 재도전 시 타이틀 UI 건너뛰기를 위한 확인용 변수
     /// </summary>
     private bool _isSkipTitleEffect;
 
+    /// <summary>
+    /// 게임 설정 패널 클래스
+    /// </summary>
+    private GameSettingsUI _gameSettingsUI;
+
+    /// <summary>
+    /// 인게임에서 설정 창을 열어 게임이 정지된 상태인지 확인용 변수
+    /// </summary>
+    private bool _isPaused;
+
+    /// <summary>
+    /// 게임 정지 직전의 타임 스케일
+    /// </summary>
+    private float _timeScaleBeforePause;
+
     private void Start()
     {
+        _gameSettingsUI = _gameSettingPanel.GetComponent<GameSettingsUI>();
+
         _gameStartButton.onClick.AddListener(OnClickStartButton);
         _gameSettingsButton.onClick.AddListener(OnClickSettingsButton);
         _gameExitButton.onClick.AddListener(OnClickExitButton);
+
+        SoundGenerator.AddHoverSound(_gameStartButton, _buttonHoverSound);
+        SoundGenerator.AddHoverSound(_gameSettingsButton, _buttonHoverSound);
+        SoundGenerator.AddHoverSound(_gameExitButton, _buttonHoverSound);
 
         if (InGameSceneManager.IsRetry)
         {
@@ -40,20 +70,72 @@ public class GameTitleUI : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        UpdatePause();
+
+        if (!Input.GetKeyDown(KeyCode.Escape)) return;
+
+        if (_gameSettingPanel.activeSelf)
+        {
+            _gameSettingsUI.CloseSettings();
+            UpdatePause();
+            return;
+        }
+
+        if (transform.GetChild(0).gameObject.activeSelf) return;
+
+        _gameSettingPanel.SetActive(true);
+        PauseGame();
+    }
+
+    private void PauseGame()
+    {
+        _timeScaleBeforePause = Time.timeScale > 0f ? Time.timeScale : 1f;
+        Time.timeScale = 0f;
+        _isPaused = true;
+    }
+
+    private void ResumeGame()
+    {
+        Time.timeScale = _timeScaleBeforePause;
+        _isPaused = false;
+    }
+
+    private void UpdatePause()
+    {
+        if (!_isPaused) return;
+
+        if (!_gameSettingPanel.activeSelf)
+        {
+            ResumeGame();
+            return;
+        }
+
+        if (Time.timeScale != 0f)
+        {
+            _timeScaleBeforePause = Time.timeScale;
+            Time.timeScale = 0f;
+        }
+    }
+
     private void OnClickStartButton()
     {
         if (_isSkipTitleEffect) return;
 
+        SoundManager.Instance.PlayEffectSound(_titleStartSound);
         StartCoroutine(DestroyTitleUICoroutine());
     }
 
     private void OnClickSettingsButton()
     {
+        SoundManager.Instance.PlayEffectSound(_buttonClickSound);
         _gameSettingPanel.active = true;
     }
 
     private void OnClickExitButton()
     {
+        SoundManager.Instance.PlayEffectSound(_buttonClickSound);
         StartCoroutine(ExitAfterFadeOutCoroutine());
     }
 

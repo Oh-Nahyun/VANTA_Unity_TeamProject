@@ -1214,6 +1214,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6639556939630668639, guid: 958bd685698d9434c8ff036184e66e2a, type: 3}
   m_PrefabInstance: {fileID: 62363018}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &895364515 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 429051425285417101, guid: 958bd685698d9434c8ff036184e66e2a, type: 3}
+  m_PrefabInstance: {fileID: 62363018}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895364512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34dfc23982da62e498e521c539490afe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossHealthUI
 --- !u!1001 &914828781
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1568,6 +1579,34 @@ PrefabInstance:
       propertyPath: _playerTransform
       value: 
       objectReference: {fileID: 650435853}
+    - target: {fileID: 2846696346554286157, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _onJumpLanded.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2846696346554286157, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _onJumpLanded.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2846696346554286157, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _onJumpLanded.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 895364515}
+    - target: {fileID: 2846696346554286157, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _onJumpLanded.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2846696346554286157, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _onJumpLanded.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayLandingImpact
+      objectReference: {fileID: 0}
+    - target: {fileID: 2846696346554286157, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _onJumpLanded.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BossHealthUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2846696346554286157, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _onJumpLanded.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3060184153963347236, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: _playerTransform
       value: 

@@ -185,6 +185,8 @@ MonoBehaviour:
   _spawnWaveVFXPrefab: {fileID: 2082172704732235796, guid: 46b2d36b5ee648118ae6269a384353e5, type: 3}
   _enterWaveVFXPrefab: {fileID: 8557652898765766149, guid: 6956b56460544bc3837f17304f9725f3, type: 3}
   _exitWaveVFXPrefab: {fileID: 1639037910007243359, guid: 247ef09442754fe0acd093ca515283b8, type: 3}
+  _crystalSanctuaryEnterSound: {fileID: 8300000, guid: a9428b1b51c5138498d6d561671b67cc, type: 3}
+  _crystalSanctuaryExitSound: {fileID: 8300000, guid: 56417f49f3d6e5e44a21b4e50e228b0e, type: 3}
 --- !u!1 &5909751739744647137
 GameObject:
   m_ObjectHideFlags: 0
@@ -29571,3 +29573,6 @@ MonoBehaviour:
   _collapseWarningVFX: {fileID: 5619841596685502192}
   _collapseDissolveVFX: {fileID: 4111080620759723289}
   _afterGlowVFX: {fileID: 1773247035464996779}
+  _crystalSanctuaryHoldSound: {fileID: 8300000, guid: 7cf5265dbc4554740b5aeed2ea218757, type: 3}
+  _crystalSanctuaryCollapseWarnSound: {fileID: 8300000, guid: 5fdaf7e265ca018459ca3e89bcdce945, type: 3}
+  _crystalSanctuaryCollapseSound: {fileID: 8300000, guid: b2df512d3f1c33b47b48bbfe5ebbb733, type: 3}

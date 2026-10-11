@@ -27,6 +27,12 @@ public class Pet : MonoBehaviour
     /// </summary>
     public PetMove PetMove;
 
+    [Header("펫 스폰 효과음")]
+    [SerializeField] private AudioClip _spawnSound;
+
+    [Header("펫 사망 효과음")]
+    [SerializeField] private AudioClip _deathSound;
+
     private void Awake()
     {
         Animator = GetComponent<Animator>();
@@ -36,8 +42,14 @@ public class Pet : MonoBehaviour
         PetMove = GetComponent<PetMove>();
     }
 
+    private void Start()
+    {
+        SoundManager.Instance.PlayEffectSound(_spawnSound);
+    }
+
     public void Death()
     {
+        SoundManager.Instance.PlayEffectSound(_deathSound);
         Animator.SetTrigger("IsDeath");
     }
 }

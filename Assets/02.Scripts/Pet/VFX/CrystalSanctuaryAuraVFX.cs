@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class CrystalSanctuaryAuraVFX : MonoBehaviour
 {
-    [Header("펫 크리스탈 생츄어리 유지 이펙트가 서서히 나타나는 시간 (생성 애니메이션 길이 기준)")]
+    [Header("펫 크리스탈 생츄어리 유지 이펙트가 서서히 나타나는 시간")]
     [SerializeField] private float _fadeInDuration = 1f;
 
     [Header("펫 크리스탈 생츄어리 유지 이펙트 입자 수 배율")]
     [SerializeField] private float _particleCountScale = 1f;
 
-    [Header("펫 크리스탈 생츄어리 A 상태(플레이어가 밖에 있을 때) 이펙트 색상")]
+    [Header("펫 크리스탈 생츄어리 플레이어가 밖에 있을 때 이펙트 색상")]
     [SerializeField] private Color _outsideColor = new Color(0.3f, 0.85f, 0.95f, 1f);
 
-    [Header("펫 크리스탈 생츄어리 B 상태(플레이어가 안에 있을 때) 이펙트 색상")]
+    [Header("펫 크리스탈 생츄어리 플레이어가 안에 있을 때 이펙트 색상")]
     [SerializeField] private Color _insideColor = new Color(0.25f, 0.4f, 1f, 1f);
 
     [Header("펫 크리스탈 생츄어리 소멸 직전 경고 연출 시간")]
@@ -27,13 +27,13 @@ public class CrystalSanctuaryAuraVFX : MonoBehaviour
     [Header("펫 크리스탈 생츄어리 소멸 직전 마법진 에너지가 불안정하게 흔들리는 세기")]
     [SerializeField] private float _collapseFlickerStrength = 1.2f;
 
-    [Header("펫 크리스탈 생츄어리 유지 이펙트 루트 (반지름 감소에 맞춰 크기가 줄어듦)")]
+    [Header("펫 크리스탈 생츄어리 유지 이펙트 루트")]
     [SerializeField] private Transform _auraRoot;
 
-    [Header("펫 크리스탈 생츄어리 마법진 테두리 에너지 트랜스폼 (소멸 직전 수축)")]
+    [Header("펫 크리스탈 생츄어리 마법진 테두리 에너지 트랜스폼")]
     [SerializeField] private Transform _ringEnergy;
 
-    [Header("펫 크리스탈 생츄어리 유지 이펙트 오브젝트 (떠다니는 입자, 테두리 에너지, 빛 기둥 글로우)")]
+    [Header("펫 크리스탈 생츄어리 유지 이펙트 오브젝트")]
     [SerializeField] private GameObject _resonanceVFX;
 
     [Header("펫 크리스탈 생츄어리 소멸 직전 떨어지는 파편 이펙트 오브젝트")]
@@ -44,6 +44,21 @@ public class CrystalSanctuaryAuraVFX : MonoBehaviour
 
     [Header("펫 크리스탈 생츄어리 소멸 후 남는 약한 잔광 이펙트 오브젝트")]
     [SerializeField] private GameObject _afterGlowVFX;
+
+    [Header("펫 크리스탈 생츄어리 유지 중 반복 효과음")]
+    [SerializeField] private AudioClip _crystalSanctuaryHoldSound;
+
+    [Header("펫 크리스탈 생츄어리 유지 반복 효과음 볼륨 비율")]
+    [SerializeField, Range(0f, 1f)] private float _crystalSanctuaryHoldSoundVolume = 0.4f;
+
+    [Header("펫 크리스탈 생츄어리 소멸 직전 경고 효과음")]
+    [SerializeField] private AudioClip _crystalSanctuaryCollapseWarnSound;
+
+    [Header("펫 크리스탈 생츄어리 소멸 효과음")]
+    [SerializeField] private AudioClip _crystalSanctuaryCollapseSound;
+
+    [Header("펫 크리스탈 생츄어리 소멸 관련 효과음 볼륨 비율")]
+    [SerializeField, Range(0f, 1f)] private float _crystalSanctuaryCollapseSoundVolume = 0.5f;
 
     /// <summary>
     /// 펫 크리스탈 생츄어리 소멸 직전 경고 연출 시간. 생츄어리가 경고를 시작할 시점 계산용
@@ -110,6 +125,11 @@ public class CrystalSanctuaryAuraVFX : MonoBehaviour
     /// </summary>
     private bool _isCollapsed;
 
+    /// <summary>
+    /// 펫 크리스탈 생츄어리 유지 중 반복 효과음 오디오 소스
+    /// </summary>
+    private AudioSource _crystalSanctuaryHoldSoundSource;
+
     private void Awake()
     {
         _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
@@ -147,6 +167,8 @@ public class CrystalSanctuaryAuraVFX : MonoBehaviour
         SetPlayerInside(false);
         PlayParticles(_resonanceParticles);
         StartCoroutine(FadeInCoroutine());
+        _crystalSanctuaryHoldSoundSource = SoundManager.Instance.PlayLoopSound(_crystalSanctuaryHoldSound,
+            _crystalSanctuaryHoldSoundVolume, _fadeInDuration);
     }
 
     private void Update()
@@ -174,12 +196,15 @@ public class CrystalSanctuaryAuraVFX : MonoBehaviour
 
     public void PlayCollapseWarning()
     {
+        SoundManager.Instance.PlayEffectSound(_crystalSanctuaryCollapseWarnSound, _crystalSanctuaryCollapseSoundVolume);
+        StopCrystalSanctuaryHoldSound(_collapseWarningTime);
         StartCoroutine(CollapseWarningCoroutine());
     }
 
     public void PlayCollapse()
     {
         _isCollapsed = true;
+        SoundManager.Instance.PlayEffectSound(_crystalSanctuaryCollapseSound, _crystalSanctuaryCollapseSoundVolume);
 
         StopEmitting(_collapseWarningParticles);
         StopEmitting(_resonanceParticles);
@@ -277,8 +302,23 @@ public class CrystalSanctuaryAuraVFX : MonoBehaviour
         }
     }
 
+    private void StopCrystalSanctuaryHoldSound(float fadeOutDuration)
+    {
+        if (_crystalSanctuaryHoldSoundSource == null) return;
+
+        SoundManager.Instance.StopLoopSound(_crystalSanctuaryHoldSoundSource, fadeOutDuration);
+        _crystalSanctuaryHoldSoundSource = null;
+    }
+
     private void OnDisable()
     {
         StopAllCoroutines();
+    }
+
+    private void OnDestroy()
+    {
+        if (SoundManager.Instance == null) return;
+
+        StopCrystalSanctuaryHoldSound(0f);
     }
 }

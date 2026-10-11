@@ -203,6 +203,8 @@ MonoBehaviour:
   CircleCollider2D: {fileID: 8329480349440368915}
   PlayerSkillManager: {fileID: 0}
   PetMove: {fileID: 964765425002006797}
+  _spawnSound: {fileID: 8300000, guid: 52fd4198bad8b0744804fea054749edb, type: 3}
+  _deathSound: {fileID: 8300000, guid: 06a686d57c3c3254abc8f0ce1d93b670, type: 3}
 --- !u!114 &964765425002006797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +224,11 @@ MonoBehaviour:
   _footStepDustOffsetY: 0
   _footStepDustCount: 3
   CanMove: 0
+  _footStepSound: {fileID: 8300000, guid: eea2b6dbb61885e428392745e51018af, type: 3}
+  _idleSounds:
+  - {fileID: 8300000, guid: 8f0ba4dd16bbb08469f98c2cbef8b61c, type: 3}
+  - {fileID: 8300000, guid: c1857c00792fa4048aba7aa56172d02a, type: 3}
+  - {fileID: 8300000, guid: 7252ac8a690114548a03fa46d7265295, type: 3}
 --- !u!114 &9040926827823601448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,6 +253,8 @@ MonoBehaviour:
   _crystalPrisonMoveStopTime: 1.3
   _crystalSanctuaryPrefab: {fileID: 7285922598011615516, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
   _speechBubbles: {fileID: 1293533988874868467}
+  _energyBulletChargeSound: {fileID: 8300000, guid: 4d5c49d77d0634442a0f449a8cdb23b4, type: 3}
+  _energyBulletFireSound: {fileID: 8300000, guid: 30eb0241bdc98ef4da529f7784f34cfc, type: 3}
 --- !u!1 &617048909523530690
 GameObject:
   m_ObjectHideFlags: 0
@@ -15116,6 +15125,9 @@ MonoBehaviour:
   _magicArrivalFlashPrefab: {fileID: 8518548757321404866, guid: 08e7433ac1c64b7fa4847ba1a3405731, type: 3}
   _magicArrivalFlashLifetime: 1
   _magicStreamPrefab: {fileID: 2314450167345414245, guid: 3964840cc42c43c1be26ff06e2623a36, type: 3}
+  _crystalPrisonChargeSound: {fileID: 8300000, guid: 800f09750a5337e4280fbe2db0a65439, type: 3}
+  _crystalPrisonOrbFlySound: {fileID: 8300000, guid: 4818ecebd8c8aff46a685849f5a89841, type: 3}
+  _crystalPrisonArriveSound: {fileID: 8300000, guid: 8e3fac6cfe88dae4fb876eb88fda9833, type: 3}
 --- !u!1 &2340270437585267128
 GameObject:
   m_ObjectHideFlags: 0
@@ -49642,6 +49654,12 @@ MonoBehaviour:
   _magicCorePrefab: {fileID: 3575587492926731427, guid: c7efc3110ff040ed8a246fc50065f1cd, type: 3}
   _gatheringVFXPrefab: {fileID: 2480424349111319056, guid: 6cc511ca23d444009e91257e945cb346, type: 3}
   _arrivalVFXPrefab: {fileID: 2334082986439348324, guid: ca9630f3da7f48919cb5e8c24e77d855, type: 3}
+  _crystalSanctuaryLevitateSound: {fileID: 8300000, guid: 8186185b916a5674a8c835466548d654, type: 3}
+  _crystalSanctuaryResonanceSound: {fileID: 8300000, guid: 82bdcc29a62be6744be34c6b4413024f, type: 3}
+  _crystalSanctuaryReleaseSound: {fileID: 8300000, guid: cee491bb628eed04992619a803cc5a5a, type: 3}
+  _crystalSanctuaryCoreFlySound: {fileID: 8300000, guid: be338a5a51c5a1249ac19666fdf0f40f, type: 3}
+  _crystalSanctuaryGatherSound: {fileID: 8300000, guid: d38776b43b522424a9f80e51282ba54c, type: 3}
+  _crystalSanctuaryCreateSound: {fileID: 8300000, guid: e52cdf45fc834694ba3cd1d1e75289f4, type: 3}
 --- !u!1 &8538038657672121825
 GameObject:
   m_ObjectHideFlags: 0

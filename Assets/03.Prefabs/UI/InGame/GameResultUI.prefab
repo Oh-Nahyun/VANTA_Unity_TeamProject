@@ -52,6 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameResultUI
   _gameOverUI: {fileID: 2481701298272907897}
   _gameClearUI: {fileID: 5807408434516391201}
+  _gameOverSound: {fileID: 8300000, guid: 2f384c954a18af04e93b2b7e2e0b275b, type: 3}
 --- !u!1 &1379324940578494778
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,6 +449,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameOverUI
   _gameRetryButton: {fileID: 1628029695980866802}
   _gameTitleButton: {fileID: 202262483893967566}
+  _buttonHoverSound: {fileID: 8300000, guid: b29c710d8a4b67047bbc8bdddc4e218a, type: 3}
+  _buttonClickSound: {fileID: 8300000, guid: c2303476eab72e24c841228fe9374fc2, type: 3}
 --- !u!1 &3929347349480492896
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,6 +802,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameClearUI
   _gameNextButton: {fileID: 1279307863308859051}
   _gameTitleButton: {fileID: 8875887253504119637}
+  _buttonHoverSound: {fileID: 8300000, guid: b29c710d8a4b67047bbc8bdddc4e218a, type: 3}
+  _buttonClickSound: {fileID: 8300000, guid: c2303476eab72e24c841228fe9374fc2, type: 3}
 --- !u!1 &7922703965099322556
 GameObject:
   m_ObjectHideFlags: 0

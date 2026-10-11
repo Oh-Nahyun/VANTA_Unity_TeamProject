@@ -343,6 +343,8 @@ MonoBehaviour:
   _energyBulletHitVFXLifetime: 1
   AttackTarget: {fileID: 0}
   BezierCurve: {fileID: 0}
+  _energyBulletFlySound: {fileID: 8300000, guid: 51e86c945daf2c642abc972e022b948b, type: 3}
+  _energyBulletHitSound: {fileID: 8300000, guid: f8b7230490c56004dbc3e25bad2c2012, type: 3}
 --- !u!114 &7968656464005603110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,6 +364,7 @@ MonoBehaviour:
   _dissolveWobbleFrequencyRange: {x: 8, y: 16}
   _energyBulletDissolveVFXPrefab: {fileID: 7766905200611316499, guid: 64517546509243afba3c7f3ed57a67c9, type: 3}
   _energyBulletDissolveVFXLifetime: 1
+  _energyBulletFizzleSound: {fileID: 8300000, guid: b0bb6b6829c7ed443913a7e14cdb6b13, type: 3}
 --- !u!114 &1260096435260396752
 MonoBehaviour:
   m_ObjectHideFlags: 0

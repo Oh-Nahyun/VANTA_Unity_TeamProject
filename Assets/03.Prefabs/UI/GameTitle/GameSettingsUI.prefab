@@ -1693,6 +1693,11 @@ MonoBehaviour:
   _bgmVolumeSlider: {fileID: 4494921215799707524}
   _sfxVolumeSlider: {fileID: 8218055489503521616}
   _goBackButton: {fileID: 1011172318299127518}
+  _buttonHoverSound: {fileID: 8300000, guid: b29c710d8a4b67047bbc8bdddc4e218a, type: 3}
+  _buttonBackSound: {fileID: 8300000, guid: f2af4d59486b5f2489fc4711c2058099, type: 3}
+  _settingsOpenSound: {fileID: 8300000, guid: bb7064a1583304b43be54dc9ee5390a0, type: 3}
+  _settingsCloseSound: {fileID: 8300000, guid: a61fb5f4a1758144aa3867c220b19fa7, type: 3}
+  _sliderTickSound: {fileID: 8300000, guid: 447a5e58061a73649bde9f9baf8aec92, type: 3}
 --- !u!1 &9135876377204377280
 GameObject:
   m_ObjectHideFlags: 0

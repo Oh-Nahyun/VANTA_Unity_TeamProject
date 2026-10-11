@@ -52,6 +52,14 @@ public class GameSettingsUI : MonoBehaviour
         SoundGenerator.AddReleaseSound(_sfxVolumeSlider, _sliderTickSound);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnClickGoBackButton();
+        }
+    }
+
     public void SetMasterVolume(float volume)
     {
         SoundManager.Instance.SetMasterVolume(volume);

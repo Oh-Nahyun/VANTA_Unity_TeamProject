@@ -25,15 +25,20 @@ public class Boss1RoarEffect : MonoBehaviour
     private Tween _shakeTween;
     private Tween _waveTween;
     private Vector3 _visualPivotOriginPosition;
+    
+    private Boss1Sound _boss1Sound;
 
     private void Awake()
     {
+        _boss1Sound = GetComponent<Boss1Sound>();
         _visualPivotOriginPosition = _visualPivot.localPosition;
         ResetWave();
     }
     
     public void Play(float strength = 1f)
     {
+        _boss1Sound.Play(Boss1SoundType.Roar);
+        
         if (_impulseSource != null)
         {
             _impulseSource.GenerateImpulse(strength);
@@ -105,6 +110,11 @@ public class Boss1RoarEffect : MonoBehaviour
     
     public void Stop()
     {
+        if (_boss1Sound != null)
+        {
+            _boss1Sound.Stop(Boss1SoundType.Roar);
+        }
+        
         _waveTween?.Kill();
         _waveTween = null;
         ResetWave();

@@ -33,6 +33,7 @@ public class Boss1PhaseController : MonoBehaviour
         
         [Header("2페이즈 전환 연출")]
         [SerializeField] private float _buffDuration = 1.6f;
+        [SerializeField] private float _colorChangeDuration = 3f;
         [SerializeField] private float _endDelay = 0.2f;
         
         [Header("포효 연출")]
@@ -45,6 +46,8 @@ public class Boss1PhaseController : MonoBehaviour
         private Tween _breakLightTween;
         
         private bool _isPhase2Transitioning; // 지금 페이즈 전환을 진행 중인지
+        
+        private Boss1Sound _boss1Sound;
 
         public Boss1Phase CurrentPhase {get; private set;}
 
@@ -60,6 +63,7 @@ public class Boss1PhaseController : MonoBehaviour
             _boxCollider2D = GetComponent<BoxCollider2D>();
             _boss1HitFlash = GetComponent<Boss1HitFlash>();
             _boss1RoarEffect = GetComponent<Boss1RoarEffect>();
+            _boss1Sound = GetComponent<Boss1Sound>();
             
             if (_breakLight != null)
             {
@@ -100,7 +104,7 @@ public class Boss1PhaseController : MonoBehaviour
 
             // 2.버프
             _animator.Play("Buff", 0, 0f);
-            DOVirtual.Float(0f, 1f, _buffDuration, value =>
+            DOVirtual.Float(0f, 1f, _colorChangeDuration, value =>
                 {
                     _boss1HitFlash.SetPhase2Amount(value);
                     if (_boss1Shadow != null)

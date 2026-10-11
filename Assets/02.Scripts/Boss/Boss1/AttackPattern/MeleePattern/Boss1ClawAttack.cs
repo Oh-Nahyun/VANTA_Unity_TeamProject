@@ -58,6 +58,8 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
     
     private bool _isPhase2;
     
+    private Boss1Sound _boss1Sound;
+    
     private enum ClawState
     {
         Positioning,
@@ -73,6 +75,7 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
     private void Awake()
     {
         _boss1PhaseController = GetComponent<Boss1PhaseController>();
+        _boss1Sound = GetComponent<Boss1Sound>();
     }
     
     private void OnEnable()
@@ -248,6 +251,7 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
         }
         _clawHitBox.EnableHitBox();
         PlayClawImpulse();
+        _boss1Sound.Play(Boss1SoundType.Claw);
     }
 
     public void DisableClawHitBox()

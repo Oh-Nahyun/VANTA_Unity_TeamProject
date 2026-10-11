@@ -81,7 +81,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 40
+  spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -413,6 +413,7 @@ TextureImporter:
     nameFileIdTable:
       White Tiger Slash_0: 5925091604246973437
       White Tiger Slash_1: -4016430508120587429
+      White Tiger Slash_10: -7496416689777744563
       White Tiger Slash_2: -5740063217333111935
       White Tiger Slash_3: 2345131673340664314
       White Tiger Slash_4: -6728574382841547761
@@ -421,7 +422,6 @@ TextureImporter:
       White Tiger Slash_7: -2541144106516024946
       White Tiger Slash_8: -5746693172264308344
       White Tiger Slash_9: -1905556185372915884
-      White Tiger Slash_10: -7496416689777744563
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

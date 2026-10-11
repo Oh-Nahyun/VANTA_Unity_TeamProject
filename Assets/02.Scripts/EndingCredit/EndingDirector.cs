@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EndingDirector : MonoBehaviour
 {
@@ -19,9 +21,21 @@ public class EndingDirector : MonoBehaviour
     [Header("적 배우 활성화 간격")]
     [SerializeField, Min(0.01f)]
     private float _enemyActivateInterval = 2f;
-
+    
+    [Header("엔딩 크레딧 등장 딜레이")]
+    [SerializeField, Min(0f)]
+    private float _endingCreditDelay = 3f;
+    
+    [Header("엔딩 크레딧 등장 시점")] [SerializeField]
+    private UnityEvent _endingCreditStart;
+    
     private Sequence _sequence;
 
+
+    void Awake()
+    {
+        Cursor.visible = false;
+    }
     private void Start()
     {
         SetInactive(_actors);
@@ -31,6 +45,13 @@ public class EndingDirector : MonoBehaviour
 
         AppendActors(_actors, _activateInterval);
         AppendActors(_enemyActors, _enemyActivateInterval);
+        
+        
+             DOVirtual.DelayedCall(
+            _endingCreditDelay,
+            () => _endingCreditStart?.Invoke()
+        );
+        
     }
 
     private void SetInactive(List<GameObject> actors)

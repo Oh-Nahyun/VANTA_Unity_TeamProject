@@ -203,6 +203,8 @@ MonoBehaviour:
   CircleCollider2D: {fileID: 8329480349440368915}
   PlayerSkillManager: {fileID: 0}
   PetMove: {fileID: 964765425002006797}
+  _spawnSound: {fileID: 8300000, guid: 52fd4198bad8b0744804fea054749edb, type: 3}
+  _deathSound: {fileID: 8300000, guid: 06a686d57c3c3254abc8f0ce1d93b670, type: 3}
 --- !u!114 &964765425002006797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +224,11 @@ MonoBehaviour:
   _footStepDustOffsetY: 0
   _footStepDustCount: 3
   CanMove: 0
+  _footStepSound: {fileID: 8300000, guid: eea2b6dbb61885e428392745e51018af, type: 3}
+  _idleSounds:
+  - {fileID: 8300000, guid: 8f0ba4dd16bbb08469f98c2cbef8b61c, type: 3}
+  - {fileID: 8300000, guid: c1857c00792fa4048aba7aa56172d02a, type: 3}
+  - {fileID: 8300000, guid: 7252ac8a690114548a03fa46d7265295, type: 3}
 --- !u!114 &9040926827823601448
 MonoBehaviour:
   m_ObjectHideFlags: 0

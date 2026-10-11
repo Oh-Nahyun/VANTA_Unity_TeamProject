@@ -28,6 +28,12 @@ public class BossHealthUI : MonoBehaviour
     [Header("보스 체력 UI 피격 연출 시간")]
     [SerializeField] private float _hitEffectDuration = 0.08f;
 
+    [Header("보스 체력 UI 등장 연출")]
+    [SerializeField] private BossHealthFadeInEffect _fadeInEffect;
+
+    [Header("보스 체력 UI 충격 연출")]
+    [SerializeField] private BossHealthImpactEffect _impactEffect;
+
     /// <summary>
     /// 보스 게임 오브젝트
     /// </summary>
@@ -63,6 +69,16 @@ public class BossHealthUI : MonoBehaviour
     /// </summary>
     private Vector2 _rightOriginalPosition;
 
+    /// <summary>
+    /// 보스 딜레이 체력 감소 코루틴
+    /// </summary>
+    private Coroutine _delayedHpCoroutine;
+
+    /// <summary>
+    /// 보스 피격 연출 코루틴
+    /// </summary>
+    private Coroutine _hitEffectCoroutine;
+
     private void Start()
     {
         _healthRatio = 1f;
@@ -71,6 +87,11 @@ public class BossHealthUI : MonoBehaviour
         _delayedFillSlider.value = _healthRatio;
         _leftOriginalPosition = _leftImage.anchoredPosition;
         _rightOriginalPosition = _rightImage.anchoredPosition;
+        
+        if (_fadeInEffect != null)
+        {
+            _fadeInEffect.PlayFadeIn();
+        }
     }
 
     private void Update()
@@ -108,12 +129,35 @@ public class BossHealthUI : MonoBehaviour
         {
             _currentFillSlider.value = healthRatio;
 
-            StopAllCoroutines();
-            StartCoroutine(DecreaseDelayedHp(healthRatio));
-            StartCoroutine(PlayHitEffect());
+            if (_delayedHpCoroutine != null)
+            {
+                StopCoroutine(_delayedHpCoroutine);
+                _delayedHpCoroutine = null;
+            }
+
+            _delayedHpCoroutine = StartCoroutine(DecreaseDelayedHp(healthRatio));
+
+            if (_hitEffectCoroutine != null)
+            {
+                StopCoroutine(_hitEffectCoroutine);
+                _hitEffectCoroutine = null;
+            }
+
+            _hitEffectCoroutine = StartCoroutine(PlayHitEffect());
+
+            if (_impactEffect != null)
+            {
+                _impactEffect.PlayDamageShake();
+            }
         }
         else
         {
+            if (_delayedHpCoroutine != null)
+            {
+                StopCoroutine(_delayedHpCoroutine);
+                _delayedHpCoroutine = null;
+            }
+
             _currentFillSlider.value = healthRatio;
             _delayedFillSlider.value = healthRatio;
         }
@@ -133,6 +177,8 @@ public class BossHealthUI : MonoBehaviour
 
             yield return null;
         }
+
+        _delayedHpCoroutine = null;
     }
 
     private IEnumerator PlayHitEffect()
@@ -144,5 +190,15 @@ public class BossHealthUI : MonoBehaviour
 
         _leftImage.anchoredPosition = _leftOriginalPosition;
         _rightImage.anchoredPosition = _rightOriginalPosition;
+
+        _hitEffectCoroutine = null;
+    }
+
+    public void PlayLandingImpact()
+    {
+        if (_impactEffect != null)
+        {
+            _impactEffect.PlayLandingImpact();
+        }
     }
 }

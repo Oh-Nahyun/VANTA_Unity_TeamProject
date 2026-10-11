@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PetJump : MonoBehaviour
 {
@@ -33,6 +34,8 @@ public class PetJump : MonoBehaviour
     private Vector3 _startLocalPosition;
     private Vector3 _jumpStartLocalPosition;
 
+    [Header("점프이벤트")]
+    [SerializeField]private UnityEvent _jump;
     private bool _isJumping;
     private int _moveDirection;
 
@@ -52,6 +55,7 @@ public class PetJump : MonoBehaviour
         if (_isJumping || !isActiveAndEnabled)
             return;
 
+        _jump.Invoke(); 
         StopIdleMovement();
 
         _isJumping = true;

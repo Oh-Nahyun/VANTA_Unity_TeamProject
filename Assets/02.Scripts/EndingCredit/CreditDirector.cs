@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -23,7 +24,9 @@ public class CreditDirector : MonoBehaviour
     private int _runId;
     private bool _isPlaying;
 
-    private void Start()
+    
+
+    private void OnEnable()
     {
         StartCredit();
     }

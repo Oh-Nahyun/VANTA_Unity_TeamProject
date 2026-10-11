@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MoveToPoint : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class MoveToPoint : MonoBehaviour
     [SerializeField]
     private Ease _moveEase = Ease.Linear;
 
+    [Header("도착시 호출")]
+    [SerializeField]private UnityEvent _tweenFinished;
+    
+    
     private Tween _moveTween;
 
     private void OnEnable()
@@ -32,6 +37,7 @@ public class MoveToPoint : MonoBehaviour
             .OnComplete(() =>
             {
                 _moveTween = null;
+                _tweenFinished.Invoke();
                 GetComponent<PetJump>().enabled = true;
             });
     }

@@ -58,6 +58,7 @@ public class Boss2AvoidJudge : MonoBehaviour, IAvoidInteraction
         {
             LastResult = false;
             Resume();
+            PlayFailSpark();
         }
     }
 
@@ -127,6 +128,20 @@ public class Boss2AvoidJudge : MonoBehaviour, IAvoidInteraction
 
         LastResult = result;
         Resume();
+        if (result == false)
+        {
+            PlayFailSpark();
+        }
+    }
+
+    // 회피에 실패하면 멈췄던 공격이 그대로 이어지며 검 쪽에서 불꽃이 튄다.
+    private void PlayFailSpark()
+    {
+        Boss2BladeSpark spark = GetComponent<Boss2BladeSpark>();
+        if (spark != null)
+        {
+            spark.Play();
+        }
     }
 
     private void Resume()

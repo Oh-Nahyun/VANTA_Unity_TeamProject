@@ -48,7 +48,9 @@ public class EndingCreditSoundController : MonoBehaviour
         if (_audioSource == null ||
             _subAudioSource == null ||
             _bgmClip == null)
+        {
             return;
+        }
 
         _fadeSequence?.Kill();
 

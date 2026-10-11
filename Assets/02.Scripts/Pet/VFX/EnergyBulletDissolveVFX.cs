@@ -23,6 +23,9 @@ public class EnergyBulletDissolveVFX : MonoBehaviour
     [Header("펫 에너지 탄 타겟 상실 시 소멸 이펙트 삭제 시간")]
     [SerializeField] private float _energyBulletDissolveVFXLifetime = 1f;
 
+    [Header("펫 에너지 탄 타겟 상실 시 소멸 효과음")]
+    [SerializeField] private AudioClip _energyBulletFizzleSound;
+
     /// <summary>
     /// 펫 에너지 탄 타겟 상실 연출 진행 여부
     /// </summary>
@@ -62,6 +65,7 @@ public class EnergyBulletDissolveVFX : MonoBehaviour
         if (IsDissolving) return;
 
         IsDissolving = true;
+        SoundManager.Instance.PlayEffectSound(_energyBulletFizzleSound);
         _elapsed = 0f;
         _startScale = transform.localScale;
 

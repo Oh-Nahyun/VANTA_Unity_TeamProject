@@ -80,13 +80,35 @@ public class CrystalSanctuaryCastVFX : MonoBehaviour
     [Header("펫 크리스탈 생츄어리 도착 이펙트 프리팹")]
     [SerializeField] private GameObject _arrivalVFXPrefab;
 
+    [Header("펫 크리스탈 생츄어리 시전 부유 효과음")]
+    [SerializeField] private AudioClip _crystalSanctuaryLevitateSound;
+
+    [Header("펫 크리스탈 생츄어리 공명 오라 효과음")]
+    [SerializeField] private AudioClip _crystalSanctuaryResonanceSound;
+
+    [Header("펫 크리스탈 생츄어리 공명 방출 효과음")]
+    [SerializeField] private AudioClip _crystalSanctuaryReleaseSound;
+
+    [Header("펫 크리스탈 생츄어리 마력 코어 비행 효과음")]
+    [SerializeField] private AudioClip _crystalSanctuaryCoreFlySound;
+
+    [Header("펫 크리스탈 생츄어리 마력 코어 비행 효과음 볼륨 비율")]
+    [SerializeField, Range(0f, 1f)] private float _crystalSanctuaryCoreFlySoundVolume = 0.6f;
+
+    [Header("펫 크리스탈 생츄어리 생성 위치 모임 효과음")]
+    [SerializeField] private AudioClip _crystalSanctuaryGatherSound;
+
+    [Header("펫 크리스탈 생츄어리 생성 효과음")]
+    [SerializeField] private AudioClip _crystalSanctuaryCreateSound;
+
     /// <summary>
     /// 펫 크리스탈 생츄어리 시전 연출이 펫이 원래 위치로 내려올 때까지 걸리는 시간. 펫 이동 정지 시간 계산용
     /// </summary>
     /// <param name="coreCount">생성할 크리스탈 생츄어리(마력 코어) 개수</param>
     public float GetCastDuration(int coreCount)
     {
-        return _boostStartTime + _boostDuration + _coreStaggerTime * (coreCount - 1) + _coreMoveDuration + _descendDuration;
+        return _boostStartTime + _boostDuration + _coreStaggerTime * (coreCount - 1) + _coreMoveDuration +
+               _descendDuration;
     }
 
     /// <summary>
@@ -181,12 +203,14 @@ public class CrystalSanctuaryCastVFX : MonoBehaviour
     private IEnumerator CastCoroutine(Vector3[] positions, float[] scales, Action<Vector3, float> onArrive)
     {
         _isCasting = true;
+        SoundManager.Instance.PlayEffectSound(_crystalSanctuaryLevitateSound);
         _levitateCoroutine = StartCoroutine(LevitateCoroutine());
 
         yield return new WaitForSeconds(_resonanceStartDelay);
 
         SetSimulationSpeed(_resonanceAuraParticles, 1f);
         RestartParticles(_resonanceAuraParticles);
+        SoundManager.Instance.PlayEffectSound(_crystalSanctuaryResonanceSound);
 
         yield return new WaitForSeconds(_boostStartTime - _resonanceStartDelay);
 
@@ -197,6 +221,7 @@ public class CrystalSanctuaryCastVFX : MonoBehaviour
 
         StopEmitting(_resonanceAuraParticles);
         RestartParticles(_resonanceBurstParticles);
+        SoundManager.Instance.PlayEffectSound(_crystalSanctuaryReleaseSound);
 
         int count = positions.Length;
         int pending = count;
@@ -232,7 +257,9 @@ public class CrystalSanctuaryCastVFX : MonoBehaviour
 
             float progress = Mathf.Clamp01(timer / _levitateDuration);
             float easeOutProgress = 1f - Mathf.Pow(1f - progress, 3f);
-            float bob = progress >= 1f ? Mathf.Sin((timer - _levitateDuration) * _levitateBobSpeed) * _levitateBobAmount : 0f;
+            float bob = progress >= 1f
+                ? Mathf.Sin((timer - _levitateDuration) * _levitateBobSpeed) * _levitateBobAmount
+                : 0f;
 
             SetLevitateOffset(_levitateHeight * easeOutProgress + bob);
 
@@ -300,7 +327,8 @@ public class CrystalSanctuaryCastVFX : MonoBehaviour
         _boostCoroutine = null;
     }
 
-    private IEnumerator CoreCoroutine(int index, int count, Vector3 targetPosition, float scale, Action<Vector3, float> onArrive, Action onFinished)
+    private IEnumerator CoreCoroutine(int index, int count, Vector3 targetPosition, float scale,
+        Action<Vector3, float> onArrive, Action onFinished)
     {
         yield return new WaitForSeconds(_coreStaggerTime * index);
 
@@ -309,6 +337,13 @@ public class CrystalSanctuaryCastVFX : MonoBehaviour
         GameObject core = SpawnTracked(_magicCorePrefab, startPosition);
 
         SpawnGatheringVFX(zoneCenter, scale);
+        SoundManager.Instance.PlayEffectSound(_crystalSanctuaryCoreFlySound, _crystalSanctuaryCoreFlySoundVolume);
+
+        if (index == 0)
+        {
+            SoundManager.Instance.PlayEffectSound(_crystalSanctuaryGatherSound);
+        }
+
         float middle = (count - 1) * 0.5f;
         float curveFactor = middle > 0f ? (index - middle) / middle : 0f;
         float timer = 0f;
@@ -326,7 +361,8 @@ public class CrystalSanctuaryCastVFX : MonoBehaviour
 
             if (core != null)
             {
-                core.transform.position = Vector3.Lerp(startPosition, zoneCenter, easedProgress) + perpendicular * curve;
+                core.transform.position =
+                    Vector3.Lerp(startPosition, zoneCenter, easedProgress) + perpendicular * curve;
             }
 
             yield return null;
@@ -334,6 +370,12 @@ public class CrystalSanctuaryCastVFX : MonoBehaviour
 
         RetireCore(core);
         SpawnArrivalVFX(zoneCenter);
+
+        if (index == 0)
+        {
+            SoundManager.Instance.PlayEffectSound(_crystalSanctuaryCreateSound);
+        }
+
         onArrive.Invoke(targetPosition, scale);
         onFinished.Invoke();
     }
@@ -389,7 +431,8 @@ public class CrystalSanctuaryCastVFX : MonoBehaviour
         GameObject gathering = SpawnTracked(_gatheringVFXPrefab, position);
 
         gathering.transform.localScale = Vector3.one * scale;
-        SetSimulationSpeed(gathering.GetComponentsInChildren<ParticleSystem>(), _gatheringReferenceDuration / Mathf.Max(0.01f, _coreMoveDuration));
+        SetSimulationSpeed(gathering.GetComponentsInChildren<ParticleSystem>(),
+            _gatheringReferenceDuration / Mathf.Max(0.01f, _coreMoveDuration));
 
         Destroy(gathering, _gatheringVFXLifetime);
     }

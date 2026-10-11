@@ -23,6 +23,12 @@ public class CrystalSanctuaryWaveVFX : MonoBehaviour
     [Header("펫 크리스탈 생츄어리 생성 직후 플레이어 진입 파동을 건너뛰는 시간 (생성 파동과 겹치지 않게 함)")]
     [SerializeField] private float _enterWaveSuppressTime = 0.7f;
 
+    [Header("펫 크리스탈 생츄어리 플레이어 진입 효과음")]
+    [SerializeField] private AudioClip _crystalSanctuaryEnterSound;
+
+    [Header("펫 크리스탈 생츄어리 플레이어 이탈 효과음")]
+    [SerializeField] private AudioClip _crystalSanctuaryExitSound;
+
     /// <summary>
     /// 펫 크리스탈 생츄어리 콜라이더 2D
     /// </summary>
@@ -57,6 +63,7 @@ public class CrystalSanctuaryWaveVFX : MonoBehaviour
 
         if (Time.time - _spawnTime < _enterWaveSuppressTime) return;
 
+        SoundManager.Instance.PlayEffectSound(_crystalSanctuaryEnterSound);
         PlayWaveVFX(_enterWaveVFXPrefab, 1f);
     }
 
@@ -65,6 +72,7 @@ public class CrystalSanctuaryWaveVFX : MonoBehaviour
         if (!_isPlayerInside) return;
 
         _isPlayerInside = false;
+        SoundManager.Instance.PlayEffectSound(_crystalSanctuaryExitSound);
         PlayWaveVFX(_exitWaveVFXPrefab, 1f);
     }
 

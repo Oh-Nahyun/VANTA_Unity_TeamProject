@@ -27,6 +27,12 @@ public class PetAttack : MonoBehaviour
     [Header("펫 기본 공격 기모으기 파티클 시스템")]
     [SerializeField] private ParticleSystem _energyBulletChargeVFX;
 
+    [Header("펫 기본 공격 기모으기 효과음")]
+    [SerializeField] private AudioClip _energyBulletChargeSound;
+
+    [Header("펫 기본 공격 에너지 탄 발사 효과음")]
+    [SerializeField] private AudioClip _energyBulletFireSound;
+
     [Header("펫 공격 스킬 크리스탈 프리즌 프리팹")]
     [SerializeField] private GameObject _crystalPrisonPrefab;
 
@@ -144,6 +150,7 @@ public class PetAttack : MonoBehaviour
         _energyBulletCount = _pet.PlayerSkillManager.GetSkillStack;
         float middleIndex = (_energyBulletCount - 1) * 0.5f;
         _pet.Animator.SetTrigger("IsFireEnergyBullet");
+        SoundManager.Instance.PlayEffectSound(_energyBulletFireSound);
 
         for (int i = 0; i < _energyBulletCount; i++)
         {
@@ -151,6 +158,7 @@ public class PetAttack : MonoBehaviour
                 transform.rotation);
             EnergyBullet energyBullet = bullet.GetComponent<EnergyBullet>();
             energyBullet.AttackTarget = _attackTarget;
+            energyBullet.IsPlayFlySound = (i == 0) ? true : false;
 
             float curveAmount = (i - middleIndex) * 2f;
             energyBullet.BezierCurve.SetCurveAmount(curveAmount);
@@ -342,6 +350,8 @@ public class PetAttack : MonoBehaviour
 
     public void PlayEnergyBulletChargeVFX()
     {
+        SoundManager.Instance.PlayEffectSound(_energyBulletChargeSound);
+
         _energyBulletChargeVFX.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         _energyBulletChargeVFX.transform.position = _energyBulletSpawnTransform.position;
         _energyBulletChargeVFX.Play(true);

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -26,6 +27,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private float _effectVolume = 1f;
 
     private Tween _bgmFadeTween;
+    private readonly Dictionary<AudioSource, float> _loopVolumeScales = new Dictionary<AudioSource, float>();
     private float _bgmFadeValue = 1f;
 
     private void Awake()
@@ -132,15 +134,70 @@ public class SoundManager : MonoBehaviour
 
     public void PlayEffectSound(AudioClip clip)
     {
-        if (clip == null)
+        PlayEffectSound(clip, 1f);
+    }
+
+    public void PlayEffectSound(AudioClip clip, float volumeScale)
+    {
+        if (clip == null) return;
+
+        _effectSource.pitch = Random.Range(_minPitch, _maxPitch);
+        _effectSource.PlayOneShot(clip, volumeScale);
+    }
+
+    public AudioSource PlayLoopSound(AudioClip clip, float volumeScale, float fadeInDuration)
+    {
+        if (clip == null) return null;
+
+        AudioSource source = gameObject.AddComponent<AudioSource>();
+        source.clip = clip;
+        source.loop = true;
+        source.playOnAwake = false;
+        source.volume = 0f;
+        source.Play();
+
+        _loopVolumeScales[source] = volumeScale;
+
+        DOTween
+            .To(() => source.volume, value => source.volume = value, GetLoopVolume(volumeScale), fadeInDuration)
+            .SetTarget(source);
+
+        return source;
+    }
+
+    public void StopLoopSound(AudioSource source, float fadeOutDuration)
+    {
+        if (source == null)
             return;
 
-        _effectSource.pitch = Random.Range(
-            _minPitch,
-            _maxPitch
-        );
+        DOTween.Kill(source);
+        _loopVolumeScales.Remove(source);
 
-        _effectSource.PlayOneShot(clip);
+        if (fadeOutDuration <= 0f)
+        {
+            Destroy(source);
+            return;
+        }
+
+        DOTween
+            .To(() => source.volume, value => source.volume = value, 0f, fadeOutDuration)
+            .SetTarget(source)
+            .OnComplete(() => Destroy(source));
+    }
+
+    private float GetLoopVolume(float volumeScale)
+    {
+        return _effectVolume * _masterVolume * volumeScale;
+    }
+
+    private void RefreshLoopVolumes()
+    {
+        foreach (KeyValuePair<AudioSource, float> loop in _loopVolumeScales)
+        {
+            if (loop.Key == null) continue;
+
+            loop.Key.volume = GetLoopVolume(loop.Value);
+        }
     }
 
     private void OnDestroy()
@@ -153,6 +210,7 @@ public class SoundManager : MonoBehaviour
         _masterVolume = volume;
         _bgmSource.volume = _bgmVolume * _masterVolume * _bgmFadeValue;
         _effectSource.volume = _effectVolume * _masterVolume;
+        RefreshLoopVolumes();
 
         PlayerPrefs.SetFloat("MasterVolume", volume);
     }
@@ -169,6 +227,7 @@ public class SoundManager : MonoBehaviour
     {
         _effectVolume = volume;
         _effectSource.volume = _effectVolume * _masterVolume;
+        RefreshLoopVolumes();
 
         PlayerPrefs.SetFloat("EffectVolume", volume);
     }

@@ -103,6 +103,15 @@ public class CrystalPrisonCastVFX : MonoBehaviour
     [Header("펫 크리스탈 프리즌 마력 흐름 프리팹")]
     [SerializeField] private GameObject _magicStreamPrefab;
 
+    [Header("펫 크리스탈 프리즌 시전 차징 효과음")]
+    [SerializeField] private AudioClip _crystalPrisonChargeSound;
+
+    [Header("펫 크리스탈 프리즌 마력 구체 비행 효과음")]
+    [SerializeField] private AudioClip _crystalPrisonOrbFlySound;
+
+    [Header("펫 크리스탈 프리즌 마력 도착 효과음")]
+    [SerializeField] private AudioClip _crystalPrisonArriveSound;
+
     /// <summary>
     /// 펫 크리스탈 프리즌 시전 차징 오라 파티클 시스템 목록
     /// </summary>
@@ -189,6 +198,7 @@ public class CrystalPrisonCastVFX : MonoBehaviour
         _latestCastId++;
 
         StartChargeVFX();
+        SoundManager.Instance.PlayEffectSound(_crystalPrisonChargeSound);
         StartCoroutine(CastCoroutine(_latestCastId, target, onArrive));
     }
 
@@ -208,6 +218,7 @@ public class CrystalPrisonCastVFX : MonoBehaviour
         if (!IsTargetAlive(target)) yield break;
 
         GameObject magicOrb = SpawnTracked(_magicOrbPrefab, transform.position + _castCenterOffset);
+        SoundManager.Instance.PlayEffectSound(_crystalPrisonOrbFlySound);
         Vector3 startPosition = transform.position + _castCenterOffset;
         Vector3 lastPosition = startPosition;
         float curveSign = UnityEngine.Random.value < 0.5f ? -1f : 1f;
@@ -252,6 +263,7 @@ public class CrystalPrisonCastVFX : MonoBehaviour
 
         RetireMagicOrb(magicOrb);
         SpawnArrivalFlash(target.transform.position);
+        SoundManager.Instance.PlayEffectSound(_crystalPrisonArriveSound);
 
         if (onArrive != null)
         {

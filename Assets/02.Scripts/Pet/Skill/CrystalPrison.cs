@@ -12,6 +12,24 @@ public class CrystalPrison : MonoBehaviour
     [Header("펫 크리스탈 프리즌 파괴 준비 이펙트 재생 시간")]
     [SerializeField] private float _breakReadyDuration = 0.4f;
 
+    [Header("펫 크리스탈 프리즌 생성 효과음")]
+    [SerializeField] private AudioClip _crystalPrisonCreateSound;
+
+    [Header("펫 크리스탈 프리즌 속박 시작 효과음")]
+    [SerializeField] private AudioClip _crystalPrisonBindSound;
+
+    [Header("펫 크리스탈 프리즌 유지 중 반복 효과음")]
+    [SerializeField] private AudioClip _crystalPrisonHoldSound;
+
+    [Header("펫 크리스탈 프리즌 파괴 준비 효과음")]
+    [SerializeField] private AudioClip _crystalPrisonBreakReadySound;
+
+    [Header("펫 크리스탈 프리즌 파괴 효과음")]
+    [SerializeField] private AudioClip _crystalPrisonBreakSound;
+
+    [Header("펫 크리스탈 프리즌 유지 효과음이 서서히 켜지고 꺼지는 시간")]
+    [SerializeField] private float _crystalPrisonHoldSoundFadeDuration = 0.3f;
+
     /// <summary>
     /// 펫 공격 타겟
     /// </summary>
@@ -63,6 +81,11 @@ public class CrystalPrison : MonoBehaviour
     private bool _isSkillProcessStart;
 
     /// <summary>
+    /// 펫 크리스탈 프리즌 유지 중 반복 효과음 오디오 소스
+    /// </summary>
+    private AudioSource _crystalPrisonHoldSoundSource;
+
+    /// <summary>
     /// 펫 크리스탈 프리즌 종료 여부 확인용 변수
     /// </summary>
     private bool _isSkillEnd;
@@ -80,6 +103,8 @@ public class CrystalPrison : MonoBehaviour
         _timer = 0f;
         _timeBeforeUseSkill = 0.7f;
         _timeBeforeDestroy = 0.75f;
+
+        SoundManager.Instance.PlayEffectSound(_crystalPrisonCreateSound);
     }
 
     private void Update()
@@ -107,6 +132,8 @@ public class CrystalPrison : MonoBehaviour
         if (_isSkillProcessStart) return;
 
         _isSkillProcessStart = true;
+        SoundManager.Instance.PlayEffectSound(_crystalPrisonBindSound);
+        _crystalPrisonHoldSoundSource = SoundManager.Instance.PlayLoopSound(_crystalPrisonHoldSound, 1f, _crystalPrisonHoldSoundFadeDuration);
         StartCoroutine(EndSkillProcessCoroutine(moveTarget));
     }
 
@@ -134,9 +161,26 @@ public class CrystalPrison : MonoBehaviour
         hitTarget.ExecuteHitEvent(_damage, DamageIndicatorType.Normal);
     }
 
+    private void StopCrystalPrisonHoldSound(float fadeOutDuration)
+    {
+        if (_crystalPrisonHoldSoundSource == null) return;
+
+        SoundManager.Instance.StopLoopSound(_crystalPrisonHoldSoundSource, fadeOutDuration);
+        _crystalPrisonHoldSoundSource = null;
+    }
+
+    private void OnDestroy()
+    {
+        if (SoundManager.Instance == null) return;
+
+        StopCrystalPrisonHoldSound(0f);
+    }
+
     private void PlayBreakReadyVFX()
     {
         _isBreakReadyStarted = true;
+        SoundManager.Instance.PlayEffectSound(_crystalPrisonBreakReadySound);
+        StopCrystalPrisonHoldSound(_crystalPrisonHoldSoundFadeDuration);
 
         if (_crystalPrisonVFX != null)
         {
@@ -146,6 +190,9 @@ public class CrystalPrison : MonoBehaviour
 
     private void PlayEndAnimation()
     {
+        SoundManager.Instance.PlayEffectSound(_crystalPrisonBreakSound);
+        StopCrystalPrisonHoldSound(_crystalPrisonHoldSoundFadeDuration);
+
         _animatorFront.SetTrigger("IsEnd");
         _animatorBack.SetTrigger("IsEnd");
         _animatorGround.SetTrigger("IsEnd");

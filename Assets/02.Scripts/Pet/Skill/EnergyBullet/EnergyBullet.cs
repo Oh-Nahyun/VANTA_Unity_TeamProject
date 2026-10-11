@@ -17,6 +17,12 @@ public class EnergyBullet : MonoBehaviour
     [Header("펫 에너지 탄 피격 이펙트 삭제 시간")]
     [SerializeField] private float _energyBulletHitVFXLifetime = 1f;
 
+    [Header("펫 에너지 탄 비행 효과음")]
+    [SerializeField] private AudioClip _energyBulletFlySound;
+
+    [Header("펫 에너지 탄 피격 효과음")]
+    [SerializeField] private AudioClip _energyBulletHitSound;
+
     /// <summary>
     /// 펫 공격 타겟
     /// </summary>
@@ -48,6 +54,16 @@ public class EnergyBullet : MonoBehaviour
     private bool _isHoming;
 
     /// <summary>
+    /// 펫 에너지 탄 비행 효과음 재생 여부 확인용 변수
+    /// </summary>
+    private bool _isFlySoundPlayed;
+
+    /// <summary>
+    /// 펫 에너지 탄이 비행 효과음을 재생해도 되는지 확인용 변수
+    /// </summary>
+    public bool IsPlayFlySound;
+
+    /// <summary>
     /// 펫 에너지 탄 타겟 상실 연출 클래스
     /// </summary>
     private EnergyBulletDissolveVFX _energyBulletDissolveVFX;
@@ -64,6 +80,8 @@ public class EnergyBullet : MonoBehaviour
         _timeBeforeMove = 0.6f;
         _bezierProgress = 0f;
         _isHoming = false;
+        _isFlySoundPlayed = false;
+        IsPlayFlySound = true;
 
         if (BezierCurve == null) return;
         if (AttackTarget == null) return;
@@ -93,8 +111,20 @@ public class EnergyBullet : MonoBehaviour
         _timer += Time.deltaTime;
         if (_timer >= _timeBeforeMove)
         {
+            PlayFlySound();
             Move();
         }
+    }
+
+    private void PlayFlySound()
+    {
+        if (_isFlySoundPlayed) return;
+
+        _isFlySoundPlayed = true;
+
+        if (!IsPlayFlySound) return;
+
+        SoundManager.Instance.PlayEffectSound(_energyBulletFlySound);
     }
 
     private void SetBezierPoints()
@@ -170,6 +200,7 @@ public class EnergyBullet : MonoBehaviour
         if (_energyBulletDissolveVFX != null && _energyBulletDissolveVFX.IsDissolving) return;
         if (!other.CompareTag("Boss")) return;
 
+        SoundManager.Instance.PlayEffectSound(_energyBulletHitSound);
         SpawnEnergyBulletHitVFX();
         Hit();
         Destroy(gameObject);

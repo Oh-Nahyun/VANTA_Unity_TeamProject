@@ -40,6 +40,9 @@ public class BossHealthUI : MonoBehaviour
     [Header("보스 체력 UI 피격 효과음")]
     [SerializeField] private AudioClip _hitSound;
 
+    [Header("보스 체력 UI가 사라질 때 효과음")]
+    [SerializeField] private AudioClip _disappearSound;
+
     /// <summary>
     /// 보스 게임 오브젝트
     /// </summary>
@@ -84,6 +87,11 @@ public class BossHealthUI : MonoBehaviour
     /// 보스 피격 연출 코루틴
     /// </summary>
     private Coroutine _hitEffectCoroutine;
+
+    /// <summary>
+    /// 보스 체력 UI 페이드 아웃 시작 여부 확인용 변수
+    /// </summary>
+    private bool _isFadeOutStarted;
 
     private void OnEnable()
     {
@@ -134,6 +142,19 @@ public class BossHealthUI : MonoBehaviour
         }
     }
 
+    public void PlayFadeOut()
+    {
+        if (_isFadeOutStarted) return;
+
+        _isFadeOutStarted = true;
+        SoundManager.Instance.PlayEffectSound(_disappearSound);
+
+        if (_fadeInEffect != null)
+        {
+            _fadeInEffect.PlayFadeOut();
+        }
+    }
+
     private void UpdateHp(float healthRatio)
     {
         if (healthRatio < _previousHealthRatio)
@@ -176,6 +197,11 @@ public class BossHealthUI : MonoBehaviour
         }
 
         _previousHealthRatio = healthRatio;
+
+        if (healthRatio <= 0f)
+        {
+            PlayFadeOut();
+        }
     }
 
     private IEnumerator DecreaseDelayedHp(float healthRatio)

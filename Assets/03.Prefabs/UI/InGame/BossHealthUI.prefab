@@ -658,6 +658,7 @@ MonoBehaviour:
   _impactEffect: {fileID: 2219315670186237297}
   _appearSound: {fileID: 8300000, guid: 3d81ba187854bc341a54209e1d62446e, type: 3}
   _hitSound: {fileID: 8300000, guid: c8e99e2be6fdc754388f298a9c2be848, type: 3}
+  _disappearSound: {fileID: 8300000, guid: 6d8338c58e90a5e4db8e19028e4d2983, type: 3}
 --- !u!114 &5482270792749031484
 MonoBehaviour:
   m_ObjectHideFlags: 0

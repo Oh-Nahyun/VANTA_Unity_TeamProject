@@ -36,8 +36,25 @@ public class GameTitleUI : MonoBehaviour
     /// </summary>
     private bool _isSkipTitleEffect;
 
+    /// <summary>
+    /// 게임 설정 패널 클래스
+    /// </summary>
+    private GameSettingsUI _gameSettingsUI;
+
+    /// <summary>
+    /// 인게임에서 설정 창을 열어 게임이 정지된 상태인지 확인용 변수
+    /// </summary>
+    private bool _isPaused;
+
+    /// <summary>
+    /// 게임 정지 직전의 타임 스케일
+    /// </summary>
+    private float _timeScaleBeforePause;
+
     private void Start()
     {
+        _gameSettingsUI = _gameSettingPanel.GetComponent<GameSettingsUI>();
+
         _gameStartButton.onClick.AddListener(OnClickStartButton);
         _gameSettingsButton.onClick.AddListener(OnClickSettingsButton);
         _gameExitButton.onClick.AddListener(OnClickExitButton);
@@ -50,6 +67,55 @@ public class GameTitleUI : MonoBehaviour
         {
             InGameSceneManager.IsRetry = false;
             StartCoroutine(StartGameWithoutTitleCoroutine());
+        }
+    }
+
+    private void Update()
+    {
+        UpdatePause();
+
+        if (!Input.GetKeyDown(KeyCode.Escape)) return;
+
+        if (_gameSettingPanel.activeSelf)
+        {
+            _gameSettingsUI.CloseSettings();
+            UpdatePause();
+            return;
+        }
+
+        if (transform.GetChild(0).gameObject.activeSelf) return;
+
+        _gameSettingPanel.SetActive(true);
+        PauseGame();
+    }
+
+    private void PauseGame()
+    {
+        _timeScaleBeforePause = Time.timeScale > 0f ? Time.timeScale : 1f;
+        Time.timeScale = 0f;
+        _isPaused = true;
+    }
+
+    private void ResumeGame()
+    {
+        Time.timeScale = _timeScaleBeforePause;
+        _isPaused = false;
+    }
+
+    private void UpdatePause()
+    {
+        if (!_isPaused) return;
+
+        if (!_gameSettingPanel.activeSelf)
+        {
+            ResumeGame();
+            return;
+        }
+
+        if (Time.timeScale != 0f)
+        {
+            _timeScaleBeforePause = Time.timeScale;
+            Time.timeScale = 0f;
         }
     }
 

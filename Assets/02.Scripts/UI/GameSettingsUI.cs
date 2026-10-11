@@ -44,20 +44,12 @@ public class GameSettingsUI : MonoBehaviour
         _masterVolumeSlider.onValueChanged.AddListener(SetMasterVolume);
         _bgmVolumeSlider.onValueChanged.AddListener(SetBGMVolume);
         _sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
-        _goBackButton.onClick.AddListener(OnClickGoBackButton);
+        _goBackButton.onClick.AddListener(CloseSettings);
 
         SoundGenerator.AddHoverSound(_goBackButton, _buttonHoverSound);
         SoundGenerator.AddReleaseSound(_masterVolumeSlider, _sliderTickSound);
         SoundGenerator.AddReleaseSound(_bgmVolumeSlider, _sliderTickSound);
         SoundGenerator.AddReleaseSound(_sfxVolumeSlider, _sliderTickSound);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            OnClickGoBackButton();
-        }
     }
 
     public void SetMasterVolume(float volume)
@@ -75,7 +67,7 @@ public class GameSettingsUI : MonoBehaviour
         SoundManager.Instance.SetEffectVolume(volume);
     }
 
-    private void OnClickGoBackButton()
+    public void CloseSettings()
     {
         SoundManager.Instance.PlayEffectSound(_buttonBackSound);
         SoundManager.Instance.PlayEffectSound(_settingsCloseSound);

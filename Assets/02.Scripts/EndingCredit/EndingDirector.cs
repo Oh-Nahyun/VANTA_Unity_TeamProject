@@ -32,6 +32,10 @@ public class EndingDirector : MonoBehaviour
     private Sequence _sequence;
 
 
+    void Awake()
+    {
+        Cursor.visible = false;
+    }
     private void Start()
     {
         SetInactive(_actors);

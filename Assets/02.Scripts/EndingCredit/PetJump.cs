@@ -1,6 +1,8 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class PetJump : MonoBehaviour
 {
@@ -28,34 +30,62 @@ public class PetJump : MonoBehaviour
     [SerializeField, Range(0f, 1f)]
     private float _keepDirectionChance = 0.25f;
 
+    [Header("점프 이벤트")]
+    [SerializeField]
+    private UnityEvent _jump = new UnityEvent();
+
+    [Header("점프 끝날 때 이벤트")]
+    [SerializeField]
+    private UnityEvent _jumpEnd = new UnityEvent();
+
     private Sequence _jumpSequence;
     private Sequence _moveSequence;
 
     private Vector3 _startLocalPosition;
     private Vector3 _jumpStartLocalPosition;
 
-    [Header("점프이벤트")]
-    [SerializeField]private UnityEvent _jump;
     private bool _isJumping;
+    private bool _stopRequested;
     private int _moveDirection;
 
-    private void Awake()
-    {
-  
-    }
+    private Action _onLanded;
 
     private void OnEnable()
     {
+        _stopRequested = false;
+        _onLanded = null;
+
         _startLocalPosition = transform.localPosition;
         StartIdleMovement();
     }
 
+    // 점프 중이면 착지까지 기다리고,
+    // 점프 중이 아니면 바로 콜백 실행
+    public void StopAfterLanding(Action onLanded)
+    {
+        _stopRequested = true;
+        StopIdleMovement();
+
+        // 여러 번 요청하면 가장 최근 요청으로 교체
+        _onLanded = onLanded;
+
+        if (!_isJumping)
+            CompleteStop();
+    }
+
+    private void CompleteStop()
+    {
+        Action callback = _onLanded;
+        _onLanded = null;
+
+        callback?.Invoke();
+    }
+
     public void Jump()
     {
-        if (_isJumping || !isActiveAndEnabled)
+        if (_isJumping || _stopRequested || !isActiveAndEnabled)
             return;
 
-        _jump.Invoke(); 
         StopIdleMovement();
 
         _isJumping = true;
@@ -85,40 +115,43 @@ public class PetJump : MonoBehaviour
             _jumpSequence = null;
             _isJumping = false;
 
+            _jumpEnd?.Invoke();
+
+            if (!isActiveAndEnabled)
+                return;
+
+            if (_stopRequested)
+            {
+                CompleteStop();
+                return;
+            }
+
             StartIdleMovement();
         });
+
+        _jump?.Invoke();
     }
 
     private void StartIdleMovement()
     {
         StopIdleMovement();
 
-        if (_isJumping || !isActiveAndEnabled)
+        if (_isJumping || _stopRequested || !isActiveAndEnabled)
             return;
 
         if (_moveDirection == 0)
-        {
             _moveDirection = Random.value < 0.5f ? -1 : 1;
-        }
 
-        // 시작할 때는 대기 없이 바로 이동
         PlayNextMovement(false);
     }
 
     private void PlayNextMovement(bool waitBeforeMove = true)
     {
-        if (_isJumping || !isActiveAndEnabled)
+        if (_isJumping || _stopRequested || !isActiveAndEnabled)
             return;
 
-        float distance = GetRandomRange(
-            _moveDistanceRange,
-            0f
-        );
-
-        float duration = GetRandomRange(
-            _moveDurationRange,
-            0.01f
-        );
+        float distance = GetRandomRange(_moveDistanceRange, 0f);
+        float duration = GetRandomRange(_moveDurationRange, 0.01f);
 
         float targetX =
             _startLocalPosition.x + distance * _moveDirection;
@@ -127,39 +160,27 @@ public class PetJump : MonoBehaviour
 
         if (waitBeforeMove)
         {
-            float wait = GetRandomRange(
-                _waitDurationRange,
-                0f
-            );
-
+            float wait = GetRandomRange(_waitDurationRange, 0f);
             _moveSequence.AppendInterval(wait);
         }
 
         _moveSequence.Append(
-            transform.DOLocalMoveX(
-                targetX,
-                duration
-            ).SetEase(Ease.InOutSine)
+            transform.DOLocalMoveX(targetX, duration)
+                .SetEase(Ease.InOutSine)
         );
 
         _moveSequence.OnComplete(() =>
         {
             _moveSequence = null;
 
-            // 다음 이동 방향 결정
             if (Random.value >= _keepDirectionChance)
-            {
                 _moveDirection *= -1;
-            }
 
-            // 거리, 이동 시간, 대기 시간을 매번 새로 선택
             PlayNextMovement();
         });
     }
 
-    private static float GetRandomRange(
-        Vector2 range,
-        float minimum)
+    private static float GetRandomRange(Vector2 range, float minimum)
     {
         float min = Mathf.Max(
             minimum,
@@ -195,6 +216,8 @@ public class PetJump : MonoBehaviour
         }
 
         _isJumping = false;
+        _onLanded = null;
+        _stopRequested = false;
     }
 
     private void OnDestroy()

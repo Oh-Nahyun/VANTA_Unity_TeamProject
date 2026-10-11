@@ -12,6 +12,8 @@ public class Boss1HitFlash : MonoBehaviour
 
     private Color[] _originalColors;
     private Coroutine _flashCoroutine;
+    
+    public float CurrentPhase2Amount { get; private set; }
 
     public void PlayHitFlash()
     {
@@ -51,6 +53,7 @@ public class Boss1HitFlash : MonoBehaviour
 
     public void SetPhase2Amount(float amount)
     {
+        CurrentPhase2Amount = amount;
         SetFloatProperty(Phase2Amount, amount);
     }
 

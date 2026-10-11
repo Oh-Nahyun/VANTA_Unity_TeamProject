@@ -33,6 +33,7 @@ public class Boss1PhaseController : MonoBehaviour
         
         [Header("2페이즈 전환 연출")]
         [SerializeField] private float _buffDuration = 1.6f;
+        [SerializeField] private float _colorChangeDuration = 3f;
         [SerializeField] private float _endDelay = 0.2f;
         
         [Header("포효 연출")]
@@ -103,7 +104,7 @@ public class Boss1PhaseController : MonoBehaviour
 
             // 2.버프
             _animator.Play("Buff", 0, 0f);
-            DOVirtual.Float(0f, 1f, _buffDuration, value =>
+            DOVirtual.Float(0f, 1f, _colorChangeDuration, value =>
                 {
                     _boss1HitFlash.SetPhase2Amount(value);
                     if (_boss1Shadow != null)

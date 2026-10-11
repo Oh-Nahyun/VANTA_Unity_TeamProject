@@ -1,6 +1,7 @@
 using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
 
 public class Boss1JumpAttack : MonoBehaviour, IBoss1Attack
@@ -25,6 +26,9 @@ public class Boss1JumpAttack : MonoBehaviour, IBoss1Attack
     [SerializeField] private float _landImpulseForce = 0.5f;
     [SerializeField] private float _landLightIntensity = 3f;
     [SerializeField] private float _landLightDuration = 0.3f;
+    
+    [Header("점프 착지 이벤트")]
+    [SerializeField] private UnityEvent _onJumpLanded;
 
     private Tween _landLightTween;
     
@@ -263,6 +267,8 @@ public class Boss1JumpAttack : MonoBehaviour, IBoss1Attack
 
         PlayLandImpulse();
         PlayLandLight();
+        
+        _onJumpLanded?.Invoke();
     }
     
     private void PlayLandImpulse()

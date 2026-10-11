@@ -28,8 +28,11 @@ public class BossHealthUI : MonoBehaviour
     [Header("보스 체력 UI 피격 연출 시간")]
     [SerializeField] private float _hitEffectDuration = 0.08f;
 
+    [Header("보스 체력 UI 등장 연출")]
+    [SerializeField] private BossHealthFadeInEffect _fadeInEffect;
+
     [Header("보스 체력 UI 충격 연출")]
-    [SerializeField] private BossHealthImpactVFX _impactVFX;
+    [SerializeField] private BossHealthImpactEffect _impactEffect;
 
     /// <summary>
     /// 보스 게임 오브젝트
@@ -84,6 +87,11 @@ public class BossHealthUI : MonoBehaviour
         _delayedFillSlider.value = _healthRatio;
         _leftOriginalPosition = _leftImage.anchoredPosition;
         _rightOriginalPosition = _rightImage.anchoredPosition;
+        
+        if (_fadeInEffect != null)
+        {
+            _fadeInEffect.PlayFadeIn();
+        }
     }
 
     private void Update()
@@ -137,9 +145,9 @@ public class BossHealthUI : MonoBehaviour
 
             _hitEffectCoroutine = StartCoroutine(PlayHitEffect());
 
-            if (_impactVFX != null)
+            if (_impactEffect != null)
             {
-                _impactVFX.PlayDamageShake();
+                _impactEffect.PlayDamageShake();
             }
         }
         else
@@ -188,9 +196,9 @@ public class BossHealthUI : MonoBehaviour
 
     public void PlayLandingImpact()
     {
-        if (_impactVFX != null)
+        if (_impactEffect != null)
         {
-            _impactVFX.PlayLandingImpact();
+            _impactEffect.PlayLandingImpact();
         }
     }
 }

@@ -185,4 +185,12 @@ public class BossHealthUI : MonoBehaviour
 
         _hitEffectCoroutine = null;
     }
+
+    public void PlayLandingImpact()
+    {
+        if (_impactVFX != null)
+        {
+            _impactVFX.PlayLandingImpact();
+        }
+    }
 }

@@ -7,13 +7,11 @@ public class BossHealthImpactVFX : MonoBehaviour
 
     [Header("피격 흔들림")]
     [SerializeField] private float _shakeDuration = 0.18f;
-
     [SerializeField] private float _shakeX = 12f;
     [SerializeField] private float _shakeY = 4f;
 
     [Header("착지 충격")]
     [SerializeField] private float _landingDuration = 0.32f;
-
     [SerializeField] private float _landingDrop = 14f;
     [SerializeField] private float _landingRebound = 5f;
 

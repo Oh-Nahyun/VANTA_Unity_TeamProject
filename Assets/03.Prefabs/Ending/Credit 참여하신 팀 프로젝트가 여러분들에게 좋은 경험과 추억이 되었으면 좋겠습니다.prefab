@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 5867204953549593476}
   - component: {fileID: 5531478014646989810}
   m_Layer: 0
-  m_Name: "Credit \uC774\uBC88 \uD504\uB85C\uC81D\uD2B8 \uBAA8\uB450 \uACE0\uC0DD
-    \uB9CE\uC73C\uC168\uC2B5\uB2C8\uB2E4"
+  m_Name: "Credit \uCC38\uC5EC\uD558\uC2E0 \uD300 \uD504\uB85C\uC81D\uD2B8\uAC00
+    \uC5EC\uB7EC\uBD84\uB4E4\uC5D0\uAC8C \uC88B\uC740 \uACBD\uD5D8\uACFC \uCD94\uC5B5\uC774
+    \uB418\uC5C8\uC73C\uBA74 \uC88B\uACA0\uC2B5\uB2C8\uB2E4"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,6 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1de5de52eb7867c4396905f469908d8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Credit
-  _content: "\uC774\uBC88 \uD504\uB85C\uC81D\uD2B8 \uBAA8\uB450 \uACE0\uC0DD \uB9CE\uC73C\uC168\uC2B5\uB2C8\uB2E4"
+  _content: "\uCC38\uC5EC\uD558\uC2E0 \uD300 \uD504\uB85C\uC81D\uD2B8\uAC00 \uC5EC\uB7EC\uBD84\uB4E4\uC5D0\uAC8C
+    \uC88B\uC740 \uACBD\uD5D8\uACFC \uCD94\uC5B5\uC774 \uB418\uC5C8\uC73C\uBA74 \uC88B\uACA0\uC2B5\uB2C8\uB2E4"
   _typingInterval: 0.2
   _destroyDelay: 1.5

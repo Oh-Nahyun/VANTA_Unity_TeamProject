@@ -25,9 +25,15 @@ public class MoveToPoint : MonoBehaviour
             return;
 
         _moveTween = transform.DOMove(
-            _targetPoint.position,
-            _moveDuration
-        ).SetEase(_moveEase);
+                _targetPoint.position,
+                _moveDuration
+            )
+            .SetEase(_moveEase)
+            .OnComplete(() =>
+            {
+                _moveTween = null;
+                GetComponent<PetJump>().enabled = true;
+            });
     }
 
     private void OnDisable()

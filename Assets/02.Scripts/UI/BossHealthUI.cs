@@ -28,6 +28,9 @@ public class BossHealthUI : MonoBehaviour
     [Header("보스 체력 UI 피격 연출 시간")]
     [SerializeField] private float _hitEffectDuration = 0.08f;
 
+    [Header("보스 체력 UI 충격 연출")]
+    [SerializeField] private BossHealthImpactVFX _impactVFX;
+
     /// <summary>
     /// 보스 게임 오브젝트
     /// </summary>
@@ -62,6 +65,16 @@ public class BossHealthUI : MonoBehaviour
     /// 보스 체력 UI 오른쪽 이미지 원래 위치
     /// </summary>
     private Vector2 _rightOriginalPosition;
+
+    /// <summary>
+    /// 보스 딜레이 체력 감소 코루틴
+    /// </summary>
+    private Coroutine _delayedHpCoroutine;
+
+    /// <summary>
+    /// 보스 피격 연출 코루틴
+    /// </summary>
+    private Coroutine _hitEffectCoroutine;
 
     private void Start()
     {
@@ -108,12 +121,35 @@ public class BossHealthUI : MonoBehaviour
         {
             _currentFillSlider.value = healthRatio;
 
-            StopAllCoroutines();
-            StartCoroutine(DecreaseDelayedHp(healthRatio));
-            StartCoroutine(PlayHitEffect());
+            if (_delayedHpCoroutine != null)
+            {
+                StopCoroutine(_delayedHpCoroutine);
+                _delayedHpCoroutine = null;
+            }
+
+            _delayedHpCoroutine = StartCoroutine(DecreaseDelayedHp(healthRatio));
+
+            if (_hitEffectCoroutine != null)
+            {
+                StopCoroutine(_hitEffectCoroutine);
+                _hitEffectCoroutine = null;
+            }
+
+            _hitEffectCoroutine = StartCoroutine(PlayHitEffect());
+
+            if (_impactVFX != null)
+            {
+                _impactVFX.PlayDamageShake();
+            }
         }
         else
         {
+            if (_delayedHpCoroutine != null)
+            {
+                StopCoroutine(_delayedHpCoroutine);
+                _delayedHpCoroutine = null;
+            }
+
             _currentFillSlider.value = healthRatio;
             _delayedFillSlider.value = healthRatio;
         }
@@ -133,6 +169,8 @@ public class BossHealthUI : MonoBehaviour
 
             yield return null;
         }
+
+        _delayedHpCoroutine = null;
     }
 
     private IEnumerator PlayHitEffect()
@@ -144,5 +182,7 @@ public class BossHealthUI : MonoBehaviour
 
         _leftImage.anchoredPosition = _leftOriginalPosition;
         _rightImage.anchoredPosition = _rightOriginalPosition;
+
+        _hitEffectCoroutine = null;
     }
 }

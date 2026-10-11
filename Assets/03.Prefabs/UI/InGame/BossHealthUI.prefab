@@ -588,6 +588,7 @@ GameObject:
   m_Component:
   - component: {fileID: 93744653351868377}
   - component: {fileID: 429051425285417101}
+  - component: {fileID: 2219315670186237297}
   m_Layer: 5
   m_Name: BossHealthUI
   m_TagString: Untagged
@@ -639,6 +640,26 @@ MonoBehaviour:
   _rightImage: {fileID: 5791915407788983533}
   _moveAmount: 12
   _hitEffectDuration: 0.08
+  _impactVFX: {fileID: 2219315670186237297}
+--- !u!114 &2219315670186237297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6639556939630668639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0eced20227ad9141a23976849df8a31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossHealthImpactEffect
+  _target: {fileID: 93744653351868377}
+  _shakeDuration: 0.18
+  _shakeX: 12
+  _shakeY: 4
+  _landingDuration: 0.32
+  _landingDrop: 14
+  _landingRebound: 5
 --- !u!1 &7765617024166436532
 GameObject:
   m_ObjectHideFlags: 0

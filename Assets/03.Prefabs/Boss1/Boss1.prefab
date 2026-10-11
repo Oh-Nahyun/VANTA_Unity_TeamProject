@@ -154,7 +154,7 @@ MonoBehaviour:
   - {fileID: 2553560990060678841}
   - {fileID: 5125477251239251925}
   _mirrorY: -0.2
-  _reflectionColor: {r: 0.35686275, g: 0.35686275, b: 0.35686275, a: 0.56078434}
+  _reflectionColor: {r: 0.4509804, g: 0.42745098, b: 0.42745098, a: 0.56078434}
   _reflectionMaterial: {fileID: 2100000, guid: 8afef942e50c3474ca6685ac0671f27d, type: 2}
 --- !u!1 &539255342859907101
 GameObject:
@@ -775,6 +775,7 @@ MonoBehaviour:
   _boss1SpitAttack: {fileID: 3619018780754979877}
   _boss1JumpAttack: {fileID: 2846696346554286157}
   _boss1DeathController: {fileID: 8856960780408004671}
+  _boss1Sound: {fileID: 6291799440809599163}
 --- !u!1 &1515577075812671473
 GameObject:
   m_ObjectHideFlags: 0
@@ -3090,6 +3091,7 @@ GameObject:
   - component: {fileID: 6531711006687170515}
   - component: {fileID: 8856960780408004671}
   - component: {fileID: 301913952616877973}
+  - component: {fileID: 6291799440809599163}
   m_Layer: 21
   m_Name: Boss1
   m_TagString: Boss
@@ -3554,6 +3556,9 @@ MonoBehaviour:
   _landImpulseForce: 0.5
   _landLightIntensity: 3
   _landLightDuration: 0.3
+  _onJumpLanded:
+    m_PersistentCalls:
+      m_Calls: []
   _landLight: {fileID: 8729516232723208802}
   _landImpulseSource: {fileID: 6134532805927488404}
   _visualPivot: {fileID: 9210076179707630864}
@@ -3663,6 +3668,81 @@ MonoBehaviour:
   _waveInterval: 0.1
   _waveOverlapDelay: 0.1
   _impulseSource: {fileID: 5299817573255665665}
+--- !u!114 &6291799440809599163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8279119010861365979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9289fa35703ebd44fb0162d618e525b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss1Sound
+  _sounds:
+  - Type: 0
+    Clip: {fileID: 8300000, guid: 261ac4cb0a9f77f49b945341cc249022, type: 3}
+    Volume: 0.2
+    PitchRandom: 0.08
+  - Type: 1
+    Clip: {fileID: 8300000, guid: 31f473baf3840cc43a0b48110162ae9a, type: 3}
+    Volume: 0.5
+    PitchRandom: 0.05
+  - Type: 2
+    Clip: {fileID: 8300000, guid: 4c1c38bd03460ed4da86e46d1c2df5d6, type: 3}
+    Volume: 0.5
+    PitchRandom: 0
+  - Type: 3
+    Clip: {fileID: 8300000, guid: 0a16a08640ce3af42bddd3d1a57b3676, type: 3}
+    Volume: 0.3
+    PitchRandom: 0.05
+  - Type: 4
+    Clip: {fileID: 8300000, guid: 0af70cfea47f6874a9442b643556e97b, type: 3}
+    Volume: 0.4
+    PitchRandom: 0.05
+  - Type: 5
+    Clip: {fileID: 8300000, guid: ad550bca8045f2144b1e4a754c6caf8f, type: 3}
+    Volume: 0.5
+    PitchRandom: 0
+  - Type: 6
+    Clip: {fileID: 8300000, guid: 2ef9d7a4ccf45034e8ee85956beb89ba, type: 3}
+    Volume: 0.5
+    PitchRandom: 0
+  - Type: 7
+    Clip: {fileID: 8300000, guid: f7209ab27693a99469ef9e14426eb8a3, type: 3}
+    Volume: 0.5
+    PitchRandom: 0
+  - Type: 8
+    Clip: {fileID: 8300000, guid: f87f326076b99744fa62a962d17ff9de, type: 3}
+    Volume: 0.7
+    PitchRandom: 0
+  - Type: 9
+    Clip: {fileID: 8300000, guid: 3bc4261bfc5096c41b0b924338cae6bf, type: 3}
+    Volume: 0.5
+    PitchRandom: 0
+  - Type: 10
+    Clip: {fileID: 8300000, guid: f302da93218548f4fa24e603a2217bca, type: 3}
+    Volume: 0.7
+    PitchRandom: 0
+  - Type: 11
+    Clip: {fileID: 8300000, guid: 0e8fd3a1f8008e6489620837c0e574bb, type: 3}
+    Volume: 0.6
+    PitchRandom: 0
+  - Type: 12
+    Clip: {fileID: 8300000, guid: 7e0ac9700993a2c4c855cd9cd6bd2a1c, type: 3}
+    Volume: 0.8
+    PitchRandom: 0
+  - Type: 13
+    Clip: {fileID: 8300000, guid: 9b6b626de4945074fa42843f0e559dc0, type: 3}
+    Volume: 0.7
+    PitchRandom: 0
+  - Type: 14
+    Clip: {fileID: 8300000, guid: 4bef9886b1b0139449610a141bc33491, type: 3}
+    Volume: 0.8
+    PitchRandom: 0
+  _voiceCount: 8
+  _stopFadeDuration: 0.08
 --- !u!1 &8715783226715852835
 GameObject:
   m_ObjectHideFlags: 0

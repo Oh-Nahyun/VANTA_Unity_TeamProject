@@ -40,12 +40,15 @@ public class Boss1IntroController : MonoBehaviour
     
     private GameObject _warningZone;
     private Boss1WarningZoneVFX _warningZoneVFX;
+    
+    private Boss1Sound _boss1Sound;
 
     private void Awake()
     {
         SetBossVisible(false);
         _boss1AttackController = GetComponent <Boss1AttackController>();
         _roarEffect = GetComponent<Boss1RoarEffect>();
+        _boss1Sound = GetComponent<Boss1Sound>();
     }
 
     /// <summary>
@@ -95,6 +98,8 @@ public class Boss1IntroController : MonoBehaviour
 
     public void RemoveWarningZone()
     {
+        _boss1Sound.Play(Boss1SoundType.Land);
+        
         if (_warningZone == null)
         {
             return;

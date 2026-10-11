@@ -50,6 +50,8 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
     
     private bool _isPhase2;
     
+    private Boss1Sound _boss1Sound;
+    
     private enum SpitState
     {
         Positioning,
@@ -65,6 +67,7 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
     private void Awake()
     {
         _boss1PhaseController = GetComponent<Boss1PhaseController>();
+        _boss1Sound = GetComponent<Boss1Sound>();
     }
     
     private void OnEnable()
@@ -218,6 +221,7 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
         }
         
         _spitHitBox.EnableHitBox();
+        _boss1Sound.Play(Boss1SoundType.Spit);
     }
 
     public void DisableSpitHitBox()

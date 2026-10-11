@@ -46,6 +46,8 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
     private float _lockedAngle;
 
     private bool _isPhase2;
+    
+    private Boss1Sound _boss1Sound;
 
     public bool IsFinished { get; private set; }
 
@@ -62,6 +64,7 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
     private void Awake()
     {
         _boss1PhaseController = GetComponent<Boss1PhaseController>();
+        _boss1Sound = GetComponent<Boss1Sound>();
     }
 
     private void OnEnable()
@@ -122,6 +125,10 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
 
     public void ExitAttack()
     {
+        _boss1Sound.Stop(Boss1SoundType.LaserCharge);
+        _boss1Sound.Stop(Boss1SoundType.LaserChargeP2);
+        _boss1Sound.Stop(Boss1SoundType.LaserFire);
+        
         _laser.Hide();
         
         if (_muzzleFlash != null)
@@ -149,6 +156,7 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
 
         // 실제 데미지가 없는 경고선 표시
         _laser.ShowAim(_lockedDirection, _timer / CurrentPhaseSettings.AimDuration);
+        _boss1Sound.Play(_isPhase2 ? Boss1SoundType.LaserChargeP2 : Boss1SoundType.LaserCharge);
 
         if (_timer < CurrentPhaseSettings.AimDuration)
         {
@@ -192,6 +200,8 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
             // Aim에서 사용하던 경고선을 제거하고
             // 실제 레이저로 넘어감
             _laser.HideAim();
+            
+            _boss1Sound.Play(Boss1SoundType.LaserFire);
             
             if (_muzzleFlash != null)
             {

@@ -261,23 +261,43 @@ public static class Boss2VfxBuilder
     // ---------------------------------------------------------------- EndingBeamVFX
 
     private const string EndingBeamPath = EffectFolder + "/EndingBeamVFX.prefab";
-    // 엔딩 빛줄기: 루트가 빛의 윗끝이고 아래(-Y)로 뻗는다. 두께는 1 이며 Boss2EndingCinematic 이 X 스케일로 정한다.
+    private const string EndingBeamWashTexturePath = TextureFolder + "/T_Boss2EndingBeamWash.png";
+    private const string EndingBeamWashMaterialPath = MaterialFolder + "/M_Boss2EndingBeamWashAdditive.mat";
+    private const string EndingBeamCoreTexturePath = TextureFolder + "/T_Boss2EndingBeamCore.png";
+    private const string EndingBeamCoreMaterialPath = MaterialFolder + "/M_Boss2EndingBeamCoreAdditive.mat";
+    // 바닥(Background·Default) 위, 보스(Boss) 뒤
+    private const string EndingBeamSortingLayer = "VfxBack";
+    // 엔딩 빛줄기: 루트가 빛의 윗끝이고 아래(-Y)로 뻗는다.
+    // 두께 1 = 빛이 비추는 전체 폭 (Boss2EndingCinematic 이 포커스 타원의 가로 길이에 맞춰 X 스케일로 정한다)
     private const float EndingBeamLength = 11f;
     // 엔딩 내내 켜 두고, 끝나면 스크립트가 지운다.
     private const float EndingBeamDuration = 30f;
 
+    /// <summary>
+    /// 보스2 엔딩 빛줄기. 가운데는 강하게, 바깥은 은은하게 퍼지도록 폭이 다른 층을 겹친다.
+    ///   - Wash    : 전체 폭(포커스 타원 가로 길이)을 은은하게 채우는 넓은 빛. 가장자리만 부드럽게 사그라든다
+    ///   - Beam    : 가운데 쪽 중간 세기
+    ///   - BeamCore: 가운데 강한 빛
+    ///   - BeamHot : 한가운데 가장 밝은 심지
+    /// 빛줄기 텍스처·재질은 엔딩 전용이다. (달빛 빛줄기 것은 건드리지 않는다)
+    /// </summary>
     [MenuItem("Tools/Boss2 VFX/Build EndingBeamVFX (보스2 엔딩 빛줄기)")]
     public static void BuildEndingBeam()
     {
-        Material beamMaterial = GetOrCreateAdditiveMaterial(BeamMaterialPath, GetOrCreateBeamTexture());
-        Material dustMaterial = GetOrCreateAdditiveMaterial(DustMaterialPath, LoadMaterial(SmokeMaterialPath).GetTexture("_BaseMap"));
+        // 달빛과 같이 쓰는 먼지 재질은 있으면 그대로 쓴다. (다시 설정하면 달빛 쪽에서 맞춰 둔 색이 덮인다)
+        Material dustMaterial = AssetDatabase.LoadAssetAtPath<Material>(DustMaterialPath) ?? GetOrCreateAdditiveMaterial(DustMaterialPath, LoadMaterial(SmokeMaterialPath).GetTexture("_BaseMap"));
+        // 빛줄기는 엔딩 전용 텍스처·재질을 쓴다.
+        Material beamMaterial = GetOrCreateAdditiveMaterial(EndingBeamCoreMaterialPath, CreateEndingBeamTexture(EndingBeamCoreTexturePath, false));
+        Material washMaterial = GetOrCreateAdditiveMaterial(EndingBeamWashMaterialPath, CreateEndingBeamTexture(EndingBeamWashTexturePath, true));
 
         GameObject root = new GameObject("EndingBeamVFX");
         try
         {
             Vector3 beamCenter = new Vector3(0f, -EndingBeamLength * 0.5f, 0f);
-            SetupEndingBeamPart(GetOrCreateChild(root.transform, "Beam"), beamCenter, 1f, new Color(0.75f, 0.85f, 1f, 0.5f), beamMaterial, 0);
-            SetupEndingBeamPart(GetOrCreateChild(root.transform, "BeamCore"), beamCenter, 0.35f, new Color(0.92f, 0.96f, 1f, 0.65f), beamMaterial, 1);
+            SetupEndingBeamPart(GetOrCreateChild(root.transform, "Wash"), beamCenter, 1f, new Color(0.75f, 0.85f, 1f, 0.2f), washMaterial, 0);
+            SetupEndingBeamPart(GetOrCreateChild(root.transform, "Beam"), beamCenter, 0.45f, new Color(0.8f, 0.9f, 1f, 0.45f), beamMaterial, 1);
+            SetupEndingBeamPart(GetOrCreateChild(root.transform, "BeamCore"), beamCenter, 0.2f, new Color(0.95f, 0.98f, 1f, 1f), beamMaterial, 2);
+            SetupEndingBeamPart(GetOrCreateChild(root.transform, "BeamHot"), beamCenter, 0.08f, Color.white, beamMaterial, 3);
 
             GameObject dust = GetOrCreateChild(root.transform, "MoonDust");
             SetupMoonDust(dust, beamCenter, dustMaterial);
@@ -287,7 +307,8 @@ public static class Boss2VfxBuilder
             dustMain.loop = true;
             dustMain.startDelay = 0.6f;
             ParticleSystem.ShapeModule dustShape = dustPs.shape;
-            dustShape.scale = new Vector3(0.8f, EndingBeamLength * 0.9f, 0f);
+            dustShape.scale = new Vector3(0.6f, EndingBeamLength * 0.9f, 0f);
+            dust.GetComponent<ParticleSystemRenderer>().sortingLayerName = EndingBeamSortingLayer;
 
             SavePrefab(root, EndingBeamPath);
         }
@@ -401,6 +422,8 @@ public static class Boss2VfxBuilder
 
         ParticleSystemRenderer renderer = go.GetComponent<ParticleSystemRenderer>();
         renderer.maxParticleSize = 20f;
+        // 엔딩 빛줄기는 보스 뒤(바닥 위)에 그린다. 앞에 그리면 가운데 선 보스 몸이 빛에 덮인다.
+        renderer.sortingLayerName = EndingBeamSortingLayer;
     }
 
     // 긴 빛줄기 입자 하나. 축(부모)을 따라 돌도록 로컬 공간·로컬 정렬로 그린다.
@@ -564,6 +587,45 @@ public static class Boss2VfxBuilder
         importer.SaveAndReimport();
 
         return AssetDatabase.LoadAssetAtPath<Texture2D>(BeamTexturePath);
+    }
+
+    // 엔딩 빛줄기 텍스처. 화면이 보스에 가깝게 확대돼 있어 보스 높이에서도 밝아야 하므로, 아래쪽은 짧게(15%)만 흐려진다.
+    //   wash = true : 가로로 대부분 고르게 밝고 가장자리 25% 에서만 부드럽게 사그라든다 (텍스처 폭 = 비추는 폭)
+    //   wash = false: 가운데만 밝고 바깥으로 빠르게 어두워진다 (달빛 빛줄기와 같은 가로 모양)
+    // 실행할 때마다 다시 그린다.
+    private static Texture2D CreateEndingBeamTexture(string path, bool wash)
+    {
+        const int Width = 64;
+        const int Height = 256;
+        Texture2D texture = new Texture2D(Width, Height, TextureFormat.RGBA32, false);
+        for (int y = 0; y < Height; y++)
+        {
+            float v = (float)y / (Height - 1);   // 0 = 아래 끝, 1 = 위(광원)
+            float vertical = Mathf.SmoothStep(0f, 1f, v / 0.15f) * Mathf.SmoothStep(0f, 1f, (1f - v) / 0.05f);
+            for (int x = 0; x < Width; x++)
+            {
+                float u = Mathf.Abs((float)x / (Width - 1) - 0.5f) / 0.5f; // 0 = 가운데, 1 = 가장자리
+                float horizontal = wash
+                    ? Mathf.SmoothStep(0f, 1f, (1f - u) / 0.25f) * Mathf.Lerp(1f, 0.75f, u)
+                    : Mathf.Exp(-u * u * 3.5f) * (1f - u);
+                texture.SetPixel(x, y, new Color(1f, 1f, 1f, Mathf.Clamp01(horizontal * vertical)));
+            }
+        }
+        texture.Apply();
+
+        Directory.CreateDirectory(TextureFolder);
+        File.WriteAllBytes(path, texture.EncodeToPNG());
+        Object.DestroyImmediate(texture);
+        AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+
+        TextureImporter importer = (TextureImporter)AssetImporter.GetAtPath(path);
+        importer.textureType = TextureImporterType.Default;
+        importer.alphaIsTransparency = true;
+        importer.wrapMode = TextureWrapMode.Clamp;
+        importer.mipmapEnabled = false;
+        importer.SaveAndReimport();
+
+        return AssetDatabase.LoadAssetAtPath<Texture2D>(path);
     }
 
     // ---------------------------------------------------------------- 공용

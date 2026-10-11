@@ -759,6 +759,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1581990005 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1443849978656167588, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+  m_PrefabInstance: {fileID: 1733891861}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c31a216e60fd72241bd9b84eb95ccaa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss1Shadow
 --- !u!1001 &1733891861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -807,10 +818,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6958992141590794150, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _colorChangeDuration
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8279119010861365979, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: m_Name
       value: Boss1
       objectReference: {fileID: 0}
+    - target: {fileID: 8856960780408004671, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _boss1Shadow
+      value: 
+      objectReference: {fileID: 1581990005}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

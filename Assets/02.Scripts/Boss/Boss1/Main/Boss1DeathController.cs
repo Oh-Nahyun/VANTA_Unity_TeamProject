@@ -31,10 +31,16 @@ public class Boss1DeathController : MonoBehaviour
     
     [SerializeField] private Boss1DeathBloodOverlay _bloodOverlayPrefab;
     
+    [Header("중앙으로 걸어가는 속도")]
     [SerializeField] private float _startMoveSpeed= 1f;
     [SerializeField] private float _endMoveSpeed = 0.6f;
     [SerializeField] private float _slowDownDistance = 4f;
     [SerializeField] private float _arrivalDistance = 0.1f;
+    
+    [Header("사망 후 색 변화")]
+    [SerializeField] private float _colorRestoreDuration = 1.2f; // _collapseWaitDuration(1.5)보다 짧게
+    [SerializeField] private Boss1Shadow _boss1Shadow;
+    private Boss1HitFlash _boss1HitFlash;
     
     private Boss1Life _boss1Life;
     private Boss1AttackController _boss1AttackController;
@@ -44,6 +50,8 @@ public class Boss1DeathController : MonoBehaviour
 
     private bool _isMovingToCenter;
     private bool _isExploding;
+    
+    private Boss1Sound _boss1Sound;
 
     public event Action OnCollapseFinished;
     public event Action OnExplosionFinished;
@@ -54,6 +62,8 @@ public class Boss1DeathController : MonoBehaviour
         _boss1AttackController = GetComponent<Boss1AttackController>();
         _boss1Movement = GetComponent<Boss1Movement>();
         _boss1ProjectileManager = GetComponent<Boss1ProjectileManager>();
+        _boss1HitFlash = GetComponent<Boss1HitFlash>();
+        _boss1Sound = GetComponent<Boss1Sound>();
         
         if (_explosionLight != null)
         {
@@ -126,13 +136,34 @@ public class Boss1DeathController : MonoBehaviour
         _isMovingToCenter = false;
         _boss1Movement.Stop();
         _animator.Play("DeathCollapse", 0, 0f);
+        _boss1Sound.Play(Boss1SoundType.DeathCollapse);
     }
     
     public void EndDeathCollapse()
     {
         _animator.Play("DeathIdle", 0, 0f);
+        RestoreColor();
 
         StartCoroutine(CollapseWaitRoutine());
+    }
+    
+    private void RestoreColor()
+    {
+        if (_boss1HitFlash == null)
+        {
+            return;
+        }
+
+        DOVirtual.Float(_boss1HitFlash.CurrentPhase2Amount, 0f, _colorRestoreDuration, value =>
+            {
+                _boss1HitFlash.SetPhase2Amount(value);
+                if (_boss1Shadow != null)
+                {
+                    _boss1Shadow.SetPhase2Amount(value);
+                }
+            })
+            .SetEase(Ease.InQuad)
+            .SetLink(gameObject);
     }
 
     private IEnumerator CollapseWaitRoutine()
@@ -179,6 +210,8 @@ public class Boss1DeathController : MonoBehaviour
     
     private void PlayExplosionImpact()
     {
+        _boss1Sound.Play(Boss1SoundType.DeathExplosion);
+        
         if (_explosionImpulseSource != null)
         {
             _explosionImpulseSource.GenerateImpulseWithVelocity(Vector3.down * _explosionImpulseForce);
@@ -203,6 +236,7 @@ public class Boss1DeathController : MonoBehaviour
         if (_bloodOverlayPrefab != null)
         {
             Instantiate(_bloodOverlayPrefab).Play();
+            _boss1Sound.Play(Boss1SoundType.DeathSplat);
         }
     }
 }

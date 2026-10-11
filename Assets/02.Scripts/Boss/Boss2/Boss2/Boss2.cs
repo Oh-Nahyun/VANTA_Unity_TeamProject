@@ -71,6 +71,7 @@ public void TakeDamage(int damage)
 
             if (_health <= 0)
             {
+                DisableColliders();
                 Finisher();
                 _animator.SetTrigger("Death");
                 // 체력 바를 위해서
@@ -120,12 +121,24 @@ public void TakeDamage(int damage)
         if (_isDeathStarted)
             return;
         _isDeathStarted = true;
+        // 체력 0 이 아닌 다른 경로로 바로 불려도 사망 후에는 판정을 받지 않게 한다.
+        DisableColliders();
 
         Boss2EndingCinematic ending = GetComponent<Boss2EndingCinematic>();
         if (ending != null && ending.Play(FinishDeath))
             return;
 
         FinishDeath();
+    }
+
+    // 사망 후(피니셔·사망 연출 동안) 데미지 판정을 받지 않도록 본체 피격 박스와 공격 박스(AttackZone)의 콜라이더를 모두 끈다.
+    // 피니셔와 사망 연출은 콜라이더 없이 보스 위치만 쓰므로 영향이 없다.
+    private void DisableColliders()
+    {
+        foreach (Collider2D col in GetComponentsInChildren<Collider2D>(true))
+        {
+            col.enabled = false;
+        }
     }
 
     private void FinishDeath()

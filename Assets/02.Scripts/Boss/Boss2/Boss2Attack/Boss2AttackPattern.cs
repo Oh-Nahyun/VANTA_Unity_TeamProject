@@ -282,6 +282,7 @@ public class Boss2AttackPattern : Boss2AttackBase
         if (_currentAttackPatternType != Boss2AttackPatternType.BladeAuraSlash || _hasFiredBladeAura)
             return;
 
+        PlayBladeSpark();
         FireBladeAura(_bladeAuraProjectile, _bladeAuraSpeed);
     }
 
@@ -293,6 +294,7 @@ public class Boss2AttackPattern : Boss2AttackBase
         if (_currentAttackPatternType != Boss2AttackPatternType.BladeAuraSlashAll || _hasFiredBladeAura)
             return;
 
+        PlayBladeSpark();
         FireBladeAura(AllProjectile, AllSpeed);
     }
 
@@ -383,6 +385,7 @@ public class Boss2AttackPattern : Boss2AttackBase
         // Effect
         //Instantiate(_spinningSlashEffect);
         _spinningSlashEffect.GetComponent<ParticleSystem>().Play();
+        PlayBladeSpark();
 
         if (_currentAttackPatternType == Boss2AttackPatternType.SpinningSlashInPlace)
         {

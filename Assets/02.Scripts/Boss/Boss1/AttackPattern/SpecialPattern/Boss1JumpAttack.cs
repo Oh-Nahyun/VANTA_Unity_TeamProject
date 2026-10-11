@@ -57,6 +57,8 @@ public class Boss1JumpAttack : MonoBehaviour, IBoss1Attack
     private bool _isAscendStarted;
     private bool _isWarningStarted;
     private bool _isLandStarted;
+
+    private Boss1Sound _boss1Sound;
     
     private enum JumpState
     {
@@ -78,6 +80,7 @@ public class Boss1JumpAttack : MonoBehaviour, IBoss1Attack
         _boxCollider2D = GetComponent<BoxCollider2D>();
         _boss1PhaseController  = GetComponent<Boss1PhaseController>();
         _playerTransform = GameObject.FindWithTag("Player").transform;
+        _boss1Sound = GetComponent<Boss1Sound>();
         
         if (_landLight != null)
         {
@@ -268,6 +271,8 @@ public class Boss1JumpAttack : MonoBehaviour, IBoss1Attack
         PlayLandImpulse();
         PlayLandLight();
         
+        _boss1Sound.Play(Boss1SoundType.Land);
+        
         _onJumpLanded?.Invoke();
     }
     
@@ -295,6 +300,8 @@ public class Boss1JumpAttack : MonoBehaviour, IBoss1Attack
     
     public void JumpImpulse()
     {
+        _boss1Sound.Play(Boss1SoundType.JumpTakeoff);
+        
         if (_landImpulseSource == null)
         {
             return;

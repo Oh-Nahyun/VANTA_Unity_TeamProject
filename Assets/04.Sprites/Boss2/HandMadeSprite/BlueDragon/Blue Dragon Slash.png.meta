@@ -81,7 +81,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 40
+  spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -413,6 +413,7 @@ TextureImporter:
     nameFileIdTable:
       Blue Dragon Slash_0: -8638274397751410929
       Blue Dragon Slash_1: -1879999178060454776
+      Blue Dragon Slash_10: -3999472282950796550
       Blue Dragon Slash_2: 4180150791615359259
       Blue Dragon Slash_3: -2078777131793983147
       Blue Dragon Slash_4: 8065467759782877285
@@ -421,7 +422,6 @@ TextureImporter:
       Blue Dragon Slash_7: 6622244429087141835
       Blue Dragon Slash_8: -408333636634381798
       Blue Dragon Slash_9: -6722089243449208082
-      Blue Dragon Slash_10: -3999472282950796550
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

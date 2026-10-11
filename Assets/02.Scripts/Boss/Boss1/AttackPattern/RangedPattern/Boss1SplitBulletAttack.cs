@@ -38,6 +38,8 @@ public class Boss1SplitBulletAttack : MonoBehaviour, IBoss1RangedAttack
     
     private bool _isPhase2;
     
+    private Boss1Sound _boss1Sound;
+    
     public bool IsFinished { get; private set; }
     
     private PhaseSettings CurrentPhaseSettings => _isPhase2 ? _phase2Settings : _phase1Settings;
@@ -46,6 +48,7 @@ public class Boss1SplitBulletAttack : MonoBehaviour, IBoss1RangedAttack
     {
         _boss1PhaseController = GetComponent<Boss1PhaseController>();
         _projectileManager = GetComponent<Boss1ProjectileManager>();
+        _boss1Sound = GetComponent<Boss1Sound>();
     }
     
     private void OnEnable()
@@ -116,6 +119,7 @@ public class Boss1SplitBulletAttack : MonoBehaviour, IBoss1RangedAttack
         Vector2 direction = (_playerTransform.position - _splitHeadPivot.position).normalized;
         Boss1SplitBullet splitBullet = Instantiate(_splitBulletPrefab, _splitHeadPivot.position, Quaternion.identity);
         splitBullet.Initialize(direction, _projectileManager);
+        _boss1Sound.Play(Boss1SoundType.ShotSplit);
         
         if (_muzzleFlash != null)
         {

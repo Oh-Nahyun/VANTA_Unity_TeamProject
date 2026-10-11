@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Boss1AnimationEventRelay : MonoBehaviour
@@ -10,6 +11,8 @@ public class Boss1AnimationEventRelay : MonoBehaviour
 
     [SerializeField] private Boss1DeathController _boss1DeathController;
     
+    [SerializeField] private Boss1Sound _boss1Sound;
+
     public void RemoveWarningZone()
     {
         _boss1IntroController.RemoveWarningZone();
@@ -78,5 +81,10 @@ public class Boss1AnimationEventRelay : MonoBehaviour
     public void EndDeathCollapse()
     {
         _boss1DeathController.EndDeathCollapse();
+    }
+
+    public void FootStep()
+    {
+        _boss1Sound.Play(Boss1SoundType.FootStep);
     }
 }

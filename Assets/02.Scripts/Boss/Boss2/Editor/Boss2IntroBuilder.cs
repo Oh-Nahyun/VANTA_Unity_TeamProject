@@ -268,15 +268,17 @@ public static class Boss2IntroBuilder
         AnimationUtility.SetEditorCurve(clip, binding, curve);
     }
 
-    // 시작하자마자 퍼져 나오고(시작 분출 + 시작 값), 갈수록 더 많이·빠르게 (연막탄)
-    private const float GasStartAmount = 0.4f;
+    // 시작 순간 가장 많이·빠르게 뿜고(시작 분출 + 최대 값), 앞쪽은 빠르게·뒤로 갈수록 완만하게 줄어든다.
+    private const float GasStartAmount = 1f;
+    private const float GasMidAmount = 0.45f;
+    private const float GasEndAmount = 0.2f;
 
     private static AnimationCurve GasCurve()
     {
         var curve = new AnimationCurve(
-            new Keyframe(0f, GasStartAmount, 0f, 0f),
-            new Keyframe(SlashFirstTime, 1f, 0.6f, 0f),
-            new Keyframe(BlackoutTime, 1f, 0f, 0f),
+            new Keyframe(0f, GasStartAmount, 0f, -0.45f),
+            new Keyframe(SlashFirstTime * 0.5f, GasMidAmount, -0.15f, -0.15f),
+            new Keyframe(BlackoutTime, GasEndAmount, -0.02f, 0f),
             new Keyframe(BlackoutTime + 0.02f, 0f, 0f, 0f),
             new Keyframe(StartBattleTime, 0f, 0f, 0f));
         SetLinear(curve, 2, 3);

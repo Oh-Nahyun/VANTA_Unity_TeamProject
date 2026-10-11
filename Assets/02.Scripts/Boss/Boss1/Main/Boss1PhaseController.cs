@@ -45,6 +45,8 @@ public class Boss1PhaseController : MonoBehaviour
         private Tween _breakLightTween;
         
         private bool _isPhase2Transitioning; // 지금 페이즈 전환을 진행 중인지
+        
+        private Boss1Sound _boss1Sound;
 
         public Boss1Phase CurrentPhase {get; private set;}
 
@@ -60,6 +62,7 @@ public class Boss1PhaseController : MonoBehaviour
             _boxCollider2D = GetComponent<BoxCollider2D>();
             _boss1HitFlash = GetComponent<Boss1HitFlash>();
             _boss1RoarEffect = GetComponent<Boss1RoarEffect>();
+            _boss1Sound = GetComponent<Boss1Sound>();
             
             if (_breakLight != null)
             {

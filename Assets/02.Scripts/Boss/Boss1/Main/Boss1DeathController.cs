@@ -44,6 +44,8 @@ public class Boss1DeathController : MonoBehaviour
 
     private bool _isMovingToCenter;
     private bool _isExploding;
+    
+    private Boss1Sound _boss1Sound;
 
     public event Action OnCollapseFinished;
     public event Action OnExplosionFinished;
@@ -54,6 +56,7 @@ public class Boss1DeathController : MonoBehaviour
         _boss1AttackController = GetComponent<Boss1AttackController>();
         _boss1Movement = GetComponent<Boss1Movement>();
         _boss1ProjectileManager = GetComponent<Boss1ProjectileManager>();
+        _boss1Sound = GetComponent<Boss1Sound>();
         
         if (_explosionLight != null)
         {
@@ -126,6 +129,7 @@ public class Boss1DeathController : MonoBehaviour
         _isMovingToCenter = false;
         _boss1Movement.Stop();
         _animator.Play("DeathCollapse", 0, 0f);
+        _boss1Sound.Play(Boss1SoundType.DeathCollapse);
     }
     
     public void EndDeathCollapse()
@@ -179,6 +183,8 @@ public class Boss1DeathController : MonoBehaviour
     
     private void PlayExplosionImpact()
     {
+        _boss1Sound.Play(Boss1SoundType.DeathExplosion);
+        
         if (_explosionImpulseSource != null)
         {
             _explosionImpulseSource.GenerateImpulseWithVelocity(Vector3.down * _explosionImpulseForce);
@@ -203,6 +209,7 @@ public class Boss1DeathController : MonoBehaviour
         if (_bloodOverlayPrefab != null)
         {
             Instantiate(_bloodOverlayPrefab).Play();
+            _boss1Sound.Play(Boss1SoundType.DeathSplat);
         }
     }
 }

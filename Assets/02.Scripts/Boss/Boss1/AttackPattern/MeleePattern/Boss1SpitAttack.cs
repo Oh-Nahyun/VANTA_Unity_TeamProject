@@ -9,6 +9,9 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
     [Header("공격지점 선정 제한 시간")]
     [SerializeField] private float _maxPositioningTime = 0.5f;
     
+    [Header("포지셔닝 중 방향전환 최소 x축 거리")]
+    [SerializeField] private float _minFaceDistance = 0.3f;
+    
     [Serializable]
     private class PhaseSettings
     {
@@ -145,6 +148,11 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
         
         float xDifference = _playerTransform.position.x - transform.position.x;
         float yDifference = _playerTransform.position.y - spitY;
+        
+        if (Mathf.Abs(xDifference) > _minFaceDistance)
+        {
+            _boss1Movement.FaceTarget(_playerTransform.position);
+        }
         
         float xDistance = Mathf.Abs(xDifference);
         float yDistance = Mathf.Abs(yDifference);

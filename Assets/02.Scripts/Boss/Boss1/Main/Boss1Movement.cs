@@ -210,7 +210,7 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
         _isFacingLocked = false;
     }
     
-    public void FaceTarget(Vector2 targetPosition)
+    public void FaceTarget(Vector2 targetPosition) // 락 안걸리는 방향전환 메소드
     {
         Vector3 scale = _visualPivot.localScale;
 

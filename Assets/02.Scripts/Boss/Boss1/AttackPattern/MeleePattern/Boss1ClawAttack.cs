@@ -14,6 +14,9 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
     [SerializeField] private float _lungeStartTime = 0.3f; //clawattack 애니메이션 피격 판정 시작 시간
     [SerializeField] private float _lungeEndTime = 0.5f; //clawattack 애니메이션 피격 판정 종료 시간
     [SerializeField] private float _maxLungeDistance = 0.6f;
+    
+    [Header("포지셔닝 중 방향전환 최소 x축 거리")]
+    [SerializeField] private float _minFaceDistance = 0.3f;
 
     
     [Serializable]
@@ -159,7 +162,13 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
     {
         float xDifference = _playerTransform.position.x - transform.position.x;
         float yDifference = _playerTransform.position.y - transform.position.y;
-        
+
+        if (Mathf.Abs(xDifference) > _minFaceDistance)
+        {
+            _boss1Movement.FaceTarget(_playerTransform.position);
+        }
+    
+
         float xDistance = Mathf.Abs(xDifference);
         float yDistance = Mathf.Abs(yDifference);
 
@@ -241,7 +250,7 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
             float playerDistance = (_playerTransform.position.x - transform.position.x) * _lungeDirection;
             
             float hitBoxCenter = Mathf.Abs(_clawHitBox.transform.localPosition.x);
-            float lungeDistance = Mathf.Clamp(playerDistance = hitBoxCenter, 0f, _maxLungeDistance);
+            float lungeDistance = Mathf.Clamp(playerDistance - hitBoxCenter, 0f, _maxLungeDistance);
             
             _lungeSpeed = lungeDistance / (_lungeEndTime - _lungeStartTime);
         }

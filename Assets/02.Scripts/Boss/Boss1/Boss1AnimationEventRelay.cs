@@ -92,6 +92,6 @@ public class Boss1AnimationEventRelay : MonoBehaviour
 
     public void StopBoss1BGM()
     {
-        
+        _soundManager.StopBGMImmediate();
     }
 }

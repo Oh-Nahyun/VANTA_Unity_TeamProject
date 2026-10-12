@@ -108,6 +108,11 @@ public class EnergyBullet : MonoBehaviour
             return;
         }
 
+        if (!AttackTarget.GetComponent<BoxCollider2D>().enabled)
+        {
+            _energyBulletDissolveVFX.StartDissolve();
+        }
+
         _timer += Time.deltaTime;
         if (_timer >= _timeBeforeMove)
         {

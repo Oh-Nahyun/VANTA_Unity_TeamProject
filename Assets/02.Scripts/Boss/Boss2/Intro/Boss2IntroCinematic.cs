@@ -328,7 +328,7 @@ public class Boss2IntroCinematic : MonoBehaviour
         {
             _boss2Controller.StopFsm();
         }
-        Play(null);
+        //Play(null);
     }
 
     #region Timeline 시그널

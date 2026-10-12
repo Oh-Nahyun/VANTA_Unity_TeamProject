@@ -9,7 +9,7 @@ public class SoundManager : MonoBehaviour
 
     [Header("Audio Source")]
     [SerializeField] private AudioSource _bgmSource;
-
+    [SerializeField] private AudioSource _bgmSubSource;
     [SerializeField] private AudioSource _effectSource;
 
     [Header("BGM")]
@@ -17,17 +17,22 @@ public class SoundManager : MonoBehaviour
 
     [Header("Effect Pitch")]
     [SerializeField] private float _minPitch = 0.95f;
-
     [SerializeField] private float _maxPitch = 1.05f;
 
     [Header("Volume")]
     [SerializeField] private float _masterVolume = 1f;
-
     [SerializeField] private float _bgmVolume = 1f;
     [SerializeField] private float _effectVolume = 1f;
 
     private Tween _bgmFadeTween;
-    private readonly Dictionary<AudioSource, float> _loopVolumeScales = new Dictionary<AudioSource, float>();
+
+    private readonly Dictionary<AudioSource, float>
+        _loopVolumeScales =
+            new Dictionary<AudioSource, float>();
+
+    private AudioSource _currentBgmSource;
+    private AudioSource _nextBgmSource;
+
     private float _bgmFadeValue = 1f;
 
     private void Awake()
@@ -42,136 +47,255 @@ public class SoundManager : MonoBehaviour
             return;
         }
 
+        _currentBgmSource = _bgmSource;
+        _nextBgmSource = _bgmSubSource;
+
         LoadVolume();
+
+        if (_bgmSubSource != null)
+        {
+            _bgmSubSource.volume = 0f;
+            _bgmSubSource.loop = true;
+        }
     }
+
+    // =========================
+    // BGM 최초 재생
+    // =========================
 
     public void PlayBGM(AudioClip clip)
     {
-        if (clip == null) return;
+        if (clip == null)
+            return;
 
         _bgmFadeTween?.Kill();
 
-        if (_bgmSource.isPlaying)
+        // 이미 같은 음악이면 무시
+        if (_currentBgmSource.clip == clip &&
+            _currentBgmSource.isPlaying)
         {
-            _bgmFadeTween = DOTween
-                .To(
-                    () => _bgmFadeValue,
-                    value =>
-                    {
-                        _bgmFadeValue = value;
-                        _bgmSource.volume = _bgmVolume * _masterVolume * _bgmFadeValue;
-                    },
-                    0f,
-                    _fadeDuration
-                )
-                .SetUpdate(true)
-                .OnComplete(() =>
-                {
-                    _bgmSource.clip = clip;
-                    _bgmSource.loop = true;
-                    _bgmFadeValue = 0f;
-                    _bgmSource.Play();
-                    _bgmFadeTween = DOTween
-                        .To(
-                            () => _bgmFadeValue,
-                            value =>
-                            {
-                                _bgmFadeValue = value;
-                                _bgmSource.volume = _bgmVolume * _masterVolume * _bgmFadeValue;
-                            },
-                            1f,
-                            _fadeDuration
-                        )
-                        .SetUpdate(true);
-                });
-
             return;
         }
 
-        _bgmSource.clip = clip;
-        _bgmSource.loop = true;
+        _currentBgmSource.clip = clip;
+        _currentBgmSource.loop = true;
+
         _bgmFadeValue = 0f;
-        _bgmSource.volume = _bgmVolume * _masterVolume * _bgmFadeValue;
-        _bgmSource.Play();
+        _currentBgmSource.volume = 0f;
+
+        _currentBgmSource.Play();
+
         _bgmFadeTween = DOTween
             .To(
                 () => _bgmFadeValue,
                 value =>
                 {
                     _bgmFadeValue = value;
-                    _bgmSource.volume = _bgmVolume * _masterVolume * _bgmFadeValue;
+
+                    _currentBgmSource.volume =
+                        GetBGMVolume() *
+                        _bgmFadeValue;
                 },
                 1f,
-                _fadeDuration
-            )
-            .SetUpdate(true);
-    }
-
-    public void StopBGM()
-    {
-        if (!_bgmSource.isPlaying) return;
-
-        _bgmFadeTween?.Kill();
-        _bgmFadeTween = DOTween
-            .To(
-                () => _bgmFadeValue,
-                value =>
-                {
-                    _bgmFadeValue = value;
-                    _bgmSource.volume = _bgmVolume * _masterVolume * _bgmFadeValue;
-                },
-                0f,
                 _fadeDuration
             )
             .SetUpdate(true)
             .OnComplete(() =>
             {
-                _bgmSource.Stop();
-                _bgmSource.clip = null;
-                _bgmFadeValue = 1f;
+                _bgmFadeTween = null;
             });
     }
 
-    public void PlayEffectSound(AudioClip clip)
+    // =========================
+    // BGM 크로스 페이드
+    // =========================
+
+    public void ChangeBGM(AudioClip clip)
     {
-        PlayEffectSound(clip, 1f);
+        if (clip == null)
+            return;
+
+        // 현재 같은 BGM 재생 중
+        if (_currentBgmSource.clip == clip &&
+            _currentBgmSource.isPlaying)
+        {
+            return;
+        }
+
+        _bgmFadeTween?.Kill();
+
+        // 현재 BGM이 없다면 일반 재생
+        if (!_currentBgmSource.isPlaying)
+        {
+            PlayBGM(clip);
+            return;
+        }
+
+        AudioSource oldSource = _currentBgmSource;
+        AudioSource newSource = _nextBgmSource;
+
+        // 새 음악 준비
+        newSource.Stop();
+        newSource.clip = clip;
+        newSource.loop = true;
+        newSource.volume = 0f;
+        newSource.Play();
+
+        float fadeValue = 0f;
+
+        _bgmFadeTween = DOTween
+            .To(
+                () => fadeValue,
+                value =>
+                {
+                    fadeValue = value;
+
+                    float volume =
+                        GetBGMVolume();
+
+                    // 기존 음악 감소
+                    oldSource.volume =
+                        volume * (1f - value);
+
+                    // 새로운 음악 증가
+                    newSource.volume =
+                        volume * value;
+                },
+                1f,
+                _fadeDuration
+            )
+            .SetEase(Ease.Linear)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                oldSource.Stop();
+                oldSource.clip = null;
+                oldSource.volume = 0f;
+
+                newSource.volume =
+                    GetBGMVolume();
+
+                // 두 AudioSource 역할 교환
+                _currentBgmSource = newSource;
+                _nextBgmSource = oldSource;
+
+                _bgmFadeValue = 1f;
+                _bgmFadeTween = null;
+            });
     }
 
-    public void PlayEffectSound(AudioClip clip, float volumeScale)
-    {
-        if (clip == null) return;
+    // =========================
+    // BGM 정지
+    // =========================
 
-        _effectSource.pitch = Random.Range(_minPitch, _maxPitch);
-        _effectSource.PlayOneShot(clip, volumeScale);
+    public void StopBGM()
+    {
+        // 진행 중인 크로스페이드/페이드인 즉시 종료
+        _bgmFadeTween?.Kill();
+        _bgmFadeTween = null;
+
+        // 현재 BGM 정지
+        if (_currentBgmSource != null)
+        {
+            _currentBgmSource.Stop();
+            _currentBgmSource.clip = null;
+            _currentBgmSource.volume = 0f;
+        }
+
+        // 크로스페이드 중일 수도 있으므로
+        // 반대쪽 BGM Source도 같이 정지
+        if (_nextBgmSource != null)
+        {
+            _nextBgmSource.Stop();
+            _nextBgmSource.clip = null;
+            _nextBgmSource.volume = 0f;
+        }
+
+        _bgmFadeValue = 1f;
     }
 
-    public AudioSource PlayLoopSound(AudioClip clip, float volumeScale, float fadeInDuration)
-    {
-        if (clip == null) return null;
+    // =========================
+    // Effect
+    // =========================
 
-        AudioSource source = gameObject.AddComponent<AudioSource>();
+    public void PlayEffectSound(
+        AudioClip clip)
+    {
+        PlayEffectSound(
+            clip,
+            1f
+        );
+    }
+
+    public void PlayEffectSound(
+        AudioClip clip,
+        float volumeScale)
+    {
+        if (clip == null)
+            return;
+
+        _effectSource.pitch =
+            Random.Range(
+                _minPitch,
+                _maxPitch
+            );
+
+        _effectSource.PlayOneShot(
+            clip,
+            volumeScale
+        );
+    }
+
+    // =========================
+    // Loop Effect
+    // =========================
+
+    public AudioSource PlayLoopSound(
+        AudioClip clip,
+        float volumeScale,
+        float fadeInDuration)
+    {
+        if (clip == null)
+            return null;
+
+        AudioSource source =
+            gameObject.AddComponent<AudioSource>();
+
         source.clip = clip;
         source.loop = true;
         source.playOnAwake = false;
         source.volume = 0f;
+
         source.Play();
 
-        _loopVolumeScales[source] = volumeScale;
+        _loopVolumeScales[source] =
+            volumeScale;
 
         DOTween
-            .To(() => source.volume, value => source.volume = value, GetLoopVolume(volumeScale), fadeInDuration)
+            .To(
+                () => source.volume,
+                value =>
+                    source.volume = value,
+                GetLoopVolume(volumeScale),
+                fadeInDuration
+            )
             .SetTarget(source);
 
         return source;
     }
 
-    public void StopLoopSound(AudioSource source, float fadeOutDuration)
+    public void StopLoopSound(
+        AudioSource source,
+        float fadeOutDuration)
     {
         if (source == null)
             return;
 
         DOTween.Kill(source);
-        _loopVolumeScales.Remove(source);
+
+        _loopVolumeScales.Remove(
+            source
+        );
 
         if (fadeOutDuration <= 0f)
         {
@@ -180,66 +304,158 @@ public class SoundManager : MonoBehaviour
         }
 
         DOTween
-            .To(() => source.volume, value => source.volume = value, 0f, fadeOutDuration)
+            .To(
+                () => source.volume,
+                value =>
+                    source.volume = value,
+                0f,
+                fadeOutDuration
+            )
             .SetTarget(source)
-            .OnComplete(() => Destroy(source));
+            .OnComplete(() =>
+            {
+                Destroy(source);
+            });
     }
 
-    private float GetLoopVolume(float volumeScale)
+    // =========================
+    // Volume
+    // =========================
+
+    private float GetBGMVolume()
     {
-        return _effectVolume * _masterVolume * volumeScale;
+        return
+            _bgmVolume *
+            _masterVolume;
+    }
+
+    private float GetLoopVolume(
+        float volumeScale)
+    {
+        return
+            _effectVolume *
+            _masterVolume *
+            volumeScale;
     }
 
     private void RefreshLoopVolumes()
     {
-        foreach (KeyValuePair<AudioSource, float> loop in _loopVolumeScales)
+        foreach (
+            KeyValuePair<AudioSource, float> loop
+            in _loopVolumeScales)
         {
-            if (loop.Key == null) continue;
+            if (loop.Key == null)
+                continue;
 
-            loop.Key.volume = GetLoopVolume(loop.Value);
+            loop.Key.volume =
+                GetLoopVolume(loop.Value);
         }
+    }
+
+    public void SetMasterVolume(
+        float volume)
+    {
+        _masterVolume = volume;
+
+        RefreshBGMVolume();
+
+        _effectSource.volume =
+            _effectVolume *
+            _masterVolume;
+
+        RefreshLoopVolumes();
+
+        PlayerPrefs.SetFloat(
+            "MasterVolume",
+            volume
+        );
+    }
+
+    public void SetBGMVolume(
+        float volume)
+    {
+        _bgmVolume = volume;
+
+        RefreshBGMVolume();
+
+        PlayerPrefs.SetFloat(
+            "BGMVolume",
+            volume
+        );
+    }
+
+    public void SetEffectVolume(
+        float volume)
+    {
+        _effectVolume = volume;
+
+        _effectSource.volume =
+            _effectVolume *
+            _masterVolume;
+
+        RefreshLoopVolumes();
+
+        PlayerPrefs.SetFloat(
+            "EffectVolume",
+            volume
+        );
+    }
+
+    private void RefreshBGMVolume()
+    {
+        if (_currentBgmSource != null)
+        {
+            _currentBgmSource.volume =
+                GetBGMVolume();
+        }
+
+        if (_nextBgmSource != null &&
+            !_nextBgmSource.isPlaying)
+        {
+            _nextBgmSource.volume = 0f;
+        }
+    }
+
+    private void LoadVolume()
+    {
+        _masterVolume =
+            PlayerPrefs.GetFloat(
+                "MasterVolume",
+                1f
+            );
+
+        _bgmVolume =
+            PlayerPrefs.GetFloat(
+                "BGMVolume",
+                1f
+            );
+
+        _effectVolume =
+            PlayerPrefs.GetFloat(
+                "EffectVolume",
+                1f
+            );
+
+        _bgmFadeValue = 1f;
+
+        if (_currentBgmSource != null)
+        {
+            _currentBgmSource.volume =
+                GetBGMVolume();
+        }
+
+        if (_nextBgmSource != null)
+        {
+            _nextBgmSource.volume = 0f;
+        }
+
+        _effectSource.volume =
+            _effectVolume *
+            _masterVolume;
     }
 
     private void OnDestroy()
     {
         _bgmFadeTween?.Kill();
-    }
-
-    public void SetMasterVolume(float volume)
-    {
-        _masterVolume = volume;
-        _bgmSource.volume = _bgmVolume * _masterVolume * _bgmFadeValue;
-        _effectSource.volume = _effectVolume * _masterVolume;
-        RefreshLoopVolumes();
-
-        PlayerPrefs.SetFloat("MasterVolume", volume);
-    }
-
-    public void SetBGMVolume(float volume)
-    {
-        _bgmVolume = volume;
-        _bgmSource.volume = _bgmVolume * _masterVolume * _bgmFadeValue;
-
-        PlayerPrefs.SetFloat("BGMVolume", volume);
-    }
-
-    public void SetEffectVolume(float volume)
-    {
-        _effectVolume = volume;
-        _effectSource.volume = _effectVolume * _masterVolume;
-        RefreshLoopVolumes();
-
-        PlayerPrefs.SetFloat("EffectVolume", volume);
-    }
-
-    private void LoadVolume()
-    {
-        _masterVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
-        _bgmVolume = PlayerPrefs.GetFloat("BGMVolume", 1f);
-        _effectVolume = PlayerPrefs.GetFloat("EffectVolume", 1f);
-
-        _bgmFadeValue = 1f;
-        _bgmSource.volume = _bgmVolume * _masterVolume;
-        _effectSource.volume = _effectVolume * _masterVolume;
     }
 }

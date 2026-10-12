@@ -179,7 +179,7 @@ public class Boss1DeathController : MonoBehaviour
         
         if (_boss2Intro != null)
         {
-            _boss2Intro.Play(null);
+            //_boss2Intro.Play(null);
         }
         
         else

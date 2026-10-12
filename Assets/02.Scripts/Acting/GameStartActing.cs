@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class GameStartActing : MonoBehaviour
 {
+
     [Header("회피시 이동할 장소")][SerializeField]private Transform _movePoint;
     private PlayerMove _playerMove;
     [Header("보스 착지 Vfx 호출 ")][SerializeField]private GameObject _bossDropVfx;
@@ -127,5 +128,6 @@ public class GameStartActing : MonoBehaviour
         _bossMoveStart.Invoke();
         _playerBattleStartEvent.Invoke();
 
+        
     }
 }

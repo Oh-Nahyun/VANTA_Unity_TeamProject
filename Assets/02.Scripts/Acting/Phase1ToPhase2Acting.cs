@@ -5,12 +5,14 @@ using UnityEngine.Events;
 
 public class Phase1ToPhase2Acting : MonoBehaviour
 {
+
     [Header("배경체인져")][SerializeField]private EnvironmentChanger _environmentChanger;
     [Header("불끄기")][SerializeField]private LightOff _lightOff;
     private PlayerStatusManager _playerStatusManager;
     [Header("보스 최초등장할떄 소리 ")]
     [SerializeField] private AudioClip _boss2StageBgm;
-    
+    [Header("보스 변환중 소리 ")]
+    [SerializeField] private AudioClip _phaseChangeBgm;
     [Header("페이즈 변환 시작할때 이벤트 ")]
     [SerializeField] private UnityEvent _phaseStartEvent;
     [Header("불이 꺼지기 시작할때 시작할때 이벤트 ")]
@@ -36,6 +38,7 @@ public class Phase1ToPhase2Acting : MonoBehaviour
 
     public void StartPhaseChange()
     {
+        SoundManager.Instance.ChangeBGM(_phaseChangeBgm);
         _phaseStartEvent.Invoke();
         
         _playerStatusManager.PlayerControlOff();
@@ -131,7 +134,7 @@ public class Phase1ToPhase2Acting : MonoBehaviour
         //휘두르는 연출시작
         _bossFocusEvent.Invoke();
         DOVirtual.DelayedCall(
-            3f,
+            6f,
             () =>
             {
                 StartPhase2Game();
@@ -141,9 +144,16 @@ public class Phase1ToPhase2Acting : MonoBehaviour
 
     private void StartPhase2Game()
     {
-        _returnPlayerEvent.Invoke();
+        //_boss2IntroCinematic.Play(PlayerMoveEnable);
         _playerStatusManager.ApplyFinalSetting();
-            CameraFocusingController.Instance.SlowFocus(transform,0f,1f);
-            SoundManager.Instance.PlayBGM(_boss2StageBgm);
+        //CameraFocusingController.Instance.SlowFocus(transform,0f,1f);
+        SoundManager.Instance.PlayBGM(_boss2StageBgm);
+        _returnPlayerEvent.Invoke();
+
+    }
+
+    private void PlayerMoveEnable()
+    {
+        
     }
 }

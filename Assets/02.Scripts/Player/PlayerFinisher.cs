@@ -499,7 +499,6 @@ public class PlayerFinisher : MonoBehaviour
 
             _screenSplitTween = null;
 
-            _animator.SetTrigger("PlayerChange");
 
             GameClear();
             _isFinisherStarted = false;

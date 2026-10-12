@@ -112,7 +112,7 @@ public class PlayerStatusManager : MonoBehaviour
             return;
         _isStart = true;
         
-    SoundManager.Instance.PlayBGM(_boss1StageBgm);
+        SoundManager.Instance.PlayBGM(_boss1StageBgm);
         Time.timeScale = 1f;
 
         _originSequence?.Kill();

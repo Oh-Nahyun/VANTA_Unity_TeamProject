@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Fire : MonoBehaviour
 {
+    
+    [SerializeField]private AudioClip _fireSound;
     private Animator _animator;
     private SpriteRenderer _fireSprite;
 
@@ -22,7 +24,7 @@ public class Fire : MonoBehaviour
         SpriteStatusChange();
 
         _animator.SetTrigger("ActivateFire");
-        
+        SoundManager.Instance.PlayEffectSound(_fireSound);
     }
 
     public void DeactivateFire()

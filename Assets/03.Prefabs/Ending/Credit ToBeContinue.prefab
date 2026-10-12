@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5867204953549593476}
   - component: {fileID: 5531478014646989810}
   m_Layer: 5
-  m_Name: Credit 3
+  m_Name: Credit ToBeContinue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "PR\uD69F"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caca24793c866914cbe6365493959d56, type: 2}
   m_sharedMaterial: {fileID: -8120907556937374709, guid: caca24793c866914cbe6365493959d56, type: 2}
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1de5de52eb7867c4396905f469908d8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Credit
-  _content: "PR \uD69F\uC218\n"
+  _content: To Be Continue...
   _typingInterval: 0.2
   _destroyDelay: 1.5
   _audioSource: {fileID: 0}

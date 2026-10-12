@@ -2046,6 +2046,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 8776335452809589698, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
+      propertyPath: sharedProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: b2e881d2edf3396458ce2d56590fb733, type: 2}
     - target: {fileID: 9045406404762705793, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.3

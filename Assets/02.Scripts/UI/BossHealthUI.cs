@@ -106,7 +106,7 @@ public class BossHealthUI : MonoBehaviour
         _delayedFillSlider.value = _healthRatio;
         _leftOriginalPosition = _leftImage.anchoredPosition;
         _rightOriginalPosition = _rightImage.anchoredPosition;
-        
+
         if (_fadeInEffect != null)
         {
             _fadeInEffect.PlayFadeIn();
@@ -197,11 +197,6 @@ public class BossHealthUI : MonoBehaviour
         }
 
         _previousHealthRatio = healthRatio;
-
-        if (healthRatio <= 0f)
-        {
-            PlayFadeOut();
-        }
     }
 
     private IEnumerator DecreaseDelayedHp(float healthRatio)

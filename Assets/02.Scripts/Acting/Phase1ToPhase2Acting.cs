@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class Phase1ToPhase2Acting : MonoBehaviour
 {
-
+    [SerializeField]private Boss2IntroCinematic _boss2IntroCinematic;
     [Header("배경체인져")][SerializeField]private EnvironmentChanger _environmentChanger;
     [Header("불끄기")][SerializeField]private LightOff _lightOff;
 
@@ -137,15 +137,8 @@ public class Phase1ToPhase2Acting : MonoBehaviour
     {
         HitableObject hitableObject=FindAnyObjectByType<HitableObject>();
         CameraFocusingController.Instance.SlowFocus(hitableObject.transform,1f,1f);
-        //휘두르는 연출시작
         _bossFocusEvent.Invoke();
-        DOVirtual.DelayedCall(
-            6f,
-            () =>
-            {
-                StartPhase2Game();
-            }
-        );
+        _boss2IntroCinematic.Play(StartPhase2Game);
     }
 
     private void StartPhase2Game()

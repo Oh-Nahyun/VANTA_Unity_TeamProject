@@ -4689,6 +4689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe84dd28bd1e6442922bab8fcfbc2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EndingDirector
+  _startDelay: 5
   _actors:
   - {fileID: 1998657536}
   - {fileID: 770435626}

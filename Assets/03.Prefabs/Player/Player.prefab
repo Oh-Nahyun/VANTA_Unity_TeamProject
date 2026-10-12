@@ -20211,7 +20211,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: 7867354623546401073, guid: 788199a916cf3d54a80af678504d9bef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20259,8 +20259,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 788199a916cf3d54a80af678504d9bef, type: 2}
+  m_sharedMaterial: {fileID: 7867354623546401073, guid: 788199a916cf3d54a80af678504d9bef, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -20290,7 +20290,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -20508,7 +20508,19 @@ MonoBehaviour:
   _deathLightShrinkDuration: 0.7
   _deathStartEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: StopBGM
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _deathEvent:
     m_PersistentCalls:
       m_Calls:
@@ -20567,8 +20579,8 @@ MonoBehaviour:
   _attackDistance: 0.3
   _attackRadius: 0.5
   _attackComboCount: 0
-  _slashDamage: 5000
-  _doubleSlashDamage: 500
+  _slashDamage: 500
+  _doubleSlashDamage: 1000
   _slashEffect: {fileID: 3042519775331041172, guid: 1a3c2ecb0f269ad4095c2651c8462a0e, type: 3}
   _doubleSlashEffect: {fileID: 4306488877223958017, guid: f2b2174306f2a7a4cae5fb635c05c0aa, type: 3}
   _skillIndicatorController: {fileID: 4399322351995847099}
@@ -20731,6 +20743,7 @@ MonoBehaviour:
   _playerAttack: {fileID: 4589030193044622876}
   _skillAttack: {fileID: 8137248592232807175}
   _skillFocusScreenController: {fileID: 1332611649402532543}
+  _chargingSound: {fileID: 8300000, guid: 7a107c985ef286642b81ec47c969c359, type: 3}
   _finisherVfx1: {fileID: 1226031520979461127, guid: 0cec31f512d973f49b748c5c40b18e97, type: 3}
   _finisherVfx2: {fileID: 1226031520979461127, guid: 4316de4d1a1bd30459855e853a008dc6, type: 3}
   _finisherVfx3: {fileID: 1226031520979461127, guid: a0d61b658f72e8b47a0700487073cf25, type: 3}
@@ -20748,6 +20761,21 @@ MonoBehaviour:
   _startZoomAmount: 0.2
   _zoomPerCharge: 0.1
   _chargeZoomDuration: 1
+  _finisherStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: StopBGM
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _gameClear:
     m_PersistentCalls:
       m_Calls:
@@ -20810,7 +20838,7 @@ MonoBehaviour:
   _startOrthographicSize: 5
   _targetOrthographicSize: 3
   _zoomDuration: 3
-  _boss1StageBgm: {fileID: 0}
+  _boss1StageBgm: {fileID: 8300000, guid: 56df37861de10a34ab245b29dfea3e1f, type: 3}
 --- !u!114 &2186686988792586930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20858,7 +20886,19 @@ MonoBehaviour:
         m_CallState: 2
   _bossMoveStart:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Boss1IntroController, Assembly-CSharp
+        m_MethodName: Boss1StartBattle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _boss1DropFinish:
     m_PersistentCalls:
       m_Calls:
@@ -20889,6 +20929,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PetMove, Assembly-CSharp
+        m_MethodName: ChangeChaseDistanceWhenInGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   _playerBattleStartEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -20906,11 +20958,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Phase1ToPhase2Acting
   _environmentChanger: {fileID: 0}
   _lightOff: {fileID: 0}
-  _boss2StageBgm: {fileID: 0}
-  _phaseChangeBgm: {fileID: 0}
+  _lightOffSound: {fileID: 8300000, guid: dfbf0781524cc3547b860cea420d0c9a, type: 3}
+  _boss2StageBgm: {fileID: 8300000, guid: 67396c179e4121c4db06715d4be92812, type: 3}
+  _phaseChangeBgm: {fileID: 8300000, guid: c11b843f6bf62384083daecafee04e95, type: 3}
   _phaseStartEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6093219973355731838}
+        m_TargetAssemblyTypeName: PlayerMove, Assembly-CSharp
+        m_MethodName: DashToReverseSide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _lightOffStartEvent:
     m_PersistentCalls:
       m_Calls: []

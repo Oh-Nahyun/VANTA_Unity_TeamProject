@@ -875,6 +875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0abfe22c6b48e740a534d6000e95b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fire
+  _fireSound: {fileID: 8300000, guid: 667c36954e92de845983a67ebc6ffa5c, type: 3}
 --- !u!1 &2134772055353928482
 GameObject:
   m_ObjectHideFlags: 0
@@ -1532,6 +1533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0abfe22c6b48e740a534d6000e95b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fire
+  _fireSound: {fileID: 8300000, guid: 667c36954e92de845983a67ebc6ffa5c, type: 3}
 --- !u!1 &3357239071591167552
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,6 +1661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0abfe22c6b48e740a534d6000e95b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fire
+  _fireSound: {fileID: 8300000, guid: 667c36954e92de845983a67ebc6ffa5c, type: 3}
 --- !u!1 &3382096389887796388
 GameObject:
   m_ObjectHideFlags: 0
@@ -2497,6 +2500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0abfe22c6b48e740a534d6000e95b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fire
+  _fireSound: {fileID: 8300000, guid: 667c36954e92de845983a67ebc6ffa5c, type: 3}
 --- !u!1 &5076434444926705507
 GameObject:
   m_ObjectHideFlags: 0
@@ -3414,6 +3418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0abfe22c6b48e740a534d6000e95b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fire
+  _fireSound: {fileID: 8300000, guid: 667c36954e92de845983a67ebc6ffa5c, type: 3}
 --- !u!1 &6093696247937482636
 GameObject:
   m_ObjectHideFlags: 0
@@ -3634,6 +3639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0abfe22c6b48e740a534d6000e95b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fire
+  _fireSound: {fileID: 8300000, guid: 667c36954e92de845983a67ebc6ffa5c, type: 3}
 --- !u!1 &7688979921034242809
 GameObject:
   m_ObjectHideFlags: 0
@@ -3866,6 +3872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0abfe22c6b48e740a534d6000e95b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fire
+  _fireSound: {fileID: 8300000, guid: 667c36954e92de845983a67ebc6ffa5c, type: 3}
 --- !u!1 &8732528517132192347
 GameObject:
   m_ObjectHideFlags: 0
@@ -4176,3 +4183,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0abfe22c6b48e740a534d6000e95b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fire
+  _fireSound: {fileID: 8300000, guid: 667c36954e92de845983a67ebc6ffa5c, type: 3}

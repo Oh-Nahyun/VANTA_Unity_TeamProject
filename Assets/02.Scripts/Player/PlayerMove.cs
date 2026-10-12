@@ -368,7 +368,51 @@ public class PlayerMove : MonoBehaviour
             "Dash"
         );
     }
+    private void OnDisable()
+    {
+        // 진행 중인 대쉬 종료
+        _dashTween?.Kill();
+        _dashTween = null;
 
+        _isDashing = false;
+        _moveDirection = Vector2.zero;
+
+        // 물리 속도 초기화
+        if (_rigidbody != null)
+        {
+            _rigidbody.linearVelocity = Vector2.zero;
+            _rigidbody.angularVelocity = 0f;
+        }
+
+        // 잔상 종료
+        if (_playerAfterImageController != null)
+        {
+            _playerAfterImageController.OffAfterImage();
+        }
+
+        // Animator 파라미터 초기화
+        if (_animator != null)
+        {
+            _animator.SetBool("isMove", false);
+            _animator.ResetTrigger("Dash");
+
+            // Idle 애니메이션의 첫 프레임으로 강제 복귀
+            _animator.Play(
+                "Idle",
+                0,
+                0f
+            );
+
+            // 즉시 Animator에 반영
+            _animator.Update(0f);
+        }
+
+        // 피격 가능 상태 복구
+        if (_player != null)
+        {
+            _player.OnPlayerHittable();
+        }
+    }
     private void OnDestroy()
     {
         _dashTween?.Kill();

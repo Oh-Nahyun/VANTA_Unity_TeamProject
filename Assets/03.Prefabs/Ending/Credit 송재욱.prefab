@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9079028809786242967}
   - component: {fileID: 5867204953549593476}
   - component: {fileID: 5531478014646989810}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: "Credit \uC1A1\uC7AC\uC6B1"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,3 +197,7 @@ MonoBehaviour:
   _content: "\uC1A1\uC7AC\uC6B1\n\n"
   _typingInterval: 0.2
   _destroyDelay: 1.5
+  _audioSource: {fileID: 0}
+  _typingSound: {fileID: 8300000, guid: 0d46621a2b8171b4eaf0b6cd974f5e29, type: 3}
+  _typingVolume: 0.13
+  _pitchRange: {x: 0.6, y: 1.5}

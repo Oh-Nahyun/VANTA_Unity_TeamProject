@@ -15,6 +15,10 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
     [SerializeField] private float _lungeEndTime = 0.5f; //clawattack 애니메이션 피격 판정 종료 시간
     [SerializeField] private float _maxLungeDistance = 0.6f;
     
+    [Header("공격 애니메이션 중 y추적")]
+    [SerializeField] private float _yTrackSpeed = 1.5f; //clawattack 애니메이션중 y추적 속도
+    [SerializeField] private float _yTrackEndTime = 0.15f; //clawattack 애니메이션중 y 추적 시간
+ 
     [Header("포지셔닝 중 방향전환 최소 x축 거리")]
     [SerializeField] private float _minFaceDistance = 0.3f;
 
@@ -167,7 +171,6 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
         {
             _boss1Movement.FaceTarget(_playerTransform.position);
         }
-    
 
         float xDistance = Mathf.Abs(xDifference);
         float yDistance = Mathf.Abs(yDifference);
@@ -219,7 +222,7 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
 
     private void UpdateTelegraph()
     {
-        _boss1Movement.StopMove();
+        _boss1Movement.Lunge(new Vector2(0f, YTrackVelocity())); // 전조 중엔 y만 따라감
         _timer += Time.deltaTime;
 
         if (_timer >= CurrentPhaseSettings.TelegraphDuration)
@@ -234,28 +237,35 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
     private void UpdateClawAttack()
     {
         _timer += Time.deltaTime;
-
-        if (_timer < _lungeStartTime || _timer > _lungeEndTime)
+        
+        float xVelocity = 0f;
+        float yVelocity = 0f;
+        
+        if (_timer < _yTrackEndTime)
         {
-            _boss1Movement.StopMove();
-            return;
+            yVelocity = YTrackVelocity();
         }
 
-        if (_isLungeStarted == false)
+        if (_timer >= _lungeStartTime && _timer <= _lungeEndTime)
         {
-            _isLungeStarted = true;
+            if (_isLungeStarted == false)
+            {
+                _isLungeStarted = true;
             
-            _lungeDirection = Mathf.Sign(_clawHitBox.transform.position.x - transform.position.x);
+                _lungeDirection = Mathf.Sign(_clawHitBox.transform.position.x - transform.position.x);
             
-            float playerDistance = (_playerTransform.position.x - transform.position.x) * _lungeDirection;
+                float playerDistance = (_playerTransform.position.x - transform.position.x) * _lungeDirection;
             
-            float hitBoxCenter = Mathf.Abs(_clawHitBox.transform.localPosition.x);
-            float lungeDistance = Mathf.Clamp(playerDistance - hitBoxCenter, 0f, _maxLungeDistance);
+                float hitBoxCenter = Mathf.Abs(_clawHitBox.transform.localPosition.x);
+                float lungeDistance = Mathf.Clamp(playerDistance - hitBoxCenter, 0f, _maxLungeDistance);
             
-            _lungeSpeed = lungeDistance / (_lungeEndTime - _lungeStartTime);
+                _lungeSpeed = lungeDistance / (_lungeEndTime - _lungeStartTime);
+            }
+            
+            xVelocity = _lungeDirection * _lungeSpeed;
         }
         
-        _boss1Movement.Lunge(new Vector2(_lungeDirection * _lungeSpeed, 0f));
+        _boss1Movement.Lunge(new Vector2(xVelocity, yVelocity));
     }
 
     private void UpdateRecovery()
@@ -267,6 +277,14 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
             _timer = 0f;
             IsFinished = true;
         }
+    }
+    
+    private float YTrackVelocity()
+    {
+        float yDifference = _playerTransform.position.y - transform.position.y;
+
+        // 차이에 비례해 따라가되 최대 _yTrackSpeed (가까워지면 저절로 느려져서 떨리지 않음)
+        return Mathf.Clamp(yDifference * 10f, -_yTrackSpeed, _yTrackSpeed);
     }
     
     private void PlayClawImpulse()

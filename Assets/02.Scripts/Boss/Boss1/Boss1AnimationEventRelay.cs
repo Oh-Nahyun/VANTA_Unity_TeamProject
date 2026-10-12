@@ -12,9 +12,7 @@ public class Boss1AnimationEventRelay : MonoBehaviour
     [SerializeField] private Boss1DeathController _boss1DeathController;
     
     [SerializeField] private Boss1Sound _boss1Sound;
-
-    [SerializeField] private SoundManager _soundManager;
-
+    
     public void RemoveWarningZone()
     {
         _boss1IntroController.RemoveWarningZone();
@@ -90,8 +88,8 @@ public class Boss1AnimationEventRelay : MonoBehaviour
         _boss1Sound.Play(Boss1SoundType.FootStep);
     }
 
-    public void StopBoss1BGM()
+    public void Boss1Explode()
     {
-        _soundManager.StopBGMImmediate();
+        SoundManager.Instance.StopBGMImmediate();
     }
 }

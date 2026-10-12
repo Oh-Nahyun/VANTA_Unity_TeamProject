@@ -777,7 +777,6 @@ MonoBehaviour:
   _boss1JumpAttack: {fileID: 2846696346554286157}
   _boss1DeathController: {fileID: 8856960780408004671}
   _boss1Sound: {fileID: 6291799440809599163}
-  _soundManager: {fileID: 0}
 --- !u!1 &1515577075812671473
 GameObject:
   m_ObjectHideFlags: 0
@@ -2212,7 +2211,7 @@ Transform:
   m_GameObject: {fileID: 6249850835482319577}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.06, y: 0.66, z: 0}
+  m_LocalPosition: {x: 2.06, y: 0.6, z: 0}
   m_LocalScale: {x: 1.319951, y: 2.1900403, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2252,7 +2251,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.025367469}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2262,7 +2261,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 1.152205}
   m_EdgeRadius: 0
 --- !u!114 &5818488566624348837
 MonoBehaviour:
@@ -3486,9 +3485,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss1ClawAttack
   _boss1Movement: {fileID: 7103835189215790258}
   _maxPositioningTime: 0.5
-  _lungeStartTime: 0.3
-  _lungeEndTime: 0.5
+  _lungeStartTime: 0.15
+  _lungeEndTime: 0.33
   _maxLungeDistance: 0.6
+  _yTrackSpeed: 2
+  _yTrackEndTime: 0.15
   _minFaceDistance: 0.3
   _minAttackDistance: 1.4
   _maxAttackDistance: 2.5
@@ -3521,6 +3522,7 @@ MonoBehaviour:
   _boss1Movement: {fileID: 7103835189215790258}
   _maxPositioningTime: 0.5
   _minFaceDistance: 0.3
+  _minAttackDistance: 1.2
   _maxAttackDistance: 2.5
   _yTolerance: 0.3
   _spitHitBox: {fileID: 2839262255638538226}

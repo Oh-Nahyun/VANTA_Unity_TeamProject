@@ -3327,11 +3327,11 @@ MonoBehaviour:
   - {fileID: 9165167924702793645}
   - {fileID: 2846696346554286157}
   _chaseDuration: 2
-  _distanceThreshold: 3
-  _meleeWeightBonus: 5
+  _distanceThreshold: 4.5
+  _meleeWeightBonus: 7
   _rangedWeightBonus: 5
-  _rangedMissBonusAmount: 3
-  _maxRangedMissBonus: 9
+  _rangedMissBonusAmount: 2
+  _maxRangedMissBonus: 6
   _jumpBonusStartTime: 3
   _jumpBonusPerSecond: 2
   _maxJumpBonus: 10
@@ -3633,7 +3633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1DeathController
   _boss2Intro: {fileID: 0}
-  _collapseWaitDuration: 1.5
+  _colorRestoreDuration: 1.5
   _explosionDuration: 2.4
   _explosionImpactTime: 0.14
   _explosionImpulseSource: {fileID: 7153416756728420391}

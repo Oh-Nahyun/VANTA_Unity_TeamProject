@@ -3451,7 +3451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 584929f51a598484e8bf086a9fe14f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1MeleePattern
-  _weight: 1000
+  _weight: 10
   _meleeAttacks:
   - _attackBehaviour: {fileID: 3060184153963347236}
     _weight: 10

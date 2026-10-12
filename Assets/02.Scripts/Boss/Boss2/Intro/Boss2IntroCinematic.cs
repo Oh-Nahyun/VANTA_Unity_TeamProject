@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 using UnityEngine.Timeline;
 using UnityEngine.UI;
 
@@ -34,6 +35,8 @@ public class Boss2IntroCinematic : MonoBehaviour
     [Header("전투 시작")]
     [Tooltip("시네마틱이 끝나고 플레이어가 준비할 시간. 이 시간 동안 보스2는 idle 로 멈춰 있다가 FSM 을 시작한다.")]
     [SerializeField] private float _battleStartDelay = 1f;
+    [Tooltip("등장 연출이 끝나는 순간(카메라 줌아웃 시작, 전투 시작 _battleStartDelay 초 전) 호출. 보스 체력 UI 재등장 등을 연결")]
+    [SerializeField] private UnityEvent _onIntroFinished;
 
     [Header("연출 오브젝트")]
     [SerializeField] private ParticleSystem _gas;
@@ -63,8 +66,8 @@ public class Boss2IntroCinematic : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float _darkIntensityScale = 0.25f;
 
     [Header("인트로 카메라")]
-    [Tooltip("보스2 위치 기준 얼굴 위치")]
-    [SerializeField] private Vector2 _faceOffset = new Vector2(-0.05f, 1.15f);
+    [Tooltip("보스2 위치 기준 얼굴(두 눈 사이) 위치. 카메라가 이 점을 화면 중앙에 둔다")]
+    [SerializeField] private Vector2 _faceOffset = new Vector2(0.03f, 0.3f);
     [SerializeField] private float _faceOrthographicSize = 1.1f;
     [Tooltip("카메라가 뚝 떨어지는 방향·거리 (오른쪽 아래)")]
     [SerializeField] private Vector2 _dropOffset = new Vector2(0.45f, -0.45f);
@@ -72,15 +75,21 @@ public class Boss2IntroCinematic : MonoBehaviour
     [SerializeField] private float _shakeFrequency = 90f;
     [SerializeField] private float _zoomOutDuration = 1.2f;
 
-    [Header("보스1 폭발 (팀원 연결점)")]
-    [Tooltip("켜져 있으면 임시 폭발 이펙트 + 고정 시간 대기. 끄면 아래 이벤트로 폭발을 요청하고 NotifyBoss1ExplosionFinished() 를 기다린다.")]
-    [SerializeField] private bool _useTempExplosion = true;
-    [SerializeField] private GameObject _tempExplosionPrefab;
-    [SerializeField] private float _tempExplosionScale = 0.45f;
-    [SerializeField] private float _tempExplosionDuration = 0.8f;
-    [Tooltip("폭발 끝 알림이 안 와도 이 시간이 지나면 진행한다.")]
+    [Header("보스1 폭발")]
+    [Tooltip("보스1 시체는 Boss1DeathController.PlayDeathExplosion 으로 터진다. 끝(OnExplosionFinished) 알림이 안 와도 이 시간이 지나면 진행한다.")]
     [SerializeField] private float _explosionTimeout = 8f;
+    [Tooltip("폭발을 요청할 때 함께 부를 추가 연출 (선택)")]
     [SerializeField] private UnityEvent _onRequestBoss1Explosion;
+
+    [Header("보스2 눈 뜨기")]
+    [Tooltip("보스2 Idle 첫 프레임에서 눈만 감은 스프라이트. 나타날 때(RevealBoss2)부터 이 모습으로 있다가 눈을 뜬다")]
+    [FormerlySerializedAs("_boss2BlinkSprite")]
+    [SerializeField] private Sprite _boss2EyesClosedSprite;
+    [Tooltip("보스2가 나타난(RevealBoss2) 뒤 눈을 뜰 때까지 (초). 불이 켜진 뒤, 카메라가 뚝 떨어지기 전")]
+    [SerializeField] private float _eyesOpenDelay = 0.75f;
+    [Tooltip("눈을 뜨는 순간 재생할 효과음")]
+    [FormerlySerializedAs("_revealSound")]
+    [SerializeField] private AudioClip _eyesOpenSound;
 
     [Header("Timeline 이 움직이는 값")]
     [SerializeField, Range(0f, 1f)] private float _gasAmount;
@@ -93,6 +102,9 @@ public class Boss2IntroCinematic : MonoBehaviour
 
     /// <summary>보스1 폭발을 코드로 연결할 때 구독. 폭발이 끝나면 NotifyBoss1ExplosionFinished() 호출.</summary>
     public event Action Boss1ExplosionRequested;
+
+    /// <summary>코드로 연결할 때 구독. _onIntroFinished 와 같은 시점(연출 끝, 전투 시작 직전)에 호출된다.</summary>
+    public event Action IntroFinished;
 
     public bool IsPlaying { get; private set; }
 
@@ -132,6 +144,8 @@ public class Boss2IntroCinematic : MonoBehaviour
     private Coroutine _restoreBlendRoutine;
 
     private Coroutine _battleStartRoutine;
+    private Coroutine _eyesOpenRoutine;
+    private bool _isEyesClosed;
     private bool _isWaitingExplosion;
     private Coroutine _explosionRoutine;
     private Boss1DeathController _boss1Death;
@@ -313,6 +327,7 @@ public class Boss2IntroCinematic : MonoBehaviour
             StopCoroutine(_battleStartRoutine);
             _battleStartRoutine = null;
         }
+        StopEyesOpen();
         if (_introCamera != null)
         {
             _introCamera.gameObject.SetActive(false);
@@ -366,15 +381,19 @@ public class Boss2IntroCinematic : MonoBehaviour
             StopCoroutine(_explosionRoutine);
         }
 
-        if (_useTempExplosion)
+        _onRequestBoss1Explosion?.Invoke();
+        Boss1ExplosionRequested?.Invoke();
+
+        // 보스1 시체를 직접 터뜨린다. 끝나면 OnExplosionFinished → NotifyBoss1ExplosionFinished 로 Timeline 이 다시 흐른다.
+        if (_boss1Death != null)
         {
-            _explosionRoutine = StartCoroutine(TempExplosionRoutine());
+            _boss1Death.PlayDeathExplosion();
+            _explosionRoutine = StartCoroutine(ExplosionTimeoutRoutine());
         }
         else
         {
-            _onRequestBoss1Explosion?.Invoke();
-            Boss1ExplosionRequested?.Invoke();
-            _explosionRoutine = StartCoroutine(ExplosionTimeoutRoutine());
+            // 터뜨릴 보스1이 없으면(테스트 등) 기다리지 않고 바로 진행한다.
+            NotifyBoss1ExplosionFinished();
         }
     }
 
@@ -435,6 +454,35 @@ public class Boss2IntroCinematic : MonoBehaviour
             _introCamera.gameObject.SetActive(true);
             _introCamera.PreviousStateIsValid = false;
         }
+
+        if (IsPlaying)
+        {
+            StopEyesOpen();
+            _eyesOpenRoutine = StartCoroutine(EyesOpenRoutine());
+        }
+    }
+
+    // 눈을 감은 채로 나타났다가, 불이 켜진 뒤 눈을 번쩍 뜨며 사운드를 낸다. (Animator 는 Idle 첫 프레임에 멈춰 있다)
+    private IEnumerator EyesOpenRoutine()
+    {
+        _isEyesClosed = _boss2EyesClosedSprite != null;
+        yield return new WaitForSecondsRealtime(_eyesOpenDelay);
+
+        StopEyesOpen();
+        if (_eyesOpenSound != null && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayEffectSound(_eyesOpenSound);
+        }
+    }
+
+    private void StopEyesOpen()
+    {
+        if (_eyesOpenRoutine != null)
+        {
+            StopCoroutine(_eyesOpenRoutine);
+            _eyesOpenRoutine = null;
+        }
+        _isEyesClosed = false;
     }
 
     /// <summary>얼굴 줌 카메라 해제 → 메인 카메라로 줌아웃 블렌드.</summary>
@@ -450,6 +498,7 @@ public class Boss2IntroCinematic : MonoBehaviour
     /// <summary>시네마틱 종료: 보스2 idle 재생, 플레이어 준비 시간(_battleStartDelay) 뒤 무적 해제·FSM 시작.</summary>
     public void StartBattle()
     {
+        StopEyesOpen();
         EndIntroCamera();
         RestoreGlobalLights();
         StopEffects(true);
@@ -491,6 +540,8 @@ public class Boss2IntroCinematic : MonoBehaviour
         if (wasPlaying)
         {
             finished?.Invoke();
+            _onIntroFinished?.Invoke();
+            IntroFinished?.Invoke();
         }
     }
 
@@ -507,6 +558,12 @@ public class Boss2IntroCinematic : MonoBehaviour
                 _isBoss2FsmStopped = true;
                 _boss2Controller.StopFsm();
             }
+        }
+
+        // Animator 가 매 프레임 Idle 스프라이트를 다시 쓰므로, 눈을 감고 있는 동안은 그 뒤(LateUpdate)에 눈 감은 스프라이트로 덮는다.
+        if (_isEyesClosed && _boss2Body != null)
+        {
+            _boss2Body.sprite = _boss2EyesClosedSprite;
         }
 
         if (IsPlaying == false)
@@ -767,26 +824,6 @@ public class Boss2IntroCinematic : MonoBehaviour
         {
             _boss2Controller.StartFsm();
         }
-    }
-
-    private IEnumerator TempExplosionRoutine()
-    {
-        if (_tempExplosionPrefab != null)
-        {
-            GameObject explosion = Instantiate(_tempExplosionPrefab, _anchor, Quaternion.identity);
-            explosion.transform.localScale *= _tempExplosionScale;
-            foreach (ParticleSystem ps in explosion.GetComponentsInChildren<ParticleSystem>())
-            {
-                var main = ps.main;
-                main.scalingMode = ParticleSystemScalingMode.Hierarchy;
-                ps.Play();
-            }
-            Destroy(explosion, _tempExplosionDuration + 3f);
-        }
-
-        yield return new WaitForSecondsRealtime(_tempExplosionDuration);
-        _explosionRoutine = null;
-        NotifyBoss1ExplosionFinished();
     }
 
     private IEnumerator ExplosionTimeoutRoutine()

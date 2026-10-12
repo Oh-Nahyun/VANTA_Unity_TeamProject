@@ -27,7 +27,7 @@ public static class Boss2IntroBuilder
     private const string UnlitSpriteMaterialPath = "Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Unlit-Default.mat";
     private const string GasPrefabPath = Boss2DarkBurstVfxBuilder.PrefabPath;
     private const string CloudPrefabPath = "Assets/03.Prefabs/Boss2/Effect/CloudFogVFX.prefab";
-    private const string ExplosionPrefabPath = "Assets/09.VFX/Boss2/Essential 2D Particle FX/URP Compatible/Explosion URP 1/Red Explosion URP 1.prefab";
+    private const string BlinkSpritePath = "Assets/04.Sprites/Boss2/HandMadeSprite/Boss2 Blink.png";
     private const string RootName = "Boss2IntroCinematic";
 
     // Timeline 시간표 (초)
@@ -443,7 +443,7 @@ public static class Boss2IntroBuilder
         so.FindProperty("_flashOverlay").objectReferenceValue = flash;
         so.FindProperty("_blackOverlay").objectReferenceValue = black;
         so.FindProperty("_introCamera").objectReferenceValue = introCamera;
-        so.FindProperty("_tempExplosionPrefab").objectReferenceValue = AssetDatabase.LoadAssetAtPath<GameObject>(ExplosionPrefabPath);
+        so.FindProperty("_boss2EyesClosedSprite").objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(BlinkSpritePath);
         so.ApplyModifiedPropertiesWithoutUndo();
 
         // 보스2 FSM 은 프리팹의 _runOnStart = false 로 꺼 두고, 인트로가 끝난 뒤 시작한다.

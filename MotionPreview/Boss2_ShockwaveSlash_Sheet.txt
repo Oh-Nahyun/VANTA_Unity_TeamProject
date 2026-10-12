@@ -1,0 +1,39 @@
+# cell 256x144, frames 37, pivot = cell center (same as the source sheets, PPU 18)
+# index	ms	label
+0	60	windup
+1	60	windup
+2	60	windup
+3	60	windup
+4	60	windup
+5	55	raise
+6	55	raise
+7	55	raise
+8	85	charge
+9	85	charge
+10	85	charge
+11	85	charge
+12	85	charge
+13	35	SMEAR down
+14	35	SMEAR down
+15	50	IMPACT
+16	50	hitstop
+17	50	wave
+18	60	wave
+19	60	wave
+20	60	wave
+21	60	wave
+22	60	wave
+23	60	wave
+24	60	recover
+25	60	recover
+26	60	recover
+27	60	recover
+28	60	recover
+29	60	recover
+30	60	recover
+31	60	recover
+32	60	recover
+33	60	recover
+34	60	recover
+35	60	recover
+36	500	idle

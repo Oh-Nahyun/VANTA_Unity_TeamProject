@@ -384,6 +384,9 @@ MonoBehaviour:
   _lockPlayerDuringIntro: 1
   _useBoss1StandIn: 1
   _battleStartDelay: 1
+  _onIntroFinished:
+    m_PersistentCalls:
+      m_Calls: []
   _gas: {fileID: 291483818229437816}
   _cloud: {fileID: 5982020336869590538}
   _slashes:
@@ -414,6 +417,11 @@ MonoBehaviour:
   _boss2EyesClosedSprite: {fileID: -6183023469172702850, guid: 6978c72b19d88ed2eaeaa42648ce7978, type: 3}
   _eyesOpenDelay: 0.75
   _eyesOpenSound: {fileID: 8300000, guid: db00e51bf1fe4fa9a0afc573e4ffbbc9, type: 3}
+  _introMusic: {fileID: 8300000, guid: 6edc4d39b32a76c4a8e6bae12df3a6fc, type: 3}
+  _introMusicDelay: 0
+  _introMusicVolume: 1
+  _introMusicFadeOut: 1.5
+  _stopStageBgmOnIntro: 1
   _gasAmount: 0
   _darkness: 0
   _cloudAlpha: 0

@@ -27,6 +27,9 @@ public class Boss1Laser : MonoBehaviour
     [SerializeField] private float _fireFlickerAmount = 0.06f;
     [SerializeField] private float _fireFlickerSpeed = 40f;
     [SerializeField] private float _fireOutDuration = 0.1f;
+    
+    [Header("레이저 피격 판정 두께")]
+    [SerializeField] private float _hitRadius = 0.2f;
 
     private float _warningBaseWidth;
     private float _laserBaseWidth;
@@ -153,7 +156,7 @@ public class Boss1Laser : MonoBehaviour
 
     private void CheckHit(Vector2 direction)
     {
-        RaycastHit2D hit = Physics2D.Raycast(_laserHeadPivot.position, direction, _laserLength, _playerLayer);
+        RaycastHit2D hit = Physics2D.CircleCast(_laserHeadPivot.position, _hitRadius, direction, _laserLength, _playerLayer);
 
         if (hit.collider == null)
         {

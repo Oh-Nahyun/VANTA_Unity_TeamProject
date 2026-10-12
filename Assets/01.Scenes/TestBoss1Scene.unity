@@ -798,6 +798,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 301913952616877973, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _shakeDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 537864551881236395, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _phase1Settings._sweepAngle
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 537864551881236395, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _phase2Settings._sweepAngle
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 537864551881236395, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _phase1Settings._aimDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 537864551881236395, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _phase1Settings._sweepDuration
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 537864551881236395, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _phase2Settings._sweepDuration
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2846696346554286157, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _warningDuration
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 5486056013902944760, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.15

@@ -12,7 +12,7 @@ public class Boss1DeathController : MonoBehaviour
     [SerializeField] private Boss2IntroCinematic _boss2Intro;
     
     [Header("주저앉은 후 대기 시간")]
-    [SerializeField] private float _colorRestoreDuration = 1.5f;
+    [SerializeField] private float _collapseWaitDuration = 1.5f;
     
     [Header("폭발 연출")]
     [SerializeField] private float _explosionDuration = 2f;      // 폭발 시작 ~ 보스2 인트로에 신호 보낼 때까지
@@ -40,7 +40,7 @@ public class Boss1DeathController : MonoBehaviour
     
     [Header("사망 후 색 변화")]
     [Range(0f, 1f)]
-    [SerializeField] private float _colorRestoreRatio = 0.8f; // // _collapseWaitDuration(1.5)보다 짧게
+    [SerializeField] private float _colorRestoreDuration = 1.2f; // // _collapseWaitDuration(1.5)보다 짧게
     [SerializeField] private Boss1Shadow _boss1Shadow;
     private Boss1HitFlash _boss1HitFlash;
     
@@ -58,7 +58,6 @@ public class Boss1DeathController : MonoBehaviour
 
     private bool _isMovingToCenter;
     private bool _isExploding;
-    private bool _isCollapseFinished;
     
     private Boss1Sound _boss1Sound;
 
@@ -155,6 +154,8 @@ public class Boss1DeathController : MonoBehaviour
         _onDown?.Invoke();
         _animator.Play("DeathIdle", 0, 0f);
         RestoreColor();
+
+        StartCoroutine(CollapseWaitRoutine());
     }
     
     private void RestoreColor()
@@ -176,14 +177,10 @@ public class Boss1DeathController : MonoBehaviour
             .SetLink(gameObject);
     }
 
-    public void FinishCollapse()
+    private IEnumerator CollapseWaitRoutine()
     {
-        if (_isCollapseFinished)
-        {
-            return;
-        }
-        _isCollapseFinished = true;
-        
+        yield return new WaitForSeconds(_collapseWaitDuration);
+    
         OnCollapseFinished?.Invoke();
         
         if (_boss2Intro != null)

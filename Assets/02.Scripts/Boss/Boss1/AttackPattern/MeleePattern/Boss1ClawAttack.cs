@@ -10,6 +10,10 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
     [Header("공격지점 선정 제한 시간")]
     [SerializeField] private float _maxPositioningTime = 0.5f;
 
+    [Header("런지 설정")]
+    [SerializeField] private float _lungeStartTime = 0.3f; //clawattack 애니메이션 피격 판정 시작 시간
+    [SerializeField] private float _lungeEndTime = 0.5f; //clawattack 애니메이션 피격 판정 종료 시간
+    [SerializeField] private float _maxLungeDistance = 0.6f;
 
     
     [Serializable]
@@ -57,6 +61,10 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
     private bool _isAttackActive;
     
     private bool _isPhase2;
+
+    private bool _isLungeStarted;
+    private float _lungeDirection;
+    private float _lungeSpeed;
     
     private Boss1Sound _boss1Sound;
     
@@ -208,6 +216,7 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
         if (_timer >= CurrentPhaseSettings.TelegraphDuration)
         {
             _timer = 0f;
+            _isLungeStarted = false;
             _animator.SetTrigger("ClawAttack");
             _currentState = ClawState.ClawAttack;
         }
@@ -215,7 +224,29 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
 
     private void UpdateClawAttack()
     {
-        _boss1Movement.StopMove();
+        _timer += Time.deltaTime;
+
+        if (_timer < _lungeStartTime || _timer > _lungeEndTime)
+        {
+            _boss1Movement.StopMove();
+            return;
+        }
+
+        if (_isLungeStarted == false)
+        {
+            _isLungeStarted = true;
+            
+            _lungeDirection = Mathf.Sign(_clawHitBox.transform.position.x - transform.position.x);
+            
+            float playerDistance = (_playerTransform.position.x - transform.position.x) * _lungeDirection;
+            
+            float hitBoxCenter = Mathf.Abs(_clawHitBox.transform.localPosition.x);
+            float lungeDistance = Mathf.Clamp(playerDistance = hitBoxCenter, 0f, _maxLungeDistance);
+            
+            _lungeSpeed = lungeDistance / (_lungeEndTime - _lungeStartTime);
+        }
+        
+        _boss1Movement.Lunge(new Vector2(_lungeDirection * _lungeSpeed, 0f));
     }
 
     private void UpdateRecovery()

@@ -150,13 +150,13 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         {
             _lockedDirection = (_playerTransform.position - _laserHeadPivot.position).normalized;
             _lockedAngle = Mathf.Atan2( _lockedDirection.y, _lockedDirection.x) * Mathf.Rad2Deg;
+            _boss1Sound.Play(_isPhase2 ? Boss1SoundType.LaserChargeP2 : Boss1SoundType.LaserCharge);
         }
 
         _timer += Time.deltaTime;
 
         // 실제 데미지가 없는 경고선 표시
         _laser.ShowAim(_lockedDirection, _timer / CurrentPhaseSettings.AimDuration);
-        _boss1Sound.Play(_isPhase2 ? Boss1SoundType.LaserChargeP2 : Boss1SoundType.LaserCharge);
 
         if (_timer < CurrentPhaseSettings.AimDuration)
         {

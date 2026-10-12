@@ -190,28 +190,72 @@ public class SoundManager : MonoBehaviour
 
     public void StopBGM()
     {
-        // 진행 중인 크로스페이드/페이드인 즉시 종료
         _bgmFadeTween?.Kill();
         _bgmFadeTween = null;
 
-        // 현재 BGM 정지
-        if (_currentBgmSource != null)
-        {
-            _currentBgmSource.Stop();
-            _currentBgmSource.clip = null;
-            _currentBgmSource.volume = 0f;
-        }
+        float currentStartVolume =
+            _currentBgmSource != null
+                ? _currentBgmSource.volume
+                : 0f;
 
-        // 크로스페이드 중일 수도 있으므로
-        // 반대쪽 BGM Source도 같이 정지
-        if (_nextBgmSource != null)
-        {
-            _nextBgmSource.Stop();
-            _nextBgmSource.clip = null;
-            _nextBgmSource.volume = 0f;
-        }
+        float nextStartVolume =
+            _nextBgmSource != null
+                ? _nextBgmSource.volume
+                : 0f;
 
-        _bgmFadeValue = 1f;
+        float fadeValue = 0f;
+
+        _bgmFadeTween = DOTween
+            .To(
+                () => fadeValue,
+                value =>
+                {
+                    fadeValue = value;
+
+                    if (_currentBgmSource != null)
+                    {
+                        _currentBgmSource.volume =
+                            Mathf.Lerp(
+                                currentStartVolume,
+                                0f,
+                                value
+                            );
+                    }
+
+                    if (_nextBgmSource != null)
+                    {
+                        _nextBgmSource.volume =
+                            Mathf.Lerp(
+                                nextStartVolume,
+                                0f,
+                                value
+                            );
+                    }
+                },
+                1f,
+                _fadeDuration
+            )
+            .SetEase(Ease.Linear)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                if (_currentBgmSource != null)
+                {
+                    _currentBgmSource.Stop();
+                    _currentBgmSource.clip = null;
+                    _currentBgmSource.volume = 0f;
+                }
+
+                if (_nextBgmSource != null)
+                {
+                    _nextBgmSource.Stop();
+                    _nextBgmSource.clip = null;
+                    _nextBgmSource.volume = 0f;
+                }
+
+                _bgmFadeValue = 1f;
+                _bgmFadeTween = null;
+            });
     }
 
     // =========================
@@ -226,7 +270,31 @@ public class SoundManager : MonoBehaviour
             1f
         );
     }
+    public void StopBGMImmediate()
+    {
+        // 진행 중인 페이드 / 크로스페이드 종료
+        _bgmFadeTween?.Kill();
+        _bgmFadeTween = null;
 
+        // 현재 BGM 즉시 정지
+        if (_currentBgmSource != null)
+        {
+            _currentBgmSource.Stop();
+            _currentBgmSource.clip = null;
+            _currentBgmSource.volume = 0f;
+        }
+
+        // 크로스페이드 중일 수 있으므로
+        // 반대쪽 Source도 즉시 정지
+        if (_nextBgmSource != null)
+        {
+            _nextBgmSource.Stop();
+            _nextBgmSource.clip = null;
+            _nextBgmSource.volume = 0f;
+        }
+
+        _bgmFadeValue = 1f;
+    }
     public void PlayEffectSound(
         AudioClip clip,
         float volumeScale)

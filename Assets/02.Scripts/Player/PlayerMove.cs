@@ -5,18 +5,26 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     [Header("플레이어 움직임 속도")]
-    [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField]
+    private float _moveSpeed = 5f;
 
     [Header("플레이어 대쉬")]
-    [SerializeField] private float _dashDistance = 2f;
-    [SerializeField] private float _dashDuration = 0.15f;
+    [SerializeField]
+    private float _dashDistance = 2f;
+
+    [SerializeField]
+    private float _dashDuration = 0.15f;
 
     [Header("대쉬 충돌")]
-    [SerializeField] private LayerMask _dashCollisionMask;
-    [SerializeField] private float _collisionOffset = 0.05f;
+    [SerializeField]
+    private LayerMask _dashCollisionMask;
+
+    [SerializeField]
+    private float _collisionOffset = 0.05f;
 
     [Header("대쉬 이펙트")]
-    [SerializeField] private GameObject _dashEffect;
+    [SerializeField]
+    private GameObject _dashEffect;
 
     private Vector2 _moveDirection;
     private Vector2 _lastMoveDirection = Vector2.right;
@@ -25,20 +33,38 @@ public class PlayerMove : MonoBehaviour
     private Animator _animator;
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
-    private PlayerAfterImageController _playerAfterImageController;
+
+    private PlayerAfterImageController
+        _playerAfterImageController;
+
     private Player _player;
+
     private bool _isDashing;
+
+    // Reverse 대쉬는 Disable 되어도 끝까지 이동
+    private bool _keepDashOnDisable;
 
     private Tween _dashTween;
 
     private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _collider = GetComponent<Collider2D>();
-        _player=GetComponent<Player>();
-        _playerAfterImageController=GetComponent<PlayerAfterImageController>();
+        _spriteRenderer =
+            GetComponent<SpriteRenderer>();
+
+        _animator =
+            GetComponent<Animator>();
+
+        _rigidbody =
+            GetComponent<Rigidbody2D>();
+
+        _collider =
+            GetComponent<Collider2D>();
+
+        _player =
+            GetComponent<Player>();
+
+        _playerAfterImageController =
+            GetComponent<PlayerAfterImageController>();
     }
 
     private void Update()
@@ -57,8 +83,11 @@ public class PlayerMove : MonoBehaviour
 
     private void MovementInput()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float h =
+            Input.GetAxisRaw("Horizontal");
+
+        float v =
+            Input.GetAxisRaw("Vertical");
 
         _moveDirection =
             new Vector2(h, v).normalized;
@@ -114,13 +143,18 @@ public class PlayerMove : MonoBehaviour
         if (_isDashing)
             return;
 
+        // 일반 대쉬는 Disable 시 중단
+        _keepDashOnDisable = false;
+
         Instantiate(
             _dashEffect,
             transform.position,
             Quaternion.identity
         );
 
-        _playerAfterImageController.OnAfterImage();
+        _playerAfterImageController
+            .OnAfterImage();
+
         SetDashAnimation();
 
         StartDash(
@@ -136,6 +170,9 @@ public class PlayerMove : MonoBehaviour
     {
         if (_isDashing)
             return;
+
+        // 일반 DashToPoint도 Disable 시 중단
+        _keepDashOnDisable = false;
 
         Vector2 currentPosition =
             _rigidbody.position;
@@ -160,7 +197,8 @@ public class PlayerMove : MonoBehaviour
             Quaternion.identity
         );
 
-        _playerAfterImageController.OnAfterImage();
+        _playerAfterImageController
+            .OnAfterImage();
 
         SetDashAnimation();
 
@@ -179,6 +217,11 @@ public class PlayerMove : MonoBehaviour
         );
     }
 
+    // ==============================
+    // Reverse Dash
+    // Disable 되어도 끝까지 이동
+    // ==============================
+
     public void DashToReverseSide()
     {
         if (_isDashing)
@@ -196,13 +239,16 @@ public class PlayerMove : MonoBehaviour
                 (Vector2)boss.transform.position
             ).normalized;
 
+        // Disable 되어도 Tween 유지
+        _keepDashOnDisable = true;
+
         StartDash(
             direction,
             _dashDistance,
             0.1f
         );
     }
-    
+
     public void DashToReverseSideByHit()
     {
         if (_isDashing)
@@ -215,14 +261,17 @@ public class PlayerMove : MonoBehaviour
             return;
 
         Vector2 direction =
-        (
-            _rigidbody.position -
-            (Vector2)boss.transform.position
-        ).normalized;
+            (
+                _rigidbody.position -
+                (Vector2)boss.transform.position
+            ).normalized;
+
+        // Disable 되어도 Tween 유지
+        _keepDashOnDisable = true;
 
         StartDash(
             direction,
-            _dashDistance/2,
+            _dashDistance / 2f,
             1f
         );
     }
@@ -233,12 +282,17 @@ public class PlayerMove : MonoBehaviour
         float duration)
     {
         if (direction == Vector2.zero)
+        {
+            _keepDashOnDisable = false;
             return;
+        }
 
         direction.Normalize();
 
         _isDashing = true;
+
         _player.OffPlayerHittable();
+
         float availableDistance =
             GetDashDistance(
                 direction,
@@ -262,28 +316,70 @@ public class PlayerMove : MonoBehaviour
                 .OnComplete(() =>
                 {
                     _isDashing = false;
-                    _player.OnPlayerHittable();
-                    _playerAfterImageController.OffAfterImage();
+
+                    // Reverse Dash였으면
+                    // 도착하는 순간 Idle로 복귀
+                    if (_keepDashOnDisable &&
+                        _animator != null)
+                    {
+                        _animator.SetBool(
+                            "isMove",
+                            false
+                        );
+
+                        _animator.ResetTrigger(
+                            "Dash"
+                        );
+
+                        _animator.Play(
+                            "Idle",
+                            0,
+                            0f
+                        );
+
+                        _animator.Update(0f);
+                    }
+
+                    _keepDashOnDisable = false;
+
+                    if (_player != null)
+                    {
+                        _player.OnPlayerHittable();
+                    }
+
+                    if (_playerAfterImageController != null)
+                    {
+                        _playerAfterImageController
+                            .OffAfterImage();
+                    }
 
                     _dashTween = null;
                 });
     }
+
     public void StopPlayerMovement()
     {
         _dashTween?.Kill();
         _dashTween = null;
 
         _isDashing = false;
+        _keepDashOnDisable = false;
 
         _moveDirection = Vector2.zero;
 
-        _rigidbody.linearVelocity = Vector2.zero;
+        _rigidbody.linearVelocity =
+            Vector2.zero;
+
         _rigidbody.angularVelocity = 0f;
 
         SetMoveAnimation(false);
 
+        _playerAfterImageController
+            .OffAfterImage();
+
         _player.OnPlayerHittable();
     }
+
     private float GetDashDistance(
         Vector2 direction,
         float distance)
@@ -368,42 +464,75 @@ public class PlayerMove : MonoBehaviour
             "Dash"
         );
     }
+
     private void OnDisable()
     {
-        // 진행 중인 대쉬 종료
+        /*
+         * Reverse Dash가 진행 중이라면
+         * DOMove Tween을 죽이지 않는다.
+         *
+         * PlayerMove.enabled = false가 되어도
+         * DOTween이 계속 Rigidbody를 이동시킨다.
+         */
+        if (_keepDashOnDisable &&
+            _dashTween != null &&
+            _dashTween.IsActive())
+        {
+            // 입력값만 초기화
+            _moveDirection =
+                Vector2.zero;
+
+            return;
+        }
+
+        // ==============================
+        // 일반적인 Disable 처리
+        // ==============================
+
         _dashTween?.Kill();
         _dashTween = null;
 
         _isDashing = false;
-        _moveDirection = Vector2.zero;
+        _keepDashOnDisable = false;
+
+        _moveDirection =
+            Vector2.zero;
 
         // 물리 속도 초기화
         if (_rigidbody != null)
         {
-            _rigidbody.linearVelocity = Vector2.zero;
-            _rigidbody.angularVelocity = 0f;
+            _rigidbody.linearVelocity =
+                Vector2.zero;
+
+            _rigidbody.angularVelocity =
+                0f;
         }
 
         // 잔상 종료
         if (_playerAfterImageController != null)
         {
-            _playerAfterImageController.OffAfterImage();
+            _playerAfterImageController
+                .OffAfterImage();
         }
 
-        // Animator 파라미터 초기화
+        // Animator 초기화
         if (_animator != null)
         {
-            _animator.SetBool("isMove", false);
-            _animator.ResetTrigger("Dash");
+            _animator.SetBool(
+                "isMove",
+                false
+            );
 
-            // Idle 애니메이션의 첫 프레임으로 강제 복귀
+            _animator.ResetTrigger(
+                "Dash"
+            );
+
             _animator.Play(
                 "Idle",
                 0,
                 0f
             );
 
-            // 즉시 Animator에 반영
             _animator.Update(0f);
         }
 
@@ -413,8 +542,10 @@ public class PlayerMove : MonoBehaviour
             _player.OnPlayerHittable();
         }
     }
+
     private void OnDestroy()
     {
         _dashTween?.Kill();
+        _dashTween = null;
     }
 }

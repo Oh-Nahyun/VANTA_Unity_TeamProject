@@ -20369,9 +20369,9 @@ GameObject:
   - component: {fileID: 3083380816372574740}
   - component: {fileID: 1527369805069074017}
   - component: {fileID: 1449693323339180968}
-  - component: {fileID: 8028567086285024404}
   - component: {fileID: 7842500543627820772}
   - component: {fileID: 9222041240703321016}
+  - component: {fileID: 8028567086285024404}
   - component: {fileID: 2186686988792586930}
   - component: {fileID: 3727620830820517672}
   m_Layer: 14
@@ -20506,6 +20506,9 @@ MonoBehaviour:
   _deathLight: {fileID: 3588000712453903779}
   _deathLightRadius: 1
   _deathLightShrinkDuration: 0.7
+  _deathStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
   _deathEvent:
     m_PersistentCalls:
       m_Calls:
@@ -20521,6 +20524,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _playerFadeOutEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6093219973355731838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20702,31 +20708,6 @@ MonoBehaviour:
   _deathCrackDistortion: 1
   _deathCrackGlowIntensity: 0.4
   _deathBrokenDuration: 0.5
---- !u!114 &8028567086285024404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4512711204945311804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c43b2a8bae1f1904f8f56478c401d8dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatusManager
-  _useStartSequence: 1
-  _spotLight: {fileID: 3588000712453903779}
-  _playerMove: {fileID: 6093219973355731838}
-  _playerAttack: {fileID: 4589030193044622876}
-  _skillManager: {fileID: 4902766636836062051}
-  _cinemachineCamera: {fileID: 0}
-  _startOuterRadius: 13
-  _targetOuterRadius: 5
-  _spotLightDuration: 0.5
-  _startActionRadius: 3
-  _startOrthographicSize: 5
-  _targetOrthographicSize: 3
-  _zoomDuration: 3
 --- !u!114 &7842500543627820772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20804,6 +20785,32 @@ MonoBehaviour:
   - {fileID: 0}
   _spawnInterval: 0.01
   _lifeTime: 0.5
+--- !u!114 &8028567086285024404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4512711204945311804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c43b2a8bae1f1904f8f56478c401d8dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatusManager
+  _useStartSequence: 1
+  _spotLight: {fileID: 3588000712453903779}
+  _playerMove: {fileID: 6093219973355731838}
+  _playerAttack: {fileID: 4589030193044622876}
+  _skillManager: {fileID: 4902766636836062051}
+  _cinemachineCamera: {fileID: 0}
+  _startOuterRadius: 13
+  _targetOuterRadius: 5
+  _spotLightDuration: 0.5
+  _startActionRadius: 3
+  _startOrthographicSize: 5
+  _targetOrthographicSize: 3
+  _zoomDuration: 3
+  _boss1StageBgm: {fileID: 0}
 --- !u!114 &2186686988792586930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20849,6 +20856,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _bossMoveStart:
+    m_PersistentCalls:
+      m_Calls: []
   _boss1DropFinish:
     m_PersistentCalls:
       m_Calls:
@@ -20879,6 +20889,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  _playerBattleStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3727620830820517672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20893,6 +20906,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Phase1ToPhase2Acting
   _environmentChanger: {fileID: 0}
   _lightOff: {fileID: 0}
+  _boss2StageBgm: {fileID: 0}
+  _phaseChangeBgm: {fileID: 0}
+  _phaseStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _lightOffStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _lightOnStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _bossFocusEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _returnPlayerEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4629908935146602055
 GameObject:
   m_ObjectHideFlags: 0

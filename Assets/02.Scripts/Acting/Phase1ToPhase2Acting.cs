@@ -8,6 +8,9 @@ public class Phase1ToPhase2Acting : MonoBehaviour
 
     [Header("배경체인져")][SerializeField]private EnvironmentChanger _environmentChanger;
     [Header("불끄기")][SerializeField]private LightOff _lightOff;
+
+    [Header("불끄기소리")]
+    [SerializeField] private AudioClip _lightOffSound;
     private PlayerStatusManager _playerStatusManager;
     [Header("보스 최초등장할떄 소리 ")]
     [SerializeField] private AudioClip _boss2StageBgm;
@@ -63,6 +66,9 @@ public class Phase1ToPhase2Acting : MonoBehaviour
             1,
             () =>
             {
+                SoundManager.Instance.PlayEffectSound(_lightOffSound);
+
+                
                 _lightOff.StartLightOff(
                     _environmentChanger.Fires,
                     StartBackgroundPhase2

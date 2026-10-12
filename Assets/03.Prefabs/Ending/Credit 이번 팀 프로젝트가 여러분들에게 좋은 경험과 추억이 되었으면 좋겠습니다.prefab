@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 9079028809786242967}
   - component: {fileID: 5867204953549593476}
   - component: {fileID: 5531478014646989810}
-  m_Layer: 0
-  m_Name: Credit
+  m_Layer: 5
+  m_Name: "Credit \uC774\uBC88 \uD300 \uD504\uB85C\uC81D\uD2B8\uAC00 \uC5EC\uB7EC\uBD84\uB4E4\uC5D0\uAC8C
+    \uC88B\uC740 \uACBD\uD5D8\uACFC \uCD94\uC5B5\uC774 \uB418\uC5C8\uC73C\uBA74 \uC88B\uACA0\uC2B5\uB2C8\uB2E4"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,7 +108,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAC78\uB9B0\uC2DC\uAC04"
+  m_text: "PR\uD69F"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caca24793c866914cbe6365493959d56, type: 2}
   m_sharedMaterial: {fileID: -8120907556937374709, guid: caca24793c866914cbe6365493959d56, type: 2}
@@ -194,6 +195,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1de5de52eb7867c4396905f469908d8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Credit
-  _content: "\uAC78\uB9B0\uC2DC\uAC04"
+  _content: "\uC774\uBC88 \uD504\uB85C\uC81D\uD2B8\uAC00 \uC5EC\uB7EC\uBD84\uB4E4\uC5D0\uAC8C
+    \uC88B\uC740 \uACBD\uD5D8\uACFC \uCD94\uC5B5\uC774 \uB418\uC5C8\uC73C\uBA74 \uC88B\uACA0\uC2B5\uB2C8\uB2E4"
   _typingInterval: 0.2
   _destroyDelay: 1.5
+  _audioSource: {fileID: 0}
+  _typingSound: {fileID: 8300000, guid: 0d46621a2b8171b4eaf0b6cd974f5e29, type: 3}
+  _typingVolume: 0.13
+  _pitchRange: {x: 0.6, y: 1.5}

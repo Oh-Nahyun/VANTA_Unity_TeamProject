@@ -597,6 +597,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 49714656549142341, guid: a3ab9d8a69246d041a100a4c2bd361cd, type: 3}
+      propertyPath: _onIntroFinished.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 49714656549142341, guid: a3ab9d8a69246d041a100a4c2bd361cd, type: 3}
+      propertyPath: _onIntroFinished.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 554630969759713515, guid: a3ab9d8a69246d041a100a4c2bd361cd, type: 3}
       propertyPath: m_Name
       value: Boss2IntroCinematic
@@ -1660,6 +1668,10 @@ PrefabInstance:
       propertyPath: _boss2
       value: 
       objectReference: {fileID: 370225943}
+    - target: {fileID: 8856960780408004671, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _colorRestoreDuration
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9165167924702793645, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: _playerTransform
       value: 

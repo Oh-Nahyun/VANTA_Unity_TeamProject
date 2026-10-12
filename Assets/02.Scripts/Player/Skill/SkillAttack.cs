@@ -146,7 +146,6 @@ public class SkillAttack : MonoBehaviour
     {
         if (_rigidbody == null)
             return;
-
         StartDashSequence();
 
         FinisherDash(

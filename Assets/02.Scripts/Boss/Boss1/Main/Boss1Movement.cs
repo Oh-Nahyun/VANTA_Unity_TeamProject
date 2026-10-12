@@ -195,6 +195,11 @@ public class Boss1Movement : MonoBehaviour, IBossMovable
         _rigidBody.linearVelocity = Vector2.zero;
     }
 
+    public void Lunge(Vector2 velocity) // 할퀴기 공격 애니메이션 중에 런지하는 용도, 애니메이션 배속 관련 X
+    {
+        _rigidBody.linearVelocity = velocity;
+    }
+
     public void LockFacing()
     {
         _isFacingLocked = true;

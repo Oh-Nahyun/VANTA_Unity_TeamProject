@@ -2210,7 +2210,7 @@ Transform:
   m_GameObject: {fileID: 6249850835482319577}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.1, y: 0.66, z: 0}
+  m_LocalPosition: {x: 2.06, y: 0.66, z: 0}
   m_LocalScale: {x: 1.319951, y: 2.1900403, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3306,6 +3306,7 @@ MonoBehaviour:
   _breakLightDuration: 0.4
   _breakHoldTime: 0.3
   _buffDuration: 1.6
+  _colorChangeDuration: 3
   _endDelay: 0.2
   _roarDuration: 1.5
   _roarStrength: 1.3
@@ -3480,9 +3481,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss1ClawAttack
   _boss1Movement: {fileID: 7103835189215790258}
   _maxPositioningTime: 0.5
-  _minAttackDistance: 2
-  _maxAttackDistance: 4
-  _yTolerance: 0.3
+  _lungeStartTime: 0.3
+  _lungeEndTime: 0.5
+  _maxLungeDistance: 0.6
+  _minAttackDistance: 1.4
+  _maxAttackDistance: 2.5
+  _yTolerance: 0.1
   _clawHitBox: {fileID: 5818488566624348837}
   _telegraphFlash: {fileID: 5915306269748748176}
   _animator: {fileID: 192520389527177166}
@@ -3643,6 +3647,11 @@ MonoBehaviour:
   _endMoveSpeed: 0.6
   _slowDownDistance: 4
   _arrivalDistance: 0.1
+  _colorRestoreDuration: 1.2
+  _boss1Shadow: {fileID: 1443849978656167588}
+  _onDown:
+    m_PersistentCalls:
+      m_Calls: []
   _animator: {fileID: 192520389527177166}
 --- !u!114 &301913952616877973
 MonoBehaviour:

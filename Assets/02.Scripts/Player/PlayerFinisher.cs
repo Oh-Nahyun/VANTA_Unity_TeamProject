@@ -19,6 +19,8 @@ public class PlayerFinisher : MonoBehaviour
     [SerializeField] private PlayerAttack _playerAttack;
     [SerializeField] private SkillAttack _skillAttack;
     [SerializeField] private SkillFocusScreenController _skillFocusScreenController;
+    [SerializeField] private AudioClip _chargingSound;
+
     [SerializeField] private GameObject _finisherVfx1;
     [SerializeField] private GameObject _finisherVfx2;
     [SerializeField] private GameObject _finisherVfx3;
@@ -41,6 +43,8 @@ public class PlayerFinisher : MonoBehaviour
     [SerializeField] private float _startZoomAmount = 0.2f;
     [SerializeField] private float _zoomPerCharge = 0.08f;
     [SerializeField] private float _chargeZoomDuration = 0.08f;
+    [SerializeField]private UnityEvent _finisherStart;
+
     [SerializeField]private UnityEvent _gameClear;
     private static readonly int DashStartID =
         Shader.PropertyToID("_DashStart");
@@ -97,6 +101,7 @@ public class PlayerFinisher : MonoBehaviour
         if (_isFinisherStarted)
             return;
 
+        _finisherStart.Invoke();
         HitableObject hitableObject =
             FindAnyObjectByType<HitableObject>();
 
@@ -184,7 +189,7 @@ public class PlayerFinisher : MonoBehaviour
     {
         if (!_isCharging)
             return;
-
+        SoundManager.Instance.PlayEffectSound(_chargingSound);
         int maxChargeCount =
             Mathf.Max(1, _maxChargeCount);
 
@@ -222,10 +227,7 @@ public class PlayerFinisher : MonoBehaviour
             );
         }
 
-        Debug.Log(
-            $"Charge : {_currentChargeCount}/{maxChargeCount} " +
-            $"({chargeRatio * 100f:0}%)"
-        );
+   
 
         // 최대 차징에 도달하면 즉시 완료하고 대시.
         if (_currentChargeCount >= maxChargeCount)
@@ -499,7 +501,6 @@ public class PlayerFinisher : MonoBehaviour
 
             _screenSplitTween = null;
 
-            _animator.SetTrigger("PlayerChange");
 
             GameClear();
             _isFinisherStarted = false;

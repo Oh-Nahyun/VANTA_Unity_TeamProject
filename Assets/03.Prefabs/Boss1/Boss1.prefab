@@ -679,6 +679,7 @@ MonoBehaviour:
   _fireFlickerAmount: 0.06
   _fireFlickerSpeed: 40
   _fireOutDuration: 0.1
+  _hitRadius: 0.2
 --- !u!1 &1404992290905063954
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,6 +777,7 @@ MonoBehaviour:
   _boss1JumpAttack: {fileID: 2846696346554286157}
   _boss1DeathController: {fileID: 8856960780408004671}
   _boss1Sound: {fileID: 6291799440809599163}
+  _soundManager: {fileID: 0}
 --- !u!1 &1515577075812671473
 GameObject:
   m_ObjectHideFlags: 0
@@ -3327,11 +3329,14 @@ MonoBehaviour:
   - {fileID: 9165167924702793645}
   - {fileID: 2846696346554286157}
   _chaseDuration: 2
-  _distanceThreshold: 3
-  _meleeWeightBonus: 5
+  _playerNearTime: 1
+  _playerXNear: 1.4
+  _playerYNear: 0.8
+  _distanceThreshold: 4.5
+  _meleeWeightBonus: 7
   _rangedWeightBonus: 5
-  _rangedMissBonusAmount: 3
-  _maxRangedMissBonus: 9
+  _rangedMissBonusAmount: 2
+  _maxRangedMissBonus: 6
   _jumpBonusStartTime: 3
   _jumpBonusPerSecond: 2
   _maxJumpBonus: 10
@@ -3358,13 +3363,13 @@ MonoBehaviour:
   - _attackBehaviour: {fileID: 537864551881236395}
     _weight: 20
   _phase1Settings:
-    _overlapChance: 0.2
+    _overlapChance: 0.35
     _overlapCheckDelay: 1.5
     _cycleInterval: 2
     _maxConcurrentAttacks: 2
-    _cycleCount: 3
+    _cycleCount: 2
   _phase2Settings:
-    _overlapChance: 0.4
+    _overlapChance: 0.6
     _overlapCheckDelay: 0.7
     _cycleInterval: 1
     _maxConcurrentAttacks: 2
@@ -3386,10 +3391,10 @@ MonoBehaviour:
   _aimedHeadPivot: {fileID: 5691608955840068536}
   _bulletPrefab: {fileID: 1563816904694444635, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
   _phase1Settings:
-    _aimedFireInterval: 0.8
+    _aimedFireInterval: 0.6
     _aimedFireCount: 8
   _phase2Settings:
-    _aimedFireInterval: 0.6
+    _aimedFireInterval: 0.4
     _aimedFireCount: 10
   _headIndicator: {fileID: 2985050148909984635}
   _muzzleFlash: {fileID: 2030636759143202516}
@@ -3430,13 +3435,13 @@ MonoBehaviour:
   _laser: {fileID: 1354967526303624378}
   _laserHeadPivot: {fileID: 9194194233165060837}
   _phase1Settings:
-    _aimDuration: 2
-    _sweepAngle: 60
-    _sweepDuration: 1.2
+    _aimDuration: 1.5
+    _sweepAngle: 90
+    _sweepDuration: 1.8
   _phase2Settings:
     _aimDuration: 1
-    _sweepAngle: 90
-    _sweepDuration: 0.9
+    _sweepAngle: 125
+    _sweepDuration: 1.8
   _headIndicator: {fileID: 4743308090701921441}
   _muzzleFlash: {fileID: 3785611123334320021}
 --- !u!114 &9165167924702793645
@@ -3484,6 +3489,7 @@ MonoBehaviour:
   _lungeStartTime: 0.3
   _lungeEndTime: 0.5
   _maxLungeDistance: 0.6
+  _minFaceDistance: 0.3
   _minAttackDistance: 1.4
   _maxAttackDistance: 2.5
   _yTolerance: 0.1
@@ -3492,11 +3498,11 @@ MonoBehaviour:
   _animator: {fileID: 192520389527177166}
   _phase1Settings:
     _moveSpeed: 7
-    _telegraphDuration: 0.15
+    _telegraphDuration: 0.05
     _recoveryDuration: 0.05
   _phase2Settings:
     _moveSpeed: 10
-    _telegraphDuration: 0.1
+    _telegraphDuration: 0.05
     _recoveryDuration: 0.05
   _clawImpulseSource: {fileID: 9204188410883197437}
   _impulseForce: 0.15
@@ -3514,6 +3520,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss1SpitAttack
   _boss1Movement: {fileID: 7103835189215790258}
   _maxPositioningTime: 0.5
+  _minFaceDistance: 0.3
   _maxAttackDistance: 2.5
   _yTolerance: 0.3
   _spitHitBox: {fileID: 2839262255638538226}
@@ -3553,7 +3560,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss1JumpAttack
   _weight: 10
   _telegraphDuration: 0.25
-  _warningDuration: 0.35
+  _warningDuration: 0.4
   _recoveryDuration: 0.25
   _jumpImpulseForce: 0.15
   _landImpactTime: 0.1
@@ -3647,8 +3654,11 @@ MonoBehaviour:
   _endMoveSpeed: 0.6
   _slowDownDistance: 4
   _arrivalDistance: 0.1
-  _colorRestoreDuration: 1.2
+  _colorRestoreDuration: 1
   _boss1Shadow: {fileID: 1443849978656167588}
+  _onStartMove:
+    m_PersistentCalls:
+      m_Calls: []
   _onDown:
     m_PersistentCalls:
       m_Calls: []

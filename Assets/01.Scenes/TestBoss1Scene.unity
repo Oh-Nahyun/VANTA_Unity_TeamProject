@@ -407,6 +407,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca3c7f6a14727e640808988bdf2ba9dc, type: 3}
+--- !u!114 &691842878 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1929217205493990171, guid: ca3c7f6a14727e640808988bdf2ba9dc, type: 3}
+  m_PrefabInstance: {fileID: 691842877}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53c77b27ea2f89749a2443c606fa0577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
 --- !u!1001 &786238564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -798,9 +809,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3093662805601419441, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 691842878}
     - target: {fileID: 5486056013902944760, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.49
+      value: -0.15
       objectReference: {fileID: 0}
     - target: {fileID: 5486056013902944760, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: m_LocalPosition.y

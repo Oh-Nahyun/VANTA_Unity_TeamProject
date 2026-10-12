@@ -17,6 +17,20 @@ public class Credit : MonoBehaviour
     [SerializeField, Min(0.01f)]
     private float _destroyDelay = 2f;
 
+    [Header("타이핑 사운드")]
+    [SerializeField]
+    private AudioSource _audioSource;
+
+    [SerializeField]
+    private AudioClip _typingSound;
+
+    [SerializeField, Range(0f, 1f)]
+    private float _typingVolume = 1f;
+
+    [Header("타이핑 Pitch 랜덤")]
+    [SerializeField]
+    private Vector2 _pitchRange = new Vector2(0.9f, 1.1f);
+
     private TMP_Text _text;
     private Sequence _typingSequence;
     private Action _onDestroyed;
@@ -34,7 +48,13 @@ public class Credit : MonoBehaviour
         {
             _text.maxVisibleCharacters = 0;
         }
-    }
+
+        // 직접 할당하지 않았다면 같은 오브젝트에서 찾기
+        if (_audioSource == null)
+        {
+            _audioSource =gameObject.AddComponent<AudioSource>();        }
+        
+        }
 
     public void Initialize(Action onDestroyed)
     {
@@ -58,7 +78,8 @@ public class Credit : MonoBehaviour
         _text.maxVisibleCharacters = 0;
         _text.ForceMeshUpdate();
 
-        int characterCount = _text.textInfo.characterCount;
+        int characterCount =
+            _text.textInfo.characterCount;
 
         _typingSequence = DOTween.Sequence();
 
@@ -66,22 +87,52 @@ public class Credit : MonoBehaviour
         {
             int visibleCount = i;
 
-            _typingSequence.AppendInterval(_typingInterval);
+            _typingSequence.AppendInterval(
+                _typingInterval
+            );
 
             _typingSequence.AppendCallback(() =>
             {
                 _text.maxVisibleCharacters = visibleCount;
+
+                int characterIndex = visibleCount - 1;
+
+                if (characterIndex < _text.textInfo.characterCount)
+                {
+                    char character =
+                        _text.textInfo.characterInfo[
+                            characterIndex
+                        ].character;
+
+                    // 공백, 줄바꿈, 탭에서는 소리 X
+                    if (!char.IsWhiteSpace(character))
+                    {
+                        _audioSource.pitch =
+                            UnityEngine.Random.Range(
+                                _pitchRange.x,
+                                _pitchRange.y
+                            );
+
+                        _audioSource.PlayOneShot(
+                            _typingSound,
+                            _typingVolume
+                        );
+                    }
+                }
             });
         }
 
         // 마지막 글자까지 표시한 상태로 유지
-        _typingSequence.AppendInterval(_destroyDelay);
+        _typingSequence.AppendInterval(
+            _destroyDelay
+        );
 
         _typingSequence.OnComplete(() =>
         {
             Destroy(gameObject);
         });
     }
+    
 
     private void OnDestroy()
     {
@@ -90,6 +141,7 @@ public class Credit : MonoBehaviour
 
         Action callback = _onDestroyed;
         _onDestroyed = null;
+
         callback?.Invoke();
     }
 }

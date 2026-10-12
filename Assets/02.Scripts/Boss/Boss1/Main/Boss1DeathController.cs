@@ -39,9 +39,13 @@ public class Boss1DeathController : MonoBehaviour
     [SerializeField] private float _arrivalDistance = 0.1f;
     
     [Header("사망 후 색 변화")]
-    [SerializeField] private float _colorRestoreDuration = 1.2f; // _collapseWaitDuration(1.5)보다 짧게
+    [Range(0f, 1f)]
+    [SerializeField] private float _colorRestoreDuration = 1.2f; // // _collapseWaitDuration(1.5)보다 짧게
     [SerializeField] private Boss1Shadow _boss1Shadow;
     private Boss1HitFlash _boss1HitFlash;
+    
+    [Header("HP 0되고 걸어가기 시작")]
+    [SerializeField] private UnityEvent _onStartMove;
     
     [Header("쓰러지고 체력바 없어짐")]
     [SerializeField] private UnityEvent _onDown;
@@ -112,6 +116,8 @@ public class Boss1DeathController : MonoBehaviour
         _boss1Movement.LockFacing();
         
         _isMovingToCenter = true;
+        
+        _onStartMove?.Invoke();
     }
 
     private void MoveToCenter()
@@ -158,7 +164,7 @@ public class Boss1DeathController : MonoBehaviour
         {
             return;
         }
-
+        
         DOVirtual.Float(_boss1HitFlash.CurrentPhase2Amount, 0f, _colorRestoreDuration, value =>
             {
                 _boss1HitFlash.SetPhase2Amount(value);
@@ -174,12 +180,12 @@ public class Boss1DeathController : MonoBehaviour
     private IEnumerator CollapseWaitRoutine()
     {
         yield return new WaitForSeconds(_collapseWaitDuration);
-        
+    
         OnCollapseFinished?.Invoke();
         
         if (_boss2Intro != null)
         {
-            _boss2Intro.Play(null);
+            //_boss2Intro.Play(null);
         }
         
         else

@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float _deathLightRadius = 0.3f;
     [SerializeField] private float _deathLightShrinkDuration = 0.7f;
 
+    [Header("사망 시작될때")]
+    [SerializeField] private UnityEvent _deathStartEvent;
     [Header("사망 시 이벤트 바인딩")]
     [SerializeField] private UnityEvent _deathEvent;
     [Header("플레이어 사망 후 가루 될때 이벤트 바인딩")]
@@ -180,6 +182,7 @@ public class Player : MonoBehaviour
 
     private void Death()
     {
+        _deathStartEvent.Invoke();
         DeathEffect();
     }
 

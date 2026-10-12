@@ -7,6 +7,11 @@ public class Boss1AttackController : MonoBehaviour
     [Header("플레이어 추격 시간")]
     [SerializeField] private float _chaseDuration = 1.5f;
     
+    [Header("플레이어 근접 제한 타이머")]
+    [SerializeField] private float _playerNearTime = 1f;
+    [SerializeField] private float _playerXNear = 1.4f;
+    [SerializeField] private float _playerYNear = 0.8f;
+    
     [Header("공격 패턴 가중치 증감 판단용 플레이어 거리")]
     [SerializeField] private float _distanceThreshold = 5f;
     
@@ -36,6 +41,7 @@ public class Boss1AttackController : MonoBehaviour
     
     private Transform _playerTransform;
     private Boss1Movement _boss1Movement;
+    private Boss1MeleePattern _boss1MeleePattern;
     
     private AttackState _currentState; // 추격 or 공격
     private IBoss1Attack _currentAttack; // 근거리 패턴 or 원거리 패턴 or 점프 공격
@@ -44,6 +50,7 @@ public class Boss1AttackController : MonoBehaviour
     private bool _isAttackLocked; // 페이즈2 전환 중일 때 공격 못하게 하기
 
     private float _stateTimer; // Chase를 얼마나 하고 있는지
+    private float _playerNearTimer; // 플레이어가 chase동안 계속 가까이 붙어 있는지
 
     private enum AttackState
     {
@@ -54,6 +61,7 @@ public class Boss1AttackController : MonoBehaviour
     private void Awake()
     {
         _boss1Movement = GetComponent<Boss1Movement>();
+        _boss1MeleePattern = GetComponent<Boss1MeleePattern>();
     }
 
     private void Start()
@@ -110,6 +118,7 @@ public class Boss1AttackController : MonoBehaviour
         }
         
         _playerFarTimer = 0f;
+        _playerNearTimer = 0f;
         _rangedMissBonus = 0f;
         _jumpMissBonus = 0f;
         
@@ -128,6 +137,12 @@ public class Boss1AttackController : MonoBehaviour
     private void UpdateChase()
     {
         _stateTimer += Time.deltaTime;
+
+        if (PlayerNearTooLong())
+        {
+            StartMeleeAttack();
+            return;
+        }
 
         if (_stateTimer < _chaseDuration)
         {
@@ -182,6 +197,39 @@ public class Boss1AttackController : MonoBehaviour
         {
             _playerFarTimer = 0f;
         }
+    }
+
+    private bool PlayerNearTooLong()
+    {
+        float xDistance = Mathf.Abs(_playerTransform.position.x - transform.position.x);
+        float yDistance = Mathf.Abs(_playerTransform.position.y - transform.position.y);
+
+        if (xDistance <= _playerXNear && yDistance <= _playerYNear)
+        {
+            _playerNearTimer += Time.deltaTime;
+        }
+
+        else
+        {
+            _playerNearTimer = 0f;
+        }
+
+        if (_playerNearTimer >= _playerNearTime)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void StartMeleeAttack()
+    {
+        _playerNearTimer = 0f;
+        _currentAttack = _boss1MeleePattern;
+        UpdatePatternBonus(_boss1MeleePattern);
+        
+        ChangeState(AttackState.Attack);
+        _currentAttack.EnterAttack();
     }
 
     private float GetAdjustedWeight(IBoss1Attack attack, float distance)
@@ -305,6 +353,7 @@ public class Boss1AttackController : MonoBehaviour
     
     private void EnterChaseState()
     {
+        _playerNearTimer = 0f;
         ChangeState(AttackState.Chase);
         _boss1Movement.StartNormalChase();
     }

@@ -91,6 +91,18 @@ public class Boss2IntroCinematic : MonoBehaviour
     [FormerlySerializedAs("_revealSound")]
     [SerializeField] private AudioClip _eyesOpenSound;
 
+    [Header("인트로 배경음")]
+    [Tooltip("인트로 동안 한 번(반복 없이) 재생할 곡. 비우면 재생하지 않는다. 바꿔 끼우고 Test/Play Intro 로 비교")]
+    [SerializeField] private AudioClip _introMusic;
+    [Tooltip("인트로 시작(Play) 후 곡이 시작될 때까지 (초, 실제 시간)")]
+    [SerializeField] private float _introMusicDelay = 0f;
+    [Tooltip("곡 볼륨 배율. 옵션의 마스터·BGM 볼륨이 함께 곱해진다")]
+    [SerializeField, Range(0f, 1f)] private float _introMusicVolume = 1f;
+    [Tooltip("전투 시작(StartBattle) 때 곡을 줄이며 끄는 시간 (초)")]
+    [SerializeField] private float _introMusicFadeOut = 1.5f;
+    [Tooltip("인트로 시작 때 1페이즈 BGM 을 페이드 아웃한다. 2페이즈 BGM 은 인트로가 끝난 뒤 다른 곳(Phase1ToPhase2Acting)에서 켠다")]
+    [SerializeField] private bool _stopStageBgmOnIntro = true;
+
     [Header("Timeline 이 움직이는 값")]
     [SerializeField, Range(0f, 1f)] private float _gasAmount;
     [SerializeField, Range(0f, 1f)] private float _darkness;
@@ -145,6 +157,8 @@ public class Boss2IntroCinematic : MonoBehaviour
 
     private Coroutine _battleStartRoutine;
     private Coroutine _eyesOpenRoutine;
+    private AudioSource _introMusicSource;
+    private Coroutine _introMusicRoutine;
     private bool _isEyesClosed;
     private bool _isWaitingExplosion;
     private Coroutine _explosionRoutine;
@@ -161,6 +175,12 @@ public class Boss2IntroCinematic : MonoBehaviour
         _director = GetComponent<PlayableDirector>();
         _director.playOnAwake = false;
         _director.timeUpdateMode = DirectorUpdateMode.UnscaledGameTime;
+
+        // 인트로 곡 전용 소스. SoundManager 의 BGM 소스는 항상 반복 재생이라 한 번만 흐르는 인트로 곡은 따로 튼다.
+        _introMusicSource = gameObject.AddComponent<AudioSource>();
+        _introMusicSource.playOnAwake = false;
+        _introMusicSource.loop = false;
+        _introMusicSource.spatialBlend = 0f;
 
         // 프리팹을 씬에 놓고 연결을 빠뜨려도 동작하도록, 비어 있으면 씬에서 찾는다.
         if (_boss2 == null)
@@ -297,6 +317,8 @@ public class Boss2IntroCinematic : MonoBehaviour
             _slashRoot.position = _anchor;
         }
 
+        StartIntroMusic();
+
         BindTimelineTracks();
         _director.time = 0;
         _director.Play();
@@ -328,6 +350,7 @@ public class Boss2IntroCinematic : MonoBehaviour
             _battleStartRoutine = null;
         }
         StopEyesOpen();
+        StopIntroMusic(0f);
         if (_introCamera != null)
         {
             _introCamera.gameObject.SetActive(false);
@@ -499,6 +522,7 @@ public class Boss2IntroCinematic : MonoBehaviour
     public void StartBattle()
     {
         StopEyesOpen();
+        StopIntroMusic(_introMusicFadeOut);
         EndIntroCamera();
         RestoreGlobalLights();
         StopEffects(true);
@@ -1012,6 +1036,77 @@ public class Boss2IntroCinematic : MonoBehaviour
             _brain.DefaultBlend = _brainDefaultBlend;
         }
         _restoreBlendRoutine = null;
+    }
+
+    #endregion
+
+    #region 인트로 배경음
+
+    private void StartIntroMusic()
+    {
+        if (_stopStageBgmOnIntro && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.StopBGM();
+        }
+
+        StopIntroMusic(0f);
+        if (_introMusic != null)
+        {
+            _introMusicRoutine = StartCoroutine(IntroMusicRoutine());
+        }
+    }
+
+    private IEnumerator IntroMusicRoutine()
+    {
+        if (_introMusicDelay > 0f)
+        {
+            yield return new WaitForSecondsRealtime(_introMusicDelay);
+        }
+
+        _introMusicSource.clip = _introMusic;
+        _introMusicSource.volume = GetIntroMusicVolume();
+        _introMusicSource.Play();
+        _introMusicRoutine = null;
+    }
+
+    // fadeDuration 이 0 이면 바로 멈춘다.
+    private void StopIntroMusic(float fadeDuration)
+    {
+        if (_introMusicRoutine != null)
+        {
+            StopCoroutine(_introMusicRoutine);
+            _introMusicRoutine = null;
+        }
+
+        if (_introMusicSource == null || _introMusicSource.isPlaying == false)
+            return;
+
+        if (fadeDuration <= 0f)
+        {
+            _introMusicSource.Stop();
+            return;
+        }
+        _introMusicRoutine = StartCoroutine(FadeOutIntroMusic(fadeDuration));
+    }
+
+    private IEnumerator FadeOutIntroMusic(float duration)
+    {
+        float startVolume = _introMusicSource.volume;
+        float t = 0f;
+        while (t < duration && _introMusicSource.isPlaying)
+        {
+            t += Time.unscaledDeltaTime;
+            _introMusicSource.volume = Mathf.Lerp(startVolume, 0f, t / duration);
+            yield return null;
+        }
+        _introMusicSource.Stop();
+        _introMusicRoutine = null;
+    }
+
+    // SoundManager 와 같은 저장 값(마스터·BGM 볼륨)을 따른다.
+    private float GetIntroMusicVolume()
+    {
+        return _introMusicVolume * PlayerPrefs.GetFloat("MasterVolume", 1f) * PlayerPrefs.GetFloat("BGMVolume", 1f);
     }
 
     #endregion

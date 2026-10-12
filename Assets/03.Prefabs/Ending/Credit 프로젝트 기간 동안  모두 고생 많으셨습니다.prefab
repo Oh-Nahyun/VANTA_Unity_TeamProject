@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9079028809786242967}
   - component: {fileID: 5867204953549593476}
   - component: {fileID: 5531478014646989810}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: "Credit \uD504\uB85C\uC81D\uD2B8 \uAE30\uAC04 \uB3D9\uC548  \uBAA8\uB450
     \uACE0\uC0DD \uB9CE\uC73C\uC168\uC2B5\uB2C8\uB2E4"
   m_TagString: Untagged
@@ -199,3 +199,7 @@ MonoBehaviour:
     \uB9CE\uC73C\uC168\uC2B5\uB2C8\uB2E4"
   _typingInterval: 0.2
   _destroyDelay: 1.5
+  _audioSource: {fileID: 0}
+  _typingSound: {fileID: 8300000, guid: 0d46621a2b8171b4eaf0b6cd974f5e29, type: 3}
+  _typingVolume: 0.13
+  _pitchRange: {x: 0.6, y: 1.5}

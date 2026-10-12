@@ -111,8 +111,10 @@ public class PlayerStatusManager : MonoBehaviour
         if (_isStart)
             return;
         _isStart = true;
-        
-    SoundManager.Instance.PlayBGM(_boss1StageBgm);
+        DOVirtual.DelayedCall(2.5f, () =>
+        {
+            SoundManager.Instance.PlayBGM(_boss1StageBgm);
+        });
         Time.timeScale = 1f;
 
         _originSequence?.Kill();
@@ -195,7 +197,7 @@ public class PlayerStatusManager : MonoBehaviour
         _skillManager.enabled = true;
         _animator.SetTrigger("Start");
     }
-
+    
     public void ActivatePlayer()
     {
         _playerMove.enabled = true;

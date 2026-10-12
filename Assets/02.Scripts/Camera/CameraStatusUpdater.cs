@@ -139,14 +139,7 @@ public class CameraStatusUpdater : MonoBehaviour
             }
         }
 
-        var main = Camera.main;
-        log.AppendLine($"Screen={Screen.width}x{Screen.height} mainAspect={(main != null ? main.aspect : 0f):F3}");
-        log.AppendLine($"MainCamera={Describe(main)} position={Position(main != null ? main.transform : null)}");
-#if UNITY_EDITOR
-        log.AppendLine($"EditorSelection={Describe(UnityEditor.Selection.activeGameObject)}");
-#endif
-        // Keep the log context on this logger so clicking it does not select the camera.
-        Debug.Log(log.ToString(), this);
+       
     }
 
     private static string Describe(Object value)

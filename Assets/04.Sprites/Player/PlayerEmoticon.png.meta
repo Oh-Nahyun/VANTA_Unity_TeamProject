@@ -1,0 +1,843 @@
+fileFormatVersion: 2
+guid: 3b3ef20430921864c8bb93d8ee9477bf
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2304291711602275866
+    second: PlayerEmoticon_0
+  - first:
+      213: 2917729445787475314
+    second: PlayerEmoticon_1
+  - first:
+      213: -8883043464776098497
+    second: PlayerEmoticon_2
+  - first:
+      213: 213082506028779803
+    second: PlayerEmoticon_3
+  - first:
+      213: 8006699684044388508
+    second: PlayerEmoticon_4
+  - first:
+      213: 4398401936727382724
+    second: PlayerEmoticon_5
+  - first:
+      213: -5538863336863024398
+    second: PlayerEmoticon_6
+  - first:
+      213: 5340022450384296503
+    second: PlayerEmoticon_7
+  - first:
+      213: 3427670524244996915
+    second: PlayerEmoticon_8
+  - first:
+      213: -4673967643146349910
+    second: PlayerEmoticon_9
+  - first:
+      213: 3968359533000455163
+    second: PlayerEmoticon_10
+  - first:
+      213: 946391547898135149
+    second: PlayerEmoticon_11
+  - first:
+      213: 957208931881653691
+    second: PlayerEmoticon_12
+  - first:
+      213: 8787257157623755495
+    second: PlayerEmoticon_13
+  - first:
+      213: -3403681395307930407
+    second: PlayerEmoticon_14
+  - first:
+      213: -4239004106318442066
+    second: PlayerEmoticon_15
+  - first:
+      213: 3939042156536138410
+    second: PlayerEmoticon_16
+  - first:
+      213: -613374664399877014
+    second: PlayerEmoticon_17
+  - first:
+      213: 2268437900645199905
+    second: PlayerEmoticon_18
+  - first:
+      213: -7536818105556608660
+    second: PlayerEmoticon_19
+  - first:
+      213: -3751008490554396464
+    second: PlayerEmoticon_20
+  - first:
+      213: 2748031666842366437
+    second: PlayerEmoticon_21
+  - first:
+      213: 5321492151509902645
+    second: PlayerEmoticon_22
+  - first:
+      213: 2459813140072505525
+    second: PlayerEmoticon_23
+  - first:
+      213: 7875905365549602447
+    second: PlayerEmoticon_24
+  - first:
+      213: 4989642307169346427
+    second: PlayerEmoticon_25
+  - first:
+      213: 7452242025587060595
+    second: PlayerEmoticon_26
+  - first:
+      213: 3782075893845967866
+    second: PlayerEmoticon_27
+  - first:
+      213: -2130210056450350988
+    second: PlayerEmoticon_28
+  - first:
+      213: -2608158487178121283
+    second: PlayerEmoticon_29
+  - first:
+      213: 696590206684158579
+    second: PlayerEmoticon_30
+  - first:
+      213: 9074151708360479332
+    second: PlayerEmoticon_31
+  - first:
+      213: -9088120859931683891
+    second: PlayerEmoticon_32
+  - first:
+      213: -8720417437851067473
+    second: PlayerEmoticon_33
+  - first:
+      213: 3003174321174798090
+    second: PlayerEmoticon_34
+  - first:
+      213: 6973656611901668821
+    second: PlayerEmoticon_35
+  - first:
+      213: -4408555164089467287
+    second: PlayerEmoticon_36
+  - first:
+      213: -3491736416969564323
+    second: PlayerEmoticon_37
+  - first:
+      213: 158354467566772877
+    second: PlayerEmoticon_38
+  - first:
+      213: -7419208854534274648
+    second: PlayerEmoticon_39
+  - first:
+      213: -5754951712327665456
+    second: PlayerEmoticon_40
+  - first:
+      213: -7208541698231438730
+    second: PlayerEmoticon_41
+  - first:
+      213: 1595060325244108701
+    second: PlayerEmoticon_42
+  - first:
+      213: -1151256835946471908
+    second: PlayerEmoticon_43
+  - first:
+      213: 3166815334002651058
+    second: PlayerEmoticon_44
+  - first:
+      213: 3944584912349989227
+    second: PlayerEmoticon_45
+  - first:
+      213: 1068886242886349998
+    second: PlayerEmoticon_46
+  - first:
+      213: 1041045421878974032
+    second: PlayerEmoticon_47
+  - first:
+      213: -1109375128877887945
+    second: PlayerEmoticon_48
+  - first:
+      213: 7273044041939470884
+    second: PlayerEmoticon_49
+  - first:
+      213: -2565507763680437154
+    second: PlayerEmoticon_50
+  - first:
+      213: -3655315824662057
+    second: PlayerEmoticon_51
+  - first:
+      213: -5574714516612498266
+    second: PlayerEmoticon_52
+  - first:
+      213: -655457940916895725
+    second: PlayerEmoticon_53
+  - first:
+      213: -8058547843736214375
+    second: PlayerEmoticon_54
+  - first:
+      213: -7972914611175693132
+    second: PlayerEmoticon_55
+  - first:
+      213: -3606192055829534777
+    second: PlayerEmoticon_56
+  - first:
+      213: -1443535195201803709
+    second: PlayerEmoticon_57
+  - first:
+      213: 8966109234148522915
+    second: PlayerEmoticon_58
+  - first:
+      213: 8321369138608503644
+    second: PlayerEmoticon_59
+  - first:
+      213: -2650431217356214594
+    second: PlayerEmoticon_60
+  - first:
+      213: 1635743716389575318
+    second: PlayerEmoticon_61
+  - first:
+      213: 2354797371445406548
+    second: PlayerEmoticon_62
+  - first:
+      213: 3229931940057575423
+    second: PlayerEmoticon_63
+  - first:
+      213: 2653928151215671082
+    second: PlayerEmoticon_64
+  - first:
+      213: 38080518205383764
+    second: PlayerEmoticon_65
+  - first:
+      213: 1385088779671757865
+    second: PlayerEmoticon_66
+  - first:
+      213: -1457929301940712879
+    second: PlayerEmoticon_67
+  - first:
+      213: -3223349657922873112
+    second: PlayerEmoticon_68
+  - first:
+      213: -7114770891828452588
+    second: PlayerEmoticon_69
+  - first:
+      213: 4242383207637785798
+    second: PlayerEmoticon_70
+  - first:
+      213: 3443973115162447612
+    second: PlayerEmoticon_71
+  - first:
+      213: -3485339339155348775
+    second: PlayerEmoticon_72
+  - first:
+      213: -5785579172599413010
+    second: PlayerEmoticon_73
+  - first:
+      213: -7292178979057816936
+    second: PlayerEmoticon_74
+  - first:
+      213: -4171544906400772155
+    second: PlayerEmoticon_75
+  - first:
+      213: -4142666657448763458
+    second: PlayerEmoticon_76
+  - first:
+      213: 1179132954750616909
+    second: PlayerEmoticon_77
+  - first:
+      213: 8965370975466375498
+    second: PlayerEmoticon_78
+  - first:
+      213: 9114989268038021442
+    second: PlayerEmoticon_79
+  - first:
+      213: -3774364475791086898
+    second: PlayerEmoticon_80
+  - first:
+      213: -4318092124037227196
+    second: PlayerEmoticon_81
+  - first:
+      213: -842906721921104123
+    second: PlayerEmoticon_82
+  - first:
+      213: -5983300350992452845
+    second: PlayerEmoticon_83
+  - first:
+      213: -6255935628772005646
+    second: PlayerEmoticon_84
+  - first:
+      213: -7552838819524629351
+    second: PlayerEmoticon_85
+  - first:
+      213: -6266176513161665996
+    second: PlayerEmoticon_86
+  - first:
+      213: -5579756523310370727
+    second: PlayerEmoticon_87
+  - first:
+      213: 8408196719378148909
+    second: PlayerEmoticon_88
+  - first:
+      213: -6550374889353820467
+    second: PlayerEmoticon_89
+  - first:
+      213: -8638712320556882362
+    second: PlayerEmoticon_90
+  - first:
+      213: 4125497435205854382
+    second: PlayerEmoticon_91
+  - first:
+      213: 6315432232376165421
+    second: PlayerEmoticon_92
+  - first:
+      213: -4213451594229067520
+    second: PlayerEmoticon_93
+  - first:
+      213: 5646222939807140268
+    second: PlayerEmoticon_94
+  - first:
+      213: 5132156038515022634
+    second: PlayerEmoticon_95
+  - first:
+      213: 1378958915750896126
+    second: PlayerEmoticon_96
+  - first:
+      213: 7747745953584569194
+    second: PlayerEmoticon_97
+  - first:
+      213: 6144269014553441061
+    second: PlayerEmoticon_98
+  - first:
+      213: -7185820215557966229
+    second: PlayerEmoticon_99
+  - first:
+      213: -4031185910857055186
+    second: PlayerEmoticon_100
+  - first:
+      213: -4397769742274966429
+    second: PlayerEmoticon_101
+  - first:
+      213: -4682205599380116349
+    second: PlayerEmoticon_102
+  - first:
+      213: -9174491389980687943
+    second: PlayerEmoticon_103
+  - first:
+      213: 4483070097758496049
+    second: PlayerEmoticon_104
+  - first:
+      213: -6713795222656596280
+    second: PlayerEmoticon_105
+  - first:
+      213: -8803967944149522454
+    second: PlayerEmoticon_106
+  - first:
+      213: -86553980107860542
+    second: PlayerEmoticon_107
+  - first:
+      213: 9091486397676728667
+    second: PlayerEmoticon_108
+  - first:
+      213: -6893227128510371996
+    second: PlayerEmoticon_109
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PlayerEmoticon_0
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 792
+        width: 287
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a163ee06a1d7aff10800000000000000
+      internalID: 2304291711602275866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerEmoticon_1
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 810
+        width: 287
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27d1cded87bdd7820800000000000000
+      internalID: 2917729445787475314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerEmoticon_2
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 799
+        width: 287
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3d5aad780719b480800000000000000
+      internalID: -8883043464776098497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerEmoticon_3
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 837
+        width: 287
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1902b7096505f200800000000000000
+      internalID: 213082506028779803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerEmoticon_4
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 540
+        width: 287
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c98b2baf0f28d1f60800000000000000
+      internalID: 8006699684044388508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerEmoticon_5
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 539
+        width: 287
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ca960af1434a0d30800000000000000
+      internalID: 4398401936727382724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerEmoticon_6
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 521
+        width: 287
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fa38da24210223b0800000000000000
+      internalID: -5538863336863024398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerEmoticon_7
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 528
+        width: 287
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73a54cf30229b1a40800000000000000
+      internalID: 5340022450384296503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerEmoticon_8
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 277
+        width: 287
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33333b46e28819f20800000000000000
+      internalID: 3427670524244996915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerEmoticon_9
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 276
+        width: 287
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa2979a313bb22fb0800000000000000
+      internalID: -4673967643146349910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerEmoticon_10
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 270
+        width: 287
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf3f68158f1721730800000000000000
+      internalID: 3968359533000455163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerEmoticon_11
+      rect:
+        serializedVersion: 2
+        x: 1161
+        y: 292
+        width: 287
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6286ee3912422d00800000000000000
+      internalID: 946391547898135149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerEmoticon_12
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 28
+        width: 287
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb513a8b370b84d00800000000000000
+      internalID: 957208931881653691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerEmoticon_13
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 24
+        width: 287
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e23c26f3db92f970800000000000000
+      internalID: 8787257157623755495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerEmoticon_14
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 25
+        width: 287
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dc9010fdc1b3c0d0800000000000000
+      internalID: -3403681395307930407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerEmoticon_15
+      rect:
+        serializedVersion: 2
+        x: 1129
+        y: 34
+        width: 287
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea1977979380c25c0800000000000000
+      internalID: -4239004106318442066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 28656a9c53aa1134598db0176e72871a
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":4.0},"gridSpriteSize":{"x":287.0,"y":196.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":100.0,"y":100.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      PlayerEmoticon_0: 2304291711602275866
+      PlayerEmoticon_1: 2917729445787475314
+      PlayerEmoticon_10: 3968359533000455163
+      PlayerEmoticon_11: 946391547898135149
+      PlayerEmoticon_12: 957208931881653691
+      PlayerEmoticon_13: 8787257157623755495
+      PlayerEmoticon_14: -3403681395307930407
+      PlayerEmoticon_15: -4239004106318442066
+      PlayerEmoticon_2: -8883043464776098497
+      PlayerEmoticon_3: 213082506028779803
+      PlayerEmoticon_4: 8006699684044388508
+      PlayerEmoticon_5: 4398401936727382724
+      PlayerEmoticon_6: -5538863336863024398
+      PlayerEmoticon_7: 5340022450384296503
+      PlayerEmoticon_8: 3427670524244996915
+      PlayerEmoticon_9: -4673967643146349910
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

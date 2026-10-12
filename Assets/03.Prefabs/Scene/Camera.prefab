@@ -99,11 +99,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraFocusingController
   _camera: {fileID: 111102412088274012}
   _brain: {fileID: 8776461330246514828}
+  _defaultOrthographicSize: 3
   _focusDamping: 0.3
   _zoomInDuration: 0.5
   _zoomOutDuration: 0
   _targetChangeDuration: 0
-  _defaultOrthographicSize: 3
   _originOrthographicSize: 5
   _originDuration: 1
 --- !u!114 &5758837840507072478

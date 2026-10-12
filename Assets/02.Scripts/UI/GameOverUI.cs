@@ -25,14 +25,14 @@ public class GameOverUI : MonoBehaviour
         SoundGenerator.AddHoverSound(_gameTitleButton, _buttonHoverSound);
     }
 
-    private void OnClickRetryButton()
+    public void OnClickRetryButton()
     {
         SoundManager.Instance.PlayEffectSound(_buttonClickSound);
         InGameSceneManager.IsRetry = true;
         SceneManager.LoadScene(0); // InGameScene
     }
 
-    private void OnClickTitleButton()
+    public void OnClickTitleButton()
     {
         SoundManager.Instance.PlayEffectSound(_buttonClickSound);
         InGameSceneManager.IsRetry = false;

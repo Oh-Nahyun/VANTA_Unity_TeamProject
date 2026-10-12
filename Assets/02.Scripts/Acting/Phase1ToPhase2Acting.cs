@@ -141,11 +141,11 @@ public class Phase1ToPhase2Acting : MonoBehaviour
         _boss2IntroCinematic.Play(StartPhase2Game);
     }
 
-    private void StartPhase2Game()
+    public void StartPhase2Game()
     {
         //_boss2IntroCinematic.Play(PlayerMoveEnable);
         _playerStatusManager.ApplyFinalSetting();
-        //CameraFocusingController.Instance.SlowFocus(transform,0f,1f);
+        CameraFocusingController.Instance.SlowFocus(transform,0f,1f);
         SoundManager.Instance.PlayBGM(_boss2StageBgm);
         _returnPlayerEvent.Invoke();
 

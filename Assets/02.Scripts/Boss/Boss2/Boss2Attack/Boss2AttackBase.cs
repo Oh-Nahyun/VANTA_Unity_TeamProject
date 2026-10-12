@@ -48,6 +48,16 @@ public class Boss2AttackBase : MonoBehaviour
     [SerializeField] private float _comboSpeed = 1f;
     private const string AttackSpeedParam = "AttackSpeed";
 
+    [Header("콤보 전조")]
+    [Tooltip("AI 콤보(RequestCombo) 시작 전에 한 번 재생할 전조 상태. 비우면 전조 없이 바로 친다")]
+    [SerializeField] private string _windupState = "Boss2ComboWindup";
+    [Tooltip("전조 길이(초, 1배속 기준). 연타 속도 배율에 맞춰 줄어든다")]
+    [SerializeField] private float _windupTime = 0.5833f;
+    [Tooltip("전조 뒤 1타를 이 시점(초, 1배속 기준)부터 이어서 재생한다. 준비 동작이 두 번 반복되지 않게 전조의 마지막 자세와 맞춘다")]
+    [SerializeField] private float _firstHitStartTime = 0.3333f;
+    private bool _isWindingUp;
+    private float _windupEndTime;
+
     // 발사체 시작 좌표 ( 자식에서도 활용 가능 )
     protected Vector2[] _projectileDirections;
     
@@ -66,11 +76,12 @@ public class Boss2AttackBase : MonoBehaviour
     [SerializeField] private GameObject _slashSound;
 
     
-    public bool IsAttacking => _currentHit >= 0;
+    // 전조 중에도 공격 중으로 본다. (FSM 의 Attack 상태 유지, 슈퍼아머 유지)
+    public bool IsAttacking => _currentHit >= 0 || _isWindingUp;
     // 자식이 인스펙터의 즉사기 데미지 설정을 쓰도록 연다.
     protected int InstantKillDamage => _instantKillDamage;
     public int CurrentHitIndex => _currentHit;
-    public int CurrentStepIndex => IsAttacking ? _currentHit % _comboSteps.Length : -1;
+    public int CurrentStepIndex => _currentHit >= 0 ? _currentHit % _comboSteps.Length : -1;
 
     // 인자는 이번 콤보에서 몇 번째 타인지(0부터)다. 재생 중인 스텝은 CurrentStepIndex 로 본다.
     public event System.Action<int> ComboStepStarted;
@@ -122,7 +133,15 @@ public class Boss2AttackBase : MonoBehaviour
             RequestAttack();
         }
 
-        if (IsAttacking)
+        if (_isWindingUp)
+        {
+            if (Time.time >= _windupEndTime)
+            {
+                _isWindingUp = false;
+                StartHit(0, _firstHitStartTime);
+            }
+        }
+        else if (IsAttacking)
         {
             UpdateCombo();
         }
@@ -134,7 +153,8 @@ public class Boss2AttackBase : MonoBehaviour
     /// </summary>
     public void RequestAttack()
     {
-        if (HasComboSteps() == false)
+        // 전조 중에는 아직 타가 시작되지 않았으므로 입력을 받지 않는다.
+        if (HasComboSteps() == false || _isWindingUp)
             return;
 
         if (IsAttacking == false)
@@ -170,7 +190,26 @@ public class Boss2AttackBase : MonoBehaviour
         }
 
         _targetHitCount = target;
-        StartHit(0);
+        if (string.IsNullOrEmpty(_windupState))
+        {
+            StartHit(0);
+            return;
+        }
+
+        StartWindup();
+    }
+
+    // 콤보 시작 전 전조: 낫을 끝까지 젖힌 채 떨다가, 시간이 되면 Update 에서 1타로 이어진다.
+    private void StartWindup()
+    {
+        EndDamage();
+        ClearPendingHit();
+
+        _isWindingUp = true;
+        _windupEndTime = Time.time + ScaleComboTime(_windupTime);
+
+        _animator.SetFloat(AttackSpeedParam, _comboSpeed);
+        _animator.CrossFade(_windupState, 0.05f, 0, 0f);
     }
 
     /// <summary>
@@ -207,20 +246,29 @@ public class Boss2AttackBase : MonoBehaviour
         }
     }
 
-    private void StartHit(int hitIndex)
+    /// <param name="startTime">클립을 이 시점(초, 1배속 기준)부터 재생한다. 전조 뒤 1타에서 준비 동작을 건너뛸 때 쓴다.</param>
+    private void StartHit(int hitIndex, float startTime = 0f)
     {
         // CrossFade 로 끊긴 이전 타의 EndDamage 이벤트가 누락됐을 수 있으므로 히트박스를 먼저 끈다.
         EndDamage();
         ClearPendingHit();
 
         _currentHit = hitIndex;
-        _stepStartTime = Time.time;
+        // 건너뛴 만큼 이미 진행한 것으로 쳐서 ChainTime · MaxStepTime 계산을 클립 시간과 맞춘다.
+        _stepStartTime = Time.time - ScaleComboTime(startTime);
 
         // 연타 상태(Boss2Attack / Boss2DoubleAttack)의 Speed Multiplier. 판정 이벤트도 같이 빨라진다.
         _animator.SetFloat(AttackSpeedParam, _comboSpeed);
 
-        // layer 0, 시간 오프셋 0 을 명시해야 같은 상태로 넘어갈 때도 처음부터 재생된다.
-        _animator.CrossFade(CurrentStep.StateName, 0.05f, 0, 0f);
+        if (startTime > 0f)
+        {
+            _animator.CrossFadeInFixedTime(CurrentStep.StateName, 0.05f, 0, startTime);
+        }
+        else
+        {
+            // layer 0, 시간 오프셋 0 을 명시해야 같은 상태로 넘어갈 때도 처음부터 재생된다.
+            _animator.CrossFade(CurrentStep.StateName, 0.05f, 0, 0f);
+        }
         ComboStepStarted?.Invoke(_currentHit);
     }
 
@@ -248,6 +296,7 @@ public class Boss2AttackBase : MonoBehaviour
     {
         EndDamage();
 
+        _isWindingUp = false;
         _currentHit = -1;
         _targetHitCount = 0;
 

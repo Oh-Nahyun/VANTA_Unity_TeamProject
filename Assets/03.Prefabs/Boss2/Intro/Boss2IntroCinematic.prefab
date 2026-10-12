@@ -380,6 +380,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss2IntroCinematic
   _boss2: {fileID: 0}
   _boss1: {fileID: 0}
+  _playOnBoss1Collapse: 1
+  _lockPlayerDuringIntro: 1
+  _useBoss1StandIn: 1
   _battleStartDelay: 1
   _gas: {fileID: 291483818229437816}
   _cloud: {fileID: 5982020336869590538}
@@ -396,21 +399,21 @@ MonoBehaviour:
   _gasMaxSpeedScale: 1.2
   _gasStartBurst: 0.8
   _gasStartBurstSpeedScale: 1.3
+  _gasAlphaScale: 0.6
   _darkIntensityScale: 0.25
-  _faceOffset: {x: -0.05, y: 1.15}
+  _faceOffset: {x: 0.03, y: 0.3}
   _faceOrthographicSize: 1.1
   _dropOffset: {x: 0.45, y: -0.45}
   _shakeAmplitude: 0.06
   _shakeFrequency: 90
   _zoomOutDuration: 1.2
-  _useTempExplosion: 1
-  _tempExplosionPrefab: {fileID: 5003057537259632177, guid: 4fcf716d767c948469f04f7e382b8f61, type: 3}
-  _tempExplosionScale: 0.45
-  _tempExplosionDuration: 0.8
   _explosionTimeout: 8
   _onRequestBoss1Explosion:
     m_PersistentCalls:
       m_Calls: []
+  _boss2EyesClosedSprite: {fileID: -6183023469172702850, guid: 6978c72b19d88ed2eaeaa42648ce7978, type: 3}
+  _eyesOpenDelay: 0.75
+  _eyesOpenSound: {fileID: 8300000, guid: db00e51bf1fe4fa9a0afc573e4ffbbc9, type: 3}
   _gasAmount: 0
   _darkness: 0
   _cloudAlpha: 0

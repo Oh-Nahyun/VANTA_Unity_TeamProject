@@ -12,7 +12,7 @@ public class Boss1DeathController : MonoBehaviour
     [SerializeField] private Boss2IntroCinematic _boss2Intro;
     
     [Header("주저앉은 후 대기 시간")]
-    [SerializeField] private float _collapseWaitDuration = 1.5f;
+    [SerializeField] private float _colorRestoreDuration = 1.5f;
     
     [Header("폭발 연출")]
     [SerializeField] private float _explosionDuration = 2f;      // 폭발 시작 ~ 보스2 인트로에 신호 보낼 때까지
@@ -58,6 +58,7 @@ public class Boss1DeathController : MonoBehaviour
 
     private bool _isMovingToCenter;
     private bool _isExploding;
+    private bool _isCollapseFinished;
     
     private Boss1Sound _boss1Sound;
 
@@ -122,8 +123,6 @@ public class Boss1DeathController : MonoBehaviour
 
     private void MoveToCenter()
     {
-        
-        
         Vector2 currentPos = transform.position;
         Vector2 targetPos = _center;
         
@@ -156,8 +155,6 @@ public class Boss1DeathController : MonoBehaviour
         _onDown?.Invoke();
         _animator.Play("DeathIdle", 0, 0f);
         RestoreColor();
-
-        StartCoroutine(CollapseWaitRoutine());
     }
     
     private void RestoreColor()
@@ -166,9 +163,8 @@ public class Boss1DeathController : MonoBehaviour
         {
             return;
         }
-
-        float colorRestoreDuration = _colorRestoreRatio * _collapseWaitDuration;
-        DOVirtual.Float(_boss1HitFlash.CurrentPhase2Amount, 0f, colorRestoreDuration, value =>
+        
+        DOVirtual.Float(_boss1HitFlash.CurrentPhase2Amount, 0f, _colorRestoreDuration, value =>
             {
                 _boss1HitFlash.SetPhase2Amount(value);
                 if (_boss1Shadow != null)
@@ -180,9 +176,13 @@ public class Boss1DeathController : MonoBehaviour
             .SetLink(gameObject);
     }
 
-    private IEnumerator CollapseWaitRoutine()
+    public void FinishCollapse()
     {
-        yield return new WaitForSeconds(_collapseWaitDuration);
+        if (_isCollapseFinished)
+        {
+            return;
+        }
+        _isCollapseFinished = true;
         
         OnCollapseFinished?.Invoke();
         

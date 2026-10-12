@@ -169,7 +169,7 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
         }
     
 
-    float xDistance = Mathf.Abs(xDifference);
+        float xDistance = Mathf.Abs(xDifference);
         float yDistance = Mathf.Abs(yDifference);
 
         if (xDistance < _minAttackDistance)

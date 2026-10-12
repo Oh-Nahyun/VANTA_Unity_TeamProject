@@ -105,7 +105,9 @@ public class Boss2EndingCinematic : MonoBehaviour
     [Header("연결점")]
     [Tooltip("암흑까지 끝났을 때. 다음 연출(엔딩 씬 등)을 여기에 연결한다.")]
     [SerializeField] private UnityEvent _onEndingFinished;
+    [SerializeField] private UnityEvent _onEnding;
 
+    
     public bool IsPlaying { get; private set; }
 
     private Animator _animator;
@@ -138,6 +140,7 @@ public class Boss2EndingCinematic : MonoBehaviour
             return false;
 
         IsPlaying = true;
+        _onEnding?.Invoke();
         StartCoroutine(EndingRoutine(onFinished));
         return true;
     }

@@ -3,6 +3,7 @@ using System.Collections;
 using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
 
 public class Boss1DeathController : MonoBehaviour
@@ -41,6 +42,9 @@ public class Boss1DeathController : MonoBehaviour
     [SerializeField] private float _colorRestoreDuration = 1.2f; // _collapseWaitDuration(1.5)보다 짧게
     [SerializeField] private Boss1Shadow _boss1Shadow;
     private Boss1HitFlash _boss1HitFlash;
+    
+    [Header("쓰러지고 체력바 없어짐")]
+    [SerializeField] private UnityEvent _onDown;
     
     private Boss1Life _boss1Life;
     private Boss1AttackController _boss1AttackController;
@@ -141,6 +145,7 @@ public class Boss1DeathController : MonoBehaviour
     
     public void EndDeathCollapse()
     {
+        _onDown?.Invoke();
         _animator.Play("DeathIdle", 0, 0f);
         RestoreColor();
 

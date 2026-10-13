@@ -41,7 +41,6 @@ public class SkillAttack : MonoBehaviour
     [SerializeField] private GameObject _skillDashEndVfxPrefab;
     [SerializeField] private GameObject _skillDashAttackVfxPrefab;
     [SerializeField] private GameObject _skillDashAttackCriticalVfxPrefab;
-    [SerializeField] private GameObject _weakHitVfx;
 
     [SerializeField] private UnityEvent _weaknessAttackSuccessAction;
     

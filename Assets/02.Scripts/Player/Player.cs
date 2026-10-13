@@ -362,6 +362,7 @@ private void DeathEffect()
                 .OnComplete(() =>
                 {
                     Debug.Log("플레이어 사망");
+                    Cursor.visible = true;
                     _deathEvent?.Invoke();
                 });
 

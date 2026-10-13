@@ -18,7 +18,14 @@ public class Boss2BladeSpark : MonoBehaviour
     [Tooltip("같은 순간 여러 번 불려도(이벤트 중복 등) 한 번만 튀도록 하는 최소 간격(초, 실시간)")]
     [SerializeField] private float _minInterval = 0.05f;
 
+    [Header("사운드")]
+    [Tooltip("불꽃이 튈 때 이 중 하나를 무작위로 낸다 (Sword Blocked 1~3). 같은 소리는 연달아 나오지 않는다")]
+    [SerializeField] private AudioClip[] _sparkSounds;
+    [Range(0f, 1f)]
+    [SerializeField] private float _sparkSoundVolume = 1f;
+
     private float _lastPlayTime = float.NegativeInfinity;
+    private int _lastSoundIndex = -1;
 
     /// <summary>검 쪽에서 불꽃을 한 번 튀긴다.</summary>
     public void Play()
@@ -36,5 +43,22 @@ public class Boss2BladeSpark : MonoBehaviour
 
         GameObject spark = Instantiate(_sparkPrefab, point.position + offset, Quaternion.identity);
         spark.transform.localScale = new Vector3(isLeft ? -_scale : _scale, _scale, 1f);
+
+        PlaySparkSound();
+    }
+
+    // 직전에 낸 소리를 빼고 무작위로 하나 고른다.
+    private void PlaySparkSound()
+    {
+        if (_sparkSounds == null || _sparkSounds.Length == 0 || SoundManager.Instance == null)
+            return;
+
+        int index = Random.Range(0, _sparkSounds.Length);
+        if (_sparkSounds.Length > 1 && index == _lastSoundIndex)
+        {
+            index = (index + Random.Range(1, _sparkSounds.Length)) % _sparkSounds.Length;
+        }
+        _lastSoundIndex = index;
+        SoundManager.Instance.PlayEffectSound(_sparkSounds[index], _sparkSoundVolume);
     }
 }

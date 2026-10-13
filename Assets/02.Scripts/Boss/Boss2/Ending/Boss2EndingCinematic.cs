@@ -26,6 +26,10 @@ public class Boss2EndingCinematic : MonoBehaviour
     [SerializeField] private Sprite[] _crouchFrames;
     [Tooltip("서 있다가 다 주저앉기까지 걸리는 시간")]
     [SerializeField] private float _crouchDuration = 3.5f;
+    [Tooltip("다 주저앉는 순간(마지막 앉은 프레임) 나는 소리 (Dirt Land)")]
+    [SerializeField] private AudioClip _crouchLandSound;
+    [Range(0f, 1f)]
+    [SerializeField] private float _crouchLandVolume = 1f;
     [Tooltip("주저앉은 채 눈을 감은 프레임 (Death_2)")]
     [SerializeField] private Sprite _eyesClosedSprite;
 
@@ -240,6 +244,12 @@ public class Boss2EndingCinematic : MonoBehaviour
             yield return null;
         }
         _body.sprite = _crouchFrames[last];
+
+        // 털썩 주저앉는 소리
+        if (_crouchLandSound != null && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayEffectSound(_crouchLandSound, _crouchLandVolume);
+        }
     }
 
     #region 포커스

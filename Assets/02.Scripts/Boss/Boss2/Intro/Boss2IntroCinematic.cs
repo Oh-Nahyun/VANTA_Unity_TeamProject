@@ -45,6 +45,12 @@ public class Boss2IntroCinematic : MonoBehaviour
     [SerializeField] private Boss2IntroSlash[] _slashes;
     [SerializeField] private Transform _slashRoot;
     [SerializeField] private CinemachineImpulseSource _slashImpulse;
+    [Tooltip("X 자로 그을 때 획마다 나는 소리. 순서대로 첫 획(SlashFirst)·둘째 획(SlashSecond) — Sword Attack 1·2")]
+    [SerializeField] private AudioClip[] _slashSounds;
+    [Tooltip("긋는 소리 크기 (1 = 원래 크기, 1 보다 크면 키운다)")]
+    [SerializeField, Range(0f, 2f)] private float _slashSoundVolume = 1.2f;
+    [Tooltip("긋는 소리 피치 (1 = 원래 높이, 낮을수록 묵직하다)")]
+    [SerializeField, Range(0.5f, 1.5f)] private float _slashSoundPitch = 0.8f;
     [SerializeField] private Image _flashOverlay;
     [SerializeField] private Image _blackOverlay;
     [SerializeField] private CinemachineCamera _introCamera;
@@ -61,6 +67,10 @@ public class Boss2IntroCinematic : MonoBehaviour
     [SerializeField] private float _gasStartBurstSpeedScale = 1.3f;
     [Tooltip("가스 입자 알파 배율 (프리팹 시작 색 기준). 낮출수록 옅다")]
     [SerializeField, Range(0f, 1f)] private float _gasAlphaScale = 0.6f;
+    [Tooltip("보스1에서 가스(연기)가 뿜어져 나오기 시작할 때 나는 소리 (Strom)")]
+    [SerializeField] private AudioClip _gasSound;
+    [Tooltip("가스 소리 크기 (1 = 원래 크기)")]
+    [SerializeField, Range(0f, 1f)] private float _gasSoundVolume = 0.8f;
 
     [Header("화면 어둡게")]
     [Tooltip("최대로 어두울 때 글로벌 라이트 강도 배율")]
@@ -144,10 +154,8 @@ public class Boss2IntroCinematic : MonoBehaviour
     [SerializeField] private float _showcaseFocusHeight = 1f;
     [Tooltip("보스를 비춘 뒤 이름이 뜰 때까지 (보스1: 1초)")]
     [SerializeField] private float _nameDelay = 1f;
-    [Tooltip("보스를 비춘 뒤 플레이어에게 복귀하기 시작할 때까지 (보스1: 5초)")]
+    [Tooltip("보스를 비춘 뒤 인트로를 끝낼(게임 시작) 때까지. 카메라 복귀는 종료 콜백(Phase1ToPhase2Acting)이 맡는다")]
     [SerializeField] private float _returnToPlayerTime = 5f;
-    [Tooltip("플레이어에게 복귀하는 시간. 끝나면 게임 시작 (보스1: 2초)")]
-    [SerializeField] private float _returnDuration = 2f;
 
     [Header("Timeline 이 움직이는 값")]
     [SerializeField, Range(0f, 1f)] private float _gasAmount;
@@ -204,6 +212,7 @@ public class Boss2IntroCinematic : MonoBehaviour
     private Coroutine _battleStartRoutine;
     private Coroutine _eyesOpenRoutine;
     private AudioSource _introMusicSource;
+    private AudioSource _slashSoundSource;
     private Coroutine _introMusicRoutine;
     private Coroutine _sightRoutine;
     private Sequence _vignetteSequence;
@@ -233,6 +242,12 @@ public class Boss2IntroCinematic : MonoBehaviour
         _introMusicSource.playOnAwake = false;
         _introMusicSource.loop = false;
         _introMusicSource.spatialBlend = 0f;
+
+        // 긋는 소리 전용 소스. SoundManager 효과음은 피치를 무작위로 바꾸므로, 피치를 고정하려고 따로 튼다.
+        _slashSoundSource = gameObject.AddComponent<AudioSource>();
+        _slashSoundSource.playOnAwake = false;
+        _slashSoundSource.loop = false;
+        _slashSoundSource.spatialBlend = 0f;
 
         // 프리팹을 씬에 놓고 연결을 빠뜨려도 동작하도록, 비어 있으면 씬에서 찾는다.
         if (_boss2 == null)
@@ -358,6 +373,10 @@ public class Boss2IntroCinematic : MonoBehaviour
             _gas.Clear();
             _gas.Play();
             EmitGasStartBurst();
+            if (_gasSound != null && SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlayEffectSound(_gasSound, _gasSoundVolume);
+            }
         }
         if (_cloud != null)
         {
@@ -447,6 +466,18 @@ public class Boss2IntroCinematic : MonoBehaviour
         {
             _slashImpulse.GenerateImpulse();
         }
+        PlaySlashSound(index);
+    }
+
+    // 획에 짝지은 소리를 고정 피치로 낸다. 옵션의 마스터·효과음 볼륨을 따른다.
+    private void PlaySlashSound(int index)
+    {
+        if (_slashSoundSource == null || _slashSounds == null || index >= _slashSounds.Length || _slashSounds[index] == null)
+            return;
+
+        _slashSoundSource.pitch = _slashSoundPitch;
+        _slashSoundSource.volume = PlayerPrefs.GetFloat("MasterVolume", 1f) * PlayerPrefs.GetFloat("EffectVolume", 1f);
+        _slashSoundSource.PlayOneShot(_slashSounds[index], _slashSoundVolume);
     }
 
     /// <summary>보스1 폭발 요청. 폭발이 끝날 때까지 Timeline 을 멈춰 둔다.</summary>
@@ -664,11 +695,9 @@ public class Boss2IntroCinematic : MonoBehaviour
         FinishIntro();
     }
 
-    // 보스1 등장(GameStartActing.FocusToBoss → FocusToPlayer → GameStart)과 같은 구도·시간으로 보스2를 소개한다.
+    // 보스1 등장(GameStartActing.FocusToBoss)과 같은 구도로 보스2를 소개한다. 끝나면 카메라는 보스를 비춘 채 게임을 시작한다.
     private IEnumerator ShowcaseRoutine()
     {
-        Transform player = FindPlayerTransform();
-
         // 공포 테두리가 끝날 때까지 얼굴 클로즈업을 유지한다.
         if (_holdFaceUntilVignetteEnds)
         {
@@ -712,19 +741,8 @@ public class Boss2IntroCinematic : MonoBehaviour
         yield return new WaitForSecondsRealtime(_nameDelay);
         ShowBossName();
 
-        // 플레이어에게 복귀
+        // 게임 시작. 카메라를 플레이어에게 돌리는 것은 종료 콜백(Phase1ToPhase2Acting.StartPhase2Game)이 맡는다.
         yield return new WaitForSecondsRealtime(Mathf.Max(0f, _returnToPlayerTime - _nameDelay));
-        if (focus != null && player != null)
-        {
-            focus.SlowFocus(player, 1f, _returnDuration);
-        }
-
-        // 게임 시작 (보스1 GameStart 와 같이 줌을 원래대로 되돌린다)
-        yield return new WaitForSecondsRealtime(_returnDuration);
-        if (focus != null && player != null)
-        {
-            focus.SlowFocus(player, 0f, 2f);
-        }
 
         _showcaseRoutine = null;
         DestroyShowcaseFocus();
@@ -867,12 +885,6 @@ public class Boss2IntroCinematic : MonoBehaviour
             Destroy(_showcaseFocusTarget.gameObject);
             _showcaseFocusTarget = null;
         }
-    }
-
-    private static Transform FindPlayerTransform()
-    {
-        Player player = FindAnyObjectByType<Player>();
-        return player != null ? player.transform : null;
     }
 
     // ---- 공포 테두리 ----

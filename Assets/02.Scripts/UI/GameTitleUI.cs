@@ -161,6 +161,20 @@ public class GameTitleUI : MonoBehaviour
                 || keyboard.enterKey.wasPressedThisFrame || keyboard.numpadEnterKey.wasPressedThisFrame);
     }
 
+    public static int GetVerticalInput()
+    {
+        var keyboard = UnityEngine.InputSystem.Keyboard.current;
+
+        bool isUp = Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)
+                    || (keyboard != null && (keyboard.wKey.wasPressedThisFrame || keyboard.upArrowKey.wasPressedThisFrame));
+        bool isDown = Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)
+                      || (keyboard != null && (keyboard.sKey.wasPressedThisFrame || keyboard.downArrowKey.wasPressedThisFrame));
+
+        if (isUp == isDown) return 0;
+
+        return isDown ? 1 : -1;
+    }
+
     private static bool IsMouseActive()
     {
         if (Input.mousePositionDelta.sqrMagnitude > 0f || Input.GetMouseButtonDown(0)) return true;
@@ -218,16 +232,12 @@ public class GameTitleUI : MonoBehaviour
             return;
         }
 
-        var keyboard = UnityEngine.InputSystem.Keyboard.current;
-        bool isUp = Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)
-                    || (keyboard != null && (keyboard.wKey.wasPressedThisFrame || keyboard.upArrowKey.wasPressedThisFrame));
-        bool isDown = Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)
-                      || (keyboard != null && (keyboard.sKey.wasPressedThisFrame || keyboard.downArrowKey.wasPressedThisFrame));
+        int direction = GetVerticalInput();
 
-        if (!isUp && !isDown) return;
+        if (direction == 0) return;
 
         int index = System.Array.FindIndex(_titleButtons, button => button.gameObject == selected);
-        index = Mathf.Clamp(index + (isDown ? 1 : -1), 0, _titleButtons.Length - 1);
+        index = Mathf.Clamp(index + direction, 0, _titleButtons.Length - 1);
 
         EventSystem.current.SetSelectedGameObject(_titleButtons[index].gameObject);
     }

@@ -64,11 +64,6 @@ public class GameSettingsUI : MonoBehaviour
     private bool _cursorVisibleBeforeOpen;
 
     /// <summary>
-    /// 직전 프레임에 선택되어있던 UI
-    /// </summary>
-    private GameObject _lastSelected;
-
-    /// <summary>
     /// 현재 표시 중인 탭 버튼 (키보드 모드 진입 시 선택 복구용)
     /// </summary>
     private Button _currentTab;
@@ -91,8 +86,7 @@ public class GameSettingsUI : MonoBehaviour
         _currentTab = _tabButtons[0];
         ShowTab(_currentTab, false);
 
-        _lastSelected = GameTitleUI.IsKeyboardMode ? _currentTab.gameObject : null;
-        EventSystem.current.SetSelectedGameObject(_lastSelected);
+        EventSystem.current.SetSelectedGameObject(GameTitleUI.IsKeyboardMode ? _currentTab.gameObject : null);
 
         SoundManager.Instance.PlayEffectSound(_settingsOpenSound);
 
@@ -152,29 +146,26 @@ public class GameSettingsUI : MonoBehaviour
                 EventSystem.current.SetSelectedGameObject(null);
             }
 
-            _lastSelected = null;
             return;
         }
 
         if (isJustSwitched || selected == null)
         {
-            _lastSelected = _currentTab.gameObject;
-            EventSystem.current.SetSelectedGameObject(_lastSelected);
+            EventSystem.current.SetSelectedGameObject(_currentTab.gameObject);
             return;
         }
 
-        if (selected == _lastSelected) return;
+        int direction = GameTitleUI.GetVerticalInput();
 
-        _lastSelected = selected;
+        if (direction == 0) return;
 
-        foreach (Button tab in _tabButtons)
-        {
-            if (tab.gameObject == selected)
-            {
-                tab.onClick.Invoke();
-                return;
-            }
-        }
+        int index = System.Array.IndexOf(_tabButtons, _currentTab);
+        int nextIndex = Mathf.Clamp(index + direction, 0, _tabButtons.Length - 1);
+
+        if (nextIndex == index) return;
+
+        EventSystem.current.SetSelectedGameObject(_tabButtons[nextIndex].gameObject);
+        ShowTab(_tabButtons[nextIndex], true);
     }
 
     private void LateUpdate()
@@ -203,6 +194,10 @@ public class GameSettingsUI : MonoBehaviour
         {
             SoundGenerator.AddHoverSound(button, _buttonHoverSound);
             button.onClick.AddListener(PlayClickSound);
+
+            Navigation navigation = button.navigation;
+            navigation.mode = Navigation.Mode.None;
+            button.navigation = navigation;
 
             Button tab = button;
             button.onClick.AddListener(() =>

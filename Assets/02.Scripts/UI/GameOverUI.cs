@@ -68,16 +68,12 @@ public class GameOverUI : MonoBehaviour
             return;
         }
 
-        var keyboard = UnityEngine.InputSystem.Keyboard.current;
-        bool isUp = Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)
-                    || (keyboard != null && (keyboard.wKey.wasPressedThisFrame || keyboard.upArrowKey.wasPressedThisFrame));
-        bool isDown = Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)
-                      || (keyboard != null && (keyboard.sKey.wasPressedThisFrame || keyboard.downArrowKey.wasPressedThisFrame));
+        int direction = GameTitleUI.GetVerticalInput();
 
-        if (!isUp && !isDown) return;
+        if (direction == 0) return;
 
         int index = System.Array.FindIndex(_buttons, button => button.gameObject == selected);
-        index = Mathf.Clamp(index + (isDown ? 1 : -1), 0, _buttons.Length - 1);
+        index = Mathf.Clamp(index + direction, 0, _buttons.Length - 1);
 
         EventSystem.current.SetSelectedGameObject(_buttons[index].gameObject);
     }

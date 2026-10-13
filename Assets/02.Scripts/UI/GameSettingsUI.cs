@@ -69,6 +69,11 @@ public class GameSettingsUI : MonoBehaviour
     private GameObject _lastSelected;
 
     /// <summary>
+    /// 현재 표시 중인 탭 버튼 (키보드 모드 진입 시 선택 복구용)
+    /// </summary>
+    private Button _currentTab;
+
+    /// <summary>
     /// 탭 전환 시 클릭 효과음 생략 여부 확인용 변수
     /// </summary>
     private bool _isClickSoundMuted;
@@ -81,9 +86,14 @@ public class GameSettingsUI : MonoBehaviour
     private void OnEnable()
     {
         _cursorVisibleBeforeOpen = Cursor.visible;
-        Cursor.visible = true;
+        Cursor.visible = !GameTitleUI.IsKeyboardMode;
 
-        SelectTab(_tabButtons[0], false);
+        _currentTab = _tabButtons[0];
+        ShowTab(_currentTab, false);
+
+        _lastSelected = GameTitleUI.IsKeyboardMode ? _currentTab.gameObject : null;
+        EventSystem.current.SetSelectedGameObject(_lastSelected);
+
         SoundManager.Instance.PlayEffectSound(_settingsOpenSound);
 
         _selectedImageTween?.Kill();
@@ -116,12 +126,9 @@ public class GameSettingsUI : MonoBehaviour
             .SetEase(Ease.OutCubic)
             .SetUpdate(true);
     }
-
-    private void SelectTab(Button tab, bool playSound)
+    
+    private void ShowTab(Button tab, bool playSound)
     {
-        EventSystem.current.SetSelectedGameObject(tab.gameObject);
-        _lastSelected = tab.gameObject;
-
         _isClickSoundMuted = !playSound;
         tab.onClick.Invoke();
         _isClickSoundMuted = false;
@@ -135,24 +142,30 @@ public class GameSettingsUI : MonoBehaviour
 
     private void Update()
     {
+        bool isJustSwitched = GameTitleUI.UpdateInputMode();
         GameObject selected = EventSystem.current.currentSelectedGameObject;
 
-        if (selected == null)
+        if (!GameTitleUI.IsKeyboardMode)
         {
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
+            if (selected != null)
             {
-                SelectTab(_tabButtons[0], true);
+                EventSystem.current.SetSelectedGameObject(null);
             }
 
             _lastSelected = null;
             return;
         }
 
+        if (isJustSwitched || selected == null)
+        {
+            _lastSelected = _currentTab.gameObject;
+            EventSystem.current.SetSelectedGameObject(_lastSelected);
+            return;
+        }
+
         if (selected == _lastSelected) return;
 
         _lastSelected = selected;
-
-        if (Input.GetMouseButton(0)) return;
 
         foreach (Button tab in _tabButtons)
         {
@@ -166,7 +179,7 @@ public class GameSettingsUI : MonoBehaviour
 
     private void LateUpdate()
     {
-        Cursor.visible = true;
+        Cursor.visible = !GameTitleUI.IsKeyboardMode;
     }
 
     private void Start()
@@ -192,7 +205,11 @@ public class GameSettingsUI : MonoBehaviour
             button.onClick.AddListener(PlayClickSound);
 
             Button tab = button;
-            button.onClick.AddListener(() => MoveSelectedImage(tab, false));
+            button.onClick.AddListener(() =>
+            {
+                _currentTab = tab;
+                MoveSelectedImage(tab, false);
+            });
         }
 
         foreach (Button button in _gamePanelButtons)

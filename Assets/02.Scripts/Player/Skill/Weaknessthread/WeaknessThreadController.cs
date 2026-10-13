@@ -37,10 +37,13 @@ public class WeaknessThreadController : MonoBehaviour
         if (!_threadRunning)
             return;
 
-        if (_isFinisher)
-            return;
-        
-        UpdateThreadDirection();
+        // 일반 약점 실만 회전
+        if (!_isFinisher)
+        {
+            UpdateThreadDirection();
+        }
+
+        // 피니셔도 매 프레임 화면 좌표 갱신
         UpdateThread();
     }
 

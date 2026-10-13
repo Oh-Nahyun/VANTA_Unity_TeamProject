@@ -110,6 +110,8 @@ public class PlayerStatusManager : MonoBehaviour
 
         if (_isStart)
             return;
+        Cursor.visible = false;
+
         _isStart = true;
         DOVirtual.DelayedCall(2.5f, () =>
         {

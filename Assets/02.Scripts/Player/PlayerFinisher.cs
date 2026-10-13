@@ -20,6 +20,8 @@ public class PlayerFinisher : MonoBehaviour
     [SerializeField] private SkillAttack _skillAttack;
     [SerializeField] private SkillFocusScreenController _skillFocusScreenController;
     [SerializeField] private AudioClip _chargingSound;
+    [SerializeField] private AudioClip _finishStartSound;
+
     [SerializeField] private AudioClip _finishSound;
 
     [SerializeField] private GameObject _finisherVfx1;
@@ -101,7 +103,7 @@ public class PlayerFinisher : MonoBehaviour
     {
         if (_isFinisherStarted)
             return;
-
+        SoundManager.Instance.PlayEffectSound(_finishStartSound);
         _finisherStart.Invoke();
         HitableObject hitableObject =
             FindAnyObjectByType<HitableObject>();

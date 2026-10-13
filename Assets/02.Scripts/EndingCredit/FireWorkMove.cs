@@ -49,7 +49,6 @@ public class FireWorkMove : MonoBehaviour
                 transform as RectTransform;
         }
 
-        // 비활성화된 자식까지 포함
         _childImages =
             GetComponentsInChildren<Image>(true);
     }
@@ -83,13 +82,12 @@ public class FireWorkMove : MonoBehaviour
 
     private void SetRandomColor()
     {
-        // 밝고 채도가 높은 랜덤 색상
         Color randomColor =
             Random.ColorHSV(
-                0f, 1f,       // Hue
-                0.7f, 1f,     // Saturation
-                0.8f, 1f,     // Value
-                1f, 1f        // Alpha
+                0f, 1f,
+                0.7f, 1f,
+                0.8f, 1f,
+                1f, 1f
             );
 
         foreach (Image image in _childImages)
@@ -97,7 +95,6 @@ public class FireWorkMove : MonoBehaviour
             if (image == null)
                 continue;
 
-            // 자기 자신의 Image는 제외
             if (image.gameObject == gameObject)
                 continue;
 
@@ -152,6 +149,9 @@ public class FireWorkMove : MonoBehaviour
                 targetY
             );
 
+        // 이동 방향에 따라 이미지 반전
+        SetFlipDirection(targetPosition);
+
         _moveTween =
             _rectTransform
                 .DOAnchorPos(
@@ -166,6 +166,29 @@ public class FireWorkMove : MonoBehaviour
                 });
     }
 
+    private void SetFlipDirection(Vector2 targetPosition)
+    {
+        float directionX =
+            targetPosition.x -
+            _rectTransform.anchoredPosition.x;
+
+        bool flipX = directionX < 0f;
+
+        foreach (Image image in _childImages)
+        {
+            if (image == null)
+                continue;
+
+            RectTransform rect = image.rectTransform;
+
+            Vector3 scale = rect.localScale;
+
+            scale.x = Mathf.Abs(scale.x) * (flipX ? -1f : 1f);
+
+            rect.localScale = scale;
+        }
+    }
+
     private void OnReachedTarget()
     {
         // 여기서 폭발 애니메이션 실행
@@ -175,7 +198,14 @@ public class FireWorkMove : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
     private void OnDisable()
+    {
+        _moveTween?.Kill();
+        _moveTween = null;
+    }
+
+    public void MoveStop()
     {
         _moveTween?.Kill();
         _moveTween = null;

@@ -19,7 +19,8 @@ public enum Boss1SoundType
     Buff,
     DeathCollapse,
     DeathExplosion,
-    DeathSplat
+    DeathSplat,
+    Hp0
 }
 
 // 보스1 전용 효과음 재생기.

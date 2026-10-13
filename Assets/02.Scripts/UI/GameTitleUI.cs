@@ -80,7 +80,7 @@ public class GameTitleUI : MonoBehaviour
     /// <summary>
     /// 메뉴 조작이 키보드 모드인지 여부 확인용 변수
     /// </summary>
-    public static bool IsKeyboardMode { get; private set; }
+    public static bool IsKeyboardMode { get; set; }
 
     /// <summary>
     /// 입력 모드를 마지막으로 갱신한 프레임

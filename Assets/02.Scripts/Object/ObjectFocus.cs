@@ -23,16 +23,13 @@ public class ObjectFocus : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log($"[ObjectFocus] Awake : {gameObject.name}");
 
         _targetCamera = Camera.main;
 
         _isBoss1 =
             TryGetComponent<Boss1Life>(out _);
 
-        Debug.Log(
-            $"[ObjectFocus] Camera : {_targetCamera}, Boss1 : {_isBoss1}"
-        );
+    
     }
 
     private void LateUpdate()

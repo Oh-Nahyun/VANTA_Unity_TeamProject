@@ -98,6 +98,9 @@ public class Player : MonoBehaviour
         if (_isHitCoolTime || !_isHittable)
             return;
 
+        if (_skillManager.IsSkillUse)
+            return;
+        
         _isHitCoolTime = true;
         _curTime = 0f;
 
@@ -115,7 +118,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void DamagedEffect()
+    private void DamagedEffect()
     {
         if (_animator != null)
         {

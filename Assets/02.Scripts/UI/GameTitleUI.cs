@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,6 +33,9 @@ public class GameTitleUI : MonoBehaviour
     [Header("게임 시작 버튼 클릭 효과음")]
     [SerializeField] private AudioClip _titleStartSound;
 
+    [Header("인게임에서 설정 창을 열 때 재생할 타이틀 배경음악")]
+    [SerializeField] private AudioClip _settingsBgm;
+
     /// <summary>
     /// 게임 재도전 시 타이틀 UI 건너뛰기를 위한 확인용 변수
     /// </summary>
@@ -50,6 +55,11 @@ public class GameTitleUI : MonoBehaviour
     /// 게임 정지 직전의 타임 스케일
     /// </summary>
     private float _timeScaleBeforePause;
+
+    /// <summary>
+    /// 게임 정지 시 함께 멈춘 트윈 목록
+    /// </summary>
+    private readonly List<Tween> _pausedTweens = new List<Tween>();
 
     private void Start()
     {
@@ -85,6 +95,8 @@ public class GameTitleUI : MonoBehaviour
 
         if (transform.GetChild(0).gameObject.activeSelf) return;
 
+        if (GameResultUI.IsResultShown) return;
+
         _gameSettingPanel.SetActive(true);
         PauseGame();
     }
@@ -94,12 +106,34 @@ public class GameTitleUI : MonoBehaviour
         _timeScaleBeforePause = Time.timeScale > 0f ? Time.timeScale : 1f;
         Time.timeScale = 0f;
         _isPaused = true;
+        AudioListener.pause = true;
+        SoundManager.Instance.PlaySettingsBGM(_settingsBgm);
+
+        _pausedTweens.Clear();
+        DOTween.PlayingTweens(_pausedTweens);
+
+        foreach (Tween tween in _pausedTweens)
+        {
+            tween.Pause();
+        }
     }
 
     private void ResumeGame()
     {
         Time.timeScale = _timeScaleBeforePause;
         _isPaused = false;
+        AudioListener.pause = false;
+        SoundManager.Instance.StopSettingsBGM();
+
+        foreach (Tween tween in _pausedTweens)
+        {
+            if (tween.active)
+            {
+                tween.Play();
+            }
+        }
+
+        _pausedTweens.Clear();
     }
 
     private void UpdatePause()

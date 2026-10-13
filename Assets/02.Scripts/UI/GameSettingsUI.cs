@@ -30,9 +30,27 @@ public class GameSettingsUI : MonoBehaviour
     [Header("슬라이더에서 손을 뗐을 때 효과음")]
     [SerializeField] private AudioClip _sliderTickSound;
 
+    /// <summary>
+    /// 설정 창을 열기 직전의 마우스 커서 표시 여부
+    /// </summary>
+    private bool _cursorVisibleBeforeOpen;
+
     private void OnEnable()
     {
+        _cursorVisibleBeforeOpen = Cursor.visible;
+        Cursor.visible = true;
+
         SoundManager.Instance.PlayEffectSound(_settingsOpenSound);
+    }
+
+    private void OnDisable()
+    {
+        Cursor.visible = _cursorVisibleBeforeOpen;
+    }
+
+    private void LateUpdate()
+    {
+        Cursor.visible = true;
     }
 
     private void Start()

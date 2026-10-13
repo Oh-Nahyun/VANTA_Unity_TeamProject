@@ -3716,8 +3716,8 @@ MonoBehaviour:
     Volume: 1
     PitchRandom: 0.08
   - Type: 1
-    Clip: {fileID: 8300000, guid: 20b6d2ec04ffa5840bda89a84d9fb136, type: 3}
-    Volume: 1
+    Clip: {fileID: 8300000, guid: 707814de41352364abb0042cd1452c6b, type: 3}
+    Volume: 0.45
     PitchRandom: 0.05
   - Type: 2
     Clip: {fileID: 8300000, guid: 4c1c38bd03460ed4da86e46d1c2df5d6, type: 3}
@@ -3773,6 +3773,10 @@ MonoBehaviour:
     PitchRandom: 0
   - Type: 15
     Clip: {fileID: 8300000, guid: dd2e641b3ae3ab648aafefeab30e47a3, type: 3}
+    Volume: 1
+    PitchRandom: 0
+  - Type: 16
+    Clip: {fileID: 8300000, guid: a99efa2b0f76dbd4ba3a00a3a389c21e, type: 3}
     Volume: 1
     PitchRandom: 0
   _voiceCount: 8

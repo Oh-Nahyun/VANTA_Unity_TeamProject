@@ -20,7 +20,8 @@ public enum Boss1SoundType
     DeathCollapse,
     DeathExplosion,
     DeathSplat,
-    Hp0
+    Hp0,
+    EntranceLand
 }
 
 // 보스1 전용 효과음 재생기.

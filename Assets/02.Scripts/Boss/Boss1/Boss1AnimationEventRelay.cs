@@ -22,6 +22,11 @@ public class Boss1AnimationEventRelay : MonoBehaviour
     {
         _boss1IntroController.EndIntroJumpLand();
     }
+
+    public void IntroClawSound()
+    {
+        _boss1IntroController.IntroClawSound();
+    }
     
     public void EndIntroClawStart()
     {

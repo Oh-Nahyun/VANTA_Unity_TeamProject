@@ -21,14 +21,15 @@ public class PlayerFinisher : MonoBehaviour
     [SerializeField] private SkillFocusScreenController _skillFocusScreenController;
     [SerializeField] private AudioClip _chargingSound;
     [SerializeField] private AudioClip _finishStartSound;
-
     [SerializeField] private AudioClip _finishSound;
 
     [SerializeField] private GameObject _finisherVfx1;
     [SerializeField] private GameObject _finisherVfx2;
     [SerializeField] private GameObject _finisherVfx3;
+
     [SerializeField] private PlayerAvoidKeyGenerator _playerAvoidKeyGenerator;
     [SerializeField] private WeaknessThreadController _weaknessThreadController;
+
     [Header("Charging")]
     [SerializeField] private GameObject _chargingObject;
     [SerializeField] private float _chargingDuration = 2f;
@@ -38,17 +39,26 @@ public class PlayerFinisher : MonoBehaviour
 
     [SerializeField] private float _chargeScaleDuration = 0.08f;
     [SerializeField] private float _chargingShrinkDuration = 0.08f;
+
     [Header("Charging Camera Shake")]
     [SerializeField] private CinemachineImpulseSource _impulseSource;
     [SerializeField] private float _startShakeForce = 0.03f;
     [SerializeField] private float _maxShakeForce = 1f;
+
     [Header("Charging Camera Zoom")]
     [SerializeField] private float _startZoomAmount = 0.2f;
     [SerializeField] private float _zoomPerCharge = 0.08f;
-    [SerializeField] private float _chargeZoomDuration = 0.08f;
-    [SerializeField]private UnityEvent _finisherStart;
 
-    [SerializeField]private UnityEvent _gameClear;
+    [SerializeField, Min(0.01f)]
+    private float _chargeZoomSmoothTime = 0.2f;
+
+    [SerializeField, Min(0.01f)]
+    private float _chargeZoomUpdateInterval = 0.02f;
+
+    [Header("Events")]
+    [SerializeField] private UnityEvent _finisherStart;
+    [SerializeField] private UnityEvent _gameClear;
+
     private static readonly int DashStartID =
         Shader.PropertyToID("_DashStart");
 
@@ -69,16 +79,18 @@ public class PlayerFinisher : MonoBehaviour
     private Tween _screenSplitTween;
     private Tween _chargingTween;
     private Tween _chargingTimerTween;
+    private Tween _cameraZoomTween;
 
     private float _currentShakeForce;
     private int _currentChargeCount;
     private float _finalChargeRatio;
 
+    private float _currentZoomAmount;
+    private float _targetZoomAmount;
+
     private bool _isFinisherStarted;
     private bool _isCharging;
 
-    
-    
     private void Awake()
     {
         ResetScreenSplit();
@@ -86,25 +98,22 @@ public class PlayerFinisher : MonoBehaviour
 
     private void Update()
     {
-       
-
-        if (_isCharging&&Input.GetButtonDown("Fire1"))
+        if (_isCharging && Input.GetButtonDown("Fire1"))
         {
             AddCharge();
             return;
         }
-
-       
-
-   
     }
 
     public void StartFinisher()
     {
         if (_isFinisherStarted)
             return;
+
         SoundManager.Instance.PlayEffectSound(_finishStartSound);
+
         _finisherStart.Invoke();
+
         HitableObject hitableObject =
             FindAnyObjectByType<HitableObject>();
 
@@ -146,11 +155,14 @@ public class PlayerFinisher : MonoBehaviour
         CameraFocusingController.Instance.SlowFocus(
             transform,
             _startZoomAmount,
-            _chargeZoomDuration
-
+            _chargeZoomSmoothTime
         );
 
-        _weaknessThreadController.MakeFinishWeaknessThread(transform.position,hitableObject.transform.position);
+        _weaknessThreadController.MakeFinishWeaknessThread(
+            transform.position,
+            hitableObject.transform.position
+        );
+
         _skillFocusScreenController.StartFocusScreenSetting(
             StartCharging
         );
@@ -164,17 +176,61 @@ public class PlayerFinisher : MonoBehaviour
         _finalChargeRatio = 0f;
         _currentShakeForce = _startShakeForce;
 
+        _currentZoomAmount = _startZoomAmount;
+        _targetZoomAmount = _startZoomAmount;
+
         _isCharging = true;
 
         if (_chargingObject != null)
         {
             _chargingObject.SetActive(true);
+
             _chargingObject.transform.localScale =
                 Vector3.zero;
         }
 
+        StartCameraZoomTracking();
+
         StartChargeTimer();
     }
+
+    private void StartCameraZoomTracking()
+    {
+        _cameraZoomTween?.Kill();
+
+        _cameraZoomTween = DOVirtual.DelayedCall(
+                _chargeZoomUpdateInterval,
+                UpdateCameraZoom
+            )
+            .SetLoops(-1)
+            .SetUpdate(true);
+    }
+
+    private void UpdateCameraZoom()
+    {
+        if (!_isCharging)
+            return;
+
+        float deltaTime = _chargeZoomUpdateInterval;
+
+        float interpolation = 1f -
+            Mathf.Exp(
+                -deltaTime / _chargeZoomSmoothTime
+            );
+
+        _currentZoomAmount = Mathf.Lerp(
+            _currentZoomAmount,
+            _targetZoomAmount,
+            interpolation
+        );
+
+        CameraFocusingController.Instance.SlowFocus(
+            transform,
+            _currentZoomAmount,
+            _chargeZoomUpdateInterval
+        );
+    }
+
     private void CheckChargingComplete()
     {
         if (!_isCharging)
@@ -188,11 +244,16 @@ public class PlayerFinisher : MonoBehaviour
 
         ChargingComplete();
     }
+
     private void AddCharge()
     {
         if (!_isCharging)
             return;
-        SoundManager.Instance.PlayEffectSound(_chargingSound);
+
+        SoundManager.Instance.PlayEffectSound(
+            _chargingSound
+        );
+
         int maxChargeCount =
             Mathf.Max(1, _maxChargeCount);
 
@@ -200,15 +261,12 @@ public class PlayerFinisher : MonoBehaviour
             return;
 
         _currentChargeCount++;
-        float currentZoomAmount =
+
+        // 차징 횟수에 따른 목표 줌 값만 변경
+        _targetZoomAmount =
             _startZoomAmount +
             (_zoomPerCharge * _currentChargeCount);
 
-        CameraFocusingController.Instance.SlowFocus(
-            transform,
-            currentZoomAmount,
-            _chargeZoomDuration
-        );
         float chargeRatio =
             Mathf.Clamp01(
                 (float)_currentChargeCount / maxChargeCount
@@ -230,9 +288,7 @@ public class PlayerFinisher : MonoBehaviour
             );
         }
 
-   
-
-        // 최대 차징에 도달하면 즉시 완료하고 대시.
+        // 최대 차징 시 즉시 완료
         if (_currentChargeCount >= maxChargeCount)
         {
             ChargingComplete();
@@ -261,20 +317,28 @@ public class PlayerFinisher : MonoBehaviour
 
     private void ChargingComplete()
     {
-        // 타이머와 최대 차징이 겹쳐도 한 번만 실행.
         if (!_isCharging)
             return;
 
-        CameraFocusingController.Instance.ReturnCamera();
-        _weaknessThreadController.BrokenThread();
-        
         _isCharging = false;
 
         _chargingTimerTween?.Kill();
         _chargingTimerTween = null;
 
+        _cameraZoomTween?.Kill();
+        _cameraZoomTween = null;
+
         _chargingTween?.Kill();
         _chargingTween = null;
+
+        // 최종 차징 횟수에 해당하는 줌 값 적용
+        _currentZoomAmount = _targetZoomAmount;
+
+        CameraFocusingController.Instance.SlowFocus(
+            transform,
+            _currentZoomAmount,
+            0.01f
+        );
 
         _playerAvoidKeyGenerator.ClearAlarmKeyPad();
 
@@ -292,7 +356,6 @@ public class PlayerFinisher : MonoBehaviour
 
         if (_chargingObject != null)
         {
-            // 확정된 차징 크기에서 축소 시작.
             _chargingObject.transform.localScale =
                 Vector3.one * _finalChargeRatio;
 
@@ -310,8 +373,11 @@ public class PlayerFinisher : MonoBehaviour
                         _chargingTween = null;
                     });
         }
-        
-        // 오브젝트 축소 완료를 기다리지 않고 즉시 대시.
+
+        CameraFocusingController.Instance.ReturnCamera();
+
+        _weaknessThreadController.BrokenThread();
+
         AttackToBoss();
     }
 
@@ -337,22 +403,34 @@ public class PlayerFinisher : MonoBehaviour
 
         _finisherDashStart = startPosition;
 
- 
-
-        if (_finalChargeRatio < 0.4)
+        if (_finalChargeRatio < 0.4f)
         {
-            Instantiate(_finisherVfx1, bossPosition, Quaternion.identity);
-        }else if (_finalChargeRatio >= 0.4 && _finalChargeRatio < 0.8)
+            Instantiate(
+                _finisherVfx1,
+                bossPosition,
+                Quaternion.identity
+            );
+        }
+        else if (_finalChargeRatio < 0.8f)
         {
-            Instantiate(_finisherVfx2, bossPosition, Quaternion.identity);
+            Instantiate(
+                _finisherVfx2,
+                bossPosition,
+                Quaternion.identity
+            );
         }
         else
         {
-            Instantiate(_finisherVfx3, bossPosition, Quaternion.identity);
-
+            Instantiate(
+                _finisherVfx3,
+                bossPosition,
+                Quaternion.identity
+            );
         }
-        
-        SoundManager.Instance.PlayEffectSound(_finishSound);
+
+        SoundManager.Instance.PlayEffectSound(
+            _finishSound
+        );
 
         _skillAttack.FinishDash(
             targetPosition,
@@ -366,11 +444,8 @@ public class PlayerFinisher : MonoBehaviour
         Camera cam = Camera.main;
 
         if (cam == null || _screenSplitMaterial == null)
-        {
             return;
-        }
 
-        // 이전 트윈을 먼저 중지하고 초기값 설정.
         _screenSplitTween?.Kill();
         _screenSplitTween = null;
 
@@ -399,7 +474,6 @@ public class PlayerFinisher : MonoBehaviour
                 endViewport.y
             );
 
-
         _screenSplitMaterial.SetVector(
             DashStartID,
             dashStart
@@ -425,7 +499,6 @@ public class PlayerFinisher : MonoBehaviour
             1f
         );
 
-        // 최종 차징 결과에 따라 화면 분리량과 선 두께 결정.
         float chargeRatio =
             Mathf.Clamp01(_finalChargeRatio);
 
@@ -439,7 +512,6 @@ public class PlayerFinisher : MonoBehaviour
             DOTween.Sequence()
                 .SetUpdate(true);
 
-        
         sequence.Append(
             _screenSplitMaterial
                 .DOFloat(
@@ -503,8 +575,8 @@ public class PlayerFinisher : MonoBehaviour
 
             _screenSplitTween = null;
 
-
             GameClear();
+
             _isFinisherStarted = false;
         });
 
@@ -514,20 +586,26 @@ public class PlayerFinisher : MonoBehaviour
     private void GameClear()
     {
         _gameClear.Invoke();
-        
+
         HitableObject boss =
             FindAnyObjectByType<HitableObject>();
-        CameraFocusingController.Instance.SlowFocus(boss.transform,1,1);
 
+        CameraFocusingController.Instance.SlowFocus(
+            boss.transform,
+            1f,
+            1f
+        );
     }
 
     private void StopCharging()
     {
         _chargingTween?.Kill();
         _chargingTimerTween?.Kill();
+        _cameraZoomTween?.Kill();
 
         _chargingTween = null;
         _chargingTimerTween = null;
+        _cameraZoomTween = null;
 
         _isCharging = false;
 
@@ -567,7 +645,7 @@ public class PlayerFinisher : MonoBehaviour
 
         ResetScreenSplit();
     }
-    
+
     private void StartChargeTimer()
     {
         _chargingTimerTween?.Kill();
@@ -579,5 +657,4 @@ public class PlayerFinisher : MonoBehaviour
                 )
                 .SetUpdate(true);
     }
-    
 }

@@ -9917,6 +9917,7 @@ MonoBehaviour:
   _player: {fileID: 5284014296633525175}
   _animator: {fileID: 3366168568141648262}
   _skillUseEffect: {fileID: 736861416815842658}
+  _skillCountText: {fileID: 0}
   _timeSlowAmount: 0.2
   _skillStack: 0
   _maxSkillStack: 5
@@ -20160,6 +20161,7 @@ GameObject:
   - component: {fileID: 1854911317693725667}
   - component: {fileID: 4263086800024855338}
   - component: {fileID: 7793714115845589175}
+  - component: {fileID: 8066652143043852909}
   m_Layer: 14
   m_Name: EmotionText
   m_TagString: Untagged
@@ -20230,8 +20232,8 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2053879661
+  m_SortingLayer: 18
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
@@ -20350,6 +20352,20 @@ MonoBehaviour:
   - ???!?
   - '!!!!!!'
   _typingInterval: 0.5
+--- !u!114 &8066652143043852909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4405933343858273436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f9e62cc7286ea043b7e02ebb8e0c372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectLayerController
+  _sortingLayerName: UI
+  _orderInLayer: 0
 --- !u!1 &4512711204945311804
 GameObject:
   m_ObjectHideFlags: 0
@@ -20607,7 +20623,7 @@ MonoBehaviour:
   _attackDistance: 0.3
   _attackRadius: 0.5
   _attackComboCount: 0
-  _slashDamage: 500
+  _slashDamage: 25
   _doubleSlashDamage: 75
   _slashEffect: {fileID: 3042519775331041172, guid: 1a3c2ecb0f269ad4095c2651c8462a0e, type: 3}
   _doubleSlashEffect: {fileID: 4306488877223958017, guid: f2b2174306f2a7a4cae5fb635c05c0aa, type: 3}
@@ -20792,7 +20808,8 @@ MonoBehaviour:
   _maxShakeForce: 0.5
   _startZoomAmount: 0.2
   _zoomPerCharge: 0.15
-  _chargeZoomDuration: 0.7
+  _chargeZoomSmoothTime: 0.2
+  _chargeZoomUpdateInterval: 0.02
   _finisherStart:
     m_PersistentCalls:
       m_Calls:
@@ -26157,7 +26174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaknessThreadController
   _boss: {fileID: 0}
   _targetCamera: {fileID: 0}
-  _rotationSpeed: 1.5
+  _rotationSpeed: 20
   _boss1ThreadOffset: {x: 0, y: 1}
 --- !u!114 &8560408500020679105
 MonoBehaviour:

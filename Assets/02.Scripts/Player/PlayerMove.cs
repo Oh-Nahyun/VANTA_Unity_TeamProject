@@ -254,7 +254,10 @@ public class PlayerMove : MonoBehaviour
     {
         if (_isDashing)
             return;
-
+        
+        _dashTween?.Kill();
+        _dashTween = null;
+        
         HitableObject boss =
             FindAnyObjectByType<HitableObject>();
 

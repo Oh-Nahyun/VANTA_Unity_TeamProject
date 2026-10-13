@@ -196,21 +196,21 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
                 return;
             }
             
-            Vector2 direction = new Vector2(-Mathf.Sign(xDifference), 0f);
+            Vector2 direction = new Vector2(-Mathf.Sign(xDifference), 0f).normalized;
             _boss1Movement.MoveInDirection(direction, CurrentPhaseSettings.MoveSpeed);
             return;
         }
 
         if (xDistance > _maxAttackDistance)
         {
-            Vector2 direction = new Vector2(xDifference, yDifference);
+            Vector2 direction = new Vector2(xDifference, yDifference).normalized;
             _boss1Movement.MoveInDirection(direction, CurrentPhaseSettings.MoveSpeed);
             return;
         }
 
         if (yDistance > _yTolerance)
         {
-            Vector2 direction = new Vector2(0f, Mathf.Sign(yDifference));
+            Vector2 direction = new Vector2(0f, Mathf.Sign(yDifference)).normalized;
             _boss1Movement.MoveInDirection(direction, CurrentPhaseSettings.MoveSpeed);
             return;
         }

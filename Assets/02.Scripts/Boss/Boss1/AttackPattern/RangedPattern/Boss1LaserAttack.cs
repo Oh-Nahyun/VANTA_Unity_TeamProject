@@ -192,8 +192,7 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
                 ? Mathf.Clamp01(trackTime / CurrentPhaseSettings.TurnAccelTime)
                 : 1f;
 
-            float turnSpeed = Mathf.Lerp(CurrentPhaseSettings.TurnSpeedStart,
-                                         CurrentPhaseSettings.TurnSpeedMax, accel);
+            float turnSpeed = Mathf.Lerp(CurrentPhaseSettings.TurnSpeedStart, CurrentPhaseSettings.TurnSpeedMax, accel);
 
             float delta = Mathf.DeltaAngle(_currentAngle, GetAngleToPlayer());
 

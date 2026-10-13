@@ -38,6 +38,12 @@ public class PetMove : MonoBehaviour
     [Header("펫의 전투 시작 시 플레이어 추적 거리")]
     [SerializeField] private float _inGameChaseDistance;
 
+    [Header("추적을 멈추는 거리 비율")]
+    [SerializeField] private float _chaseStopDistanceRatio = 0.7f;
+
+    [Header("플레이어를 바라보는 방향을 바꾸지 않는 거리")]
+    [SerializeField] private float _flipDeadZone = 0.05f;
+
     /// <summary>
     /// 펫 클래스
     /// </summary>
@@ -47,6 +53,11 @@ public class PetMove : MonoBehaviour
     /// 펫 이동 시 나타날 먼지 파티클 렌더러
     /// </summary>
     private ParticleSystemRenderer _footStepDustRenderer;
+
+    /// <summary>
+    /// 추적 거리 판정에 사용할 플레이어 콜라이더
+    /// </summary>
+    private Collider2D _playerCollider;
 
     /// <summary>
     /// 펫 스폰 시 이동 전 대기 시간 계산용 변수
@@ -86,6 +97,7 @@ public class PetMove : MonoBehaviour
     private void Awake()
     {
         _pet = GetComponent<Pet>();
+        _playerCollider = _player.GetComponent<Collider2D>();
         _footStepDustRenderer = _footStepDustVFX.GetComponent<ParticleSystemRenderer>();
     }
 
@@ -103,6 +115,9 @@ public class PetMove : MonoBehaviour
         if (!CanMove) return;
 
         _timer += Time.deltaTime;
+        UpdateChaseState();
+        LookAtPlayer();
+
         if (_canChase && _timer >= _timeBeforeRun)
         {
             Chase();
@@ -157,15 +172,13 @@ public class PetMove : MonoBehaviour
         Vector2 direction = _player.transform.position - transform.position;
         direction.Normalize();
 
-        if (direction.x < 0)
+        if (_pet.SpriteRenderer.flipX)
         {
-            _pet.SpriteRenderer.flipX = true;
             dustOffset.x = -_footStepDustOffsetX;
             dustFlip.x = 1f;
         }
         else
         {
-            _pet.SpriteRenderer.flipX = false;
             dustOffset.x = _footStepDustOffsetX;
             dustFlip.x = 0f;
         }
@@ -175,28 +188,33 @@ public class PetMove : MonoBehaviour
         _footStepDustRenderer.flip = dustFlip;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void UpdateChaseState()
     {
-        if (!other.CompareTag("Player"))
-            return;
+        float distance = _pet.CircleCollider2D.Distance(_playerCollider).distance;
 
-        _canChase = false;
+        if (_canChase)
+        {
+            float worldRadius = _pet.CircleCollider2D.bounds.extents.x;
+            float stopDepth = worldRadius * (1f - _chaseStopDistanceRatio);
+
+            if (distance <= -stopDepth)
+            {
+                _canChase = false;
+            }
+        }
+        else if (distance > 0f)
+        {
+            _canChase = true;
+        }
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void LookAtPlayer()
     {
-        if (!other.CompareTag("Player"))
-            return;
+        float distanceX = _player.transform.position.x - transform.position.x;
 
-        _canChase = false;
-    }
+        if (Mathf.Abs(distanceX) < _flipDeadZone) return;
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (!other.CompareTag("Player"))
-            return;
-
-        _canChase = true;
+        _pet.SpriteRenderer.flipX = (distanceX < 0f) ? true : false;
     }
 
     public void PlayFootStepDustParticle()

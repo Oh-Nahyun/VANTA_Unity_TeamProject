@@ -145,7 +145,7 @@ public class Phase1ToPhase2Acting : MonoBehaviour
     {
         //_boss2IntroCinematic.Play(PlayerMoveEnable);
         _playerStatusManager.ApplyFinalSetting();
-        CameraFocusingController.Instance.SlowFocus(transform,0f,1f);
+        CameraFocusingController.Instance.SlowFocus(transform,0f,3f);
         SoundManager.Instance.PlayBGM(_boss2StageBgm);
         
 

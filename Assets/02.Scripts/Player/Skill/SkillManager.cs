@@ -25,7 +25,9 @@ public class SkillManager : MonoBehaviour
     [SerializeField] private Animator _animator;
     [Header("스킬 사용시 이펙트")]
     [SerializeField] private GameObject _skillUseEffect;
-
+    [Header("Skill Count Text")]
+    [SerializeField]
+    private SkillCountText _skillCountText;
     [Header("스킬 사용중 타임 슬로우정도")]
     [SerializeField]
     private float _timeSlowAmount = 0.2f;
@@ -53,6 +55,7 @@ public class SkillManager : MonoBehaviour
     
     private Tween _skillSequence;
     private bool _isSkillUse;
+    public bool IsSkillUse=>_isSkillUse;
 
     private void Awake()
     {
@@ -125,13 +128,23 @@ public class SkillManager : MonoBehaviour
                 AutoSkillUseStart,
                 true
             );
-        
+ 
+        HitableObject hitableObject =
+            FindAnyObjectByType<HitableObject>();
+
+        if (hitableObject != null)
+        {
+            _skillCountText.StartCount(hitableObject.gameObject,
+                _skillTime
+            );
+        }
         Shader.SetGlobalFloat(
             "_PetCount",
             _skillStack
         );
         
-     
+        SoundManager.Instance.StartSlow();
+
 
         _playerMove.DashToReverseSide();
 
@@ -216,6 +229,9 @@ public class SkillManager : MonoBehaviour
 
     private void StartDash()
     {
+        _skillCountText.StopCount();
+
+        
         CameraFocusingController.Instance.ReturnCamera();
 
         List<SkillIndicator> _choicedSequnce =
@@ -242,7 +258,8 @@ public class SkillManager : MonoBehaviour
     {
         _skillSequence?.Kill();
         _skillSequence = null;
-        _isSkillUse = false;
+        
+        _skillCountText.StopCount();
 
         _weaknessThreadController
             .EndWeaknessThread();
@@ -269,12 +286,14 @@ public class SkillManager : MonoBehaviour
         _playerAttack.enabled = true;
         _playerMove.enabled = true;
         
-        DOVirtual.DelayedCall(1f, () =>
+        DOVirtual.DelayedCall(2f, () =>
         {
             _player.OnPlayerHittable();
+            _isSkillUse = false;
+
         });
         
-     
+        SoundManager.Instance.StopSlow();
         Time.timeScale = 1f;
     }
 

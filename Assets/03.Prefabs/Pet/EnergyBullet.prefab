@@ -338,13 +338,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PetEnergyBullet
   _bezierMoveSpeed: 1
   _homingMoveSpeed: 5
-  _damage: 10
+  _damage: 6
   _energyBulletHitVFXPrefab: {fileID: 3046471801674820453, guid: d2a8a612875048088a26f85a3ed8f341, type: 3}
   _energyBulletHitVFXLifetime: 1
-  AttackTarget: {fileID: 0}
-  BezierCurve: {fileID: 0}
   _energyBulletFlySound: {fileID: 8300000, guid: 51e86c945daf2c642abc972e022b948b, type: 3}
   _energyBulletHitSound: {fileID: 8300000, guid: f8b7230490c56004dbc3e25bad2c2012, type: 3}
+  AttackTarget: {fileID: 0}
+  BezierCurve: {fileID: 0}
+  IsPlayFlySound: 0
 --- !u!114 &7968656464005603110
 MonoBehaviour:
   m_ObjectHideFlags: 0

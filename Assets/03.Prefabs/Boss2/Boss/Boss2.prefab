@@ -336,6 +336,7 @@ Transform:
   - {fileID: 967571946168592033}
   - {fileID: 6596725298612930207}
   - {fileID: 7110092431829323354}
+  - {fileID: 1169494874292604404}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1131493570383196705
@@ -427,6 +428,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BossHealthUI, Assembly-CSharp
+        m_MethodName: PlayFadeOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4827965982157604352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,6 +472,9 @@ MonoBehaviour:
   _windupState: Boss2ComboWindup
   _windupTime: 0.5833
   _firstHitStartTime: 0.3333
+  _showComboIndicator: 1
+  _comboIndicatorAngle: 75
+  _comboIndicatorRadiusScale: 1
   _cameraImpulse: {fileID: 7095277919416841659}
   _slashSound: {fileID: 7959016645909478120}
   _smashStateName: Boss2SmashAttack
@@ -544,6 +560,9 @@ MonoBehaviour:
   _windupState: Boss2ComboWindup
   _windupTime: 0.5833
   _firstHitStartTime: 0.3333
+  _showComboIndicator: 1
+  _comboIndicatorAngle: 75
+  _comboIndicatorRadiusScale: 1
   _cameraImpulse: {fileID: 0}
   _slashSound: {fileID: 0}
   _instantKillStartState: StartInstantKillSkill
@@ -606,7 +625,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &6024146628359518789
 BoxCollider2D:
@@ -775,7 +794,7 @@ MonoBehaviour:
   - 0.6
   - 0.4
   - 0.2
-  _skillHitThreshold: 100
+  _skillHitThreshold: 150
   _instantKillWeightPerHit: 1
   _instantKillWeight: 0
   _maxInstantKillWeight: 3
@@ -943,6 +962,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5379fcdbb5b06314b98c2c8213e1ebc0, type: 3}
   - {fileID: -276728812324164698, guid: fa84e053f559fe14a8b7ae71773ed8de, type: 3}
   _crouchDuration: 3.5
+  _crouchLandSound: {fileID: 8300000, guid: 40ff7792860c9af489ed3610a0275ed6, type: 3}
+  _crouchLandVolume: 1
   _eyesClosedSprite: {fileID: 3156895337291164288, guid: fa84e053f559fe14a8b7ae71773ed8de, type: 3}
   _vanishStartTime: 0.25
   _clipLength: 1.5
@@ -980,16 +1001,22 @@ MonoBehaviour:
   _smokeSortingOffset: 5
   _eyelidDelay: 0.6
   _eyelidDuration: 0.35
+  _endingMusic: {fileID: 8300000, guid: 0f773d3dfdec8a344bd3878b8edf0083, type: 3}
+  _endingMusicDelay: 0
+  _endingMusicVolume: 1
+  _loopEndingMusic: 0
+  _stopStageBgmOnEnding: 1
+  _endingMusicFadeOut: 0
   _onEndingFinished:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameResultUI, Assembly-CSharp
         m_MethodName: LoadGameEndingScene
-        m_Mode: 0
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -997,7 +1024,19 @@ MonoBehaviour:
         m_CallState: 2
   _onEnding:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BossHealthUI, Assembly-CSharp
+        m_MethodName: PlayFadeOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2793592831111597014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1016,6 +1055,8 @@ MonoBehaviour:
   _lineFillColor: {r: 1, g: 1, b: 1, a: 0.7}
   _circleBorderSprite: {fileID: 21300000, guid: a74d9a0f71b6bdc4a97b79df5276010e, type: 3}
   _circleFillSprite: {fileID: 21300000, guid: 6349150a381b29f469e4e9027dc4674c, type: 3}
+  _fanAreaAlpha: 0.35
+  _fanBorderWidth: 0.04
   _borderColor: {r: 1, g: 1, b: 1, a: 0.5}
   _fillColor: {r: 0.46, g: 0, b: 0, a: 0.53}
   _sortingLayer: Zone
@@ -1037,6 +1078,11 @@ MonoBehaviour:
   _offset: {x: 0, y: 0.3}
   _scale: 1
   _minInterval: 0.05
+  _sparkSounds:
+  - {fileID: 8300000, guid: d6adee60bfa9188468b811b2558bc2ad, type: 3}
+  - {fileID: 8300000, guid: 03b2d690c85c4594d9815884eb70f4e5, type: 3}
+  - {fileID: 8300000, guid: 8d8be3ea1fe9dec4d8b5349d43afc8ec, type: 3}
+  _sparkSoundVolume: 1
 --- !u!1 &4421348120962838745
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,6 +1428,84 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundGenerator
   _sound: {fileID: 8300000, guid: d34bd3df7d789fa40805f6d4030d528e, type: 3}
+--- !u!1 &8273007147205331834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1169494874292604404}
+  - component: {fileID: 6564262250317810558}
+  m_Layer: 21
+  m_Name: WallBlocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1169494874292604404
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8273007147205331834}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1073874748574327932}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &6564262250317810558
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8273007147205331834}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294966783
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.033337772, y: -0.31814408}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.60920185, y: 0.3312581}
+  m_EdgeRadius: 0
 --- !u!1001 &386329663398757409
 PrefabInstance:
   m_ObjectHideFlags: 0

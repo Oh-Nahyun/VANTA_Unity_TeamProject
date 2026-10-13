@@ -88639,14 +88639,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrystalPrison
   _skillDuration: 5
-  _damage: 20
+  _damage: 50
   _breakReadyDuration: 0.4
-  AttackTarget: {fileID: 0}
   _crystalPrisonCreateSound: {fileID: 8300000, guid: 6f2df3c6ac79e284694dc28d175aaf01, type: 3}
   _crystalPrisonBindSound: {fileID: 8300000, guid: 15af0913d69040044bb4a9e081f2ef42, type: 3}
   _crystalPrisonHoldSound: {fileID: 8300000, guid: 93612e539468ea84592b4457d7c456d0, type: 3}
   _crystalPrisonBreakReadySound: {fileID: 8300000, guid: dbc715a0fd8dbbe4b88bb70ffcd0ba7b, type: 3}
   _crystalPrisonBreakSound: {fileID: 8300000, guid: aa731ef714390744cbd2684d99485866, type: 3}
+  _crystalPrisonHoldSoundFadeDuration: 0.3
+  AttackTarget: {fileID: 0}
 --- !u!1 &6147177306824819372
 GameObject:
   m_ObjectHideFlags: 0

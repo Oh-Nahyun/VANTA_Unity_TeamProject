@@ -396,6 +396,11 @@ MonoBehaviour:
   - {fileID: 597178599013816902}
   _slashRoot: {fileID: 9050388020629727087}
   _slashImpulse: {fileID: 523558095047765910}
+  _slashSounds:
+  - {fileID: 8300000, guid: d34bd3df7d789fa40805f6d4030d528e, type: 3}
+  - {fileID: 8300000, guid: cc9a53bba26e68145bc2141250ffe780, type: 3}
+  _slashSoundVolume: 1.2
+  _slashSoundPitch: 0.8
   _flashOverlay: {fileID: 4836591214625761302}
   _blackOverlay: {fileID: 3406270648519126468}
   _introCamera: {fileID: 2135336110864364307}
@@ -405,6 +410,8 @@ MonoBehaviour:
   _gasStartBurst: 0.8
   _gasStartBurstSpeedScale: 1.3
   _gasAlphaScale: 0.6
+  _gasSound: {fileID: 8300000, guid: 1cb769e58370ad344bdb586713e4107f, type: 3}
+  _gasSoundVolume: 0.8
   _darkIntensityScale: 0.25
   _faceOffset: {x: 0.03, y: 0.3}
   _faceOrthographicSize: 1.1
@@ -457,7 +464,6 @@ MonoBehaviour:
   _showcaseFocusHeight: 1
   _nameDelay: 1
   _returnToPlayerTime: 6.5
-  _returnDuration: 2
   _gasAmount: 0
   _darkness: 0
   _cloudAlpha: 0

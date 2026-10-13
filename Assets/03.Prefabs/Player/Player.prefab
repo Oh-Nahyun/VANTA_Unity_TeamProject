@@ -9917,10 +9917,11 @@ MonoBehaviour:
   _player: {fileID: 5284014296633525175}
   _animator: {fileID: 3366168568141648262}
   _skillUseEffect: {fileID: 736861416815842658}
+  _skillCountText: {fileID: 0}
   _timeSlowAmount: 0.2
   _skillStack: 0
   _maxSkillStack: 5
-  _countForSkillStack: 1
+  _countForSkillStack: 5
   _currentHitCount: 0
   _skillTime: 10
 --- !u!114 &4495319775031833695
@@ -10033,8 +10034,9 @@ MonoBehaviour:
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 2162880
-  _dashDamage: 100
-  _dashHitRadius: 0.5
+  _dashDamage: 150
+  _criticalDamage: 450
+  _dashHitRadius: 0.2
   _weaknessAngleTolerance: 10
   _rigidbody: {fileID: 4102109235389495285}
   _animator: {fileID: 3366168568141648262}
@@ -10045,7 +10047,6 @@ MonoBehaviour:
   _skillDashEndVfxPrefab: {fileID: 5669246471909640947, guid: 361708c4e390ab74c95bbe68453e8fce, type: 3}
   _skillDashAttackVfxPrefab: {fileID: 4306488877223958017, guid: f2b2174306f2a7a4cae5fb635c05c0aa, type: 3}
   _skillDashAttackCriticalVfxPrefab: {fileID: 4306488877223958017, guid: bdfa5128a4ae8e547afe61fb1b8aa1bd, type: 3}
-  _weakHitVfx: {fileID: 0}
   _weaknessAttackSuccessAction:
     m_PersistentCalls:
       m_Calls:
@@ -20160,6 +20161,7 @@ GameObject:
   - component: {fileID: 1854911317693725667}
   - component: {fileID: 4263086800024855338}
   - component: {fileID: 7793714115845589175}
+  - component: {fileID: 8066652143043852909}
   m_Layer: 14
   m_Name: EmotionText
   m_TagString: Untagged
@@ -20211,7 +20213,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5595019553198224478, guid: a6434b1d95df6914eadbd8e6424f650c, type: 2}
+  - {fileID: 7880990028077831163, guid: 613e47e0ec640e245bd5fbb61c0e977d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20230,8 +20232,8 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2053879661
+  m_SortingLayer: 18
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
@@ -20257,8 +20259,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a6434b1d95df6914eadbd8e6424f650c, type: 2}
-  m_sharedMaterial: {fileID: 5595019553198224478, guid: a6434b1d95df6914eadbd8e6424f650c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 613e47e0ec640e245bd5fbb61c0e977d, type: 2}
+  m_sharedMaterial: {fileID: 7880990028077831163, guid: 613e47e0ec640e245bd5fbb61c0e977d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -20350,6 +20352,20 @@ MonoBehaviour:
   - ???!?
   - '!!!!!!'
   _typingInterval: 0.5
+--- !u!114 &8066652143043852909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4405933343858273436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f9e62cc7286ea043b7e02ebb8e0c372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectLayerController
+  _sortingLayerName: UI
+  _orderInLayer: 0
 --- !u!1 &4512711204945311804
 GameObject:
   m_ObjectHideFlags: 0
@@ -20498,21 +20514,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _health: 2
   _hitCoolTime: 4
-  _hitVfx: {fileID: 2955623459812423943, guid: e6f4b5929f28cae4994fbb10fadead7a, type: 3}
-  _deathVfx: {fileID: 2955623459812423943, guid: 268983da5ec965d468fa4fde6b11266d, type: 3}
   _damagedSlowAmount: 0.15
   _damagedSlowInDuration: 1.5
   _damagedSlowHoldDuration: 0.15
   _damagedSlowRecoverDuration: 1
+  _hitVfx: {fileID: 2955623459812423943, guid: e6f4b5929f28cae4994fbb10fadead7a, type: 3}
+  _deathVfx: {fileID: 2955623459812423943, guid: 268983da5ec965d468fa4fde6b11266d, type: 3}
   _deathLight: {fileID: 3588000712453903779}
   _deathLightRadius: 1
   _deathLightShrinkDuration: 0.7
+  _skillManager: {fileID: 4902766636836062051}
   _deathStartEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
         m_MethodName: StopBGM
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Pet, Assembly-CSharp
+        m_MethodName: Death
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20539,7 +20568,19 @@ MonoBehaviour:
         m_CallState: 2
   _playerFadeOutEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BossHealthUI, Assembly-CSharp
+        m_MethodName: PlayFadeOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6093219973355731838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20582,8 +20623,8 @@ MonoBehaviour:
   _attackDistance: 0.3
   _attackRadius: 0.5
   _attackComboCount: 0
-  _slashDamage: 500
-  _doubleSlashDamage: 1000
+  _slashDamage: 25
+  _doubleSlashDamage: 75
   _slashEffect: {fileID: 3042519775331041172, guid: 1a3c2ecb0f269ad4095c2651c8462a0e, type: 3}
   _doubleSlashEffect: {fileID: 4306488877223958017, guid: f2b2174306f2a7a4cae5fb635c05c0aa, type: 3}
   _skillIndicatorController: {fileID: 4399322351995847099}
@@ -20677,11 +20718,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAvoid
   _slowAmount: 0.2
+  _playerAvoidSound: {fileID: 8300000, guid: 03a6c8770cdf7a749a558d8290581084, type: 3}
   _avoidZoomAmount: 1.5
   _avoidDuration: 2
   _dashDistance: 2
   _avoidDashDuration: 0.5
   _attackPassDistance: 1.5
+  _avoidDashDamage: 150
   _focusScreenController: {fileID: 1332611649402532543}
 --- !u!114 &1527369805069074017
 MonoBehaviour:
@@ -20756,7 +20799,7 @@ MonoBehaviour:
   _weaknessThreadController: {fileID: 4868506792254174702}
   _chargingObject: {fileID: 6473133303609106024}
   _chargingDuration: 5
-  _minChargeCount: 2
+  _minChargeCount: 5
   _maxChargeCount: 10
   _chargeScaleDuration: 0.08
   _chargingShrinkDuration: 0.2
@@ -20765,7 +20808,8 @@ MonoBehaviour:
   _maxShakeForce: 0.5
   _startZoomAmount: 0.2
   _zoomPerCharge: 0.15
-  _chargeZoomDuration: 0.7
+  _chargeZoomSmoothTime: 0.2
+  _chargeZoomUpdateInterval: 0.02
   _finisherStart:
     m_PersistentCalls:
       m_Calls:
@@ -20936,7 +20980,19 @@ MonoBehaviour:
         m_CallState: 2
   _playerBattleStartEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PetMove, Assembly-CSharp
+        m_MethodName: ChangeChaseDistanceWhenInGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3727620830820517672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26118,7 +26174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaknessThreadController
   _boss: {fileID: 0}
   _targetCamera: {fileID: 0}
-  _rotationSpeed: 1.5
+  _rotationSpeed: 20
   _boss1ThreadOffset: {x: 0, y: 1}
 --- !u!114 &8560408500020679105
 MonoBehaviour:
@@ -26137,7 +26193,7 @@ MonoBehaviour:
   _fadeInDuration: 0.5
   _fadeOutDuration: 0.25
   _normalGlowIntensity: 0.3
-  _spawnGlowIntensity: 6
+  _spawnGlowIntensity: 8
   _glowFlashInDuration: 0.08
   _glowFlashOutDuration: 0.4
   _startCurveFrequency: 20

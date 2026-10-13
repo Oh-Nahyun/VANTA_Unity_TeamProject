@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 /// 광역기가 맵에 뿌리는 공격 더미.
 ///   1. 테두리(Border)는 처음부터 보이고, 마스크가 커지며 안쪽(Fill)을 가운데부터 드러낸다 (예고)
 ///   2. 다 드러나면 인디케이터를 끄고 폭발 애니메이션(3종 중 하나)을 재생한다
-///   3. 클립의 Strike 이벤트에서 판정을 켜고, Finish 이벤트에서 사라진다
+///   3. 클립의 Strike 이벤트에서 판정을 켜고, 폭발 본체가 사라지는 EndStrike 이벤트에서 판정을 끈 뒤, Finish 이벤트에서 사라진다
 /// 판정·폭발 크기는 _radius 에 맞춰지고, 인디케이터(Fill · Border)는 프리팹에서 조절한 크기를 그대로 쓴다.
 /// Animator · SpriteRenderer · CircleCollider2D 는 이 스크립트와 같은 오브젝트에 있어야
 /// 애니메이션 이벤트와 트리거 메시지를 받을 수 있다.
@@ -48,11 +48,35 @@ public class Boss2AreaStrike : MonoBehaviour
 
     private const string RandomStartParameter = "RandomStart";
 
+    [Header("사운드")]
+    [Tooltip("폭발 그림(RandomStart 1·2·3)마다 짝지은 소리. 순서대로 Sword Attack 1·2·3")]
+    [SerializeField] private AudioClip[] _strikeSounds;
+    [Range(0f, 1f)]
+    [SerializeField] private float _strikeSoundVolume = 1f;
+    [Tooltip("여러 폭발이 거의 동시에 터질 때 소리가 겹쳐 너무 커지지 않게 하는 최소 간격(초, 실시간). 모든 폭발체가 함께 쓴다")]
+    [SerializeField] private float _strikeSoundMinInterval = 0.04f;
+
+    [Header("검흔 빛")]
+    [Tooltip("폭발 스프라이트를 그대로 따라 그리는 빛 레이어 (가산 머티리얼 M_Boss2SlashGlow). 비우면 빛을 쓰지 않는다")]
+    [SerializeField] private SpriteRenderer _slashGlow;
+    [Tooltip("Strike 순간의 빛 세기 (빛 레이어 알파). 머티리얼의 HDR 색이 실제 밝기를 정한다")]
+    [Range(0f, 1f)]
+    [SerializeField] private float _glowPeak = 1f;
+    [Tooltip("Strike 뒤 빛이 다 사라질 때까지 (초)")]
+    [SerializeField] private float _glowFadeDuration = 0.35f;
+
     // 더미끼리 마스크가 섞이지 않게 묶는 그룹. 그룹 안의 스프라이트는 이 그룹의 정렬 레이어로 그려진다.
     private SortingGroup _sortingGroup;
     private Animator _animator;
     private CircleCollider2D _collider2D;
     [SerializeField] private ParticleSystem _explosionEffect;
+
+    private SpriteRenderer _renderer;
+    // StartStrike 에서 고른 폭발 그림 번호 (RandomStart 값, 1부터)
+    private int _strikeVariant;
+    private static float _lastStrikeSoundTime = float.NegativeInfinity;
+    // Strike 뒤 흐른 시간. 0 보다 작으면 빛이 꺼져 있다.
+    private float _glowTime = -1f;
 
     private float _elapsedTime = 0f;
     private float _indicatorEndScale;
@@ -75,6 +99,11 @@ public class Boss2AreaStrike : MonoBehaviour
 
         _animator = GetComponent<Animator>();
         _sortingGroup = GetComponent<SortingGroup>();
+        _renderer = GetComponent<SpriteRenderer>();
+        if (_slashGlow != null)
+        {
+            _slashGlow.enabled = false;
+        }
 
         _collider2D = GetComponent<CircleCollider2D>();
         _collider2D.enabled = false;
@@ -124,7 +153,8 @@ public class Boss2AreaStrike : MonoBehaviour
             _sortingGroup.sortingLayerName = _strikeSortingLayer;
         }
 
-        _animator.SetInteger(RandomStartParameter, Random.Range(_strikeVariantMin, _strikeVariantMax + 1));
+        _strikeVariant = Random.Range(_strikeVariantMin, _strikeVariantMax + 1);
+        _animator.SetInteger(RandomStartParameter, _strikeVariant);
         Destroy(gameObject, _maxLifeTime);
     }
 
@@ -163,6 +193,64 @@ public class Boss2AreaStrike : MonoBehaviour
         {
             _explosionEffect.Play();
         }
+
+        PlayStrikeSound();
+
+        // 검흔이 가장 밝게 빛났다가 빠르게 사그라든다.
+        if (_slashGlow != null)
+        {
+            _glowTime = 0f;
+            _slashGlow.enabled = true;
+            SyncGlow();
+        }
+    }
+
+    // 지금 폭발 그림에 짝지은 소리를 낸다.
+    private void PlayStrikeSound()
+    {
+        int index = _strikeVariant - 1;
+        if (_strikeSounds == null || index < 0 || index >= _strikeSounds.Length || SoundManager.Instance == null)
+            return;
+        if (Time.realtimeSinceStartup - _lastStrikeSoundTime < _strikeSoundMinInterval)
+            return;
+
+        _lastStrikeSoundTime = Time.realtimeSinceStartup;
+        SoundManager.Instance.PlayEffectSound(_strikeSounds[index], _strikeSoundVolume);
+    }
+
+    // 애니메이션이 스프라이트를 바꾼 뒤(LateUpdate) 빛 레이어가 같은 그림을 따라 그린다.
+    private void LateUpdate()
+    {
+        if (_slashGlow == null || _glowTime < 0f)
+            return;
+
+        _glowTime += Time.deltaTime;
+        if (_glowTime >= _glowFadeDuration)
+        {
+            _glowTime = -1f;
+            _slashGlow.enabled = false;
+            return;
+        }
+        SyncGlow();
+    }
+
+    private void SyncGlow()
+    {
+        _slashGlow.sprite = _renderer.sprite;
+        _slashGlow.flipX = _renderer.flipX;
+        _slashGlow.flipY = _renderer.flipY;
+
+        // 처음엔 버티다가 끝으로 갈수록 빠르게 줄어든다.
+        float t = Mathf.Clamp01(_glowTime / Mathf.Max(_glowFadeDuration, 0.0001f));
+        Color color = _slashGlow.color;
+        color.a = _glowPeak * (1f - t * t);
+        _slashGlow.color = color;
+    }
+
+    // 애니메이션 이벤트: 폭발 본체가 사라지는 프레임. 남은 불똥만 보이는 동안에는 맞지 않도록 판정을 끈다.
+    public void EndStrike()
+    {
+        _collider2D.enabled = false;
     }
 
     // 애니메이션 이벤트: 마지막 프레임

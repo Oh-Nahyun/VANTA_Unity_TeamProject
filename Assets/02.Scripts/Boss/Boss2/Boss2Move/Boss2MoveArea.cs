@@ -77,7 +77,7 @@ public class Boss2MoveArea : MonoBehaviour
     /// target 에서 distance 만큼 떨어진 자리 중 맵 안이면서 벽과 겹치지 않는 첫 자리를 돌려준다.
     /// 위 → 아래 → 왼쪽 → 오른쪽 → 대각선 순으로 시도하고, 각 방향에서 막히면 거리를 줄여 다시 시도한다.
     /// 그래도 막히면 거리를 늘려(최대 _maxDistanceRatio 배) 맵 안쪽으로 비켜 선다.
-    /// 모두 막히면 대상 자리(플레이어는 맵 안에 있으므로 항상 갈 수 있는 곳)를 돌려준다.
+    /// 모두 막히면 몸통이 맵 안에 들어오는 대상 자리 또는 지금 자리를 돌려준다.
     /// </summary>
     public Vector2 ResolveAppearPosition(Vector2 target, float distance)
     {
@@ -98,8 +98,8 @@ public class Boss2MoveArea : MonoBehaviour
             for (int step = 0; step <= ShrinkSteps; step++)
             {
                 float ratio = Mathf.Lerp(1f, _minDistanceRatio, (float)step / ShrinkSteps);
-                if (TryCandidate(target, direction, distance * ratio, visualSize, out Vector2 visualCenter))
-                    return visualCenter - visualOffset;
+                if (TryCandidate(target, direction, distance * ratio, visualOffset, visualSize, out Vector2 position))
+                    return position;
             }
         }
 
@@ -109,19 +109,30 @@ public class Boss2MoveArea : MonoBehaviour
             for (int step = 1; step <= ExtendSteps; step++)
             {
                 float ratio = Mathf.Lerp(1f, _maxDistanceRatio, (float)step / ExtendSteps);
-                if (TryCandidate(target, direction, distance * ratio, visualSize, out Vector2 visualCenter))
-                    return visualCenter - visualOffset;
+                if (TryCandidate(target, direction, distance * ratio, visualOffset, visualSize, out Vector2 position))
+                    return position;
             }
         }
 
-        // 모두 막히면 그림 중심을 대상 자리에 둔다. (플레이어는 맵 안에 있으므로 항상 갈 수 있는 곳)
-        return target - visualOffset;
+        // 모두 막히면 몸통(발)이 맵 안에 들어오는 자리를 고른다: 그림 중심을 대상 자리에 둔 곳 → 대상 자리 → 지금 자리.
+        // 몸통이 맵 밖에 놓이면 벽 충돌 콜라이더(WallBlocker)가 벽 바깥에 걸려 안으로 돌아오지 못한다.
+        Vector2 visualOnTarget = target - visualOffset;
+        if (IsValidPosition(visualOnTarget))
+            return visualOnTarget;
+        if (IsValidPosition(target))
+            return target;
+        if (IsValidPosition(transform.position))
+            return transform.position;
+        return visualOnTarget;
     }
 
-    private bool TryCandidate(Vector2 target, Vector2 direction, float distance, Vector2 visualSize, out Vector2 visualCenter)
+    // 그림 박스가 맵 안이고, 그때의 보스 피벗 자리에서 몸통(발 포함)도 맵 안이어야 쓸 수 있는 자리다.
+    // 그림이 피벗에서 멀리 그려지는 공격(회전베기)은 그림만 보면 발이 벽 밖에 놓일 수 있다.
+    private bool TryCandidate(Vector2 target, Vector2 direction, float distance, Vector2 visualOffset, Vector2 visualSize, out Vector2 position)
     {
-        visualCenter = target + direction * distance;
-        return IsValidBox(visualCenter, visualSize);
+        Vector2 visualCenter = target + direction * distance;
+        position = visualCenter - visualOffset;
+        return IsValidBox(visualCenter, visualSize) && IsValidPosition(position);
     }
 
     // 보스 피벗이 position 에 있을 때 몸통이 맵 안에 다 들어오고 장애물과 겹치지 않는지

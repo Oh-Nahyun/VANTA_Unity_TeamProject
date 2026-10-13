@@ -112,6 +112,7 @@ public class PlayerStatusManager : MonoBehaviour
             return;
         Cursor.visible = false;
 
+        SoundManager.Instance.StopBGM();
         _isStart = true;
         DOVirtual.DelayedCall(2.5f, () =>
         {

@@ -3304,7 +3304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8a5219359263a489d250db1b9bca3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossLife
-  _maxHealth: 3000
+  _maxHealth: 5000
   _phase2HealthPercent: 0.4
 --- !u!114 &7103835189215790258
 MonoBehaviour:
@@ -3318,7 +3318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d2ea75177a010468f395448c928f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1Movement
-  _normalChaseSpeed: 1.2
+  _normalChaseSpeed: 1
   _aggressiveChaseSpeed: 4
   _stopDistance: 2.5
   _yTolerance: 0.2
@@ -3426,15 +3426,15 @@ MonoBehaviour:
   _playerXNear: 1.4
   _playerYNear: 0.8
   _distanceThreshold: 4.5
-  _meleeWeightBonus: 7
+  _meleeWeightBonus: 5
   _rangedWeightBonus: 5
-  _rangedMissBonusAmount: 2
-  _maxRangedMissBonus: 6
+  _rangedMissBonusAmount: 3
+  _maxRangedMissBonus: 9
   _jumpBonusStartTime: 3
   _jumpBonusPerSecond: 2
   _maxJumpBonus: 10
-  _jumpMissBonusAmount: 2
-  _maxJumpMissBonus: 8
+  _jumpMissBonusAmount: 4
+  _maxJumpMissBonus: 12
 --- !u!114 &2582459974778337398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3546,6 +3546,8 @@ MonoBehaviour:
   _keepTurnDirectionAngle: 150
   _catchUpStartAngle: 45
   _catchUpMultiplier: 5
+  _reverseDelay: 0.3
+  _reverseMinAngle: 2
 --- !u!114 &9165167924702793645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3559,6 +3561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1MeleePattern
   _weight: 10
+  _maxStartDistance: 3.5
   _meleeAttacks:
   - _attackBehaviour: {fileID: 3060184153963347236}
     _weight: 10
@@ -3588,27 +3591,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss1ClawAttack
   _boss1Movement: {fileID: 7103835189215790258}
   _maxPositioningTime: 0.5
+  _maxApproachTime: 2
   _lungeStartTime: 0.15
   _lungeEndTime: 0.33
   _maxLungeDistance: 0.6
-  _yTrackSpeed: 2
+  _yTrackSpeed: 1.5
   _yTrackEndTime: 0.2
   _minFaceDistance: 0.3
   _predictTime: 0.4
   _maxPredictDistance: 1.2
   _minAttackDistance: 1.4
   _maxAttackDistance: 2.5
-  _yTolerance: 0.1
+  _yTolerance: 0.2
   _clawHitBox: {fileID: 5818488566624348837}
   _telegraphFlash: {fileID: 5915306269748748176}
   _animator: {fileID: 192520389527177166}
   _phase1Settings:
-    _moveSpeed: 7
-    _telegraphDuration: 0.05
+    _moveSpeed: 1.5
+    _telegraphDuration: 0.15
     _recoveryDuration: 0.05
   _phase2Settings:
-    _moveSpeed: 10
-    _telegraphDuration: 0.05
+    _moveSpeed: 3
+    _telegraphDuration: 0.1
     _recoveryDuration: 0.05
   _clawImpulseSource: {fileID: 9204188410883197437}
   _impulseForce: 0.35
@@ -3626,6 +3630,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss1SpitAttack
   _boss1Movement: {fileID: 7103835189215790258}
   _maxPositioningTime: 0.5
+  _maxApproachTime: 2
   _minFaceDistance: 0.3
   _minAttackDistance: 1.2
   _maxAttackDistance: 2.5
@@ -3634,11 +3639,11 @@ MonoBehaviour:
   _telegraphFlash: {fileID: 5332121018260461910}
   _animator: {fileID: 192520389527177166}
   _phase1Settings:
-    _moveSpeed: 7
+    _moveSpeed: 1.5
     _telegraphDuration: 0.2
     _recoveryDuration: 0.1
   _phase2Settings:
-    _moveSpeed: 10
+    _moveSpeed: 3
     _telegraphDuration: 0.1
     _recoveryDuration: 0.1
 --- !u!114 &2681289112121689932
@@ -3676,7 +3681,19 @@ MonoBehaviour:
   _landLightDuration: 0.3
   _onJumpLanded:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BossHealthUI, Assembly-CSharp
+        m_MethodName: PlayLandingImpact
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _landLight: {fileID: 8729516232723208802}
   _landImpulseSource: {fileID: 6134532805927488404}
   _visualPivot: {fileID: 9210076179707630864}
@@ -3746,7 +3763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss1DeathController
   _boss2Intro: {fileID: 0}
   _collapseImpulseForce: 0.2
-  _collapseWaitDuration: 1.5
+  _collapseWaitDuration: 19
   _explosionDuration: 2.4
   _explosionImpactTime: 0.14
   _explosionImpulseSource: {fileID: 7153416756728420391}
@@ -3773,10 +3790,58 @@ MonoBehaviour:
   _boss1Shadow: {fileID: 1443849978656167588}
   _onStartMove:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: StopBGM
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onDown:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: StopBGMImmediate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Phase1ToPhase2Acting, Assembly-CSharp
+        m_MethodName: StartPhaseChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BossHealthUI, Assembly-CSharp
+        m_MethodName: PlayFadeOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _animator: {fileID: 192520389527177166}
 --- !u!114 &301913952616877973
 MonoBehaviour:

@@ -5,7 +5,8 @@ public class PlayerAvoid : MonoBehaviour
 {
     [Header("타임슬로우 량")]
     [SerializeField] private float _slowAmount = 0.2f;
-
+    [Header("회피기 사용할때 소리")]
+    [SerializeField] private AudioClip _playerAvoidSound;
     [Header("회피기 사용할때 줌 량")]
     [SerializeField] private float _avoidZoomAmount = 1.5f;
 
@@ -20,7 +21,8 @@ public class PlayerAvoid : MonoBehaviour
 
     [Header("회피 공격 관통 거리")]
     [SerializeField] private float _attackPassDistance = 1.5f;
-
+    [Header("회피 공격 데미지 시간")]
+    [SerializeField] private float _avoidDashDamage = 300f;
     [Header("Focus")]
     [SerializeField] private SkillFocusScreenController _focusScreenController;
 
@@ -72,14 +74,6 @@ public class PlayerAvoid : MonoBehaviour
     {
         CheckInputSuccess();
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            StartAvoidInteraction();
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            StartAvoidAttackInteraction();
-        }
     }
 
     private void CheckInputSuccess()
@@ -97,6 +91,12 @@ public class PlayerAvoid : MonoBehaviour
  
     public void StartAvoidInteraction(GameObject caller = null)
     {
+        if (caller == null)
+            return;
+        
+        SoundManager.Instance.PlayEffectSound(_playerAvoidSound);
+        caller.transform.position = transform.position + Vector3.up * 0.1f;
+
         _avoidTimer?.Kill();
         _avoidMoveTween?.Kill();
         _playerMove.StopPlayerMovement();
@@ -142,6 +142,12 @@ public class PlayerAvoid : MonoBehaviour
 
     public void StartAvoidAttackInteraction(GameObject caller = null)
     {
+        if (caller == null)
+            return;
+        SoundManager.Instance.PlayEffectSound(_playerAvoidSound);
+
+        caller.transform.position = transform.position + Vector3.up * 0.1f;
+        
         _avoidTimer?.Kill();
         _avoidMoveTween?.Kill();
         _playerMove.StopPlayerMovement();
@@ -334,11 +340,19 @@ public class PlayerAvoid : MonoBehaviour
             _focusScreenController
                 .EndFocusScreenSetting();
         }
-
-        _skillAttack.SingleDash(
-            targetPosition,
-            AttackToBossComplete
-        );
+        DOVirtual.DelayedCall(0.3f, () =>
+        {
+            _skillAttack.SingleDash(
+                targetPosition,
+                AttackToBossComplete
+            );
+        });
+        
+        DOVirtual.DelayedCall(2f, () =>
+        {
+            boss.ExecuteHitEvent(_avoidDashDamage, DamageIndicatorType.Critical);
+        });
+       
     }
 
     private void AttackToBossComplete()

@@ -23,7 +23,18 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private float _masterVolume = 1f;
     [SerializeField] private float _bgmVolume = 1f;
     [SerializeField] private float _effectVolume = 1f;
+    [Header("BGM Slow")]
+    [SerializeField, Range(0.1f, 1f)]
+    private float _slowPitch = 0.5f;
 
+    [SerializeField, Min(0f)]
+    private float _slowDuration = 0.3f;
+
+    [SerializeField, Min(0f)]
+    private float _restoreDuration = 0.3f;
+
+    private Tween _bgmSlowTween;
+    private float _currentBgmPitch = 1f;
     private Tween _bgmFadeTween;
 
     private readonly Dictionary<AudioSource, float>
@@ -521,7 +532,60 @@ public class SoundManager : MonoBehaviour
             _effectVolume *
             _masterVolume;
     }
+    public void StartSlow()
+    {
+        _bgmSlowTween?.Kill();
 
+        _bgmSlowTween = DOTween.To(
+                () => _currentBgmPitch,
+                value =>
+                {
+                    _currentBgmPitch = value;
+                    ApplyBGMPitch();
+                },
+                _slowPitch,
+                _slowDuration
+            )
+            .SetEase(Ease.OutQuad)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                _bgmSlowTween = null;
+            });
+    }
+    public void StopSlow()
+    {
+        _bgmSlowTween?.Kill();
+
+        _bgmSlowTween = DOTween.To(
+                () => _currentBgmPitch,
+                value =>
+                {
+                    _currentBgmPitch = value;
+                    ApplyBGMPitch();
+                },
+                1f,
+                _restoreDuration
+            )
+            .SetEase(Ease.OutQuad)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                _bgmSlowTween = null;
+            });
+    }
+    private void ApplyBGMPitch()
+    {
+        if (_bgmSource != null)
+        {
+            _bgmSource.pitch = _currentBgmPitch;
+        }
+
+        if (_bgmSubSource != null)
+        {
+            _bgmSubSource.pitch = _currentBgmPitch;
+        }
+    }
     private void OnDestroy()
     {
         _bgmFadeTween?.Kill();

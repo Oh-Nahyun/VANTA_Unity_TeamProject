@@ -51,6 +51,12 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
     [Header("각도 차이가 클수록 빨리 돎")]
     [SerializeField] private float _catchUpStartAngle = 45f;  // 이 각도부터 빨라지기 시작
     [SerializeField] private float _catchUpMultiplier = 4f;
+    
+    [Header("방향 전환 시 멈칫")]
+    [SerializeField] private float _reverseDelay = 0.2f;   // 반대로 꺾을 때 멈추는 시간
+    [SerializeField] private float _reverseMinAngle = 15f;  // 이 각도 이상 넘어가야 꺾임으로 인정
+
+    private float _reverseTimer;
 
     private float _turnSign;
 
@@ -187,31 +193,49 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         // 잠깐 고정된 뒤부터 플레이어 쪽으로 천천히 회전
         if (_timer >= CurrentPhaseSettings.TrackDelay)
         {
-            float trackTime = _timer - CurrentPhaseSettings.TrackDelay;
-            float accel = CurrentPhaseSettings.TurnAccelTime > 0f
-                ? Mathf.Clamp01(trackTime / CurrentPhaseSettings.TurnAccelTime)
-                : 1f;
-
-            float turnSpeed = Mathf.Lerp(CurrentPhaseSettings.TurnSpeedStart, CurrentPhaseSettings.TurnSpeedMax, accel);
-
-            float delta = Mathf.DeltaAngle(_currentAngle, GetAngleToPlayer());
-
-            if (_turnSign != 0f && Mathf.Abs(delta) > _keepTurnDirectionAngle && Mathf.Sign(delta) != _turnSign)
+            if (_reverseTimer > 0f)
             {
-                delta = _turnSign * (360f - Mathf.Abs(delta));
+                // 방향 바꾸는 중: 잠깐 멈칫
+                _reverseTimer -= Time.deltaTime;
             }
-            
-            float catchUp = Mathf.InverseLerp(_catchUpStartAngle, 180f, Mathf.Abs(delta));
-            float finalSpeed = turnSpeed * Mathf.Lerp(1f, _catchUpMultiplier, catchUp);
 
-            float maxStep = finalSpeed * Time.deltaTime;
-            
-            float step = Mathf.Clamp(delta, -maxStep, maxStep);
-            _currentAngle += step;
-
-            if (Mathf.Abs(step) > 0.0001f)
+            else
             {
-                _turnSign = Mathf.Sign(step);
+                float trackTime = _timer - CurrentPhaseSettings.TrackDelay;
+                float accel = CurrentPhaseSettings.TurnAccelTime > 0f
+                    ? Mathf.Clamp01(trackTime / CurrentPhaseSettings.TurnAccelTime)
+                    : 1f;
+
+                float turnSpeed = Mathf.Lerp(CurrentPhaseSettings.TurnSpeedStart, CurrentPhaseSettings.TurnSpeedMax, accel);
+
+                float delta = Mathf.DeltaAngle(_currentAngle, GetAngleToPlayer());
+
+                if (_turnSign != 0f && Mathf.Abs(delta) > _keepTurnDirectionAngle && Mathf.Sign(delta) != _turnSign)
+                {
+                    delta = _turnSign * (360f - Mathf.Abs(delta));
+                }
+                
+                if (_turnSign != 0f && Mathf.Sign(delta) != _turnSign && Mathf.Abs(delta) > _reverseMinAngle)
+                {
+                    _turnSign = Mathf.Sign(delta);
+                    _reverseTimer = _reverseDelay;
+                }
+
+                else
+                {
+                    float catchUp = Mathf.InverseLerp(_catchUpStartAngle, 180f, Mathf.Abs(delta));
+                    float finalSpeed = turnSpeed * Mathf.Lerp(1f, _catchUpMultiplier, catchUp);
+
+                    float maxStep = finalSpeed * Time.deltaTime;
+            
+                    float step = Mathf.Clamp(delta, -maxStep, maxStep);
+                    _currentAngle += step;
+
+                    if (Mathf.Abs(step) > 0.0001f)
+                    {
+                        _turnSign = Mathf.Sign(step);
+                    }
+                }
             }
         }
 
@@ -234,6 +258,7 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         if (_currentState == LaserState.Fire)
         {
             _turnSign = 0f; 
+            _reverseTimer = 0f;
             _laser.HideAim();
 
             _boss1Sound.Play(Boss1SoundType.LaserFire);

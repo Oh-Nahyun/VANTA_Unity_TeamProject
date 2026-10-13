@@ -337,9 +337,7 @@ public class PlayerFinisher : MonoBehaviour
 
         _finisherDashStart = startPosition;
 
-        Debug.Log(
-            $"Final Charge Ratio : {_finalChargeRatio}"
-        );
+ 
 
         if (_finalChargeRatio < 0.4)
         {
@@ -516,6 +514,10 @@ public class PlayerFinisher : MonoBehaviour
     private void GameClear()
     {
         _gameClear.Invoke();
+        
+        HitableObject boss =
+            FindAnyObjectByType<HitableObject>();
+        CameraFocusingController.Instance.SlowFocus(boss.transform,1,1);
 
     }
 

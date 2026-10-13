@@ -27,6 +27,7 @@ public class SkillAttack : MonoBehaviour
     [Header("대쉬 공격 판정")]
     [SerializeField] private LayerMask _enemyLayer;
     [SerializeField] private float _dashDamage = 10f;
+    [SerializeField]private float _criticalDamage = 10f;
     [SerializeField] private float _dashHitRadius = 0.5f;
     [SerializeField] private float _weaknessAngleTolerance = 0.5f;
 
@@ -488,7 +489,7 @@ public class SkillAttack : MonoBehaviour
         HitableObject hitableObject)
     {
         hitableObject.ExecuteHitEvent(
-            _dashDamage * 2,
+            _criticalDamage,
             DamageIndicatorType.Critical
         );
 

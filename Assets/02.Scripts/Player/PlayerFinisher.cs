@@ -20,6 +20,7 @@ public class PlayerFinisher : MonoBehaviour
     [SerializeField] private SkillAttack _skillAttack;
     [SerializeField] private SkillFocusScreenController _skillFocusScreenController;
     [SerializeField] private AudioClip _chargingSound;
+    [SerializeField] private AudioClip _finishSound;
 
     [SerializeField] private GameObject _finisherVfx1;
     [SerializeField] private GameObject _finisherVfx2;
@@ -351,7 +352,8 @@ public class PlayerFinisher : MonoBehaviour
 
         }
         
-        
+        SoundManager.Instance.PlayEffectSound(_finishSound);
+
         _skillAttack.FinishDash(
             targetPosition,
             _finalChargeRatio,

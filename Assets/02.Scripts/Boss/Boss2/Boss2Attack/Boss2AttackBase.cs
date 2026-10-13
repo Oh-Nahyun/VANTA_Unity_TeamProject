@@ -58,6 +58,16 @@ public class Boss2AttackBase : MonoBehaviour
     private bool _isWindingUp;
     private float _windupEndTime;
 
+    [Header("콤보 인디케이터")]
+    [Tooltip("콤보 전조 동안 바라보는 쪽에 부채꼴 범위를 띄운다 (Boss2IndicatorSpawner 필요)")]
+    [SerializeField] private bool _showComboIndicator = true;
+    [Tooltip("부채꼴 전체 각도 (도)")]
+    [SerializeField, Range(10f, 180f)] private float _comboIndicatorAngle = 75f;
+    [Tooltip("부채꼴 반경 = 공격 박스(AttackZone) 가로 길이 × 이 값")]
+    [SerializeField] private float _comboIndicatorRadiusScale = 1f;
+    private Boss2IndicatorSpawner _comboIndicatorSpawner;
+    private Boss2Indicator _comboIndicator;
+
     // 발사체 시작 좌표 ( 자식에서도 활용 가능 )
     protected Vector2[] _projectileDirections;
     
@@ -124,6 +134,7 @@ public class Boss2AttackBase : MonoBehaviour
             _attackBoxCollider.enabled = false;
         }
         _animator = GetComponent<Animator>();
+        _comboIndicatorSpawner = GetComponent<Boss2IndicatorSpawner>();
     }
 
     private void Update()
@@ -210,6 +221,31 @@ public class Boss2AttackBase : MonoBehaviour
 
         _animator.SetFloat(AttackSpeedParam, _comboSpeed);
         _animator.CrossFade(_windupState, 0.05f, 0, 0f);
+
+        // 전조 동안 부채꼴이 차오르고, 다 차는 순간 1타가 나간다.
+        ShowComboIndicator(ScaleComboTime(_windupTime));
+    }
+
+    // 보스가 바라보는 쪽(공격 박스가 있는 쪽)으로, 공격 박스 가로 길이만큼의 부채꼴을 띄운다.
+    private void ShowComboIndicator(float duration)
+    {
+        if (_showComboIndicator == false || _comboIndicatorSpawner == null || _attackBoxCollider == null)
+            return;
+
+        HideComboIndicator();
+
+        float side = _attackBoxCollider.transform.position.x < transform.position.x ? -1f : 1f;
+        float radius = Mathf.Abs(_attackBoxCollider.size.x * _attackBoxCollider.transform.lossyScale.x) * _comboIndicatorRadiusScale;
+        _comboIndicator = _comboIndicatorSpawner.ShowFan(transform.position, new Vector2(side, 0f), radius, _comboIndicatorAngle, duration);
+    }
+
+    private void HideComboIndicator()
+    {
+        if (_comboIndicator != null)
+        {
+            _comboIndicator.Cancel();
+            _comboIndicator = null;
+        }
     }
 
     /// <summary>
@@ -296,6 +332,11 @@ public class Boss2AttackBase : MonoBehaviour
     {
         EndDamage();
 
+        // 전조 중에 끊기면 부채꼴도 바로 지운다. (다 찬 부채꼴은 스스로 사라진다)
+        if (_isWindingUp)
+        {
+            HideComboIndicator();
+        }
         _isWindingUp = false;
         _currentHit = -1;
         _targetHitCount = 0;

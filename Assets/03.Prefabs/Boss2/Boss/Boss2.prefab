@@ -313,7 +313,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1073874748574327932
 Transform:
   m_ObjectHideFlags: 0
@@ -409,12 +409,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349eca76ea90d1e4ab422e6affdf09cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss2
-  _health: 5000
+  _health: 3000
   _maxHealth: 0
   _hitSound: {fileID: 2730437308857772986}
   OnFinisher:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameResultUI, Assembly-CSharp
+        m_MethodName: ShowGameClearUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4827965982157604352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,6 +456,9 @@ MonoBehaviour:
     MaxStepTime: 1.08
   _maxComboCount: 8
   _comboSpeed: 1.5
+  _windupState: Boss2ComboWindup
+  _windupTime: 0.5833
+  _firstHitStartTime: 0.3333
   _cameraImpulse: {fileID: 7095277919416841659}
   _slashSound: {fileID: 7959016645909478120}
   _smashStateName: Boss2SmashAttack
@@ -526,6 +541,9 @@ MonoBehaviour:
   _comboSteps: []
   _maxComboCount: 8
   _comboSpeed: 1
+  _windupState: Boss2ComboWindup
+  _windupTime: 0.5833
+  _firstHitStartTime: 0.3333
   _cameraImpulse: {fileID: 0}
   _slashSound: {fileID: 0}
   _instantKillStartState: StartInstantKillSkill
@@ -963,6 +981,21 @@ MonoBehaviour:
   _eyelidDelay: 0.6
   _eyelidDuration: 0.35
   _onEndingFinished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameResultUI, Assembly-CSharp
+        m_MethodName: LoadGameEndingScene
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onEnding:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &2793592831111597014

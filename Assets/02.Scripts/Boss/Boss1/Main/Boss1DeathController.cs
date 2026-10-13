@@ -11,6 +11,9 @@ public class Boss1DeathController : MonoBehaviour
     [Header("보스2 등장 연출")]
     [SerializeField] private Boss2IntroCinematic _boss2Intro;
     
+    [Header("주저앉는 순간")]
+    [SerializeField] private float _collapseImpulseForce = 0.2f;
+    
     [Header("주저앉은 후 대기 시간")]
     [SerializeField] private float _collapseWaitDuration = 1.5f;
     
@@ -29,8 +32,17 @@ public class Boss1DeathController : MonoBehaviour
     [SerializeField] private Vector2 _explosionOffset = new Vector2(0f, 1f);
     
     [SerializeField] private Vector2 _center = new Vector2(0.42f, -0.74f);
+    [SerializeField] private Vector2 _centerFlipped = new Vector2(-0.407f, -0.456f);
     
     [SerializeField] private Boss1DeathBloodOverlay _bloodOverlayPrefab;
+
+    [Header("HP 0 되는 순간")]
+    [SerializeField] private float _hp0FlashDuration = 0.15f;
+    [SerializeField] private float _hp0ImpulseForce = 0.35f;
+    [SerializeField] private float _hp0HoldDuration = 0.3f;
+    [SerializeField] private float _hp0StopDuration = 0.12f;
+    [SerializeField] private float _hp0SlowMotionScale = 0.3f;
+    [SerializeField] private float _hp0SlowMotionDuration = 0.5f;
     
     [Header("중앙으로 걸어가는 속도")]
     [SerializeField] private float _startMoveSpeed= 1f;
@@ -54,9 +66,11 @@ public class Boss1DeathController : MonoBehaviour
     private Boss1AttackController _boss1AttackController;
     private Boss1Movement _boss1Movement;
     private Boss1ProjectileManager _boss1ProjectileManager;
+    private Boss1RoarEffect _boss1RoarEffect;
     [SerializeField] private Animator _animator;
 
     private bool _isMovingToCenter;
+    private Vector2 _centerSelected;
     private bool _isExploding;
     
     private Boss1Sound _boss1Sound;
@@ -72,6 +86,7 @@ public class Boss1DeathController : MonoBehaviour
         _boss1ProjectileManager = GetComponent<Boss1ProjectileManager>();
         _boss1HitFlash = GetComponent<Boss1HitFlash>();
         _boss1Sound = GetComponent<Boss1Sound>();
+        _boss1RoarEffect = GetComponent<Boss1RoarEffect>();
         
         if (_explosionLight != null)
         {
@@ -109,21 +124,63 @@ public class Boss1DeathController : MonoBehaviour
         _boss1AttackController.LockAttack();
         _boss1Movement.Stop();
         _boss1ProjectileManager.DestroyAllProjectiles();
+
+        PlayFinishHit();
+        StartCoroutine(HP0HoldRoutine());
+    }
+
+    private void PlayFinishHit()
+    {
+        _boss1HitFlash.PlayHitFlash(_hp0FlashDuration);
+        _boss1Sound.Play(Boss1SoundType.Hp0);
+        StartCoroutine(HP0TimeRoutine());
+    }
+
+    private IEnumerator HP0TimeRoutine()
+    {
+        if (!Mathf.Approximately(Time.timeScale, 1f))
+        {
+            _explosionImpulseSource.GenerateImpulseWithVelocity(Vector3.down * _hp0ImpulseForce);
+        }
         
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(_hp0StopDuration);
+        
+        _explosionImpulseSource.GenerateImpulseWithVelocity(Vector3.down * _hp0ImpulseForce);
+
+        float elapsed = 0f;
+        while (elapsed < _hp0SlowMotionDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = elapsed / _hp0SlowMotionDuration;
+            Time.timeScale = Mathf.Lerp(_hp0SlowMotionScale, 1f, t* t);
+            yield return null;
+        }
+        
+        Time.timeScale = 1f;
+    }
+
+    private IEnumerator HP0HoldRoutine()
+    {
+        _animator.speed = 0f; // 맞은 자세 그대로 멈춤
+        yield return new WaitForSeconds(_hp0HoldDuration);
+        _animator.speed = 1f;
+
         _boss1Movement.StartControlled();
-        
         _boss1Movement.FaceTarget(_center);
         _boss1Movement.LockFacing();
-        
+
+        bool isFlipped = _center.x < transform.position.x;
+        _centerSelected = isFlipped ? _centerFlipped : _center;
+
         _isMovingToCenter = true;
-        
         _onStartMove?.Invoke();
     }
 
     private void MoveToCenter()
     {
         Vector2 currentPos = transform.position;
-        Vector2 targetPos = _center;
+        Vector2 targetPos = _centerSelected;
         
         Vector2 direction = targetPos - currentPos;
         float distance = direction.magnitude;

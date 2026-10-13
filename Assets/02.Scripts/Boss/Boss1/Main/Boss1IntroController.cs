@@ -98,7 +98,7 @@ public class Boss1IntroController : MonoBehaviour
 
     public void RemoveWarningZone()
     {
-        _boss1Sound.Play(Boss1SoundType.Land);
+        _boss1Sound.Play(Boss1SoundType.EntranceLand);
         
         if (_warningZone == null)
         {
@@ -158,5 +158,10 @@ public class Boss1IntroController : MonoBehaviour
     public void Boss1StartBattle()
     {
         _boss1AttackController.StartBattle();
+    }
+
+    public void IntroClawSound()
+    {
+        _boss1Sound.Play(Boss1SoundType.Claw);
     }
 }

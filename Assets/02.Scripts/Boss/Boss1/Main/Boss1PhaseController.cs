@@ -166,4 +166,9 @@ public class Boss1PhaseController : MonoBehaviour
         {
             _boxCollider2D.enabled = hittable;
         }
+
+        public void PlayBuffSound()
+        {
+            _boss1Sound.Play(Boss1SoundType.Buff);
+        }
     }

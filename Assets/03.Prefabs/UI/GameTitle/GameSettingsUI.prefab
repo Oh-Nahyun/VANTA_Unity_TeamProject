@@ -8165,6 +8165,17 @@ MonoBehaviour:
   _settingsOpenSound: {fileID: 8300000, guid: bb7064a1583304b43be54dc9ee5390a0, type: 3}
   _settingsCloseSound: {fileID: 8300000, guid: a61fb5f4a1758144aa3867c220b19fa7, type: 3}
   _sliderTickSound: {fileID: 8300000, guid: 447a5e58061a73649bde9f9baf8aec92, type: 3}
+  _tabButtons:
+  - {fileID: 6827234897912506759}
+  - {fileID: 8321882689011680926}
+  - {fileID: 5798878862293173099}
+  _gamePanelButtons:
+  - {fileID: 2535886434566533909}
+  - {fileID: 2769561800362494418}
+  - {fileID: 8767322047177283809}
+  _selectedImage: {fileID: 1345840454123191266}
+  _selectedImageMoveDuration: 0.2
+  _buttonClickSound: {fileID: 8300000, guid: c2303476eab72e24c841228fe9374fc2, type: 3}
 --- !u!1 &9080120925553744384
 GameObject:
   m_ObjectHideFlags: 0

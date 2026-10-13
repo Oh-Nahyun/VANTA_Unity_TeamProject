@@ -136,6 +136,14 @@ public class GameTitleUI : MonoBehaviour
         _pausedTweens.Clear();
     }
 
+    private void OnDestroy()
+    {
+        if (_isPaused)
+        {
+            ResumeGame();
+        }
+    }
+
     private void UpdatePause()
     {
         if (!_isPaused) return;
@@ -199,7 +207,8 @@ public class GameTitleUI : MonoBehaviour
     private IEnumerator ExitAfterFadeOutCoroutine()
     {
         _titleFadeInOutEffect.FadeOut();
-        yield return new WaitForSeconds(_titleFadeInOutEffect.FadeDuration);
+
+        yield return new WaitForSecondsRealtime(_titleFadeInOutEffect.FadeDuration);
 
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;

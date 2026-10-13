@@ -11,15 +11,15 @@ public class Player : MonoBehaviour
     [Header("플레이어 피격시 무적 시간")]
     [SerializeField] private float _hitCoolTime = 2f;
 
-    [Header("플레이어 피격시 VFX")]
-    [SerializeField] private GameObject _hitVfx;
-    [SerializeField] private GameObject _deathVfx;
-
     [Header("플레이어 피격시 타임 슬로우")]
     [SerializeField] private float _damagedSlowAmount = 0.1f;
     [SerializeField] private float _damagedSlowInDuration = 3f;
     [SerializeField] private float _damagedSlowHoldDuration = 0.15f;
     [SerializeField] private float _damagedSlowRecoverDuration = 1f;
+
+    [Header("플레이어 피격시 VFX")]
+    [SerializeField] private GameObject _hitVfx;
+    [SerializeField] private GameObject _deathVfx;
 
     [Header("사망 시 남길 조명")]
     [SerializeField] private Light2D _deathLight;
@@ -28,12 +28,16 @@ public class Player : MonoBehaviour
     [SerializeField] private float _deathLightRadius = 0.3f;
     [SerializeField] private float _deathLightShrinkDuration = 0.7f;
 
+    [Header("참조")]
+    [SerializeField]private SkillManager _skillManager;
+    
     [Header("사망 시작될때")]
     [SerializeField] private UnityEvent _deathStartEvent;
     [Header("사망 시 이벤트 바인딩")]
     [SerializeField] private UnityEvent _deathEvent;
     [Header("플레이어 사망 후 가루 될때 이벤트 바인딩")]
     [SerializeField] private UnityEvent _playerFadeOutEvent;
+    
     private float _curTime;
 
     private bool _isHitCoolTime;
@@ -43,7 +47,7 @@ public class Player : MonoBehaviour
     private BrokenWidowScreenController _brokenWidowScreenController;
     private PlayerStatusManager _playerStatusManager;
     private Sequence _damagedSlowSequence;
-
+    
     private void Awake()
     {
         _brokenWidowScreenController =
@@ -57,11 +61,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         CalculateHitCoolTime();
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            TakeDamage();
-        }
+        
     }
 
     private void CalculateHitCoolTime()
@@ -102,12 +102,7 @@ public class Player : MonoBehaviour
         _curTime = 0f;
 
         _health--;
-
         
-
-   
-        
-      
 
         if (_health <= 0)
         {
@@ -127,7 +122,7 @@ public class Player : MonoBehaviour
             _animator.SetTrigger("Hurt");
         }
         GetComponent<PlayerMove>().DashToReverseSideByHit();
-
+        _skillManager.enabled = false;
         if (_brokenWidowScreenController != null)
         {
             _brokenWidowScreenController.ApplyBroken();
@@ -177,12 +172,16 @@ public class Player : MonoBehaviour
         {
             Time.timeScale = 1f;
             _damagedSlowSequence = null;
+            _skillManager.enabled = true;
+                
         });
     }
 
     private void Death()
     {
         _deathStartEvent.Invoke();
+        _skillManager.enabled = false;
+            
         DeathEffect();
     }
 
@@ -265,7 +264,7 @@ private void DeathEffect()
     {
         if (CameraFocusingController.Instance != null)
         {
-            //CameraFocusingController.Instance.Focus(transform, 2f);
+            CameraFocusingController.Instance.SlowFocus(transform, 2f,2);
         }
     });
 
@@ -363,6 +362,7 @@ private void DeathEffect()
                 .OnComplete(() =>
                 {
                     Debug.Log("플레이어 사망");
+                    Cursor.visible = true;
                     _deathEvent?.Invoke();
                 });
 

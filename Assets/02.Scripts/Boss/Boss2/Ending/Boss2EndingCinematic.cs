@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -102,6 +103,19 @@ public class Boss2EndingCinematic : MonoBehaviour
     [Tooltip("위아래에서 검은 화면이 닫혀 들어오는 시간")]
     [SerializeField] private float _eyelidDuration = 0.35f;
 
+    [Header("엔딩 배경음")]
+    [Tooltip("엔딩이 시작될 때 재생할 곡. 비우면 재생하지 않는다")]
+    [SerializeField] private AudioClip _endingMusic;
+    [Tooltip("엔딩 시작 후 곡이 시작될 때까지 (초, 실제 시간)")]
+    [SerializeField] private float _endingMusicDelay = 0f;
+    [Tooltip("곡 볼륨 배율. 옵션의 마스터·BGM 볼륨이 함께 곱해진다")]
+    [SerializeField, Range(0f, 1f)] private float _endingMusicVolume = 1f;
+    [SerializeField] private bool _loopEndingMusic = false;
+    [Tooltip("엔딩 시작 때 지금 나오는 스테이지 BGM 을 끈다")]
+    [SerializeField] private bool _stopStageBgmOnEnding = true;
+    [Tooltip("암전까지 끝났을 때 곡을 줄이며 끄는 시간 (초). 0 이면 끄지 않고 계속 재생한다 (다음 연출로 이어짐)")]
+    [SerializeField] private float _endingMusicFadeOut = 0f;
+
     [Header("연결점")]
     [Tooltip("암흑까지 끝났을 때. 다음 연출(엔딩 씬 등)을 여기에 연결한다.")]
     [SerializeField] private UnityEvent _onEndingFinished;
@@ -126,6 +140,10 @@ public class Boss2EndingCinematic : MonoBehaviour
     private float _focusBlend;
     private float _focusRadius;
 
+    // 엔딩 곡은 보스가 꺼진 뒤에도 이어지도록 보스와 따로 둔 오브젝트에서 재생하고, 지연·페이드도 DOTween 으로 돌린다.
+    private AudioSource _endingMusicSource;
+    private Tween _endingMusicTween;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -141,6 +159,7 @@ public class Boss2EndingCinematic : MonoBehaviour
 
         IsPlaying = true;
         _onEnding?.Invoke();
+        StartEndingMusic();
         StartCoroutine(EndingRoutine(onFinished));
         return true;
     }
@@ -193,6 +212,11 @@ public class Boss2EndingCinematic : MonoBehaviour
         ReleaseFocus();
         // 암흑 뒤라 다시 보여도 화면에는 나오지 않는다. 다음 연출을 위해 원래대로 돌려 둔다.
         ShowPlayer();
+
+        if (_endingMusicFadeOut > 0f)
+        {
+            StopEndingMusic(_endingMusicFadeOut);
+        }
 
         IsPlaying = false;
         _onEndingFinished?.Invoke();
@@ -632,6 +656,80 @@ public class Boss2EndingCinematic : MonoBehaviour
         top.anchorMax = Vector2.one;
         bottom.anchorMin = Vector2.zero;
         bottom.anchorMax = new Vector2(1f, half);
+    }
+
+    #endregion
+
+    #region 엔딩 배경음
+
+    private void StartEndingMusic()
+    {
+        if (_stopStageBgmOnEnding && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.StopBGM();
+        }
+
+        if (_endingMusic == null)
+            return;
+
+        if (_endingMusicSource == null)
+        {
+            GameObject go = new GameObject("Boss2EndingMusic");
+            _endingMusicSource = go.AddComponent<AudioSource>();
+            _endingMusicSource.playOnAwake = false;
+            _endingMusicSource.spatialBlend = 0f;
+        }
+
+        KillEndingMusicTween();
+        _endingMusicSource.Stop();
+        _endingMusicSource.clip = _endingMusic;
+        _endingMusicSource.loop = _loopEndingMusic;
+        _endingMusicSource.volume = GetEndingMusicVolume();
+
+        if (_endingMusicDelay > 0f)
+        {
+            AudioSource source = _endingMusicSource;
+            _endingMusicTween = DOVirtual.DelayedCall(_endingMusicDelay, () => source.Play(), true).SetLink(source.gameObject);
+        }
+        else
+        {
+            _endingMusicSource.Play();
+        }
+    }
+
+    // fadeDuration 이 0 이면 바로 멈춘다.
+    private void StopEndingMusic(float fadeDuration)
+    {
+        KillEndingMusicTween();
+        if (_endingMusicSource == null || _endingMusicSource.isPlaying == false)
+            return;
+
+        if (fadeDuration <= 0f)
+        {
+            _endingMusicSource.Stop();
+            return;
+        }
+
+        AudioSource source = _endingMusicSource;
+        _endingMusicTween = DOTween.To(() => source.volume, value => source.volume = value, 0f, fadeDuration)
+            .SetUpdate(true)
+            .SetLink(source.gameObject)
+            .OnComplete(() => source.Stop());
+    }
+
+    private void KillEndingMusicTween()
+    {
+        if (_endingMusicTween != null)
+        {
+            _endingMusicTween.Kill();
+            _endingMusicTween = null;
+        }
+    }
+
+    // SoundManager 와 같은 저장 값(마스터·BGM 볼륨)을 따른다.
+    private float GetEndingMusicVolume()
+    {
+        return _endingMusicVolume * PlayerPrefs.GetFloat("MasterVolume", 1f) * PlayerPrefs.GetFloat("BGMVolume", 1f);
     }
 
     #endregion

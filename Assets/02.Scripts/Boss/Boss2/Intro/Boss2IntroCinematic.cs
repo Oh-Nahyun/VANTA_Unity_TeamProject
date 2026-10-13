@@ -123,6 +123,16 @@ public class Boss2IntroCinematic : MonoBehaviour
     [SerializeField] private float _revealShakeAmplitude = 0.06f;
     [SerializeField] private float _revealShakeFrequency = 18f;
 
+    [Header("그림자 왕좌")]
+    [Tooltip("보스 소개가 시작될 때 보스 뒤에 형체화되어 나타나고, 이름 연출이 끝나면 그림자로 흩어진다")]
+    [SerializeField] private ShadowThrone _shadowThrone;
+    [Tooltip("이름이 끝나기를 기다리는 최대 시간 (이름을 못 찾았을 때도 이 시간이 지나면 흩어진다)")]
+    [SerializeField] private float _throneMaxHold = 6f;
+    [Tooltip("이름이 사라진 뒤 왕좌·병사·포즈를 더 유지하는 시간 (초). 이 시간이 지나면 흩어지기 시작한다")]
+    [SerializeField] private float _throneHoldAfterName = 1.5f;
+    [Tooltip("왕좌가 있는 동안 보스가 취하는 포즈 (Idle Break + 검은 오라). 왕좌가 흩어질 때 함께 끝난다")]
+    [SerializeField] private Boss2ShowcasePose _showcasePose;
+
     [Header("보스 소개 (보스1 등장과 같은 구도)")]
     [Tooltip("공포 테두리가 끝날 때까지 얼굴 클로즈업을 유지한 뒤, 보스1 이름 장면 구도로 카메라를 뒤로 당긴다")]
     [SerializeField] private bool _holdFaceUntilVignetteEnds = true;
@@ -134,8 +144,6 @@ public class Boss2IntroCinematic : MonoBehaviour
     [SerializeField] private float _showcaseFocusHeight = 1f;
     [Tooltip("보스를 비춘 뒤 이름이 뜰 때까지 (보스1: 1초)")]
     [SerializeField] private float _nameDelay = 1f;
-    [Tooltip("이름이 뜬 뒤 8방향 검기를 쏠 때까지")]
-    [SerializeField] private float _showcaseAttackDelay = 0.5f;
     [Tooltip("보스를 비춘 뒤 플레이어에게 복귀하기 시작할 때까지 (보스1: 5초)")]
     [SerializeField] private float _returnToPlayerTime = 5f;
     [Tooltip("플레이어에게 복귀하는 시간. 끝나면 게임 시작 (보스1: 2초)")]
@@ -200,10 +208,9 @@ public class Boss2IntroCinematic : MonoBehaviour
     private Coroutine _sightRoutine;
     private Sequence _vignetteSequence;
     private Coroutine _showcaseRoutine;
+    private Coroutine _throneRoutine;
     private float _revealShakeStart = -1f;
     private Transform _showcaseFocusTarget;
-    // 보스 소개 동안 플레이어를 맞지 않게 했는지 (끝날 때 되돌릴지)
-    private bool _isPlayerShielded;
     private bool _isEyesClosed;
     private bool _isWaitingExplosion;
     private Coroutine _explosionRoutine;
@@ -398,6 +405,7 @@ public class Boss2IntroCinematic : MonoBehaviour
         StopEyesOpen();
         StopIntroMusic(0f);
         StopShowcase();
+        StopThrone();
         if (_sightRoutine != null)
         {
             StopCoroutine(_sightRoutine);
@@ -405,7 +413,6 @@ public class Boss2IntroCinematic : MonoBehaviour
         }
         _revealShakeStart = -1f;
         KillVignette();
-        UnshieldPlayer();
         if (_introCamera != null)
         {
             _introCamera.gameObject.SetActive(false);
@@ -603,7 +610,7 @@ public class Boss2IntroCinematic : MonoBehaviour
 
     /// <summary>
     /// Timeline 끝: 얼굴 연출을 정리하고 보스 소개(보스1 등장과 같은 구도)로 넘어간다.
-    /// 보스를 비춤 → 이름 + 8방향 검기 → 플레이어에게 복귀 → 게임 시작(FinishIntro).
+    /// 보스를 비춤 → 왕좌 + 이름 + 포즈(Idle Break·검은 오라) → 플레이어에게 복귀 → 게임 시작(FinishIntro).
     /// 인트로 재생 중이 아닐 때 직접 부르면 소개 없이 바로 게임을 시작한다.
     /// </summary>
     public void StartBattle()
@@ -661,7 +668,6 @@ public class Boss2IntroCinematic : MonoBehaviour
     private IEnumerator ShowcaseRoutine()
     {
         Transform player = FindPlayerTransform();
-        ShieldPlayer();
 
         // 공포 테두리가 끝날 때까지 얼굴 클로즈업을 유지한다.
         if (_holdFaceUntilVignetteEnds)
@@ -685,14 +691,29 @@ public class Boss2IntroCinematic : MonoBehaviour
         ReleaseIntroCamera();
         _cameraDrop = 0f;
 
-        // 이름 + 8방향 검기 (플레이어는 맞지 않는다)
+        // 보스 뒤에 그림자 왕좌가 형체화되고, 이름 연출이 끝나면 흩어진다.
+        if (_shadowThrone != null && _boss2 != null)
+        {
+            _shadowThrone.Appear(_boss2.transform);
+            if (_throneRoutine != null)
+            {
+                StopCoroutine(_throneRoutine);
+            }
+            _throneRoutine = StartCoroutine(VanishThroneAfterName());
+        }
+
+        // 왕좌가 있는 동안 보스는 Idle Break 포즈로 검은 오라를 피워 올린다. (왕좌가 흩어질 때 함께 끝난다)
+        if (_showcasePose != null && _boss2 != null)
+        {
+            _showcasePose.Play(_boss2.transform);
+        }
+
+        // 이름
         yield return new WaitForSecondsRealtime(_nameDelay);
         ShowBossName();
-        yield return new WaitForSecondsRealtime(_showcaseAttackDelay);
-        PlayShowcaseAttack();
 
         // 플레이어에게 복귀
-        yield return new WaitForSecondsRealtime(Mathf.Max(0f, _returnToPlayerTime - _nameDelay - _showcaseAttackDelay));
+        yield return new WaitForSecondsRealtime(Mathf.Max(0f, _returnToPlayerTime - _nameDelay));
         if (focus != null && player != null)
         {
             focus.SlowFocus(player, 1f, _returnDuration);
@@ -716,8 +737,18 @@ public class Boss2IntroCinematic : MonoBehaviour
         ReleaseIntroCamera();
         StopIntroMusic(_introMusicFadeOut);
         UnlockPlayer();
-        UnshieldPlayer();
         KillVignette();
+        StopShowcasePose();
+        // 아직 왕좌가 남아 있으면(이름을 못 찾은 경우 등) 흩어지게 한다.
+        if (_throneRoutine != null)
+        {
+            StopCoroutine(_throneRoutine);
+            _throneRoutine = null;
+        }
+        if (_shadowThrone != null && _shadowThrone.IsVisible)
+        {
+            _shadowThrone.Vanish();
+        }
 
         if (_boss2 != null)
         {
@@ -738,6 +769,50 @@ public class Boss2IntroCinematic : MonoBehaviour
             finished?.Invoke();
             _onIntroFinished?.Invoke();
             IntroFinished?.Invoke();
+        }
+    }
+
+    // 이름(BossName2)이 켜졌다가 스스로 꺼지면(NameActingController 가 끝에 비활성화) _throneHoldAfterName 만큼 더 기다린 뒤 왕좌를 흩어지게 하고 포즈를 끝낸다.
+    private IEnumerator VanishThroneAfterName()
+    {
+        float start = Time.unscaledTime;
+        bool nameShown = false;
+        while (Time.unscaledTime - start < _throneMaxHold)
+        {
+            bool active = _bossName != null && _bossName.gameObject.activeInHierarchy;
+            if (active)
+            {
+                nameShown = true;
+            }
+            else if (nameShown)
+            {
+                break;
+            }
+            yield return null;
+        }
+
+        // 이름이 사라진 뒤에도 잠시 왕좌·병사·포즈를 남겨 둔다.
+        if (_throneHoldAfterName > 0f)
+        {
+            yield return new WaitForSecondsRealtime(_throneHoldAfterName);
+        }
+
+        _throneRoutine = null;
+        _shadowThrone.Vanish();
+        StopShowcasePose();
+    }
+
+    private void StopThrone()
+    {
+        StopShowcasePose();
+        if (_throneRoutine != null)
+        {
+            StopCoroutine(_throneRoutine);
+            _throneRoutine = null;
+        }
+        if (_shadowThrone != null)
+        {
+            _shadowThrone.Hide();
         }
     }
 
@@ -766,12 +841,12 @@ public class Boss2IntroCinematic : MonoBehaviour
         _bossName.gameObject.SetActive(true);
     }
 
-    private void PlayShowcaseAttack()
+    // 포즈를 끝내고 보스를 평소 동작(Animator)으로 돌려보낸다. 오라는 방출만 멈춘다.
+    private void StopShowcasePose()
     {
-        Boss2AttackPattern attack = _boss2 != null ? _boss2.GetComponent<Boss2AttackPattern>() : null;
-        if (attack != null)
+        if (_showcasePose != null && _showcasePose.IsPlaying)
         {
-            attack.ApplyAttackPattern(Boss2AttackPatternType.BladeAuraSlashAll);
+            _showcasePose.Stop();
         }
     }
 
@@ -798,30 +873,6 @@ public class Boss2IntroCinematic : MonoBehaviour
     {
         Player player = FindAnyObjectByType<Player>();
         return player != null ? player.transform : null;
-    }
-
-    // 소개 중 8방향 검기에 플레이어가 맞지 않게 한다. (이미 잠가 둔 경우엔 UnlockPlayer 가 되돌린다)
-    private void ShieldPlayer()
-    {
-        Player player = FindAnyObjectByType<Player>();
-        if (player == null || _isPlayerLocked)
-            return;
-
-        player.OffPlayerHittable();
-        _isPlayerShielded = true;
-    }
-
-    private void UnshieldPlayer()
-    {
-        if (_isPlayerShielded == false)
-            return;
-
-        _isPlayerShielded = false;
-        Player player = FindAnyObjectByType<Player>();
-        if (player != null)
-        {
-            player.OnPlayerHittable();
-        }
     }
 
     // ---- 공포 테두리 ----

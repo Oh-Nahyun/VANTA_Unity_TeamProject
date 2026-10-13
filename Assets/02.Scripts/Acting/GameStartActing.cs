@@ -120,6 +120,7 @@ public class GameStartActing : MonoBehaviour
     }
     private void GameStart()
     {
+        Cursor.visible = false;
         MakeHpBar();
         CameraFocusingController.Instance.SlowFocus(transform,0f,2f);
         

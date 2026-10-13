@@ -41,6 +41,7 @@ public class Phase1ToPhase2Acting : MonoBehaviour
 
     public void StartPhaseChange()
     {
+        Cursor.visible = true;
         SoundManager.Instance.ChangeBGM(_phaseChangeBgm);
         _phaseStartEvent.Invoke();
         

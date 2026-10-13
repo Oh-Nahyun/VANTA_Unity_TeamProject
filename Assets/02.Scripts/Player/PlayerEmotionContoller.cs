@@ -78,8 +78,21 @@ public class PlayerEmotionContoller : MonoBehaviour
     {
         PlayEmotion(0,1);
     }
+   
     public void PlayBoss1RoarEmotion()
     {
         PlayEmotion(1,2);
+    }
+    public void PlayBoss1DeathEmotion()
+    {
+        PlayEmotion(2,1);
+    }
+    public void PlayPhaseChangeEmotion()
+    {
+        PlayEmotion(3,1);
+    }
+    public void PlayBoss2DiscoverEmotion()
+    {
+        PlayEmotion(4,1);
     }
 }

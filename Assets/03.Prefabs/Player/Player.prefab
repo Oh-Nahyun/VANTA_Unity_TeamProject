@@ -20211,7 +20211,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7867354623546401073, guid: 788199a916cf3d54a80af678504d9bef, type: 2}
+  - {fileID: 5595019553198224478, guid: a6434b1d95df6914eadbd8e6424f650c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20255,12 +20255,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '
-
-'
+  m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 788199a916cf3d54a80af678504d9bef, type: 2}
-  m_sharedMaterial: {fileID: 7867354623546401073, guid: 788199a916cf3d54a80af678504d9bef, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a6434b1d95df6914eadbd8e6424f650c, type: 2}
+  m_sharedMaterial: {fileID: 5595019553198224478, guid: a6434b1d95df6914eadbd8e6424f650c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -20348,6 +20346,9 @@ MonoBehaviour:
   _emotions:
   - ?!
   - '!!!'
+  - '><'
+  - ???!?
+  - '!!!!!!'
   _typingInterval: 0.5
 --- !u!1 &4512711204945311804
 GameObject:
@@ -20554,6 +20555,8 @@ MonoBehaviour:
   _moveSpeed: 3
   _dashDistance: 3
   _dashDuration: 0.5
+  _reverseMoveDistance: 3
+  _reverseMoveDuration: 1
   _dashCollisionMask:
     serializedVersion: 2
     m_Bits: 512
@@ -20743,7 +20746,9 @@ MonoBehaviour:
   _playerAttack: {fileID: 4589030193044622876}
   _skillAttack: {fileID: 8137248592232807175}
   _skillFocusScreenController: {fileID: 1332611649402532543}
-  _chargingSound: {fileID: 8300000, guid: 7a107c985ef286642b81ec47c969c359, type: 3}
+  _chargingSound: {fileID: 8300000, guid: 6525ac11c44e2244590a07e9630fb6c8, type: 3}
+  _finishStartSound: {fileID: 8300000, guid: 8ff1a86d624aa854ab1c388ba20acd78, type: 3}
+  _finishSound: {fileID: 8300000, guid: 562050da74d6b3344b25217a54635523, type: 3}
   _finisherVfx1: {fileID: 1226031520979461127, guid: 0cec31f512d973f49b748c5c40b18e97, type: 3}
   _finisherVfx2: {fileID: 1226031520979461127, guid: 4316de4d1a1bd30459855e853a008dc6, type: 3}
   _finisherVfx3: {fileID: 1226031520979461127, guid: a0d61b658f72e8b47a0700487073cf25, type: 3}
@@ -20751,22 +20756,22 @@ MonoBehaviour:
   _weaknessThreadController: {fileID: 4868506792254174702}
   _chargingObject: {fileID: 6473133303609106024}
   _chargingDuration: 5
-  _minChargeCount: 5
-  _maxChargeCount: 30
+  _minChargeCount: 2
+  _maxChargeCount: 10
   _chargeScaleDuration: 0.08
   _chargingShrinkDuration: 0.2
   _impulseSource: {fileID: 4048235018614790381}
   _startShakeForce: 0.03
   _maxShakeForce: 0.5
   _startZoomAmount: 0.2
-  _zoomPerCharge: 0.1
-  _chargeZoomDuration: 1
+  _zoomPerCharge: 0.15
+  _chargeZoomDuration: 0.7
   _finisherStart:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: StopBGM
+        m_MethodName: StopBGMImmediate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20929,18 +20934,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PetMove, Assembly-CSharp
-        m_MethodName: ChangeChaseDistanceWhenInGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
   _playerBattleStartEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -20956,6 +20949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0870c62f1e89e44290439665be524af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Phase1ToPhase2Acting
+  _boss2IntroCinematic: {fileID: 0}
   _environmentChanger: {fileID: 0}
   _lightOff: {fileID: 0}
   _lightOffSound: {fileID: 8300000, guid: dfbf0781524cc3547b860cea420d0c9a, type: 3}
@@ -20966,7 +20960,19 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6093219973355731838}
         m_TargetAssemblyTypeName: PlayerMove, Assembly-CSharp
-        m_MethodName: DashToReverseSide
+        m_MethodName: MoveToReverseSide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7793714115845589175}
+        m_TargetAssemblyTypeName: PlayerEmotionContoller, Assembly-CSharp
+        m_MethodName: PlayBoss1DeathEmotion
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20978,7 +20984,19 @@ MonoBehaviour:
         m_CallState: 2
   _lightOffStartEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7793714115845589175}
+        m_TargetAssemblyTypeName: PlayerEmotionContoller, Assembly-CSharp
+        m_MethodName: PlayPhaseChangeEmotion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _lightOnStartEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -20987,7 +21005,19 @@ MonoBehaviour:
       m_Calls: []
   _returnPlayerEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7793714115845589175}
+        m_TargetAssemblyTypeName: PlayerEmotionContoller, Assembly-CSharp
+        m_MethodName: PlayBoss2DiscoverEmotion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4629908935146602055
 GameObject:
   m_ObjectHideFlags: 0

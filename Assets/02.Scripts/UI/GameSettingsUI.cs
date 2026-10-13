@@ -1,4 +1,6 @@
+using System.Collections;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,6 +15,15 @@ public class GameSettingsUI : MonoBehaviour
 
     [Header("게임 SFX 볼륨 설정용 슬라이더")]
     [SerializeField] private Slider _sfxVolumeSlider;
+
+    [Header("마스터 볼륨 퍼센트 텍스트")]
+    [SerializeField] private TMP_Text _masterVolumeText;
+
+    [Header("BGM 볼륨 퍼센트 텍스트")]
+    [SerializeField] private TMP_Text _bgmVolumeText;
+
+    [Header("SFX 볼륨 퍼센트 텍스트")]
+    [SerializeField] private TMP_Text _sfxVolumeText;
 
     [Header("게임 설정 패널 나가리 버튼")]
     [SerializeField] private Button _goBackButton;
@@ -73,26 +84,35 @@ public class GameSettingsUI : MonoBehaviour
         Cursor.visible = true;
 
         SelectTab(_tabButtons[0], false);
-        MoveSelectedImage(_tabButtons[0], true);
         SoundManager.Instance.PlayEffectSound(_settingsOpenSound);
+
+        _selectedImageTween?.Kill();
+        StartCoroutine(SnapSelectedImageNextFrame());
+    }
+
+    private IEnumerator SnapSelectedImageNextFrame()
+    {
+        yield return null;
+
+        MoveSelectedImage(_tabButtons[0], true);
     }
 
     private void MoveSelectedImage(Button tab, bool isInstant)
     {
         _selectedImageTween?.Kill();
 
-        float targetY = tab.transform.position.y;
+        float targetY = _selectedImage.parent.InverseTransformPoint(tab.transform.position).y;
 
         if (isInstant)
         {
-            Vector3 position = _selectedImage.position;
+            Vector3 position = _selectedImage.localPosition;
             position.y = targetY;
-            _selectedImage.position = position;
+            _selectedImage.localPosition = position;
             return;
         }
 
         _selectedImageTween = _selectedImage
-            .DOMoveY(targetY, _selectedImageMoveDuration)
+            .DOLocalMoveY(targetY, _selectedImageMoveDuration)
             .SetEase(Ease.OutCubic)
             .SetUpdate(true);
     }
@@ -155,6 +175,10 @@ public class GameSettingsUI : MonoBehaviour
         _bgmVolumeSlider.value = PlayerPrefs.GetFloat("BGMVolume", 1f);
         _sfxVolumeSlider.value = PlayerPrefs.GetFloat("EffectVolume", 1f);
 
+        UpdateVolumeText(_masterVolumeText, _masterVolumeSlider.value);
+        UpdateVolumeText(_bgmVolumeText, _bgmVolumeSlider.value);
+        UpdateVolumeText(_sfxVolumeText, _sfxVolumeSlider.value);
+
         _masterVolumeSlider.onValueChanged.AddListener(SetMasterVolume);
         _bgmVolumeSlider.onValueChanged.AddListener(SetBGMVolume);
         _sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
@@ -188,19 +212,27 @@ public class GameSettingsUI : MonoBehaviour
         SoundManager.Instance.PlayEffectSound(_buttonClickSound);
     }
 
+    private void UpdateVolumeText(TMP_Text text, float volume)
+    {
+        text.text = $"{Mathf.RoundToInt(volume * 100f)}%";
+    }
+
     public void SetMasterVolume(float volume)
     {
         SoundManager.Instance.SetMasterVolume(volume);
+        UpdateVolumeText(_masterVolumeText, volume);
     }
 
     public void SetBGMVolume(float volume)
     {
         SoundManager.Instance.SetBGMVolume(volume);
+        UpdateVolumeText(_bgmVolumeText, volume);
     }
 
     public void SetSFXVolume(float volume)
     {
         SoundManager.Instance.SetEffectVolume(volume);
+        UpdateVolumeText(_sfxVolumeText, volume);
     }
 
     public void CloseSettings()

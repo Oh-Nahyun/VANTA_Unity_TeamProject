@@ -8173,6 +8173,9 @@ MonoBehaviour:
   - {fileID: 2535886434566533909}
   - {fileID: 2769561800362494418}
   - {fileID: 8767322047177283809}
+  _masterVolumeText: {fileID: 1671554840887409744}
+  _bgmVolumeText: {fileID: 5382157378856418884}
+  _sfxVolumeText: {fileID: 4541287183301001965}
   _selectedImage: {fileID: 1345840454123191266}
   _selectedImageMoveDuration: 0.2
   _buttonClickSound: {fileID: 8300000, guid: c2303476eab72e24c841228fe9374fc2, type: 3}

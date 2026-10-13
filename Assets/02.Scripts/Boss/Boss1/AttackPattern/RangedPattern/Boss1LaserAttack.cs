@@ -215,12 +215,18 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
                     delta = _turnSign * (360f - Mathf.Abs(delta));
                 }
                 
-                if (_turnSign != 0f && Mathf.Sign(delta) != _turnSign && Mathf.Abs(delta) > _reverseMinAngle)
-                {
-                    _turnSign = Mathf.Sign(delta);
-                    _reverseTimer = _reverseDelay;
-                }
+                bool isReverse = _turnSign != 0f && Mathf.Sign(delta) != _turnSign;
 
+                if (isReverse)
+                {
+                    // 반대로 넘어감: 기준 각도를 넘으면 멈칫 시작
+                    // (기준 미만이면 이번 프레임은 돌지도, 방향을 바꾸지도 않음)
+                    if (Mathf.Abs(delta) > _reverseMinAngle)
+                    {
+                        _turnSign = Mathf.Sign(delta);
+                        _reverseTimer = _reverseDelay;
+                    }
+                }
                 else
                 {
                     float catchUp = Mathf.InverseLerp(_catchUpStartAngle, 180f, Mathf.Abs(delta));

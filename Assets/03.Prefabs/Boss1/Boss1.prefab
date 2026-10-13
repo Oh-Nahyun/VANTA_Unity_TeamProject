@@ -3546,6 +3546,8 @@ MonoBehaviour:
   _keepTurnDirectionAngle: 150
   _catchUpStartAngle: 45
   _catchUpMultiplier: 5
+  _reverseDelay: 0.3
+  _reverseMinAngle: 2
 --- !u!114 &9165167924702793645
 MonoBehaviour:
   m_ObjectHideFlags: 0

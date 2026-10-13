@@ -131,7 +131,8 @@ public class SkillManager : MonoBehaviour
             _skillStack
         );
         
-     
+        SoundManager.Instance.StartSlow();
+
 
         _playerMove.DashToReverseSide();
 
@@ -274,7 +275,7 @@ public class SkillManager : MonoBehaviour
             _player.OnPlayerHittable();
         });
         
-     
+        SoundManager.Instance.StopSlow();
         Time.timeScale = 1f;
     }
 

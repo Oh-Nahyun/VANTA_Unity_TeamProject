@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2577044418122153218}
   - component: {fileID: 3920772467331843629}
   - component: {fileID: 1085352587340444771}
+  - component: {fileID: 4337994221434617156}
   m_Layer: 15
   m_Name: Tenebrae
   m_TagString: Untagged
@@ -116,7 +117,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0, g: 0.5884673, b: 0.8301887, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -181,6 +182,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 3920772467331843629}
   m_maskType: 0
+--- !u!114 &4337994221434617156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19635095472018453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d7f3344e7a3204e994456ee9f09858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TextScrumble
+  _text: {fileID: 0}
+  _duration: 0.8
+  _ease: 1
+  _scrambleInterval: 0.03
+  _scrambleCharacters: ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 --- !u!1 &342250215550268243
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +400,8 @@ GameObject:
   - component: {fileID: 3034088788043132648}
   - component: {fileID: 6452055840894826520}
   - component: {fileID: 2346520072164900934}
-  m_Layer: 15
+  - component: {fileID: 3710165881325793098}
+  m_Layer: 5
   m_Name: Sovereign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,7 +424,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.8, y: -2.5}
+  m_AnchoredPosition: {x: 1.8, y: -2.4}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &6452055840894826520
@@ -487,7 +506,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0.5, g: 0.0023584962, b: 0.0023584962, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -510,7 +529,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -552,6 +571,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 6452055840894826520}
   m_maskType: 0
+--- !u!114 &3710165881325793098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609021638304018523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d7f3344e7a3204e994456ee9f09858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TextScrumble
+  _text: {fileID: 0}
+  _duration: 0.5
+  _ease: 1
+  _scrambleInterval: 0.03
+  _scrambleCharacters: ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 --- !u!1 &1770339722460845103
 GameObject:
   m_ObjectHideFlags: 0
@@ -1689,7 +1725,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.21593, y: -2.96279, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 20, y: 20, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5820308081845112137}
@@ -1748,7 +1784,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 16.7, y: 9.42}
+  m_Size: {x: 3.3, y: 3.3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -2112,7 +2148,7 @@ MonoBehaviour:
   - {fileID: 920288745356426402}
   - {fileID: 23019781288924058}
   _changeInterval: 0.1
-  _targetRadius: 0.15
+  _targetRadius: 0.3
   _radiusDuration: 0.4
 --- !u!1 &4098596375464254970
 GameObject:
@@ -2124,13 +2160,13 @@ GameObject:
   m_Component:
   - component: {fileID: 9053241567073311643}
   - component: {fileID: 502646611860234374}
-  m_Layer: 15
+  m_Layer: 5
   m_Name: BossName2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9053241567073311643
 Transform:
   m_ObjectHideFlags: 0
@@ -2165,8 +2201,8 @@ MonoBehaviour:
   - {fileID: 8097379019693494951}
   - {fileID: 4027849785282744129}
   - {fileID: 2346520072164900934}
-  _fadeInDuration: 0.1
-  _fadeInterval: 0.3
+  _fadeInDuration: 0.5
+  _fadeInterval: 1.6
   _fadeOutDelay: 1
 --- !u!1 &4504568459329079802
 GameObject:
@@ -2654,7 +2690,8 @@ GameObject:
   - component: {fileID: 1259043914089818365}
   - component: {fileID: 3078330401082690698}
   - component: {fileID: 8097379019693494951}
-  m_Layer: 15
+  - component: {fileID: 432435616891804488}
+  m_Layer: 5
   m_Name: Abyssus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2677,7 +2714,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.4, y: 0.2}
+  m_AnchoredPosition: {x: 0.4, y: 0.5}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &3078330401082690698
@@ -2759,7 +2796,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0.5, g: 0.0023584962, b: 0.0023584962, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2824,6 +2861,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 3078330401082690698}
   m_maskType: 0
+--- !u!114 &432435616891804488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5341520601978455603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d7f3344e7a3204e994456ee9f09858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TextScrumble
+  _text: {fileID: 0}
+  _duration: 1.5
+  _ease: 1
+  _scrambleInterval: 0.03
+  _scrambleCharacters: ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 --- !u!1 &5414040637034533500
 GameObject:
   m_ObjectHideFlags: 0
@@ -2940,6 +2994,7 @@ GameObject:
   - component: {fileID: 262548027466366439}
   - component: {fileID: 5612901630094755167}
   - component: {fileID: 7535483595159015703}
+  - component: {fileID: 5795297653497194806}
   m_Layer: 15
   m_Name: Blighted
   m_TagString: Untagged
@@ -2963,7 +3018,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2, y: -1.9}
+  m_AnchoredPosition: {x: -1.9, y: -1.9}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &5612901630094755167
@@ -3045,7 +3100,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0, g: 0.5884673, b: 0.8301887, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3068,7 +3123,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3110,6 +3165,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 5612901630094755167}
   m_maskType: 0
+--- !u!114 &5795297653497194806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5905555159831804683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d7f3344e7a3204e994456ee9f09858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TextScrumble
+  _text: {fileID: 0}
+  _duration: 0.5
+  _ease: 1
+  _scrambleInterval: 0.03
+  _scrambleCharacters: ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 --- !u!1 &5908283505850842966
 GameObject:
   m_ObjectHideFlags: 0
@@ -3121,6 +3193,7 @@ GameObject:
   - component: {fileID: 9059690705116393019}
   - component: {fileID: 1082756392591590602}
   - component: {fileID: 6937001665168948039}
+  - component: {fileID: 8466275582577043391}
   m_Layer: 15
   m_Name: Widow
   m_TagString: Untagged
@@ -3226,7 +3299,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0, g: 0.5884673, b: 0.8301887, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3249,7 +3322,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3291,6 +3364,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 1082756392591590602}
   m_maskType: 0
+--- !u!114 &8466275582577043391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5908283505850842966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d7f3344e7a3204e994456ee9f09858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TextScrumble
+  _text: {fileID: 0}
+  _duration: 0.5
+  _ease: 1
+  _scrambleInterval: 0.03
+  _scrambleCharacters: ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 --- !u!1 &6022703623974332279
 GameObject:
   m_ObjectHideFlags: 0
@@ -3884,7 +3974,8 @@ GameObject:
   - component: {fileID: 5992646223954643477}
   - component: {fileID: 8920572471106736278}
   - component: {fileID: 4027849785282744129}
-  m_Layer: 15
+  - component: {fileID: 175476746004912198}
+  m_Layer: 5
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3907,7 +3998,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1, y: -2.5}
+  m_AnchoredPosition: {x: -0.9, y: -2.4}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8920572471106736278
@@ -3989,7 +4080,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0.5, g: 0.0023584962, b: 0.0023584962, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4012,7 +4103,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -4054,6 +4145,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 8920572471106736278}
   m_maskType: 0
+--- !u!114 &175476746004912198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8732528517132192347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d7f3344e7a3204e994456ee9f09858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TextScrumble
+  _text: {fileID: 0}
+  _duration: 0.5
+  _ease: 1
+  _scrambleInterval: 0.03
+  _scrambleCharacters: ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 --- !u!1 &8853361925721969510
 GameObject:
   m_ObjectHideFlags: 0

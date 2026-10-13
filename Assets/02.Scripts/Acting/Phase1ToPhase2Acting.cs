@@ -41,7 +41,6 @@ public class Phase1ToPhase2Acting : MonoBehaviour
 
     public void StartPhaseChange()
     {
-        Cursor.visible = true;
         SoundManager.Instance.ChangeBGM(_phaseChangeBgm);
         _phaseStartEvent.Invoke();
         
@@ -148,6 +147,8 @@ public class Phase1ToPhase2Acting : MonoBehaviour
         _playerStatusManager.ApplyFinalSetting();
         CameraFocusingController.Instance.SlowFocus(transform,0f,1f);
         SoundManager.Instance.PlayBGM(_boss2StageBgm);
+        
+
         _returnPlayerEvent.Invoke();
 
     }

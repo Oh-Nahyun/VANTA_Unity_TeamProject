@@ -35,7 +35,6 @@ public class CameraStatusUpdater : MonoBehaviour
         if (_enableLogging)
         {
             LogStatus("Start");
-            Debug.Log($"[CameraStatus] Diagnostics v2 scene={UnityEngine.SceneManagement.SceneManager.GetActiveScene().path} unity={Application.unityVersion} build={Application.buildGUID} editor={Application.isEditor} logPath={Application.consoleLogPath}", this);
         }
     }
 

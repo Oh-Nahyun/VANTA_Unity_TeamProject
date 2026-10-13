@@ -838,6 +838,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6794591844122319444, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _maxJumpBonus
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794591844122319444, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _maxJumpMissBonus
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794591844122319444, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _jumpBonusPerSecond
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794591844122319444, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _maxRangedMissBonus
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794591844122319444, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _jumpMissBonusAmount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794591844122319444, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+      propertyPath: _rangedMissBonusAmount
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8279119010861365979, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
       propertyPath: m_Name
       value: Boss1

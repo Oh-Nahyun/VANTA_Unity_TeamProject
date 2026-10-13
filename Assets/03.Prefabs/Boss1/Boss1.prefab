@@ -3426,15 +3426,15 @@ MonoBehaviour:
   _playerXNear: 1.4
   _playerYNear: 0.8
   _distanceThreshold: 4.5
-  _meleeWeightBonus: 7
+  _meleeWeightBonus: 5
   _rangedWeightBonus: 5
-  _rangedMissBonusAmount: 2
-  _maxRangedMissBonus: 6
+  _rangedMissBonusAmount: 3
+  _maxRangedMissBonus: 9
   _jumpBonusStartTime: 3
-  _jumpBonusPerSecond: 2
-  _maxJumpBonus: 10
-  _jumpMissBonusAmount: 2
-  _maxJumpMissBonus: 8
+  _jumpBonusPerSecond: 3
+  _maxJumpBonus: 12
+  _jumpMissBonusAmount: 5
+  _maxJumpMissBonus: 15
 --- !u!114 &2582459974778337398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3604,11 +3604,11 @@ MonoBehaviour:
   _animator: {fileID: 192520389527177166}
   _phase1Settings:
     _moveSpeed: 7
-    _telegraphDuration: 0.05
+    _telegraphDuration: 0.15
     _recoveryDuration: 0.05
   _phase2Settings:
     _moveSpeed: 10
-    _telegraphDuration: 0.05
+    _telegraphDuration: 0.1
     _recoveryDuration: 0.05
   _clawImpulseSource: {fileID: 9204188410883197437}
   _impulseForce: 0.35

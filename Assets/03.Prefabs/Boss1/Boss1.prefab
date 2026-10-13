@@ -3304,7 +3304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8a5219359263a489d250db1b9bca3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossLife
-  _maxHealth: 1000
+  _maxHealth: 3000
   _phase2HealthPercent: 0.4
 --- !u!114 &7103835189215790258
 MonoBehaviour:
@@ -3450,11 +3450,11 @@ MonoBehaviour:
   _weight: 10
   _rangedAttacks:
   - _attackBehaviour: {fileID: 2627111689535811849}
-    _weight: 45
+    _weight: 43
   - _attackBehaviour: {fileID: 3901018116763532789}
     _weight: 30
   - _attackBehaviour: {fileID: 537864551881236395}
-    _weight: 25
+    _weight: 27
   _phase1Settings:
     _overlapChance: 0.35
     _overlapCheckDelay: 1.5
@@ -3484,7 +3484,7 @@ MonoBehaviour:
   _aimedHeadPivot: {fileID: 5691608955840068536}
   _bulletPrefab: {fileID: 1563816904694444635, guid: 581192e0b71aa7e46b2dad1c063fb412, type: 3}
   _phase1Settings:
-    _aimedFireInterval: 0.6
+    _aimedFireInterval: 0.55
     _aimedFireCount: 8
   _phase2Settings:
     _aimedFireInterval: 0.4

@@ -3428,8 +3428,8 @@ MonoBehaviour:
   _distanceThreshold: 4.5
   _meleeWeightBonus: 5
   _rangedWeightBonus: 5
-  _rangedMissBonusAmount: 4
-  _maxRangedMissBonus: 12
+  _rangedMissBonusAmount: 3
+  _maxRangedMissBonus: 9
   _jumpBonusStartTime: 3
   _jumpBonusPerSecond: 2
   _maxJumpBonus: 10
@@ -3546,6 +3546,8 @@ MonoBehaviour:
   _keepTurnDirectionAngle: 150
   _catchUpStartAngle: 45
   _catchUpMultiplier: 5
+  _reverseDelay: 0.3
+  _reverseMinAngle: 2
 --- !u!114 &9165167924702793645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3559,6 +3561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1MeleePattern
   _weight: 10
+  _maxStartDistance: 3.5
   _meleeAttacks:
   - _attackBehaviour: {fileID: 3060184153963347236}
     _weight: 10
@@ -3588,6 +3591,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss1ClawAttack
   _boss1Movement: {fileID: 7103835189215790258}
   _maxPositioningTime: 0.5
+  _maxApproachTime: 2
   _lungeStartTime: 0.15
   _lungeEndTime: 0.33
   _maxLungeDistance: 0.6
@@ -3598,7 +3602,7 @@ MonoBehaviour:
   _maxPredictDistance: 1.2
   _minAttackDistance: 1.4
   _maxAttackDistance: 2.5
-  _yTolerance: 0.1
+  _yTolerance: 0.2
   _clawHitBox: {fileID: 5818488566624348837}
   _telegraphFlash: {fileID: 5915306269748748176}
   _animator: {fileID: 192520389527177166}
@@ -3626,6 +3630,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss1SpitAttack
   _boss1Movement: {fileID: 7103835189215790258}
   _maxPositioningTime: 0.5
+  _maxApproachTime: 2
   _minFaceDistance: 0.3
   _minAttackDistance: 1.2
   _maxAttackDistance: 2.5

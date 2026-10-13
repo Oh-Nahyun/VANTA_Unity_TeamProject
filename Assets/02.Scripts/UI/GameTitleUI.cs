@@ -133,7 +133,7 @@ public class GameTitleUI : MonoBehaviour
         _gameSettingPanel.active = true;
     }
 
-    private void OnClickExitButton()
+    public void OnClickExitButton()
     {
         SoundManager.Instance.PlayEffectSound(_buttonClickSound);
         StartCoroutine(ExitAfterFadeOutCoroutine());

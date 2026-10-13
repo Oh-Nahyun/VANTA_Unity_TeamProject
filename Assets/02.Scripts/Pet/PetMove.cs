@@ -32,6 +32,12 @@ public class PetMove : MonoBehaviour
     [Header("펫 대기 효과음 재생 최대 간격")]
     [SerializeField] private float _idleSoundMaxInterval = 8f;
 
+    [Header("펫의 게임 시작 시 플레이어 추적 거리")]
+    [SerializeField] private float _gameStartChaseDistance;
+
+    [Header("펫의 전투 시작 시 플레이어 추적 거리")]
+    [SerializeField] private float _inGameChaseDistance;
+
     /// <summary>
     /// 펫 클래스
     /// </summary>
@@ -58,11 +64,6 @@ public class PetMove : MonoBehaviour
     private bool _canChase;
 
     /// <summary>
-    /// 펫의 게임 시작 시 플레이어 추적 거리
-    /// </summary>
-    private float _gameStartChaseDistance;
-
-    /// <summary>
     /// 펫이 대기 상태로 머문 시간 계산용 변수
     /// </summary>
     private float _idleSoundTimer;
@@ -76,11 +77,6 @@ public class PetMove : MonoBehaviour
     /// 마지막으로 재생한 대기 효과음 인덱스 저장용 변수
     /// </summary>
     private int _lastIdleSoundIndex = -1;
-
-    /// <summary>
-    /// 펫의 전투 시작 시 플레이어 추적 거리
-    /// </summary>
-    private float _inGameChaseDistance;
 
     /// <summary>
     /// 펫이 이동 가능한 상태인지 확인용 변수
@@ -98,8 +94,6 @@ public class PetMove : MonoBehaviour
         _timer = 0f;
         _timeBeforeRun = 1.7f;
         _canChase = true;
-        _gameStartChaseDistance = 0.5f;
-        _inGameChaseDistance = 2.5f;
         CanMove = true;
         _nextIdleSoundInterval = Random.Range(_idleSoundMinInterval, _idleSoundMaxInterval);
     }

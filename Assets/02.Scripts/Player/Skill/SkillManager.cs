@@ -229,6 +229,9 @@ public class SkillManager : MonoBehaviour
 
     private void StartDash()
     {
+        _skillCountText.StopCount();
+
+        
         CameraFocusingController.Instance.ReturnCamera();
 
         List<SkillIndicator> _choicedSequnce =
@@ -255,7 +258,6 @@ public class SkillManager : MonoBehaviour
     {
         _skillSequence?.Kill();
         _skillSequence = null;
-        _isSkillUse = false;
         
         _skillCountText.StopCount();
 
@@ -284,9 +286,11 @@ public class SkillManager : MonoBehaviour
         _playerAttack.enabled = true;
         _playerMove.enabled = true;
         
-        DOVirtual.DelayedCall(1f, () =>
+        DOVirtual.DelayedCall(2f, () =>
         {
             _player.OnPlayerHittable();
+            _isSkillUse = false;
+
         });
         
         SoundManager.Instance.StopSlow();

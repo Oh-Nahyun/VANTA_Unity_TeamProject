@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 20
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -131,10 +131,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 3424
+        width: 214
         height: 203
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -147,11 +147,341 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Boss1_Death_EyeBlood_1
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 0
+        width: 214
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cfc728bd118367439a65d39a68bba83
+      internalID: 455486820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_Death_EyeBlood_2
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 0
+        width: 214
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc02887f8ece7e5419868a1fb788f894
+      internalID: 2014003479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_Death_EyeBlood_3
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 0
+        width: 214
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18fcceccad3016549b34f8e569a6f772
+      internalID: 565078332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_Death_EyeBlood_4
+      rect:
+        serializedVersion: 2
+        x: 856
+        y: 0
+        width: 214
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb70ca6c80417e447af6afabcb907013
+      internalID: 653222859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_Death_EyeBlood_5
+      rect:
+        serializedVersion: 2
+        x: 1070
+        y: 0
+        width: 214
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b55de449b520a447a5b2e3323845590
+      internalID: 304740925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_Death_EyeBlood_6
+      rect:
+        serializedVersion: 2
+        x: 1284
+        y: 0
+        width: 214
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1ebdb8b71bb03a44a1d84e00eacaf13
+      internalID: -256576022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_Death_EyeBlood_7
+      rect:
+        serializedVersion: 2
+        x: 1498
+        y: 0
+        width: 214
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d688807b8e832284bacdbea415448a2a
+      internalID: 1949299167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_Death_EyeBlood_8
+      rect:
+        serializedVersion: 2
+        x: 1712
+        y: 0
+        width: 214
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a4c81a4af3b68b41a5688dc2ec8629d
+      internalID: -1215727046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_Death_EyeBlood_9
+      rect:
+        serializedVersion: 2
+        x: 1926
+        y: 0
+        width: 214
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90c8f799d6df73d49ad141a3fe5248d5
+      internalID: 260309426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_Death_EyeBlood_10
+      rect:
+        serializedVersion: 2
+        x: 2140
+        y: 0
+        width: 214
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53e505deaa78b814a8f56136ceb973bf
+      internalID: -1608520259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_Death_EyeBlood_11
+      rect:
+        serializedVersion: 2
+        x: 2354
+        y: 0
+        width: 214
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4aa3230b77de954188e2384c65fa919
+      internalID: 862508201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_Death_EyeBlood_12
+      rect:
+        serializedVersion: 2
+        x: 2568
+        y: 0
+        width: 214
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b985814f32ccbd41afc6e37d3ee4638
+      internalID: 1536764072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_Death_EyeBlood_13
+      rect:
+        serializedVersion: 2
+        x: 2782
+        y: 0
+        width: 214
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edee2869950d55c40b6a71db2613cdab
+      internalID: 1080466853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_Death_EyeBlood_14
+      rect:
+        serializedVersion: 2
+        x: 2996
+        y: 0
+        width: 214
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4036e1756716eb94a9e93d5138ddb6b5
+      internalID: 1774463043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_Death_EyeBlood_15
+      rect:
+        serializedVersion: 2
+        x: 3210
+        y: 0
+        width: 214
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f2dfea3d0594f34aaad47f9c4439886
+      internalID: -1318867365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: fe303040562cc5f40924925e7d2df811
     internalID: 0
     vertices: []
     indices: 
@@ -159,9 +489,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":214.0,"y":203.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":true,"isAlternate":false}'
     nameFileIdTable:
       Boss1_Death_EyeBlood_0: 4819080242748167543
+      Boss1_Death_EyeBlood_1: 455486820
+      Boss1_Death_EyeBlood_10: -1608520259
+      Boss1_Death_EyeBlood_11: 862508201
+      Boss1_Death_EyeBlood_12: 1536764072
+      Boss1_Death_EyeBlood_13: 1080466853
+      Boss1_Death_EyeBlood_14: 1774463043
+      Boss1_Death_EyeBlood_15: -1318867365
+      Boss1_Death_EyeBlood_2: 2014003479
+      Boss1_Death_EyeBlood_3: 565078332
+      Boss1_Death_EyeBlood_4: 653222859
+      Boss1_Death_EyeBlood_5: 304740925
+      Boss1_Death_EyeBlood_6: -256576022
+      Boss1_Death_EyeBlood_7: 1949299167
+      Boss1_Death_EyeBlood_8: -1215727046
+      Boss1_Death_EyeBlood_9: 260309426
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

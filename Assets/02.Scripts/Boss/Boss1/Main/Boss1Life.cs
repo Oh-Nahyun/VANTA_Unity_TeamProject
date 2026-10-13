@@ -7,6 +7,7 @@ public class Boss1Life : HitableObject
     [SerializeField] private float _phase2HealthPercent = 0.4f;
     
     private Boss1HitFlash _boss1HitFlash;
+    private BoxCollider2D _hitCollider;
     
     private int _currentHealth;
     public float HealthRatio => _maxHealth > 0f ? Mathf.Clamp01((float)_currentHealth / (float)_maxHealth) : 0f;
@@ -21,6 +22,7 @@ public class Boss1Life : HitableObject
     {   
         _currentHealth = _maxHealth;
         _boss1HitFlash = GetComponent<Boss1HitFlash>();
+        _hitCollider = GetComponent<BoxCollider2D>();
     }
 
     protected override void HitEvent(int damage)
@@ -30,7 +32,7 @@ public class Boss1Life : HitableObject
 
     public void TakeDamage(int damage)
     {
-        if (_isDead)
+        if (_isDead || !_hitCollider.enabled)
         {
             return;
         }

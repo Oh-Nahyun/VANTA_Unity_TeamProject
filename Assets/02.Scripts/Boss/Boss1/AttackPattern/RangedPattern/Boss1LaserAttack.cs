@@ -11,50 +11,67 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
     [Serializable]
     private class PhaseSettings
     {
-        [Header("조준 시간")]
+        [Header("조준 시간 (경고선)")]
         [SerializeField] private float _aimDuration = 1f;
 
-        [Header("레이저 휩쓰는 각도")]
-        [SerializeField] private float _sweepAngle = 60f;
+        [Header("발사 지속 시간")]
+        [SerializeField] private float _fireDuration = 3f;
 
-        [Header("레이저 휩쓰는 시간")]
-        [SerializeField] private float _sweepDuration = 1.2f;
+        [Header("발사 직후 경고선 자리에 고정되는 시간")]
+        [SerializeField] private float _trackDelay = 0.2f;
+
+        [Header("추적 회전 속도 (초당 각도): 시작 → 최대")]
+        [SerializeField] private float _turnSpeedStart = 20f;
+        [SerializeField] private float _turnSpeedMax = 45f;
+
+        [Header("최대 회전 속도까지 걸리는 시간")]
+        [SerializeField] private float _turnAccelTime = 1.5f;
 
         public float AimDuration => _aimDuration;
-        public float SweepAngle => _sweepAngle;
-        public float SweepDuration => _sweepDuration;
+        public float FireDuration => _fireDuration;
+        public float TrackDelay => _trackDelay;
+        public float TurnSpeedStart => _turnSpeedStart;
+        public float TurnSpeedMax => _turnSpeedMax;
+        public float TurnAccelTime => _turnAccelTime;
     }
 
     [Header("페이즈별 난이도 세팅")]
     [SerializeField] private PhaseSettings _phase1Settings;
     [SerializeField] private PhaseSettings _phase2Settings;
-    
+
     [Header("머리 인디케이터")]
     [SerializeField] private Boss1HeadIndicator _headIndicator;
-    
+
     [Header("입 섬광")]
     [SerializeField] private Boss1MuzzleFlash _muzzleFlash;
+    
+    [Header("정반대편에서 회전 방향 유지 기준 각도")]
+    [SerializeField] private float _keepTurnDirectionAngle = 150f;
+    
+    [Header("각도 차이가 클수록 빨리 돎")]
+    [SerializeField] private float _catchUpStartAngle = 45f;  // 이 각도부터 빨라지기 시작
+    [SerializeField] private float _catchUpMultiplier = 4f;
+
+    private float _turnSign;
 
     private Boss1PhaseController _boss1PhaseController;
-
-    private float _targetAngle;
+    private Boss1Sound _boss1Sound;
 
     private float _timer;
     private LaserState _currentState;
 
     private Vector2 _lockedDirection;
     private float _lockedAngle;
+    private float _currentAngle;
 
     private bool _isPhase2;
-    
-    private Boss1Sound _boss1Sound;
 
     public bool IsFinished { get; private set; }
 
     private enum LaserState
     {
         Aim,
-        Sweep,
+        Fire,
         End
     }
 
@@ -79,16 +96,13 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
 
     private void Start()
     {
-        _playerTransform =
-            GameObject.FindGameObjectWithTag("Player").transform;
-
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         _laser.Hide();
     }
 
     private void ChangePhase(Boss1PhaseController.Boss1Phase phase)
     {
-        _isPhase2 =
-            phase == Boss1PhaseController.Boss1Phase.phase2;
+        _isPhase2 = phase == Boss1PhaseController.Boss1Phase.phase2;
     }
 
     public void EnterAttack()
@@ -96,9 +110,8 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         IsFinished = false;
 
         _laser.Hide();
-
         ChangeState(LaserState.Aim);
-        
+
         if (_headIndicator != null)
         {
             _headIndicator.ShowHeadIndicator();
@@ -113,8 +126,8 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
                 UpdateAim();
                 break;
 
-            case LaserState.Sweep:
-                UpdateSweep();
+            case LaserState.Fire:
+                UpdateFire();
                 break;
 
             case LaserState.End:
@@ -128,14 +141,14 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         _boss1Sound.Stop(Boss1SoundType.LaserCharge);
         _boss1Sound.Stop(Boss1SoundType.LaserChargeP2);
         _boss1Sound.Stop(Boss1SoundType.LaserFire);
-        
+
         _laser.Hide();
-        
+
         if (_muzzleFlash != null)
         {
             _muzzleFlash.StopHold();
         }
-        
+
         if (_headIndicator != null)
         {
             _headIndicator.HideHeadIndicator();
@@ -144,18 +157,17 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
 
     private void UpdateAim()
     {
-        // Aim 상태에 들어온 첫 프레임에만
-        // 플레이어의 현재 위치를 조준 방향으로 저장
+        // Aim 첫 프레임에만 플레이어 방향을 저장
         if (_timer == 0f)
         {
             _lockedDirection = (_playerTransform.position - _laserHeadPivot.position).normalized;
-            _lockedAngle = Mathf.Atan2( _lockedDirection.y, _lockedDirection.x) * Mathf.Rad2Deg;
+            _lockedAngle = DirectionToAngle(_lockedDirection);
             _boss1Sound.Play(_isPhase2 ? Boss1SoundType.LaserChargeP2 : Boss1SoundType.LaserCharge);
         }
 
         _timer += Time.deltaTime;
 
-        // 실제 데미지가 없는 경고선 표시
+        // 데미지 없는 경고선
         _laser.ShowAim(_lockedDirection, _timer / CurrentPhaseSettings.AimDuration);
 
         if (_timer < CurrentPhaseSettings.AimDuration)
@@ -163,26 +175,51 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
             return;
         }
 
-        // 플레이어가 조준선을 어느 방향으로 피했는지 확인
-        SetSweepTarget();
-
-        ChangeState(LaserState.Sweep);
+        // 발사는 경고선이 보여 준 자리에서 시작
+        _currentAngle = _lockedAngle;
+        ChangeState(LaserState.Fire);
     }
 
-    private void UpdateSweep()
+    private void UpdateFire()
     {
         _timer += Time.deltaTime;
 
-        float timePercent = Mathf.Clamp01( _timer / CurrentPhaseSettings.SweepDuration);
+        // 잠깐 고정된 뒤부터 플레이어 쪽으로 천천히 회전
+        if (_timer >= CurrentPhaseSettings.TrackDelay)
+        {
+            float trackTime = _timer - CurrentPhaseSettings.TrackDelay;
+            float accel = CurrentPhaseSettings.TurnAccelTime > 0f
+                ? Mathf.Clamp01(trackTime / CurrentPhaseSettings.TurnAccelTime)
+                : 1f;
 
-        float currentAngle = Mathf.LerpAngle( _lockedAngle, _targetAngle, timePercent);
+            float turnSpeed = Mathf.Lerp(CurrentPhaseSettings.TurnSpeedStart,
+                                         CurrentPhaseSettings.TurnSpeedMax, accel);
 
-        Vector2 direction = new Vector2( Mathf.Cos(currentAngle * Mathf.Deg2Rad), Mathf.Sin(currentAngle * Mathf.Deg2Rad));
+            float delta = Mathf.DeltaAngle(_currentAngle, GetAngleToPlayer());
+
+            if (_turnSign != 0f && Mathf.Abs(delta) > _keepTurnDirectionAngle && Mathf.Sign(delta) != _turnSign)
+            {
+                delta = _turnSign * (360f - Mathf.Abs(delta));
+            }
+            
+            float catchUp = Mathf.InverseLerp(_catchUpStartAngle, 180f, Mathf.Abs(delta));
+            float finalSpeed = turnSpeed * Mathf.Lerp(1f, _catchUpMultiplier, catchUp);
+
+            float maxStep = finalSpeed * Time.deltaTime;
+            
+            float step = Mathf.Clamp(delta, -maxStep, maxStep);
+            _currentAngle += step;
+
+            if (Mathf.Abs(step) > 0.0001f)
+            {
+                _turnSign = Mathf.Sign(step);
+            }
+        }
 
         // 실제 레이저 표시 + 피격 검사
-        _laser.Fire(direction);
+        _laser.Fire(AngleToDirection(_currentAngle));
 
-        if (_timer < CurrentPhaseSettings.SweepDuration)
+        if (_timer < CurrentPhaseSettings.FireDuration)
         {
             return;
         }
@@ -195,14 +232,13 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         _currentState = newState;
         _timer = 0f;
 
-        if (_currentState == LaserState.Sweep)
+        if (_currentState == LaserState.Fire)
         {
-            // Aim에서 사용하던 경고선을 제거하고
-            // 실제 레이저로 넘어감
+            _turnSign = 0f; 
             _laser.HideAim();
-            
+
             _boss1Sound.Play(Boss1SoundType.LaserFire);
-            
+
             if (_muzzleFlash != null)
             {
                 _muzzleFlash.StartHold();
@@ -212,7 +248,7 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         if (_currentState == LaserState.End)
         {
             _laser.Hide();
-            
+
             if (_muzzleFlash != null)
             {
                 _muzzleFlash.StopHold();
@@ -220,18 +256,20 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
         }
     }
 
-    private void SetSweepTarget()
+    private float GetAngleToPlayer()
     {
-        Vector2 playerDirection =
-            (_playerTransform.position - _laserHeadPivot.position).normalized;
+        Vector2 direction = (_playerTransform.position - _laserHeadPivot.position).normalized;
+        return DirectionToAngle(direction);
+    }
 
-        float playerAngle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg;
+    private static float DirectionToAngle(Vector2 direction)
+    {
+        return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+    }
 
-        float angleDifference = Mathf.DeltaAngle( _lockedAngle, playerAngle);
-
-        // 플레이어가 초기 조준선의 어느 쪽으로 피했는지 확인
-        float sweepDirection = angleDifference >= 0f ? 1f : -1f;
-
-        _targetAngle = _lockedAngle + (CurrentPhaseSettings.SweepAngle * sweepDirection);
+    private static Vector2 AngleToDirection(float angle)
+    {
+        float rad = angle * Mathf.Deg2Rad;
+        return new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
     }
 }

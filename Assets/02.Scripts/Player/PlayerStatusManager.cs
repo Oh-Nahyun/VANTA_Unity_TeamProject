@@ -37,10 +37,15 @@ public class PlayerStatusManager : MonoBehaviour
     private Tween _startActingLightTween;
 
     private bool _isStart;
+    private Tween _bgmDelay;
+    public ActingController Acting { get; private set; }
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        Acting = GetComponent<ActingController>();
+        if (Acting == null)
+            Acting = gameObject.AddComponent<ActingController>();
 
         if (_useStartSequence)
         {
@@ -110,11 +115,12 @@ public class PlayerStatusManager : MonoBehaviour
 
         if (_isStart)
             return;
+        Acting.BeginGameStart(GetComponent<GameStartActing>());
         Cursor.visible = false;
 
         SoundManager.Instance.StopBGM();
         _isStart = true;
-        DOVirtual.DelayedCall(2.5f, () =>
+        _bgmDelay = DOVirtual.DelayedCall(2.5f, () =>
         {
             SoundManager.Instance.PlayBGM(_boss1StageBgm);
         });
@@ -186,6 +192,30 @@ public class PlayerStatusManager : MonoBehaviour
     }
     
     
+    public void CancelStartForSkip()
+    {
+        _isStart = true;
+        _originSequence?.Kill();
+        _startActingLightTween?.Kill();
+        _bgmDelay?.Kill();
+        _playerMove.CancelActingMove();
+        PlayerControlOff();
+    }
+
+    public void ApplySkippedVisuals(bool startBgm)
+    {
+        _spotLight.pointLightOuterRadius = _targetOuterRadius;
+        var lens = _cinemachineCamera.Lens;
+        lens.OrthographicSize = _targetOrthographicSize;
+        _cinemachineCamera.Lens = lens;
+        _animator.ResetTrigger("Dash");
+        _animator.ResetTrigger("Start");
+        _animator.Play("Idle", 0, 0f);
+        _animator.Update(0f);
+        if (startBgm)
+            SoundManager.Instance.PlayBGM(_boss1StageBgm);
+    }
+
     public void ApplyFinalSetting()
     {
         _isStart = true;
@@ -210,6 +240,7 @@ public class PlayerStatusManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        _bgmDelay?.Kill();
         _originSequence?.Kill();
         _startActingLightTween?.Kill();
 

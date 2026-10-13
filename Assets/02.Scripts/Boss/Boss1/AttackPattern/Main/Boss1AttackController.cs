@@ -138,7 +138,7 @@ public class Boss1AttackController : MonoBehaviour
     {
         _stateTimer += Time.deltaTime;
 
-        if (PlayerNearTooLong())
+        if (PlayerNearTooLong() && _rangedMissBonus < _rangedMissBonusAmount)
         {
             StartMeleeAttack();
             return;

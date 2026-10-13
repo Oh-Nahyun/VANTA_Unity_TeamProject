@@ -19,9 +19,7 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("공격한 콤보수")]
     [SerializeField] private int _attackComboCount = 0;
-
-    public int AttackComboCount => _attackComboCount;
-
+    
     [Header("슬래시 데미지")][SerializeField] private float _slashDamage = 50;
     [Header("더블 슬래시 데미지")][SerializeField] private float _doubleSlashDamage = 75;
 

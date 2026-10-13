@@ -20498,15 +20498,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _health: 2
   _hitCoolTime: 4
-  _hitVfx: {fileID: 2955623459812423943, guid: e6f4b5929f28cae4994fbb10fadead7a, type: 3}
-  _deathVfx: {fileID: 2955623459812423943, guid: 268983da5ec965d468fa4fde6b11266d, type: 3}
   _damagedSlowAmount: 0.15
   _damagedSlowInDuration: 1.5
   _damagedSlowHoldDuration: 0.15
   _damagedSlowRecoverDuration: 1
+  _hitVfx: {fileID: 2955623459812423943, guid: e6f4b5929f28cae4994fbb10fadead7a, type: 3}
+  _deathVfx: {fileID: 2955623459812423943, guid: 268983da5ec965d468fa4fde6b11266d, type: 3}
   _deathLight: {fileID: 3588000712453903779}
   _deathLightRadius: 1
   _deathLightShrinkDuration: 0.7
+  _skillManager: {fileID: 4902766636836062051}
   _deathStartEvent:
     m_PersistentCalls:
       m_Calls:
@@ -20677,11 +20678,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAvoid
   _slowAmount: 0.2
+  _playerAvoidSound: {fileID: 8300000, guid: 03a6c8770cdf7a749a558d8290581084, type: 3}
   _avoidZoomAmount: 1.5
   _avoidDuration: 2
   _dashDistance: 2
   _avoidDashDuration: 0.5
   _attackPassDistance: 1.5
+  _avoidDashDamage: 300
   _focusScreenController: {fileID: 1332611649402532543}
 --- !u!114 &1527369805069074017
 MonoBehaviour:

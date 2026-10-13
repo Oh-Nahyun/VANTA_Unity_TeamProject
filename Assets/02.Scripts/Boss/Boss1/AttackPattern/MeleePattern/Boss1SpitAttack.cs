@@ -28,7 +28,8 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
         public float TelegraphDuration => _telegraphDuration;
         public float RecoveryDuration => _recoveryDuration;
     }
-    
+
+    [SerializeField] private float _minAttackDistance = 1.2f;
     [SerializeField] private float _maxAttackDistance = 3f;
     [SerializeField] private float _yTolerance = 0.5f;
     
@@ -45,6 +46,7 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
     private Boss1PhaseController _boss1PhaseController;
     
     private float _timer;
+    private float _backTimer;
     private float _positioningTimer;
 
     private SpitState _currentState;
@@ -99,6 +101,7 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
         IsFinished = false;
         _timer = 0f;
         _positioningTimer = 0f;
+        _backTimer = 0f;
         _spitHitBox.DisableHitBox();
         _boss1Movement.LockFacing();
         _currentState = SpitState.Positioning;
@@ -156,6 +159,18 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
         
         float xDistance = Mathf.Abs(xDifference);
         float yDistance = Mathf.Abs(yDifference);
+        
+        if (xDistance < _minAttackDistance)
+        {
+            _backTimer += Time.deltaTime;
+            
+            if (_backTimer < _maxPositioningTime)
+            {
+                float facing = Mathf.Sign(_spitHitBox.transform.position.x - transform.position.x);
+                _boss1Movement.MoveInDirection(new Vector2(-facing, 0f), CurrentPhaseSettings.MoveSpeed);
+                return;
+            }
+        }
 
         if (xDistance > _maxAttackDistance)
         {
@@ -183,6 +198,7 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
     {
         _boss1Movement.StopMove();
         _positioningTimer = 0f;
+        _backTimer = 0f;
         _timer = 0f;
         _currentState = SpitState.Telegraph;
 

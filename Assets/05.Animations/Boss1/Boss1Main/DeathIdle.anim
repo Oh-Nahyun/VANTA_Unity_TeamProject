@@ -164,6 +164,19 @@ AnimationClip:
     classID: 212
     script: {fileID: 0}
     flags: 2
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 1459381862011466527, guid: d4fbb3810ec766e4e9b5d5174d4f615b, type: 3}
+    - time: 0.1
+      value: {fileID: -325594172, guid: d4fbb3810ec766e4e9b5d5174d4f615b, type: 3}
+    - time: 0.2
+      value: {fileID: 236682339, guid: d4fbb3810ec766e4e9b5d5174d4f615b, type: 3}
+    attribute: m_Sprite
+    path: EyeBlood
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
   m_SampleRate: 100
   m_WrapMode: 0
   m_Bounds:
@@ -261,6 +274,15 @@ AnimationClip:
       isPPtrCurve: 1
       isIntCurve: 0
       isSerializeReferenceCurve: 0
+    - serializedVersion: 2
+      path: 2640577879
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping:
     - {fileID: 1843729122198267098, guid: 56485618ccf894140ba1e8fcb2901ec1, type: 3}
     - {fileID: 6597893512554366690, guid: 56485618ccf894140ba1e8fcb2901ec1, type: 3}
@@ -286,6 +308,9 @@ AnimationClip:
     - {fileID: -1999843446945196839, guid: 56485618ccf894140ba1e8fcb2901ec1, type: 3}
     - {fileID: -6292077827587028024, guid: 56485618ccf894140ba1e8fcb2901ec1, type: 3}
     - {fileID: -5324062439827561648, guid: 56485618ccf894140ba1e8fcb2901ec1, type: 3}
+    - {fileID: 1459381862011466527, guid: d4fbb3810ec766e4e9b5d5174d4f615b, type: 3}
+    - {fileID: -325594172, guid: d4fbb3810ec766e4e9b5d5174d4f615b, type: 3}
+    - {fileID: 236682339, guid: d4fbb3810ec766e4e9b5d5174d4f615b, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

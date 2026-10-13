@@ -9,12 +9,11 @@ public class Boss1AnimationEventRelay : MonoBehaviour
     [SerializeField] private Boss1SpitAttack _boss1SpitAttack;
     [SerializeField] private Boss1JumpAttack _boss1JumpAttack;
 
+    [SerializeField] private Boss1PhaseController _boss1PhaseController;
     [SerializeField] private Boss1DeathController _boss1DeathController;
     
     [SerializeField] private Boss1Sound _boss1Sound;
-
-    [SerializeField] private SoundManager _soundManager;
-
+    
     public void RemoveWarningZone()
     {
         _boss1IntroController.RemoveWarningZone();
@@ -24,6 +23,17 @@ public class Boss1AnimationEventRelay : MonoBehaviour
     {
         _boss1IntroController.EndIntroJumpLand();
     }
+
+    public void IntroClawSound()
+    {
+        _boss1IntroController.IntroClawSound();
+    }
+    
+    public void PlayBuffSound()
+    {
+        _boss1PhaseController.PlayBuffSound();
+    }
+
     
     public void EndIntroClawStart()
     {
@@ -89,9 +99,9 @@ public class Boss1AnimationEventRelay : MonoBehaviour
     {
         _boss1Sound.Play(Boss1SoundType.FootStep);
     }
-
-    public void StopBoss1BGM()
+    
+    public void Boss1Explode()
     {
-        _soundManager.StopBGMImmediate();
+        SoundManager.Instance.StopBGMImmediate();
     }
 }

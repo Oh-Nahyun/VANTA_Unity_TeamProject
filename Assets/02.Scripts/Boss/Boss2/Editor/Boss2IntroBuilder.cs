@@ -28,6 +28,7 @@ public static class Boss2IntroBuilder
     private const string GasPrefabPath = Boss2DarkBurstVfxBuilder.PrefabPath;
     private const string CloudPrefabPath = "Assets/03.Prefabs/Boss2/Effect/CloudFogVFX.prefab";
     private const string BlinkSpritePath = "Assets/04.Sprites/Boss2/HandMadeSprite/Boss2 Blink.png";
+    private const string VignetteSpritePath = "Assets/04.Sprites/Boss2/Intro/T_HorrorVignette.png";
     private const string RootName = "Boss2IntroCinematic";
 
     // Timeline 시간표 (초)
@@ -410,6 +411,9 @@ public static class Boss2IntroBuilder
         var canvas = canvasObject.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.sortingOrder = 500;
+        // 공포 테두리는 번쩍임·암전 아래에 깔린다 (먼저 만든 것이 아래)
+        Image vignette = CreateOverlayImage("HorrorVignette", canvasObject.transform, new Color(1f, 1f, 1f, 0f));
+        vignette.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(VignetteSpritePath);
         Image flash = CreateOverlayImage("Flash", canvasObject.transform, new Color(1f, 1f, 1f, 0f));
         Image black = CreateOverlayImage("Blackout", canvasObject.transform, new Color(0f, 0f, 0f, 0f));
 
@@ -442,6 +446,7 @@ public static class Boss2IntroBuilder
         so.FindProperty("_slashImpulse").objectReferenceValue = impulse;
         so.FindProperty("_flashOverlay").objectReferenceValue = flash;
         so.FindProperty("_blackOverlay").objectReferenceValue = black;
+        so.FindProperty("_vignetteOverlay").objectReferenceValue = vignette;
         so.FindProperty("_introCamera").objectReferenceValue = introCamera;
         so.FindProperty("_boss2EyesClosedSprite").objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(BlinkSpritePath);
         so.ApplyModifiedPropertiesWithoutUndo();

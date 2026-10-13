@@ -422,6 +422,36 @@ MonoBehaviour:
   _introMusicVolume: 1
   _introMusicFadeOut: 1.5
   _stopStageBgmOnIntro: 1
+  _vignetteOverlay: {fileID: 1434173466246721816}
+  _vignetteFrames:
+  - {fileID: 7111382802010072991, guid: 93b5627d50a80dc47839187da964f3d3, type: 3}
+  - {fileID: 3490700022998718476, guid: 93b5627d50a80dc47839187da964f3d3, type: 3}
+  - {fileID: -4882377719882533062, guid: 93b5627d50a80dc47839187da964f3d3, type: 3}
+  - {fileID: 219783782710983381, guid: 93b5627d50a80dc47839187da964f3d3, type: 3}
+  - {fileID: 7382562087061573467, guid: 93b5627d50a80dc47839187da964f3d3, type: 3}
+  - {fileID: -6476865055485480518, guid: 93b5627d50a80dc47839187da964f3d3, type: 3}
+  - {fileID: 1319137714264918573, guid: 93b5627d50a80dc47839187da964f3d3, type: 3}
+  - {fileID: 707629996126750539, guid: 93b5627d50a80dc47839187da964f3d3, type: 3}
+  - {fileID: -6591795935911873876, guid: 93b5627d50a80dc47839187da964f3d3, type: 3}
+  - {fileID: -3722131677393889690, guid: 93b5627d50a80dc47839187da964f3d3, type: 3}
+  - {fileID: 5986000363029883565, guid: 93b5627d50a80dc47839187da964f3d3, type: 3}
+  - {fileID: 4077877265758193684, guid: 93b5627d50a80dc47839187da964f3d3, type: 3}
+  _vignetteFps: 10
+  _vignetteAlpha: 0.8
+  _vignetteFadeIn: 0.4
+  _vignetteHoldTime: 1.6
+  _vignetteFadeOut: 0.5
+  _sightOpenDelay: 0.55
+  _revealShakeDuration: 0.8
+  _revealShakeAmplitude: 0.06
+  _revealShakeFrequency: 18
+  _bossName: {fileID: 0}
+  _showcaseZoom: 1
+  _showcaseFocusHeight: 1
+  _nameDelay: 1
+  _showcaseAttackDelay: 0.5
+  _returnToPlayerTime: 5
+  _returnDuration: 2
   _gasAmount: 0
   _darkness: 0
   _cloudAlpha: 0
@@ -512,6 +542,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4718408532769949313}
   - {fileID: 4516854188351964822}
   - {fileID: 6346641663642211451}
   m_Father: {fileID: 1637018791108730087}
@@ -635,6 +666,81 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &2625226345069205199
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4718408532769949313}
+  - component: {fileID: 7293826273866427548}
+  - component: {fileID: 1434173466246721816}
+  m_Layer: 0
+  m_Name: HorrorVignette
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4718408532769949313
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2625226345069205199}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3204015908907722411}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7293826273866427548
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2625226345069205199}
+  m_CullTransparentMesh: 1
+--- !u!114 &1434173466246721816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2625226345069205199}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 0e8d971276342d542bd9840b8e4163a2, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &3793205590886400593
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
@@ -69,7 +70,7 @@ public class Boss2IntroCinematic : MonoBehaviour
     [Tooltip("보스2 위치 기준 얼굴(두 눈 사이) 위치. 카메라가 이 점을 화면 중앙에 둔다")]
     [SerializeField] private Vector2 _faceOffset = new Vector2(0.03f, 0.3f);
     [SerializeField] private float _faceOrthographicSize = 1.1f;
-    [Tooltip("카메라가 뚝 떨어지는 방향·거리 (오른쪽 아래)")]
+    [Tooltip("카메라가 뚝 떨어지는 방향·거리 (오른쪽 아래). 얼굴이 나타날 때 카메라는 이만큼 반대쪽(왼쪽 위)에 있다가, 떨어지며 얼굴 정중앙에 멈춘다")]
     [SerializeField] private Vector2 _dropOffset = new Vector2(0.45f, -0.45f);
     [SerializeField] private float _shakeAmplitude = 0.06f;
     [SerializeField] private float _shakeFrequency = 90f;
@@ -102,6 +103,43 @@ public class Boss2IntroCinematic : MonoBehaviour
     [SerializeField] private float _introMusicFadeOut = 1.5f;
     [Tooltip("인트로 시작 때 1페이즈 BGM 을 페이드 아웃한다. 2페이즈 BGM 은 인트로가 끝난 뒤 다른 곳(Phase1ToPhase2Acting)에서 켠다")]
     [SerializeField] private bool _stopStageBgmOnIntro = true;
+
+    [Header("시야가 열릴 때 (공포 테두리·대각선 흔들림)")]
+    [Tooltip("화면 외곽에 필터처럼 덧씌우는 공포 테두리 (IntroOverlay 캔버스의 Image)")]
+    [SerializeField] private Image _vignetteOverlay;
+    [Tooltip("줄기가 꿈틀거리는 테두리 프레임들. 시야가 열릴 때 애니메이션처럼 넘기며 재생하고 끝나면 지운다")]
+    [SerializeField] private Sprite[] _vignetteFrames;
+    [Tooltip("테두리 프레임 재생 속도 (초당 프레임)")]
+    [SerializeField] private float _vignetteFps = 10f;
+    [SerializeField, Range(0f, 1f)] private float _vignetteAlpha = 0.8f;
+    [SerializeField] private float _vignetteFadeIn = 0.4f;
+    [Tooltip("다 나타난 뒤 꿈틀거리며 머무는 시간")]
+    [SerializeField] private float _vignetteHoldTime = 1.6f;
+    [Tooltip("재생이 끝나고 사라지는 시간")]
+    [SerializeField] private float _vignetteFadeOut = 0.5f;
+    [Tooltip("보스2가 나타난(RevealBoss2) 뒤 시야가 열릴(불이 켜질) 때까지 (초)")]
+    [SerializeField] private float _sightOpenDelay = 0.55f;
+    [SerializeField] private float _revealShakeDuration = 0.8f;
+    [SerializeField] private float _revealShakeAmplitude = 0.06f;
+    [SerializeField] private float _revealShakeFrequency = 18f;
+
+    [Header("보스 소개 (보스1 등장과 같은 구도)")]
+    [Tooltip("공포 테두리가 끝날 때까지 얼굴 클로즈업을 유지한 뒤, 보스1 이름 장면 구도로 카메라를 뒤로 당긴다")]
+    [SerializeField] private bool _holdFaceUntilVignetteEnds = true;
+    [Tooltip("보스2 이름 (Backgrounds 의 BossName2). 비우면 씬에서 이름이 BossName2 인 것을 찾는다")]
+    [SerializeField] private NameActingController _bossName;
+    [Tooltip("보스를 비출 때 줌 (보스1: 1)")]
+    [SerializeField] private float _showcaseZoom = 1f;
+    [Tooltip("보스 위치에서 이만큼 위를 비춘다 (보스1: 1)")]
+    [SerializeField] private float _showcaseFocusHeight = 1f;
+    [Tooltip("보스를 비춘 뒤 이름이 뜰 때까지 (보스1: 1초)")]
+    [SerializeField] private float _nameDelay = 1f;
+    [Tooltip("이름이 뜬 뒤 8방향 검기를 쏠 때까지")]
+    [SerializeField] private float _showcaseAttackDelay = 0.5f;
+    [Tooltip("보스를 비춘 뒤 플레이어에게 복귀하기 시작할 때까지 (보스1: 5초)")]
+    [SerializeField] private float _returnToPlayerTime = 5f;
+    [Tooltip("플레이어에게 복귀하는 시간. 끝나면 게임 시작 (보스1: 2초)")]
+    [SerializeField] private float _returnDuration = 2f;
 
     [Header("Timeline 이 움직이는 값")]
     [SerializeField, Range(0f, 1f)] private float _gasAmount;
@@ -159,6 +197,13 @@ public class Boss2IntroCinematic : MonoBehaviour
     private Coroutine _eyesOpenRoutine;
     private AudioSource _introMusicSource;
     private Coroutine _introMusicRoutine;
+    private Coroutine _sightRoutine;
+    private Sequence _vignetteSequence;
+    private Coroutine _showcaseRoutine;
+    private float _revealShakeStart = -1f;
+    private Transform _showcaseFocusTarget;
+    // 보스 소개 동안 플레이어를 맞지 않게 했는지 (끝날 때 되돌릴지)
+    private bool _isPlayerShielded;
     private bool _isEyesClosed;
     private bool _isWaitingExplosion;
     private Coroutine _explosionRoutine;
@@ -238,6 +283,7 @@ public class Boss2IntroCinematic : MonoBehaviour
 
         ResetAnimatedValues();
         ApplyOverlays();
+        SetVignetteAlpha(0f);
         StopEffects(true);
     }
 
@@ -351,6 +397,15 @@ public class Boss2IntroCinematic : MonoBehaviour
         }
         StopEyesOpen();
         StopIntroMusic(0f);
+        StopShowcase();
+        if (_sightRoutine != null)
+        {
+            StopCoroutine(_sightRoutine);
+            _sightRoutine = null;
+        }
+        _revealShakeStart = -1f;
+        KillVignette();
+        UnshieldPlayer();
         if (_introCamera != null)
         {
             _introCamera.gameObject.SetActive(false);
@@ -470,7 +525,8 @@ public class Boss2IntroCinematic : MonoBehaviour
         {
             _faceBase = _boss2.transform.position + (Vector3)_faceOffset;
             _faceBase.z = _introCamera.transform.position.z;
-            _introCamera.transform.position = _faceBase;
+            // 얼굴 정중앙에서 왼쪽 위로 비켜난 자리에서 시작한다 (뚝 떨어지면 정중앙)
+            _introCamera.transform.position = _faceBase - (Vector3)_dropOffset;
             _introCamera.Lens.OrthographicSize = _faceOrthographicSize;
 
             SetBrainBlend(new CinemachineBlendDefinition(CinemachineBlendDefinition.Styles.Cut, 0f), 0.1f);
@@ -482,7 +538,23 @@ public class Boss2IntroCinematic : MonoBehaviour
         {
             StopEyesOpen();
             _eyesOpenRoutine = StartCoroutine(EyesOpenRoutine());
+
+            if (_sightRoutine != null)
+            {
+                StopCoroutine(_sightRoutine);
+            }
+            _sightRoutine = StartCoroutine(SightOpenRoutine());
         }
+    }
+
+    // 암전이 걷히며 시야가 열리는 순간: 화면이 대각선으로 떨리고 외곽에 공포 테두리가 깔린다.
+    private IEnumerator SightOpenRoutine()
+    {
+        yield return new WaitForSecondsRealtime(_sightOpenDelay);
+        _sightRoutine = null;
+
+        _revealShakeStart = Time.unscaledTime;
+        PlayVignette();
     }
 
     // 눈을 감은 채로 나타났다가, 불이 켜진 뒤 눈을 번쩍 뜨며 사운드를 낸다. (Animator 는 Idle 첫 프레임에 멈춰 있다)
@@ -508,8 +580,19 @@ public class Boss2IntroCinematic : MonoBehaviour
         _isEyesClosed = false;
     }
 
-    /// <summary>얼굴 줌 카메라 해제 → 메인 카메라로 줌아웃 블렌드.</summary>
+    /// <summary>
+    /// Timeline 시그널: 얼굴 줌 카메라 해제 → 메인 카메라로 줌아웃 블렌드.
+    /// 공포 테두리가 끝날 때까지 얼굴을 붙잡아 두는 동안(_holdFaceUntilVignetteEnds)은 무시하고, 보스 소개가 직접 당긴다.
+    /// </summary>
     public void EndIntroCamera()
+    {
+        if (IsPlaying && _holdFaceUntilVignetteEnds)
+            return;
+
+        ReleaseIntroCamera();
+    }
+
+    private void ReleaseIntroCamera()
     {
         if (_introCamera == null || _introCamera.gameObject.activeSelf == false)
             return;
@@ -518,16 +601,22 @@ public class Boss2IntroCinematic : MonoBehaviour
         _introCamera.gameObject.SetActive(false);
     }
 
-    /// <summary>시네마틱 종료: 보스2 idle 재생, 플레이어 준비 시간(_battleStartDelay) 뒤 무적 해제·FSM 시작.</summary>
+    /// <summary>
+    /// Timeline 끝: 얼굴 연출을 정리하고 보스 소개(보스1 등장과 같은 구도)로 넘어간다.
+    /// 보스를 비춤 → 이름 + 8방향 검기 → 플레이어에게 복귀 → 게임 시작(FinishIntro).
+    /// 인트로 재생 중이 아닐 때 직접 부르면 소개 없이 바로 게임을 시작한다.
+    /// </summary>
     public void StartBattle()
     {
         StopEyesOpen();
-        StopIntroMusic(_introMusicFadeOut);
-        EndIntroCamera();
+        _revealShakeStart = -1f;
+        if (IsPlaying == false || _holdFaceUntilVignetteEnds == false)
+        {
+            ReleaseIntroCamera();
+        }
         RestoreGlobalLights();
         StopEffects(true);
         DestroyBoss1StandIn();
-        UnlockPlayer();
 
         if (_boss2 != null)
         {
@@ -537,11 +626,6 @@ public class Boss2IntroCinematic : MonoBehaviour
             {
                 _boss2Animator.speed = 1f;
             }
-            if (_battleStartRoutine != null)
-            {
-                StopCoroutine(_battleStartRoutine);
-            }
-            _battleStartRoutine = StartCoroutine(StartFsmAfterDelay());
         }
 
         if (_boss1Death != null)
@@ -550,14 +634,102 @@ public class Boss2IntroCinematic : MonoBehaviour
             _boss1Death = null;
         }
 
-        bool wasPlaying = IsPlaying;
-        IsPlaying = false;
         if (_director.state == PlayState.Playing)
         {
             _director.Stop();
         }
+        // 얼굴 카메라를 아직 붙잡고 있으면 뚝 떨어진 위치(_cameraDrop)를 유지해 화면이 튀지 않게 한다.
+        float drop = _cameraDrop;
         ResetAnimatedValues();
+        if (_introCamera != null && _introCamera.gameObject.activeSelf)
+        {
+            _cameraDrop = drop;
+        }
         ApplyOverlays();
+
+        if (IsPlaying)
+        {
+            StopShowcase();
+            _showcaseRoutine = StartCoroutine(ShowcaseRoutine());
+            return;
+        }
+
+        FinishIntro();
+    }
+
+    // 보스1 등장(GameStartActing.FocusToBoss → FocusToPlayer → GameStart)과 같은 구도·시간으로 보스2를 소개한다.
+    private IEnumerator ShowcaseRoutine()
+    {
+        Transform player = FindPlayerTransform();
+        ShieldPlayer();
+
+        // 공포 테두리가 끝날 때까지 얼굴 클로즈업을 유지한다.
+        if (_holdFaceUntilVignetteEnds)
+        {
+            float waitStart = Time.unscaledTime;
+            while (_vignetteSequence != null && _vignetteSequence.IsActive() && Time.unscaledTime - waitStart < 6f)
+            {
+                yield return null;
+            }
+        }
+
+        // 보스1 이름 장면과 같은 구도(보스 위 _showcaseFocusHeight, 줌 _showcaseZoom)로 메인 카메라를 먼저 맞춰 두고,
+        // 얼굴 카메라를 풀어 그쪽으로 뒤로 당긴다(블렌드 _zoomOutDuration).
+        CameraFocusingController focus = CameraFocusingController.Instance;
+        if (focus != null && _boss2 != null)
+        {
+            _showcaseFocusTarget = new GameObject("Boss2ShowcaseFocus").transform;
+            _showcaseFocusTarget.position = _boss2.transform.position + _boss2.transform.up * _showcaseFocusHeight;
+            focus.Focus(_showcaseFocusTarget, _showcaseZoom);
+        }
+        ReleaseIntroCamera();
+        _cameraDrop = 0f;
+
+        // 이름 + 8방향 검기 (플레이어는 맞지 않는다)
+        yield return new WaitForSecondsRealtime(_nameDelay);
+        ShowBossName();
+        yield return new WaitForSecondsRealtime(_showcaseAttackDelay);
+        PlayShowcaseAttack();
+
+        // 플레이어에게 복귀
+        yield return new WaitForSecondsRealtime(Mathf.Max(0f, _returnToPlayerTime - _nameDelay - _showcaseAttackDelay));
+        if (focus != null && player != null)
+        {
+            focus.SlowFocus(player, 1f, _returnDuration);
+        }
+
+        // 게임 시작 (보스1 GameStart 와 같이 줌을 원래대로 되돌린다)
+        yield return new WaitForSecondsRealtime(_returnDuration);
+        if (focus != null && player != null)
+        {
+            focus.SlowFocus(player, 0f, 2f);
+        }
+
+        _showcaseRoutine = null;
+        DestroyShowcaseFocus();
+        FinishIntro();
+    }
+
+    // 게임 시작: 플레이어 조작·피격 복구, 곡 정리, 플레이어 준비 시간(_battleStartDelay) 뒤 보스 FSM 시작, 종료 이벤트 호출.
+    private void FinishIntro()
+    {
+        ReleaseIntroCamera();
+        StopIntroMusic(_introMusicFadeOut);
+        UnlockPlayer();
+        UnshieldPlayer();
+        KillVignette();
+
+        if (_boss2 != null)
+        {
+            if (_battleStartRoutine != null)
+            {
+                StopCoroutine(_battleStartRoutine);
+            }
+            _battleStartRoutine = StartCoroutine(StartFsmAfterDelay());
+        }
+
+        bool wasPlaying = IsPlaying;
+        IsPlaying = false;
 
         Action finished = _onFinished;
         _onFinished = null;
@@ -567,6 +739,137 @@ public class Boss2IntroCinematic : MonoBehaviour
             _onIntroFinished?.Invoke();
             IntroFinished?.Invoke();
         }
+    }
+
+    private void ShowBossName()
+    {
+        if (_bossName == null)
+        {
+            foreach (NameActingController name in FindObjectsByType<NameActingController>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            {
+                if (name.gameObject.name == "BossName2")
+                {
+                    _bossName = name;
+                    break;
+                }
+            }
+        }
+
+        if (_bossName == null)
+        {
+            Debug.LogWarning("[Boss2Intro] 보스2 이름(BossName2)을 찾지 못했습니다.");
+            return;
+        }
+
+        // 켜지는 순간(OnEnable) 페이드인을 시작하고, 끝나면 스스로 꺼진다.
+        _bossName.gameObject.SetActive(false);
+        _bossName.gameObject.SetActive(true);
+    }
+
+    private void PlayShowcaseAttack()
+    {
+        Boss2AttackPattern attack = _boss2 != null ? _boss2.GetComponent<Boss2AttackPattern>() : null;
+        if (attack != null)
+        {
+            attack.ApplyAttackPattern(Boss2AttackPatternType.BladeAuraSlashAll);
+        }
+    }
+
+    private void StopShowcase()
+    {
+        if (_showcaseRoutine != null)
+        {
+            StopCoroutine(_showcaseRoutine);
+            _showcaseRoutine = null;
+        }
+        DestroyShowcaseFocus();
+    }
+
+    private void DestroyShowcaseFocus()
+    {
+        if (_showcaseFocusTarget != null)
+        {
+            Destroy(_showcaseFocusTarget.gameObject);
+            _showcaseFocusTarget = null;
+        }
+    }
+
+    private static Transform FindPlayerTransform()
+    {
+        Player player = FindAnyObjectByType<Player>();
+        return player != null ? player.transform : null;
+    }
+
+    // 소개 중 8방향 검기에 플레이어가 맞지 않게 한다. (이미 잠가 둔 경우엔 UnlockPlayer 가 되돌린다)
+    private void ShieldPlayer()
+    {
+        Player player = FindAnyObjectByType<Player>();
+        if (player == null || _isPlayerLocked)
+            return;
+
+        player.OffPlayerHittable();
+        _isPlayerShielded = true;
+    }
+
+    private void UnshieldPlayer()
+    {
+        if (_isPlayerShielded == false)
+            return;
+
+        _isPlayerShielded = false;
+        Player player = FindAnyObjectByType<Player>();
+        if (player != null)
+        {
+            player.OnPlayerHittable();
+        }
+    }
+
+    // ---- 공포 테두리 ----
+    // 나타남(페이드인) → 꿈틀거리며 머묾 → 사라짐. 그동안 줄기가 꿈틀거리는 프레임을 계속 넘기고, 끝나면 지운다.
+    private void PlayVignette()
+    {
+        if (_vignetteOverlay == null)
+            return;
+
+        KillVignette();
+
+        float total = _vignetteFadeIn + _vignetteHoldTime + _vignetteFadeOut;
+        _vignetteSequence = DOTween.Sequence().SetUpdate(true).SetLink(gameObject);
+        _vignetteSequence.Append(DOTween.To(() => 0f, SetVignetteAlpha, _vignetteAlpha, _vignetteFadeIn));
+        _vignetteSequence.AppendInterval(_vignetteHoldTime);
+        _vignetteSequence.Append(DOTween.To(() => _vignetteAlpha, SetVignetteAlpha, 0f, _vignetteFadeOut));
+
+        if (_vignetteFrames != null && _vignetteFrames.Length > 0)
+        {
+            int frameCount = _vignetteFrames.Length;
+            int totalFrames = Mathf.Max(1, Mathf.CeilToInt(total * _vignetteFps));
+            _vignetteOverlay.sprite = _vignetteFrames[0];
+            _vignetteSequence.Insert(0f, DOTween
+                .To(() => 0, (int frame) => _vignetteOverlay.sprite = _vignetteFrames[frame % frameCount], totalFrames, total)
+                .SetEase(Ease.Linear));
+        }
+
+        _vignetteSequence.OnComplete(() =>
+        {
+            _vignetteSequence = null;
+            SetVignetteAlpha(0f);
+        });
+    }
+
+    // 재생 중이던 테두리를 멈추고 바로 지운다.
+    private void KillVignette()
+    {
+        if (_vignetteSequence != null)
+        {
+            _vignetteSequence.Kill();
+            _vignetteSequence = null;
+        }
+        SetVignetteAlpha(0f);
+    }
+
+    private void SetVignetteAlpha(float alpha)
+    {
+        SetImageAlpha(_vignetteOverlay, alpha);
     }
 
     #endregion
@@ -711,7 +1014,20 @@ public class Boss2IntroCinematic : MonoBehaviour
             shake *= _shakeAmplitude * _cameraShake;
         }
 
-        _introCamera.transform.position = _faceBase + (Vector3)(_dropOffset * _cameraDrop) + shake;
+        // 시야가 열릴 때의 흔들림: 대각선(왼아래 ↔ 오른위) 한 축으로 떨리다 잦아든다.
+        if (_revealShakeStart >= 0f)
+        {
+            float elapsed = Time.unscaledTime - _revealShakeStart;
+            if (elapsed < _revealShakeDuration)
+            {
+                float decay = 1f - elapsed / _revealShakeDuration;
+                float wave = Mathf.Sin(elapsed * _revealShakeFrequency * Mathf.PI * 2f);
+                shake += new Vector3(1f, 1f, 0f).normalized * (wave * _revealShakeAmplitude * decay);
+            }
+        }
+
+        // _cameraDrop 0 = 왼쪽 위(시작), 1 = 얼굴 정중앙(떨어진 뒤)
+        _introCamera.transform.position = _faceBase + (Vector3)(_dropOffset * (_cameraDrop - 1f)) + shake;
     }
 
     private static void SetImageAlpha(Image image, float alpha)

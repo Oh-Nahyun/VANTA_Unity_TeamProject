@@ -1,0 +1,507 @@
+fileFormatVersion: 2
+guid: da0a0fd37f3880e48b772c264077d4cc
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1496803211270520496
+    second: Boss1_DeathCollapse_Flat_0
+  - first:
+      213: -4221430755575017755
+    second: Boss1_DeathCollapse_Flat_1
+  - first:
+      213: 4422993421200668398
+    second: Boss1_DeathCollapse_Flat_2
+  - first:
+      213: -5228247039228602738
+    second: Boss1_DeathCollapse_Flat_3
+  - first:
+      213: 2263112858812371811
+    second: Boss1_DeathCollapse_Flat_4
+  - first:
+      213: 8228367516548198113
+    second: Boss1_DeathCollapse_Flat_5
+  - first:
+      213: 1657088280244157740
+    second: Boss1_DeathCollapse_Flat_6
+  - first:
+      213: 4714084093287880005
+    second: Boss1_DeathCollapse_Flat_7
+  - first:
+      213: -1824866174912230763
+    second: Boss1_DeathCollapse_Flat_8
+  - first:
+      213: 3820461254215160784
+    second: Boss1_DeathCollapse_Flat_9
+  - first:
+      213: -8742700167928214221
+    second: Boss1_DeathCollapse_Flat_10
+  - first:
+      213: 3019282482606950202
+    second: Boss1_DeathCollapse_Flat_11
+  - first:
+      213: 8868785639061366228
+    second: Boss1_DeathCollapse_Flat_12
+  - first:
+      213: 6580938977633644767
+    second: Boss1_DeathCollapse_Flat_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Boss1_DeathCollapse_Flat_0
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 69
+        width: 64
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0be717a1796b5c410800000000000000
+      internalID: 1496803211270520496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_DeathCollapse_Flat_1
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 24
+        width: 64
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5eeca0a08177a65c0800000000000000
+      internalID: -4221430755575017755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_DeathCollapse_Flat_2
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 69
+        width: 64
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee63e822511a16d30800000000000000
+      internalID: 4422993421200668398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_DeathCollapse_Flat_3
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 23
+        width: 64
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e869acca4098177b0800000000000000
+      internalID: -5228247039228602738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_DeathCollapse_Flat_4
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 69
+        width: 64
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36351249721386f10800000000000000
+      internalID: 2263112858812371811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_DeathCollapse_Flat_5
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 22
+        width: 64
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1eee73919a8013270800000000000000
+      internalID: 8228367516548198113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_DeathCollapse_Flat_6
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 69
+        width: 64
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2d7a61e2092ff610800000000000000
+      internalID: 1657088280244157740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_DeathCollapse_Flat_7
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 36
+        width: 64
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5455ebda18acb6140800000000000000
+      internalID: 4714084093287880005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_DeathCollapse_Flat_8
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 69
+        width: 64
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59a0bb9e1e5cca6e0800000000000000
+      internalID: -1824866174912230763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_DeathCollapse_Flat_9
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 37
+        width: 64
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d353afd441050530800000000000000
+      internalID: 3820461254215160784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_DeathCollapse_Flat_10
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 69
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33d04e0a480bba680800000000000000
+      internalID: -8742700167928214221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_DeathCollapse_Flat_11
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 38
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a37c85ccb65a6e920800000000000000
+      internalID: 3019282482606950202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_DeathCollapse_Flat_12
+      rect:
+        serializedVersion: 2
+        x: 1353
+        y: 69
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d5a655cc81441b70800000000000000
+      internalID: 8868785639061366228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss1_DeathCollapse_Flat_13
+      rect:
+        serializedVersion: 2
+        x: 1353
+        y: 38
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd030620221345b50800000000000000
+      internalID: 6580938977633644767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Boss1_DeathCollapse_Flat_0: 1496803211270520496
+      Boss1_DeathCollapse_Flat_1: -4221430755575017755
+      Boss1_DeathCollapse_Flat_10: -8742700167928214221
+      Boss1_DeathCollapse_Flat_11: 3019282482606950202
+      Boss1_DeathCollapse_Flat_12: 8868785639061366228
+      Boss1_DeathCollapse_Flat_13: 6580938977633644767
+      Boss1_DeathCollapse_Flat_2: 4422993421200668398
+      Boss1_DeathCollapse_Flat_3: -5228247039228602738
+      Boss1_DeathCollapse_Flat_4: 2263112858812371811
+      Boss1_DeathCollapse_Flat_5: 8228367516548198113
+      Boss1_DeathCollapse_Flat_6: 1657088280244157740
+      Boss1_DeathCollapse_Flat_7: 4714084093287880005
+      Boss1_DeathCollapse_Flat_8: -1824866174912230763
+      Boss1_DeathCollapse_Flat_9: 3820461254215160784
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

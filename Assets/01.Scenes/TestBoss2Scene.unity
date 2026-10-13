@@ -598,6 +598,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 49714656549142341, guid: a3ab9d8a69246d041a100a4c2bd361cd, type: 3}
+      propertyPath: _boss1
+      value: 
+      objectReference: {fileID: 1464394287}
+    - target: {fileID: 49714656549142341, guid: a3ab9d8a69246d041a100a4c2bd361cd, type: 3}
+      propertyPath: _boss2
+      value: 
+      objectReference: {fileID: 1368489255}
+    - target: {fileID: 49714656549142341, guid: a3ab9d8a69246d041a100a4c2bd361cd, type: 3}
       propertyPath: _onIntroFinished.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -1271,77 +1279,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1309759788905142726, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _onEndingFinished.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1309759788905142726, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: _onEndingFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1447778991683504832}
-    - target: {fileID: 1309759788905142726, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _onEndingFinished.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1309759788905142726, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _onEndingFinished.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadGameEndingScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 1309759788905142726, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: _onEndingFinished.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameResultUI, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 4133056159387206755, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: m_Name
       value: Boss2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4133056159387206755, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4474688203573458451, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9214237589838081223, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: OnFinisher.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9214237589838081223, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: onFinisher.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9214237589838081223, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: OnFinisher.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9214237589838081223, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: onFinisher.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9214237589838081223, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
       propertyPath: OnFinisher.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1447778991683504832}
-    - target: {fileID: 9214237589838081223, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: OnFinisher.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9214237589838081223, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: onFinisher.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9214237589838081223, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: OnFinisher.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ShowGameClearUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 9214237589838081223, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: OnFinisher.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameResultUI, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 9214237589838081223, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
-      propertyPath: OnFinisher.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1876,6 +1824,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cabb897bd428614498c8f20c7c81b8c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1IntroController
+--- !u!4 &1464394287 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5486056013902944760, guid: c02c1e6cfc604c642b3084f8c583fcf1, type: 3}
+  m_PrefabInstance: {fileID: 1242734288}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1497528834 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 111102412088274012, guid: 75dfd20e8a1d6f04f9b6f75653477f2e, type: 3}
@@ -2152,71 +2105,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac5c938f50605e6498f04bdd20e4205f, type: 3}
---- !u!1001 &1319610392341473599
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 570644754176533298, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 570644754176533298, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 570644754176533298, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 570644754176533298, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 570644754176533298, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 570644754176533298, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 570644754176533298, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 570644754176533298, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 570644754176533298, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 570644754176533298, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3779943177872337717, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
-      propertyPath: m_Name
-      value: SceneManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4716494454615983664, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
-      propertyPath: _titleFadeInOutEffect
-      value: 
-      objectReference: {fileID: 349215009}
-    - target: {fileID: 8447274174017537738, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
-      propertyPath: _titleFadeInOutEffect
-      value: 
-      objectReference: {fileID: 349215009}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2a1f23b89307b254aba91ee3a26239f4, type: 3}
 --- !u!224 &1447778991683504831 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1698909848217781799, guid: ac5c938f50605e6498f04bdd20e4205f, type: 3}
@@ -2345,7 +2233,6 @@ SceneRoots:
   - {fileID: 914828781}
   - {fileID: 439763054}
   - {fileID: 97172284}
-  - {fileID: 1319610392341473599}
   - {fileID: 1000513784}
   - {fileID: 982187453}
   - {fileID: 1379121725}

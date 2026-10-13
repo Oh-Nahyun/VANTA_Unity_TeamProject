@@ -15,6 +15,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     private float _dashDuration = 0.15f;
 
+    [SerializeField] private float _reverseMoveDistance = 3f;
+    [SerializeField] private float _reverseMoveDuration = 1f;
     [Header("대쉬 충돌")]
     [SerializeField]
     private LayerMask _dashCollisionMask;
@@ -248,12 +250,81 @@ public class PlayerMove : MonoBehaviour
             0.1f
         );
     }
-
-    public void DashToReverseSideByHit()
+    public void MoveToReverseSide()
     {
         if (_isDashing)
             return;
 
+        HitableObject boss =
+            FindAnyObjectByType<HitableObject>();
+
+        if (boss == null)
+            return;
+
+        Vector2 direction =
+        (
+            _rigidbody.position -
+            (Vector2)boss.transform.position
+        ).normalized;
+
+        if (direction == Vector2.zero)
+            return;
+
+        // 이동 방향 바라보기
+        PlayerRotate(direction.x, direction.y);
+
+        // 이동 중 일반 입력 차단
+        _isDashing = true;
+
+        // 비활성화되어도 이동 유지
+        _keepDashOnDisable = true;
+
+        // 걷기 애니메이션
+        SetMoveAnimation(true);
+
+        // 충돌을 고려한 이동 거리
+        float availableDistance =
+            GetDashDistance(
+                direction,
+                _reverseMoveDistance
+            );
+
+        Vector2 targetPosition =
+            _rigidbody.position +
+            direction * availableDistance;
+
+        _dashTween?.Kill();
+
+        _dashTween =
+            _rigidbody
+                .DOMove(
+                    targetPosition,
+                    _reverseMoveDuration
+                )
+                .SetEase(Ease.Linear)
+                .OnComplete(() =>
+                {
+                    _dashTween = null;
+
+                    _isDashing = false;
+                    _keepDashOnDisable = false;
+
+                    // 걷기 종료
+                    SetMoveAnimation(false);
+
+                    // Idle 복귀
+                    _animator.Play(
+                        "Idle",
+                        0,
+                        0f
+                    );
+                });
+    }
+    public void DashToReverseSideByHit()
+    {
+        if (_isDashing)
+            return;
+ 
         HitableObject boss =
             FindAnyObjectByType<HitableObject>();
 
@@ -341,7 +412,7 @@ public class PlayerMove : MonoBehaviour
 
                         _animator.Update(0f);
                     }
-
+                 
                     _keepDashOnDisable = false;
 
                     if (_player != null)

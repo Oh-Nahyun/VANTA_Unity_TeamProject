@@ -1,0 +1,1547 @@
+fileFormatVersion: 2
+guid: 3a4e0a5abe7e08444896654c270352b7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8889910526994994283
+    second: Boss2_ShockwaveSlash_Sheet_0
+  - first:
+      213: -8970717069815151282
+    second: Boss2_ShockwaveSlash_Sheet_1
+  - first:
+      213: 5415421103459139570
+    second: Boss2_ShockwaveSlash_Sheet_2
+  - first:
+      213: -3755420197558234753
+    second: Boss2_ShockwaveSlash_Sheet_3
+  - first:
+      213: 2152467073264689904
+    second: Boss2_ShockwaveSlash_Sheet_4
+  - first:
+      213: -904288432931467927
+    second: Boss2_ShockwaveSlash_Sheet_5
+  - first:
+      213: 7707619032845530143
+    second: Boss2_ShockwaveSlash_Sheet_6
+  - first:
+      213: 8834247072481142440
+    second: Boss2_ShockwaveSlash_Sheet_7
+  - first:
+      213: 8561153601891945940
+    second: Boss2_ShockwaveSlash_Sheet_8
+  - first:
+      213: 1273560863240240117
+    second: Boss2_ShockwaveSlash_Sheet_9
+  - first:
+      213: 4256475018833248909
+    second: Boss2_ShockwaveSlash_Sheet_10
+  - first:
+      213: 5772001599938395965
+    second: Boss2_ShockwaveSlash_Sheet_11
+  - first:
+      213: 68641399313130542
+    second: Boss2_ShockwaveSlash_Sheet_12
+  - first:
+      213: 7941556465449484374
+    second: Boss2_ShockwaveSlash_Sheet_13
+  - first:
+      213: 9112936893840338372
+    second: Boss2_ShockwaveSlash_Sheet_14
+  - first:
+      213: -5392635491661418344
+    second: Boss2_ShockwaveSlash_Sheet_15
+  - first:
+      213: -1825710790394170147
+    second: Boss2_ShockwaveSlash_Sheet_16
+  - first:
+      213: 7683462182314143855
+    second: Boss2_ShockwaveSlash_Sheet_17
+  - first:
+      213: -5366577339151253947
+    second: Boss2_ShockwaveSlash_Sheet_18
+  - first:
+      213: 966405558491442532
+    second: Boss2_ShockwaveSlash_Sheet_19
+  - first:
+      213: -1300203594042083027
+    second: Boss2_ShockwaveSlash_Sheet_20
+  - first:
+      213: -8570608708841717550
+    second: Boss2_ShockwaveSlash_Sheet_21
+  - first:
+      213: -30000338006299800
+    second: Boss2_ShockwaveSlash_Sheet_22
+  - first:
+      213: 979932417813565071
+    second: Boss2_ShockwaveSlash_Sheet_23
+  - first:
+      213: 6087047238233048244
+    second: Boss2_ShockwaveSlash_Sheet_24
+  - first:
+      213: 6021862979469212056
+    second: Boss2_ShockwaveSlash_Sheet_25
+  - first:
+      213: 298885000736254496
+    second: Boss2_ShockwaveSlash_Sheet_26
+  - first:
+      213: -1754280071424217833
+    second: Boss2_ShockwaveSlash_Sheet_27
+  - first:
+      213: -2066491824774827901
+    second: Boss2_ShockwaveSlash_Sheet_28
+  - first:
+      213: -1260632279583532544
+    second: Boss2_ShockwaveSlash_Sheet_29
+  - first:
+      213: 7479830229178839805
+    second: Boss2_ShockwaveSlash_Sheet_30
+  - first:
+      213: -515825449347897027
+    second: Boss2_ShockwaveSlash_Sheet_31
+  - first:
+      213: 4134890796439965576
+    second: Boss2_ShockwaveSlash_Sheet_32
+  - first:
+      213: -4958066091057723514
+    second: Boss2_ShockwaveSlash_Sheet_33
+  - first:
+      213: 467612715886626248
+    second: Boss2_ShockwaveSlash_Sheet_34
+  - first:
+      213: -2943544881119197020
+    second: Boss2_ShockwaveSlash_Sheet_35
+  - first:
+      213: 6274249101984199649
+    second: Boss2_ShockwaveSlash_Sheet_36
+  - first:
+      213: -8259470618833188356
+    second: Boss2_ShockwaveSlash_Sheet_37
+  - first:
+      213: 399425883403293370
+    second: Boss2_ShockwaveSlash_Sheet_38
+  - first:
+      213: -6300755713896371904
+    second: Boss2_ShockwaveSlash_Sheet_39
+  - first:
+      213: -6115141083140864213
+    second: Boss2_ShockwaveSlash_Sheet_40
+  - first:
+      213: 928047806658082378
+    second: Boss2_ShockwaveSlash_Sheet_41
+  - first:
+      213: 7704821406075395143
+    second: Boss2_ShockwaveSlash_Sheet_42
+  - first:
+      213: 5991694275790604480
+    second: Boss2_ShockwaveSlash_Sheet_43
+  - first:
+      213: 8921674885057392656
+    second: Boss2_ShockwaveSlash_Sheet_44
+  - first:
+      213: -4927875595635480922
+    second: Boss2_ShockwaveSlash_Sheet_45
+  - first:
+      213: -4956526050822121825
+    second: Boss2_ShockwaveSlash_Sheet_46
+  - first:
+      213: -4435549721515851381
+    second: Boss2_ShockwaveSlash_Sheet_47
+  - first:
+      213: -6336121111622592370
+    second: Boss2_ShockwaveSlash_Sheet_48
+  - first:
+      213: 8882844976192153945
+    second: Boss2_ShockwaveSlash_Sheet_49
+  - first:
+      213: -7561000821035446561
+    second: Boss2_ShockwaveSlash_Sheet_50
+  - first:
+      213: -6295519120086348249
+    second: Boss2_ShockwaveSlash_Sheet_51
+  - first:
+      213: 5416024745274713490
+    second: Boss2_ShockwaveSlash_Sheet_52
+  - first:
+      213: -7464889233987181882
+    second: Boss2_ShockwaveSlash_Sheet_53
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 63
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b64da86068e4f5b70800000000000000
+      internalID: 8889910526994994283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 63
+        width: 25
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4582299a5c918380800000000000000
+      internalID: -8970717069815151282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 63
+        width: 28
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fff5dc2dc0772b40800000000000000
+      internalID: 5415421103459139570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 875
+        y: 63
+        width: 29
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f71d6363a3112ebc0800000000000000
+      internalID: -3755420197558234753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 1130
+        y: 63
+        width: 30
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f2aaac16691fdd10800000000000000
+      internalID: 2152467073264689904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 63
+        width: 28
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96d00ac16725373f0800000000000000
+      internalID: -904288432931467927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 1647
+        y: 63
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f143cc47ca6f6fa60800000000000000
+      internalID: 7707619032845530143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 1906
+        y: 63
+        width: 22
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a6e54518ec899a70800000000000000
+      internalID: 8834247072481142440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 2164
+        y: 63
+        width: 25
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dd435c87d35fc670800000000000000
+      internalID: 8561153601891945940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 2420
+        y: 63
+        width: 25
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fb36458bd89ca110800000000000000
+      internalID: 1273560863240240117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 2676
+        y: 63
+        width: 25
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8241e45a79021b30800000000000000
+      internalID: 4256475018833248909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 2932
+        y: 63
+        width: 25
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3f705fafd44a1050800000000000000
+      internalID: 5772001599938395965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 3188
+        y: 63
+        width: 25
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e24e1fe2dfcd3f000800000000000000
+      internalID: 68641399313130542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 3447
+        y: 63
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 650c2d67783163e60800000000000000
+      internalID: 7941556465449484374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 3449
+        y: 77
+        width: 23
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cda7e192d7a77e70800000000000000
+      internalID: 9112936893840338372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 3703
+        y: 63
+        width: 25
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8907b5c77928925b0800000000000000
+      internalID: -5392635491661418344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 3959
+        y: 59
+        width: 35
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd435fb85b5c9a6e0800000000000000
+      internalID: -1825710790394170147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_17
+      rect:
+        serializedVersion: 2
+        x: 4215
+        y: 59
+        width: 43
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f607bf5652421aa60800000000000000
+      internalID: 7683462182314143855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_18
+      rect:
+        serializedVersion: 2
+        x: 4470
+        y: 59
+        width: 40
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54e7a38e7561685b0800000000000000
+      internalID: -5366577339151253947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_19
+      rect:
+        serializedVersion: 2
+        x: 4725
+        y: 59
+        width: 38
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46d68d63cbc596d00800000000000000
+      internalID: 966405558491442532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_20
+      rect:
+        serializedVersion: 2
+        x: 4972
+        y: 60
+        width: 51
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d297f6158bfb4fde0800000000000000
+      internalID: -1300203594042083027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_21
+      rect:
+        serializedVersion: 2
+        x: 5215
+        y: 58
+        width: 43
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d0ce90d9c41f0980800000000000000
+      internalID: -8570608708841717550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_22
+      rect:
+        serializedVersion: 2
+        x: 5482
+        y: 58
+        width: 66
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86b2efdf9da659ff0800000000000000
+      internalID: -30000338006299800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_23
+      rect:
+        serializedVersion: 2
+        x: 5739
+        y: 58
+        width: 77
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8ecaa3975b699d00800000000000000
+      internalID: 979932417813565071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_24
+      rect:
+        serializedVersion: 2
+        x: 5966
+        y: 58
+        width: 134
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b447ed6639897450800000000000000
+      internalID: 6087047238233048244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_25
+      rect:
+        serializedVersion: 2
+        x: 6212
+        y: 58
+        width: 109
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89976518974f19350800000000000000
+      internalID: 6021862979469212056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_26
+      rect:
+        serializedVersion: 2
+        x: 6478
+        y: 62
+        width: 134
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02aa399135ad52400800000000000000
+      internalID: 298885000736254496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_27
+      rect:
+        serializedVersion: 2
+        x: 6724
+        y: 62
+        width: 154
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71d6632d19b87a7e0800000000000000
+      internalID: -1754280071424217833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_28
+      rect:
+        serializedVersion: 2
+        x: 7018
+        y: 63
+        width: 30
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3803c0552a85253e0800000000000000
+      internalID: -2066491824774827901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_29
+      rect:
+        serializedVersion: 2
+        x: 7275
+        y: 63
+        width: 29
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00a580fee95518ee0800000000000000
+      internalID: -1260632279583532544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_30
+      rect:
+        serializedVersion: 2
+        x: 7532
+        y: 63
+        width: 28
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df2fe6ea6f1bdc760800000000000000
+      internalID: 7479830229178839805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_31
+      rect:
+        serializedVersion: 2
+        x: 7790
+        y: 63
+        width: 25
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d39238d9c7b67d8f0800000000000000
+      internalID: -515825449347897027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_32
+      rect:
+        serializedVersion: 2
+        x: 8047
+        y: 63
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88f06d29545126930800000000000000
+      internalID: 4134890796439965576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_33
+      rect:
+        serializedVersion: 2
+        x: 8303
+        y: 63
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 687489db829613bb0800000000000000
+      internalID: -4958066091057723514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_34
+      rect:
+        serializedVersion: 2
+        x: 8559
+        y: 63
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c5c0ee994b4d7600800000000000000
+      internalID: 467612715886626248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_35
+      rect:
+        serializedVersion: 2
+        x: 8815
+        y: 63
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a88874b68d6627d0800000000000000
+      internalID: -2943544881119197020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_36
+      rect:
+        serializedVersion: 2
+        x: 9071
+        y: 63
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e3f41cd05c921750800000000000000
+      internalID: 6274249101984199649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_37
+      rect:
+        serializedVersion: 2
+        x: 9327
+        y: 63
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf90ca39b37706d80800000000000000
+      internalID: -8259470618833188356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_38
+      rect:
+        serializedVersion: 2
+        x: 4509
+        y: 62
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab2995689bb0b8500800000000000000
+      internalID: 399425883403293370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_39
+      rect:
+        serializedVersion: 2
+        x: 4716
+        y: 62
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 049a1b0af083f88a0800000000000000
+      internalID: -6300755713896371904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_40
+      rect:
+        serializedVersion: 2
+        x: 4759
+        y: 62
+        width: 23
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b27cdf39597a22ba0800000000000000
+      internalID: -6115141083140864213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_41
+      rect:
+        serializedVersion: 2
+        x: 4782
+        y: 62
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a467f6a209611ec00800000000000000
+      internalID: 928047806658082378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_42
+      rect:
+        serializedVersion: 2
+        x: 4962
+        y: 62
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74c13f63f360dea60800000000000000
+      internalID: 7704821406075395143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_43
+      rect:
+        serializedVersion: 2
+        x: 5021
+        y: 62
+        width: 27
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c88d3fc236c62350800000000000000
+      internalID: 5991694275790604480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_44
+      rect:
+        serializedVersion: 2
+        x: 5047
+        y: 62
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 010be55f90820db70800000000000000
+      internalID: 8921674885057392656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_45
+      rect:
+        serializedVersion: 2
+        x: 5208
+        y: 62
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a6a4d8314bac9bb0800000000000000
+      internalID: -4927875595635480922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_46
+      rect:
+        serializedVersion: 2
+        x: 5228
+        y: 62
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9617cc41d1e63bb0800000000000000
+      internalID: -4956526050822121825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_47
+      rect:
+        serializedVersion: 2
+        x: 5257
+        y: 62
+        width: 56
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8107716703c172c0800000000000000
+      internalID: -4435549721515851381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_48
+      rect:
+        serializedVersion: 2
+        x: 5313
+        y: 62
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e88d1ef4b639118a0800000000000000
+      internalID: -6336121111622592370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_49
+      rect:
+        serializedVersion: 2
+        x: 5454
+        y: 62
+        width: 29
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 959ebc84174364b70800000000000000
+      internalID: 8882844976192153945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_50
+      rect:
+        serializedVersion: 2
+        x: 5548
+        y: 62
+        width: 40
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdecebb20dde11790800000000000000
+      internalID: -7561000821035446561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_51
+      rect:
+        serializedVersion: 2
+        x: 5700
+        y: 62
+        width: 37
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72ec29227b2d1a8a0800000000000000
+      internalID: -6295519120086348249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_52
+      rect:
+        serializedVersion: 2
+        x: 5816
+        y: 62
+        width: 38
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29523dc7fc5992b40800000000000000
+      internalID: 5416024745274713490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss2_ShockwaveSlash_Sheet_53
+      rect:
+        serializedVersion: 2
+        x: 6325
+        y: 62
+        width: 41
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c26e88dac2676890800000000000000
+      internalID: -7464889233987181882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Boss2_ShockwaveSlash_Sheet_0: 8889910526994994283
+      Boss2_ShockwaveSlash_Sheet_1: -8970717069815151282
+      Boss2_ShockwaveSlash_Sheet_10: 4256475018833248909
+      Boss2_ShockwaveSlash_Sheet_11: 5772001599938395965
+      Boss2_ShockwaveSlash_Sheet_12: 68641399313130542
+      Boss2_ShockwaveSlash_Sheet_13: 7941556465449484374
+      Boss2_ShockwaveSlash_Sheet_14: 9112936893840338372
+      Boss2_ShockwaveSlash_Sheet_15: -5392635491661418344
+      Boss2_ShockwaveSlash_Sheet_16: -1825710790394170147
+      Boss2_ShockwaveSlash_Sheet_17: 7683462182314143855
+      Boss2_ShockwaveSlash_Sheet_18: -5366577339151253947
+      Boss2_ShockwaveSlash_Sheet_19: 966405558491442532
+      Boss2_ShockwaveSlash_Sheet_2: 5415421103459139570
+      Boss2_ShockwaveSlash_Sheet_20: -1300203594042083027
+      Boss2_ShockwaveSlash_Sheet_21: -8570608708841717550
+      Boss2_ShockwaveSlash_Sheet_22: -30000338006299800
+      Boss2_ShockwaveSlash_Sheet_23: 979932417813565071
+      Boss2_ShockwaveSlash_Sheet_24: 6087047238233048244
+      Boss2_ShockwaveSlash_Sheet_25: 6021862979469212056
+      Boss2_ShockwaveSlash_Sheet_26: 298885000736254496
+      Boss2_ShockwaveSlash_Sheet_27: -1754280071424217833
+      Boss2_ShockwaveSlash_Sheet_28: -2066491824774827901
+      Boss2_ShockwaveSlash_Sheet_29: -1260632279583532544
+      Boss2_ShockwaveSlash_Sheet_3: -3755420197558234753
+      Boss2_ShockwaveSlash_Sheet_30: 7479830229178839805
+      Boss2_ShockwaveSlash_Sheet_31: -515825449347897027
+      Boss2_ShockwaveSlash_Sheet_32: 4134890796439965576
+      Boss2_ShockwaveSlash_Sheet_33: -4958066091057723514
+      Boss2_ShockwaveSlash_Sheet_34: 467612715886626248
+      Boss2_ShockwaveSlash_Sheet_35: -2943544881119197020
+      Boss2_ShockwaveSlash_Sheet_36: 6274249101984199649
+      Boss2_ShockwaveSlash_Sheet_37: -8259470618833188356
+      Boss2_ShockwaveSlash_Sheet_38: 399425883403293370
+      Boss2_ShockwaveSlash_Sheet_39: -6300755713896371904
+      Boss2_ShockwaveSlash_Sheet_4: 2152467073264689904
+      Boss2_ShockwaveSlash_Sheet_40: -6115141083140864213
+      Boss2_ShockwaveSlash_Sheet_41: 928047806658082378
+      Boss2_ShockwaveSlash_Sheet_42: 7704821406075395143
+      Boss2_ShockwaveSlash_Sheet_43: 5991694275790604480
+      Boss2_ShockwaveSlash_Sheet_44: 8921674885057392656
+      Boss2_ShockwaveSlash_Sheet_45: -4927875595635480922
+      Boss2_ShockwaveSlash_Sheet_46: -4956526050822121825
+      Boss2_ShockwaveSlash_Sheet_47: -4435549721515851381
+      Boss2_ShockwaveSlash_Sheet_48: -6336121111622592370
+      Boss2_ShockwaveSlash_Sheet_49: 8882844976192153945
+      Boss2_ShockwaveSlash_Sheet_5: -904288432931467927
+      Boss2_ShockwaveSlash_Sheet_50: -7561000821035446561
+      Boss2_ShockwaveSlash_Sheet_51: -6295519120086348249
+      Boss2_ShockwaveSlash_Sheet_52: 5416024745274713490
+      Boss2_ShockwaveSlash_Sheet_53: -7464889233987181882
+      Boss2_ShockwaveSlash_Sheet_6: 7707619032845530143
+      Boss2_ShockwaveSlash_Sheet_7: 8834247072481142440
+      Boss2_ShockwaveSlash_Sheet_8: 8561153601891945940
+      Boss2_ShockwaveSlash_Sheet_9: 1273560863240240117
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

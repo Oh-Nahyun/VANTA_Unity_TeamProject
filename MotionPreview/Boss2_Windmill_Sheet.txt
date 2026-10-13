@@ -1,0 +1,40 @@
+# cell 144x144, frames 38, pivot = cell center (same as the source sheets, PPU 18)
+# index	ms	label
+0	65	windup
+1	65	windup
+2	65	windup
+3	65	windup
+4	65	windup
+5	80	hold
+6	80	hold
+7	80	hold
+8	45	HIT 1
+9	45	windmill 1
+10	45	windmill 1
+11	45	windmill 1
+12	38	HIT 2
+13	38	windmill 2
+14	38	windmill 2
+15	38	windmill 2
+16	32	HIT 3
+17	32	windmill 3
+18	32	windmill 3
+19	32	windmill 3
+20	40	FINISH
+21	60	hitstop
+22	60	reappear
+23	55	recover
+24	55	recover
+25	55	recover
+26	55	recover
+27	55	recover
+28	55	recover
+29	55	recover
+30	55	recover
+31	55	recover
+32	55	recover
+33	55	recover
+34	55	recover
+35	55	recover
+36	55	recover
+37	500	idle

@@ -117,6 +117,8 @@ public class SkillManager : MonoBehaviour
         _isSkillUse = true;
         _skillUseEffect.SetActive(true);
 
+        Cursor.visible = true;
+
         _skillSequence =
             DOVirtual.DelayedCall(
                 _skillTime,
@@ -244,6 +246,8 @@ public class SkillManager : MonoBehaviour
 
         _weaknessThreadController
             .EndWeaknessThread();
+        
+        Cursor.visible = false;
         
         _skillStack = 0;
 

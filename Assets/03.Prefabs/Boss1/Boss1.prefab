@@ -153,6 +153,7 @@ MonoBehaviour:
   - {fileID: 1373314090291436016}
   - {fileID: 2553560990060678841}
   - {fileID: 5125477251239251925}
+  - {fileID: 1148295139425190388}
   _mirrorY: -0.2
   _reflectionColor: {r: 0.4509804, g: 0.42745098, b: 0.42745098, a: 0.56078434}
   _reflectionMaterial: {fileID: 2100000, guid: 8afef942e50c3474ca6685ac0671f27d, type: 2}
@@ -3531,14 +3532,14 @@ MonoBehaviour:
     _fireDuration: 3
     _trackDelay: 0.25
     _turnSpeedStart: 20
-    _turnSpeedMax: 45
+    _turnSpeedMax: 40
     _turnAccelTime: 1.5
   _phase2Settings:
     _aimDuration: 1
     _fireDuration: 3
     _trackDelay: 0.15
-    _turnSpeedStart: 35
-    _turnSpeedMax: 70
+    _turnSpeedStart: 30
+    _turnSpeedMax: 60
     _turnAccelTime: 1
   _headIndicator: {fileID: 4743308090701921441}
   _muzzleFlash: {fileID: 3785611123334320021}
@@ -3755,7 +3756,8 @@ MonoBehaviour:
   _explosionLightDuration: 0.6
   _explosionParticlePrefab: {fileID: 5220071264055085988, guid: 11ddbba6224dc9f46b204a27499f130f, type: 3}
   _explosionOffset: {x: 0, y: 1}
-  _center: {x: 0.42, y: -0.74}
+  _center: {x: 0.5, y: -0.456}
+  _centerFlipped: {x: 0, y: -0.456}
   _bloodOverlayPrefab: {fileID: 5750695858227172182, guid: f870b6aec0b63eb4891537d3a7160862, type: 3}
   _hp0FlashDuration: 0.15
   _hp0ImpulseForce: 0.3
@@ -3766,7 +3768,7 @@ MonoBehaviour:
   _startMoveSpeed: 1
   _endMoveSpeed: 0.6
   _slowDownDistance: 4
-  _arrivalDistance: 0.1
+  _arrivalDistance: 0.01
   _colorRestoreDuration: 1
   _boss1Shadow: {fileID: 1443849978656167588}
   _onStartMove:

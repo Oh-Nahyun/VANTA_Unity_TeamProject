@@ -32,6 +32,7 @@ public class Boss1DeathController : MonoBehaviour
     [SerializeField] private Vector2 _explosionOffset = new Vector2(0f, 1f);
     
     [SerializeField] private Vector2 _center = new Vector2(0.42f, -0.74f);
+    [SerializeField] private Vector2 _centerFlipped = new Vector2(-0.407f, -0.456f);
     
     [SerializeField] private Boss1DeathBloodOverlay _bloodOverlayPrefab;
 
@@ -69,6 +70,7 @@ public class Boss1DeathController : MonoBehaviour
     [SerializeField] private Animator _animator;
 
     private bool _isMovingToCenter;
+    private Vector2 _centerSelected;
     private bool _isExploding;
     
     private Boss1Sound _boss1Sound;
@@ -168,6 +170,9 @@ public class Boss1DeathController : MonoBehaviour
         _boss1Movement.FaceTarget(_center);
         _boss1Movement.LockFacing();
 
+        bool isFlipped = _center.x < transform.position.x;
+        _centerSelected = isFlipped ? _centerFlipped : _center;
+
         _isMovingToCenter = true;
         _onStartMove?.Invoke();
     }
@@ -175,7 +180,7 @@ public class Boss1DeathController : MonoBehaviour
     private void MoveToCenter()
     {
         Vector2 currentPos = transform.position;
-        Vector2 targetPos = _center;
+        Vector2 targetPos = _centerSelected;
         
         Vector2 direction = targetPos - currentPos;
         float distance = direction.magnitude;

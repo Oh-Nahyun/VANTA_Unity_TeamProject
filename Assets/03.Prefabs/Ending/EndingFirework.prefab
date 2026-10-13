@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2545755946209208081}
   - component: {fileID: 2545755946209208083}
   - component: {fileID: 2545755946209208080}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Frame03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 2545755946552227807}
   - component: {fileID: 2545755946552227801}
   - component: {fileID: 2545755946552227806}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Frame05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 2545755946617052608}
   - component: {fileID: 2545755946617052610}
   - component: {fileID: 2545755946617052611}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Frame04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 2545755946909267611}
   - component: {fileID: 2545755946909267605}
   - component: {fileID: 2545755946909267610}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Frame01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 2545755947195603689}
   - component: {fileID: 2545755947195603691}
   - component: {fileID: 2545755947195603688}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Frame06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -386,7 +386,7 @@ GameObject:
   - component: {fileID: 2545755947315673621}
   - component: {fileID: 2545755947315673623}
   - component: {fileID: 2545755947315673620}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Frame02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 2545755947697974948}
   - component: {fileID: 2545755947697974954}
   - component: {fileID: 2504525232261231057}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: EndingFirework
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -537,9 +537,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FireWorkMove
   _rectTransform: {fileID: 0}
-  _sizeRange: {x: 0.8, y: 5}
+  _sizeRange: {x: 2, y: 5}
   _startXRange: {x: -500, y: 500}
-  _startYRange: {x: -800, y: -650}
+  _startYRange: {x: -200, y: -200}
   _targetXRange: {x: -800, y: 800}
-  _targetYRange: {x: 300, y: 500}
-  _moveDurationRange: {x: 0.8, y: 1.3}
+  _targetYRange: {x: 300, y: 700}
+  _moveDurationRange: {x: 2, y: 0.5}

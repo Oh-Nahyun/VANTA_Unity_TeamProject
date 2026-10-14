@@ -76,6 +76,10 @@ public class Boss2EndingCinematic : MonoBehaviour
 
     [Header("떠오르기 (주저앉은 자세 그대로)")]
     [SerializeField] private float _floatHeight = 3f;
+    [Tooltip("떠오르는 동안 카메라 줌 (CameraFocusingController 기준: 화면 크기 = 기본 크기 - 이 값, 음수면 더 넓게). 카메라는 보스를 따라 올라가지 않고, 떠오르는 경로 전체가 담기도록 경로 가운데에 멈춰 이만큼으로 줌 아웃한다")]
+    [SerializeField] private float _riseCameraZoom = -0.3f;
+    [Tooltip("떠오르기 시작할 때 카메라가 경로 가운데로 옮겨 가며 줌 아웃하는 시간")]
+    [SerializeField] private float _riseCameraMoveDuration = 0.8f;
     [SerializeField] private float _floatDuration = 2f;
     [SerializeField] private float _hoverDuration = 1.5f;
     [SerializeField] private float _hoverAmplitude = 0.06f;
@@ -143,6 +147,11 @@ public class Boss2EndingCinematic : MonoBehaviour
     private readonly System.Collections.Generic.List<Renderer> _hiddenPlayerRenderers = new System.Collections.Generic.List<Renderer>();
     private float _focusBlend;
     private float _focusRadius;
+    // 떠오르는 동안 카메라를 멈춰 둘 자리 (떠오를 경로의 가운데)
+    private bool _isCameraHeldForRise;
+    private Vector3 _riseCameraPoint;
+    private Vector3 _riseCameraFrom;
+    private float _riseCameraStartTime;
 
     // 엔딩 곡은 보스가 꺼진 뒤에도 이어지도록 보스와 따로 둔 오브젝트에서 재생하고, 지연·페이드도 DOTween 으로 돌린다.
     private AudioSource _endingMusicSource;
@@ -162,9 +171,24 @@ public class Boss2EndingCinematic : MonoBehaviour
             return false;
 
         IsPlaying = true;
-        _onEnding?.Invoke();
-        StartEndingMusic();
+        // 연출을 먼저 시작해 둔다. 연결된 이벤트(_onEnding)나 곡 재생이 예외를 던져도 엔딩이 멈추지 않게 한다.
         StartCoroutine(EndingRoutine(onFinished));
+        try
+        {
+            _onEnding?.Invoke();
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e, this);
+        }
+        try
+        {
+            StartEndingMusic();
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e, this);
+        }
         return true;
     }
 
@@ -195,6 +219,7 @@ public class Boss2EndingCinematic : MonoBehaviour
         // 카메라가 보스를 따라 올라가면 근처의 플레이어가 스포트라이트 안으로 들어오므로 숨긴다.
         // (지금은 플레이어가 스포트라이트 밖 어둠 속이라 사라지는 순간이 보이지 않는다)
         HidePlayer();
+        HoldCameraForRise();
         GameObject aura = StartRiseAura();
         yield return FloatUp();
         StopRiseAura(aura);
@@ -313,7 +338,8 @@ public class Boss2EndingCinematic : MonoBehaviour
         Vector3 center = Vector3.Lerp(from, transform.position, _focusBlend);
         if (_focusTarget != null)
         {
-            _focusTarget.position = center;
+            // 떠오르는 동안은 카메라를 경로 가운데에 멈춰 두고, 포커스 원만 보스를 따라간다.
+            _focusTarget.position = _isCameraHeldForRise ? GetRiseCameraPosition() : center;
         }
 
         Camera cam = Camera.main;
@@ -326,9 +352,47 @@ public class Boss2EndingCinematic : MonoBehaviour
         Shader.SetGlobalFloat(HiddenActiveID, 1f);
     }
 
+    // 떠오르기 직전: 카메라를 떠오를 경로의 가운데로 옮기며 줌 아웃해, 끝까지 올라가는 모습이 한 화면에 담기게 한다.
+    // 가운데 = (지금 보이는 그림의 아래 끝) ~ (다 떠올랐을 때 그림의 위 끝)의 가운데. 위아래 여백이 고르게 남는다.
+    private void HoldCameraForRise()
+    {
+        float bottom = 0f, top = 0f;
+        if (_body != null && _body.sprite != null)
+        {
+            bottom = float.MaxValue;
+            top = float.MinValue;
+            foreach (Vector2 vertex in _body.sprite.vertices)
+            {
+                bottom = Mathf.Min(bottom, vertex.y);
+                top = Mathf.Max(top, vertex.y);
+            }
+            float scaleY = Mathf.Abs(transform.lossyScale.y);
+            bottom *= scaleY;
+            top *= scaleY;
+        }
+        float middle = (bottom + _floatHeight + top) * 0.5f;
+        _riseCameraPoint = transform.position + Vector3.up * middle;
+        _riseCameraFrom = _focusTarget != null ? _focusTarget.position : transform.position;
+        _riseCameraStartTime = Time.unscaledTime;
+        _isCameraHeldForRise = true;
+        // 포커스를 다시 걸면 카메라가 대상 위치로 바로 옮겨지므로, 대상을 아직 옮기지 않은 채 줌만 건다.
+        // 대상은 LateUpdate 에서 _riseCameraMoveDuration 동안 경로 가운데로 부드럽게 옮긴다.
+        if (_focusTarget != null && CameraFocusingController.Instance != null)
+        {
+            CameraFocusingController.Instance.SlowFocus(_focusTarget, _riseCameraZoom, _riseCameraMoveDuration);
+        }
+    }
+
+    private Vector3 GetRiseCameraPosition()
+    {
+        float k = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01((Time.unscaledTime - _riseCameraStartTime) / Mathf.Max(0.01f, _riseCameraMoveDuration)));
+        return Vector3.Lerp(_riseCameraFrom, _riseCameraPoint, k);
+    }
+
     private void ReleaseFocus()
     {
         _isDrivingFocus = false;
+        _isCameraHeldForRise = false;
         if (_focusScreen != null)
         {
             _focusScreen.enabled = true;

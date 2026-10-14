@@ -35,6 +35,12 @@ public class Boss2MovePattern : Boss2MoveBase
     [Tooltip("그 시간 동안 이 거리보다 적게 움직였으면 막힌 것으로 본다")]
     [SerializeField] private float _stuckDistance = 0.05f;
 
+    [Header("걷는 중 바로 공격")]
+    [Tooltip("걸어서 접근하는 중(PressureWalk, ChaseBlink 의 걷기) 플레이어가 인식 범위(DetectZone)에 들어오면 서는 자리까지 가지 않고 바로 공격한다")]
+    [SerializeField] private bool _attackWhenInRangeWhileWalking = true;
+    [Tooltip("공격 인식 범위. 비워 두면 자식에서 찾는다")]
+    [SerializeField] private Boss2DetectZone _detectZone;
+
     // 막힘 감지: 지금 재고 있는 구간의 시작 위치와 흐른 시간
     private Vector2 _stuckCheckStart;
     private float _stuckCheckTimer;
@@ -123,6 +129,14 @@ public class Boss2MovePattern : Boss2MoveBase
             }
         }
 
+        // 걷는 중 플레이어가 공격 인식 범위에 들어오면 그 자리에서 멈추고 바로 공격으로 넘어간다.
+        if (isFinished == false && IsTargetInRangeWhileWalking())
+        {
+            StopImmediately();
+            FaceTowards(_target.position);
+            isFinished = true;
+        }
+
         // 목표가 벽 너머이거나 물러날 곳이 벽이면 패턴이 끝나지 않으므로, 막혔으면 그 자리에서 끝낸다.
         if (isFinished == false && IsStuck())
         {
@@ -135,6 +149,27 @@ public class Boss2MovePattern : Boss2MoveBase
         {
             EndPattern();
         }
+    }
+
+    // 걸어서 접근하는 패턴(PressureWalk, 구르지 않는 동안의 ChaseBlink)일 때만 인식 범위를 본다.
+    // 달리기(ChaseRun)·돌진(DashLine)·후퇴(BackStep)는 원래대로 끝까지 간다.
+    private bool IsTargetInRangeWhileWalking()
+    {
+        if (_attackWhenInRangeWhileWalking == false || IsDodging)
+            return false;
+
+        bool isWalkingPattern = _currentMovePatternType == Boss2MovePatternType.PressureWalk
+            || _currentMovePatternType == Boss2MovePatternType.ChaseBlink;
+        if (isWalkingPattern == false)
+            return false;
+
+        if (_detectZone == null)
+        {
+            _detectZone = GetComponentInChildren<Boss2DetectZone>();
+            if (_detectZone == null)
+                return false;
+        }
+        return _detectZone.IsTargetInside(_target);
     }
 
     // 움직이려는 동안 _stuckCheckTime 마다 실제 이동 거리를 재서, _stuckDistance 보다 적으면 막힌 것으로 본다.

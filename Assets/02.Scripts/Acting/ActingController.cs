@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 
 [DisallowMultipleComponent]
@@ -22,6 +23,10 @@ public class ActingController : MonoBehaviour
     [SerializeField] private Boss1DeathController _boss1Death;
     [SerializeField] private Boss2 _boss2;
     [SerializeField] private BossHealthFadeInEffect _bossHealth;
+
+    [Header("컷신 시작시 호출될 이벤트")]
+
+    [SerializeField] private UnityEvent _skipCutScene;
 
     private GameStartActing _gameStart;
     private Phase1ToPhase2Acting _phaseChange;
@@ -126,6 +131,7 @@ public class ActingController : MonoBehaviour
             return;
         }
 
+        _skipCutScene.Invoke();
         IsSkipping = true;
         SetSkipGuideVisible(false);
 

@@ -70,7 +70,17 @@ public class StoryUI : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSecondsRealtime(_storySpeed);
+            float timer = 0f;
+
+            while (timer < _storySpeed)
+            {
+                if (Time.timeScale > 0f)
+                {
+                    timer += Time.unscaledDeltaTime;
+                }
+
+                yield return null;
+            }
         }
 
         _showTextCoroutine = null;

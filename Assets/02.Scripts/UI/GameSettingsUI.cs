@@ -120,7 +120,7 @@ public class GameSettingsUI : MonoBehaviour
             .SetEase(Ease.OutCubic)
             .SetUpdate(true);
     }
-    
+
     private void ShowTab(Button tab, bool playSound)
     {
         _isClickSoundMuted = !playSound;

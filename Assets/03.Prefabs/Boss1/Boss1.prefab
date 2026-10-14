@@ -1472,6 +1472,52 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3491464142327007171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7155062802672568072}
+  - component: {fileID: 3129141110994632627}
+  m_Layer: 21
+  m_Name: MeleeAvoidCaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7155062802672568072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3491464142327007171}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5486056013902944760}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3129141110994632627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3491464142327007171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95384e1ec4bc50c4e85778a1a3f7350b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss1MeleeAvoid
+  _animator: {fileID: 192520389527177166}
+  _maxWaitTime: 3
 --- !u!1 &4608215776097713678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1595,6 +1641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da1c624345640db438d8b19b9d7b8176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1SpitHitBox
+  _meleeAvoid: {fileID: 3129141110994632627}
 --- !u!1 &5525333082896014108
 GameObject:
   m_ObjectHideFlags: 0
@@ -2353,6 +2400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0929e3b03de21954188a62ecb54a772e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClawHitBox
+  _meleeAvoid: {fileID: 3129141110994632627}
 --- !u!1 &6321635963911759211
 GameObject:
   m_ObjectHideFlags: 0
@@ -3420,6 +3468,7 @@ Transform:
   - {fileID: 6077958219593467457}
   - {fileID: 2111984801235102610}
   - {fileID: 3246000891394049756}
+  - {fileID: 7155062802672568072}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &7460039032348508072
@@ -3636,8 +3685,8 @@ MonoBehaviour:
   _jumpBonusStartTime: 3
   _jumpBonusPerSecond: 2
   _maxJumpBonus: 10
-  _jumpMissBonusAmount: 4
-  _maxJumpMissBonus: 12
+  _jumpMissBonusAmount: 10
+  _maxJumpMissBonus: 30
 --- !u!114 &2582459974778337398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3735,15 +3784,15 @@ MonoBehaviour:
     _fireDuration: 4
     _trackDelay: 0.25
     _turnSpeedStart: 20
-    _turnSpeedMax: 40
+    _turnSpeedMax: 35
     _turnAccelTime: 1.5
   _phase2Settings:
     _aimDuration: 1
     _fireDuration: 4
     _trackDelay: 0.15
     _turnSpeedStart: 30
-    _turnSpeedMax: 55
-    _turnAccelTime: 1.7
+    _turnSpeedMax: 45
+    _turnAccelTime: 1.2
   _headIndicator: {fileID: 4743308090701921441}
   _muzzleFlash: {fileID: 3785611123334320021}
   _keepTurnDirectionAngle: 150
@@ -3809,6 +3858,7 @@ MonoBehaviour:
   _clawHitBox: {fileID: 5818488566624348837}
   _telegraphFlash: {fileID: 5915306269748748176}
   _animator: {fileID: 192520389527177166}
+  _meleeAvoid: {fileID: 3129141110994632627}
   _phase1Settings:
     _moveSpeed: 1.5
     _telegraphDuration: 0.15
@@ -3840,6 +3890,7 @@ MonoBehaviour:
   _yTolerance: 0.2
   _spitHitBox: {fileID: 2839262255638538226}
   _telegraphFlash: {fileID: 5332121018260461910}
+  _meleeAvoid: {fileID: 3129141110994632627}
   _animator: {fileID: 192520389527177166}
   _phase1Settings:
     _moveSpeed: 1.5

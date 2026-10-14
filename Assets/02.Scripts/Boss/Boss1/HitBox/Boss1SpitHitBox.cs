@@ -3,6 +3,8 @@ using UnityEngine;
 public class Boss1SpitHitBox : MonoBehaviour
 {
     private BoxCollider2D _collider;
+    
+    [SerializeField] private Boss1MeleeAvoid _meleeAvoid;
 
     private void Awake()
     {
@@ -29,7 +31,12 @@ public class Boss1SpitHitBox : MonoBehaviour
             {
                 return;
             }
-            player.TakeDamage();
+            DisableHitBox(); // 같은 공격에 두 번 걸리지 않게
+
+            if (_meleeAvoid == null || !_meleeAvoid.Begin(player, false))
+            {
+                player.TakeDamage();
+            }
         }
     }
 }

@@ -238,9 +238,8 @@ public class SkillManager : MonoBehaviour
             _skillDashPointCalculater
                 .GetChoiceSequence();
 
-        _skillAttack.SetWeaknessDirection(
+        _skillAttack.SetWeaknessThreadController(
             _weaknessThreadController
-                .GetThreadDirection()
         );
 
         _skillAttack.DashStart(

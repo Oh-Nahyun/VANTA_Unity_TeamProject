@@ -34,10 +34,13 @@ public class Boss1ClawHitBox : MonoBehaviour
             
             DisableHitBox(); // 같은 공격에 두 번 걸리지 않게
 
-            if (_meleeAvoid == null || !_meleeAvoid.Begin(player, true)) // 발톱 = 반격
+            if (_meleeAvoid == null)
             {
                 player.TakeDamage();
+                return;
             }
+
+            _meleeAvoid.HandleHit(player, true);
         }
     }
 }

@@ -9,23 +9,38 @@ public class Boss1MeleeAvoid : MonoBehaviour, IAvoidInteraction
     [Header("회피 결과 최대 대기 시간(실시간, PlayerAvoid 2초보다 길게)")]
     [SerializeField] private float _maxWaitTime = 3f;
 
+    [Header("회피 발동 확률 (0~1)")]
+    [SerializeField] private float _avoidChance = 0.3f;
+
+    [Header("플레이어 피격 무적 시간 (Player._hitCoolTime과 같게)")]
+    [SerializeField] private float _playerHitCoolTime = 2f;
+
     private Player _targetPlayer;
     private float _waitStartTime;
+    private float _lastDamageTime = -999f;
 
     public bool IsWaiting { get; private set; }
 
-    // 시작했으면 true. false면 호출한 쪽에서 그냥 데미지를 준다.
-    public bool Begin(Player player, bool isCounter)
+    // 히트박스가 플레이어에 닿았을 때 호출. QTE를 띄우거나, 그냥 데미지를 준다.
+    public void HandleHit(Player player, bool isCounter)
     {
         if (IsWaiting)
         {
-            return false;
+            return;
+        }
+
+        // 원래도 데미지가 안 들어갔을 상황이면 아무것도 안 함
+        if (!CanTakeDamage(player))
+        {
+            return;
         }
 
         PlayerAvoid playerAvoid = player.GetComponent<PlayerAvoid>();
-        if (playerAvoid == null)
+
+        if (playerAvoid == null || Random.value >= _avoidChance)
         {
-            return false;
+            DealDamage(player);
+            return;
         }
 
         _targetPlayer = player;
@@ -41,8 +56,29 @@ public class Boss1MeleeAvoid : MonoBehaviour, IAvoidInteraction
         {
             playerAvoid.StartAvoidInteraction(gameObject);
         }
+    }
+
+    private bool CanTakeDamage(Player player)
+    {
+        // 보스1 근거리가 준 데미지 기준 쿨타임 (Player 쿨타임도 실시간이라 맞춤)
+        if (Time.realtimeSinceStartup - _lastDamageTime < _playerHitCoolTime)
+        {
+            return false;
+        }
+
+        SkillManager skillManager = player.GetComponentInChildren<SkillManager>();
+        if (skillManager != null && skillManager.IsSkillUse)
+        {
+            return false;
+        }
 
         return true;
+    }
+
+    private void DealDamage(Player player)
+    {
+        _lastDamageTime = Time.realtimeSinceStartup;
+        player.TakeDamage();
     }
 
     private void Update()
@@ -72,7 +108,7 @@ public class Boss1MeleeAvoid : MonoBehaviour, IAvoidInteraction
 
         if (!result && target != null)
         {
-            target.TakeDamage();
+            DealDamage(target);
         }
     }
 

@@ -1518,6 +1518,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss1MeleeAvoid
   _animator: {fileID: 192520389527177166}
   _maxWaitTime: 3
+  _avoidChance: 0.3
+  _playerHitCoolTime: 2
 --- !u!1 &4608215776097713678
 GameObject:
   m_ObjectHideFlags: 0
@@ -3785,7 +3787,7 @@ MonoBehaviour:
     _trackDelay: 0.25
     _turnSpeedStart: 20
     _turnSpeedMax: 35
-    _turnAccelTime: 1.5
+    _turnAccelTime: 1.2
   _phase2Settings:
     _aimDuration: 1
     _fireDuration: 4
@@ -3824,7 +3826,7 @@ MonoBehaviour:
     _cycleCount: 2
   _phase2Settings:
     _cycleInterval: 0.05
-    _cycleCount: 2
+    _cycleCount: 1
   _boss1Movement: {fileID: 7103835189215790258}
   _spitPreferredDistance: 4
   _preferredWeightMultiplier: 2

@@ -28,6 +28,21 @@ public class Phase1ToPhase2Acting : MonoBehaviour
     [SerializeField] private UnityEvent _bossFocusEvent;
     [Header("보스 포커싱후 다시 플레이어에게 복귀할대  이벤트 ")]
     [SerializeField] private UnityEvent _returnPlayerEvent;
+    private bool _isSkipped;
+    private bool _isComplete;
+    public Boss2IntroCinematic BossIntro => _boss2IntroCinematic;
+
+    private Tween Delay(float seconds, TweenCallback callback)
+    {
+        if (_isSkipped || _isComplete)
+            return null;
+        return DOVirtual.DelayedCall(seconds, () =>
+        {
+            if (!_isSkipped && !_isComplete)
+                callback();
+        }).SetId(this).SetLink(gameObject);
+    }
+
     private void Awake()
     {
         _playerStatusManager = GetComponent<PlayerStatusManager>();
@@ -41,6 +56,9 @@ public class Phase1ToPhase2Acting : MonoBehaviour
 
     public void StartPhaseChange()
     {
+        if (_isSkipped || _isComplete)
+            return;
+        _playerStatusManager.Acting.BeginPhaseChange(this);
         SoundManager.Instance.ChangeBGM(_phaseChangeBgm);
         _phaseStartEvent.Invoke();
         
@@ -48,7 +66,7 @@ public class Phase1ToPhase2Acting : MonoBehaviour
         
         HitableObject hitableObject=FindAnyObjectByType<HitableObject>();
         CameraFocusingController.Instance.SlowFocus(hitableObject.transform,1f,1f);
-        DOVirtual.DelayedCall(
+        Delay(
             3f,
             () =>
             {
@@ -62,7 +80,7 @@ public class Phase1ToPhase2Acting : MonoBehaviour
     {
         CameraFocusingController.Instance.ShowOrigin(); 
         _lightOffStartEvent.Invoke();
-        DOVirtual.DelayedCall(
+        Delay(
             1,
             () =>
             {
@@ -80,7 +98,7 @@ public class Phase1ToPhase2Acting : MonoBehaviour
 
     private void StartBackgroundPhase2()
     {
-        DOVirtual.DelayedCall(
+        Delay(
             3,
             () =>
             {
@@ -135,21 +153,65 @@ public class Phase1ToPhase2Acting : MonoBehaviour
 
     private void StartBossChange()
     {
+        if (_isSkipped)
+            return;
         HitableObject hitableObject=FindAnyObjectByType<HitableObject>();
         CameraFocusingController.Instance.SlowFocus(hitableObject.transform,1f,1f);
         _bossFocusEvent.Invoke();
         _boss2IntroCinematic.Play(StartPhase2Game);
     }
 
+    public void CancelForSkip()
+    {
+        _isSkipped = true;
+        DOTween.Kill(this);
+        _playerStatusManager.CancelStartForSkip();
+    }
+
+    public void ApplySkippedState()
+    {
+        _playerStatusManager.PlayerControlOff();
+        GetComponent<PlayerMove>().FinishActingMoveImmediately();
+        _environmentChanger.ApplyPhase2Immediately();
+        _lightOff.RestoreImmediately();
+        CameraFocusingController.Instance.ReturnImmediately();
+        _playerStatusManager.ApplySkippedVisuals(false);
+        SoundManager.Instance.PlayBGM(_boss2StageBgm);
+    }
+
+    public void CompleteAfterSkip()
+    {
+        CompletePhase2();
+    }
+
+    private void OnDestroy()
+    {
+        DOTween.Kill(this);
+    }
+
     public void StartPhase2Game()
     {
+        if (_isSkipped)
+            return;
+        CompletePhase2();
+    }
+
+    private void CompletePhase2()
+    {
+        if (_isComplete)
+            return;
+        _isComplete = true;
         //_boss2IntroCinematic.Play(PlayerMoveEnable);
         _playerStatusManager.ApplyFinalSetting();
-        CameraFocusingController.Instance.SlowFocus(transform,0f,3f);
-        SoundManager.Instance.PlayBGM(_boss2StageBgm);
+        if (!_isSkipped)
+        {
+            CameraFocusingController.Instance.SlowFocus(transform,0f,3f);
+            SoundManager.Instance.PlayBGM(_boss2StageBgm);
+        }
         
 
         _returnPlayerEvent.Invoke();
+        _playerStatusManager.Acting.StopActing();
 
     }
 

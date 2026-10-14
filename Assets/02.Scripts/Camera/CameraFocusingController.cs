@@ -504,6 +504,21 @@ public class CameraFocusingController : MonoBehaviour
                 .SetUpdate(true);
     }
 
+    public void ReturnImmediately()
+    {
+        KillTweens();
+        _isFocusing = false;
+        _currentFocusTarget = null;
+        ResolveDefaultTarget();
+        if (_camera == null)
+            return;
+        _camera.Follow = _defaultTarget;
+        _camera.Lens.OrthographicSize = _defaultOrthographicSize;
+        if (_follow != null)
+            _follow.TrackerSettings.PositionDamping = _defaultDamping;
+        _camera.PreviousStateIsValid = false;
+    }
+
     private void KillTweens()
     {
         _zoomTween?.Kill();

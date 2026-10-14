@@ -479,6 +479,22 @@ public class EnvironmentChanger : MonoBehaviour
         _activeFires = null;
     }
 
+    public void ApplyPhase2Immediately()
+    {
+        KillTweens();
+        for (int i = 0; i < Mathf.Min(_fires.Count, SelectedRadiusIDs.Length); i++)
+            _fires[i]?.ApplyPhase2Immediately();
+
+        if (_targetRenderer == null)
+            return;
+        SetFireCenters();
+        _targetRenderer.GetPropertyBlock(_propertyBlock);
+        _propertyBlock.SetFloat(HiddenActiveID, 1f);
+        for (int i = 0; i < Mathf.Min(_fires.Count, SelectedRadiusIDs.Length); i++)
+            _propertyBlock.SetFloat(SelectedRadiusIDs[i], _targetRadius);
+        _targetRenderer.SetPropertyBlock(_propertyBlock);
+    }
+
     public void EndPhase2()
     {
     }

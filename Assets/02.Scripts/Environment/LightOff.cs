@@ -347,6 +347,14 @@ public class LightOff : MonoBehaviour
         );
     }
 
+    public void RestoreImmediately()
+    {
+        KillTweens();
+        ResetMaterial();
+        for (int i = 0; i < Mathf.Min(_fires.Count, SelectedRadiusIDs.Length); i++)
+            _fires[i]?.ApplyPhase2Immediately();
+    }
+
     public void CompleteSyncedLightOn()
     {
         if (_runtimeMaterial == null)

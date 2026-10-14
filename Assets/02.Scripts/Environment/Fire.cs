@@ -59,6 +59,17 @@ public class Fire : MonoBehaviour
         }
     }
 
+    public void ApplyPhase2Immediately()
+    {
+        _scaleTween?.Kill();
+        _scaleTween = null;
+        _isActive = true;
+        ChangeColor();
+        _fireSprite.enabled = true;
+        transform.localScale = _originalScale * _changedScaleMultiplier;
+        UpdatePositionCorrection();
+    }
+
     public void ActivateFire()
     {
         _scaleTween?.Kill();

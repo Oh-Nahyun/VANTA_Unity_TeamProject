@@ -41,6 +41,8 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
     
     [SerializeField] private Boss1MeleeTelegraph _telegraphFlash;
 
+    [SerializeField] private Boss1MeleeAvoid _meleeAvoid;
+    
     [SerializeField] private Animator _animator;
     
     [Header("페이즈별 난이도 세팅")]
@@ -143,6 +145,11 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
         _spitHitBox.DisableHitBox();
         _boss1Movement.UnlockFacing();
         _boss1Movement.StopMove();   
+        
+        if (_meleeAvoid != null)
+        {
+            _meleeAvoid.Cancel();
+        }
         
         if (_telegraphFlash != null)
         {

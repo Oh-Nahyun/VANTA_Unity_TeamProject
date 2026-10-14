@@ -61,6 +61,8 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
     
     [SerializeField] private Animator _animator;
     
+    [SerializeField] private Boss1MeleeAvoid _meleeAvoid;
+    
     [Header("페이즈별 난이도 세팅")]
     [SerializeField] private PhaseSettings _phase1Settings;
     [SerializeField] private PhaseSettings _phase2Settings;
@@ -145,6 +147,12 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
             return;
         }
         
+        if (_meleeAvoid != null && _meleeAvoid.IsWaiting)  // ← 추가
+        {
+            _boss1Movement.StopMove();
+            return;
+        }
+        
         UpdatePlayerVelocity();
 
         switch (_currentState)
@@ -171,6 +179,11 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
         _clawHitBox.DisableHitBox();
         _boss1Movement.UnlockFacing();
         _boss1Movement.StopMove();   
+        
+        if (_meleeAvoid != null)
+        {
+            _meleeAvoid.Cancel();
+        }
         
         if (_telegraphFlash != null)
         {

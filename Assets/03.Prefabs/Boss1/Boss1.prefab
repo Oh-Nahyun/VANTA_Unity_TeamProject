@@ -3227,7 +3227,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8279119010861365979}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -3529,24 +3529,24 @@ MonoBehaviour:
   _laserHeadPivot: {fileID: 9194194233165060837}
   _phase1Settings:
     _aimDuration: 1.5
-    _fireDuration: 3
+    _fireDuration: 4
     _trackDelay: 0.25
     _turnSpeedStart: 20
     _turnSpeedMax: 40
     _turnAccelTime: 1.5
   _phase2Settings:
     _aimDuration: 1
-    _fireDuration: 3
+    _fireDuration: 4
     _trackDelay: 0.15
     _turnSpeedStart: 30
-    _turnSpeedMax: 60
-    _turnAccelTime: 1
+    _turnSpeedMax: 55
+    _turnAccelTime: 1.7
   _headIndicator: {fileID: 4743308090701921441}
   _muzzleFlash: {fileID: 3785611123334320021}
   _keepTurnDirectionAngle: 150
   _catchUpStartAngle: 45
   _catchUpMultiplier: 5
-  _reverseDelay: 0.3
+  _reverseDelay: 0.5
   _reverseMinAngle: 2
 --- !u!114 &9165167924702793645
 MonoBehaviour:
@@ -3634,7 +3634,7 @@ MonoBehaviour:
   _minFaceDistance: 0.3
   _minAttackDistance: 1.2
   _maxAttackDistance: 2.5
-  _yTolerance: 0.3
+  _yTolerance: 0.2
   _spitHitBox: {fileID: 2839262255638538226}
   _telegraphFlash: {fileID: 5332121018260461910}
   _animator: {fileID: 192520389527177166}
@@ -3893,7 +3893,7 @@ MonoBehaviour:
     Volume: 1
     PitchRandom: 0
   - Type: 3
-    Clip: {fileID: 8300000, guid: 0af70cfea47f6874a9442b643556e97b, type: 3}
+    Clip: {fileID: 8300000, guid: 729bf25b6813ccd4da8d7da5460849e7, type: 3}
     Volume: 1
     PitchRandom: 0.05
   - Type: 4
@@ -3909,7 +3909,7 @@ MonoBehaviour:
     Volume: 1
     PitchRandom: 0
   - Type: 7
-    Clip: {fileID: 8300000, guid: d2db5181c972c834bb0f017dad5ab122, type: 3}
+    Clip: {fileID: 8300000, guid: b6f1a04900ca35b4eaaf25a2ddd62fc9, type: 3}
     Volume: 1
     PitchRandom: 0
   - Type: 8

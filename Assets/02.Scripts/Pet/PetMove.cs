@@ -5,6 +5,9 @@ public class PetMove : MonoBehaviour
     [Header("추적할 플레이어 클래스")]
     [SerializeField] private Player _player;
 
+    [Header("추적할 보스")]
+    [SerializeField] private Transform _boss;
+
     [Header("펫 이동 속도")]
     [SerializeField] private float _moveSpeed = 1f;
 
@@ -44,6 +47,15 @@ public class PetMove : MonoBehaviour
     [Header("플레이어를 바라보는 방향을 바꾸지 않는 거리")]
     [SerializeField] private float _flipDeadZone = 0.05f;
 
+    [Header("보스 방향 전환 대기 시간")]
+    [SerializeField] private float _bossDirectionChangeDelay = 0.3f;
+
+    [Header("보스 방향 판정 최소 거리")]
+    [SerializeField] private float _bossDirectionDeadZone = 0.2f;
+
+    [Header("보스와 펫 사이의 최소 거리")]
+    [SerializeField] private float _minBossDistance = 3f;
+
     /// <summary>
     /// 펫 클래스
     /// </summary>
@@ -73,6 +85,26 @@ public class PetMove : MonoBehaviour
     /// 펫이 추적 가능한 상태인지 확인용 변수
     /// </summary>
     private bool _canChase;
+
+    /// <summary>
+    /// 현재 전투 상태인지 확인
+    /// </summary>
+    private bool _isInGame;
+
+    /// <summary>
+    /// 펫이 유지해야 할 보스 반대 방향
+    /// </summary>
+    private int _bossDirection;
+
+    /// <summary>
+    /// 변경 예정인 보스 방향
+    /// </summary>
+    private int _pendingBossDirection;
+
+    /// <summary>
+    /// 보스 방향 변경 대기 시간
+    /// </summary>
+    private float _bossDirectionTimer;
 
     /// <summary>
     /// 펫이 대기 상태로 머문 시간 계산용 변수
@@ -107,7 +139,11 @@ public class PetMove : MonoBehaviour
         _timeBeforeRun = 1.7f;
         _canChase = true;
         CanMove = true;
-        _nextIdleSoundInterval = Random.Range(_idleSoundMinInterval, _idleSoundMaxInterval);
+
+        _nextIdleSoundInterval = Random.Range(
+            _idleSoundMinInterval,
+            _idleSoundMaxInterval
+        );
     }
 
     private void Update()
@@ -115,12 +151,29 @@ public class PetMove : MonoBehaviour
         if (!CanMove) return;
 
         _timer += Time.deltaTime;
-        UpdateChaseState();
+
+        if (_isInGame && FindBoss())
+        {
+            UpdateBossDirection();
+            UpdateInGameChaseState();
+        }
+        else
+        {
+            UpdateChaseState();
+        }
+
         LookAtPlayer();
 
         if (_canChase && _timer >= _timeBeforeRun)
         {
-            Chase();
+            if (_isInGame && _boss != null)
+            {
+                ChaseInGame();
+            }
+            else
+            {
+                Chase();
+            }
         }
 
         Run();
@@ -140,14 +193,17 @@ public class PetMove : MonoBehaviour
         if (_idleSoundTimer < _nextIdleSoundInterval) return;
 
         _idleSoundTimer = 0f;
-        _nextIdleSoundInterval = Random.Range(_idleSoundMinInterval, _idleSoundMaxInterval);
+        _nextIdleSoundInterval = Random.Range(
+            _idleSoundMinInterval,
+            _idleSoundMaxInterval
+        );
 
         PlayRandomIdleSound();
     }
 
     private void PlayRandomIdleSound()
     {
-        if (_idleSounds.Length == 0) return;
+        if (_idleSounds == null || _idleSounds.Length == 0) return;
 
         int index = Random.Range(0, _idleSounds.Length);
 
@@ -162,15 +218,31 @@ public class PetMove : MonoBehaviour
 
     private void Run()
     {
-        _pet.Animator.SetBool("IsRun", _canChase);
+        _pet.Animator.SetBool("IsRun", _canChase && _timer >= _timeBeforeRun);
     }
 
     private void Chase()
     {
-        Vector3 dustFlip = _footStepDustRenderer.flip;
-        Vector3 dustOffset = new Vector3(0f, _footStepDustOffsetY, 0f);
         Vector2 direction = _player.transform.position - transform.position;
         direction.Normalize();
+
+        Move(direction);
+    }
+
+    private void ChaseInGame()
+    {
+        Vector3 targetPosition = GetInGameTargetPosition();
+
+        Vector2 direction = targetPosition - transform.position;
+        direction.Normalize();
+
+        Move(direction);
+    }
+
+    private void Move(Vector2 direction)
+    {
+        Vector3 dustFlip = _footStepDustRenderer.flip;
+        Vector3 dustOffset = new Vector3(0f, _footStepDustOffsetY, 0f);
 
         if (_pet.SpriteRenderer.flipX)
         {
@@ -183,7 +255,11 @@ public class PetMove : MonoBehaviour
             dustFlip.x = 0f;
         }
 
-        transform.Translate((Vector3)(direction * _moveSpeed) * Time.deltaTime);
+        transform.Translate(
+            (Vector3)(direction * _moveSpeed) * Time.deltaTime,
+            Space.World
+        );
+
         _footStepDustVFX.transform.position = transform.position + dustOffset;
         _footStepDustRenderer.flip = dustFlip;
     }
@@ -208,13 +284,149 @@ public class PetMove : MonoBehaviour
         }
     }
 
+    private void UpdateInGameChaseState()
+    {
+        Vector3 targetPosition = GetInGameTargetPosition();
+
+        float distance = Vector2.Distance(
+            transform.position,
+            targetPosition
+        );
+
+        float worldRadius = _pet.CircleCollider2D.bounds.extents.x;
+
+        float stopDistance = worldRadius *
+                             (1f - _chaseStopDistanceRatio);
+
+        float resumeDistance = worldRadius;
+
+        if (_canChase)
+        {
+            if (distance <= stopDistance)
+            {
+                _canChase = false;
+            }
+        }
+        else if (distance > resumeDistance)
+        {
+            _canChase = true;
+        }
+    }
+
+    private Vector3 GetInGameTargetPosition()
+    {
+        Vector3 playerPosition = _player.transform.position;
+        Vector3 targetPosition = playerPosition;
+
+        targetPosition.x -= _bossDirection * _inGameChaseDistance;
+
+        float bossDistance = Mathf.Abs(_boss.position.x - targetPosition.x);
+
+        if (bossDistance < _minBossDistance)
+        {
+            targetPosition.x = _boss.position.x - _bossDirection * _minBossDistance;
+        }
+
+        targetPosition.z = transform.position.z;
+
+        return targetPosition;
+    }
+
+    private bool FindBoss()
+    {
+        if (_boss != null) return true;
+
+        GameObject bossObject = GameObject.FindWithTag("Boss");
+
+        if (bossObject == null) return false;
+
+        _boss = bossObject.transform;
+
+        InitializeBossDirection();
+
+        return true;
+    }
+
+    private void InitializeBossDirection()
+    {
+        if (_boss == null) return;
+
+        float distanceX =
+            _boss.position.x - _player.transform.position.x;
+
+        if (Mathf.Abs(distanceX) <= _bossDirectionDeadZone)
+        {
+            _bossDirection = (_bossDirection == 0) ? 1 : _bossDirection;
+        }
+        else
+        {
+            _bossDirection = distanceX > 0f ? 1 : -1;
+        }
+
+        _pendingBossDirection = 0;
+        _bossDirectionTimer = 0f;
+    }
+
+    private void UpdateBossDirection()
+    {
+        float distanceX =
+            _boss.position.x - _player.transform.position.x;
+
+        if (Mathf.Abs(distanceX) <= _bossDirectionDeadZone)
+        {
+            _pendingBossDirection = 0;
+            _bossDirectionTimer = 0f;
+            return;
+        }
+
+        int newDirection = distanceX > 0f ? 1 : -1;
+
+        if (newDirection == _bossDirection)
+        {
+            _pendingBossDirection = 0;
+            _bossDirectionTimer = 0f;
+            return;
+        }
+
+        if (newDirection != _pendingBossDirection)
+        {
+            _pendingBossDirection = newDirection;
+            _bossDirectionTimer = 0f;
+        }
+
+        _bossDirectionTimer += Time.deltaTime;
+
+        if (_bossDirectionTimer >= _bossDirectionChangeDelay)
+        {
+            _bossDirection = newDirection;
+            _pendingBossDirection = 0;
+            _bossDirectionTimer = 0f;
+        }
+    }
+
     private void LookAtPlayer()
     {
-        float distanceX = _player.transform.position.x - transform.position.x;
+        float directionX;
 
-        if (Mathf.Abs(distanceX) < _flipDeadZone) return;
+        if (_canChase && _timer >= _timeBeforeRun)
+        {
+            if (_isInGame && _boss != null)
+            {
+                directionX = GetInGameTargetPosition().x - transform.position.x;
+            }
+            else
+            {
+                directionX = _player.transform.position.x - transform.position.x;
+            }
+        }
+        else
+        {
+            directionX = _player.transform.position.x - transform.position.x;
+        }
 
-        _pet.SpriteRenderer.flipX = (distanceX < 0f) ? true : false;
+        if (Mathf.Abs(directionX) < _flipDeadZone) return;
+
+        _pet.SpriteRenderer.flipX = directionX < 0f;
     }
 
     public void PlayFootStepDustParticle()
@@ -225,11 +437,20 @@ public class PetMove : MonoBehaviour
 
     public void ChangeChaseDistanceWhenGameStart()
     {
+        _isInGame = false;
         _pet.CircleCollider2D.radius = _gameStartChaseDistance;
+        _canChase = true;
     }
 
     public void ChangeChaseDistanceWhenInGame()
     {
+        _isInGame = true;
         _pet.CircleCollider2D.radius = _inGameChaseDistance;
+        _canChase = true;
+
+        if (FindBoss())
+        {
+            InitializeBossDirection();
+        }
     }
 }

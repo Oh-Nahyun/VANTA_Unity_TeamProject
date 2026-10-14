@@ -540,9 +540,9 @@ TextureImporter:
       name: StartButton_Selected
       rect:
         serializedVersion: 2
-        x: 80
+        x: 70
         y: 560
-        width: 480
+        width: 500
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -606,9 +606,9 @@ TextureImporter:
       name: StartButton_Disabled
       rect:
         serializedVersion: 2
-        x: 2000
+        x: 1990
         y: 560
-        width: 480
+        width: 500
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -628,9 +628,9 @@ TextureImporter:
       name: SettingsButton_Selected
       rect:
         serializedVersion: 2
-        x: 79
+        x: 69
         y: 300
-        width: 480
+        width: 500
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -694,9 +694,9 @@ TextureImporter:
       name: SettingsButton_Disabled
       rect:
         serializedVersion: 2
-        x: 2000
+        x: 1990
         y: 300
-        width: 480
+        width: 500
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -716,9 +716,9 @@ TextureImporter:
       name: ExitButton_Selected
       rect:
         serializedVersion: 2
-        x: 80
+        x: 70
         y: 40
-        width: 480
+        width: 500
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -782,9 +782,9 @@ TextureImporter:
       name: ExitButton_Disabled
       rect:
         serializedVersion: 2
-        x: 2000
+        x: 1990
         y: 40
-        width: 480
+        width: 500
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

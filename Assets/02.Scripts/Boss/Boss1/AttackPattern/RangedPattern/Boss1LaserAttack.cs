@@ -53,8 +53,8 @@ public class Boss1LaserAttack : MonoBehaviour, IBoss1RangedAttack
     [SerializeField] private float _catchUpMultiplier = 4f;
     
     [Header("방향 전환 시 멈칫")]
-    [SerializeField] private float _reverseDelay = 0.2f;   // 반대로 꺾을 때 멈추는 시간
-    [SerializeField] private float _reverseMinAngle = 15f;  // 이 각도 이상 넘어가야 꺾임으로 인정
+    [SerializeField] private float _reverseDelay = 0.4f;   // 반대로 꺾을 때 멈추는 시간
+    [SerializeField] private float _reverseMinAngle = 2f;  // 이 각도 이상 넘어가야 꺾임으로 인정
 
     private float _reverseTimer;
 

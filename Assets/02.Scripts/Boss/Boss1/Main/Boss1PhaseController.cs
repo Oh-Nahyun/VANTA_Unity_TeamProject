@@ -87,6 +87,7 @@ public class Boss1PhaseController : MonoBehaviour
             
             _boss1AttackController.LockAttack();
             _boss1Movement.Stop();
+            _boss1Movement.LockFacing();
             _boss1ProjectileManager.DisappearAllProjectiles();
             
             SetHittable(false);
@@ -159,6 +160,7 @@ public class Boss1PhaseController : MonoBehaviour
             _isPhase2Transitioning = false;
             SetHittable(true);
             _boss1AttackController.UnlockAttack();
+            _boss1Movement.UnlockFacing();
             _boss1Movement.StartNormalChase();
         }
         

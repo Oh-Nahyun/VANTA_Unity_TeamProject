@@ -1048,6 +1048,10 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 1497528834}
+    - target: {fileID: 4902766636836062051, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _skillCountText
+      value: 
+      objectReference: {fileID: 1386856543}
     - target: {fileID: 5284014296633525175, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _deathEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1821,6 +1825,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1386856543 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 81474325599443285, guid: 058cc52bb14154f46b3e86c521d3b90c, type: 3}
+  m_PrefabInstance: {fileID: 741357264}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a672907d3c95e42a2d34fa2ba1e751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkillCountText
 --- !u!4 &1411104855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4940368374382324116, guid: 058cc52bb14154f46b3e86c521d3b90c, type: 3}

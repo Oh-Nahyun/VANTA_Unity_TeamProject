@@ -218,6 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pet
   _player: {fileID: 0}
+  _boss: {fileID: 0}
   _moveSpeed: 2.5
   _footStepDustVFX: {fileID: 6251781367847903886}
   _footStepDustOffsetX: -0.18
@@ -231,7 +232,12 @@ MonoBehaviour:
   _idleSoundMinInterval: 4
   _idleSoundMaxInterval: 8
   _gameStartChaseDistance: 0.5
-  _inGameChaseDistance: 1
+  _inGameChaseDistance: 1.5
+  _chaseStopDistanceRatio: 0.7
+  _flipDeadZone: 0.05
+  _bossDirectionChangeDelay: 0.3
+  _bossDirectionDeadZone: 0.2
+  _minBossDistance: 2.5
   CanMove: 0
 --- !u!114 &9040926827823601448
 MonoBehaviour:

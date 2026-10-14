@@ -90,6 +90,7 @@ public class PetAttack : MonoBehaviour
     /// 펫 유틸 스킬 위치 및 스케일
     /// </summary>
     private float _crystalSanctuaryMinPositionX;
+
     private float _crystalSanctuaryMaxPositionX;
     private float _crystalSanctuaryMinPositionY;
     private float _crystalSanctuaryMaxPositionY;
@@ -147,16 +148,23 @@ public class PetAttack : MonoBehaviour
     {
         StartEnergyBulletGameFeel();
 
-        _energyBulletCount = _pet.PlayerSkillManager.GetSkillStack;
+        _energyBulletCount = Mathf.Clamp(_pet.PlayerSkillManager.GetSkillStack, 1, 5);
+
         float middleIndex = (_energyBulletCount - 1) * 0.5f;
+
         _pet.Animator.SetTrigger("IsFireEnergyBullet");
         SoundManager.Instance.PlayEffectSound(_energyBulletFireSound);
 
         for (int i = 0; i < _energyBulletCount; i++)
         {
-            GameObject bullet = Instantiate(_energyBulletPrefab, _energyBulletSpawnTransform.position,
-                transform.rotation);
+            GameObject bullet = Instantiate(
+                _energyBulletPrefab,
+                _energyBulletSpawnTransform.position,
+                transform.rotation
+            );
+
             EnergyBullet energyBullet = bullet.GetComponent<EnergyBullet>();
+
             energyBullet.AttackTarget = _attackTarget;
             energyBullet.IsPlayFlySound = (i == 0) ? true : false;
 

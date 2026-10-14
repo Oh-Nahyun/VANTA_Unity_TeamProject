@@ -345,9 +345,9 @@ TextureImporter:
       name: RetryButton_Normal
       rect:
         serializedVersion: 2
-        x: 40
+        x: 30
         y: 290
-        width: 480
+        width: 500
         height: 200
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -411,9 +411,9 @@ TextureImporter:
       name: RetryButton_Disabled
       rect:
         serializedVersion: 2
-        x: 1720
+        x: 1710
         y: 290
-        width: 480
+        width: 500
         height: 200
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -433,9 +433,9 @@ TextureImporter:
       name: TitleButton_Normal
       rect:
         serializedVersion: 2
-        x: 40
+        x: 30
         y: 30
-        width: 480
+        width: 500
         height: 200
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -499,9 +499,9 @@ TextureImporter:
       name: TitleButton_Disabled
       rect:
         serializedVersion: 2
-        x: 1720
+        x: 1710
         y: 30
-        width: 480
+        width: 500
         height: 200
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

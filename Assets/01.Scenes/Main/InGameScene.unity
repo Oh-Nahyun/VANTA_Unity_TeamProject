@@ -892,6 +892,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2847155277104392820, guid: 1764be08f2143874e9ab0194378fcda0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2847155277104392820, guid: 1764be08f2143874e9ab0194378fcda0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2847155277104392820, guid: 1764be08f2143874e9ab0194378fcda0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2847155277104392820, guid: 1764be08f2143874e9ab0194378fcda0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3015434712035243596, guid: 1764be08f2143874e9ab0194378fcda0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3015434712035243596, guid: 1764be08f2143874e9ab0194378fcda0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3015434712035243596, guid: 1764be08f2143874e9ab0194378fcda0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3015434712035243596, guid: 1764be08f2143874e9ab0194378fcda0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3258809668047742224, guid: 1764be08f2143874e9ab0194378fcda0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3258809668047742224, guid: 1764be08f2143874e9ab0194378fcda0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3258809668047742224, guid: 1764be08f2143874e9ab0194378fcda0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3258809668047742224, guid: 1764be08f2143874e9ab0194378fcda0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3555924745645702091, guid: 1764be08f2143874e9ab0194378fcda0, type: 3}
       propertyPath: _gameSettingPanel
       value: 
@@ -900,6 +948,10 @@ PrefabInstance:
       propertyPath: _titleFadeInOutEffect
       value: 
       objectReference: {fileID: 349215009}
+    - target: {fileID: 3555924745645702091, guid: 1764be08f2143874e9ab0194378fcda0, type: 3}
+      propertyPath: _retryStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1789964776}
     - target: {fileID: 6619280108851222775, guid: 1764be08f2143874e9ab0194378fcda0, type: 3}
       propertyPath: m_Name
       value: GameTitleUI
@@ -1153,16 +1205,32 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _gameClear.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _finisherStart.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _gameClear.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _gameClear.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2119849456}
+    - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _gameClear.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 895364515}
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _finisherStart.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _gameClear.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _finisherStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1174,6 +1242,10 @@ PrefabInstance:
       objectReference: {fileID: 1210726466}
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _gameClear.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Death
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _gameClear.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: PlayFadeOut
       objectReference: {fileID: 0}
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
@@ -1186,11 +1258,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _gameClear.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Boss2, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _gameClear.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: BossHealthUI, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _finisherStart.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: SoundManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _gameClear.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7842500543627820772, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _finisherStart.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -2021,6 +2101,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0870c62f1e89e44290439665be524af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Phase1ToPhase2Acting
+--- !u!114 &1789964776 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1600140763202602195, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+  m_PrefabInstance: {fileID: 650435852}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3408439c3839e074fb13e541d09cf9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActingController
 --- !u!1 &1853705428
 GameObject:
   m_ObjectHideFlags: 0
@@ -2170,6 +2261,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2119849456 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9214237589838081223, guid: 4aba6c377063b0746b014981cb14b8df, type: 3}
+  m_PrefabInstance: {fileID: 914828781}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 349eca76ea90d1e4ab422e6affdf09cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss2
 --- !u!4 &2146087083 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6716763365085065730, guid: c57efca2853500249bf07c610954027a, type: 3}

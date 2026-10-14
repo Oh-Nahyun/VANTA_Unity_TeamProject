@@ -22,7 +22,6 @@ public class NameActingController : MonoBehaviour
 
     private Sequence _fadeSequence;
 
-
     private void Awake()
     {
         SetAllTextAlpha(0f);
@@ -30,23 +29,11 @@ public class NameActingController : MonoBehaviour
 
     private void OnEnable()
     {
-        if (!RetryStatus.IsRetry)
-        {
-            SetAllTextAlpha(0f);
-            return;
-        }
-
         StartTextFadeIn();
     }
 
- 
-
     public void StartTextFadeIn()
     {
-        if (!RetryStatus.IsRetry)
-            return;
-
-
         KillSequence();
 
         SetAllTextAlpha(0f);

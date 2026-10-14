@@ -61,6 +61,9 @@ MonoBehaviour:
   _buttonClickSound: {fileID: 8300000, guid: c2303476eab72e24c841228fe9374fc2, type: 3}
   _titleStartSound: {fileID: 8300000, guid: b57f68a97baf4214bbfe0ab129678733, type: 3}
   _settingsBgm: {fileID: 8300000, guid: ae7f87576aaa00e45b557aac7c370df5, type: 3}
+  _retryStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1206670344135137212
 MonoBehaviour:
   m_ObjectHideFlags: 0

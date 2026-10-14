@@ -80,6 +80,8 @@ public class Boss2IntroCinematic : MonoBehaviour
     [Tooltip("보스2 위치 기준 얼굴(두 눈 사이) 위치. 카메라가 이 점을 화면 중앙에 둔다")]
     [SerializeField] private Vector2 _faceOffset = new Vector2(0.03f, 0.3f);
     [SerializeField] private float _faceOrthographicSize = 1.1f;
+    [Tooltip("켜면 얼굴이 나타날 때 카메라가 왼쪽 위에 있다가 얼굴 정중앙으로 뚝 떨어진다. 끄면 처음부터 얼굴 정중앙을 비춘다")]
+    [SerializeField] private bool _dropFromTopLeft = false;
     [Tooltip("카메라가 뚝 떨어지는 방향·거리 (오른쪽 아래). 얼굴이 나타날 때 카메라는 이만큼 반대쪽(왼쪽 위)에 있다가, 떨어지며 얼굴 정중앙에 멈춘다")]
     [SerializeField] private Vector2 _dropOffset = new Vector2(0.45f, -0.45f);
     [SerializeField] private float _shakeAmplitude = 0.06f;
@@ -152,8 +154,8 @@ public class Boss2IntroCinematic : MonoBehaviour
     [SerializeField] private float _showcaseZoom = 1f;
     [Tooltip("보스 위치에서 이만큼 위를 비춘다 (보스1: 1)")]
     [SerializeField] private float _showcaseFocusHeight = 1f;
-    [Tooltip("보스를 비춘 뒤 이름이 뜰 때까지 (보스1: 1초)")]
-    [SerializeField] private float _nameDelay = 1f;
+    [Tooltip("얼굴에서 보스1 이름 장면 구도까지 줌 아웃(_zoomOutDuration)이 끝난 뒤 이름이 뜰 때까지 (초)")]
+    [SerializeField] private float _nameDelay = 0f;
     [Tooltip("보스를 비춘 뒤 인트로를 끝낼(게임 시작) 때까지. 카메라 복귀는 종료 콜백(Phase1ToPhase2Acting)이 맡는다")]
     [SerializeField] private float _returnToPlayerTime = 5f;
 
@@ -563,8 +565,8 @@ public class Boss2IntroCinematic : MonoBehaviour
         {
             _faceBase = _boss2.transform.position + (Vector3)_faceOffset;
             _faceBase.z = _introCamera.transform.position.z;
-            // 얼굴 정중앙에서 왼쪽 위로 비켜난 자리에서 시작한다 (뚝 떨어지면 정중앙)
-            _introCamera.transform.position = _faceBase - (Vector3)_dropOffset;
+            // 드롭을 쓰면 얼굴 정중앙에서 왼쪽 위로 비켜난 자리에서 시작한다 (뚝 떨어지면 정중앙). 아니면 처음부터 얼굴 정중앙.
+            _introCamera.transform.position = _dropFromTopLeft ? _faceBase - (Vector3)_dropOffset : _faceBase;
             _introCamera.Lens.OrthographicSize = _faceOrthographicSize;
 
             SetBrainBlend(new CinemachineBlendDefinition(CinemachineBlendDefinition.Styles.Cut, 0f), 0.1f);
@@ -737,12 +739,13 @@ public class Boss2IntroCinematic : MonoBehaviour
             _showcasePose.Play(_boss2.transform);
         }
 
-        // 이름
-        yield return new WaitForSecondsRealtime(_nameDelay);
+        // 얼굴에서 보스1 이름 장면 구도까지 줌 아웃이 다 끝난 뒤 이름을 띄운다.
+        float nameAt = _zoomOutDuration + _nameDelay;
+        yield return new WaitForSecondsRealtime(nameAt);
         ShowBossName();
 
         // 게임 시작. 카메라를 플레이어에게 돌리는 것은 종료 콜백(Phase1ToPhase2Acting.StartPhase2Game)이 맡는다.
-        yield return new WaitForSecondsRealtime(Mathf.Max(0f, _returnToPlayerTime - _nameDelay));
+        yield return new WaitForSecondsRealtime(Mathf.Max(0f, _returnToPlayerTime - nameAt));
 
         _showcaseRoutine = null;
         DestroyShowcaseFocus();
@@ -1089,8 +1092,9 @@ public class Boss2IntroCinematic : MonoBehaviour
             }
         }
 
-        // _cameraDrop 0 = 왼쪽 위(시작), 1 = 얼굴 정중앙(떨어진 뒤)
-        _introCamera.transform.position = _faceBase + (Vector3)(_dropOffset * (_cameraDrop - 1f)) + shake;
+        // _cameraDrop 0 = 왼쪽 위(시작), 1 = 얼굴 정중앙(떨어진 뒤). 드롭을 끄면 항상 얼굴 정중앙.
+        Vector3 drop = _dropFromTopLeft ? (Vector3)(_dropOffset * (_cameraDrop - 1f)) : Vector3.zero;
+        _introCamera.transform.position = _faceBase + drop + shake;
     }
 
     private static void SetImageAlpha(Image image, float alpha)

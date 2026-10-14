@@ -81,7 +81,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -352868145
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5773795409604997857, guid: 45bd6bcd616d4004fb1022032ed8f169, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -148,7 +148,7 @@ MonoBehaviour:
   _offsetFromHead: {x: 0, y: -0.2}
   _sizeRelativeToBoss: 1.25
   _sortingLayer: VfxBack
-  _sortingOrder: 0
+  _sortingOrder: 300
   _troop: {fileID: 5116829822582396454}
 --- !u!114 &5116829822582396454
 MonoBehaviour:

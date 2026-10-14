@@ -263,6 +263,7 @@ MonoBehaviour:
   _energyBulletFireSound: {fileID: 8300000, guid: 30eb0241bdc98ef4da529f7784f34cfc, type: 3}
   _crystalPrisonPrefab: {fileID: 5960170544083001488, guid: 1cc63ea2fc8955d45bf39528384acf3e, type: 3}
   _crystalPrisonMoveStopTime: 1.3
+  _boss2CrystalPrisonOffset: {x: 0, y: -0.5, z: 0}
   _crystalSanctuaryPrefab: {fileID: 7285922598011615516, guid: 24c985f3b5c4c0646b56fcec4aa37367, type: 3}
   _crystalSanctuaryCount: 3
   _crystalSanctuaryMoveStopTime: 0.3

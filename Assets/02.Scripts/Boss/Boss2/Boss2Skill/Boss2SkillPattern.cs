@@ -473,6 +473,17 @@ public class Boss2SkillPattern : Boss2AttackBase
         return FindAttackTarget();
     }
 
+    // 보스 발밑 = 몸통(피격) 콜라이더 아래 끝의 가운데. 콜라이더가 없으면 피벗 위치.
+    private Vector3 GetFeetPosition()
+    {
+        Collider2D body = GetComponent<Collider2D>();
+        if (body == null || body.enabled == false)
+            return transform.position;
+
+        Bounds bounds = body.bounds;
+        return new Vector3(bounds.center.x, bounds.min.y, transform.position.z);
+    }
+
     private IEnumerator AreaOfEffectRoutine()
     {
         BeginSkill();
@@ -488,7 +499,8 @@ public class Boss2SkillPattern : Boss2AttackBase
         }
 
         // 효과 부분
-        Instantiate(_areaOfEffectCircle, transform.position,transform.rotation);
+        // 마법진 중심이 보스 발밑에 오도록 한다. (피벗은 스프라이트 가운데라 그대로 쓰면 배 높이에 생긴다)
+        Instantiate(_areaOfEffectCircle, GetFeetPosition(), transform.rotation);
         _moonLightEffect.SetActive(true);
         
         // 사운드 부분

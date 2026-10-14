@@ -295,9 +295,10 @@ public static class Boss2VfxBuilder
         {
             Vector3 beamCenter = new Vector3(0f, -EndingBeamLength * 0.5f, 0f);
             SetupEndingBeamPart(GetOrCreateChild(root.transform, "Wash"), beamCenter, 1f, new Color(0.75f, 0.85f, 1f, 0.2f), washMaterial, 0);
-            SetupEndingBeamPart(GetOrCreateChild(root.transform, "Beam"), beamCenter, 0.45f, new Color(0.8f, 0.9f, 1f, 0.45f), beamMaterial, 1);
-            SetupEndingBeamPart(GetOrCreateChild(root.transform, "BeamCore"), beamCenter, 0.2f, new Color(0.95f, 0.98f, 1f, 1f), beamMaterial, 2);
-            SetupEndingBeamPart(GetOrCreateChild(root.transform, "BeamHot"), beamCenter, 0.08f, Color.white, beamMaterial, 3);
+            // 가운데 세 층(Beam·BeamCore·BeamHot)은 세기를 절반(알파 0.5배)으로 낮춰 둔다.
+            SetupEndingBeamPart(GetOrCreateChild(root.transform, "Beam"), beamCenter, 0.45f, new Color(0.8f, 0.9f, 1f, 0.225f), beamMaterial, 1);
+            SetupEndingBeamPart(GetOrCreateChild(root.transform, "BeamCore"), beamCenter, 0.2f, new Color(0.95f, 0.98f, 1f, 0.5f), beamMaterial, 2);
+            SetupEndingBeamPart(GetOrCreateChild(root.transform, "BeamHot"), beamCenter, 0.08f, new Color(1f, 1f, 1f, 0.5f), beamMaterial, 3);
 
             GameObject dust = GetOrCreateChild(root.transform, "MoonDust");
             SetupMoonDust(dust, beamCenter, dustMaterial);

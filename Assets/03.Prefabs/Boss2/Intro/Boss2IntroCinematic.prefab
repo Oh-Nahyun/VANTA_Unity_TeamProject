@@ -415,6 +415,7 @@ MonoBehaviour:
   _darkIntensityScale: 0.25
   _faceOffset: {x: 0.03, y: 0.3}
   _faceOrthographicSize: 1.1
+  _dropFromTopLeft: 0
   _dropOffset: {x: 0.45, y: -0.45}
   _shakeAmplitude: 0.06
   _shakeFrequency: 90
@@ -462,7 +463,7 @@ MonoBehaviour:
   _bossName: {fileID: 0}
   _showcaseZoom: 1
   _showcaseFocusHeight: 1
-  _nameDelay: 1
+  _nameDelay: 0
   _returnToPlayerTime: 6.5
   _gasAmount: 0
   _darkness: 0

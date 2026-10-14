@@ -5,8 +5,10 @@ public class PlayerAvoid : MonoBehaviour
 {
     [Header("타임슬로우 량")]
     [SerializeField] private float _slowAmount = 0.2f;
+
     [Header("회피기 사용할때 소리")]
     [SerializeField] private AudioClip _playerAvoidSound;
+
     [Header("회피기 사용할때 줌 량")]
     [SerializeField] private float _avoidZoomAmount = 1.5f;
 
@@ -21,8 +23,10 @@ public class PlayerAvoid : MonoBehaviour
 
     [Header("회피 공격 관통 거리")]
     [SerializeField] private float _attackPassDistance = 1.5f;
+
     [Header("회피 공격 데미지 시간")]
     [SerializeField] private float _avoidDashDamage = 300f;
+
     [Header("Focus")]
     [SerializeField] private SkillFocusScreenController _focusScreenController;
 
@@ -32,7 +36,6 @@ public class PlayerAvoid : MonoBehaviour
     private PlayerMove _playerMove;
     private PlayerAttack _playerAttack;
     private SkillAttack _skillAttack;
-
     private SkillManager _skillManager;
     private Rigidbody2D _rigidbody;
 
@@ -40,6 +43,9 @@ public class PlayerAvoid : MonoBehaviour
 
     private bool _isAvoidInteraction;
     private bool _isAvoidAttacking;
+
+    // 회피 성공 후 중복 입력 방지
+    private bool _isAvoidSucceeded;
 
     private GameObject _avoidCaller;
 
@@ -62,7 +68,10 @@ public class PlayerAvoid : MonoBehaviour
 
         _skillAttack =
             GetComponentInChildren<SkillAttack>();
-        _skillManager=GetComponentInChildren<SkillManager>();
+
+        _skillManager =
+            GetComponentInChildren<SkillManager>();
+
         _animator =
             GetComponent<Animator>();
 
@@ -73,37 +82,44 @@ public class PlayerAvoid : MonoBehaviour
     private void Update()
     {
         CheckInputSuccess();
-
     }
 
     private void CheckInputSuccess()
     {
-        if (!_isAvoidInteraction)
+        // 회피 중이 아니거나 이미 성공했다면 입력 무시
+        if (!_isAvoidInteraction || _isAvoidSucceeded)
             return;
 
         if (Input.GetKeyDown(_avoidKey))
         {
             AvoidSuccess();
         }
-     
     }
 
- 
     public void StartAvoidInteraction(GameObject caller = null)
     {
         if (caller == null)
             return;
-        
+
+        // 이미 회피 진행 중이라면 중복 시작 방지
+        if (_isAvoidInteraction)
+            return;
+
         SoundManager.Instance.PlayEffectSound(_playerAvoidSound);
-        caller.transform.position = transform.position + Vector3.up * 0.1f;
+
+        caller.transform.position =
+            transform.position + Vector3.up * 0.1f;
 
         _avoidTimer?.Kill();
         _avoidMoveTween?.Kill();
+
         _playerMove.StopPlayerMovement();
+
         _avoidKey = KeyCode.Space;
 
         _isAvoidInteraction = true;
         _isAvoidAttacking = false;
+        _isAvoidSucceeded = false;
 
         _avoidCaller = caller;
 
@@ -144,18 +160,26 @@ public class PlayerAvoid : MonoBehaviour
     {
         if (caller == null)
             return;
+
+        // 이미 회피 진행 중이라면 중복 시작 방지
+        if (_isAvoidInteraction)
+            return;
+
         SoundManager.Instance.PlayEffectSound(_playerAvoidSound);
 
-        caller.transform.position = transform.position + Vector3.up * 0.1f;
-        
+        caller.transform.position =
+            transform.position + Vector3.up * 0.1f;
+
         _avoidTimer?.Kill();
         _avoidMoveTween?.Kill();
+
         _playerMove.StopPlayerMovement();
 
         _avoidKey = KeyCode.Mouse1;
 
         _isAvoidInteraction = true;
         _isAvoidAttacking = true;
+        _isAvoidSucceeded = false;
 
         _avoidCaller = caller;
 
@@ -170,9 +194,7 @@ public class PlayerAvoid : MonoBehaviour
         );
 
         _playerAvoidKeyGenerator
-            .CreateAlarmKeyPad(
-                true
-            );
+            .CreateAlarmKeyPad(true);
 
         _animator.SetBool(
             "AvoidReady",
@@ -196,13 +218,19 @@ public class PlayerAvoid : MonoBehaviour
 
     private void AvoidSuccess()
     {
-        if (!_isAvoidInteraction)
+        // 이미 성공했다면 중복 실행 방지
+        if (!_isAvoidInteraction || _isAvoidSucceeded)
             return;
+
+        // 성공 즉시 추가 입력 차단
+        _isAvoidSucceeded = true;
 
         _avoidTimer?.Kill();
         _avoidTimer = null;
 
-        _avoidCaller?.GetComponent<IAvoidInteraction>().AvoidResultBehavior(true);
+        _avoidCaller?
+            .GetComponent<IAvoidInteraction>()?
+            .AvoidResultBehavior(true);
 
         _playerAvoidKeyGenerator
             .ClearAlarmKeyPad();
@@ -220,7 +248,8 @@ public class PlayerAvoid : MonoBehaviour
 
         if (!_isAvoidAttacking)
         {
-            PlayerPetCaller.Instance.CallPetToAttackSkill();
+            PlayerPetCaller.Instance
+                .CallPetToAttackSkill();
         }
     }
 
@@ -340,6 +369,7 @@ public class PlayerAvoid : MonoBehaviour
             _focusScreenController
                 .EndFocusScreenSetting();
         }
+
         DOVirtual.DelayedCall(0.3f, () =>
         {
             _skillAttack.SingleDash(
@@ -347,12 +377,14 @@ public class PlayerAvoid : MonoBehaviour
                 AttackToBossComplete
             );
         });
-        
+
         DOVirtual.DelayedCall(2f, () =>
         {
-            boss.ExecuteHitEvent(_avoidDashDamage, DamageIndicatorType.Critical);
+            boss.ExecuteHitEvent(
+                _avoidDashDamage,
+                DamageIndicatorType.Critical
+            );
         });
-       
     }
 
     private void AttackToBossComplete()
@@ -362,7 +394,7 @@ public class PlayerAvoid : MonoBehaviour
 
     private void AvoidFail()
     {
-        if (!_isAvoidInteraction)
+        if (!_isAvoidInteraction || _isAvoidSucceeded)
             return;
 
         _avoidTimer = null;
@@ -370,9 +402,11 @@ public class PlayerAvoid : MonoBehaviour
         if (_avoidCaller != null)
         {
             IAvoidInteraction avoidInteraction =
-                _avoidCaller.GetComponent<IAvoidInteraction>();
+                _avoidCaller
+                    .GetComponent<IAvoidInteraction>();
 
-            avoidInteraction?.AvoidResultBehavior(false);
+            avoidInteraction?
+                .AvoidResultBehavior(false);
         }
 
         AvoidEnd();
@@ -385,6 +419,7 @@ public class PlayerAvoid : MonoBehaviour
 
         _isAvoidInteraction = false;
         _isAvoidAttacking = false;
+        _isAvoidSucceeded = false;
 
         _animator.SetBool(
             "AvoidReady",

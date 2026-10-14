@@ -39,6 +39,9 @@ public class PetAttack : MonoBehaviour
     [Header("펫 공격 스킬 크리스탈 프리즌 발동 연출 끝난 뒤 추적 전 정지 시간")]
     [SerializeField] private float _crystalPrisonMoveStopTime = 1.5f;
 
+    [Header("펫 공격 스킬 크리스탈 프리즌 보스2 생성 위치 오프셋")]
+    [SerializeField] private Vector3 _boss2CrystalPrisonOffset;
+
     [Header("펫 유틸 스킬 크리스탈 생츄어리 프리팹")]
     [SerializeField] private GameObject _crystalSanctuaryPrefab;
 
@@ -217,7 +220,14 @@ public class PetAttack : MonoBehaviour
     {
         if (target == null) return;
 
-        GameObject prison = Instantiate(_crystalPrisonPrefab, target.transform.position, transform.rotation);
+        Vector3 spawnPosition = target.transform.position;
+
+        if (target.GetComponent<Boss2>() != null)
+        {
+            spawnPosition += _boss2CrystalPrisonOffset;
+        }
+
+        GameObject prison = Instantiate(_crystalPrisonPrefab, spawnPosition, transform.rotation);
         CrystalPrison crystalPrison = prison.GetComponent<CrystalPrison>();
         crystalPrison.AttackTarget = target;
     }

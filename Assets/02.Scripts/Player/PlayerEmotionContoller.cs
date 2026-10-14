@@ -57,6 +57,12 @@ public class PlayerEmotionContoller : MonoBehaviour
         });
     }
 
+    public void ClearEmotion()
+    {
+        KillSequence();
+        _text.text = "";
+    }
+
     private void KillSequence()
     {
         _emotionSequence?.Kill();

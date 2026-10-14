@@ -507,7 +507,6 @@ public class SkillAttack : MonoBehaviour
     if (_rigidbody == null || _finisherRunning)
         return false;
 
-    // 结束原来的技能移动
     _dashSequence?.Kill();
     _dashSequence = null;
 

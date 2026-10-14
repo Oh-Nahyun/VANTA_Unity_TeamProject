@@ -20391,6 +20391,8 @@ GameObject:
   - component: {fileID: 8028567086285024404}
   - component: {fileID: 2186686988792586930}
   - component: {fileID: 3727620830820517672}
+  - component: {fileID: 8772115134476027045}
+  - component: {fileID: 1600140763202602195}
   m_Layer: 14
   m_Name: Player
   m_TagString: Player
@@ -20623,7 +20625,7 @@ MonoBehaviour:
   _attackDistance: 0.3
   _attackRadius: 0.5
   _attackComboCount: 0
-  _slashDamage: 25
+  _slashDamage: 5000
   _doubleSlashDamage: 75
   _slashEffect: {fileID: 3042519775331041172, guid: 1a3c2ecb0f269ad4095c2651c8462a0e, type: 3}
   _doubleSlashEffect: {fileID: 4306488877223958017, guid: f2b2174306f2a7a4cae5fb635c05c0aa, type: 3}
@@ -21074,6 +21076,42 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8772115134476027045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4512711204945311804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d90d3867a360cae188f70929b6421ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActingScreenFade
+  _fadeOutDuration: 0.25
+  _fadeInDuration: 0.25
+--- !u!114 &1600140763202602195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4512711204945311804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3408439c3839e074fb13e541d09cf9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActingController
+  _screenFade: {fileID: 0}
+  _skipGuideText: {fileID: 0}
+  _skipGuideCamera: {fileID: 0}
+  _skipGuideViewportPosition: {x: 0.5, y: 0.08}
+  _skipGuideFontSize: 25
+  _skipGuideCameraDistance: 10
+  _boss1Intro: {fileID: 0}
+  _boss1Death: {fileID: 0}
+  _boss2: {fileID: 0}
+  _bossHealth: {fileID: 0}
 --- !u!1 &4629908935146602055
 GameObject:
   m_ObjectHideFlags: 0

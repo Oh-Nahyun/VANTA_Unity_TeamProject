@@ -57,7 +57,7 @@ public class SkillAttack : MonoBehaviour
     private ObjectZoom _objectZoom;
 
     private Sequence _dashSequence;
-    private Vector2 _weaknessDirection;
+    private WeaknessThreadController _weaknessThreadController;
 
     private int _playerLayer;
 
@@ -364,10 +364,10 @@ public class SkillAttack : MonoBehaviour
             });
     }
 
-    public void SetWeaknessDirection(
-        Vector2 direction)
+    public void SetWeaknessThreadController(
+        WeaknessThreadController controller)
     {
-        _weaknessDirection = direction;
+        _weaknessThreadController = controller;
     }
 
     private void SetDashCollisionIgnore(
@@ -405,10 +405,18 @@ public class SkillAttack : MonoBehaviour
 
      
 
+        Vector2 weaknessDirection =
+            _weaknessThreadController != null
+                ? _weaknessThreadController.GetThreadDirection()
+                : Vector2.zero;
+
+        if (weaknessDirection.sqrMagnitude <= 0f)
+            return;
+
         float dot = Mathf.Abs(
             Vector2.Dot(
                 direction,
-                _weaknessDirection.normalized
+                weaknessDirection.normalized
             )
         );
 

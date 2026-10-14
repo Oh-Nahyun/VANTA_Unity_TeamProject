@@ -1109,6 +1109,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1947036533}
     - target: {fileID: 3083380816372574740, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
+      propertyPath: _avoidDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3083380816372574740, guid: eaf8591078a6b3a4aab2c75fe6d05559, type: 3}
       propertyPath: _avoidDashDamage
       value: 150
       objectReference: {fileID: 0}

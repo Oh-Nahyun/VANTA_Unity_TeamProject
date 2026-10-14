@@ -9,6 +9,10 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
     
     [Header("공격지점 선정 제한 시간")]
     [SerializeField] private float _maxPositioningTime = 0.5f;
+    
+    [Header("위치잡기 전체 제한 시간 (넘으면 공격 포기)")]
+    [SerializeField] private float _maxApproachTime = 2f;
+    private float _approachTimer;
 
     [Header("런지 설정")]
     [SerializeField] private float _lungeStartTime = 0.3f; //clawattack 애니메이션 피격 판정 시작 시간
@@ -125,6 +129,7 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
         _isAttackActive = true;
         IsFinished = false;
         _timer = 0f;
+        _approachTimer = 0f;
         _positioningTimer = 0f;
         _lastPlayerPosition = _playerTransform.position;
         _playerVelocity = Vector2.zero;
@@ -181,6 +186,14 @@ public class Boss1ClawAttack : MonoBehaviour, IBoss1MeleeAttack
         if (Mathf.Abs(xDifference) > _minFaceDistance)
         {
             _boss1Movement.FaceTarget(_playerTransform.position);
+        }
+        
+        _approachTimer += Time.deltaTime;
+        if (_approachTimer >= _maxApproachTime)
+        {
+            _boss1Movement.StopMove();
+            IsFinished = true; // 휘두르지 않고 끝 → 근접 패턴이 다음으로 넘어감
+            return;
         }
 
         float xDistance = Mathf.Abs(xDifference);

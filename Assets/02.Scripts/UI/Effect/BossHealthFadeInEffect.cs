@@ -23,6 +23,7 @@ public class BossHealthFadeInEffect : MonoBehaviour
     /// 보스 체력 UI 페이드 아웃 효과 코루틴
     /// </summary>
     private Coroutine _fadeOutCoroutine;
+    private bool _shownImmediately;
 
     private void Awake()
     {
@@ -31,7 +32,17 @@ public class BossHealthFadeInEffect : MonoBehaviour
 
     private void Start()
     {
-        _canvasGroup.alpha = 0f;
+        if (!_shownImmediately)
+            _canvasGroup.alpha = 0f;
+    }
+
+    public void ShowImmediately()
+    {
+        StopAllCoroutines();
+        _fadeInCoroutine = null;
+        _fadeOutCoroutine = null;
+        _shownImmediately = true;
+        _canvasGroup.alpha = 1f;
     }
 
     public void PlayFadeIn()
@@ -44,8 +55,10 @@ public class BossHealthFadeInEffect : MonoBehaviour
         _fadeInCoroutine = StartCoroutine(FadeIn());
     }
 
-    public void PlayFadeOut()
+    public bool PlayFadeOut()
     {
+        if (_fadeOutCoroutine != null || _canvasGroup.alpha <= 0f) return false;
+
         if (_fadeInCoroutine != null)
         {
             StopCoroutine(_fadeInCoroutine);
@@ -58,6 +71,7 @@ public class BossHealthFadeInEffect : MonoBehaviour
         }
 
         _fadeOutCoroutine = StartCoroutine(FadeOut());
+        return true;
     }
 
     private IEnumerator FadeIn()
@@ -88,7 +102,7 @@ public class BossHealthFadeInEffect : MonoBehaviour
 
         while (timer < _fadeOutDuration)
         {
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime;
 
             float progress = Mathf.Clamp01(timer / _fadeOutDuration);
 

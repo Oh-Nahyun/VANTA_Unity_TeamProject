@@ -1,11 +1,13 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
 {
     [Header("근거리 공격 가중치")]
     [SerializeField] private float _weight = 10f;
+    
+    [Header("근접 패턴 시작 가능 거리 (이보다 멀면 근접을 안 고름)")]
+    [SerializeField] private float _maxStartDistance = 3.5f;
     
     [Serializable]
     private class MeleeAttackData
@@ -65,7 +67,7 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
 
     public bool CanUse()
     {
-        return true;
+        return Vector2.Distance(_playerTransform.position, transform.position) <= _maxStartDistance;
     }
     
     private void Start()
@@ -248,6 +250,12 @@ public class Boss1MeleePattern : MonoBehaviour, IBoss1Attack
         
         _intervalTimer = 0f;
         _isWaitingNextCycle = false;
+        
+        if (!CanUse())
+        {
+            IsFinished = true;
+            return;
+        }
 
         _currentAttack = SelectAttack();
 

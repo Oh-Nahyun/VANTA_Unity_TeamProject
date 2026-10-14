@@ -9,6 +9,10 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
     [Header("공격지점 선정 제한 시간")]
     [SerializeField] private float _maxPositioningTime = 0.5f;
     
+    [Header("위치잡기 전체 제한 시간 (넘으면 공격 포기)")]
+    [SerializeField] private float _maxApproachTime = 2f;
+    private float _approachTimer;
+    
     [Header("포지셔닝 중 방향전환 최소 x축 거리")]
     [SerializeField] private float _minFaceDistance = 0.3f;
     
@@ -100,6 +104,7 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
         _isAttackActive = true;
         IsFinished = false;
         _timer = 0f;
+        _approachTimer = 0f;
         _positioningTimer = 0f;
         _backTimer = 0f;
         _spitHitBox.DisableHitBox();
@@ -155,6 +160,14 @@ public class Boss1SpitAttack : MonoBehaviour, IBoss1MeleeAttack
         if (Mathf.Abs(xDifference) > _minFaceDistance)
         {
             _boss1Movement.FaceTarget(_playerTransform.position);
+        }
+        
+        _approachTimer += Time.deltaTime;
+        if (_approachTimer >= _maxApproachTime)
+        {
+            _boss1Movement.StopMove();
+            IsFinished = true; // 휘두르지 않고 끝 → 근접 패턴이 다음으로 넘어감
+            return;
         }
         
         float xDistance = Mathf.Abs(xDifference);

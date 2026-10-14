@@ -88,11 +88,6 @@ public class BossHealthUI : MonoBehaviour
     /// </summary>
     private Coroutine _hitEffectCoroutine;
 
-    /// <summary>
-    /// 보스 체력 UI 페이드 아웃 시작 여부 확인용 변수
-    /// </summary>
-    private bool _isFadeOutStarted;
-
     private void OnEnable()
     {
         SoundManager.Instance.PlayEffectSound(_appearSound);
@@ -144,14 +139,9 @@ public class BossHealthUI : MonoBehaviour
 
     public void PlayFadeOut()
     {
-        if (_isFadeOutStarted) return;
-
-        _isFadeOutStarted = true;
-        SoundManager.Instance.PlayEffectSound(_disappearSound);
-
-        if (_fadeInEffect != null)
+        if (_fadeInEffect != null && _fadeInEffect.PlayFadeOut())
         {
-            _fadeInEffect.PlayFadeOut();
+            SoundManager.Instance.PlayEffectSound(_disappearSound);
         }
     }
 

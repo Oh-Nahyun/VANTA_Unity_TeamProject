@@ -47,6 +47,8 @@ public class PlayerMove : MonoBehaviour
     private bool _keepDashOnDisable;
 
     private Tween _dashTween;
+    private Tween _actingMoveDelay;
+    private Vector2? _actingMoveTarget;
 
     private void Awake()
     {
@@ -210,7 +212,8 @@ public class PlayerMove : MonoBehaviour
             _dashDuration
         );
 
-        DOVirtual.DelayedCall(
+        _actingMoveDelay?.Kill();
+        _actingMoveDelay = DOVirtual.DelayedCall(
             _dashDuration,
             () =>
             {
@@ -295,6 +298,8 @@ public class PlayerMove : MonoBehaviour
         Vector2 targetPosition =
             _rigidbody.position +
             direction * availableDistance;
+
+        _actingMoveTarget = targetPosition;
 
         _dashTween?.Kill();
 
@@ -619,8 +624,35 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    public void CancelActingMove()
+    {
+        _actingMoveDelay?.Kill();
+        _actingMoveDelay = null;
+        _keepDashOnDisable = false;
+        OnDisable();
+    }
+
+    public void SetActingPosition(Vector3 position)
+    {
+        CancelActingMove();
+        transform.position = position;
+        _rigidbody.position = position;
+    }
+
+    public void FinishActingMoveImmediately()
+    {
+        if (!_actingMoveTarget.HasValue)
+            return;
+        Vector3 position = transform.position;
+        position.x = _actingMoveTarget.Value.x;
+        position.y = _actingMoveTarget.Value.y;
+        SetActingPosition(position);
+        _actingMoveTarget = null;
+    }
+
     private void OnDestroy()
     {
+        _actingMoveDelay?.Kill();
         _dashTween?.Kill();
         _dashTween = null;
     }

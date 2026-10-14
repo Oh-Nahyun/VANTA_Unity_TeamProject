@@ -9,6 +9,7 @@ public class SoundManager : MonoBehaviour
 
     [Header("Audio Source")]
     [SerializeField] private AudioSource _bgmSource;
+
     [SerializeField] private AudioSource _bgmSubSource;
     [SerializeField] private AudioSource _effectSource;
 
@@ -17,12 +18,15 @@ public class SoundManager : MonoBehaviour
 
     [Header("Effect Pitch")]
     [SerializeField] private float _minPitch = 0.95f;
+
     [SerializeField] private float _maxPitch = 1.05f;
 
     [Header("Volume")]
     [SerializeField] private float _masterVolume = 1f;
+
     [SerializeField] private float _bgmVolume = 1f;
     [SerializeField] private float _effectVolume = 1f;
+
     [Header("BGM Slow")]
     [SerializeField, Range(0.1f, 1f)]
     private float _slowPitch = 0.5f;
@@ -43,6 +47,7 @@ public class SoundManager : MonoBehaviour
 
     private AudioSource _currentBgmSource;
     private AudioSource _nextBgmSource;
+    private AudioSource _settingsBgmSource;
 
     private float _bgmFadeValue = 1f;
 
@@ -60,6 +65,8 @@ public class SoundManager : MonoBehaviour
 
         _currentBgmSource = _bgmSource;
         _nextBgmSource = _bgmSubSource;
+
+        _effectSource.ignoreListenerPause = true;
 
         LoadVolume();
 
@@ -281,6 +288,43 @@ public class SoundManager : MonoBehaviour
             1f
         );
     }
+
+    // =========================
+    // 설정 창 BGM
+    // =========================
+
+    /// <summary>
+    /// 게임 정지(AudioListener.pause) 중에도 재생되는 설정 창 전용 BGM 시작.
+    /// 게임 BGM은 별도 소스라 일시정지만 되고 위치가 보존됨
+    /// </summary>
+    public void PlaySettingsBGM(AudioClip clip)
+    {
+        if (clip == null)
+            return;
+
+        if (_settingsBgmSource == null)
+        {
+            _settingsBgmSource =
+                gameObject.AddComponent<AudioSource>();
+
+            _settingsBgmSource.loop = true;
+            _settingsBgmSource.playOnAwake = false;
+            _settingsBgmSource.ignoreListenerPause = true;
+        }
+
+        _settingsBgmSource.clip = clip;
+        _settingsBgmSource.volume = GetBGMVolume();
+        _settingsBgmSource.Play();
+    }
+
+    public void StopSettingsBGM()
+    {
+        if (_settingsBgmSource != null)
+        {
+            _settingsBgmSource.Stop();
+        }
+    }
+
     public void StopBGMImmediate()
     {
         // 진행 중인 페이드 / 크로스페이드 종료
@@ -306,6 +350,7 @@ public class SoundManager : MonoBehaviour
 
         _bgmFadeValue = 1f;
     }
+
     public void PlayEffectSound(
         AudioClip clip,
         float volumeScale)
@@ -482,6 +527,12 @@ public class SoundManager : MonoBehaviour
 
     private void RefreshBGMVolume()
     {
+        if (_settingsBgmSource != null)
+        {
+            _settingsBgmSource.volume =
+                GetBGMVolume();
+        }
+
         if (_currentBgmSource != null)
         {
             _currentBgmSource.volume =
@@ -532,6 +583,7 @@ public class SoundManager : MonoBehaviour
             _effectVolume *
             _masterVolume;
     }
+
     public void StartSlow()
     {
         _bgmSlowTween?.Kill();
@@ -553,6 +605,7 @@ public class SoundManager : MonoBehaviour
                 _bgmSlowTween = null;
             });
     }
+
     public void StopSlow()
     {
         _bgmSlowTween?.Kill();
@@ -574,6 +627,7 @@ public class SoundManager : MonoBehaviour
                 _bgmSlowTween = null;
             });
     }
+
     private void ApplyBGMPitch()
     {
         if (_bgmSource != null)
@@ -586,6 +640,7 @@ public class SoundManager : MonoBehaviour
             _bgmSubSource.pitch = _currentBgmPitch;
         }
     }
+
     private void OnDestroy()
     {
         _bgmFadeTween?.Kill();

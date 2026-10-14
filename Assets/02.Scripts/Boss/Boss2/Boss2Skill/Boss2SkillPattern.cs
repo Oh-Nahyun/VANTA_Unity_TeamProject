@@ -74,6 +74,8 @@ public class Boss2SkillPattern : Boss2AttackBase
 
     [Header("효과")]
     [SerializeField] private ParticleSystem _areaOfEffectCircle;
+    [Tooltip("광역기 마법진 위치 보정. 보스 발밑(몸통 콜라이더 아래 끝 가운데) 기준으로 이만큼 옮겨 생성한다")]
+    [SerializeField] private Vector2 _areaOfEffectCircleOffset = Vector2.zero;
 
     [SerializeField] private GameObject _fogEffect;
     [SerializeField] private GameObject _moonLightEffect;
@@ -500,7 +502,7 @@ public class Boss2SkillPattern : Boss2AttackBase
 
         // 효과 부분
         // 마법진 중심이 보스 발밑에 오도록 한다. (피벗은 스프라이트 가운데라 그대로 쓰면 배 높이에 생긴다)
-        Instantiate(_areaOfEffectCircle, GetFeetPosition(), transform.rotation);
+        Instantiate(_areaOfEffectCircle, GetFeetPosition() + (Vector3)_areaOfEffectCircleOffset, transform.rotation);
         _moonLightEffect.SetActive(true);
         
         // 사운드 부분

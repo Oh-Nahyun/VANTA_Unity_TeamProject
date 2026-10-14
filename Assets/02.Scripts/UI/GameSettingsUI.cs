@@ -134,8 +134,47 @@ public class GameSettingsUI : MonoBehaviour
         Cursor.visible = _cursorVisibleBeforeOpen;
     }
 
+    // TODO: [임시 진단] 마스터 슬라이더 클릭이 효과음 슬라이더로 가는 원인 확인용 (Player.log). 확인 후 삭제
+    private void LogClickDiagnostics(bool isDown)
+    {
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        sb.Append(isDown ? "[ClickDiag] 클릭" : "[ClickDiag] 뗌");
+        sb.Append($" 위치={Input.mousePosition} 화면={Screen.width}x{Screen.height}");
+        sb.Append($" 슬라이더값 M={_masterVolumeSlider.value:F2} B={_bgmVolumeSlider.value:F2} S={_sfxVolumeSlider.value:F2}");
+
+        if (isDown)
+        {
+            PointerEventData data = new PointerEventData(EventSystem.current) { position = Input.mousePosition };
+            System.Collections.Generic.List<RaycastResult> results = new System.Collections.Generic.List<RaycastResult>();
+            EventSystem.current.RaycastAll(data, results);
+            Vector3[] c = new Vector3[4];
+
+            sb.Append($" / 히트 {results.Count}개:");
+
+            for (int i = 0; i < Mathf.Min(results.Count, 6); i++)
+            {
+                Transform t = results[i].gameObject.transform;
+                string path = t.name;
+
+                for (int depth = 0; depth < 2 && t.parent != null; depth++)
+                {
+                    t = t.parent;
+                    path = t.name + "/" + path;
+                }
+
+                ((RectTransform)results[i].gameObject.transform).GetWorldCorners(c);
+                sb.Append($" [{i}]{path}({c[0].x:F0},{c[0].y:F0}~{c[2].x:F0},{c[2].y:F0})");
+            }
+        }
+
+        Debug.Log(sb.ToString());
+    }
+
     private void Update()
     {
+        if (Input.GetMouseButtonDown(0)) LogClickDiagnostics(true);
+        if (Input.GetMouseButtonUp(0)) LogClickDiagnostics(false);
+
         bool isJustSwitched = GameTitleUI.UpdateInputMode();
         GameObject selected = EventSystem.current.currentSelectedGameObject;
 

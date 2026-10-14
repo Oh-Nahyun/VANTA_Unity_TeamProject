@@ -58,7 +58,7 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _Blend: 0
+    - _Blend: 2
     - _BlendOp: 0
     - _CameraFadingEnabled: 0
     - _CameraFarFadeDistance: 2
@@ -70,8 +70,8 @@ Material:
     - _DistortionEnabled: 0
     - _DistortionStrength: 1
     - _DistortionStrengthScaled: 0.1
-    - _DstBlend: 10
-    - _DstBlendAlpha: 10
+    - _DstBlend: 1
+    - _DstBlendAlpha: 1
     - _FlipbookBlending: 0
     - _FlipbookMode: 0
     - _Mode: 0
@@ -84,10 +84,10 @@ Material:
     - _Surface: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 0.55, g: 0.55, b: 0.55, a: 1}
+    - _BaseColor: {r: 0.29143858, g: 0.13594696, b: 0.4433962, a: 1}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0.54999995, g: 0.54999995, b: 0.54999995, a: 1}
+    - _Color: {r: 0.29143855, g: 0.13594693, b: 0.44339618, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

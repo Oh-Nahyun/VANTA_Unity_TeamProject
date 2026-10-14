@@ -509,18 +509,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameResultUI, Assembly-CSharp
-        m_MethodName: ShowGameClearUI
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BossHealthUI, Assembly-CSharp
         m_MethodName: PlayFadeOut
         m_Mode: 1
@@ -605,7 +593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992f4e64619e73c4abef3269bf8da2b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss2MovePattern
-  _walkSpeed: 1.5
+  _walkSpeed: 2
   _sprintSpeed: 9
   _acceleration: 40
   _deceleration: 25
@@ -686,6 +674,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16384
   _areaOfEffectCircle: {fileID: 3203674287824424439, guid: 98fa56733080c294aa74b91399e0d632, type: 3}
+  _areaOfEffectCircleOffset: {x: 0, y: 0.2}
   _fogEffect: {fileID: 9022921627500305013}
   _moonLightEffect: {fileID: 7373041550950345524}
   _instantKillVoice: {fileID: 0}

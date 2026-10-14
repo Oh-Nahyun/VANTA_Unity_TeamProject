@@ -470,7 +470,7 @@ MonoBehaviour:
   _maxComboCount: 8
   _comboSpeed: 1.5
   _windupState: Boss2ComboWindup
-  _windupTime: 0.5833
+  _windupTime: 0.5
   _firstHitStartTime: 0.3333
   _showComboIndicator: 1
   _comboIndicatorAngle: 75
@@ -497,7 +497,7 @@ MonoBehaviour:
   _bladeAuraAllSpeed: 7
   _bladeAuraAllStateName: BladeAuraSlashAll
   _spinningSlashEffect: {fileID: 5018011064343898608}
-  _telegraphTime: 0.3
+  _telegraphTime: 0.05
   _auraIndicatorLength: 9
   _auraIndicatorWidth: 1
   _auraSlashSound: {fileID: 641561829333948831}

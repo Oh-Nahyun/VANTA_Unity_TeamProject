@@ -470,7 +470,7 @@ MonoBehaviour:
   _maxComboCount: 8
   _comboSpeed: 1.5
   _windupState: Boss2ComboWindup
-  _windupTime: 0.5833
+  _windupTime: 0.5
   _firstHitStartTime: 0.3333
   _showComboIndicator: 1
   _comboIndicatorAngle: 75
@@ -490,14 +490,14 @@ MonoBehaviour:
   _bladeAuraSpawnDistance: 0.8
   _bladeAuraSpawnOffset: {x: 0, y: 0.3}
   _bladeAuraProjectile: {fileID: 718022737307712645, guid: a8bb7853b68d5c145b5e867ddd33d8c8, type: 3}
-  _bladeAuraSpeed: 6
+  _bladeAuraSpeed: 9
   _bladeAuraStateName: BladeAuraSlash
   _bladeAuraDefaultType: 2
   _bladeAuraAllProjectile: {fileID: 718022737307712645, guid: a8bb7853b68d5c145b5e867ddd33d8c8, type: 3}
-  _bladeAuraAllSpeed: 7
+  _bladeAuraAllSpeed: 10
   _bladeAuraAllStateName: BladeAuraSlashAll
   _spinningSlashEffect: {fileID: 5018011064343898608}
-  _telegraphTime: 0.3
+  _telegraphTime: 0.2
   _auraIndicatorLength: 9
   _auraIndicatorWidth: 1
   _auraSlashSound: {fileID: 641561829333948831}
@@ -533,9 +533,11 @@ MonoBehaviour:
   _arriveTolerance: 0.15
   _blinkMinDistance: 2.5
   _backStepDistance: 3
-  _dashTelegraphTime: 0.35
+  _dashTelegraphTime: 0.25
   _dashIndicatorWidth: 1.2
   _dashIndicatorExtra: 0.8
+  _stuckCheckTime: 0.25
+  _stuckDistance: 0.05
 --- !u!114 &2645136463047186946
 MonoBehaviour:
   m_ObjectHideFlags: 0

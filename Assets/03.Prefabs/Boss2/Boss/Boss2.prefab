@@ -987,6 +987,8 @@ MonoBehaviour:
   _eyeFlameDuration: 1.4
   _afterEyeClose: 0.5
   _floatHeight: 3
+  _riseCameraZoom: -0.3
+  _riseCameraMoveDuration: 0.8
   _floatDuration: 2
   _hoverDuration: 1.5
   _hoverAmplitude: 0.06

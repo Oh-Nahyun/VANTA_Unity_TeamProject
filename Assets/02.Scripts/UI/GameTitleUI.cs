@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -36,6 +37,9 @@ public class GameTitleUI : MonoBehaviour
 
     [Header("인게임에서 설정 창을 열 때 재생할 타이틀 배경음악")]
     [SerializeField] private AudioClip _settingsBgm;
+
+    [Header("재시작 시작할떄 콜백 함수 바인딩")]
+    [SerializeField] private UnityEvent _retryStart;
 
     /// <summary>
     /// 게임 재도전 시 타이틀 UI 건너뛰기를 위한 확인용 변수
@@ -80,7 +84,11 @@ public class GameTitleUI : MonoBehaviour
     /// <summary>
     /// 메뉴 조작이 키보드 모드인지 여부 확인용 변수
     /// </summary>
-    public static bool IsKeyboardMode { get; set; }
+    public static bool IsKeyboardMode
+    {
+        get;
+        set;
+    }
 
     /// <summary>
     /// 입력 모드를 마지막으로 갱신한 프레임
@@ -119,7 +127,7 @@ public class GameTitleUI : MonoBehaviour
             StartCoroutine(StartGameWithoutTitleCoroutine());
         }
     }
-    
+
     public static bool UpdateInputMode()
     {
         if (_inputModeFrame == Time.frameCount) return _isKeyboardModeJustSwitched;
@@ -143,10 +151,10 @@ public class GameTitleUI : MonoBehaviour
     private static bool IsNavigationKeyPressed()
     {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S)
-            || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)
-            || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow)
-            || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)
-            || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+                                        || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)
+                                        || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow)
+                                        || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)
+                                        || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             return true;
         }
@@ -154,11 +162,15 @@ public class GameTitleUI : MonoBehaviour
         var keyboard = UnityEngine.InputSystem.Keyboard.current;
 
         return keyboard != null
-            && (keyboard.wKey.wasPressedThisFrame || keyboard.sKey.wasPressedThisFrame
-                || keyboard.aKey.wasPressedThisFrame || keyboard.dKey.wasPressedThisFrame
-                || keyboard.upArrowKey.wasPressedThisFrame || keyboard.downArrowKey.wasPressedThisFrame
-                || keyboard.leftArrowKey.wasPressedThisFrame || keyboard.rightArrowKey.wasPressedThisFrame
-                || keyboard.enterKey.wasPressedThisFrame || keyboard.numpadEnterKey.wasPressedThisFrame);
+               && (keyboard.wKey.wasPressedThisFrame || keyboard.sKey.wasPressedThisFrame
+                                                     || keyboard.aKey.wasPressedThisFrame ||
+                                                     keyboard.dKey.wasPressedThisFrame
+                                                     || keyboard.upArrowKey.wasPressedThisFrame ||
+                                                     keyboard.downArrowKey.wasPressedThisFrame
+                                                     || keyboard.leftArrowKey.wasPressedThisFrame ||
+                                                     keyboard.rightArrowKey.wasPressedThisFrame
+                                                     || keyboard.enterKey.wasPressedThisFrame ||
+                                                     keyboard.numpadEnterKey.wasPressedThisFrame);
     }
 
     public static int GetVerticalInput()
@@ -166,9 +178,11 @@ public class GameTitleUI : MonoBehaviour
         var keyboard = UnityEngine.InputSystem.Keyboard.current;
 
         bool isUp = Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)
-                    || (keyboard != null && (keyboard.wKey.wasPressedThisFrame || keyboard.upArrowKey.wasPressedThisFrame));
+                                                || (keyboard != null && (keyboard.wKey.wasPressedThisFrame ||
+                                                                         keyboard.upArrowKey.wasPressedThisFrame));
         bool isDown = Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)
-                      || (keyboard != null && (keyboard.sKey.wasPressedThisFrame || keyboard.downArrowKey.wasPressedThisFrame));
+                                                  || (keyboard != null && (keyboard.sKey.wasPressedThisFrame ||
+                                                                           keyboard.downArrowKey.wasPressedThisFrame));
 
         if (isUp == isDown) return 0;
 
@@ -182,7 +196,7 @@ public class GameTitleUI : MonoBehaviour
         var mouse = UnityEngine.InputSystem.Mouse.current;
 
         return mouse != null
-            && (mouse.delta.ReadValue().sqrMagnitude > 0f || mouse.leftButton.wasPressedThisFrame);
+               && (mouse.delta.ReadValue().sqrMagnitude > 0f || mouse.leftButton.wasPressedThisFrame);
     }
 
     private void LateUpdate()
@@ -352,6 +366,8 @@ public class GameTitleUI : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
 
         yield return null;
+
+        _retryStart.Invoke();
 
         _isSkipTitleEffect = true;
         _gameStartButton.onClick.Invoke();

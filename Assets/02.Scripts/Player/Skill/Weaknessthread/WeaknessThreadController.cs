@@ -35,9 +35,10 @@ public class WeaknessThreadController : MonoBehaviour
     private void LateUpdate()
     {
         if (!_threadRunning)
+        {
             return;
-
-        // 일반 약점 실만 회전
+        }
+            // 일반 약점 실만 회전
         if (!_isFinisher)
         {
             UpdateThreadDirection();

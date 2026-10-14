@@ -442,6 +442,7 @@ public class PlayerAvoid : MonoBehaviour
                 .EndFocusScreenSetting();
         }
 
+        CameraFocusingController.Instance.ReturnCamera();
         _playerMove.enabled = true;
         _playerAttack.enabled = true;
         _skillManager.enabled = true;

@@ -43,16 +43,26 @@ public class ActingController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
-            StartShortCut();
-    }
+        if (!RetryStatus.IsRetry)
+            return;
 
+        if (Input.GetKeyDown(KeyCode.Return) ||
+            Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            StartShortCut();
+        }
+    }
     private void OnEnable()
     {
         RenderPipelineManager.beginCameraRendering += OnBeginCameraRendering;
         Canvas.willRenderCanvases += UpdateSkipGuideLayout;
     }
 
+
+    public void SetRetryStatus()
+    {
+        RetryStatus.SetRetry();
+    }
     private void OnBeginCameraRendering(ScriptableRenderContext context, Camera camera)
     {
         Camera target = _skipGuideCamera != null ? _skipGuideCamera : Camera.main;
@@ -98,10 +108,14 @@ public class ActingController : MonoBehaviour
         SetSkipGuideVisible(false);
     }
 
-    // 기존 UnityEvent의 StartShortCut 연결도 사용할 수 있다.
     public void StartShortCut()
     {
-        if (IsSkipping || (_gameStart == null && _phaseChange == null))
+        
+        if (!RetryStatus.IsRetry)
+            return;
+        
+        if ( IsSkipping ||
+            (_gameStart == null && _phaseChange == null))
             return;
 
         if (_phaseChange != null && _phaseChange.BossIntro == null)
@@ -112,8 +126,10 @@ public class ActingController : MonoBehaviour
 
         IsSkipping = true;
         SetSkipGuideVisible(false);
+
         _gameStart?.CancelForSkip();
         _phaseChange?.CancelForSkip();
+
         _skipRoutine = StartCoroutine(SkipRoutine());
     }
 
@@ -243,10 +259,19 @@ public class ActingController : MonoBehaviour
 
     private void SetSkipGuideVisible(bool visible)
     {
+        
+        visible = visible && RetryStatus.IsRetry;
+
+        
         if (_skipGuideText != null && _skipGuideText.activeSelf != visible)
+        {
             _skipGuideText.SetActive(visible);
+        }
+
         if (visible)
+        {
             UpdateSkipGuideLayout();
+        }
     }
 
     private void UpdateSkipGuideLayout()
@@ -276,8 +301,11 @@ public class ActingController : MonoBehaviour
                 ? null : (root.worldCamera != null ? root.worldCamera : camera);
             Vector2 screenPoint = camera.ViewportToScreenPoint(viewport);
             if (!RectTransformUtility.ScreenPointToWorldPointInRectangle(
-                parent, screenPoint, projectionCamera, out Vector3 position))
+                    parent, screenPoint, projectionCamera, out Vector3 position))
+            {
                 return;
+            }
+
             rect.position = position;
         }
         else

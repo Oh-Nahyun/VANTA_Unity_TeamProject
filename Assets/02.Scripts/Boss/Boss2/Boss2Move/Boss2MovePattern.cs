@@ -29,6 +29,16 @@ public class Boss2MovePattern : Boss2MoveBase
     [Tooltip("인디케이터를 도착 지점보다 이만큼 더 길게 그린다 (공격 박스까지 덮도록)")]
     [SerializeField] private float _dashIndicatorExtra = 0.8f;
 
+    [Header("막힘 감지")]
+    [Tooltip("움직이려는데 이 시간 동안 실제로 거의 못 움직였으면(벽·구석) 그 자리에서 이동을 끝낸다 (초)")]
+    [SerializeField] private float _stuckCheckTime = 0.25f;
+    [Tooltip("그 시간 동안 이 거리보다 적게 움직였으면 막힌 것으로 본다")]
+    [SerializeField] private float _stuckDistance = 0.05f;
+
+    // 막힘 감지: 지금 재고 있는 구간의 시작 위치와 흐른 시간
+    private Vector2 _stuckCheckStart;
+    private float _stuckCheckTimer;
+
     private Boss2MovePatternType _currentMovePatternType = Boss2MovePatternType.None;
 
     // 직선 돌진: 시작할 때 고정한 도착 지점과 예고 진행 상태
@@ -54,6 +64,7 @@ public class Boss2MovePattern : Boss2MoveBase
         }
 
         _currentMovePatternType = movePatternType;
+        ResetStuckCheck();
 
         if (movePatternType == Boss2MovePatternType.DashLine)
         {
@@ -112,10 +123,44 @@ public class Boss2MovePattern : Boss2MoveBase
             }
         }
 
+        // 목표가 벽 너머이거나 물러날 곳이 벽이면 패턴이 끝나지 않으므로, 막혔으면 그 자리에서 끝낸다.
+        if (isFinished == false && IsStuck())
+        {
+            StopImmediately();
+            FaceTowards(_target.position);
+            isFinished = true;
+        }
+
         if (isFinished)
         {
             EndPattern();
         }
+    }
+
+    // 움직이려는 동안 _stuckCheckTime 마다 실제 이동 거리를 재서, _stuckDistance 보다 적으면 막힌 것으로 본다.
+    // 제자리에서 기다리는 돌진 예고처럼 움직일 생각이 없는 동안은 재지 않는다.
+    private bool IsStuck()
+    {
+        bool wantsToMove = MoveDirection.sqrMagnitude > 0.0001f || IsDodging;
+        if (wantsToMove == false || _isDashTelegraphing)
+        {
+            ResetStuckCheck();
+            return false;
+        }
+
+        _stuckCheckTimer += Time.deltaTime;
+        if (_stuckCheckTimer < _stuckCheckTime)
+            return false;
+
+        bool isStuck = Vector2.Distance(transform.position, _stuckCheckStart) < _stuckDistance;
+        ResetStuckCheck();
+        return isStuck;
+    }
+
+    private void ResetStuckCheck()
+    {
+        _stuckCheckStart = transform.position;
+        _stuckCheckTimer = 0f;
     }
 
     private void EndPattern()

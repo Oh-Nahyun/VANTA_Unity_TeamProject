@@ -370,6 +370,10 @@ public class Boss2MoveBase : MonoBehaviour, IBossMovable
             return;
         }
 
+        // 벽 등에 막히면 물리가 깎아 낸 실제 속도에서 다시 출발한다.
+        // 정해 둔 속도만 들고 있으면 벽에 대고 멈춰 있어도 질주 모션·방향 전환이 "움직이는 중"으로 남는다.
+        _velocity = _rigidbody2D.linearVelocity;
+
         bool wantsSprint = _wantsSprint && _moveDirection.sqrMagnitude > InputDeadZone;
         float targetSpeed = wantsSprint ? _sprintSpeed : _walkSpeed;
 

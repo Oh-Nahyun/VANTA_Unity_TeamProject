@@ -7,6 +7,7 @@ public class Boss1HitFlash : MonoBehaviour
     
     [SerializeField] private float _flashDuration = 0.01f;
     
+    private static readonly int FlashColor = Shader.PropertyToID("_FlashColor");
     private static readonly int FlashAmount = Shader.PropertyToID("_FlashAmount");
     private static readonly int Phase2Amount = Shader.PropertyToID("_Phase2Amount");
 
@@ -17,21 +18,22 @@ public class Boss1HitFlash : MonoBehaviour
 
     public void PlayHitFlash()
     {
-        if (_flashCoroutine != null)
-        {
-            StopCoroutine(_flashCoroutine);
-        }
-
-        _flashCoroutine = StartCoroutine(HitFlashCoroutine(_flashDuration));
+        PlayHitFlash(_flashDuration, Color.white);
     }
     
     public void PlayHitFlash(float duration)
+    {
+        PlayHitFlash(duration, Color.white);
+    }
+    
+    public void PlayHitFlash(float duration, Color color)
     {
         if (_flashCoroutine != null)
         {
             StopCoroutine(_flashCoroutine);
         }
 
+        SetColorProperty(FlashColor, color);
         _flashCoroutine = StartCoroutine(HitFlashCoroutine(duration));
     }
     
@@ -70,6 +72,22 @@ public class Boss1HitFlash : MonoBehaviour
 
             bodyRenderer.GetPropertyBlock(propertyBlock);
             propertyBlock.SetFloat(propertyId, value);
+            bodyRenderer.SetPropertyBlock(propertyBlock);
+        }
+    }
+    
+    private void SetColorProperty(int propertyId, Color value)
+    {
+        foreach (SpriteRenderer bodyRenderer in _bodyRenderers)
+        {
+            if (bodyRenderer == null)
+            {
+                continue;
+            }
+
+            MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+            bodyRenderer.GetPropertyBlock(propertyBlock);
+            propertyBlock.SetColor(propertyId, value);
             bodyRenderer.SetPropertyBlock(propertyBlock);
         }
     }

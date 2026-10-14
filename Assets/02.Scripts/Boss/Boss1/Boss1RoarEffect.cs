@@ -21,6 +21,9 @@ public class Boss1RoarEffect : MonoBehaviour
 
     [Header("카메라 셰이크")]
     [SerializeField] private CinemachineImpulseSource _impulseSource;
+    
+    [Header("집중선")]
+    [SerializeField] private Boss1RoarSpeedLines _speedLines;
 
     private Tween _shakeTween;
     private Tween _waveTween;
@@ -46,6 +49,11 @@ public class Boss1RoarEffect : MonoBehaviour
 
         PlayShake(strength);
         PlayWave(strength);
+        
+        if (_speedLines != null)
+        {
+            _speedLines.Play(strength);
+        }
     }
 
     private void PlayShake(float strength)
@@ -118,5 +126,10 @@ public class Boss1RoarEffect : MonoBehaviour
         _waveTween?.Kill();
         _waveTween = null;
         ResetWave();
+        
+        if (_speedLines != null)
+        {
+            _speedLines.Stop();
+        }
     }
 }

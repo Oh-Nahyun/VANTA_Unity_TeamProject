@@ -336,8 +336,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6bec22e88b58324792ed750ae6d9e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PetEnergyBullet
-  _bezierMoveSpeed: 1
-  _homingMoveSpeed: 5
+  _bezierMoveSpeed: 2
+  _homingMoveSpeed: 6
   _damage: 6
   _energyBulletHitVFXPrefab: {fileID: 3046471801674820453, guid: d2a8a612875048088a26f85a3ed8f341, type: 3}
   _energyBulletHitVFXLifetime: 1

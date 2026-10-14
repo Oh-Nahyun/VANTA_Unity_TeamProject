@@ -43,6 +43,7 @@ public class Boss1DeathController : MonoBehaviour
     [SerializeField] private float _hp0StopDuration = 0.12f;
     [SerializeField] private float _hp0SlowMotionScale = 0.3f;
     [SerializeField] private float _hp0SlowMotionDuration = 0.5f;
+    [SerializeField] private Color _hp0FlashColor = new Color(1f, 0.15f, 0.1f);
     
     [Header("중앙으로 걸어가는 속도")]
     [SerializeField] private float _startMoveSpeed= 1f;
@@ -125,7 +126,7 @@ public class Boss1DeathController : MonoBehaviour
         _boss1Movement.Stop();
         _boss1ProjectileManager.DestroyAllProjectiles();
 
-        PlayFinishHit();
+        _boss1HitFlash.PlayHitFlash(_hp0FlashDuration);
         StartCoroutine(HP0HoldRoutine());
     }
 

@@ -113,10 +113,12 @@ public class ActingController : MonoBehaviour
         
         if (!RetryStatus.IsRetry)
             return;
-        
-        if ( IsSkipping ||
+
+        if (IsSkipping ||
             (_gameStart == null && _phaseChange == null))
+        {
             return;
+        }
 
         if (_phaseChange != null && _phaseChange.BossIntro == null)
         {

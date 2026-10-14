@@ -100,6 +100,11 @@ public class Boss1AnimationEventRelay : MonoBehaviour
         _boss1Sound.Play(Boss1SoundType.FootStep);
     }
     
+    public void DeathCollapseImpact()
+    {
+        _boss1DeathController.PlayCollapseImpact();
+    }
+    
     public void Boss1Explode()
     {
         SoundManager.Instance.StopBGMImmediate();

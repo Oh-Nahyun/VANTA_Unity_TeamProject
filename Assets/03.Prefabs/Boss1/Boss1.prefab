@@ -1518,7 +1518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Boss1MeleeAvoid
   _animator: {fileID: 192520389527177166}
   _maxWaitTime: 3
-  _avoidChance: 0.3
+  _avoidChance: 0.5
   _playerHitCoolTime: 2
 --- !u!1 &4608215776097713678
 GameObject:

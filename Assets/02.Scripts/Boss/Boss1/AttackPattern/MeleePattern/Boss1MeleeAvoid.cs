@@ -36,8 +36,10 @@ public class Boss1MeleeAvoid : MonoBehaviour, IAvoidInteraction
         }
 
         PlayerAvoid playerAvoid = player.GetComponent<PlayerAvoid>();
-
-        if (playerAvoid == null || Random.value >= _avoidChance)
+        
+        float roll = Random.value;
+        Debug.Log($"[MeleeAvoid] playerAvoid={(playerAvoid != null)} roll={roll:F2} chance={_avoidChance}");
+        if (playerAvoid == null || roll >= _avoidChance)
         {
             DealDamage(player);
             return;

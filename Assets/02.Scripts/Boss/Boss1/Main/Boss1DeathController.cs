@@ -207,6 +207,14 @@ public class Boss1DeathController : MonoBehaviour
         _boss1Sound.Play(Boss1SoundType.DeathCollapse);
     }
     
+    public void PlayCollapseImpact()
+    {
+        if (_explosionImpulseSource != null)
+        {
+            _explosionImpulseSource.GenerateImpulseWithVelocity(Vector3.down * _collapseImpulseForce);
+        }
+    }
+    
     public void EndDeathCollapse()
     {
         _onDown?.Invoke();

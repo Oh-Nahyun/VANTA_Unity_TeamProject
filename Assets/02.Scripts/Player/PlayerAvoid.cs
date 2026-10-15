@@ -81,6 +81,11 @@ public class PlayerAvoid : MonoBehaviour
 
     private void Update()
     {
+        if (GameSettingsUI.IsGamePaused)
+        {
+            return;
+        }
+        
         CheckInputSuccess();
     }
 

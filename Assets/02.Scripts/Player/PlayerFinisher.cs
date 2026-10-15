@@ -98,6 +98,12 @@ public class PlayerFinisher : MonoBehaviour
 
     private void Update()
     {
+        
+        if (GameSettingsUI.IsGamePaused)
+        {
+            return;
+        }
+        
         if (_isCharging && Input.GetButtonDown("Fire1"))
         {
             AddCharge();

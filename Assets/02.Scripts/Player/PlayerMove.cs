@@ -73,6 +73,11 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
+        if (GameSettingsUI.IsGamePaused)
+        {
+            return;
+        }
+        
         MovementInput();
         DashInput();
     }

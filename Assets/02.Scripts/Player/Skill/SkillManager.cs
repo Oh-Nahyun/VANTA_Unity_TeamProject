@@ -79,6 +79,11 @@ public class SkillManager : MonoBehaviour
 
     private void Update()
     {
+        if (GameSettingsUI.IsGamePaused)
+        {
+            return;
+        }
+
         SkillInput();
     }
 
@@ -287,6 +292,7 @@ public class SkillManager : MonoBehaviour
         
         DOVirtual.DelayedCall(2f, () =>
         {
+            CameraFocusingController.Instance.ReturnCamera();
             _player.OnPlayerHittable();
             _isSkillUse = false;
 

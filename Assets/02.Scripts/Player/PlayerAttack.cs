@@ -60,6 +60,11 @@ public class PlayerAttack : MonoBehaviour
 
     private void SlashInput()
     {
+        
+        if (GameSettingsUI.IsGamePaused)
+        {
+            return;
+        }
         if (Input.GetButton("Fire1") && !_isSlashing)
         {
             if (_countForDoubleSlash <= _comboCount)

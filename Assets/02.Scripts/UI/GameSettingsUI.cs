@@ -58,6 +58,7 @@ public class GameSettingsUI : MonoBehaviour
     [Header("슬라이더에서 손을 뗐을 때 효과음")]
     [SerializeField] private AudioClip _sliderTickSound;
 
+    public static bool IsGamePaused { get; private set; }
     /// <summary>
     /// 설정 창을 열기 직전의 마우스 커서 표시 여부
     /// </summary>
@@ -80,6 +81,9 @@ public class GameSettingsUI : MonoBehaviour
 
     private void OnEnable()
     {
+        IsGamePaused = true;
+
+        
         _cursorVisibleBeforeOpen = Cursor.visible;
         Cursor.visible = !GameTitleUI.IsKeyboardMode;
 
@@ -130,6 +134,9 @@ public class GameSettingsUI : MonoBehaviour
 
     private void OnDisable()
     {
+        IsGamePaused = false;
+
+        
         _selectedImageTween?.Kill();
         Cursor.visible = _cursorVisibleBeforeOpen;
     }

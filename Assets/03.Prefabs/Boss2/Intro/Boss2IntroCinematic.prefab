@@ -384,11 +384,23 @@ MonoBehaviour:
   _boss1: {fileID: 0}
   _playOnBoss1Collapse: 1
   _lockPlayerDuringIntro: 1
-  _useBoss1StandIn: 1
+  _useBoss1StandIn: 0
   _battleStartDelay: 1
   _onIntroFinished:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BossHealthFadeInEffect, Assembly-CSharp
+        m_MethodName: PlayFadeIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _gas: {fileID: 291483818229437816}
   _cloud: {fileID: 5982020336869590538}
   _slashes:
@@ -423,7 +435,19 @@ MonoBehaviour:
   _explosionTimeout: 8
   _onRequestBoss1Explosion:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: StopBGM
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _boss2EyesClosedSprite: {fileID: -6183023469172702850, guid: 6978c72b19d88ed2eaeaa42648ce7978, type: 3}
   _eyesOpenDelay: 0.75
   _eyesOpenSound: {fileID: 8300000, guid: db00e51bf1fe4fa9a0afc573e4ffbbc9, type: 3}

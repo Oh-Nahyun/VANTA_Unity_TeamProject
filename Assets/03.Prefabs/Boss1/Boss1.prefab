@@ -3786,14 +3786,14 @@ MonoBehaviour:
     _fireDuration: 4
     _trackDelay: 0.25
     _turnSpeedStart: 20
-    _turnSpeedMax: 35
+    _turnSpeedMax: 30
     _turnAccelTime: 1.2
   _phase2Settings:
     _aimDuration: 1
     _fireDuration: 4
     _trackDelay: 0.15
-    _turnSpeedStart: 30
-    _turnSpeedMax: 45
+    _turnSpeedStart: 25
+    _turnSpeedMax: 35
     _turnAccelTime: 1.2
   _headIndicator: {fileID: 4743308090701921441}
   _muzzleFlash: {fileID: 3785611123334320021}

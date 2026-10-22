@@ -54,9 +54,10 @@
 
 | 입력 | 동작 |
 | :---: | :--- |
-| `WASD` | 캐릭터 이동 |
-| `Space Bar` | 구르기 / 회피 |
-| `Mouse Click` | 무기 공격 / 스킬 |
+| `WASD` | 이동 |
+| `Space Bar` | 도약 |
+| `Mouse Left Click` | 기본 공격 (스킬 발동 시 스택 선택) |
+| `Mouse Right Click` | 스킬 사용 |
 
 
 ## 🧰 Development Setup
